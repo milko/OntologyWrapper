@@ -3,6 +3,13 @@
 	//
 	// Test nested ArrayObjects.
 	//
+	echo( 'This snippet demonstrates the reason for using ArrayObject elements in place '
+		 .'simple arrays, in particular, it demonstrates that to reference sub-documents '
+		 .'these must be ArrayObject instances.'
+		 ."\n"
+		 .'This means that array properties can only be managed as a whole, while '
+		 .'ArrayObject properties can embed member management methods.'
+		 ."\n" );
 	
 	//
 	// Create test data.
