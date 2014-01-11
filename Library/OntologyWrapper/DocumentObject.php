@@ -1,6 +1,6 @@
 <?php
 
-namespace OntologyWrapper
+namespace OntologyWrapper;
 
 /*=======================================================================================
  *																						*
@@ -38,8 +38,17 @@ namespace OntologyWrapper
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
  */
-class DocumentObject extends ArrayObject
+class DocumentObject extends \ArrayObject
 {
+	/**
+	 * <b>Tag cache</b>
+	 *
+	 * This data member holds the tag cache.
+	 *
+	 * @var Memcached
+	 */
+	 static $sTagCache		= NULL;
+
 	/**
 	 * <b>Native identifier constant</b>
 	 *
@@ -48,6 +57,58 @@ class DocumentObject extends ArrayObject
 	 * @var string
 	 */
 	 const kTAG_NID			= '_id';
+
+		
+
+/*=======================================================================================
+ *																						*
+ *										MAGIC											*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We overload the parent constructor to initialise the tag cache by loading all tags.
+	 *
+	 * @param mixed					$theInput			Object data.
+	 * @param int					$theFlags			Object flags.
+	 * @param string				$theIterator		Object iterator class name.
+	 *
+	 * @access public
+	 */
+	public function __construct( $theInput = [],
+								 $theFlags = 0,
+								 $theIterator = "ArrayIterator" )
+	{
+		//
+		// Init tag cache.
+		//
+		if( self::$sTagCache === NULL )
+		{
+			//
+			// Instantiate cache.
+			//
+			self::$sTagCache = new \Memcached( "Persistent ID" );
+			if( ! self::$sTagCache->getServerList() )
+			{
+				if( self::$sTagCache->addServer('localhost', 11211) === FALSE )
+					throw new \Exception(
+						"Unable to initialise tag cache",
+						self::$sTagCache->getResultCode() );					// !@! ==>
+			}
+		
+		} // Cache not yet initialised.
+		
+		parent::__construct( $theInput, $theFlags, $theIterator );
+
+	} // Constructor.
 
 		
 
@@ -76,7 +137,7 @@ class DocumentObject extends ArrayObject
 	 *	<li><tt>DocumentObject::kTAG_NID</tt>: When provided with this value, the method
 	 *		will behave as its ancestor.
 	 *	<li><tt>string</tt>: When provided with a string, the method will call the protected
-	 *		{@link resolveOffset()} method that should resolve the string into a numeric
+	 *		{@link _resolveOffset()} method that should resolve the string into a numeric
 	 *		offset.
 	 * </ul>
 	 *
@@ -90,19 +151,11 @@ class DocumentObject extends ArrayObject
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt> for non matching offsets.
 	 *
-	 * @uses resolveOffset()
+	 * @uses _resolveOffset()
 	 */
 	public function offsetGet( $theOffset )
 	{
-		//
-		// Resolve offset.
-		//
-		if( (! is_int( $theOffset ))					// Not an integer
-		 && (! ctype_digit( (string) $theOffset ))		// and not numeric
-		 && (self::kTAG_NID != (string) $theOffset) )	// and not the native identifier.
-			$theOffset = $this->resolveOffset( (string) $theOffset );
-		
-		return @parent::offsetGet( $theOffset );									// ==>
+		return @parent::offsetGet( $this->_resolveOffset( $theOffset ) );			// ==>
 	
 	} // offsetGet.
 
@@ -123,7 +176,7 @@ class DocumentObject extends ArrayObject
 	 *		its ancestor.
 	 *	<li><tt>NULL</tt>: When provided with this value, the method will unset the offset.
 	 *	<li><tt>string</tt>: When provided with a string, the method will call the protected
-	 *		{@link resolveOffset()} method that should resolve the string into a numeric
+	 *		{@link _resolveOffset()} method that should resolve the string into a numeric
 	 *		offset; if the string cannot be resolved, the method will raise an exception.
 	 * </ul>
 	 *
@@ -131,45 +184,40 @@ class DocumentObject extends ArrayObject
 	 * @param mixed					$theValue			Value to set at offset.
 	 *
 	 * @access public
-	 * @throws Exception
+	 * @throws \Exception
 	 *
-	 * @uses resolveOffset()
+	 * @uses _resolveOffset()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
 		//
 		// Resolve offset.
 		//
-		if( ($theOffset !== NULL)						// Not NULL
-		 && (! is_int( $theOffset ))					// and not an integer
-		 && (! ctype_digit( (string) $theOffset ))		// and not numeric
-		 && (self::kTAG_NID != (string) $theOffset) )	// and not the native identifier.
+		if( $theOffset !== NULL )
 		{
 			//
 			// Resolve offset.
 			//
-			$resolved = $this->resolveOffset( (string) $theOffset );
+			$resolved = $this->_resolveOffset( $theOffset );
 			
 			//
 			// Rise exception if failed.
 			//
 			if( $resolved === NULL )
-				throw new Exception
-					( "Unable to resolve offset [$theOffset]",
-					  kERROR_PARAMETER );										// !@! ==>
+				throw new \Exception(
+					"Unable to resolve offset [$theOffset]" );					// !@! ==>
 			
 			//
 			// Use resolved offset.
 			//
 			$theOffset = $resolved;
-		
-		} // Not a valid offset.
-
-		//
-		// Set value.
-		//
-		if( $theValue !== NULL )
+			
+			//
+			// Set value.
+			//
 			parent::offsetSet( $theOffset, $theValue );
+		
+		} // Provided non NULL offset.
 		
 		//
 		// Delete offset.
@@ -197,17 +245,14 @@ class DocumentObject extends ArrayObject
 	 *
 	 * @access public
 	 *
-	 * @uses resolveOffset()
+	 * @uses _resolveOffset()
 	 */
 	public function offsetUnset( $theOffset )
 	{
 		//
 		// Resolve offset.
 		//
-		if( (! is_int( $theOffset ))					// Not an integer
-		 && (! ctype_digit( (string) $theOffset ))		// and not numeric
-		 && (self::kTAG_NID != (string) $theOffset) )	// and not the native identifier.
-			$theOffset = $this->resolveOffset( (string) $theOffset );
+		$theOffset = $this->_resolveOffset( $theOffset );
 		
 		//
 		// Delete offset.
@@ -216,6 +261,59 @@ class DocumentObject extends ArrayObject
 			@parent::offsetUnset( $theOffset );
 	
 	} // offsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC ARRAY SERIALIZATION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getArrayCopy																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return a copy of the object array</h4>
+	 *
+	 * This method should return a copy of the array part of the object.
+	 *
+	 * We overload this method to ensure all embedded {@link \ArrayObject} instances are
+	 * also returned as arrays.
+	 *
+	 * @access public
+	 * @return array				Serialized copy of the object's array.
+	 */
+	public function getArrayCopy()
+	{
+		//
+		// Init local storage.
+		//
+		$array = Array();
+		
+		//
+		// Iterate array elements.
+		//
+		foreach( \ArrayObject::getArrayCopy() as $key => $value )
+		{
+			//
+			// Serialise array objects.
+			//
+			if( $value instanceof \ArrayObject )
+				$value = $value->getArrayCopy();
+			
+			//
+			// Populate copy.
+			//
+			$array[ $key ] = $value;
+		}
+		
+		return $array;																// ==>
+	
+	} // getArrayCopy.
 
 		
 
@@ -257,6 +355,48 @@ class DocumentObject extends ArrayObject
 	 * @return array				List of object offset values.
 	 */
 	public function arrayValues()		{	return array_values( $this->getArrayCopy() );	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET RESOLUTION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_resolveOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return object's offsets</h4>
+	 *
+	 * This method has the same function as the PHP function <tt>array_keys()</i>, it will
+	 * return an array comprised of all object's offsets.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return mixed				Resolved offset or <tt>NULL</tt>.
+	 */
+	public function _resolveOffset( $theOffset )
+	{
+		//
+		// Handle valid offsets.
+		//
+		if( is_int( $theOffset )						// Integer,
+		 || ctype_digit( (string) $theOffset )			// or numeric,
+		 || (self::kTAG_NID == (string) $theOffset) )	// or native identifier.
+			return $theOffset;														// ==>
+		
+		//
+		// Assume global identifier.
+		//
+		$theOffset = (string) $theOffset;
+	
+	} // _resolveOffset.
 
 	 
 
