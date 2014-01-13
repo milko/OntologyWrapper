@@ -9,7 +9,7 @@ namespace OntologyWrapper;
  *======================================================================================*/
 
 /**
- * <h4>Document object</h4>
+ * Document object
  *
  * This class extends the <b><tt>{@link ArrayObject}</tt></b> class, it adds a series of
  * restrictions to the inherited class and represents the main building block for most
@@ -53,7 +53,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Return a value at a given offset</h4>
+	 * Return a value at a given offset
 	 *
 	 * This method should return the value corresponding to the provided offset.
 	 *
@@ -85,7 +85,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Set a value at a given offset</h4>
+	 * Set a value at a given offset
 	 *
 	 * This method should set the provided value corresponding to the provided offset.
 	 *
@@ -122,7 +122,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Reset a value at a given offset</h4>
+	 * Reset a value at a given offset
 	 *
 	 * This method should reset the value corresponding to the provided offset.
 	 *
@@ -159,7 +159,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Return a copy of the object array</h4>
+	 * Return a copy of the object array
 	 *
 	 * This method should return a copy of the array part of the object.
 	 *
@@ -212,7 +212,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Return object's offsets</h4>
+	 * Return object's offsets
 	 *
 	 * This method has the same function as the PHP function <tt>array_keys()</i>, it will
 	 * return an array comprised of all object's offsets.
@@ -228,7 +228,7 @@ class DocumentObject extends \ArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Return object's offset values</h4>
+	 * Return object's offset values
 	 *
 	 * This method has the same function as the PHP function <tt>array_values()</i>, it
 	 * will return an array comprised of all object's offset values.
