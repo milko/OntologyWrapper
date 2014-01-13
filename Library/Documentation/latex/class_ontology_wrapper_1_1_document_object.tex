@@ -1,0 +1,174 @@
+\hypertarget{class_ontology_wrapper_1_1_document_object}{\section{Ontology\-Wrapper\textbackslash{}Document\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_document_object}\index{Ontology\-Wrapper\textbackslash{}\-Document\-Object@{Ontology\-Wrapper\textbackslash{}\-Document\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Document\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_ontology_wrapper_1_1_document_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Document\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_ontology_wrapper_1_1_document_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_a034f55170eb880dd210f0c9ab15233bc}{offset\-Get} (\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_aa2e3a251dd102f8aba0645b405a16053}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_a834adbf7c1f027c3f817dbcf4f12de2d}{offset\-Unset} (\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_a1d497371592ce2600533565cfaae91b8}{get\-Array\-Copy} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_a4a96a40abe667d9c3ac7a5d5675dece5}{array\-Keys} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_document_object_ab8e04acc8c14acbeae6d530a604b676a}{array\-Values} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subparagraph*{Document object}
+
+This class extends the {\bfseries {\ttfamily \hyperlink{}{Array\-Object}}} class, it adds a series of restrictions to the inherited class and represents the main building block for most classes in this library.
+
+Instances of this class store their data in the {\itshape inherited array data mamber} which represents the {\itshape persistent} part of the object, while property data members are only used as run-\/time attributes.
+
+No array offset element may hold the {\ttfamily N\-U\-L\-L} value, setting an offset with that value is equivalent to deleting the offset.
+
+Retrieving non-\/existant offsets will {\itshape not} generate a warning, the {\ttfamily N\-U\-L\-L} value will be returned.
+
+The class overloads the {\bfseries {\ttfamily \hyperlink{}{Array\-Object\-::get\-Array\-Copy()}}} method by converting any {\bfseries {\ttfamily \hyperlink{}{Array\-Object}}} instance into an array.
+
+Finally, the class features two methods, {\bfseries {\ttfamily \hyperlink{class_ontology_wrapper_1_1_document_object_a4a96a40abe667d9c3ac7a5d5675dece5}{array\-Keys()}}} and {\bfseries {\ttfamily \hyperlink{class_ontology_wrapper_1_1_document_object_ab8e04acc8c14acbeae6d530a604b676a}{array\-Values()}}} which represent the equivalent functions to the array {\bfseries {\ttfamily \hyperlink{}{array\-\_\-keys()}}} and {\bfseries {\ttfamily \hyperlink{}{array\-\_\-values()}}} functions. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 10/01/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_document_object_a4a96a40abe667d9c3ac7a5d5675dece5}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!array\-Keys@{array\-Keys}}
+\index{array\-Keys@{array\-Keys}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{array\-Keys}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::array\-Keys (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_a4a96a40abe667d9c3ac7a5d5675dece5}
+\subparagraph*{Return object's offsets}
+
+This method has the same function as the P\-H\-P function {\ttfamily array\-\_\-keys(), it will return an array comprised of all object's offsets.}
+
+{\ttfamily  public \begin{DoxyReturn}{Returns}
+array List of object offsets. 
+\end{DoxyReturn}
+}\hypertarget{class_ontology_wrapper_1_1_document_object_ab8e04acc8c14acbeae6d530a604b676a}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!array\-Values@{array\-Values}}
+\index{array\-Values@{array\-Values}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{array\-Values}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::array\-Values (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_ab8e04acc8c14acbeae6d530a604b676a}
+\subparagraph*{Return object's offset values}
+
+This method has the same function as the P\-H\-P function {\ttfamily array\-\_\-values(), it will return an array comprised of all object's offset values.}
+
+{\ttfamily  public \begin{DoxyReturn}{Returns}
+array List of object offset values. 
+\end{DoxyReturn}
+}\hypertarget{class_ontology_wrapper_1_1_document_object_a1d497371592ce2600533565cfaae91b8}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!get\-Array\-Copy@{get\-Array\-Copy}}
+\index{get\-Array\-Copy@{get\-Array\-Copy}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{get\-Array\-Copy}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::get\-Array\-Copy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_a1d497371592ce2600533565cfaae91b8}
+\subparagraph*{Return a copy of the object array}
+
+This method should return a copy of the array part of the object.
+
+We overload this method to ensure all embedded \hyperlink{}{Array\-Object} instances are also returned as arrays.
+
+public \begin{DoxyReturn}{Returns}
+array Serialized copy of the object's array. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_document_object_a034f55170eb880dd210f0c9ab15233bc}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!offset\-Get@{offset\-Get}}
+\index{offset\-Get@{offset\-Get}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{offset\-Get}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::offset\-Get (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_a034f55170eb880dd210f0c9ab15233bc}
+\subparagraph*{Return a value at a given offset}
+
+This method should return the value corresponding to the provided offset.
+
+We overload this method to prevent warnings from being generated when requesting values for non-\/existant offsets, in that case we return {\ttfamily N\-U\-L\-L}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Offset value or {\ttfamily N\-U\-L\-L} for non matching offsets.
+\end{DoxyReturn}
+\-\_\-resolve\-Offset() \hypertarget{class_ontology_wrapper_1_1_document_object_aa2e3a251dd102f8aba0645b405a16053}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::offset\-Set (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_aa2e3a251dd102f8aba0645b405a16053}
+\subparagraph*{Set a value at a given offset}
+
+This method should set the provided value corresponding to the provided offset.
+
+We overload this method to handle {\ttfamily N\-U\-L\-L} values\-: in that case we delete the offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+mixed & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public 
+\begin{DoxyExceptions}{Exceptions}
+{\em \textbackslash{}\-Exception} & \-\_\-resolve\-Offset() \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_document_object_a834adbf7c1f027c3f817dbcf4f12de2d}{\index{Ontology\-Wrapper\-::\-Document\-Object@{Ontology\-Wrapper\-::\-Document\-Object}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!OntologyWrapper::DocumentObject@{Ontology\-Wrapper\-::\-Document\-Object}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Document\-Object\-::offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_document_object_a834adbf7c1f027c3f817dbcf4f12de2d}
+\subparagraph*{Reset a value at a given offset}
+
+This method should reset the value corresponding to the provided offset.
+
+We overload this method to ignore non-\/existant offsets.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\-\_\-resolve\-Offset() 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Document\-Object.\-php\end{DoxyCompactItemize}
