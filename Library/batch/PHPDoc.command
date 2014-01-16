@@ -7,6 +7,6 @@
 #
 # Run command.
 #
-phpdoc --target '/Library/WebServer/Library/OntologyWrapper/Library/Documentation' --directory '/Library/WebServer/Library/OntologyWrapper/Library/OntologyWrapper','/Library/WebServer/Library/OntologyWrapper/Library/definitions'
+phpdoc --target '/Library/WebServer/Library/OntologyWrapper/Library/Documentation' --directory '/Library/WebServer/Library/OntologyWrapper/Library/OntologyWrapper','/Library/WebServer/Library/OntologyWrapper/Library/definitions' --title 'Ontology Wrapper' --sourcecode
 
 exit

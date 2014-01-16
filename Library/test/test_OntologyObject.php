@@ -24,6 +24,11 @@
 //
 require_once( 'includes.inc.php' );
 
+//
+// Style includes.
+//
+require_once( 'styles.inc.php' );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -49,87 +54,322 @@ try
 	//
 	if( kDEBUG_PARENT )
 	{
+		echo( "<h3>Parent class test</h3>" );
 		//
 		// Instantiate empty object.
 		//
-		echo( "\nInstantiate empty object\n" );
-		echo( '$test = new OntologyWrapper\OntologyObject();'."\n" );
-		$test = new OntologyWrapper\OntologyObject();
+		echo( '<h4>Instantiate empty object</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
+		$test = new OntologyWrapper\DocumentObject();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
 		var_dump( $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Set offset.
 		//
-		echo( "\nSet offset (should add the value)\n" );
-		echo( '$test["test"] = "TEST1";'."\n" );
+		echo( '<h4>Set offset<br /><i>should add the value</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test["test"] = "TEST1";'.kSTYLE_HEAD_POS );
 		$test["test"] = "TEST1";
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Set NULL offset.
 		//
-		echo( "\nSet NULL offset (should add the value under offset 0)\n" );
-		echo( '$test[NULL] = "TEST2";'."\n" );
+		echo( '<h4>Set NULL offset<br /><i>should add the value under offset 0</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[NULL] = "TEST2";'.kSTYLE_HEAD_POS );
 		$test[NULL] = "TEST2";
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Set NULL value.
 		//
-		echo( "\nSet NULL value (should delete 'test' offset)\n" );
-		echo( '$test["test"] = NULL;'."\n" );
+		echo( '<h4>Set NULL value<br /><i>should delete "test" offset</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test["test"] = NULL;'.kSTYLE_HEAD_POS );
 		$test["test"] = NULL;
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Set NULL offset and value.
 		//
-		echo( "\nSet NULL offset and value (should throw a warning)\n" );
-		echo( '$test[NULL] = NULL;'."\n" );
+		echo( '<h4>Set NULL offset and value<br /><i>should throw a warning</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[NULL] = NULL;'.kSTYLE_HEAD_POS );
 		$test[NULL] = NULL;
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Get offset 0.
 		//
-		echo( "\nGet offset 0 (should return 'TEST2')\n" );
-		echo( '$test[0];'."\n" );
-		var_dump( $test[0] );
+		echo( '<h4>Get offset 0<br /><i>should return "TEST2"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[0];'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $test[0] ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Delete offset 0.
 		//
-		echo( "\nDelete offset 0 (should delete 'TEST2')\n" );
-		echo( '$test->offsetUnset( 0 );'."\n" );
+		echo( '<h4>Delete offset<br /><i>should delete "TEST2"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( 0 );'.kSTYLE_HEAD_POS );
 		$test->offsetUnset( 0 );
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Delete offset with NULL.
 		//
-		echo( "\nDelete offset with NULL (should delete ['test'] => 'TEST')\n" );
-		echo( '$test["test"] = "TEST";'."\n" );
+		echo( '<h4>Delete offset with NULL<br /><i>should delete ["test"] => "TEST"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test["test"] = "TEST";'.kSTYLE_HEAD_POS );
 		$test["test"] = "TEST";
-		var_dump( $test );
-		echo( '$test["test"] = NULL;'."\n" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test["test"] = NULL;'.kSTYLE_HEAD_POS );
 		$test["test"] = NULL;
-		var_dump( $test );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	
 		//
 		// Test getArrayCopy.
 		//
-		echo( "\nTest getArrayCopy (should return arrays)\n" );
-		echo( '$test1 = new OntologyWrapper\OntologyObject( array( "test" => "TEST" ) );'."\n" );
-		$test1 = new OntologyWrapper\OntologyObject( array( 'test' => 'TEST' ) );
-		echo( '$test2 = new OntologyWrapper\OntologyObject( array( "test2" => "TEST2" ) );'."\n" );
-		$test2 = new OntologyWrapper\OntologyObject( array( 'test2' => 'TEST2' ) );
-		echo( '$test = new OntologyWrapper\OntologyObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );'."\n" );
-		$test = new OntologyWrapper\OntologyObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );
-		echo( "Object:\n" );
-		var_dump( $test );
-		echo( "Array copy:\n" );
-		var_dump( $test->getArrayCopy() );
-	}
+		echo( '<h4>Test getArrayCopy<br /><i>should return arrays</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );'.kSTYLE_HEAD_POS );
+		$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );'.kSTYLE_HEAD_POS );
+		$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );'.kSTYLE_HEAD_POS );
+		$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test set property.
+		//
+		echo( '<h4>Test set property<br /><i>should set the "$property" to "value"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
+		$test = new OntologyWrapper\DocumentObject();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
+		$test->manageProperty( $test->property, "value" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test retrieve property.
+		//
+		echo( '<h4>Test retrieve property<br /><i>should return "value"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test modify property returning new value.
+		//
+		echo( '<h4>Test modify property returning new value<br /><i>should return "new"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test modify property returning old value.
+		//
+		echo( '<h4>Test modify property returning old value<br /><i>should return "new"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property, "modified", TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test reset property returning old value.
+		//
+		echo( '<h4>Test reset property returning old value<br /><i>should return "modified"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property, FALSE, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	
+		//
+		// Test reset property returning new value.
+		//
+		echo( '<h4>Test reset property returning new value<br /><i>should return NULL</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
+		$value = $test->manageProperty( $test->property, FALSE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+	} echo( '<hr>' );
+	
+	//
+	// Header.
+	//
+	if( kDEBUG_PARENT )
+		echo( "<h3>Current class test</h3>" );
 }
 
 //
