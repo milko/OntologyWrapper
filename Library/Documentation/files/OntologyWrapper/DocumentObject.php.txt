@@ -25,14 +25,11 @@ namespace OntologyWrapper;
  * represents the <i>persistent</i> part of the object, while property data members are only
  * used in run-time.
  *
- * No array offset element may hold the <tt>NULL</tt> value, setting an offset with that
- * value is equivalent to deleting the offset.
+ * No array offset element may hold the <tt>NULL</tt> value, <i>setting an offset with
+ * <tt>NULL</tt> value is equivalent to deleting the offset</i>.
  *
  * Retrieving non-existant offsets will <i>not</i> generate a warning, the <tt>NULL</tt>
  * value will be returned instead.
- *
- * The class overloads the <b><tt>{@link ArrayObject::getArrayCopy()}</tt></b> method by
- * converting any <b><tt>{@link ArrayObject}</tt></b> instance into an array.
  *
  * The class features two methods, <b><tt>{@link arrayKeys()}</tt></b> and
  * <b><tt>{@link arrayValues()}</tt></b> which represent the equivalent functions to the
@@ -42,6 +39,10 @@ namespace OntologyWrapper;
  * The class features a method that should be used to manage object data members, the
  * {@link manageProperty()} method should be used to set, retrieve and reset object
  * properties.
+ *
+ * The class features a static method, {@link ArrayObject2Array}, that can be used to
+ * convert a structure of nested {@link ArrayObject} instances into a nested array, this
+ * will be useful when normalising objects for persisting.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
@@ -68,14 +69,15 @@ class DocumentObject extends \ArrayObject
 	 * This method should return the value corresponding to the provided offset.
 	 *
 	 * We overload this method to prevent warnings from being generated when requesting
-	 * values for non-existant offsets, in that case we return <tt>NULL</tt>.
+	 * values for non-existant offsets and returning <tt>NULL</tt> when the offset does not
+	 * exist.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt> for non matching offsets.
 	 *
-	 * @uses _resolveOffset()
+	 * @uses offsetExists()
 	 */
 	public function offsetGet( $theOffset )
 	{
@@ -106,9 +108,8 @@ class DocumentObject extends \ArrayObject
 	 * @param mixed					$theValue			Value to set at offset.
 	 *
 	 * @access public
-	 * @throws \Exception
 	 *
-	 * @uses _resolveOffset()
+	 * @uses offsetUnset()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
@@ -136,13 +137,13 @@ class DocumentObject extends \ArrayObject
 	 *
 	 * This method should reset the value corresponding to the provided offset.
 	 *
-	 * We overload this method to ignore non-existant offsets.
+	 * We overload this method to skip non-existant offsets.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
 	 *
-	 * @uses _resolveOffset()
+	 * @uses offsetExists()
 	 */
 	public function offsetUnset( $theOffset )
 	{
@@ -150,62 +151,9 @@ class DocumentObject extends \ArrayObject
 		// Handle existing offset.
 		//
 		if( $this->offsetExists( $theOffset ) )
-			@parent::offsetUnset( $theOffset );
+			parent::offsetUnset( $theOffset );
 	
 	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC ARRAY SERIALIZATION INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	getArrayCopy																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return a copy of the object array
-	 *
-	 * This method should return a copy of the array part of the object.
-	 *
-	 * We overload this method to ensure all embedded {@link ArrayObject} instances are
-	 * also returned as arrays.
-	 *
-	 * @access public
-	 * @return array				Serialized copy of the object's array.
-	 */
-	public function getArrayCopy()
-	{
-		//
-		// Init local storage.
-		//
-		$array = Array();
-		
-		//
-		// Iterate array elements.
-		//
-		foreach( parent::getArrayCopy() as $key => $value )
-		{
-			//
-			// Serialise array objects.
-			//
-			if( $value instanceof \ArrayObject )
-				$value = $value->getArrayCopy();
-			
-			//
-			// Populate copy.
-			//
-			$array[ $key ] = $value;
-		}
-		
-		return $array;																// ==>
-	
-	} // getArrayCopy.
 
 		
 
@@ -229,6 +177,8 @@ class DocumentObject extends \ArrayObject
 	 *
 	 * @access public
 	 * @return array				List of object offsets.
+	 *
+	 * @uses getArrayCopy()
 	 */
 	public function arrayKeys()				{	return array_keys( $this->getArrayCopy() );	}
 
@@ -245,6 +195,8 @@ class DocumentObject extends \ArrayObject
 	 *
 	 * @access public
 	 * @return array				List of object offset values.
+	 *
+	 * @uses getArrayCopy()
 	 */
 	public function arrayValues()		{	return array_values( $this->getArrayCopy() );	}
 
@@ -323,6 +275,92 @@ class DocumentObject extends \ArrayObject
 		return $theMember;															// ==>
 	
 	} // manageProperty.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							STATIC SERIALISATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ArrayObject2Array																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Convert structure to array</h4>
+	 *
+	 * This method can be used to convert all {@link ArrayObject} derived instances into
+	 * arrays, the method expects a source parameter which can be either an
+	 * {@link ArrayObject} instance or an array, the method will traverse the source
+	 * parameter and convert any {@link ArrayObject} instance into an array in the
+	 * destination parameter.
+	 *
+	 * This method will convert all embedded {@link ArrayObject} instances at any level of
+	 * depth into arrays, this method is used by {@link getArrayCopy()} to traverse the
+	 * object's structure.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theSource</tt>: Source structure reference.
+	 *	<li><tt>$theDestination</tt>: Destination array reference.
+	 * </ul>
+	 *
+	 * @param reference				$theSource			Reference to the source structure.
+	 * @param reference				$theDestination		Reference to the destination array.
+	 *
+	 * @static
+	 *
+	 * @throws Exception
+	 */
+	static function ArrayObject2Array( &$theSource, &$theDestination )
+	{
+		//
+		// Init destination.
+		//
+		if( ! is_array( $theDestination ) )
+			$theDestination = Array();
+		
+		//
+		// Convert source.
+		//
+		if( $theSource instanceof \ArrayObject )
+			$theSource = $theSource->getArrayCopy();
+		
+		//
+		// Check if array.
+		//
+		elseif( ! is_array( $theSource ) )
+			throw new \Exception( "Bug: received source parameter of type: ["
+								.gettype( $theSource )
+								."]." );										// !@! ==>
+		
+		//
+		// Iterate source array.
+		//
+		$keys = array_keys( $theSource );
+		foreach( $keys as $key )
+		{
+			//
+			// Handle structures.
+			//
+			if( is_array( $theSource[ $key ] )
+			 || ($theSource[ $key ] instanceof \ArrayObject) )
+				static::ArrayObject2Array( $theSource[ $key ], $theDestination[ $key ] );
+			
+			//
+			// Handle scalars.
+			//
+			else
+				$theDestination[ $key ] = $theSource[ $key ];
+		
+		} // Iterating source.
+	
+	} // ArrayObject2Array.
 
 	 
 

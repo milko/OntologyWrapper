@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,26 +139,45 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-911197491"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2008072765"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-911197491" class="accordion-body collapse in">
+            <div id="namespace-2008072765" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-684076085"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1265398564"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-684076085" class="accordion-body collapse ">
+            <div id="namespace-1265398564" class="accordion-body collapse ">
                 <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1082697338"></a>
+                                <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
+            </div>
+            <div id="namespace-1082697338" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
                     
                     <ul>
                                                                                                     <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
                                             </ul>
                 </div>
             </div>
@@ -201,7 +220,11 @@ tags, which means that offsets can be referred to either by the native or global
 {@link Tag} identifier: <tt>integer</tt> offsets are assumed to be the native identifier,
 <tt>string</tt> offsets will be {@link resolveOffset() resolved} into native identifiers
 prior to accessing the offset value with the only exception of the native identifier
-{@link tag kTAG_NID}, which is the only string offset allowed.
+{@link tag kTAG_IDENT_NID}, which is the only string offset allowed.
+
+The {@link resolveOffset()} method takes advantage of a {@link CacheObject} instance
+stored in the session {@link kSESSION_DDICT} offset for resolving tags, if this object is
+not set, an exception will be raised.
 
 Any attempt to reference an offset that cannot be {@link resolveOffset() resolved} will
 raise an exception.
@@ -226,10 +249,10 @@ raise an exception.
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetSet" class="">offsetSet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetUnset" class="">offsetUnset()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_getArrayCopy" class="">getArrayCopy()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_arrayKeys" class="">arrayKeys()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_arrayValues" class="">arrayValues()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_manageProperty" class="">manageProperty()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_ArrayObject2Array" class="">ArrayObject2Array()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No public properties found</em>
@@ -240,7 +263,7 @@ raise an exception.
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method__resolveTag" class="">_resolveTag()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetResolve" class="">offsetResolve()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No protected properties found</em>
@@ -377,7 +400,8 @@ exists in the current array.</p>
                 <p><em>Return a value at a given offset</em></p>
                 <p>This method should return the value corresponding to the provided offset.</p>
 <p>We overload this method to prevent warnings from being generated when requesting
-values for non-existant offsets, in that case we return <tt>NULL</tt>.</p>
+values for non-existant offsets and returning <tt>NULL</tt> when the offset does not
+exist.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -400,7 +424,7 @@ values for non-existant offsets, in that case we return <tt>NULL</tt>.</p>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
                                                                                             <dt>Uses</dt>
-                                                                <dd>_resolveOffset()</dd>
+                                                                <dd>offsetExists()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -441,11 +465,6 @@ offset.</p>
                             </tr>
                                             </table>
                 
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
                 
                             </article>
         </div>
@@ -455,7 +474,7 @@ offset.</p>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
                                                                                             <dt>Uses</dt>
-                                                                <dd>_resolveOffset()</dd>
+                                                                <dd>offsetUnset()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -479,7 +498,7 @@ offset.</p>
                 <pre class="signature" style="margin-right: 54px;">offsetUnset(string <span class="argument">$theOffset</span>)</pre>
                 <p><em>Reset a value at a given offset</em></p>
                 <p>This method should reset the value corresponding to the provided offset.</p>
-<p>We overload this method to ignore non-existant offsets.</p>
+<p>We overload this method to skip non-existant offsets.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -499,7 +518,7 @@ offset.</p>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
                                                                                             <dt>Uses</dt>
-                                                                <dd>_resolveOffset()</dd>
+                                                                <dd>offsetExists()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -525,7 +544,7 @@ offset.</p>
                 <p>This method will resolve the provided offset into a tag.</p>
 <p>The method will consider any <tt>string</tt> provided offset as a {@link Tag}</p>
 <i>global identifier</i> and will resolve it into the {@link Tag} <i>native
-identifier</i>, with the exception of the <tt>{@link kTAG_NID}</tt> tag which
+identifier</i>, with the exception of the <tt>{@link kTAG_IDENT_NID}</tt> tag which
 represents the object key; if the offset cannot be resolved, the method will raise an
 exception.
 
@@ -551,47 +570,11 @@ global identifiers or integer constants.</i>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                                                            <dt>Uses</dt>
-                                                                <dd>_resolveTag()</dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>offsetResolve()</dd>
                                                 </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getArrayCopy" name="method_getArrayCopy" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getArrayCopy()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getArrayCopy() : array</pre>
-                <p><em>Return a copy of the object array</em></p>
-                <p>This method should return a copy of the array part of the object.</p>
-<p>We overload this method to ensure all embedded {@link ArrayObject} instances are
-also returned as arrays.</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <p>Serialized copy of the object's array.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -628,7 +611,9 @@ return an array comprised of all object's offsets.</p>
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                            </dl>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>getArrayCopy()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -665,7 +650,9 @@ will return an array comprised of all object's offset values.</p>
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                            </dl>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>getArrayCopy()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -750,14 +737,86 @@ accessor methods, this method implements this interface:</p>
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_ArrayObject2Array" name="method_ArrayObject2Array" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">ArrayObject2Array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">ArrayObject2Array(\OntologyWrapper\reference <span class="argument">$theSource</span>, \OntologyWrapper\reference <span class="argument">$theDestination</span>)</pre>
+                <p><em>&lt;h4&gt;Convert structure to array&lt;/h4&gt;</em></p>
+                <p>This method can be used to convert all {@link ArrayObject} derived instances into
+arrays, the method expects a source parameter which can be either an
+{@link ArrayObject} instance or an array, the method will traverse the source
+parameter and convert any {@link ArrayObject} instance into an array in the
+destination parameter.</p>
+<p>This method will convert all embedded {@link ArrayObject} instances at any level of
+depth into arrays, this method is used by {@link getArrayCopy()} to traverse the
+object's structure.</p>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theSource</tt>: Source structure reference.
+<li><tt>$theDestination</tt>: Destination array reference.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theSource</td>
+                                <td><p>Reference to the source structure.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theDestination</td>
+                                <td><p>Reference to the destination array.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
                                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method__resolveTag" name="method__resolveTag" class="anchor"></a>
+            <a id="method_offsetResolve" name="method_offsetResolve" class="anchor"></a>
             <article class="method">
-                <h3 class="protected ">_resolveTag()</h3>
+                <h3 class="protected ">offsetResolve()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">_resolveTag(string <span class="argument">$theIdentifier</span>) : integer</pre>
-                <p><em>&lt;h4&gt;Resolve tag&lt;/h4&gt;</em></p>
+                <pre class="signature" style="margin-right: 54px;">offsetResolve(string <span class="argument">$theIdentifier</span>) : integer</pre>
+                <p><em>&lt;h4&gt;Resolve offset&lt;/h4&gt;</em></p>
                 <p>This method will resolve the provided {@link Tag} global identifier into the Tag's
 native identifier.</p>
 <p>If the provided identifier cannot be resolved, the method will raise an exception.</p>
@@ -849,7 +908,7 @@ native identifier.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 16th, 2014 at 20:08.
+                    on January 21st, 2014 at 15:10.
                 </section>
             </section>
         </section>

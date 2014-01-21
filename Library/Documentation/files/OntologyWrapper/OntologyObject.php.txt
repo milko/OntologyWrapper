@@ -9,6 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\DocumentObject;
+use OntologyWrapper\CacheObject;
 
 /*=======================================================================================
  *																						*
@@ -22,6 +23,13 @@ use OntologyWrapper\DocumentObject;
  * This file contains the default tag definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+/**
+ * Session.
+ *
+ * This file contains the default session offset definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
 /**
  * Ontology object
@@ -43,7 +51,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
  * {@link Tag} identifier: <tt>integer</tt> offsets are assumed to be the native identifier,
  * <tt>string</tt> offsets will be {@link resolveOffset() resolved} into native identifiers
  * prior to accessing the offset value with the only exception of the native identifier
- * {@link tag kTAG_NID}, which is the only string offset allowed.
+ * {@link tag kTAG_IDENT_NID}, which is the only string offset allowed.
+ *
+ * The {@link resolveOffset()} method takes advantage of a {@link CacheObject} instance
+ * stored in the session {@link kSESSION_DDICT} offset for resolving tags, if this object is
+ * not set, an exception will be raised.
  *
  * Any attempt to reference an offset that cannot be {@link resolveOffset() resolved} will
  * raise an exception.
@@ -84,12 +96,7 @@ class OntologyObject extends DocumentObject
 	 */
 	public function offsetExists( $theOffset )
 	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->resolveOffset( $theOffset );
-		
-		return parent::offsetExists( $theOffset );									// ==>
+		return parent::offsetExists( $this->resolveOffset( $theOffset ) );			// ==>
 	
 	} // offsetExists.
 
@@ -110,16 +117,11 @@ class OntologyObject extends DocumentObject
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt> for non matching offsets.
 	 *
-	 * @uses _resolveOffset()
+	 * @uses resolveOffset()
 	 */
 	public function offsetGet( $theOffset )
 	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->resolveOffset( $theOffset );
-		
-		return parent::offsetGet( $theOffset );										// ==>
+		return parent::offsetGet( $this->resolveOffset( $theOffset ) );				// ==>
 	
 	} // offsetGet.
 
@@ -139,18 +141,13 @@ class OntologyObject extends DocumentObject
 	 * @param mixed					$theValue			Value to set at offset.
 	 *
 	 * @access public
-	 * @throws \Exception
+	 * @throws Exception
 	 *
-	 * @uses _resolveOffset()
+	 * @uses resolveOffset()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->resolveOffset( $theOffset );
-		
-		parent::offsetSet( $theOffset, $theValue );
+		parent::offsetSet( $this->resolveOffset( $theOffset ), $theValue );
 	
 	} // offsetSet.
 
@@ -170,16 +167,11 @@ class OntologyObject extends DocumentObject
 	 *
 	 * @access public
 	 *
-	 * @uses _resolveOffset()
+	 * @uses resolveOffset()
 	 */
 	public function offsetUnset( $theOffset )
 	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->resolveOffset( $theOffset );
-		
-		parent::offsetUnset( $theOffset );
+		parent::offsetUnset( $this->resolveOffset( $theOffset ) );
 	
 	} // offsetUnset.
 
@@ -204,7 +196,7 @@ class OntologyObject extends DocumentObject
 	 *
 	 * The method will consider any <tt>string</tt> provided offset as a {@link Tag}
 	 * <i>global identifier</i> and will resolve it into the {@link Tag} <i>native
-	 * identifier</i>, with the exception of the <tt>{@link kTAG_NID}</tt> tag which
+	 * identifier</i>, with the exception of the <tt>{@link kTAG_IDENT_NID}</tt> tag which
 	 * represents the object key; if the offset cannot be resolved, the method will raise an
 	 * exception.
 	 *
@@ -217,7 +209,9 @@ class OntologyObject extends DocumentObject
 	 * @access public
 	 * @return integer				Native identifier.
 	 *
-	 * @uses _resolveTag()
+	 * @see kTAG_IDENT_NID
+	 *
+	 * @uses offsetResolve()
 	 */
 	public function resolveOffset( $theOffset )
 	{
@@ -230,10 +224,10 @@ class OntologyObject extends DocumentObject
 		//
 		// Skip native identifier tag.
 		//
-		if( $theOffset != kTAG_NID )
-			return $this->_resolveTag( (string) $theOffset );						// ==>
+		if( $theOffset != kTAG_IDENT_NID )
+			return $this->offsetResolve( (string) $theOffset );						// ==>
 		
-		return kTAG_NID;															// ==>
+		return $theOffset;															// ==>
 	
 	} // resolveOffset.
 
@@ -248,11 +242,11 @@ class OntologyObject extends DocumentObject
 
 	 
 	/*===================================================================================
-	 *	_resolveTag																		*
+	 *	offsetResolve																	*
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Resolve tag</h4>
+	 * <h4>Resolve offset</h4>
 	 *
 	 * This method will resolve the provided {@link Tag} global identifier into the Tag's
 	 * native identifier.
@@ -266,11 +260,20 @@ class OntologyObject extends DocumentObject
 	 *
 	 * @throws Exception
 	 */
-	protected function _resolveTag( $theIdentifier )
+	protected function offsetResolve( $theIdentifier )
 	{
-		return (int) $theOffset;													// ==>
+		//
+		// Check if cache is set.
+		//
+		if( isset( $_SESSION )
+		 && array_key_exists( kSESSION_DDICT, $_SESSION )
+		 && ($_SESSION[ kSESSION_DDICT ] instanceof CacheObject) )
+			return $_SESSION[ kSESSION_DDICT ]->getId( $theIdentifier );			// ==>
+		
+		throw new \Exception(
+			"Data dictionary not set." );										// !@! ==>
 	
-	} // _resolveTag.
+	} // offsetResolve.
 
 	 
 

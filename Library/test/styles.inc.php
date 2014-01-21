@@ -63,7 +63,7 @@ define( "kSTYLE_ROW_POS",		'</tr>' );
  *
  * This value defines the header prefix.
  */
-define( "kSTYLE_HEAD_PRE",		'<th nowrap="nowrap" align="right" valign="middle"><font face="Verdana, Lucida Sans, Arial, Helvetica, sans-serif" size="-1"><em>' );
+define( "kSTYLE_HEAD_PRE",		'<th nowrap="nowrap" align="left" valign="middle"><font face="Verdana, Lucida Sans, Arial, Helvetica, sans-serif" size="-1"><em>' );
 
 /**
  * Head postfix.
@@ -81,7 +81,7 @@ define( "kSTYLE_HEAD_POS",		'</em></font></th>' );
  *
  * This value defines the data prefix.
  */
-define( "kSTYLE_DATA_PRE",		'<td align="left" valign="middle"><font face="Verdana, Lucida Sans, Arial, Helvetica, sans-serif" size="-1">' );
+define( "kSTYLE_DATA_PRE",		'<td bgcolor="#FFFFFF" scope="col" align="left" valign="middle"><font face="Verdana, Lucida Sans, Arial, Helvetica, sans-serif" size="-1">' );
 
 /**
  * Data postfix.

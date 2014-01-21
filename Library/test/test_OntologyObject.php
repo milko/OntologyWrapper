@@ -29,6 +29,16 @@ require_once( 'includes.inc.php' );
 //
 require_once( 'styles.inc.php' );
 
+//
+// Tag definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -41,14 +51,40 @@ define( 'kDEBUG_PARENT', TRUE );
 
 
 /*=======================================================================================
+ *	CLASS SETTINGS																		*
+ *======================================================================================*/
+ 
+//
+// Cast current class.
+//
+class MyClass extends OntologyWrapper\OntologyObject{}
+
+
+/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
+
+session_start();
  
 //
 // Test class.
 //
 try
 {
+	//
+	// Set data dictionary.
+	//
+	$_SESSION[ kSESSION_DDICT ]
+		= OntologyWrapper\connection\Connection::NewConnection(
+			"memcached://localhost:11211" );
+	$_SESSION[ kSESSION_DDICT ]->openConnection();
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:protocol', kTAG_CONN_PROTOCOL );
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:host', kTAG_CONN_HOST );
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:port', kTAG_CONN_PORT );
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:user', kTAG_CONN_USER );
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pass', kTAG_CONN_PASS );
+	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pid', kTAG_CONN_PID );
+	
 	//
 	// Test parent class.
 	//
@@ -61,169 +97,12 @@ try
 		echo( '<h4>Instantiate empty object</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
-		$test = new OntologyWrapper\DocumentObject();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
 		var_dump( $test );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Set offset.
-		//
-		echo( '<h4>Set offset<br /><i>should add the value</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test["test"] = "TEST1";'.kSTYLE_HEAD_POS );
-		$test["test"] = "TEST1";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Set NULL offset.
-		//
-		echo( '<h4>Set NULL offset<br /><i>should add the value under offset 0</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[NULL] = "TEST2";'.kSTYLE_HEAD_POS );
-		$test[NULL] = "TEST2";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Set NULL value.
-		//
-		echo( '<h4>Set NULL value<br /><i>should delete "test" offset</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test["test"] = NULL;'.kSTYLE_HEAD_POS );
-		$test["test"] = NULL;
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Set NULL offset and value.
-		//
-		echo( '<h4>Set NULL offset and value<br /><i>should throw a warning</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[NULL] = NULL;'.kSTYLE_HEAD_POS );
-		$test[NULL] = NULL;
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Get offset 0.
-		//
-		echo( '<h4>Get offset 0<br /><i>should return "TEST2"</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[0];'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); var_dump( $test[0] ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Delete offset 0.
-		//
-		echo( '<h4>Delete offset<br /><i>should delete "TEST2"</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( 0 );'.kSTYLE_HEAD_POS );
-		$test->offsetUnset( 0 );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Delete offset with NULL.
-		//
-		echo( '<h4>Delete offset with NULL<br /><i>should delete ["test"] => "TEST"</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test["test"] = "TEST";'.kSTYLE_HEAD_POS );
-		$test["test"] = "TEST";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test["test"] = NULL;'.kSTYLE_HEAD_POS );
-		$test["test"] = NULL;
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-		//
-		// Test getArrayCopy.
-		//
-		echo( '<h4>Test getArrayCopy<br /><i>should return arrays</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );'.kSTYLE_HEAD_POS );
-		$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );'.kSTYLE_HEAD_POS );
-		$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );'.kSTYLE_HEAD_POS );
-		$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -235,8 +114,8 @@ try
 		echo( '<h4>Test set property<br /><i>should set the "$property" to "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
-		$test = new OntologyWrapper\DocumentObject();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
@@ -370,6 +249,44 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
+
+	//
+	// Set offset by global identifier.
+	//
+	echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_CONN_PROTOCOL</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ ":connection:protocol" ] = "protocol";'.kSTYLE_HEAD_POS );
+	$test[ ":connection:protocol" ] = "protocol";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Set offset by native identifier.
+	//
+	echo( '<h4>Set offset by global native<br /><i>should use kTAG_CONN_PORT</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_CONN_PORT ] = 80;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_CONN_PORT ] = 80;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 }
 
 //

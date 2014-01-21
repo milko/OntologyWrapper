@@ -41,6 +41,16 @@ define( 'kDEBUG_PARENT', TRUE );
 
 
 /*=======================================================================================
+ *	CLASS SETTINGS																		*
+ *======================================================================================*/
+ 
+//
+// Cast current class.
+//
+class MyClass extends OntologyWrapper\DocumentObject{}
+
+
+/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
  
@@ -62,8 +72,8 @@ try
 	echo( '<h4>Instantiate empty object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
-	$test = new OntologyWrapper\DocumentObject();
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -72,7 +82,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Set offset.
 	//
@@ -89,7 +99,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Set NULL offset.
 	//
@@ -106,7 +116,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Set NULL value.
 	//
@@ -123,7 +133,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Set NULL offset and value.
 	//
@@ -140,7 +150,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Get offset 0.
 	//
@@ -156,7 +166,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Delete offset 0.
 	//
@@ -173,7 +183,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Delete offset with NULL.
 	//
@@ -199,23 +209,23 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
-	// Test getArrayCopy.
+	// Test ArrayObject2Array.
 	//
-	echo( '<h4>Test getArrayCopy<br /><i>should return arrays</i></h4>' );
+	echo( '<h4>Test ArrayObject2Array<br /><i>should return arrays</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );'.kSTYLE_HEAD_POS );
-	$test1 = new OntologyWrapper\DocumentObject( array( "test" => "TEST" ) );
+	echo( kSTYLE_HEAD_PRE.'$test1 = new MyClass( array( "test" => "TEST" ) );'.kSTYLE_HEAD_POS );
+	$test1 = new MyClass( array( "test" => "TEST" ) );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );'.kSTYLE_HEAD_POS );
-	$test2 = new OntologyWrapper\DocumentObject( array( "test2" => "TEST2" ) );
+	echo( kSTYLE_HEAD_PRE.'$test2 = new MyClass( array( "test2" => "TEST2", "test1" => $test1 ) );'.kSTYLE_HEAD_POS );
+	$test2 = new MyClass( array( "test2" => "TEST2", "test1" => $test1 ) );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );'.kSTYLE_HEAD_POS );
-	$test = new OntologyWrapper\DocumentObject( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( array( "one" => $test1, "two" => $test2, new ArrayObject( array( 1, 2, 3 ) ) ) );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -223,21 +233,25 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'MyClass::ArrayObject2Array( $test, $array );'.kSTYLE_HEAD_POS );
+	MyClass::ArrayObject2Array( $test, $array );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $array ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test set property.
 	//
 	echo( '<h4>Test set property<br /><i>should set the "$property" to "value"</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new OntologyWrapper\DocumentObject();'.kSTYLE_HEAD_POS );
-	$test = new OntologyWrapper\DocumentObject();
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
@@ -250,7 +264,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test retrieve property.
 	//
@@ -267,7 +281,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test modify property returning new value.
 	//
@@ -289,7 +303,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test modify property returning old value.
 	//
@@ -311,7 +325,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test reset property returning old value.
 	//
@@ -333,7 +347,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Test reset property returning new value.
 	//
