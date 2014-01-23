@@ -66,9 +66,7 @@ use OntologyWrapper\OntologyObject;
  * The class provides accessor methods for the object properties: the {@link $mDSN} data
  * member can be managed with the {@link DSN()} method, the {@link $mConnection} data
  * member can be retrieved with the {@link Connection()} method and the {@link $mParent}
- * data member can be retrieved with the {@link Parent()} method. The latter two data
- * members can be publicly accessed as read-only, this is because they should be set
- * explicitly by the object's methods.
+ * data member can be retrieved with the {@link Parent()} method.
  *
  * When setting the connection string, {@link DSN()}, the object's connection parameters
  * will be synchronised. When setting offsets, the data source name will not be changed.
@@ -81,13 +79,6 @@ use OntologyWrapper\OntologyObject;
  * offsets will raise an exception: this is to prevent changing the connection properties
  * while connected.
  *
- * In this class we make use of the {@link StatusTrait} trait, here we manage:
- *
- * <ul>
- *	<li><tt>{@link isDirty()}</tt>: This flag is set whenever an offset is modified and when
- *		the {@ink DSN()} is modified.
- * </ul>
- *
  * This object represents the building block for all concrete instances that represent
  * servers, databases, data collections and caches.
  *
@@ -96,11 +87,6 @@ use OntologyWrapper\OntologyObject;
  */
 abstract class ConnectionObject extends OntologyObject
 {
-	/**
-	 * Status trait.
-	 */
-	use	\OntologyWrapper\StatusTrait;
-	
 	/**
 	 * Data source name.
 	 *
@@ -131,7 +117,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @var mixed
 	 */
-	private $mConnection = NULL;
+	protected $mConnection = NULL;
 
 		
 
@@ -229,11 +215,6 @@ abstract class ConnectionObject extends OntologyObject
 			$this->mParent = $theParent;
 		
 		} // Provided parent.
-		
-		//
-		// Reset status.
-		//
-		$this->statusReset();
 
 	} // Constructor.
 
@@ -356,11 +337,6 @@ abstract class ConnectionObject extends OntologyObject
 		// Call parent method.
 		//
 		parent::offsetSet( $theOffset, $theValue );
-		
-		//
-		// Set dirty.
-		//
-		$this->isDirty( TRUE );
 	
 	} // offsetSet.
 
@@ -395,11 +371,6 @@ abstract class ConnectionObject extends OntologyObject
 		// Call parent method.
 		//
 		parent::offsetUnset( $theOffset );
-		
-		//
-		// Set dirty.
-		//
-		$this->isDirty( TRUE );
 	
 	} // offsetUnset.
 
@@ -480,12 +451,6 @@ abstract class ConnectionObject extends OntologyObject
 		if( $doSync
 		 && ($theValue !== NULL) )
 			$this->parseDSN();
-		
-		//
-		// Set dirty.
-		//
-		if( $theValue !== NULL )
-			$this->isDirty( TRUE );
 		
 		return $save;																// ==>
 	
@@ -604,16 +569,11 @@ abstract class ConnectionObject extends OntologyObject
 			//
 			// Open and set connection.
 			//
-			$this->mConnection = $this->connectionOpen();
-			
-			//
-			// Reset dirty flag.
-			//
-			$this->isDirty( FALSE );
+			$this->connectionOpen();
 		
 		} // Not connected.
 		
-		return $this->Connection();													// ==>
+		return $this->mConnection;													// ==>
 	
 	} // openConnection.
 
@@ -679,7 +639,8 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Open connection
 	 *
-	 * This method should open the actual connection, in this class the method is virtual.
+	 * This method should open the actual connection and set the {@link mConnection} data
+	 * member; in this class the method is virtual.
 	 *
 	 * This method expects the caller to have checked whether the connection is already
 	 * open.

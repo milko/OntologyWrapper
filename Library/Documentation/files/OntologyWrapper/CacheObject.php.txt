@@ -39,11 +39,145 @@ use OntologyWrapper\ConnectionObject;
  *
  * All the above methods are virtual, concrete derived classes must implement them.
  *
+ * In this class we make use of the {@link StatusTrait} trait, here we reset the
+ * {@link isDirty()} flag whenever we open the connection and reset the status bitfield
+ * after calling the parent constructor.
+ *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 20/01/2014
  */
 abstract class CacheObject extends ConnectionObject
 {
+	/**
+	 * Status trait.
+	 *
+	 * In this class we handle the {@link isDirtyFlag()}
+	 */
+	use	StatusTrait;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *										MAGIC											*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We overload the parent constructor to reset the status flags after instantiating the
+	 * object.
+	 *
+	 * @param mixed					$theParameter		Data source name or parameters.
+	 * @param ConnectionObject		$theParent			Connection parent.
+	 *
+	 * @access public
+	 *
+	 * @uses DSN()
+	 * @uses parseOffsets()
+	 */
+	public function __construct( $theParameter = NULL, $theParent = NULL )
+	{
+		//
+		// Call parent constructor.
+		//
+		parent::__construct( $theParameter, $theParent );
+		
+		//
+		// Reset status.
+		//
+		$this->statusReset();
+
+	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC MEMBER MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DSN																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data source name
+	 *
+	 * We overload this method to set the {@link isDirty()} flag.
+	 *
+	 * @param mixed					$theValue			Data source name or operation.
+	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doSync				<tt>TRUE</tt> will sync offsets.
+	 *
+	 * @access public
+	 * @return mixed				<i>New</i> or <i>old</i> data source name.
+	 */
+	public function DSN( $theValue = NULL, $getOld = FALSE, $doSync = TRUE )
+	{
+		//
+		// Call parent method.
+		//
+		$save = parent::DSN( $theValue, $getOld, $doSync );
+		
+		//
+		// Set dirty.
+		//
+		if( $theValue !== NULL )
+			$this->isDirty( TRUE );
+		
+		return $save;																// ==>
+	
+	} // DSN.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	openConnection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Open connection
+	 *
+	 * We overload this method to reset the {@link isDirty()} flag.
+	 *
+	 * @access public
+	 * @return mixed				Depends on implementation.
+	 */
+	public function openConnection()
+	{
+		//
+		// Call parent method.
+		//
+		$save = parent::openConnection();
+		
+		//
+		// Reset dirty flag.
+		//
+		$this->isDirty( FALSE );
+		
+		return $save;																// ==>
+	
+	} // openConnection.
+
 		
 
 /*=======================================================================================

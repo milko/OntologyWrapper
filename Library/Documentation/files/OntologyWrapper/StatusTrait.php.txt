@@ -76,6 +76,80 @@ trait StatusTrait
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value at a given offset
+	 *
+	 * We overload this method to set the {@link isDirty()} flag.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 *
+	 * @uses isConnected()
+	 *
+	 * @throws Exception
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Call parent method.
+		//
+		parent::offsetSet( $theOffset, $theValue );
+		
+		//
+		// Set dirty.
+		//
+		$this->isDirty( TRUE );
+	
+	} // offsetSet.
+
+	 
+	/*===================================================================================
+	 *	offsetUnset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset a value at a given offset
+	 *
+	 * We overload this method to set the {@link isDirty()} flag.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 */
+	public function offsetUnset( $theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		parent::offsetUnset( $theOffset );
+		
+		//
+		// Set dirty.
+		//
+		$this->isDirty( TRUE );
+	
+	} // offsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED STATUS INTERFACE								*
  *																						*
  *======================================================================================*/

@@ -79,6 +79,51 @@ class MemcachedCache extends CacheObject
 
 /*=======================================================================================
  *																						*
+ *										MAGIC											*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We overload the constructor to instantiate the {@link Memcached} object and set it
+	 * into the {@link $mConnection} data member if the parameter was provided.
+	 *
+	 * This also means that when you instantiate the object with a parameter, you should
+	 * always provide the persistent ID, if planned, to the constructor.
+	 *
+	 * @param mixed					$theParameter		Data source name or parameters.
+	 * @param ConnectionObject		$theParent			Connection parent.
+	 *
+	 * @access public
+	 */
+	public function __construct( $theParameter = NULL, $theParent = NULL )
+	{
+		//
+		// Call parent method.
+		//
+		parent::__construct( $theParameter, $theParent );
+		
+		//
+		// Instantiate the Memcached object.
+		//
+		if( $theParameter !== NULL )
+			$this->mConnection = ( $this->offsetExists( kTAG_CONN_PID ) )
+							   ? new \Memcached( $this->offsetGet( kTAG_CONN_PID ) )
+							   : new \Memcached();
+
+	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC OPERATIONS INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -116,19 +161,14 @@ class MemcachedCache extends CacheObject
 		if( $this->isConnected() )
 		{
 			//
-			// Get connection.
-			//
-			$connection = $this->Connection();
-
-			//
 			// Set pair.
 			//
-			$ok = $connection->set( $theKey, $theValue, $theTime );
+			$ok = $this->mConnection->set( $theKey, $theValue, $theTime );
 			if( ! $ok )
 			{
-				$code = $connection->getResultCode();
-				$message = $connection->getResultMessage();
-				throw new \Exception( $message, $code );							// !@! ==>
+				$code = $this->mConnection->getResultCode();
+				$message = $this->mConnection->getResultMessage();
+				throw new \Exception( $message, $code );						// !@! ==>
 			}
 		
 		} // Is connected.
@@ -170,15 +210,10 @@ class MemcachedCache extends CacheObject
 		if( $this->isConnected() )
 		{
 			//
-			// Get connection.
-			//
-			$connection = $this->Connection();
-
-			//
 			// Get value.
 			//
-			$value = $connection->get( $theKey );
-			$code = $connection->getResultCode();
+			$value = $this->mConnection->get( $theKey );
+			$code = $this->mConnection->getResultCode();
 			
 			//
 			// Handle found.
@@ -195,8 +230,8 @@ class MemcachedCache extends CacheObject
 			//
 			// Failed.
 			//
-			$message = $connection->getResultMessage();
-			throw new \Exception( $message, $code );								// !@! ==>
+			$message = $this->mConnection->getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==>
 		
 		} // Is connected.
 		
@@ -238,29 +273,24 @@ class MemcachedCache extends CacheObject
 		if( $this->isConnected() )
 		{
 			//
-			// Get connection.
-			//
-			$connection = $this->Connection();
-
-			//
 			// Delete key.
 			//
-			$ok = $connection->delete( $theKey );
+			$ok = $this->mConnection->delete( $theKey );
 			if( $ok )
 				return TRUE;														// ==>
 			
 			//
 			// Handle not found.
 			//
-			$code = $connection->getResultCode();
+			$code = $this->mConnection->getResultCode();
 			if( $code == \Memcached::RES_NOTFOUND )
 				return NULL;														// ==>
 			
 			//
 			// Failed.
 			//
-			$message = $connection->getResultMessage();
-			throw new \Exception( $message, $code );								// !@! ==>
+			$message = $this->mConnection->getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==>
 		
 		} // Is connected.
 		
@@ -297,17 +327,12 @@ class MemcachedCache extends CacheObject
 		if( $this->isConnected() )
 		{
 			//
-			// Get connection.
-			//
-			$connection = $this->Connection();
-
-			//
 			// Invalidate cache.
 			//
-			if( ! $connection->flush() )
+			if( ! $this->mConnection->flush() )
 			{
-				$code = $connection->getResultCode();
-				$message = $connection->getResultMessage();
+				$code = $this->mConnection->getResultCode();
+				$message = $this->mConnection->getResultMessage();
 				throw new \Exception( $message, $code );						// !@! ==>
 			
 			} // Failed.
@@ -319,6 +344,38 @@ class MemcachedCache extends CacheObject
 				"The cache in not open." );										// !@! ==>
 	
 	} // flush.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isConnected																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if connection is open
+	 *
+	 * We overload this method to check whether the connection resource has servers assigned
+	 * to it: this determines whether the connection is open or not.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> is open.
+	 */
+	public function isConnected()
+	{
+		if( $this->mConnection !== NULL )
+			return ( count( $this->mConnection->getServerList() ) > 0 );			// ==>
+		
+		return FALSE;																// ==>
+	
+	} // isConnected.
 
 		
 
@@ -351,27 +408,30 @@ class MemcachedCache extends CacheObject
 	protected function connectionOpen()
 	{
 		//
-		// Instantiate cache.
+		// Instantiate the Memcache.
 		//
-		$connection = new \Memcached( $this->offsetGet( kTAG_CONN_PID ) );
+		if( $this->mConnection === NULL )
+			$this->mConnection = ( $this->offsetExists( kTAG_CONN_PID ) )
+							   ? new \Memcached( $this->offsetGet( kTAG_CONN_PID ) )
+							   : new \Memcached();
 		
 		//
 		// Add servers.
 		//
-		if( ! count( $connection->getServerList() ) )
+		if( ! count( $this->mConnection->getServerList() ) )
 		{
 			//
 			// Add by socket.
 			//
 			if( $this->offsetExists( kTAG_CONN_SOCKET ) )
-				$ok = $connection->addServer(
+				$ok = $this->mConnection->addServer(
 					$this->offsetGet( kTAG_CONN_SOCKET ) );
 			
 			//
 			// Add by host.
 			//
 			elseif( $this->offsetExists( kTAG_CONN_HOST ) )
-				$ok = $connection->addServer(
+				$ok = $this->mConnection->addServer(
 					$this->offsetGet( kTAG_CONN_HOST ),
 					$this->offsetGet( kTAG_CONN_PORT ) );
 			
@@ -387,15 +447,15 @@ class MemcachedCache extends CacheObject
 			//
 			if( ! $ok )
 			{
-				$code = $connection->getResultCode();
-				$message = $connection->getResultMessage();
-				throw new \Exception( $message, $code );							// !@! ==>
+				$code = $this->mConnection->getResultCode();
+				$message = $this->mConnection->getResultMessage();
+				throw new \Exception( $message, $code );						// !@! ==>
 			
 			} // Failed.
 		
 		} // No servers yet.
 		
-		return $connection;															// ==>
+		return $this->mConnection;													// ==>
 	
 	} // connectionOpen.
 
@@ -420,12 +480,11 @@ class MemcachedCache extends CacheObject
 		//
 		// Get cache.
 		//
-		$connection = $this->Connection();
-		if( ! $connection->quit() )
+		if( ! $this->mConnection->quit() )
 		{
-			$code = $connection->getResultCode();
-			$message = $connection->getResultMessage();
-			throw new \Exception( $message, $code );								// !@! ==>
+			$code = $this->mConnection->getResultCode();
+			$message = $this->mConnection->getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==>
 		
 		} // Failed.
 	
