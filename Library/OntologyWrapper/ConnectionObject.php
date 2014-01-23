@@ -79,6 +79,11 @@ use OntologyWrapper\OntologyObject;
  * offsets will raise an exception: this is to prevent changing the connection properties
  * while connected.
  *
+ * In this class we make use of the {@link StatusTrait} trait, here we set the
+ * {@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
+ * open the connection; we reset the status bitfield data member after calling the parent
+ * constructor.
+ *
  * This object represents the building block for all concrete instances that represent
  * servers, databases, data collections and caches.
  *
@@ -87,6 +92,13 @@ use OntologyWrapper\OntologyObject;
  */
 abstract class ConnectionObject extends OntologyObject
 {
+	/**
+	 * Status trait.
+	 *
+	 * In this class we handle the {@link isDirtyFlag()}
+	 */
+	use	StatusTrait;
+
 	/**
 	 * Data source name.
 	 *
@@ -215,6 +227,11 @@ abstract class ConnectionObject extends OntologyObject
 			$this->mParent = $theParent;
 		
 		} // Provided parent.
+		
+		//
+		// Reset status.
+		//
+		$this->statusReset();
 
 	} // Constructor.
 
@@ -338,6 +355,11 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		parent::offsetSet( $theOffset, $theValue );
 	
+		//
+		// Reset dirty flag.
+		//
+		$this->isDirty( TRUE );
+	
 	} // offsetSet.
 
 	 
@@ -371,6 +393,11 @@ abstract class ConnectionObject extends OntologyObject
 		// Call parent method.
 		//
 		parent::offsetUnset( $theOffset );
+	
+		//
+		// Reset dirty flag.
+		//
+		$this->isDirty( TRUE );
 	
 	} // offsetUnset.
 
@@ -448,9 +475,19 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Handle value change.
 		//
-		if( $doSync
-		 && ($theValue !== NULL) )
-			$this->parseDSN();
+		if( $theValue !== NULL )
+		{
+			//
+			// Sync offsets.
+			//
+			if( $doSync )
+				$this->parseDSN();
+			
+			//
+			// Handle dirty flag.
+			//
+			$this->isDirty( ! $doSync );
+		}
 		
 		return $save;																// ==>
 	
@@ -570,6 +607,11 @@ abstract class ConnectionObject extends OntologyObject
 			// Open and set connection.
 			//
 			$this->connectionOpen();
+		
+			//
+			// Reset dirty flag.
+			//
+			$this->isDirty( FALSE );
 		
 		} // Not connected.
 		
