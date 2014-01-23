@@ -23,24 +23,22 @@ use OntologyWrapper\OntologyObject;
  * instances, such as caches, servers, databases and collections.
  *
  * The main purpose of this class is to wrap a common interface around concrete instances of
- * specific database or cache engines.
+ * specific server, database, collection or cache engines.
  *
- * The class features three properties:
+ * The class features the following properties:
  *
  * <ul>
- *	<li><tt>{@link $mParent}</tt>: The <i>parent connection</i>.
- *	<li><tt>{@link $mConnection}</tt>: The <i>connection resource</i>.
- *	<li><tt>{@link $mDSN}</tt>: The <i>data source name</i>.
+ *	<li><tt>{@link $mDSN}</tt>: The <i>data source name</i>, it is an URL that represents
+ *		the connection string.
+ *	<li><tt>{@link $mConnection}</tt>: The <i>connection resource</i>, it represents the
+ *		native connection.
+ *	<li><tt>{@link $mParent}</tt>: The <i>parent connection</i>, it represents the instance
+ *		derived from this class that instantiated the current object.
  * </ul>
  *
- * The data source name is an URL that represents the connection string, the connection
- * resource represents the native connection and the parent connection is the eventual
- * object derived from this class that instantiated the current object.
- *
- * The parameters of the connection are stored in the array part of the object, which means that
- * that they must be defined as {@link Tag} objects. The connection may be defined by
- * providing the data source name, or by setting the individual parameters; the first is
- * done by setting the data members, the other by setting the data offsets.
+ * The object is instantiated by providing a parameter that may either be a connection URL,
+ * such as a string that may be parsed by the {@link parse_url()} function, or an array
+ * containing the connection parameters.
  *
  * The public interface of this class, as well as for many other abstract classes, is
  * implemented as templates in which protected methods do the actual work, so derived
@@ -65,18 +63,30 @@ use OntologyWrapper\OntologyObject;
  *		went out of scope while the connection was open.
  * </ul>
  *
- * The class provides accessor methods for the two object properties, {@link DSN()} and
- * {@link Connection()}: derived classes can overload these methods for validation
- * purposes.
+ * The class provides accessor methods for the object properties: the {@link $mDSN} data
+ * member can be managed with the {@link DSN()} method, the {@link $mConnection} data
+ * member can be retrieved with the {@link Connection()} method and the {@link $mParent}
+ * data member can be retrieved with the {@link Parent()} method. The latter two data
+ * members can be publicly accessed as read-only, this is because they should be set
+ * explicitly by the object's methods.
  *
  * When setting the connection string, {@link DSN()}, the object's connection parameters
- * will be synchronised, while when setting offsets, the data source name will remain
- * untouched: when the connection is opened, {@link openConnection()}, the data source name
- * will be re-constituted using the object's connection parameters.
+ * will be synchronised. When setting offsets, the data source name will not be changed.
+ * When the connection is opened, {@link openConnection()}, the data source name will be
+ * re-constituted using the object's offsets. This means that the object offsets represent
+ * the actual connection parameters, although setting the DSN will reset these parameters to
+ * match the connection URL.
  *
  * When the connection is {@link isConnected() open}, any attempt to modify the object
- * properties or offsets will raise an exception: this is to prevent changing the connection
- * parameters while connected.
+ * offsets will raise an exception: this is to prevent changing the connection properties
+ * while connected.
+ *
+ * In this class we make use of the {@link StatusTrait} trait, here we manage:
+ *
+ * <ul>
+ *	<li><tt>{@link isDirty()}</tt>: This flag is set whenever an offset is modified and when
+ *		the {@ink DSN()} is modified.
+ * </ul>
  *
  * This object represents the building block for all concrete instances that represent
  * servers, databases, data collections and caches.
@@ -87,57 +97,41 @@ use OntologyWrapper\OntologyObject;
 abstract class ConnectionObject extends OntologyObject
 {
 	/**
-	 * Parent connection.
-	 *
-	 * This data member holds the <i>parent connection object</i>, .
-	 *
-	 * @var ConnectionObject
+	 * Status trait.
 	 */
-	protected $mParent = NULL;
-
-	/**
-	 * Connection resource.
-	 *
-	 * This data member holds the <i>connection resource</i>, or <i>native connection</i>.
-	 * This property represents the actual connection resource.
-	 *
-	 * @var mixed
-	 */
-	private $mConnection = NULL;
-
+	use	\OntologyWrapper\StatusTrait;
+	
 	/**
 	 * Data source name.
 	 *
-	 * This data member holds the <i>data source name</i>, or <tt>DSN</tt>. It is a string
-	 * holding all the connection parameters that is used to instantiate the actual
-	 * connection.
+	 * This data member holds the <i>data source name</i>, or <tt>DSN</tt>, it is an URL
+	 * connection string that should be compatible with the {@link parse_url()} function.
+	 * This string should hold all the connection parameters.
 	 *
 	 * @var string
 	 */
 	private $mDSN = NULL;
 
 	/**
-	 * URL dictionary.
+	 * Parent connection.
 	 *
-	 * This static data member holds an array which features as keys the parameters of the
-	 * {@link parse_url()} function and as values the corresponding {@link Tag} native
-	 * identifiers that will be used to load the connection parameters into the current
-	 * object.
+	 * This data member holds the <i>parent connection object</i>, this value should be an
+	 * instance derived from this class which is used to instantiate the current object's
+	 * connection resource.
 	 *
-	 * The <code>path</code> parameter is missing and should be set in derived classes if
-	 * used; thew <code>query</code> and <code>fragment</code> elements are handled each by
-	 * specific methods.
-	 *
-	 * In derived classes this array may be customised without the need to overload the
-	 * {@link loadMainParameters()} method.
-	 *
-	 * @var array
+	 * @var ConnectionObject
 	 */
-	static $sParseURL = array( 'scheme'	=> kTAG_CONN_PROTOCOL,
-							   'host'	=> kTAG_CONN_HOST,
-							   'port'	=> kTAG_CONN_PORT,
-							   'user'	=> kTAG_CONN_USER,
-							   'pass'	=> kTAG_CONN_PASS );
+	private $mParent = NULL;
+
+	/**
+	 * Connection resource.
+	 *
+	 * This data member holds the <i>connection resource</i>, or <i>native connection</i>,
+	 * this property represents the actual connection resource.
+	 *
+	 * @var mixed
+	 */
+	private $mConnection = NULL;
 
 		
 
@@ -156,24 +150,30 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Instantiate class.
 	 *
-	 * The object may be instantiated in three ways:
+	 * The object may be instantiated as an empty object, by omitting both parameters; with
+	 * a <i>data source name</i> in the form of a connection URL; or by providing an array
+	 * of tag/value parameters which will constitute the object's offsets.
 	 *
-	 * <ul>
-	 *	<li>As an empty object, in this case omit the parameter.
-	 *	<li>By providing the data source name as the parameter.
-	 *	<li>By providing the connection parameters array.
-	 * </ul>
+	 * If the first parameter was provided, the method will synchronise both the data source
+	 * name and the connection parameters.
 	 *
-	 * If the parameter was provided, the method will automatically synchronise the data
-	 * source name and the connection parameters.
+	 * The second parameter represents the <i>connection parent</i>, it must be an instance
+	 * derived from this class and will only be set by the constructor.
+	 *
+	 * When overloading the constructor in derived classes you should always first call the
+	 * parent method and then perform custom actions.
 	 *
 	 * @param mixed					$theParameter		Data source name or parameters.
+	 * @param ConnectionObject		$theParent			Connection parent.
 	 *
 	 * @access public
 	 *
+	 * @throws Exception
+	 *
 	 * @uses DSN()
+	 * @uses parseOffsets()
 	 */
-	public function __construct( $theParameter = NULL )
+	public function __construct( $theParameter = NULL, $theParent = NULL )
 	{
 		//
 		// Init object.
@@ -197,9 +197,9 @@ abstract class ConnectionObject extends OntologyObject
 					$this->offsetSet( $key, $value );
 				
 				//
-				// Load DSN.
+				// Generate and load DSN.
 				//
-				$this->DSN( $this->parseParameters() );
+				$this->DSN( $this->parseOffsets(), FALSE, FALSE );
 			
 			} // Provided individual parameters.
 		
@@ -210,6 +210,30 @@ abstract class ConnectionObject extends OntologyObject
 				$this->DSN( (string) $theParameter );
 		
 		} // Provided parameter.
+		
+		//
+		// Handle parent.
+		//
+		if( $theParent !== NULL )
+		{
+			//
+			// Check type.
+			//
+			if( ! ($theParent instanceof self) )
+				throw new \Exception(
+					"Invalid connection parent type." );						// !@! ==>
+			
+			//
+			// Set parent.
+			//
+			$this->mParent = $theParent;
+		
+		} // Provided parent.
+		
+		//
+		// Reset status.
+		//
+		$this->statusReset();
 
 	} // Constructor.
 
@@ -221,11 +245,11 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Destruct instance.
 	 *
-	 * The destructor will close the connection if open and reset the data member.
+	 * The destructor will close the connection if open.
 	 *
 	 * @access public
 	 *
-	 * @uses DSN()
+	 * @uses closeConnection()
 	 */
 	public function __destruct()							{	$this->closeConnection();	}
 
@@ -310,18 +334,12 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * We overload this method to prevent setting values while the connection is open.
 	 *
-	 * In derived classes yoiu can overload this method if you need to handle offsets while
-	 * the connection is open: you should intercept the specific offset and handle it in the
-	 * derived class, while all other offsets should be passed to the parent method.
-	 *
 	 * @param string				$theOffset			Offset.
 	 * @param mixed					$theValue			Value to set at offset.
 	 *
 	 * @access public
 	 *
 	 * @uses isConnected()
-	 * @uses DSN()
-	 * @uses parseParameters()
 	 *
 	 * @throws Exception
 	 */
@@ -330,12 +348,19 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Check if connected.
 		//
-		if( ! $this->isConnected() )
-			parent::offsetSet( $theOffset, $theValue );
-		
-		else
+		if( $this->isConnected() )
 			throw new \Exception(
-				"Object is locked: the connection is open." );					// !@! ==>
+				"Cannot set value: the connection is open." );					// !@! ==>
+		
+		//
+		// Call parent method.
+		//
+		parent::offsetSet( $theOffset, $theValue );
+		
+		//
+		// Set dirty.
+		//
+		$this->isDirty( TRUE );
 	
 	} // offsetSet.
 
@@ -349,10 +374,6 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * We overload this method to prevent deleting values while the connection is open.
 	 *
-	 * In derived classes yoiu can overload this method if you need to handle offsets while
-	 * the connection is open: you should intercept the specific offset and handle it in the
-	 * derived class, while all other offsets should be passed to the parent method.
-	 *
 	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
@@ -360,20 +381,25 @@ abstract class ConnectionObject extends OntologyObject
 	 * @throws Exception
 	 *
 	 * @uses isConnected()
-	 * @uses DSN()
-	 * @uses parseParameters()
 	 */
 	public function offsetUnset( $theOffset )
 	{
 		//
 		// Check if connected.
 		//
-		if( ! $this->isConnected() )
-			parent::offsetUnset( $theOffset );
-		
-		else
+		if( $this->isConnected() )
 			throw new \Exception(
-				"Object is locked: the connection is open." );					// !@! ==>
+				"Cannot delete value: the connection is open." );				// !@! ==>
+		
+		//
+		// Call parent method.
+		//
+		parent::offsetUnset( $theOffset );
+		
+		//
+		// Set dirty.
+		//
+		$this->isDirty( TRUE );
 	
 	} // offsetUnset.
 
@@ -394,9 +420,9 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Manage data source name
 	 *
-	 * This method can be used to manage the data source name, it accepts a parameter which
-	 * represents either the data source name or the requested operation, depending on its
-	 * value:
+	 * This method can be used to manage the <i>data source name</i>, it accepts a parameter
+	 * which represents either the data source name or the requested operation, depending on
+	 * its value:
 	 *
 	 * <ul>
 	 *	<li><tt>NULL</tt>: Return the current value.
@@ -408,11 +434,19 @@ abstract class ConnectionObject extends OntologyObject
 	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
 	 * value.
 	 *
+	 * The last parameter is a switch that determines whether the object offsets should be
+	 * synchronised: if <tt>TRUE</tt>, the object offsets will be reset and populated with
+	 * the elements parsed from the data source name; if <tt>FALSE</tt>, the object offsets
+	 * will not be modified. This parameter is set to <tt>FALSE</tt> by the constructor,
+	 * since using all offsets may produce an invalid URL and is <tt>TRUE</tt> by default,
+	 * since setting a connection URL generally means changing the parameters.
+	 *
 	 * Whenever a new value is set or the value is deleted, the method will synchronise the
-	 * connection parameters.
+	 * object offsets.
 	 *
 	 * @param mixed					$theValue			Data source name or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doSync				<tt>TRUE</tt> will sync offsets.
 	 *
 	 * @access public
 	 * @return mixed				<i>New</i> or <i>old</i> data source name.
@@ -425,7 +459,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * @uses manageProperty()
 	 * @uses parseDSN()
 	 */
-	public function DSN( $theValue = NULL, $getOld = FALSE )
+	public function DSN( $theValue = NULL, $getOld = FALSE, $doSync = TRUE )
 	{
 		//
 		// Handle locked object.
@@ -433,7 +467,7 @@ abstract class ConnectionObject extends OntologyObject
 		if( $this->isConnected()
 		 && ($theValue !== NULL) )
 			throw new \Exception(
-				"Object is locked: the connection is open." );					// !@! ==>
+				"Unable to set data source: the connection is open." );			// !@! ==>
 		
 		//
 		// Manage property.
@@ -443,59 +477,61 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Handle value change.
 		//
-		if( $theValue !== NULL )
+		if( $doSync
+		 && ($theValue !== NULL) )
 			$this->parseDSN();
+		
+		//
+		// Set dirty.
+		//
+		if( $theValue !== NULL )
+			$this->isDirty( TRUE );
 		
 		return $save;																// ==>
 	
 	} // DSN.
 
-	 
+		
 	/*===================================================================================
 	 *	Connection																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage connection.
+	 * Return connection resource.
 	 *
-	 * This method can be used to manage the connection resource, it accepts a parameter
-	 * which represents either the connection or the requested operation, depending on its
-	 * value:
+	 * This method can be used to retrieve the <i>connection resource</i>, this method is
+	 * read-only, since the connection resource should only be set by the object's
+	 * connection methods.
 	 *
-	 * <ul>
-	 *	<li><tt>NULL</tt>: Return the current value.
-	 *	<li><tt>FALSE</tt>: Delete the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
-	 * </ul>
-	 *
-	 * The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
-	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
-	 * value.
-	 *
-	 * @param mixed					$theValue			Connection or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * The connection resource represents the native connection.
 	 *
 	 * @access public
-	 * @return mixed				<i>New</i> or <i>old</i> connection.
+	 * @return mixed				Connection resource.
 	 *
 	 * @see $mConnection
-	 *
-	 * @uses isConnected()
-	 * @uses manageProperty()
 	 */
-	public function Connection( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Handle locked object.
-		//
-		if( $this->isConnected()
-		 && ($theValue !== NULL) )
-			throw new \Exception(
-				"Object is locked: the connection is open." );					// !@! ==>
-		
-		return $this->manageProperty( $this->mConnection, $theValue, $getOld );		// ==>
-	
-	} // Connection.
+	public function Connection()							{	return $this->mConnection;	}
+
+	 
+	/*===================================================================================
+	 *	Parent																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return connection parent.
+	 *
+	 * This method can be used to retrieve the <i>parent connection</i>, this method is
+	 * read-only, since the connection parent can only be set by the constructor and cannot
+	 * be changed once the object has been instantiated.
+	 *
+	 * The connection parent represents the connection creator as the server for a database.
+	 *
+	 * @access public
+	 * @return ConnectionObject		Parent connection.
+	 *
+	 * @see $mParent
+	 */
+	public function Parent()									{	return $this->mParent;	}
 
 		
 
@@ -539,8 +575,8 @@ abstract class ConnectionObject extends OntologyObject
 	 * We first check if the connection is already set: if so we do nothing.
 	 *
 	 * We call the protected {@link connectionOpen()} method which will open the connection
-	 * and return the connection resource which will be set in the {@link Connection} data
-	 * member.
+	 * and return the connection resource which will be set in the data member,
+	 * {@link mConnection}.
 	 *
 	 * The method will return the connection resource.
 	 *
@@ -548,8 +584,10 @@ abstract class ConnectionObject extends OntologyObject
 	 * @return mixed				Depends on implementation.
 	 *
 	 * @uses isConnected()
-	 * @uses Connection()
+	 * @uses DSN()
+	 * @uses parseOffsets()
 	 * @uses connectionOpen()
+	 * @uses Connection()
 	 */
 	public function openConnection()
 	{
@@ -559,20 +597,19 @@ abstract class ConnectionObject extends OntologyObject
 		if( ! $this->isConnected() )
 		{
 			//
-			// Open connection.
+			// Synchronise DSN.
 			//
-			$connection = $this->connectionOpen();
+			$this->DSN( $this->parseOffsets() );
 		
 			//
-			// Refresh DSN.
+			// Open and set connection.
 			//
-			$this->DSN( $this->parseParameters() );
+			$this->mConnection = $this->connectionOpen();
 			
 			//
-			// Set connection resource.
-			// We do it here or since open it will raise an exception.
+			// Reset dirty flag.
 			//
-			$this->Connection( $connection );
+			$this->isDirty( FALSE );
 		
 		} // Not connected.
 		
@@ -599,7 +636,6 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @uses isConnected()
 	 * @uses connectionClose()
-	 * @uses Connection()
 	 */
 	public function closeConnection()
 	{
@@ -615,9 +651,6 @@ abstract class ConnectionObject extends OntologyObject
 			
 			//
 			// Reset connection.
-			// Note that we set the data member directly,
-			// this is to prevent an exception from being raised,
-			// since the connection is still open.
 			//
 			$this->mConnection = NULL;
 			
@@ -646,8 +679,7 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Open connection
 	 *
-	 * This method should open the actual connection, the method is virtual and must be
-	 * implemented by concrete derived instances.
+	 * This method should open the actual connection, in this class the method is virtual.
 	 *
 	 * This method expects the caller to have checked whether the connection is already
 	 * open.
@@ -667,11 +699,9 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Open connection
 	 *
-	 * This method should close the actual connection, the method is virtual and must be
-	 * implemented by concrete derived instances.
+	 * This method should close the actual connection, in this class the method is virtual.
 	 *
-	 * This method expects the caller to have checked whether the connection is already
-	 * open.
+	 * This method expects the caller to have checked whether the connection is open.
 	 *
 	 * If the operation fails, the method should raise an exception.
 	 *
@@ -698,40 +728,24 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Parse data source name
 	 *
-	 * This method will parse the current data source name, extract the connection
-	 * parameters and set them in the current object
-	 * parameters.
+	 * This method will parse the provided data source name, extract the connection
+	 * parameters and set them in the current object.
 	 *
-	 * The method makes use of three methods:
+	 * The method will make use of the {@link parse_url()} function and pass each key/value
+	 * pair to the protected {@link loadDSNParameter()} method which has the responsibility
+	 * of matching the {@link parse_url()} keys to {@link Tag} instances.
 	 *
-	 * <ul>
-	 *	<li><tt>{@link loadMainParameters()}</tt>: This method will take care of parsing the
-	 *		following parameters:
-	 *	 <ul>
-	 *		<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: The protocol or <code>scheme</code>.
-	 *		<li><tt>{@link kTAG_CONN_HOST}</tt>: The connection <code>host</code>.
-	 *		<li><tt>{@link kTAG_CONN_PORT}</tt>: The connection <code>port</code>.
-	 *		<li><tt>{@link kTAG_CONN_USER}</tt>: The <code>user</code> code.
-	 *		<li><tt>{@link kTAG_CONN_PASS}</tt>: The user <code>pass</code>word.
-	 *	 </ul>
-	 *		The <code>path</code> parameter should also be parsed in that method, but in
-	 *		this class we do not handle it.
-	 *	<li><tt>{@link loadQueryParameters()}</tt>: This method should take care of parsing
-	 *		the <code>query</code> section of the data source name, in this class we ignore
-	 *		these parameters.
-	 *	<li><tt>{@link loadFragParameters()}</tt>: This method should take care of parsing
-	 *		the <code>fragment</code> section of the data source name, in this class we
-	 *		ignore this parameter.
-	 * </ul>
+	 * If the {@link parse_url()} function fails to parse the DSN, the method will raise an
+	 * exception.
+	 *
+	 * Derived classes should overload the {@link loadDSNParameter()} method.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 *
 	 * @uses DSN()
-	 * @uses loadMainParameters()
-	 * @uses loadQueryParameters()
-	 * @uses loadFragParameters()
+	 * @uses loadDSNParameter()
 	 */
 	protected function parseDSN()
 	{
@@ -756,19 +770,10 @@ abstract class ConnectionObject extends OntologyObject
 					"Invalid connection string [$dsn]." );						// !@! ==>
 			
 			//
-			// Parse main parameters.
+			// Load parameters.
 			//
-			$this->loadMainParameters( $encoded );
-			
-			//
-			// Parse query parameters.
-			//
-			$this->loadQueryParameters( $encoded );
-			
-			//
-			// Parse fragment parameters.
-			//
-			$this->loadFragParameters( $encoded );
+			foreach( $encoded as $key => $value )
+				$this->loadDSNParameter( $encoded, $key, $value );
 		
 		} // Has DSN.
 	
@@ -776,91 +781,247 @@ abstract class ConnectionObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	parseParameters																	*
+	 *	parseOffsets																	*
 	 *==================================================================================*/
 
 	/**
 	 * Parse connection parameters
 	 *
-	 * This method will generate and return a data source name by using the object's
-	 * connection parameters.
+	 * This method will parse the current object's offsets and generate a connection URL.
 	 *
-	 * In this class we use:
+	 * The method will iterate the object's offsets and feed them to the protected
+	 * {@link parseOffset()} method which will populate an array structured as the result of
+	 * the {@link parse_url()} function, it will be the duty of this method to generate a
+	 * data source name from that array.
 	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: The protocol or scheme.
-	 *	<li><tt>{@link kTAG_CONN_HOST}</tt>: The connection host.
-	 *	<li><tt>{@link kTAG_CONN_PORT}</tt>: The connection port.
-	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: The user code.
-	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: The user password.
-	 * </ul>
-	 *
-	 * Note that the host is required, that is, if the host is missing we set a space in
-	 * the data source name.
+	 * Derived classes should overload the called methods and not this one.
 	 *
 	 * If the resulting data source name is empty, the method will return <tt>FALSE</tt>.
-	 *
-	 * Derived classes are responsible of managing any other eventual parameter, they may
-	 * call this method and then add custom parameters to the resulting string.
 	 *
 	 * @access protected
 	 * @return mixed				Data source name or <tt>FALSE</tt> if empty.
 	 *
-	 * @see kTAG_CONN_PROTOCOL, kTAG_CONN_HOST
-	 * @see kTAG_CONN_PORT, kTAG_CONN_USER, kTAG_CONN_PASS
+	 * @uses parseOffset()
 	 */
-	protected function parseParameters()
+	protected function parseOffsets()
 	{
 		//
-		// Init data source name.
+		// Init local storage.
 		//
-		$dsn = '';
+		$params = Array();
 		
 		//
-		// Handle protocol.
+		// Iterate offsets.
 		//
-		if( $this->offsetGet( kTAG_CONN_PROTOCOL ) )
-			$dsn = $this->offsetGet( kTAG_CONN_PROTOCOL ).'://';
+		$offsets = $this->getArrayCopy();
+		foreach( $offsets as $key => $value )
+			$this->parseOffset( $params, $key, $value );
 		
 		//
-		// Handle user credentials.
+		// Handle parameters.
 		//
-		if( $this->offsetExists( kTAG_CONN_USER ) )
+		if( count( $params ) )
 		{
 			//
-			// Add user.
+			// Init local storage.
 			//
-			$dsn .= $this->offsetGet( kTAG_CONN_USER );
+			$dsn = '';
 			
 			//
-			// Add password.
+			// Set protocol.
 			//
-			if( $this->offsetExists( kTAG_CONN_PASS ) )
-				$dsn .= (':'.$this->offsetGet( kTAG_CONN_PASS ));
+			if( array_key_exists( 'scheme', $params ) )
+				$dsn .= $params[ 'scheme' ].'://';
+		
+			//
+			// Handle credentials.
+			//
+			if( array_key_exists( 'user', $params ) )
+			{
+				//
+				// Set user.
+				//
+				$dsn .= $params[ 'user' ];
 			
+				//
+				// Set password.
+				//
+				if( array_key_exists( 'pass', $params ) )
+					$dsn .= (':'.$params[ 'pass' ]);
+			
+				//
+				// Close credentials.
+				//
+				$dsn .= '@';
+		
+			} // Has user.
+		
 			//
-			// Close credentials.
+			// Add host.
 			//
-			$dsn .= '@';
+			if( array_key_exists( 'host', $params ) )
+				$dsn .= $params[ 'host' ];
 		
-		} // Has credentials.
+			//
+			// Add port.
+			//
+			if( array_key_exists( 'port', $params ) )
+				$dsn .= (':'.$params[ 'port' ]);
+		
+			//
+			// Handle path.
+			// Note that we add a leading slash,
+			// this is removed when parsing the DSN.
+			//
+			if( array_key_exists( 'path', $params ) )
+				$dsn .= ('/'.$params[ 'path' ]);
+		
+			//
+			// Set options.
+			//
+			if( array_key_exists( 'query', $params ) )
+				$dsn .= ('?'.$params[ 'query' ]);
+		
+			//
+			// Set fragments.
+			//
+			if( array_key_exists( 'fragment', $params ) )
+				$dsn .= ('#'.$params[ 'fragment' ]);
+		
+			return $dsn;															// ==>
+		
+		} // Has parameters.
+		
+		return FALSE;																// ==>
+		
+	} // parseOffsets.
+
+	 
+	/*===================================================================================
+	 *	parseOffset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse offset
+	 *
+	 * This method will parse the provided offset and populate the provided parameters.
+	 * The main duty is to load the offset values into the provided parameters array so to
+	 * create the same result as the {@link parse_url()} function.
+	 *
+	 * The resulting array can have the following elements:
+	 *
+	 * <ul>
+	 *	<li><tt><code>scheme</code></tt>: The protocol or scheme.
+	 *	<li><tt><code>host</code></tt>: The connection host.
+	 *	<li><tt><code>port</code></tt>: The connection port.
+	 *	<li><tt><code>user</code></tt>: The user code.
+	 *	<li><tt><code>pass</code></tt>: The user password.
+	 *	<li><tt><code>path</code></tt>: The connection path.
+	 *	<li><tt><code>query</code></tt>: The connection options.
+	 *	<li><tt><code>fragment</code></tt>: The URL fragment.
+	 * </ul>
+	 *
+	 * In this class we handle the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: The <code>scheme</code>.
+	 *	<li><tt>{@link kTAG_CONN_HOST}</tt>: The connection <code>host</code>.
+	 *	<li><tt>{@link kTAG_CONN_PORT}</tt>: The connection <code>port</code>.
+	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: The <code>user</code> code.
+	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: The user <code>pass</code>word.
+	 *	<li><tt>{@link kTAG_CONN_OPTS}</tt>: The connection options, <code>query</code>.
+	 * </ul>
+	 *
+	 * Derived classes can overload this method to customise the parameters.
+	 *
+	 * @param reference				$theParameters		Receives parsed offset.
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Offset value.
+	 *
+	 * @access protected
+	 *
+	 * @uses parseOption()
+	 */
+	protected function parseOffset( &$theParameters, $theOffset, $theValue )
+	{
+		//
+		// Parse by tag.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_CONN_PROTOCOL:
+				$theParameters[ 'scheme' ] = $theValue;
+				break;
+			
+			case kTAG_CONN_HOST:
+				$theParameters[ 'host' ] = $theValue;
+				break;
+			
+			case kTAG_CONN_PORT:
+				$theParameters[ 'port' ] = $theValue;
+				break;
+			
+			case kTAG_CONN_USER:
+				$theParameters[ 'user' ] = $theValue;
+				break;
+			
+			case kTAG_CONN_PASS:
+				$theParameters[ 'pass' ] = $theValue;
+				break;
+			
+			case kTAG_CONN_OPTS:
+				$options = $this->offsetGet( kTAG_CONN_OPTS );
+				foreach( $options as $key => $value )
+					$this->parseOption( $theParameters, $key, $value );
+				break;
+		}
+		
+	} // parseOffset.
+
+	 
+	/*===================================================================================
+	 *	parseOption																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse option
+	 *
+	 * This method will parse the provided option and populate the query parameters.
+	 * The main duty is to load the option into the <code>query</code> element of the
+	 * provided parameters list as the result of the {@link parse_url()} function.
+	 *
+	 * In this class we load what we find.
+	 *
+	 * Derived classes can overload this method to customise the options.
+	 *
+	 * @param reference				$theParameters		Receives parsed offset.
+	 * @param string				$theOption			Option.
+	 * @param mixed					$theValue			Option value.
+	 *
+	 * @access protected
+	 */
+	protected function parseOption( &$theParameters, $theOption, $theValue )
+	{
+		//
+		// Add divider.
+		//
+		if( array_key_exists( 'query', $theParameters ) )
+			$theParameters[ 'query' ] .= '&';
 		
 		//
-		// Add host.
+		// Create element.
 		//
-		$dsn .= (( $this->offsetExists( kTAG_CONN_HOST ) )
-				 ? $this->offsetGet( kTAG_CONN_HOST )
-				 : ' ');
+		else
+			$theParameters[ 'query' ] = '';
 		
 		//
-		// Add port.
+		// Set option.
 		//
-		if( $this->offsetExists( kTAG_CONN_PORT ) )
-			$dsn .= (':'.$this->offsetGet( kTAG_CONN_PORT ));
+		$theParameters[ 'query' ] .= $theOption;
+		if( $theValue !== NULL )
+			$theParameters[ 'query' ] .= ('='.$theValue);
 		
-		return ( strlen( $dsn ) ) ? $dsn : FALSE;									// ==>
-	
-	} // parseParameters.
+	} // parseOption.
 
 		
 
@@ -873,129 +1034,91 @@ abstract class ConnectionObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	loadMainParameters																*
+	 *	loadDSNParameter																*
 	 *==================================================================================*/
 
 	/**
-	 * Load connection main parameters
+	 * Load connection parameters from DSN
 	 *
 	 * This method will load the parameters parsed from the data source name into the
-	 * current object, it expects the result of the {@link parse_url()} function and will
-	 * handle the following parameters:
+	 * current object's offsets, it expects three parameters:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: with the <code>scheme</code>.
-	 *	<li><tt>{@link kTAG_CONN_HOST}</tt>: with the <code>host</code>.
-	 *	<li><tt>{@link kTAG_CONN_PORT}</tt>: with the <code>port</code>.
-	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: with the <code>user</code>.
-	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: with the <code>pass</code>.
+	 *	<li><b>$theParameters</b>: This array is the result of the {@link parse_url()}
+	 *		function on the data source name:
+	 *	 <ul>
+	 *		<li><tt><code>scheme</code></tt>: We set it in {@link kTAG_CONN_PROTOCOL}.
+	 *		<li><tt><code>host</code></tt>: We set it in {@link kTAG_CONN_HOST}.
+	 *		<li><tt><code>port</code></tt>: We set it in {@link kTAG_CONN_PORT}.
+	 *		<li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_USER}.
+	 *		<li><tt><code>pass</code></tt>: We set it in {@link kTAG_CONN_PASS}.
+	 *		<li><tt><code>path</code></tt>: This parameter is not handled in this class,
+	 *			derived classes should overload this method to handle it.
+	 *		<li><tt><code>query</code></tt>: We load the key/value pairs into
+	 *			{@link kTAG_CONN_OPTS} array.
+	 *		<li><tt><code>fragment</code></tt>: This parameter is not handled in this class,
+	 *			derived classes should overload this method to handle it.
+	 *	 </ul>
+	 *	<li><b>$theKey</b>: This parameter represents the offset.
+	 *	<li><b>$theValue</b>: This parameter represents the offset value.
 	 * </ul>
 	 *
-	 * All parameters are trimmed and eny empty parameter is ignored.
+	 * This is the method that derived classes may overload to customise the parameters.
 	 *
-	 * Derived classes are responsible of managing the <code>path</code> part of the URL,
-	 * they would typically first call the parent method, then handle the path, or they
-	 * could add the path to the static {@link $sParseURL} array.
-	 *
-	 * The <code>query</code> and <code>fragment</code> elements are handled respectively by
-	 * {@link loadQueryParameters()} and {@link loadFragParameters()}.
-	 *
-	 * @param reference				$theParameters		Array of parsed parameters.
+	 * @param reference				$theParameters		Original parameters list.
+	 * @param string				$theKey				Parameter key.
+	 * @param string				$theValue			Parameter value.
 	 *
 	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see $sParseURL
 	 */
-	protected function loadMainParameters( &$theParameters )
+	protected function loadDSNParameter( &$theParameters, $theKey, $theValue = NULL )
 	{
 		//
-		// Check parameter.
+		// Parse parameter.
 		//
-		if( is_array( $theParameters ) )
+		switch( $theKey )
 		{
-			//
-			// Iterate parameters.
-			//
-			foreach( $theParameters as $key => $value )
-			{
-				//
-				// Load parameter.
-				//
-				if( strlen( trim( $value ) )
-				 && array_key_exists( $key, static::$sParseURL ) )
-					$this->offsetSet( static::$sParseURL[ $key ], $value );
+			case 'scheme':
+				$this->offsetSet( kTAG_CONN_PROTOCOL, $theValue );
+				break;
 			
-			} // Iterating parameters.
-		
-		} // Correct parameter.
-		
-		else
-			throw new \Exception(
-				"Unable to parse main parameters: expecting an array." );		// !@! ==>
+			case 'host':
+				$this->offsetSet( kTAG_CONN_HOST, $theValue );
+				break;
+			
+			case 'port':
+				$this->offsetSet( kTAG_CONN_PORT, (int) $theValue );
+				break;
+			
+			case 'user':
+				$this->offsetSet( kTAG_CONN_USER, $theValue );
+				break;
+			
+			case 'pass':
+				$this->offsetSet( kTAG_CONN_PASS, $theValue );
+				break;
+			
+			case 'query':
+				$options = Array();
+				$opts = explode( '&', $theValue );
+				foreach( $opts as $opt )
+				{
+					$tmp = explode( '=', $opt );
+					$key = trim( $tmp[ 0 ] );
+					if( count( $tmp ) > 1 )
+						$options[ $key ]
+							= ( strlen( $tmp[ 1 ] ) )
+							? $tmp[ 1 ]
+							: NULL;
+					else
+						$options[ $key ] = NULL;
+			
+				}
+				$this->offsetSet( kTAG_CONN_OPTS, $options );
+				break;
+		}
 	
-	} // loadMainParameters.
-
-	 
-	/*===================================================================================
-	 *	loadQueryParameters																*
-	 *==================================================================================*/
-
-	/**
-	 * Load connection query parameters
-	 *
-	 * This method will load the parameters parsed from the data source name into the
-	 * current object, it expects the result of the {@link parse_url()} function and will
-	 * handle the <code>query</code> parameter.
-	 *
-	 * In this class the method will simply check if the provided parameter is an array,
-	 * derived classes may call this method and then handle the parameters.
-	 *
-	 * @param reference				$theParameters		Array of parsed parameters.
-	 *
-	 * @access protected
-	 */
-	protected function loadQueryParameters( &$theParameters )
-	{
-		//
-		// Check parameter.
-		//
-		if( ! is_array( $theParameters ) )
-			throw new Exception(
-				"Unable to parse query parameters: expecting an array." );		// !@! ==>
-	
-	} // loadQueryParameters.
-
-	 
-	/*===================================================================================
-	 *	loadFragParameters																*
-	 *==================================================================================*/
-
-	/**
-	 * Load connection fragment parameters
-	 *
-	 * This method will load the parameters parsed from the data source name into the
-	 * current object, it expects the result of the {@link parse_url()} function and will
-	 * handle the <code>fragment</code> parameter.
-	 *
-	 * In this class the method will simply check if the provided parameter is an array,
-	 * derived classes may call this method and then handle the parameters.
-	 *
-	 * @param reference				$theParameters		Array of parsed parameters.
-	 *
-	 * @access protected
-	 */
-	protected function loadFragParameters( &$theParameters )
-	{
-		//
-		// Check parameter.
-		//
-		if( ! is_array( $theParameters ) )
-			throw new Exception(
-				"Unable to parse fragment parameters: expecting an array." );	// !@! ==>
-	
-	} // loadFragParameters.
+	} // loadDSNParameter.
 
 	 
 

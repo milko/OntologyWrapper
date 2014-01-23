@@ -22,56 +22,60 @@ use OntologyWrapper\CacheObject;
  * This class represents a concrete instance of a {@link CacheObject} implemented using
  * the {@link Memcached} class.
  *
- * The {@link DSN() DSN} property is represented by the host/port pair and the
- * {@link Connection() connection} by the {@link Memcached} object. A typical string could
- * be <code>memcached://example.net:11211/persistent_id</code> where:
+ * To instantiate an object with the data source name you can provide an URL such as this
+ * one:
+ *
+ * <code>memcached://user:pass@host:port#persistent_id</code>
+ *
+ * where:
  *
  * <ul>
- *	<li><code>memcached</code>: This represents the protocol.
- *	<li><code>example.net</code>: This represents the host.
- *	<li><code>11211</code>: This represents the port.
- *	<li><code>persistent_id</code>: This represents the persistent ID.
+ *	<li><code>memcached</code>: This represents the protocol and will be stored in the
+ *		{@link kTAG_CONN_PROTOCOL} offset.
+ *	<li><code>host</code>: This represents the host and will be stored in the
+ *		{@link kTAG_CONN_HOST} offset.
+ *	<li><code>port</code>: This represents the port and will be stored in the
+ *		{@link kTAG_CONN_PORT} offset.
+ *	<li><code>path</code>: This represents the socket and will be stored in the
+ *		{@link kTAG_CONN_SOCKET} offset.
+ *	<li><code>persistent_id</code>: This represents the persistent ID and will be stored in
+ *		the {@link kTAG_CONN_PID} offset.
  * </ul>
  *
- * If you want to instantiate a cache that has several hosts or an existing cache, you
- * should instantiate the cache separately with a persistent ID and pass to this class
- * constructor only the persistent ID.
+ * Or you can provide an array matching the above parameters.
+ *
+ * To instantiate an object using a UNIX socket, you should either provide an array with the
+ * socket path in the {@link kTAG_CONN_SOCKET} offset, or a connection URL such as
+ * <code>/path/to/socket</code>, omitting all other parameters. In the first case you may
+ * also add other parameters, but these will be excluded from the data source name.
+ *
+ * If you want to instantiate a cache which uses a list of weighted hosts or an existing
+ * cache, you should first instantiate the cache with a persistent ID and then in your
+ * application only provide the persistent ID:
  *
  * <code><pre>
  * //
  * // Instantiate cache (only once!).
- //
+ * //
  * $cache = new Memcached( "persistent_id" );
- * $cache->addServer('mem1.domain.com', 11211, 33);
- * $cache->addServer('mem2.domain.com', 11211, 67);
+ * $cache->addServer('host1', 11211, 33);
+ * $cache->addServer('host2', 11211, 67);
  *
  * //
  * // In your application code.
  * //
- * $my_cache = new MemcachedCache( "memcached:// /persistent_id" );
+ * $my_cache = new MemcachedCache( "#persistent_id" );
  * </pre></code>
+ *
+ * For more information on the specifics of this particular cache engine, please consult the
+ * {@link Memcached} documentation.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 20/01/2014
  */
 class MemcachedCache extends CacheObject
 {
-	/**
-	 * URL dictionary.
-	 *
-	 * We overload this static data member to add the <code>path</code> parameter as the
-	 * connection persistent identifier, {@link kTAG_CONN_PID}.
-	 *
-	 * @var array
-	 */
-	static $sParseURL = array( 'scheme'	=> kTAG_CONN_PROTOCOL,
-							   'host'	=> kTAG_CONN_HOST,
-							   'port'	=> kTAG_CONN_PORT,
-							   'user'	=> kTAG_CONN_USER,
-							   'pass'	=> kTAG_CONN_PASS,
-							   'path'	=> kTAG_CONN_PID );
 
-		
 
 /*=======================================================================================
  *																						*
@@ -153,10 +157,10 @@ class MemcachedCache extends CacheObject
 	 * @access public
 	 * @return mixed				The value associated with the provided key.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses isConnected()
 	 * @uses Connection()
-	 *
-	 * @throws Exception
 	 */
 	public function get( $theKey )
 	{
@@ -221,10 +225,10 @@ class MemcachedCache extends CacheObject
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> means deleted, <tt>NULL</tt> not found.
 	 *
+	 * @throws Exception
+	 *
 	 * @uses isConnected()
 	 * @uses Connection()
-	 *
-	 * @throws Exception
 	 */
 	public function del( $theKey )
 	{
@@ -281,6 +285,9 @@ class MemcachedCache extends CacheObject
 	 * @access public
 	 *
 	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 * @uses Connection()
 	 */
 	public function flush()
 	{
@@ -338,6 +345,8 @@ class MemcachedCache extends CacheObject
 	 *
 	 * @access protected
 	 * @return Memcached			The native connection.
+	 *
+	 * @throws Exception
 	 */
 	protected function connectionOpen()
 	{
@@ -352,11 +361,31 @@ class MemcachedCache extends CacheObject
 		if( ! count( $connection->getServerList() ) )
 		{
 			//
-			// Add server.
+			// Add by socket.
 			//
-			if( ! $connection->addServer(
+			if( $this->offsetExists( kTAG_CONN_SOCKET ) )
+				$ok = $connection->addServer(
+					$this->offsetGet( kTAG_CONN_SOCKET ) );
+			
+			//
+			// Add by host.
+			//
+			elseif( $this->offsetExists( kTAG_CONN_HOST ) )
+				$ok = $connection->addServer(
 					$this->offsetGet( kTAG_CONN_HOST ),
-					$this->offsetGet( kTAG_CONN_PORT ) ) )
+					$this->offsetGet( kTAG_CONN_PORT ) );
+			
+			//
+			// Missing parameters.
+			//
+			else
+				throw new \Exception(
+					"Requires a host or a socket." );							// !@! ==>
+			
+			//
+			// Check outcome.
+			//
+			if( ! $ok )
 			{
 				$code = $connection->getResultCode();
 				$message = $connection->getResultMessage();
@@ -413,38 +442,51 @@ class MemcachedCache extends CacheObject
 
 	 
 	/*===================================================================================
-	 *	parseParameters																	*
+	 *	parseOffset																		*
 	 *==================================================================================*/
 
 	/**
-	 * Parse connection parameters
+	 * Parse offset
 	 *
-	 * We ovewrload this method to parse the persistent identifier, {@link kTAG_CONN_PID}.
+	 * We overload this method to parse the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_CONN_SOCKET}</tt>: The <code>path</code> URL element.
+	 *	<li><tt>{@link kTAG_CONN_PID}</tt>: The <code>fragment</code> URL element.
+	 * </ul>
+	 *
+	 * If the {@link kTAG_CONN_SOCKET} is set, we skip all other offsets, since the
+	 * resulting connection URl would be invalid.
+	 *
+	 * @param reference				$theParameters		Receives parsed offset.
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Offset value.
 	 *
 	 * @access protected
-	 * @return mixed				Data source name or <tt>FALSE</tt> if empty.
-	 *
-	 * @see kTAG_CONN_PID
 	 */
-	protected function parseParameters()
+	protected function parseOffset( &$theParameters, $theOffset, $theValue )
 	{
 		//
-		// Parse default parameters.
+		// Parse offset.
 		//
-		$dsn = parent::parseParameters();
-		if( $dsn !== FALSE )
+		switch( $theOffset )
 		{
-			//
-			// Add persistent identifier.
-			//
-			if( $this->offsetGet( kTAG_CONN_PID ) )
-				$dsn .= ('/'.$this->offsetGet( kTAG_CONN_PID ));
+			case kTAG_CONN_SOCKET:
+				$theParameters[ 'path' ] = $theValue;
+				break;
 		
-		} // Not empty.
+			case kTAG_CONN_PID:
+				$theParameters[ 'fragment' ] = $theValue;
+				break;
 		
-		return $dsn;																// ==>
-	
-	} // parseParameters.
+			default:
+				if( $this->offsetExists( kTAG_CONN_HOST ) )
+					parent::parseOffset( $theParameters, $theOffset, $theValue );
+				break;
+		
+		} // Parsing offsets.
+		
+	} // parseOffset.
 
 		
 
@@ -457,37 +499,49 @@ class MemcachedCache extends CacheObject
 
 	 
 	/*===================================================================================
-	 *	loadMainParameters																*
+	 *	loadDSNParameter																*
 	 *==================================================================================*/
 
 	/**
-	 * Load connection main parameters
+	 * Load connection parameters from DSN
 	 *
-	 * We overload this method to strip the leading slash from the persistent identifier,
-	 * {@link kTAG_CONN_PID}.
+	 * We overload this method to handle the following parameters:
 	 *
-	 * @param reference				$theParameters		Array of parsed parameters.
+	 * <ul>
+	 *	<li><tt><code>path</code></tt>: We set it in {@link kTAG_CONN_SOCKET}.
+	 *	<li><tt><code>fragment</code></tt>: We set it in {@link kTAG_CONN_PID}.
+	 * </ul>
+	 *
+	 * and to remove all other parameters if there is the socket.
+	 *
+	 * @param reference				$theParameters		Original parameters list.
+	 * @param string				$theKey				Parameter key.
+	 * @param string				$theValue			Parameter value.
 	 *
 	 * @access protected
-	 *
-	 * @see $sParseURL kTAG_CONN_PID
 	 */
-	protected function loadMainParameters( &$theParameters )
+	protected function loadDSNParameter( &$theParameters, $theKey, $theValue = NULL )
 	{
 		//
-		// Call parent method.
+		// Parse parameter.
 		//
-		parent::loadMainParameters( $theParameters );
+		switch( $theKey )
+		{
+			case 'path':
+				$this->offsetSet( kTAG_CONN_SOCKET, $theValue );
+				break;
+			
+			case 'fragment':
+				$this->offsetSet( kTAG_CONN_PID, $theValue );
+				break;
+			
+			default:
+				parent::loadDSNParameter( $theParameters, $theKey, $theValue );
+				break;
 		
-		//
-		// Handle persistent identifier.
-		//
-		if( $this->offsetExists( kTAG_CONN_PID ) )
-			$this->offsetSet(
-				kTAG_CONN_PID,
-				substr( $this->offsetGet( kTAG_CONN_PID ), 1 ) );
+		} // Parsing parameter.
 	
-	} // loadMainParameters.
+	} // loadDSNParameter.
 
 	 
 

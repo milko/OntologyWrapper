@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,33 +139,34 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1966085408"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-306475691"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1966085408" class="accordion-body collapse in">
+            <div id="namespace-306475691" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1760199990"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1563154807"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1760199990" class="accordion-body collapse ">
+            <div id="namespace-1563154807" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1869629445"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1396812528"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-1869629445" class="accordion-body collapse ">
+            <div id="namespace-1396812528" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                                                                     <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
                                             </ul>
                 </div>
             </div>
@@ -174,7 +175,9 @@
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+                                                                            <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
@@ -254,12 +257,29 @@ conflict.</p>
             <article id="constant_kSESSION_DDICT" class="constant">
                 <h3 class="">kSESSION_DDICT</h3>
                 <pre class="signature">kSESSION_DDICT</pre>
-                <p><em>DDICT</em></p>
-                <p>Data dictionary.</p>
-<p>This tag represents the offset of the session element that holds the data dictionary.
-This cache allows retrieving the native identifier of a {@link Tag} given its global
-identifier, and the {@link Tag} object given its native identiofier.</p>
-<p>Note that this tag also represents the {@link Memcached} persistent ID for the tag cache.</p>
+                <p><em>Data dictionary.</em></p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>Offset:&nbsp;</i></td>
+    <td align="left" valign="top"><code>ddict</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>CacheObject</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Data dictionaty</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Description:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the offset of the session element
+        that holds the data dictionary. This cache allows retrieving the native
+        identifier of a {@link Tag} given its global identifier, and the {@link Tag}
+        object given its native identifier.<br /><i>Note that this tag is also used the
+        {@link Memcached} persistent ID for the tag cache</i>.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -340,7 +360,7 @@ identifier, and the {@link Tag} object given its native identiofier.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 21st, 2014 at 15:10.
+                    on January 23rd, 2014 at 17:50.
                 </section>
             </section>
         </section>

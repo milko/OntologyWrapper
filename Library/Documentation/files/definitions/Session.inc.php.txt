@@ -21,15 +21,30 @@
  *======================================================================================*/
 
 /**
- * DDICT
- *
  * Data dictionary.
  *
- * This tag represents the offset of the session element that holds the data dictionary.
- * This cache allows retrieving the native identifier of a {@link Tag} given its global
- * identifier, and the {@link Tag} object given its native identiofier.
- *
- * Note that this tag also represents the {@link Memcached} persistent ID for the tag cache.
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Offset:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>ddict</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>CacheObject</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Data dictionaty</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Description:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents the offset of the session element
+ *			that holds the data dictionary. This cache allows retrieving the native
+ *			identifier of a {@link Tag} given its global identifier, and the {@link Tag}
+ *			object given its native identifier.<br /><i>Note that this tag is also used the
+ *			{@link Memcached} persistent ID for the tag cache</i>.</td>
+ *	</tr>
+ * </table>
  */
 define( "kSESSION_DDICT",						'ddict' );
 

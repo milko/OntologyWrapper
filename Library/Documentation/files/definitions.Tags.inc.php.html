@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,33 +139,34 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2075079983"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-789976268"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2075079983" class="accordion-body collapse in">
+            <div id="namespace-789976268" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1088771058"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1781791297"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1088771058" class="accordion-body collapse ">
+            <div id="namespace-1781791297" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1980440638"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-481608740"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-1980440638" class="accordion-body collapse ">
+            <div id="namespace-481608740" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                                                                     <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
                                             </ul>
                 </div>
             </div>
@@ -174,7 +175,9 @@
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+                                                                            <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
@@ -257,9 +260,26 @@ library.</p>
                 <h3 class="">kTAG_IDENT_NID</h3>
                 <pre class="signature">kTAG_IDENT_NID</pre>
                 <p><em>Native identifier</em></p>
-                <code>_id</code>
-<p>This tag represents the unique native identifier of the object. This identifier is
-used as the default unique key for all persistent objects.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID/GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>_id</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>mixed</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Native identifier</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the unique native identifier of
+        the object. This identifier is used as the default unique key for all persistent
+        objects.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -295,9 +315,29 @@ used as the default unique key for all persistent objects.</p>
                 <h3 class="">kTAG_CONN_PROTOCOL</h3>
                 <pre class="signature">kTAG_CONN_PROTOCOL</pre>
                 <p><em>Protocol</em></p>
-                <code>:connection:protocol</code>
-<p>This tag represents a connection <i>protocol or scheme</i> used in a network
-communication.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>1</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:protocol</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Protocol</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>protocol or
+        scheme</i> used in a network communication.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -333,8 +373,29 @@ communication.</p>
                 <h3 class="">kTAG_CONN_HOST</h3>
                 <pre class="signature">kTAG_CONN_HOST</pre>
                 <p><em>Host</em></p>
-                <code>:connection:host</code>
-<p>This tag represents a connection <i>domain name or internet address</i>.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>2</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:host</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Host</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>domain name or
+        internet address</i>.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -370,8 +431,86 @@ communication.</p>
                 <h3 class="">kTAG_CONN_PORT</h3>
                 <pre class="signature">kTAG_CONN_PORT</pre>
                 <p><em>Port</em></p>
-                <code>:connection:port</code>
-<p>This tag represents a connection <i>TCP or UDP port</i>.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>3</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:port</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>integer</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Port</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>TCP or UDP
+        port</i>.</td>
+</tr>
+</table>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_SOCKET" name="constant_kTAG_CONN_SOCKET" class="anchor"></a>
+            <article id="constant_kTAG_CONN_SOCKET" class="constant">
+                <h3 class="">kTAG_CONN_SOCKET</h3>
+                <pre class="signature">kTAG_CONN_SOCKET</pre>
+                <p><em>Socket</em></p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>4</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:socket</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Socket</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a <i>connection socket</i>.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -407,8 +546,29 @@ communication.</p>
                 <h3 class="">kTAG_CONN_USER</h3>
                 <pre class="signature">kTAG_CONN_USER</pre>
                 <p><em>User</em></p>
-                <code>:connection:user</code>
-<p>This tag represents a <i>code used to authenticate with a service</i>.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>5</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:user</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">User code</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a <i>code used to authenticate
+        with a service</i>.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -444,8 +604,29 @@ communication.</p>
                 <h3 class="">kTAG_CONN_PASS</h3>
                 <pre class="signature">kTAG_CONN_PASS</pre>
                 <p><em>Pass</em></p>
-                <code>:connection:pass</code>
-<p>This tag represents a <i>password used to authenticate with a service</i>.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>6</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:pass</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">User password</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a <i>password used to authenticate
+        with a service</i>.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -481,8 +662,144 @@ communication.</p>
                 <h3 class="">kTAG_CONN_PID</h3>
                 <pre class="signature">kTAG_CONN_PID</pre>
                 <p><em>Persistent identifier</em></p>
-                <code>:connection:pid</code>
-<p>This tag represents a connection <i>persistent identifier</i>.</p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>7</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:pid</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Persistent identifier</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>persistent
+        identifier</i>.</td>
+</tr>
+</table>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_NAME" name="constant_kTAG_CONN_NAME" class="anchor"></a>
+            <article id="constant_kTAG_CONN_NAME" class="constant">
+                <h3 class="">kTAG_CONN_NAME</h3>
+                <pre class="signature">kTAG_CONN_NAME</pre>
+                <p><em>Name</em></p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>8</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:name</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Name</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>name</i>.</td>
+</tr>
+</table>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_OPTS" name="constant_kTAG_CONN_OPTS" class="anchor"></a>
+            <article id="constant_kTAG_CONN_OPTS" class="constant">
+                <h3 class="">kTAG_CONN_OPTS</h3>
+                <pre class="signature">kTAG_CONN_OPTS</pre>
+                <p><em>Options</em></p>
+                <table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>9</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:options</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>array</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Options</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the <i>connection options</i> as
+        a list of <i>key</i>/<i>value</i> pairs.</td>
+</tr>
+</table>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -563,7 +880,7 @@ communication.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 21st, 2014 at 15:10.
+                    on January 23rd, 2014 at 17:50.
                 </section>
             </section>
         </section>

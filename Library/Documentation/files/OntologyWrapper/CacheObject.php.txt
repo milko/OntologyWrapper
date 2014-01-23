@@ -24,7 +24,7 @@ use OntologyWrapper\ConnectionObject;
  *
  * The main purpose of this class is to wrap specific cache engines, such as
  * {@link Memcache}, in a common interface to abstract the workings from the specifics of
- * the specific technology used.
+ * the technology used.
  *
  * The class features four main operations:
  *

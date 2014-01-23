@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1607803634"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-47433878"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1607803634" class="accordion-body collapse in">
+            <div id="namespace-47433878" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-537620189"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-575578657"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-537620189" class="accordion-body collapse ">
+            <div id="namespace-575578657" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-599846562"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1972156140"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-599846562" class="accordion-body collapse ">
+            <div id="namespace-1972156140" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -206,31 +206,38 @@
                                             </nav>
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-                    <h1><small>\OntologyWrapper</small>OntologyObject</h1>
-                    <p><em>Ontology object</em></p>
-                    <p>The main purpose of this class is to match all offsets to an ontology domain, ensuring
-that any persistent value held by instances of this class is annotated by an entry of the
-ontology.</p>
-<p>All offsets of the embedded array inherited by the {@link ArrayObject} class must refer
-to a {@link Tag} object, which represents the ontology entry associated with the offset
-value, this ensures that all data values are documented in the ontology.</p>
-<p>Offsets are represented by a <i>tag</i> which is an <tt>integer</tt> representing the</p>
-<i>native identifier</i> of a {@link Tag} object, this identifier is not persistent, so
-the {@link Tag} has also a <tt>string</tt> <i>global identifier</i> which is immutable.
-
-This class provides the ability to automatically {@link resolveOffset() resolve} these
-tags, which means that offsets can be referred to either by the native or global
-{@link Tag} identifier: <tt>integer</tt> offsets are assumed to be the native identifier,
-<tt>string</tt> offsets will be {@link resolveOffset() resolved} into native identifiers
-prior to accessing the offset value with the only exception of the native identifier
-{@link tag kTAG_IDENT_NID}, which is the only string offset allowed.
-
-The {@link resolveOffset()} method takes advantage of a {@link CacheObject} instance
-stored in the session {@link kSESSION_DDICT} offset for resolving tags, if this object is
-not set, an exception will be raised.
-
-Any attempt to reference an offset that cannot be {@link resolveOffset() resolved} will
-raise an exception.
+                    <h1><small>\OntologyWrapper</small>StatusTrait</h1>
+                    <p><em>Status trait</em></p>
+                    <p>The main purpose of this trait is to add status management to classes, this is done by
+adding a bitfield {@link $mStatus} data member and a set of methods that handle this
+bitfield.</p>
+<p>This trait defines the common methods for managing the bitfield data member and handles
+the following flags:</p>
+<ul>
+<li><tt>{@link kFLAG_STATE_INITED}</tt>: This flag indicates that the object is ready
+    to be used and is set by the {@link isInited()} method; if the flag is not set,
+    it means that the object is not functional.
+<li><tt>{@link kFLAG_STATE_DIRTY}</tt>: This flag is set whenever the object's offsets
+    are modified and it can be managed by the {@link isDirty()} method. For persistent
+    objects it is an indication that the object should be updated; if the flag is not
+    set, it means that the object persistent properties are in the same state as when it
+    was loaded from a persistent store.
+<li><tt>{@link kFLAG_STATE_COMMITTED}</tt>: This flag is set whenever the object is
+    either loaded from or stored in a persistent store and can be managed by the
+    {@link isCommitted()} method. It is an indication that the object is persistent; if
+    the flag is not set, it means that the object was not loaded from or stored in a
+    persistent store.
+<li><tt>{@link kFLAG_STATE_ENCODED}</tt>: This flag indicates an encoded state and can
+    be managed by the {@link isEncoded()} method, which means that some object offsets
+    have been encoded and need to be decoded before the object is saved in a persistent
+    store or effectively used. This state is often associated to the network
+    transmission of objects: some data types must be converted prior to be sent over the
+    network; if the flag is not set, it means that the object can be saved in a
+    persistent store or serialised for being transmitted on the network.
+</ul>
+<p>All the flag accessor methods are protected, since they provide access to the internal
+workings of the object, if you need to provide status information you should do so by
+using these methods in a public interface.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -247,15 +254,7 @@ raise an exception.
                         </section>
                         <section class="row-fluid public">
                             <section class="span4">
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetExists" class="">offsetExists()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetGet" class="">offsetGet()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetSet" class="">offsetSet()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetUnset" class="">offsetUnset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_arrayKeys" class="">arrayKeys()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_arrayValues" class="">arrayValues()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_manageProperty" class="">manageProperty()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.DocumentObject.html#method_ArrayObject2Array" class="">ArrayObject2Array()</a><br />
+                                                                    <em>No public methods found</em>
                                                             </section>
                             <section class="span4">
                                                                     <em>No public properties found</em>
@@ -266,7 +265,12 @@ raise an exception.
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetResolve" class="">offsetResolve()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_statusReset" class="">statusReset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_isInited" class="">isInited()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_isDirty" class="">isDirty()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_isCommitted" class="">isCommitted()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_isEncoded" class="">isEncoded()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#method_manageBitField" class="">manageBitField()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No protected properties found</em>
@@ -280,7 +284,7 @@ raise an exception.
                                                                     <em>No private methods found</em>
                                                             </section>
                             <section class="span4">
-                                                                    <em>No private properties found</em>
+                                                                    <a href="../classes/OntologyWrapper.StatusTrait.html#property_mStatus" class="">$mStatus</a><br />
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -293,16 +297,12 @@ raise an exception.
                     
                     <dl>
                         <dt>File</dt>
-                            <dd><a href="../files/OntologyWrapper.OntologyObject.php.html"><div class="path-wrapper">OntologyWrapper/OntologyObject.php</div></a></dd>
+                            <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
                                                 <dt>Package</dt>
                             <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                                        <div class="namespace-wrapper">\ArrayObject</div>
-                                                                    
-                                        <div class="namespace-wrapper"><a href="../classes/OntologyWrapper.DocumentObject.html">\OntologyWrapper\DocumentObject</a></div>
-                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\OntologyObject</div>
+                                                                                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\StatusTrait</div>
                             </dd>
 
                         
@@ -325,7 +325,7 @@ raise an exception.
                                 version
                             </th>
                             <td>
-                                                                    <p>10/01/2014</p>
+                                                                    <p>23/01/2014</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -340,248 +340,137 @@ raise an exception.
             </div>
 
                         
-                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mStatus" name="property_mStatus" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$mStatus</h3>
+                <pre class="signature">$mStatus : int</pre>
+                <p><em>Status flags.</em></p>
+                <p>This data member holds the <i>status flags</i> in a bitfield value</p>
+
+                                <h4>Type</h4>
+                int
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
                                     <a id="methods" name="methods"></a>
             <div class="row-fluid">
                 <div class="span8 content class"><h2>Methods</h2></div>
                 <aside class="span4 detailsbar"></aside>
             </div>
 
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_statusReset" name="method_statusReset" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">statusReset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">statusReset()</pre>
+                <p><em>Reset status</em></p>
+                <p>This method can be used to reset the status, it will set it to {@link kFLAG_DEFAULT}.</p>
+<p>This is generally at the end of the constructor after having modified offsets to
+set the status to an idle state.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
+            <a id="method_isInited" name="method_isInited" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">offsetExists()</h3>
+                <h3 class="protected ">isInited()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">offsetExists(mixed <span class="argument">$theOffset</span>) : boolean</pre>
-                <p><em>Check if an offset exists</em></p>
-                <p>This method should return a boolean value indicating whether the provided offset
-exists in the current array.</p>
-<p>We overload this method to resolve eventual string offsets into tags.</p>
+                <pre class="signature" style="margin-right: 54px;">isInited(mixed <span class="argument">$theState</span>) : boolean</pre>
+                <p><em>Manage inited status</em></p>
+                <p>This method can be used to get or set the object's inited state.</p>
+<p>An object becomes inited when it has all the required elements necessary for it to be
+correctly used or persistently stored. Such a state indicates that at least the
+minimum required information was initialised in the object.</p>
+<p>The counterpart state indicates that the object still lacks the necessary elements to
+successfully operate the object.</p>
+<p>This method operates by setting or clearing the {@link kFLAG_STATE_INITED} flag.</p>
+<p>The method features a single parameter:</p>
+<ul>
+<li><tt>NULL</tt>: The method will return the object's inited state.
+<li><tt>TRUE</tt>: The method will set the object's inited state.
+<li><tt>FALSE</tt>: The method will reset the object's inited state.
+</ul>
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>mixed</td>
-                                <td>$theOffset</td>
-                                <td><p>Offset.</p></td>
+                                <td>$theState</td>
+                                <td><tt>TRUE</tt>, <tt>FALSE</tt> or
+                                                <tt>NULL</tt>.</td>
                             </tr>
                                             </table>
                 
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the offset exists.
+                                            &mdash; <tt>TRUE</tt> inited, <tt>FALSE</tt> idle.
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                                                            <dt>Uses</dt>
-                                                                <dd>resolveOffset()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_offsetGet" name="method_offsetGet" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">offsetGet()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">offsetGet(mixed <span class="argument">$theOffset</span>) : mixed</pre>
-                <p><em>Return a value at a given offset</em></p>
-                <p>This method should return the value corresponding to the provided offset.</p>
-<p>We overload this method to prevent warnings from being generated when requesting
-values for non-existant offsets and returning <tt>NULL</tt> when the offset does not
-exist.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theOffset</td>
-                                <td><p>Offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <p>Offset value or <tt>NULL</tt> for non matching offsets.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>offsetExists()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_offsetSet" name="method_offsetSet" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">offsetSet()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">offsetSet(string <span class="argument">$theOffset</span>, mixed <span class="argument">$theValue</span>)</pre>
-                <p><em>Set a value at a given offset</em></p>
-                <p>This method should set the provided value corresponding to the provided offset.</p>
-<p>We overload this method to handle <tt>NULL</tt> values: in that case we delete the
-offset.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Offset.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theValue</td>
-                                <td><p>Value to set at offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>offsetUnset()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_offsetUnset" name="method_offsetUnset" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">offsetUnset()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">offsetUnset(string <span class="argument">$theOffset</span>)</pre>
-                <p><em>Reset a value at a given offset</em></p>
-                <p>This method should reset the value corresponding to the provided offset.</p>
-<p>We overload this method to skip non-existant offsets.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>offsetExists()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_resolveOffset" name="method_resolveOffset" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">resolveOffset()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">resolveOffset(mixed <span class="argument">$theOffset</span>, boolean <span class="argument">$doAssert</span>) : integer</pre>
-                <p><em>&lt;h4&gt;Resolve offset&lt;/h4&gt;</em></p>
-                <p>This method will resolve the provided offset into a tag.</p>
-<p>The method will consider any <tt>string</tt> provided offset as a {@link Tag}</p>
-<i>global identifier</i> and will resolve it into the {@link Tag} <i>native
-identifier</i>, with the exception of the <tt>{@link kTAG_IDENT_NID}</tt> tag which
-represents the object key; if the offset cannot be resolved, the method will raise an
-exception if the second parameter is <tt>TRUE</tt>.
-
-<i>Note: if the provided integer does not match a {@link Tag} native identifier, the
-method will not raise an exception: this means that it is advisable to always use
-global identifiers or integer constants.</i>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theOffset</td>
-                                <td><p>Native or global identifier.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$doAssert</td>
-                                <td><p>If <tt>TRUE</tt> assert offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    integer
-                                            &mdash; <p>Native identifier.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
                                                                                             <dt>See also</dt>
                                                                 <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
                                                                                                 <dt>Uses</dt>
-                                                                <dd>offsetResolve()</dd>
+                                                                <dd>$this->manageBitField()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -598,268 +487,241 @@ global identifiers or integer constants.</i>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_arrayKeys" name="method_arrayKeys" class="anchor"></a>
+            <a id="method_isDirty" name="method_isDirty" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">arrayKeys()</h3>
+                <h3 class="protected ">isDirty()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">arrayKeys() : array</pre>
-                <p><em>Return object&#039;s offsets</em></p>
-                <p>This method has the same function as the PHP function <tt>array_keys()</i>, it will
-return an array comprised of all object's offsets.</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <p>List of object offsets.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>getArrayCopy()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_arrayValues" name="method_arrayValues" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">arrayValues()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">arrayValues() : array</pre>
-                <p><em>Return object&#039;s offset values</em></p>
-                <p>This method has the same function as the PHP function <tt>array_values()</i>, it
-will return an array comprised of all object's offset values.</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <p>List of object offset values.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>getArrayCopy()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_manageProperty" name="method_manageProperty" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">manageProperty()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">manageProperty(\OntologyWrapper\reference <span class="argument">$theMember</span>, mixed <span class="argument">$theValue</span>, boolean <span class="argument">$getOld</span>) : mixed</pre>
-                <p><em>&lt;h4&gt;Manage a property&lt;/h4&gt;</em></p>
-                <p>This library implements a standard interface for managing object properties using
-accessor methods, this method implements this interface:</p>
+                <pre class="signature" style="margin-right: 54px;">isDirty(mixed <span class="argument">$theState</span>) : boolean</pre>
+                <p><em>Manage dirty status</em></p>
+                <p>This method can be used to get or set the object's dirty state.</p>
+<p>A dirty object is one that was modified since the last time this state was probed. In
+general, this state should be set whenever the persistent properties of the object
+are modified.</p>
+<p>In this class we automatically set this state when setting or unsetting offsets.</p>
+<p>The method features a single parameter:</p>
 <ul>
-<li><tt>&$theMember</tt>: Reference to the property being managed.
-<li><tt>$theValue</tt>: The property value or operation:
+<li><tt>NULL</tt>: The method will return the object's dirty state.
+<li><tt>TRUE</tt>: The method will set the object's dirty state.
+<li><tt>FALSE</tt>: The method will reset the object's dirty state.
+</ul>
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theState</td>
+                                <td><tt>TRUE</tt>, <tt>FALSE</tt> or
+                                                <tt>NULL</tt>.</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <tt>TRUE</tt> dirty, <tt>FALSE</tt> clean.
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>$this->manageBitField()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isCommitted" name="method_isCommitted" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isCommitted()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isCommitted(mixed <span class="argument">$theState</span>) : boolean</pre>
+                <p><em>Manage committed status</em></p>
+                <p>This method can be used to get or set the object's committed state.</p>
+<p>A committed object is one that has either been loaded from a container or committed
+to a container, this state can be used in conjunction with the
+{@link kFLAG_STATE_DIRTY} flag to determine whether an object needs to be committed.</p>
+<p>The method features a single parameter:</p>
+<ul>
+<li><tt>NULL</tt>: The method will return the object's committed state.
+<li><tt>TRUE</tt>: The method will set the object's committed state.
+<li><tt>FALSE</tt>: The method will reset the object's committed state.
+</ul>
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theState</td>
+                                <td><tt>TRUE</tt>, <tt>FALSE</tt> or
+                                                <tt>NULL</tt>.</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <tt>TRUE</tt> committed, <tt>FALSE</tt> uncommitted.
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>$this->manageBitField()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isEncoded" name="method_isEncoded" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isEncoded()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isEncoded(mixed <span class="argument">$theState</span>) : boolean</pre>
+                <p><em>Manage encoded status</em></p>
+                <p>This method can be used to get or set the object's encoded state.</p>
+<p>This flag determines whether the object should take care of serialising custom data
+types before the object is transmitted over the network.</p>
+<p>The method features a single parameter:</p>
+<ul>
+<li><tt>NULL</tt>: The method will return the object's encoded state.
+<li><tt>TRUE</tt>: The method will set the object's encoded state.
+<li><tt>FALSE</tt>: The method will reset the object's encoded state.
+</ul>
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theState</td>
+                                <td><tt>TRUE</tt>, <tt>FALSE</tt> or
+                                                <tt>NULL</tt>.</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <tt>TRUE</tt> supports encoding, <tt>FALSE</tt> does not
+                            support encoding.
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>$this->manageBitField()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_manageBitField" name="method_manageBitField" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">manageBitField()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">manageBitField(\OntologyWrapper\reference <span class="argument">$theField</span>, \OntologyWrapper\bitfield <span class="argument">$theMask</span>, mixed <span class="argument">$theState</span>) : \OntologyWrapper\bitfield</pre>
+                <p><em>Manage a bit-field property</em></p>
+                <p>This method can be used to manage a bitfield property, it accepts the following
+parameters:</p>
+<ul>
+<li><tt>&$theField</tt>: Reference to the bit-field property.
+<li><tt>$theMask</tt>: Bit-field mask.
+<li><tt>$theState</tt>: State or operator:
  <ul>
-    <li><tt>NULL</tt>: Return the current property value.
-    <li><tt>FALSE</tt>: Reset the property to <tt>NULL</tt>, the default value.
-    <li><i>other</i>: Any other type represents the new value of the property.
- </ul>
-<li><tt>$getOld</tt>: Determines what the method will return:
- <ul>
-    <li><tt>TRUE</tt>: Return the value of the property <i>before</i> it was
-        eventually modified.
-    <li><tt>FALSE</tt>: Return the value of the property <i>after</i> it was
-        eventually modified.
+    <li><tt>NULL</tt>: Return the masked bitfield.
+    <li><tt>FALSE</tt>: Turn <i>off</i> the masked bits.
+    <li><i>other</i>: Turn <i>on</i> the masked bits.
  </ul>
 </ul>
+<p>In all cases the method will return the status <i>after</i> it was eventually
+modified.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>\OntologyWrapper\reference</td>
-                                <td>$theMember</td>
-                                <td><p>Reference to the data member.</p></td>
+                                <td>$theField</td>
+                                <td><p>Bit-field reference.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\bitfield</td>
+                                <td>$theMask</td>
+                                <td><p>Bit-field mask.</p></td>
                             </tr>
                                                     <tr>
                                 <td>mixed</td>
-                                <td>$theValue</td>
-                                <td><p>Value or operation.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
+                                <td>$theState</td>
+                                <td><p>Value or operator.</p></td>
                             </tr>
                                             </table>
                 
                 
                                     <h4>Returns</h4>
-                    mixed
-                                            &mdash; <p>Old or new property value.</p>
+                    \OntologyWrapper\bitfield
+                                            &mdash; <p>Current masked status.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_ArrayObject2Array" name="method_ArrayObject2Array" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">ArrayObject2Array()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">ArrayObject2Array(\OntologyWrapper\reference <span class="argument">$theSource</span>, \OntologyWrapper\reference <span class="argument">$theDestination</span>)</pre>
-                <p><em>&lt;h4&gt;Convert structure to array&lt;/h4&gt;</em></p>
-                <p>This method can be used to convert all {@link ArrayObject} derived instances into
-arrays, the method expects a source parameter which can be either an
-{@link ArrayObject} instance or an array, the method will traverse the source
-parameter and convert any {@link ArrayObject} instance into an array in the
-destination parameter.</p>
-<p>This method will convert all embedded {@link ArrayObject} instances at any level of
-depth into arrays, this method is used by {@link getArrayCopy()} to traverse the
-object's structure.</p>
-<p>The method accepts the following parameters:</p>
-<ul>
-<li><tt>$theSource</tt>: Source structure reference.
-<li><tt>$theDestination</tt>: Destination array reference.
-</ul>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theSource</td>
-                                <td><p>Reference to the source structure.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theDestination</td>
-                                <td><p>Reference to the destination array.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.DocumentObject.html"><div class="path-wrapper">\OntologyWrapper\DocumentObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            static
-                        </th>
-                        <td>
-                                                                                            
-                                                    </td>
-                    </tr>
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_offsetResolve" name="method_offsetResolve" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">offsetResolve()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">offsetResolve(string <span class="argument">$theIdentifier</span>, boolean <span class="argument">$doAssert</span>) : mixed</pre>
-                <p><em>&lt;h4&gt;Resolve offset&lt;/h4&gt;</em></p>
-                <p>This method will resolve the provided {@link Tag} global identifier into the Tag's
-native identifier.</p>
-<p>If the second parameter is <tt>TRUE</tt> and the provided identifier cannot be
-resolved, the method will raise an exception (default); if the flag is <tt>FALSE</tt>,
-the method will return the provided parameter.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theIdentifier</td>
-                                <td><p>Tag global identifier.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$doAssert</td>
-                                <td><p>If <tt>TRUE</tt> assert offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <p>Integer: tag native identifier; string: not matched.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
+                                    <dt>File</dt>
+                    <dd><a href="../files/OntologyWrapper.StatusTrait.php.html"><div class="path-wrapper">OntologyWrapper/StatusTrait.php</div></a></dd>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -879,10 +741,10 @@ the method will return the provided parameter.</p>
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">OntologyObject.php</h3>
+            <h3 id="source-view-label">StatusTrait.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/OntologyWrapper/OntologyObject.php.txt" class="language-php line-numbers"></pre>
+            <pre data-src="../files/OntologyWrapper/StatusTrait.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
