@@ -79,6 +79,11 @@ use OntologyWrapper\OntologyObject;
  * offsets will raise an exception: this is to prevent changing the connection properties
  * while connected.
  *
+ * In this class we make use of the {@link StatusTrait} trait, here we set the
+ * {@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
+ * open the connection; we reset the status bitfield data member after calling the parent
+ * constructor.
+ *
  * This object represents the building block for all concrete instances that represent
  * servers, databases, data collections and caches.
  *
@@ -87,6 +92,13 @@ use OntologyWrapper\OntologyObject;
  */
 abstract class ConnectionObject extends OntologyObject
 {
+	/**
+	 * Status trait.
+	 *
+	 * In this class we handle the {@link isDirtyFlag()}
+	 */
+	use	StatusTrait;
+
 	/**
 	 * Data source name.
 	 *
@@ -139,6 +151,9 @@ abstract class ConnectionObject extends OntologyObject
 	 * The object may be instantiated as an empty object, by omitting both parameters; with
 	 * a <i>data source name</i> in the form of a connection URL; or by providing an array
 	 * of tag/value parameters which will constitute the object's offsets.
+	 *
+	 * If you provide a data source name, this must be parsable by the {@link parse_url()}
+	 * function, if this is not the case, you should use the parameters list.
 	 *
 	 * If the first parameter was provided, the method will synchronise both the data source
 	 * name and the connection parameters.
@@ -215,6 +230,11 @@ abstract class ConnectionObject extends OntologyObject
 			$this->mParent = $theParent;
 		
 		} // Provided parent.
+		
+		//
+		// Reset status.
+		//
+		$this->statusReset();
 
 	} // Constructor.
 
@@ -268,6 +288,12 @@ abstract class ConnectionObject extends OntologyObject
 			$this->mConnection = TRUE;
 		
 		} // Connection is open.
+		
+		//
+		// Reset connection.
+		//
+		else
+			$this->mConnection = FALSE;
 		
 	} // __sleep.
 
@@ -338,6 +364,11 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		parent::offsetSet( $theOffset, $theValue );
 	
+		//
+		// Reset dirty flag.
+		//
+		$this->isDirty( TRUE );
+	
 	} // offsetSet.
 
 	 
@@ -371,6 +402,11 @@ abstract class ConnectionObject extends OntologyObject
 		// Call parent method.
 		//
 		parent::offsetUnset( $theOffset );
+	
+		//
+		// Reset dirty flag.
+		//
+		$this->isDirty( TRUE );
 	
 	} // offsetUnset.
 
@@ -448,9 +484,19 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Handle value change.
 		//
-		if( $doSync
-		 && ($theValue !== NULL) )
-			$this->parseDSN();
+		if( $theValue !== NULL )
+		{
+			//
+			// Sync offsets.
+			//
+			if( $doSync )
+				$this->parseDSN();
+			
+			//
+			// Handle dirty flag.
+			//
+			$this->isDirty( ! $doSync );
+		}
 		
 		return $save;																// ==>
 	
@@ -564,12 +610,18 @@ abstract class ConnectionObject extends OntologyObject
 			//
 			// Synchronise DSN.
 			//
-			$this->DSN( $this->parseOffsets() );
+			if( $this->isDirty() )
+				$this->DSN( $this->parseOffsets(), FALSE, FALSE );
 		
 			//
 			// Open and set connection.
 			//
 			$this->connectionOpen();
+		
+			//
+			// Reset dirty flag.
+			//
+			$this->isDirty( FALSE );
 		
 		} // Not connected.
 		
@@ -621,6 +673,24 @@ abstract class ConnectionObject extends OntologyObject
 		return FALSE;																// ==>
 	
 	} // closeConnection.
+
+	 
+	/*===================================================================================
+	 *	getStatistics																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return statistics
+	 *
+	 * This method should return the connection statistics, the result depends on the
+	 * specific driver.
+	 *
+	 * We implement the method in this class to allow drivers that do not return statistics.
+	 *
+	 * @access public
+	 * @return mixed				Depends on driver.
+	 */
+	public function getStatistics()										{	return NULL;	}
 
 	 
 
@@ -831,11 +901,15 @@ abstract class ConnectionObject extends OntologyObject
 		
 			//
 			// Handle path.
-			// Note that we add a leading slash,
-			// this is removed when parsing the DSN.
+			// Note that we add a leading slash
+			// if the parameter does not start with one.
 			//
 			if( array_key_exists( 'path', $params ) )
-				$dsn .= ('/'.$params[ 'path' ]);
+			{
+				if( ! substr( $params[ 'path' ], 0, 1 ) == '/' )
+					$dsn .= '/';
+				$dsn .= $params[ 'path' ];
+			}
 		
 			//
 			// Set options.

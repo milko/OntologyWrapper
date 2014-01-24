@@ -152,6 +152,9 @@ abstract class ConnectionObject extends OntologyObject
 	 * a <i>data source name</i> in the form of a connection URL; or by providing an array
 	 * of tag/value parameters which will constitute the object's offsets.
 	 *
+	 * If you provide a data source name, this must be parsable by the {@link parse_url()}
+	 * function, if this is not the case, you should use the parameters list.
+	 *
 	 * If the first parameter was provided, the method will synchronise both the data source
 	 * name and the connection parameters.
 	 *
@@ -285,6 +288,12 @@ abstract class ConnectionObject extends OntologyObject
 			$this->mConnection = TRUE;
 		
 		} // Connection is open.
+		
+		//
+		// Reset connection.
+		//
+		else
+			$this->mConnection = FALSE;
 		
 	} // __sleep.
 
@@ -601,7 +610,8 @@ abstract class ConnectionObject extends OntologyObject
 			//
 			// Synchronise DSN.
 			//
-			$this->DSN( $this->parseOffsets() );
+			if( $this->isDirty() )
+				$this->DSN( $this->parseOffsets(), FALSE, FALSE );
 		
 			//
 			// Open and set connection.
@@ -663,6 +673,24 @@ abstract class ConnectionObject extends OntologyObject
 		return FALSE;																// ==>
 	
 	} // closeConnection.
+
+	 
+	/*===================================================================================
+	 *	getStatistics																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return statistics
+	 *
+	 * This method should return the connection statistics, the result depends on the
+	 * specific driver.
+	 *
+	 * We implement the method in this class to allow drivers that do not return statistics.
+	 *
+	 * @access public
+	 * @return mixed				Depends on driver.
+	 */
+	public function getStatistics()										{	return NULL;	}
 
 	 
 
@@ -873,11 +901,15 @@ abstract class ConnectionObject extends OntologyObject
 		
 			//
 			// Handle path.
-			// Note that we add a leading slash,
-			// this is removed when parsing the DSN.
+			// Note that we add a leading slash
+			// if the parameter does not start with one.
 			//
 			if( array_key_exists( 'path', $params ) )
-				$dsn .= ('/'.$params[ 'path' ]);
+			{
+				if( ! substr( $params[ 'path' ], 0, 1 ) == '/' )
+					$dsn .= '/';
+				$dsn .= $params[ 'path' ];
+			}
 		
 			//
 			// Set options.

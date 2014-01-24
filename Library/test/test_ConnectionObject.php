@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link MemcachedCache} test suite.
+ * {@link ConnectionObject} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link MemcachedCache} class.
+ * {@link ConnectionObject} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_MemcachedCache.php									*
+ *								test_ConnectionObject.php								*
  *																						*
  *======================================================================================*/
 
@@ -47,7 +47,11 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\connection\MemcachedCache{}
+class MyClass extends OntologyWrapper\ConnectionObject
+{
+	protected function connectionOpen(){}
+	protected function connectionClose(){}
+}
 
 
 /*=======================================================================================
@@ -297,12 +301,12 @@ try
 	echo( '<hr>' );
 
 	//
-	// Test instantiate with persistent ID in DSN.
+	// Test instantiate with full DSN.
 	//
-	echo( '<h4>Test instantiate with persistent ID in DSN<br /><i>note that we must omit the protocol</i></h4>' );
+	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "#persistent_id";
+	$dsn = "protocol://user:pass@host:80/path?opt1=val1&opt2=val2&opt3&opt4#fragment";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );
@@ -320,116 +324,20 @@ try
 	echo( '<hr>' );
 
 	//
-	// Test instantiate with persistent ID in parameters.
+	// Test instantiate with full parameters.
 	//
-	echo( '<h4>Test instantiate with persistent ID in parameters<br /><i>note that we can set the protocol</h4>' );
+	echo( '<h4>Test instantiate with full parameters<br /><i>path and fragment are not mapped to parameters in this class</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$params = array( kTAG_CONN_PROTOCOL => "memcached",
-					 kTAG_CONN_PID => "persistent_id" );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '<pre>' );
-	print_r( $params );
-	echo( '</pre>' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
-	$test = new MyClass($params);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test instantiate with persistent ID and socket in DSN.
-	//
-	echo( '<h4>Test instantiate with persistent ID and socket in DSN<br /><i>note that we must omit the protocol</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	$dsn = "/path/to/socket#persistent_id";
-	echo( kSTYLE_HEAD_PRE );
-	var_dump( $dsn );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
-	$test = new MyClass($dsn);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test instantiate with persistent ID and socket in parameters.
-	//
-	echo( '<h4>Test instantiate with persistent ID and socket in parameters<br /><i>note that we can set the protocol</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	$params = array( kTAG_CONN_PROTOCOL => "memcached",
-					 kTAG_CONN_SOCKET => "/path/to/socket",
-					 kTAG_CONN_PID => "persistent_id" );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '<pre>' );
-	print_r( $params );
-	echo( '</pre>' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
-	$test = new MyClass($params);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test instantiate from full DSN.
-	//
-	echo( '<h4>Test instantiate from full DSN</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	$dsn = "memcached://localhost:11211?opt1=val1&opt2=val2#persistent_id";
-	echo( kSTYLE_HEAD_PRE );
-	var_dump( $dsn );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
-	$test = new MyClass($dsn);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test instantiate from full parameters.
-	//
-	echo( '<h4>Test instantiate from full parameters</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	$params = array( kTAG_CONN_PROTOCOL => "memcached",
-					 kTAG_CONN_HOST => "localhost",
-					 kTAG_CONN_PORT => 11211,
-					 kTAG_CONN_PID => "persistent_id",
+	$params = array( kTAG_CONN_PROTOCOL => "protocol",
+					 kTAG_CONN_USER => "user",
+					 kTAG_CONN_PASS => "pass",
+					 kTAG_CONN_HOST => "host",
+					 kTAG_CONN_PORT => 80,
 					 kTAG_CONN_OPTS => array( 'opt1' => 'val1',
-					 						  'opt2' => 'val2' ) );
+											  'opt2' => 'val2',
+											  'opt3' => NULL,
+											  'opt4' => NULL ) );
 	echo( kSTYLE_HEAD_PRE );
 	echo( '<pre>' );
 	print_r( $params );
@@ -439,27 +347,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
 	$test = new MyClass($params);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Remove persistent ID and options.
-	//
-	echo( '<h4>Remove persistent ID and options<br /><i>DSN should not change</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( kTAG_CONN_PID );'.kSTYLE_HEAD_POS );
-	$test->offsetUnset( kTAG_CONN_PID );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( kTAG_CONN_OPTS );'.kSTYLE_HEAD_POS );
-	$test->offsetUnset( kTAG_CONN_OPTS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -475,13 +362,8 @@ try
 	echo( '<h4>Open connection<br /><i>DSN should be updated</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$conn = $test->openConnection();'.kSTYLE_HEAD_POS );
-	$conn = $test->openConnection();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $conn );
-	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
+	$test->openConnection();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -492,104 +374,13 @@ try
 	echo( '<hr>' );
 
 	//
-	// Set and check value.
+	// Change host.
 	//
-	echo( '<h4>Set and check value</h4>' );
+	echo( '<h4>Change host</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->set( "key", "value" );'.kSTYLE_HEAD_POS );
-	$test->set( "key", "value" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->get( "key" );'.kSTYLE_HEAD_POS );
-	$value = $test->get( "key" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $value );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Get statistics.
-	//
-	echo( '<h4>Get statistics</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$stats = $test->getStatistics();'.kSTYLE_HEAD_POS );
-	$stats = $test->getStatistics();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $stats );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Delete and check value.
-	//
-	echo( '<h4>Delete and check value</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->del( "key" );'.kSTYLE_HEAD_POS );
-	$test->del( "key" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->get( "key" );'.kSTYLE_HEAD_POS );
-	$value = $test->get( "key" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $value );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Close connection.
-	//
-	echo( '<h4>Close connection</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$conn = $test->closeConnection();'.kSTYLE_HEAD_POS );
-	$conn = $test->closeConnection();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $conn );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test set parameters.
-	//
-	echo( '<h4>Test set parameters<br /><i>The DSN should be empty</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-	$test = new MyClass();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$test[ kTAG_CONN_PROTOCOL ] = "memcached";<br>' );
-	echo( '$test[ kTAG_CONN_HOST ] = "localhost";<br>' );
-	echo( '$test[ kTAG_CONN_PORT ] = 11211;<br>' );
-	echo( kSTYLE_HEAD_POS );
-	$test[ kTAG_CONN_PROTOCOL ] = "memcached";
-	$test[ kTAG_CONN_HOST ] = "localhost";
-	$test[ kTAG_CONN_PORT ] = 11211;
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_CONN_HOST ] = ":_don\'t try this";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_CONN_HOST ] = ":_don\'t try this";
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -602,7 +393,7 @@ try
 	//
 	// Open connection.
 	//
-	echo( '<h4>Open connection<br /><i>The DSN should now be filled</i></h4>' );
+	echo( '<h4>Open connection<br /><i>DSN should be updated</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );

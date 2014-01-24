@@ -312,6 +312,34 @@ define( "kTAG_CONN_NAME",						8 );
  */
 define( "kTAG_CONN_OPTS",						9 );
 
+/**
+ * Database
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>10</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:connection:database</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>string</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Database</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents a database <i>name</i>.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_CONN_DBASE",						10 );
+
 
 ?>
 

@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,34 +139,35 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1144605554"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-674227764"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1144605554" class="accordion-body collapse in">
+            <div id="namespace-674227764" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1059925510"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-512786586"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1059925510" class="accordion-body collapse ">
+            <div id="namespace-512786586" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-360984194"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1452694051"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-360984194" class="accordion-body collapse ">
+            <div id="namespace-1452694051" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MongoServer.html">MongoServer</a></li>
                                             </ul>
                 </div>
             </div>
@@ -176,11 +177,12 @@
                     
                     <ul>
                                                                             <li class="trait"><a href="../classes/OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
-                                                                            <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                                            <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
                                             </ul>
                 </div>
             </div>
@@ -223,9 +225,6 @@ the technology used.</p>
 <li><tt>{@link flush}</tt>: This method will <i>invalidate all cache entries</i>.
 </ul>
 <p>All the above methods are virtual, concrete derived classes must implement them.</p>
-<p>In this class we make use of the {@link StatusTrait} trait, here we reset the
-{@link isDirty()} flag whenever we open the connection and reset the status bitfield
-after calling the parent constructor.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -242,22 +241,23 @@ after calling the parent constructor.</p>
                         </section>
                         <section class="row-fluid public">
                             <section class="span4">
-                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method___construct" class="">__construct()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_DSN" class="">DSN()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_openConnection" class="">openConnection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.CacheObject.html#method_set" class="">set()</a><br />
                                                                     <a href="../classes/OntologyWrapper.CacheObject.html#method_get" class="">get()</a><br />
                                                                     <a href="../classes/OntologyWrapper.CacheObject.html#method_del" class="">del()</a><br />
                                                                     <a href="../classes/OntologyWrapper.CacheObject.html#method_flush" class="">flush()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method___construct" class="">__construct()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method___destruct" class="">__destruct()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method___sleep" class="">__sleep()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method___wakeup" class="">__wakeup()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetSet" class="">offsetSet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetUnset" class="">offsetUnset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_DSN" class="">DSN()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_Connection" class="">Connection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_Parent" class="">Parent()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_isConnected" class="">isConnected()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_openConnection" class="">openConnection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_closeConnection" class="">closeConnection()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_getStatistics" class="">getStatistics()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetExists" class="">offsetExists()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetGet" class="">offsetGet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
@@ -328,10 +328,6 @@ after calling the parent constructor.</p>
                             </dd>
 
                         
-                                                                                    <dt>Uses traits</dt>
-                                                        <dd>
-                                <a href="../classes/OntologyWrapper.StatusTrait.html">                                    <div class="namespace-wrapper">\OntologyWrapper\StatusTrait</div>
-                                </a>                            </dd>
                         
                         
                         
@@ -481,198 +477,6 @@ connection resource.</p>
                 <div class="span8 content class"><h2>Methods</h2></div>
                 <aside class="span4 detailsbar"></aside>
             </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method___construct" name="method___construct" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">__construct()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct(mixed <span class="argument">$theParameter</span>, \OntologyWrapper\ConnectionObject <span class="argument">$theParent</span>)</pre>
-                <p><em>Instantiate class.</em></p>
-                <p>The object may be instantiated as an empty object, by omitting both parameters; with
-a <i>data source name</i> in the form of a connection URL; or by providing an array
-of tag/value parameters which will constitute the object's offsets.</p>
-<p>If the first parameter was provided, the method will synchronise both the data source
-name and the connection parameters.</p>
-<p>The second parameter represents the <i>connection parent</i>, it must be an instance
-derived from this class and will only be set by the constructor.</p>
-<p>When overloading the constructor in derived classes you should always first call the
-parent method and then perform custom actions.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theParameter</td>
-                                <td><p>Data source name or parameters.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../classes/OntologyWrapper.ConnectionObject.html">\OntologyWrapper\ConnectionObject</a></td>
-                                <td>$theParent</td>
-                                <td><p>Connection parent.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>DSN()</dd>
-                                            <dd>parseOffsets()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_DSN" name="method_DSN" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">DSN()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">DSN(mixed <span class="argument">$theValue</span>, boolean <span class="argument">$getOld</span>, boolean <span class="argument">$doSync</span>) : mixed</pre>
-                <p><em>Manage data source name</em></p>
-                <p>This method can be used to manage the <i>data source name</i>, it accepts a parameter
-which represents either the data source name or the requested operation, depending on
-its value:</p>
-<ul>
-<li><tt>NULL</tt>: Return the current value.
-<li><tt>FALSE</tt>: Delete the current value.
-<li><i>other</i>: Set the value with the provided parameter.
-</ul>
-<p>The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
-value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
-value.</p>
-<p>The last parameter is a switch that determines whether the object offsets should be
-synchronised: if <tt>TRUE</tt>, the object offsets will be reset and populated with
-the elements parsed from the data source name; if <tt>FALSE</tt>, the object offsets
-will not be modified. This parameter is set to <tt>FALSE</tt> by the constructor,
-since using all offsets may produce an invalid URL and is <tt>TRUE</tt> by default,
-since setting a connection URL generally means changing the parameters.</p>
-<p>Whenever a new value is set or the value is deleted, the method will synchronise the
-object offsets.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theValue</td>
-                                <td><p>Data source name or operation.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$doSync</td>
-                                <td><tt>TRUE</tt> will sync offsets.</td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <i>New</i> or <i>old</i> data source name.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
-                                                                            <dt>See also</dt>
-                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
-                                                                                                <dt>Uses</dt>
-                                                                <dd>isConnected()</dd>
-                                            <dd>manageProperty()</dd>
-                                            <dd>parseDSN()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_openConnection" name="method_openConnection" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">openConnection()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">openConnection() : mixed</pre>
-                <p><em>Open connection</em></p>
-                <p>This method can be used to create and open the connection.</p>
-<p>We first check if the connection is already set: if so we do nothing.</p>
-<p>We call the protected {@link connectionOpen()} method which will open the connection
-and return the connection resource which will be set in the data member,
-{@link mConnection}.</p>
-<p>The method will return the connection resource.</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <p>Depends on implementation.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>isConnected()</dd>
-                                            <dd>DSN()</dd>
-                                            <dd>parseOffsets()</dd>
-                                            <dd>connectionOpen()</dd>
-                                            <dd>Connection()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
@@ -839,6 +643,70 @@ should return <tt>NULL</tt>.</p>
                                         <span class="label label-info">abstract</span>
                                                 <dl>
                                                                             </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(mixed <span class="argument">$theParameter</span>, \OntologyWrapper\ConnectionObject <span class="argument">$theParent</span>)</pre>
+                <p><em>Instantiate class.</em></p>
+                <p>The object may be instantiated as an empty object, by omitting both parameters; with
+a <i>data source name</i> in the form of a connection URL; or by providing an array
+of tag/value parameters which will constitute the object's offsets.</p>
+<p>If you provide a data source name, this must be parsable by the {@link parse_url()}
+function, if this is not the case, you should use the parameters list.</p>
+<p>If the first parameter was provided, the method will synchronise both the data source
+name and the connection parameters.</p>
+<p>The second parameter represents the <i>connection parent</i>, it must be an instance
+derived from this class and will only be set by the constructor.</p>
+<p>When overloading the constructor in derived classes you should always first call the
+parent method and then perform custom actions.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theParameter</td>
+                                <td><p>Data source name or parameters.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.ConnectionObject.html">\OntologyWrapper\ConnectionObject</a></td>
+                                <td>$theParent</td>
+                                <td><p>Connection parent.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>DSN()</dd>
+                                            <dd>parseOffsets()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -1056,6 +924,89 @@ offset.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_DSN" name="method_DSN" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">DSN()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">DSN(mixed <span class="argument">$theValue</span>, boolean <span class="argument">$getOld</span>, boolean <span class="argument">$doSync</span>) : mixed</pre>
+                <p><em>Manage data source name</em></p>
+                <p>This method can be used to manage the <i>data source name</i>, it accepts a parameter
+which represents either the data source name or the requested operation, depending on
+its value:</p>
+<ul>
+<li><tt>NULL</tt>: Return the current value.
+<li><tt>FALSE</tt>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+<p>The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
+value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
+value.</p>
+<p>The last parameter is a switch that determines whether the object offsets should be
+synchronised: if <tt>TRUE</tt>, the object offsets will be reset and populated with
+the elements parsed from the data source name; if <tt>FALSE</tt>, the object offsets
+will not be modified. This parameter is set to <tt>FALSE</tt> by the constructor,
+since using all offsets may produce an invalid URL and is <tt>TRUE</tt> by default,
+since setting a connection URL generally means changing the parameters.</p>
+<p>Whenever a new value is set or the value is deleted, the method will synchronise the
+object offsets.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue</td>
+                                <td><p>Data source name or operation.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$getOld</td>
+                                <td><tt>TRUE</tt> get old value.</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doSync</td>
+                                <td><tt>TRUE</tt> will sync offsets.</td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <i>New</i> or <i>old</i> data source name.
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>isConnected()</dd>
+                                            <dd>manageProperty()</dd>
+                                            <dd>parseDSN()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_Connection" name="method_Connection" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">Connection()</h3>
@@ -1174,6 +1125,53 @@ be changed once the object has been instantiated.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_openConnection" name="method_openConnection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">openConnection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">openConnection() : mixed</pre>
+                <p><em>Open connection</em></p>
+                <p>This method can be used to create and open the connection.</p>
+<p>We first check if the connection is already set: if so we do nothing.</p>
+<p>We call the protected {@link connectionOpen()} method which will open the connection
+and return the connection resource which will be set in the data member,
+{@link mConnection}.</p>
+<p>The method will return the connection resource.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Depends on implementation.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>isConnected()</dd>
+                                            <dd>DSN()</dd>
+                                            <dd>parseOffsets()</dd>
+                                            <dd>connectionOpen()</dd>
+                                            <dd>Connection()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_closeConnection" name="method_closeConnection" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">closeConnection()</h3>
@@ -1201,6 +1199,44 @@ not.</p>
                                                                 <dd>isConnected()</dd>
                                             <dd>connectionClose()</dd>
                                                 </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStatistics" name="method_getStatistics" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStatistics()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStatistics() : mixed</pre>
+                <p><em>Return statistics</em></p>
+                <p>This method should return the connection statistics, the result depends on the
+specific driver.</p>
+<p>We implement the method in this class to allow drivers that do not return statistics.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Depends on driver.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -1381,7 +1417,7 @@ global identifiers or integer constants.</i>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayKeys() : array</pre>
                 <p><em>Return object&#039;s offsets</em></p>
-                <p>This method has the same function as the PHP function <tt>array_keys()</i>, it will
+                <p>This method has the same function as the PHP function <tt>array_keys()</tt>, it will
 return an array comprised of all object's offsets.</p>
 
                 
@@ -1420,7 +1456,7 @@ return an array comprised of all object's offsets.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayValues() : array</pre>
                 <p><em>Return object&#039;s offset values</em></p>
-                <p>This method has the same function as the PHP function <tt>array_values()</i>, it
+                <p>This method has the same function as the PHP function <tt>array_values()</tt>, it
 will return an array comprised of all object's offset values.</p>
 
                 
@@ -2074,7 +2110,7 @@ the method will return the provided parameter.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 23rd, 2014 at 19:50.
+                    on January 24th, 2014 at 19:41.
                 </section>
             </section>
         </section>

@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,34 +139,35 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1942868246"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1928717386"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1942868246" class="accordion-body collapse in">
+            <div id="namespace-1928717386" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1227614950"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-690983262"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1227614950" class="accordion-body collapse ">
+            <div id="namespace-690983262" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-467105310"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1247828331"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-467105310" class="accordion-body collapse ">
+            <div id="namespace-1247828331" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MongoServer.html">MongoServer</a></li>
                                             </ul>
                 </div>
             </div>
@@ -176,11 +177,12 @@
                     
                     <ul>
                                                                             <li class="trait"><a href="../classes/OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
-                                                                            <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                                            <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
                                             </ul>
                 </div>
             </div>
@@ -208,9 +210,12 @@
 
                     <h1><small>\OntologyWrapper</small>ServerObject</h1>
                     <p><em>Server object</em></p>
-                    <p>This <i>abstract</i> class is the ancestor of all classes representing server instances,
-the class features a method, {@link Database()}, which returns a {@link DatabaseObject}
-instance connected to the current server.</p>
+                    <p>This <i>abstract</i> class is the ancestor of all classes representing server instances.</p>
+<p>The main duty of this class is to instantiate {@link DatabaseObject} instances, the
+class adds a single public method, {@link Database()}, which can be used to create a
+database connection of the current server.</p>
+<p>Derived classes can add specialised data members and methods to handle clusters of
+databases.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -240,6 +245,7 @@ instance connected to the current server.</p>
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_isConnected" class="">isConnected()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_openConnection" class="">openConnection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_closeConnection" class="">closeConnection()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_getStatistics" class="">getStatistics()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetExists" class="">offsetExists()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetGet" class="">offsetGet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
@@ -257,6 +263,10 @@ instance connected to the current server.</p>
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ServerObject.html#method_parseDatabaseDSN" class="">parseDatabaseDSN()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServerObject.html#method_addServerParameters" class="">addServerParameters()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServerObject.html#method_newDatabase" class="">newDatabase()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServerObject.html#method_loadDbDSNParameter" class="">loadDbDSNParameter()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_connectionOpen" class="">connectionOpen()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_connectionClose" class="">connectionClose()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_parseDSN" class="">parseDSN()</a><br />
@@ -466,50 +476,65 @@ connection resource.</p>
             <article class="method">
                 <h3 class="public ">Database()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">Database( <span class="argument">$theDSN</span>) : \OntologyWrapper\DatabaseObject</pre>
+                <pre class="signature" style="margin-right: 54px;">Database(mixed <span class="argument">$theParameter</span>) : \OntologyWrapper\DatabaseObject</pre>
                 <p><em>Return database connection</em></p>
-                <p>This method can be used to create a database connection, the method expects a
-parameter which may either be a data source name or an array of parameters.</p>
-<p>If a data source name is provided, it should be in the following format:</p>
-<code>user:pass@name?key=value&...&key=value</code>
-<p>in which the
-where <code>user</code> is the user code, <code>pass</code> is the user password,</p>
-<code>name</code> is the database name and the <code>key=value</code> pairs
-represent the database parameters.
-
-The parameter may also be provided as an array of key/values in which the following
-elements are supported:
+                <p>As for the constructor, this method expects a parameter in the same format as the
+constructor's first parameter, the parent is assumed to be the current server.</p>
+<p>When providing a data source name, you should only provide the information pertaining
+to the database, the method will take care of adding the current server parameters to
+the database, so:</p>
+<code>driver://user:pass@database?opt1=val1&opt2=val2</code>
+<p>which represents the connection URL to be passed to this method will become</p>
+<code>driver://user:pass@host:port/database?opt1=val1&opt2=val2</code>
+<p>when passed to the database constructor. Note that the <code>user</code> and</p>
+<code>pass</code> are the credentials that will be used to access the database, not
+the server and the <code>database</code> name is placed in the URL <code>host</code>.
+<br/><br/>
+The method supports the following parameters:
 
 <ul>
-<li><tt>{@link kTAG_CONN_NAME}</tt>: The database name.
+<li><tt>{@link kTAG_CONN_PROTOCOL}</tt>: The URL <code>scheme</code>, or the
+    database <code>driver</code>.
+<li><tt>{@link kTAG_CONN_NAME}</tt>: The URL <code>host</code> element which is the
+    <code>database</code> name.
 <li><tt>{@link kTAG_CONN_USER}</tt>: The <code>user</code> code.
 <li><tt>{@link kTAG_CONN_PASS}</tt>: The user <code>pass</code>word.
+<li><tt>{@link kTAG_CONN_OPTS}</tt>: The connection options, <code>query</code>.
 </ul>
 
-The actual database instantiation is performed by a protected method,
-{@link getDatabase()} which must be implemented by concrete derived classes.
-
 Derived classes may define other parameters.
+
+The method will use the {@link addServerParameters()} method to append the current
+server parameters to the list of database parameters. If a data source name for the
+database was provided, the {@link parseDatabaseDSN()} method will take care of
+parsing the provided data source name and adding the server parameters.
+
+Once the database parameters are complete, the {@link newDatabase()} method should
+instantiate and return the database object.
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
-                                <td>$theDSN</td>
-                                <td></td>
+                                <td>mixed</td>
+                                <td>$theParameter</td>
+                                <td><p>DSN or parameters list.</p></td>
                             </tr>
                                             </table>
                 
                 
                                     <h4>Returns</h4>
-                    \OntologyWrapper\DatabaseObject
+                    <a href="../classes/OntologyWrapper.DatabaseObject.html">\OntologyWrapper\DatabaseObject</a>
                                             &mdash; <p>Database object.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>addServerParameters()</dd>
+                                            <dd>parseDatabaseDSN()</dd>
+                                            <dd>newDatabase()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -534,6 +559,8 @@ Derived classes may define other parameters.
                 <p>The object may be instantiated as an empty object, by omitting both parameters; with
 a <i>data source name</i> in the form of a connection URL; or by providing an array
 of tag/value parameters which will constitute the object's offsets.</p>
+<p>If you provide a data source name, this must be parsable by the {@link parse_url()}
+function, if this is not the case, you should use the parameters list.</p>
 <p>If the first parameter was provided, the method will synchronise both the data source
 name and the connection parameters.</p>
 <p>The second parameter represents the <i>connection parent</i>, it must be an instance
@@ -1079,6 +1106,44 @@ not.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_getStatistics" name="method_getStatistics" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStatistics()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStatistics() : mixed</pre>
+                <p><em>Return statistics</em></p>
+                <p>This method should return the connection statistics, the result depends on the
+specific driver.</p>
+<p>We implement the method in this class to allow drivers that do not return statistics.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Depends on driver.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ConnectionObject.html"><div class="path-wrapper">\OntologyWrapper\ConnectionObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">offsetExists()</h3>
@@ -1244,7 +1309,7 @@ global identifiers or integer constants.</i>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayKeys() : array</pre>
                 <p><em>Return object&#039;s offsets</em></p>
-                <p>This method has the same function as the PHP function <tt>array_keys()</i>, it will
+                <p>This method has the same function as the PHP function <tt>array_keys()</tt>, it will
 return an array comprised of all object's offsets.</p>
 
                 
@@ -1283,7 +1348,7 @@ return an array comprised of all object's offsets.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayValues() : array</pre>
                 <p><em>Return object&#039;s offset values</em></p>
-                <p>This method has the same function as the PHP function <tt>array_values()</i>, it
+                <p>This method has the same function as the PHP function <tt>array_values()</tt>, it
 will return an array comprised of all object's offset values.</p>
 
                 
@@ -1458,6 +1523,239 @@ object's structure.</p>
     </div>
 
                                                     <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseDatabaseDSN" name="method_parseDatabaseDSN" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseDatabaseDSN()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseDatabaseDSN(string <span class="argument">$theDSN</span>) : array</pre>
+                <p><em>Parse database data source name</em></p>
+                <p>This method should parse the provided data source name, extract the database
+parameters and add the relevant server parameters to the resulting array that will
+be returned by the method.</p>
+<p>In this class we take care of parsing the DSN and we feed each element to the
+{@link loadDbDSNParameter()} method which takes care of parsing the URL parameters,
+we then pass the resulting offsets list to the {@link addServerParameters()} method
+which adds the relevant server offsets and we return the result.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theDSN</td>
+                                <td><p>Database data source name.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Full database offsets.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>loadDbDSNParameter()</dd>
+                                            <dd>addServerParameters()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addServerParameters" name="method_addServerParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">addServerParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addServerParameters(array <span class="argument">$theOffsets</span>) : array</pre>
+                <p><em>Add server parameters</em></p>
+                <p>This method should add the current server offsets to the provided list of database
+offsets and return the complete list.</p>
+<p>This is done so that the database may hold also the server parameters which might
+be required to instantiate a database instance.</p>
+<p>Note that this is also necessary since the database name is expected in the</p>
+<code>host</code> part of the URL.
+
+The method should return the complete list of database offsets that can be used to
+instantiate a database object.
+
+In this class we add the {@link kTAG_CONN_HOST} and {@link kTAG_CONN_PORT}.
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theOffsets</td>
+                                <td><p>Database offsets.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Full database offsets.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_newDatabase" name="method_newDatabase" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">newDatabase()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">newDatabase(array <span class="argument">$theOffsets</span>) : \OntologyWrapper\DatabaseObject</pre>
+                <p><em>Return a new database instance</em></p>
+                <p>This method should implemented by concrete derived classes, it expects a list of
+offsets which include server information and should use them to instantiate a
+{@link DatabaseObject} instance.</p>
+<p>Derived classes must implement this method.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theOffsets</td>
+                                <td><p>Full database offsets.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.DatabaseObject.html">\OntologyWrapper\DatabaseObject</a>
+                                            &mdash; <p>Database instance.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadDbDSNParameter" name="method_loadDbDSNParameter" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadDbDSNParameter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadDbDSNParameter(\OntologyWrapper\reference <span class="argument">$theOffsets</span>, string <span class="argument">$theKey</span>, string <span class="argument">$theValue</span>)</pre>
+                <p><em>Load database connection parameters from DSN</em></p>
+                <p>This method expects the following parameters:</p>
+<ul>
+<li><b>$theOffsets</b>: This is a reference to the array which will receive the
+    list of offsets.
+ <ul>
+    <li><tt><code>scheme</code></tt>: We set it in {@link kTAG_CONN_PROTOCOL}.
+    <li><tt><code>host</code></tt>: We set it in {@link kTAG_CONN_HOST}.
+    <li><tt><code>port</code></tt>: We set it in {@link kTAG_CONN_PORT}.
+    <li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_USER}.
+    <li><tt><code>pass</code></tt>: We set it in {@link kTAG_CONN_PASS}.
+    <li><tt><code>path</code></tt>: This parameter is not handled in this class,
+        derived classes should overload this method to handle it.
+    <li><tt><code>query</code></tt>: We load the key/value pairs into
+        {@link kTAG_CONN_OPTS} array.
+    <li><tt><code>fragment</code></tt>: This parameter is not handled in this class,
+        derived classes should overload this method to handle it.
+ </ul>
+<li><b>$theKey</b>: This parameter represents the key of the {@link parse_url()}
+    function result.
+<li><b>$theValue</b>: This parameter represents the value of the {@link parse_url()}
+    function result.
+</ul>
+<p>The <tt>{@link $theKey}</tt> parameter is handled as follows:</p>
+<ul>
+<li><tt><code>scheme</code></tt>: We set it in {@link kTAG_CONN_PROTOCOL}.
+<li><tt><code>host</code></tt>: We set it in {@link kTAG_CONN_HOST}.
+<li><tt><code>port</code></tt>: We set it in {@link kTAG_CONN_PORT}.
+<li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_USER}.
+<li><tt><code>pass</code></tt>: We set it in {@link kTAG_CONN_PASS}.
+<li><tt><code>path</code></tt>: This parameter is not handled in this class,
+    derived classes should overload this method to handle it.
+<li><tt><code>query</code></tt>: We load the key/value pairs into
+    {@link kTAG_CONN_OPTS} array.
+<li><tt><code>fragment</code></tt>: This parameter is not handled in this class,
+    derived classes should overload this method to handle it.
+ </ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffsets</td>
+                                <td><p>Receives offsets list.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theKey</td>
+                                <td><p>Parsed URL key.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theValue</td>
+                                <td><p>Parsed URL value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="method_connectionOpen" name="method_connectionOpen" class="anchor"></a>
             <article class="method">
@@ -1937,7 +2235,7 @@ the method will return the provided parameter.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 23rd, 2014 at 19:50.
+                    on January 24th, 2014 at 19:40.
                 </section>
             </section>
         </section>

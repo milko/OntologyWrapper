@@ -120,6 +120,36 @@ class MemcachedCache extends CacheObject
 
 	} // Constructor.
 
+	 
+	/*===================================================================================
+	 *	__wakeup																		*
+	 *==================================================================================*/
+
+	/**
+	 * Wake up
+	 *
+	 * We overload this method to load the connection resource.
+	 *
+	 * @access public
+	 *
+	 * @uses openConnection()
+	 */
+	public function __wakeup()
+	{
+		//
+		// Instantiate the Memcached object.
+		//
+		$this->mConnection = ( $this->offsetExists( kTAG_CONN_PID ) )
+						   ? new \Memcached( $this->offsetGet( kTAG_CONN_PID ) )
+						   : new \Memcached();
+
+		//
+		// Call parent method.
+		//
+		parent::__wakeup();
+		
+	} // __wakeup.
+
 		
 
 /*=======================================================================================
@@ -345,6 +375,21 @@ class MemcachedCache extends CacheObject
 	
 	} // flush.
 
+	 
+	/*===================================================================================
+	 *	getStatistics																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return statistics
+	 *
+	 * This method will return the {@link Memcached} statistics.
+	 *
+	 * @access public
+	 * @return array				Array of server statistics, one entry per server.
+	 */
+	public function getStatistics()				{	return $this->Connection()->getStats();	}
+
 		
 
 /*=======================================================================================
@@ -394,7 +439,7 @@ class MemcachedCache extends CacheObject
 	/**
 	 * Open connection
 	 *
-	 * This method will instantiate the {@link Memcached} object with the provided DSN as
+	 * This method will instantiate the {@link Memcached} object with the provided DSN and
 	 * the persistent ID, add servers, if necessary, and return the connection resource.
 	 *
 	 * This method expects the caller to have checked whether the connection is already

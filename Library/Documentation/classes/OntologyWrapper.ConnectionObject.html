@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,34 +139,35 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-643788"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-538717657"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-643788" class="accordion-body collapse in">
+            <div id="namespace-538717657" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-439700034"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-601812655"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-439700034" class="accordion-body collapse ">
+            <div id="namespace-601812655" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-637095749"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1861612487"></a>
                                 <a href="../namespaces/OntologyWrapper.connection.html" style="margin-left: 30px; padding-left: 0">connection</a>
             </div>
-            <div id="namespace-637095749" class="accordion-body collapse ">
+            <div id="namespace-1861612487" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MemcachedCache.html">MemcachedCache</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.Connection.html">Connection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.connection.MongoServer.html">MongoServer</a></li>
                                             </ul>
                 </div>
             </div>
@@ -176,11 +177,12 @@
                     
                     <ul>
                                                                             <li class="trait"><a href="../classes/OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
-                                                                            <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                                            <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.DocumentObject.html">DocumentObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CacheObject.html">CacheObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
                                             </ul>
                 </div>
             </div>
@@ -255,6 +257,10 @@ match the connection URL.</p>
 <p>When the connection is {@link isConnected() open}, any attempt to modify the object
 offsets will raise an exception: this is to prevent changing the connection properties
 while connected.</p>
+<p>In this class we make use of the {@link StatusTrait} trait, here we set the
+{@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
+open the connection; we reset the status bitfield data member after calling the parent
+constructor.</p>
 <p>This object represents the building block for all concrete instances that represent
 servers, databases, data collections and caches.</p>
 
@@ -285,6 +291,7 @@ servers, databases, data collections and caches.</p>
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_isConnected" class="">isConnected()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_openConnection" class="">openConnection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#method_closeConnection" class="">closeConnection()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ConnectionObject.html#method_getStatistics" class="">getStatistics()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_offsetExists" class="">offsetExists()</a><br />
                                                                     <a href="../classes/OntologyWrapper.DocumentObject.html#method_offsetGet" class="">offsetGet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
@@ -353,6 +360,10 @@ servers, databases, data collections and caches.</p>
                             </dd>
 
                         
+                                                                                    <dt>Uses traits</dt>
+                                                        <dd>
+                                <a href="../classes/OntologyWrapper.StatusTrait.html">                                    <div class="namespace-wrapper">\OntologyWrapper\StatusTrait</div>
+                                </a>                            </dd>
                         
                         
                         
@@ -508,6 +519,8 @@ connection resource.</p>
                 <p>The object may be instantiated as an empty object, by omitting both parameters; with
 a <i>data source name</i> in the form of a connection URL; or by providing an array
 of tag/value parameters which will constitute the object's offsets.</p>
+<p>If you provide a data source name, this must be parsable by the {@link parse_url()}
+function, if this is not the case, you should use the parameters list.</p>
 <p>If the first parameter was provided, the method will synchronise both the data source
 name and the connection parameters.</p>
 <p>The second parameter represents the <i>connection parent</i>, it must be an instance
@@ -1033,6 +1046,42 @@ not.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_getStatistics" name="method_getStatistics" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStatistics()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStatistics() : mixed</pre>
+                <p><em>Return statistics</em></p>
+                <p>This method should return the connection statistics, the result depends on the
+specific driver.</p>
+<p>We implement the method in this class to allow drivers that do not return statistics.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Depends on driver.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">offsetExists()</h3>
@@ -1198,7 +1247,7 @@ global identifiers or integer constants.</i>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayKeys() : array</pre>
                 <p><em>Return object&#039;s offsets</em></p>
-                <p>This method has the same function as the PHP function <tt>array_keys()</i>, it will
+                <p>This method has the same function as the PHP function <tt>array_keys()</tt>, it will
 return an array comprised of all object's offsets.</p>
 
                 
@@ -1237,7 +1286,7 @@ return an array comprised of all object's offsets.</p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">arrayValues() : array</pre>
                 <p><em>Return object&#039;s offset values</em></p>
-                <p>This method has the same function as the PHP function <tt>array_values()</i>, it
+                <p>This method has the same function as the PHP function <tt>array_values()</tt>, it
 will return an array comprised of all object's offset values.</p>
 
                 
@@ -1877,7 +1926,7 @@ the method will return the provided parameter.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 23rd, 2014 at 19:50.
+                    on January 24th, 2014 at 19:40.
                 </section>
             </section>
         </section>

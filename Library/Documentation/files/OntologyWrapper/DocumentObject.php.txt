@@ -172,7 +172,7 @@ class DocumentObject extends \ArrayObject
 	/**
 	 * Return object's offsets
 	 *
-	 * This method has the same function as the PHP function <tt>array_keys()</i>, it will
+	 * This method has the same function as the PHP function <tt>array_keys()</tt>, it will
 	 * return an array comprised of all object's offsets.
 	 *
 	 * @access public
@@ -190,7 +190,7 @@ class DocumentObject extends \ArrayObject
 	/**
 	 * Return object's offset values
 	 *
-	 * This method has the same function as the PHP function <tt>array_values()</i>, it
+	 * This method has the same function as the PHP function <tt>array_values()</tt>, it
 	 * will return an array comprised of all object's offset values.
 	 *
 	 * @access public
