@@ -72,18 +72,12 @@ session_start();
 try
 {
 	//
-	// Set data dictionary.
+	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= OntologyWrapper\connection\Connection::NewConnection(
-			"memcached://localhost:11211" );
-	$_SESSION[ kSESSION_DDICT ]->openConnection();
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:protocol', kTAG_CONN_PROTOCOL );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:host', kTAG_CONN_HOST );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:port', kTAG_CONN_PORT );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:user', kTAG_CONN_USER );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pass', kTAG_CONN_PASS );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pid', kTAG_CONN_PID );
+		= new OntologyWrapper\connection\TagCache(
+			kSESSION_DDICT,
+			array( array( 'localhost', 11211 ) ) );
 	
 	//
 	// Test parent class.
@@ -253,15 +247,15 @@ try
 	//
 	// Set offset by global identifier.
 	//
-	echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_CONN_PROTOCOL</i></h4>' );
+	echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ ":connection:protocol" ] = "protocol";'.kSTYLE_HEAD_POS );
-	$test[ ":connection:protocol" ] = "protocol";
+	echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
+	$test[ ":label" ] = "LABEL";
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -274,11 +268,11 @@ try
 	//
 	// Set offset by native identifier.
 	//
-	echo( '<h4>Set offset by global native<br /><i>should use kTAG_CONN_PORT</i></h4>' );
+	echo( '<h4>Set offset by native identifier<br /><i>should replace kTAG_LABEL</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_CONN_PORT ] = 80;'.kSTYLE_HEAD_POS );
-	$test[ kTAG_CONN_PORT ] = 80;
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = "NEW LABEL";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_LABEL ] = "NEW LABEL";
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -287,6 +281,30 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+
+	//
+	// Set invalid offset.
+	//
+	echo( '<h4>Set invalid offset<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ "not good" ] = "will never be set";'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ "not good" ] = "will never be set";
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
 }
 
 //
@@ -294,7 +312,7 @@ try
 //
 catch( \Exception $error )
 {
-	echo( (string) $error );
+	echo( $error->xdebug_message );
 }
 
 echo( "\nDone!\n" );

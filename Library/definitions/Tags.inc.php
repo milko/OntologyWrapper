@@ -20,7 +20,7 @@
  */
 
 /*=======================================================================================
- *	IDENTIFICATION ATTRIBUTES															*
+ *	DEFAULT OBJECT TAGS																	*
  *======================================================================================*/
 
 /**
@@ -32,8 +32,8 @@
  *		<td align="left" valign="top"><code>_id</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>mixed</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:mixed</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
@@ -41,20 +41,17 @@
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the unique native identifier of
- *			the object. This identifier is used as the default unique key for all persistent
- *			objects.</td>
+ *		<td align="left" valign="top">This tag represents the unique <i>native
+ *			identifier</i> of an object. This identifier represents the primary key of an
+ *			object, it can take any data type and it is not guaranteed to be persistent in
+ *			all instances.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_IDENT_NID",					'_id' );
-
-/*=======================================================================================
- *	CONNECTION ATTRIBUTES																*
- *======================================================================================*/
+define( "kTAG_NID",						'_id' );
 
 /**
- * Protocol
+ * Global identifier
  *
  * <table>
  *	<tr>
@@ -63,27 +60,30 @@ define( "kTAG_IDENT_NID",					'_id' );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:protocol</code></td>
+ *		<td align="left" valign="top"><code>:gid</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:string</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Protocol</td>
+ *		<td align="left" valign="top">Global identifier</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>protocol or
- *			scheme</i> used in a network communication.</td>
+ *		<td align="left" valign="top">This tag represents the unique <i>global
+ *			identifier</i> of an object. This identifier represents the unique key of an
+ *			object and it is by definition a string. This identifier is persistent, which
+ *			means that it will not change across implementations (<i>unlike the native
+ *			identifier, which may change across implementations</i>).</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PROTOCOL",				1 );
+define( "kTAG_GID",						1 );
 
 /**
- * Host
+ * Data type
  *
  * <table>
  *	<tr>
@@ -92,27 +92,28 @@ define( "kTAG_CONN_PROTOCOL",				1 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:host</code></td>
+ *		<td align="left" valign="top"><code>:data-type</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:set</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Host</td>
+ *		<td align="left" valign="top">Data type</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>domain name or
- *			internet address</i>.</td>
+ *		<td align="left" valign="top">This tag represents a <i>data type</i>, it is an
+ *			<i>enumerated set of term references</i> which define the format and type of
+ *			a data property.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_HOST",					2 );
+define( "kTAG_DATA_TYPE",				2 );
 
 /**
- * Port
+ * Cardinality type
  *
  * <table>
  *	<tr>
@@ -121,27 +122,29 @@ define( "kTAG_CONN_HOST",					2 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:port</code></td>
+ *		<td align="left" valign="top"><code>:cardinality-type</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>integer</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:set</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Port</td>
+ *		<td align="left" valign="top">Cardinality type</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>TCP or UDP
- *			port</i>.</td>
+ *		<td align="left" valign="top">This tag represents a <i>cardinality type</i>, it is
+ *			an <i>enumerated set of term references</i> which define the structure and
+ *			properties of a data attribute. This generally indicates whether a property is
+ *			a list, whether it is required or not, if it is indexed and other.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PORT",					3 );
+define( "kTAG_CARD_TYPE",				3 );
 
 /**
- * Socket
+ * Label
  *
  * <table>
  *	<tr>
@@ -150,26 +153,30 @@ define( "kTAG_CONN_PORT",					3 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:socket</code></td>
+ *		<td align="left" valign="top"><code>:label</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:elem-match</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Socket</td>
+ *		<td align="left" valign="top">Label</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>connection socket</i>.</td>
+ *		<td align="left" valign="top">This tag represents a <i>label</i>, it is a <i>short
+ *			description or name</i> referring to an object. Labels store the language code
+ *			in the key/value pair indexed by {@link kTAG_PART_KIND} and the label text in
+ *			the pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+ *			language and only one element may omit the language pair.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_SOCKET",					4 );
+define( "kTAG_LABEL",					4 );
 
 /**
- * User
+ * Definition
  *
  * <table>
  *	<tr>
@@ -178,27 +185,35 @@ define( "kTAG_CONN_SOCKET",					4 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:user</code></td>
+ *		<td align="left" valign="top"><code>:definition</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">User code</td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:elem-match</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>code used to authenticate
- *			with a service</i>.</td>
+ *		<td align="left" valign="top">Label</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents a <i>definition</i>, it is a
+ *			<i>description that represents the definition</i> of an object. Definitions
+ *			store the language code in the key/value pair indexed by {@link kTAG_PART_KIND}
+ *			and the definition text in the pair indexed by {@link kTAG_PART_VALUE}. No two
+ *			elements may share the same language and only one element may omit the language
+ *			pair.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_USER",					5 );
+define( "kTAG_DEFINITION",				5 );
+
+/*=======================================================================================
+ *	DEFAULT SUB-STRUCTURE TAGS															*
+ *======================================================================================*/
 
 /**
- * Pass
+ * Kind part
  *
  * <table>
  *	<tr>
@@ -207,27 +222,34 @@ define( "kTAG_CONN_USER",					5 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:pass</code></td>
+ *		<td align="left" valign="top"><code>:part:kind</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:string</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">User password</td>
+ *		<td align="left" valign="top">Kind part</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>password used to authenticate
- *			with a service</i>.</td>
+ *		<td align="left" valign="top">This tag is generally used in combination with the
+ *			{@link kTAG_PART_VALUE} to create a <i>list of typed or qualified entries</i>.
+ *			Each entry is an array of two key/value pairs in which the pair featuring this
+ *			tag as a key has as value a term that <i>defines the type, value or
+ *			qualification</i> of the property stored in the value part of the other pair.
+ *			For instance a home telephone number could be stored as an array of two
+ *			key/value pairs in which the first pair, indexed by this tag, would hold as
+ *			value the <tt>home</tt> string, while the second pair would be indexd by the
+ *			{@link kTAG_PART_VALUE} tag and hold as value the telephone number.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PASS",					6 );
+define( "kTAG_PART_KIND",				6 );
 
 /**
- * Persistent identifier
+ * Value part
  *
  * <table>
  *	<tr>
@@ -236,109 +258,32 @@ define( "kTAG_CONN_PASS",					6 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:pid</code></td>
+ *		<td align="left" valign="top"><code>:part:value</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Persistent identifier</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>persistent
- *			identifier</i>.</td>
- *	</tr>
- * </table>
- */
-define( "kTAG_CONN_PID",						7 );
-
-/**
- * Name
- *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>8</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:name</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:mixed</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Name</td>
+ *		<td align="left" valign="top">Value part</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>name</i>.</td>
+ *		<td align="left" valign="top">This tag is generally used in combination with the
+ *			{@link kTAG_PART_KIND} tag to create a <i>list of typed or qualified
+ *			entries</i>. Each entry is an array of two key/value pairs in which the pair
+ *			featuring the {@link kTAG_PART_KIND} tag as a key has as value a term that
+ *			defines the type, value or qualification of the property stored as the value of
+ *			the pair which uses this tag as the key. For instance a home telephone number
+ *			could be stored as an array of two key/value pairs in which the first pair,
+ *			indexed by the {@link kTAG_PART_KIND} tag, would hold as value the <tt>home</tt>
+ *			string, while the second pair would be indexd by this tag and hold as value the
+ *			telephone number.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_NAME",						8 );
-
-/**
- * Options
- *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>9</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:options</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>array</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Options</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the <i>connection options</i> as
- *			a list of <i>key</i>/<i>value</i> pairs.</td>
- *	</tr>
- * </table>
- */
-define( "kTAG_CONN_OPTS",						9 );
-
-/**
- * Database
- *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>10</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:database</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Database</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a database <i>name</i>.</td>
- *	</tr>
- * </table>
- */
-define( "kTAG_CONN_DBASE",						10 );
+define( "kTAG_PART_VALUE",				7 );
 
 
 ?>

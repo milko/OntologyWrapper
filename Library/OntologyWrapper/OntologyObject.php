@@ -8,8 +8,8 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\DocumentObject;
-use OntologyWrapper\CacheObject;
+use OntologyWrapper\ContainerObject;
+use OntologyWrapper\connection\TagCache;
 
 /*=======================================================================================
  *																						*
@@ -25,6 +25,13 @@ use OntologyWrapper\CacheObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 
 /**
+ * Types.
+ *
+ * This file contains the default data type definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
+
+/**
  * Session.
  *
  * This file contains the default session offset definitions.
@@ -35,35 +42,44 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  * Ontology object
  *
  * The main purpose of this class is to match all offsets to an ontology domain, ensuring
- * that any persistent value held by instances of this class is annotated by an entry of the
+ * that any persistent value held by instances of this class is annotated by an entry in the
  * ontology.
  *
  * All offsets of the embedded array inherited by the {@link ArrayObject} class must refer
- * to a {@link Tag} object, which represents the ontology entry associated with the offset
- * value, this ensures that all data values are documented in the ontology.
+ * to a {@link Tag} object, which represents the object used by the ontology to describe
+ * data properties.
  *
- * Offsets are represented by a <i>tag</i> which is an <tt>integer</tt> representing the
- * <i>native identifier</i> of a {@link Tag} object, this identifier is not persistent, so
- * the {@link Tag} has also a <tt>string</tt> <i>global identifier</i> which is immutable.
+ * {@link Tag} objects feature a <em>native identifier</em> and a <em>global identifier<em>,
+ * both are unique, except that the global identifier represents the published and
+ * persistent identifier, while the native identifier is used internally, both as the
+ * primary key of the {@link Tag} and as the offset key for persistent data properties in
+ * all objects derived from this class.
  *
- * This class provides the ability to automatically {@link resolveOffset() resolve} these
- * tags, which means that offsets can be referred to either by the native or global
- * {@link Tag} identifier: <tt>integer</tt> offsets are assumed to be the native identifier,
- * <tt>string</tt> offsets will be {@link resolveOffset() resolved} into native identifiers
- * prior to accessing the offset value with the only exception of the native identifier
- * {@link tag kTAG_IDENT_NID}, which is the only string offset allowed.
+ * The global identifier is a string, while the native identifier is an integer: the reason
+ * for using the latter is that it will be generally much shorter than the global identifier
+ * and it will never be composed by invalid characters.
  *
- * The {@link resolveOffset()} method takes advantage of a {@link CacheObject} instance
- * stored in the session {@link kSESSION_DDICT} offset for resolving tags, if this object is
- * not set, an exception will be raised.
+ * This class provides the ability to automatically resolve offsets provided as global
+ * identifiers into {@link Tag} native identifiers and resolve these native identifiers into
+ * objects that can provide the expected data type and all the other documentation related
+ * to the value at the provided offset.
  *
- * Any attempt to reference an offset that cannot be {@link resolveOffset() resolved} will
- * raise an exception.
+ * The class features a protected method, {@link offsetResolve()}, which is called whenever an
+ * offset is used: its duty is to resolve the provided offset into a {@link Tag} reference.
+ * All string offsets are resolved into tag native identifiers, all integer offsets are
+ * assumed correct: this means that you should either always use tag global identifiers as
+ * offsets, or use tag definitions.
+ *
+ * The class features also a {@link offsetCast()} method which can be used to cast an offset
+ * value, this method should be implemented in derived classes, here it does nothing.
+ *
+ * The {@link offsetIdentifier()} method can be used to perform the reverse of
+ * {@link offsetResolve()}: given a native identifier it will return a global identifier.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
  */
-class OntologyObject extends DocumentObject
+class OntologyObject extends ContainerObject
 {
 			
 
@@ -85,18 +101,21 @@ class OntologyObject extends DocumentObject
 	 * This method should return a boolean value indicating whether the provided offset
 	 * exists in the current array.
 	 *
-	 * We overload this method to resolve eventual string offsets into tags.
+	 * We overload this method to resolve eventual string offsets into tag references.
+	 *
+	 * In this class we do not assert offset references.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
 	 * @return boolean				<tt>TRUE</tt> the offset exists.
 	 *
-	 * @uses resolveOffset()
+	 * @uses offsetResolve()
 	 */
 	public function offsetExists( $theOffset )
 	{
-		return parent::offsetExists( $this->resolveOffset( $theOffset, TRUE ) );	// ==>
+		return parent::offsetExists(
+					(string) $this->offsetResolve( $theOffset, FALSE ) );			// ==>
 	
 	} // offsetExists.
 
@@ -112,16 +131,19 @@ class OntologyObject extends DocumentObject
 	 *
 	 * We overload this method to resolve eventual string offsets into tags.
 	 *
+	 * In this class we do not assert offset references.
+	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt> for non matching offsets.
 	 *
-	 * @uses resolveOffset()
+	 * @uses offsetResolve()
 	 */
 	public function offsetGet( $theOffset )
 	{
-		return parent::offsetGet( $this->resolveOffset( $theOffset, TRUE ) );		// ==>
+		return parent::offsetGet(
+					(string) $this->offsetResolve( $theOffset, FALSE ) );			// ==>
 	
 	} // offsetGet.
 
@@ -135,7 +157,10 @@ class OntologyObject extends DocumentObject
 	 *
 	 * This method should set the provided value corresponding to the provided offset.
 	 *
-	 * We overload this method to resolve eventual string offsets into tags.
+	 * We overload this method to resolve eventual string offsets into tags and we call the
+	 * {@link offsetCast()} method to cast the value.
+	 *
+	 * In this class we assert offset references.
 	 *
 	 * @param string				$theOffset			Offset.
 	 * @param mixed					$theValue			Value to set at offset.
@@ -143,11 +168,38 @@ class OntologyObject extends DocumentObject
 	 * @access public
 	 * @throws Exception
 	 *
-	 * @uses resolveOffset()
+	 * @uses offsetResolve()
+	 * @uses offsetCast()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
-		parent::offsetSet( $this->resolveOffset( $theOffset, TRUE ), $theValue );
+		//
+		// Skip deletions.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Resolve offset.
+			//
+			$offset = $this->offsetResolve( $theOffset, TRUE );
+		
+			//
+			// Cast value.
+			//
+			$this->offsetCast( $theValue, $theOffset, $offset );
+			
+			//
+			// Set value.
+			//
+			parent::offsetSet( (string) $offset, $theValue );
+		
+		} // Not deleting.
+		
+		//
+		// Handle delete.
+		//
+		else
+			$this->offsetUnset( $theOffset );
 	
 	} // offsetSet.
 
@@ -167,11 +219,11 @@ class OntologyObject extends DocumentObject
 	 *
 	 * @access public
 	 *
-	 * @uses resolveOffset()
+	 * @uses offsetResolve()
 	 */
 	public function offsetUnset( $theOffset )
 	{
-		parent::offsetUnset( $this->resolveOffset( $theOffset, TRUE ) );
+		parent::offsetUnset( (string) $this->offsetResolve( $theOffset, FALSE ) );
 	
 	} // offsetUnset.
 
@@ -186,115 +238,166 @@ class OntologyObject extends DocumentObject
 
 	 
 	/*===================================================================================
-	 *	resolveOffset																	*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Resolve offset</h4>
-	 *
-	 * This method will resolve the provided offset into a tag.
-	 *
-	 * The method will consider any <tt>string</tt> provided offset as a {@link Tag}
-	 * <i>global identifier</i> and will resolve it into the {@link Tag} <i>native
-	 * identifier</i>, with the exception of the <tt>{@link kTAG_IDENT_NID}</tt> tag which
-	 * represents the object key; if the offset cannot be resolved, the method will raise an
-	 * exception if the second parameter is <tt>TRUE</tt>.
-	 *
-	 * <i>Note: if the provided integer does not match a {@link Tag} native identifier, the
-	 * method will not raise an exception: this means that it is advisable to always use
-	 * global identifiers or integer constants.</i>
-	 *
-	 * @param mixed					$theOffset			Native or global identifier.
-	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
-	 *
-	 * @access public
-	 * @return integer				Native identifier.
-	 *
-	 * @see kTAG_IDENT_NID
-	 *
-	 * @uses offsetResolve()
-	 */
-	public function resolveOffset( $theOffset, $doAssert = TRUE )
-	{
-		//
-		// Assume native identifier.
-		//
-		if( is_int( $theOffset ) )
-			return $theOffset;														// ==>
-		
-		//
-		// Skip native identifier tag.
-		//
-		if( $theOffset != kTAG_IDENT_NID )
-			return $this->offsetResolve( (string) $theOffset, TRUE );				// ==>
-		
-		return $theOffset;															// ==>
-	
-	} // resolveOffset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED TAG RESOLUTION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
 	 *	offsetResolve																	*
 	 *==================================================================================*/
 
 	/**
 	 * <h4>Resolve offset</h4>
 	 *
-	 * This method will resolve the provided {@link Tag} global identifier into the Tag's
-	 * native identifier.
+	 * This method will resolve the provided offset into a {@link Tag} native identifier,
+	 * this is done by using a {@link TagCache} object stored in the {@link kSESSION_DDICT}
+	 * entry of the current session.
 	 *
-	 * If the second parameter is <tt>TRUE</tt> and the provided identifier cannot be
-	 * resolved, the method will raise an exception (default); if the flag is <tt>FALSE</tt>,
-	 * the method will return the provided parameter.
+	 * The method expects the following parameters:
 	 *
-	 * @param string				$theIdentifier		Tag global identifier.
-	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter contains the original offset, which can be
+	 *		either a <tt>string</tt>, in which case it is assumed to be a {@link Tag} global
+	 *		identifier, or an <tt>integer</tt>, in which case it is assumed to be a
+	 *		{@link Tag} native identifier. In the latter case the method will assume the
+	 *		offset to be correct. If you provide the {@link kTAG_NID} constant, the method
+	 *		will return it.
+	 *	<li><b>$doAssert</b>: This parameter is a flag that determines what should be done
+	 *		if an offset doesn't match a tag:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: In this case if the offset cannot be matched, the method will
+	 *			raise an exception. 
+	 *		<li><tt>FALSE</tt>: In this case if the offset cannot be matched, the method
+	 *			will return the original offset.
+	 *	 </ul>
+	 * </ul>
 	 *
-	 * @access protected
-	 * @return mixed				Integer: tag native identifier; string: not matched.
+	 * In general you can determine if an offset was resolved by checking if the result of
+	 * this method is an integer, or if it is {@link kTAG_NID}.
+	 *
+	 * The method will raise an exception if the tag cache is not set.
+	 *
+	 * @param mixed					$theOffset			Data offset.
+	 * @param boolean				$doAssert			Assert offset reference.
+	 *
+	 * @access public
+	 * @return mixed				Resolved offset.
 	 *
 	 * @throws Exception
+	 *
+	 * @see kTAG_NID
+	 * @see kSESSION_DDICT
 	 */
-	protected function offsetResolve( $theIdentifier, $doAssert = TRUE )
+	public function offsetResolve( $theOffset, $doAssert = FALSE )
 	{
 		//
-		// Check if cache is set.
+		// Handle native identifier and integer.
 		//
-		if( isset( $_SESSION )
-		 && array_key_exists( kSESSION_DDICT, $_SESSION )
-		 && ($_SESSION[ kSESSION_DDICT ] instanceof CacheObject) )
-		{
-			//
-			// Resolve offset.
-			//
-			$tag = $_SESSION[ kSESSION_DDICT ]->get( $theIdentifier );
-			if( $tag !== NULL )
-				return $tag;														// ==>
-			
-			//
-			// Assert.
-			//
-			if( $doAssert )
-				throw new \Exception(
-					"Unknown tag [$theIdentifier]." );							// !@! ==>
-			
-			return $theIdentifier;													// ==>
+		if( is_int( $theOffset )
+		 || ($theOffset == kTAG_NID) )
+			return $theOffset;														// ==>
 		
-		} // Data dictionary is set.
+		//
+		// Check cache.
+		//
+		if( (! isset( $_SESSION ))
+		 || (! array_key_exists( kSESSION_DDICT, $_SESSION )) )
+			throw new \Exception(
+				"Tag cache is not set in the session." );						// !@! ==>
 		
-		throw new \Exception(
-			"Data dictionary not set." );										// !@! ==>
+		//
+		// Resolve offset.
+		// We let the cache assert the key.
+		//
+		$offset = $_SESSION[ kSESSION_DDICT ]->getTagId( $theOffset, $doAssert );
+		
+		//
+		// Return resilved.
+		//
+		if( $offset !== NULL )
+			return $offset;															// ==>
+		
+		return $theOffset;															// ==>
 	
 	} // offsetResolve.
+
+	 
+	/*===================================================================================
+	 *	offsetIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Decode offset</h4>
+	 *
+	 * This method will resolve the provided {@link Tag} native identifier into its global
+	 * identifier.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter contains the native identifier.
+	 *	<li><b>$doAssert</b>: This parameter is a flag that determines what should be done
+	 *		if the identifier is not matched:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: In this case if the identifier cannot be matched, the method
+	 *			will raise an exception. 
+	 *		<li><tt>FALSE</tt>: In this case if the identifier cannot be matched, the method
+	 *			will return <tt>NULL</tt>.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will cast the identifier to an integer.
+	 *
+	 * The method will raise an exception if the tag cache is not set.
+	 *
+	 * @param int					$theOffset			Native identifier.
+	 * @param boolean				$doAssert			Assert offset reference.
+	 *
+	 * @access public
+	 * @return string				Global identifier or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kSESSION_DDICT
+	 */
+	public function offsetIdentifier( $theOffset, $doAssert = FALSE )
+	{
+		//
+		// Check cache.
+		//
+		if( (! isset( $_SESSION ))
+		 || (! array_key_exists( kSESSION_DDICT, $_SESSION )) )
+			throw new \Exception(
+				"Tag cache is not set in the session." );						// !@! ==>
+		
+		return $_SESSION[ kSESSION_DDICT ]->getTagGID( $theOffset, $doAssert );		// ==>
+	
+	} // offsetIdentifier.
+
+	 
+	/*===================================================================================
+	 *	offsetCast																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Cast offset value</h4>
+	 *
+	 * This method will cast the offset value to the desired data type, the method expects
+	 * the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: This parameter references the value to be cast.
+	 *	<li><b>$theOffset</b>: This parameter contains the original offset.
+	 *	<li><b>$theIdentifier</b>: This parameter contains the resolved offset.
+	 * </ul>
+	 *
+	 * In this class we do nothing, in derived classes you can overload this method to
+	 * handle the value data type by either parsing the original offset (if provided as a
+	 * string, thus as a global identifier), or by loading the tag object and using its data
+	 * type field.
+	 *
+	 * @param reference				$theValue			Offset value.
+	 * @param mixed					$theOffset			Original offset.
+	 * @param integer				$theIdentifier		Resolved offset.
+	 *
+	 * @access public
+	 */
+	public function offsetCast( &$theValue, $theOffset, $theIdentifier )				   {}
 
 	 
 

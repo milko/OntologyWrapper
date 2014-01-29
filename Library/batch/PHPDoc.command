@@ -7,6 +7,6 @@
 #
 # Run command.
 #
-phpdoc --target '/Library/WebServer/Library/OntologyWrapper/Library/Documentation' --directory '/Library/WebServer/Library/OntologyWrapper/Library/OntologyWrapper','/Library/WebServer/Library/OntologyWrapper/Library/definitions' --title 'Ontology Wrapper' --sourcecode
+phpdoc --target '/Library/WebServer/Library/OntologyWrapper/Library/Documentation' --directory '/Library/WebServer/Library/OntologyWrapper/Library/OntologyWrapper','/Library/WebServer/Library/OntologyWrapper/Library/definitions' --title 'Ontology Wrapper' --template 'responsive-twig' --sourcecode
 
 exit
