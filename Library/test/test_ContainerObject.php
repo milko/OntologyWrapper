@@ -47,7 +47,27 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\ContainerObject{}
+class MyClass extends OntologyWrapper\ContainerObject
+{
+	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
+	
+	public function AccessorSetOffset( $theOffset, $theValue, $theOperation = NULL,
+															$getOld = FALSE )
+	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
+																				}
+	
+	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
+														  $theTypeValue, $theDataValue = NULL,
+														  $getOld = FALSE )
+	{	return $this->manageElementMatchOffset( $theOffset,
+												$theTypeOffset, $theDataOffset,
+												$theTypeValue, $theDataValue,
+												$getOld );						}
+	
+	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+}
 
 
 /*=======================================================================================
@@ -211,9 +231,9 @@ try
 	echo( '<hr>' );
 
 	//
-	// Test ArrayObject2Array.
+	// Test Object2Array.
 	//
-	echo( '<h4>Test ArrayObject2Array<br /><i>should return arrays</i></h4>' );
+	echo( '<h4>Test Object2Array<br /><i>should return arrays</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test1 = new MyClass( array( "test" => "TEST" ) );'.kSTYLE_HEAD_POS );
@@ -233,8 +253,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'MyClass::ArrayObject2Array( $test, $array );'.kSTYLE_HEAD_POS );
-	MyClass::ArrayObject2Array( $test, $array );
+	echo( kSTYLE_HEAD_PRE.'MyClass::Object2Array( $test, $array );'.kSTYLE_HEAD_POS );
+	MyClass::Object2Array( $test, $array );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -254,8 +274,8 @@ try
 	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
-	$test->manageProperty( $test->property, "value" );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
+	$test->AccessorProperty( $test->property, "value" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -271,8 +291,8 @@ try
 	echo( '<h4>Test retrieve property<br /><i>should return "value"</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -288,8 +308,8 @@ try
 	echo( '<h4>Test modify property returning new value<br /><i>should return "new"</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property, "new" );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property, "new" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -310,8 +330,8 @@ try
 	echo( '<h4>Test modify property returning old value<br /><i>should return "new"</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property, "modified", TRUE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property, "modified", TRUE );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -332,8 +352,8 @@ try
 	echo( '<h4>Test reset property returning old value<br /><i>should return "modified"</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property, FALSE, TRUE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property, FALSE, TRUE );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -354,8 +374,8 @@ try
 	echo( '<h4>Test reset property returning new value<br /><i>should return NULL</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property, "new" );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property, "new" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -363,8 +383,505 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
-	$value = $test->manageProperty( $test->property, FALSE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorProperty( $test->property, FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set offset.
+	//
+	echo( '<h4>Test set offset<br /><i>should set the "OFFSET" to "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorOffset( "OFFSET", "value" );'.kSTYLE_HEAD_POS );
+	$test->AccessorOffset( "OFFSET", "value" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve offset.
+	//
+	echo( '<h4>Test retrieve offset<br /><i>should return "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test modify offset returning new value.
+	//
+	echo( '<h4>Test modify offset returning new value<br /><i>should return "new"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET", "new" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET", "new" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test modify offset returning old value.
+	//
+	echo( '<h4>Test modify offset returning old value<br /><i>should return "new"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET", "modified", TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET", "modified", TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset offset returning old value.
+	//
+	echo( '<h4>Test reset offset returning old value<br /><i>should return "modified"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset offset returning new value.
+	//
+	echo( '<h4>Test reset offset returning new value<br /><i>should return NULL</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET", "new" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET", "new" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "OFFSET", FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "OFFSET", FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve non-existing offset.
+	//
+	echo( '<h4>Test retrieve non-existing offset<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "NOT THERE" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorOffset( "NOT THERE" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set offset set.
+	//
+	echo( '<h4>Test set offset set<br /><i>should set the "OFFSET" to "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorSetOffset( "OFFSET", "value", TRUE );'.kSTYLE_HEAD_POS );
+	$test->AccessorSetOffset( "OFFSET", "value", TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve offset set.
+	//
+	echo( '<h4>Test retrieve offset set<br /><i>should return "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorSetOffset( "OFFSET", "value", NULL );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorSetOffset( "OFFSET", "value", NULL );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set duplicate offset set.
+	//
+	echo( '<h4>Test set duplicate offset set<br /><i>should not add another "value" to "OFFSET"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorSetOffset( "OFFSET", "value", TRUE );'.kSTYLE_HEAD_POS );
+	$test->AccessorSetOffset( "OFFSET", "value", TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set new offset set.
+	//
+	echo( '<h4>Test set duplicate offset set<br /><i>should add another "new" to "OFFSET"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorSetOffset( "OFFSET", "new", TRUE );'.kSTYLE_HEAD_POS );
+	$test->AccessorSetOffset( "OFFSET", "new", TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset offset set returning old value.
+	//
+	echo( '<h4>Test reset offset set returning old value<br /><i>should return "value"; notice array keys</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorSetOffset( "OFFSET", "value", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorSetOffset( "OFFSET", "value", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset non-existing set value.
+	//
+	echo( '<h4>Test reset non-existing set value<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorSetOffset( "OFFSET", "value", FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorSetOffset( "OFFSET", "value", FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset offset set returning new value.
+	//
+	echo( '<h4>Test reset offset set returning new value<br /><i>should delete "OFFSET"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorSetOffset( "OFFSET", "new", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorSetOffset( "OFFSET", "new", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve non-existing offset set.
+	//
+	echo( '<h4>Test retrieve non-existing offset set<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorSetOffset( "NOT THERE", "new" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorSetOffset( "NOT THERE", "new" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set element match offset.
+	//
+	echo( '<h4>Test set element match offset<br /><i>should set the "OFFSET" to "home"/"tel1" pair and return "tel1"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home", "tel1", FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home", "tel1", FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set other element match offset.
+	//
+	echo( '<h4>Test set other element match offset<br /><i>should set the "OFFSET" to "work"/"tel2" pair and return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", "tel2", TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", "tel2", TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set empty kind element match offset.
+	//
+	echo( '<h4>Test set empty kind element match offset<br /><i>should set the "OFFSET" element value to "tel3" pair and return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL, "tel3" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL, "tel3" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve home element match offset.
+	//
+	echo( '<h4>Test retrieve home element match offset<br /><i>should return "tel1"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve empty element match offset.
+	//
+	echo( '<h4>Test retrieve empty element match offset<br /><i>should return "tel3"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test replace work element match offset.
+	//
+	echo( '<h4>Test replace work element match offset<br /><i>should set the "work" phone to "WORK PHONE"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", "WORK PHONE" );'.kSTYLE_HEAD_POS );
+	$test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", "WORK PHONE" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset element match offset returning old value.
+	//
+	echo( '<h4>Test reset element match offset returning old value<br /><i>should return "tel1"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "home", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset element match offset returning new value.
+	//
+	echo( '<h4>Test reset element match offset returning ew value<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", FALSE, FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", "work", FALSE, FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset last element match offset.
+	//
+	echo( '<h4>Test reset last element match offset<br /><i>should detete the whole "OFFSET" offset and return "tel3"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorElementMatchOffset( "OFFSET", "TYPE", "DATA", NULL, FALSE, TRUE );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

@@ -205,45 +205,28 @@ as a whole:
     {@link array_values()} function.
 </ul>
 
-Other data members are managed by method, {@link manageProperty()}, which offers a
-common framework for member accessor methods.
-
-The class features a static method, {@link ArrayObject2Array}, that can be used to
+The class features a static method, {@link Object2Array}, that can be used to
 convert a structure of nested {@link ArrayObject} instances into a nested array, this
-will be useful when normalising objects before persisting.</div>
-        <a href="../classes/OntologyWrapper.ContainerObject.html" class="more">« More »</a>    </div>
+will be useful when normalising objects before persisting.
 
-                                        <div id="class_OntologyObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OntologyObject .collapse">
-        <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
-        <p class="short_description">Ontology object</p>
-        <div class="details collapse"><p>The main purpose of this class is to match all offsets to an ontology domain, ensuring
-that any persistent value held by instances of this class is annotated by an entry in the
-ontology.</p>
-<p>All offsets of the embedded array inherited by the {@link ArrayObject} class must refer
-to a {@link Tag} object, which represents the object used by the ontology to describe
-data properties.</p>
-<p>{@link Tag} objects feature a <em>native identifier</em> and a <em>global identifier<em>,
-both are unique, except that the global identifier represents the published and
-persistent identifier, while the native identifier is used internally, both as the
-primary key of the {@link Tag} and as the offset key for persistent data properties in
-all objects derived from this class.</p>
-<p>The global identifier is a string, while the native identifier is an integer: the reason
-for using the latter is that it will be generally much shorter than the global identifier
-and it will never be composed by invalid characters.</p>
-<p>This class provides the ability to automatically resolve offsets provided as global
-identifiers into {@link Tag} native identifiers and resolve these native identifiers into
-objects that can provide the expected data type and all the other documentation related
-to the value at the provided offset.</p>
-<p>The class features a protected method, {@link offsetResolve()}, which is called whenever an
-offset is used: its duty is to resolve the provided offset into a {@link Tag} reference.
-All string offsets are resolved into tag native identifiers, all integer offsets are
-assumed correct: this means that you should either always use tag global identifiers as
-offsets, or use tag definitions.</p>
-<p>The class features also a {@link offsetCast()} method which can be used to cast an offset
-value, this method should be implemented in derived classes, here it does nothing.</p>
-<p>The {@link offsetIdentifier()} method can be used to perform the reverse of
-{@link offsetResolve()}: given a native identifier it will return a global identifier.</p></div>
-        <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>    </div>
+This class implements a series of methods that can be used by member accessor methods to
+handle properties and offsets in a standard way:
+
+<ul>
+<li><em>{@link manageOffset()}</em>: This method provides a standard interface to set,
+    retrieve and delete offset values.
+<li><em>{@link manageSetOffset()}</em>: This method provides a standard interface to
+    set, retrieve and delete elements of an array set, this method provides access to
+    elements of the offset, rather than to the offset, which must be an array or
+    {@link ArrayObject}.
+<li><em>{@link manageElementMatchOffset()}</em>: This method provides a standard
+    interface to set, retrieve and delete elements of an array or {@link ArrayObject},
+    these elements are an array of two items in which the first one is the discriminator
+    and the second is the value.
+<li><em>{@link manageProperty()}</em>: This method provides a standard interface to set,
+    retrieve and reset data members.
+</ul></div>
+        <a href="../classes/OntologyWrapper.ContainerObject.html" class="more">« More »</a>    </div>
 
                                         <div id="class_TagCacheObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCacheObject .collapse">
         <h1>TagCacheObject<a href="../classes/OntologyWrapper.TagCacheObject.html">¶</a></h1>
@@ -276,6 +259,39 @@ and load all current tag identifiers and objects.</p>
     given a tag native identifier</i>.
 </ul></div>
         <a href="../classes/OntologyWrapper.TagCacheObject.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_OntologyObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OntologyObject .collapse">
+        <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
+        <p class="short_description">Ontology object</p>
+        <div class="details collapse"><p>Objects of this class hold two types of data: <i>run-time data</i>, which is stored in
+the object properties and <i>persistent data</i>, which is stored as <i>offsets</i> in
+the inherited array part of the object.</p>
+<p>The main purpose of this class is to ensure that all persistent data is annotated and
+documented by an ontology, guaranteeing that any persistent data element is defined and
+described by an entry of the ontology represented by an instance of the {@link Tag}
+class, which is itself derived from this class.</p>
+<p>All persistent data elements are represented by a key/value pair, in which the key is
+the data offset and the value the persistent data value. All persistent data offsets
+must be integer values or alphanumeric strings, with the exception of the
+{@link kTAG_NID} constant, these integer values represent references to {@link Tag}
+object instances, which hold all the necessary information and references to document
+the current persistent data element.</p>
+<p>This class implements the bridge between data and the ontology ensuring that all data
+elements are defined in this ontology, which, itself, is implemented by objects derived
+from this class: this means that the whole system is self documenting.</p>
+<p>Whenever the object uses an offset, this will be first fed to a public method,
+{@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
+into <i>native identifiers</i>. The {@link Tag} object native identifier is represented
+by an integer value, this value is used as the data offset. These native identifiers are
+not persistent, in other words, these value may change from one implementation to the
+other: for this reason {@link Tag} objects also hold a <i>global identifier</i> which is
+a non-numeric string: this string will relmain the same across implementations and can
+be considered the <i>immutable tag identifier/i>.</p>
+<p>In this class by default an integer offset is assumed to be a {@link Tag} object
+reference, while a string offset will be resolved into a tag reference. This means that
+if you want to ensure that all offsets are correct you should always use tag global
+identifiers as offsets, while you should only use tag constants as integers.</p></div>
+        <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>    </div>
 
                             </div>
             
@@ -333,7 +349,7 @@ if the {@link Memcached} class is not available.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Wed, 29 Jan 2014 19:17:25 +0100.<br/>
+            generated on Sun, 02 Feb 2014 20:54:49 +0100.<br/>
     </footer>
     </body>
 </html>

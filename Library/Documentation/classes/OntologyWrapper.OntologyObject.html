@@ -150,14 +150,20 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_offsetIdentifier" title="offsetIdentifier :: &lt;h4&gt;Decode offset&lt;/h4&gt;">
-            <span class="description">&lt;h4&gt;Decode offset&lt;/h4&gt;</span><pre>offsetIdentifier</pre>
+        <a href="#method_offsetCast" title="offsetCast :: &lt;h4&gt;Cast offset value&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Cast offset value&lt;/h4&gt;</span><pre>offsetCast</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_offsetCast" title="offsetCast :: &lt;h4&gt;Cast offset value&lt;/h4&gt;">
-            <span class="description">&lt;h4&gt;Cast offset value&lt;/h4&gt;</span><pre>offsetCast</pre>
+        <a href="#method_castOffsetValue" title="castOffsetValue :: &lt;h4&gt;Cast provided value&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Cast provided value&lt;/h4&gt;</span><pre>castOffsetValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_castValue" title="castValue :: &lt;h4&gt;Cast value&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Cast value&lt;/h4&gt;</span><pre>castValue</pre>
         </a>
     </li>
 
@@ -174,26 +180,40 @@
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_manageProperty" title="manageProperty :: &lt;h4&gt;Manage a property&lt;/h4&gt;">
-            <span class="description">&lt;h4&gt;Manage a property&lt;/h4&gt;</span><pre>manageProperty</pre>
+        <a href="#method_Object2Array" title="Object2Array :: &lt;h4&gt;Convert object to array&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Convert object to array&lt;/h4&gt;</span><pre>Object2Array</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method_ArrayObject2Array" title="ArrayObject2Array :: &lt;h4&gt;Convert structure to array&lt;/h4&gt;">
-            <span class="description">&lt;h4&gt;Convert structure to array&lt;/h4&gt;</span><pre>ArrayObject2Array</pre>
-        </a>
-    </li>
-
-                                                </ul>
+                                                                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_manageOffset" title="manageOffset :: &lt;h4&gt;Manage a scalar offset&lt;/h4&gt;">
+                                <span class="description">&lt;h4&gt;Manage a scalar offset&lt;/h4&gt;</span><pre>manageOffset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_manageSetOffset" title="manageSetOffset :: &lt;h4&gt;Manage value set offset&lt;/h4&gt;">
+                                <span class="description">&lt;h4&gt;Manage value set offset&lt;/h4&gt;</span><pre>manageSetOffset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_manageElementMatchOffset" title="manageElementMatchOffset :: &lt;h4&gt;Manage element match offset&lt;/h4&gt;">
+                                <span class="description">&lt;h4&gt;Manage element match offset&lt;/h4&gt;</span><pre>manageElementMatchOffset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_manageProperty" title="manageProperty :: &lt;h4&gt;Manage a property&lt;/h4&gt;">
+                                <span class="description">&lt;h4&gt;Manage a property&lt;/h4&gt;</span><pre>manageProperty</pre>
+                            </a>
+                        </li>
+                                                </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -214,33 +234,34 @@
                 <p class="short_description">Ontology object</p>
                 <div class="details">
                     <div class="long_description">
-                        <p>The main purpose of this class is to match all offsets to an ontology domain, ensuring
-that any persistent value held by instances of this class is annotated by an entry in the
-ontology.</p>
-<p>All offsets of the embedded array inherited by the {@link ArrayObject} class must refer
-to a {@link Tag} object, which represents the object used by the ontology to describe
-data properties.</p>
-<p>{@link Tag} objects feature a <em>native identifier</em> and a <em>global identifier<em>,
-both are unique, except that the global identifier represents the published and
-persistent identifier, while the native identifier is used internally, both as the
-primary key of the {@link Tag} and as the offset key for persistent data properties in
-all objects derived from this class.</p>
-<p>The global identifier is a string, while the native identifier is an integer: the reason
-for using the latter is that it will be generally much shorter than the global identifier
-and it will never be composed by invalid characters.</p>
-<p>This class provides the ability to automatically resolve offsets provided as global
-identifiers into {@link Tag} native identifiers and resolve these native identifiers into
-objects that can provide the expected data type and all the other documentation related
-to the value at the provided offset.</p>
-<p>The class features a protected method, {@link offsetResolve()}, which is called whenever an
-offset is used: its duty is to resolve the provided offset into a {@link Tag} reference.
-All string offsets are resolved into tag native identifiers, all integer offsets are
-assumed correct: this means that you should either always use tag global identifiers as
-offsets, or use tag definitions.</p>
-<p>The class features also a {@link offsetCast()} method which can be used to cast an offset
-value, this method should be implemented in derived classes, here it does nothing.</p>
-<p>The {@link offsetIdentifier()} method can be used to perform the reverse of
-{@link offsetResolve()}: given a native identifier it will return a global identifier.</p>
+                        <p>Objects of this class hold two types of data: <i>run-time data</i>, which is stored in
+the object properties and <i>persistent data</i>, which is stored as <i>offsets</i> in
+the inherited array part of the object.</p>
+<p>The main purpose of this class is to ensure that all persistent data is annotated and
+documented by an ontology, guaranteeing that any persistent data element is defined and
+described by an entry of the ontology represented by an instance of the {@link Tag}
+class, which is itself derived from this class.</p>
+<p>All persistent data elements are represented by a key/value pair, in which the key is
+the data offset and the value the persistent data value. All persistent data offsets
+must be integer values or alphanumeric strings, with the exception of the
+{@link kTAG_NID} constant, these integer values represent references to {@link Tag}
+object instances, which hold all the necessary information and references to document
+the current persistent data element.</p>
+<p>This class implements the bridge between data and the ontology ensuring that all data
+elements are defined in this ontology, which, itself, is implemented by objects derived
+from this class: this means that the whole system is self documenting.</p>
+<p>Whenever the object uses an offset, this will be first fed to a public method,
+{@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
+into <i>native identifiers</i>. The {@link Tag} object native identifier is represented
+by an integer value, this value is used as the data offset. These native identifiers are
+not persistent, in other words, these value may change from one implementation to the
+other: for this reason {@link Tag} objects also hold a <i>global identifier</i> which is
+a non-numeric string: this string will relmain the same across implementations and can
+be considered the <i>immutable tag identifier/i>.</p>
+<p>In this class by default an integer offset is assumed to be a {@link Tag} object
+reference, while a string offset will be resolved into a tag reference. This means that
+if you want to ensure that all offsets are correct you should always use tag global
+identifiers as offsets, while you should only use tag constants as integers.</p>
                     </div>
                     <table class="table table-bordered">
                                                                                     <tr>
@@ -272,10 +293,8 @@ value, this method should be implemented in derived classes, here it does nothin
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>This method should return a boolean value indicating whether the provided offset
-exists in the current array.</p>
-<p>We overload this method to resolve eventual string offsets into tag references.</p>
-<p>In this class we do not assert offset references.</p></div>
+                                    <div class="long_description"><p>We overload this method to resolve eventual string offsets into tag references; in
+this case we do not assert the offset resolution.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -476,25 +495,15 @@ delete the offset.</p></div>
                                     <div class="long_description"><p>This method will resolve the provided offset into a {@link Tag} native identifier,
 this is done by using a {@link TagCache} object stored in the {@link kSESSION_DDICT}
 entry of the current session.</p>
-<p>The method expects the following parameters:</p>
-<ul>
-<li><b>$theOffset</b>: This parameter contains the original offset, which can be
-    either a <tt>string</tt>, in which case it is assumed to be a {@link Tag} global
-    identifier, or an <tt>integer</tt>, in which case it is assumed to be a
-    {@link Tag} native identifier. In the latter case the method will assume the
-    offset to be correct. If you provide the {@link kTAG_NID} constant, the method
-    will return it.
-<li><b>$doAssert</b>: This parameter is a flag that determines what should be done
-    if an offset doesn't match a tag:
- <ul>
-    <li><tt>TRUE</tt>: In this case if the offset cannot be matched, the method will
-        raise an exception.
-    <li><tt>FALSE</tt>: In this case if the offset cannot be matched, the method
-        will return the original offset.
- </ul>
-</ul>
-<p>In general you can determine if an offset was resolved by checking if the result of
-this method is an integer, or if it is {@link kTAG_NID}.</p>
+<p>If you provide an integer or a numeric string, the method will simply cast the value
+to an integer and return it.</p>
+<p>If you provide the native identifier string, {@link kTAG_NID}, the method will return
+it.</p>
+<p>All other types of offsets will be used to locate the tag native identifier using a
+{@link TagCache} object stored in the {@link kSESSION_DDICT} offset of the current
+session; if the provided offset cannot be resolved, the method will raise an
+exception if the second parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second
+parameter is <tt>FALSE</tt>.</p>
 <p>The method will raise an exception if the tag cache is not set.</p></div>
 
                                     <table class="table">
@@ -545,7 +554,7 @@ this method is an integer, or if it is {@link kTAG_NID}.</p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$doAssert</h4>
-                                                <code>boolean</code><p><p>Assert offset reference.</p></p>
+                                                <code>boolean</code><p><p>Assert offset tag reference.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -553,103 +562,22 @@ this method is an integer, or if it is {@link kTAG_NID}.</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetIdentifier"></a>
-                        <div class="element clickable method public  method_offsetIdentifier" data-toggle="collapse" data-target=".method_offsetIdentifier .collapse">
-                            <h2>&lt;h4&gt;Decode offset&lt;/h4&gt;</h2>
-                            <pre>offsetIdentifier(int $theOffset, boolean $doAssert = FALSE) : string</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>This method will resolve the provided {@link Tag} native identifier into its global
-identifier.</p>
-<p>The method expects the following parameters:</p>
-<ul>
-<li><b>$theOffset</b>: This parameter contains the native identifier.
-<li><b>$doAssert</b>: This parameter is a flag that determines what should be done
-    if the identifier is not matched:
- <ul>
-    <li><tt>TRUE</tt>: In this case if the identifier cannot be matched, the method
-        will raise an exception.
-    <li><tt>FALSE</tt>: In this case if the identifier cannot be matched, the method
-        will return <tt>NULL</tt>.
- </ul>
-</ul>
-<p>The method will cast the identifier to an integer.</p>
-<p>The method will raise an exception if the tag cache is not set.</p></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    access
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    see
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                            \OntologyWrapper\kSESSION_DDICT
-                                                                                                                
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theOffset</h4>
-                                                <code>int</code><p><p>Native identifier.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$doAssert</h4>
-                                                <code>boolean</code><p><p>Assert offset reference.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>string</code><p><p>Global identifier or <tt>NULL</tt>.</p></p>
-                                                                    </div>
-                            </div>
-                        </div>
                                             <a id="method_offsetCast"></a>
                         <div class="element clickable method public  method_offsetCast" data-toggle="collapse" data-target=".method_offsetCast .collapse">
                             <h2>&lt;h4&gt;Cast offset value&lt;/h4&gt;</h2>
-                            <pre>offsetCast(\OntologyWrapper\reference &$theValue, mixed $theOffset, integer $theIdentifier) </pre>
+                            <pre>offsetCast(\OntologyWrapper\reference &$theValue, mixed $theOffset) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>This method will cast the offset value to the desired data type, the method expects
-the following parameters:</p>
+                                    <div class="long_description"><p>This method will cast the offset value to the data type held by the tag referenced by
+the offset. The method expects the following parameters:</p>
 <ul>
 <li><b>$theValue</b>: This parameter references the value to be cast.
 <li><b>$theOffset</b>: This parameter contains the original offset.
-<li><b>$theIdentifier</b>: This parameter contains the resolved offset.
 </ul>
-<p>In this class we do nothing, in derived classes you can overload this method to
-handle the value data type by either parsing the original offset (if provided as a
-string, thus as a global identifier), or by loading the tag object and using its data
-type field.</p></div>
+<p>If the method is unable to resolve the offset it will raise an exception.</p>
+<p>The method casts the value in the provided parameter and returns the resolved offset.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -679,9 +607,144 @@ type field.</p></div>
                                                 <h4>$theOffset</h4>
                                                 <code>mixed</code><p><p>Original offset.</p></p>
                                             </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_castOffsetValue"></a>
+                        <div class="element clickable method public  method_castOffsetValue" data-toggle="collapse" data-target=".method_castOffsetValue .collapse">
+                            <h2>&lt;h4&gt;Cast provided value&lt;/h4&gt;</h2>
+                            <pre>castOffsetValue(\OntologyWrapper\reference &$theValue, mixed $theTag) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method expects the following parameters:</p>
+<ul>
+<li><b>$theValue</b>: This parameter references the value to be cast.
+<li><b>$theTag</b>: This parameter contains the tag object.
+</ul>
+<p>The method will cast the value according to the provided tag's data type.</p>
+<p>In this class if the tag has more than one data type, the value will not be changed.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_NID
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kSESSION_DDICT
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$theIdentifier</h4>
-                                                <code>integer</code><p><p>Resolved offset.</p></p>
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theTag</h4>
+                                                <code>mixed</code><p><p>Tag object.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_castValue"></a>
+                        <div class="element clickable method public  method_castValue" data-toggle="collapse" data-target=".method_castValue .collapse">
+                            <h2>&lt;h4&gt;Cast value&lt;/h4&gt;</h2>
+                            <pre>castValue(\OntologyWrapper\reference &$theValue, string $theType) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method expects the following parameters:</p>
+<ul>
+<li><b>$theValue</b>: This parameter references the value to be cast.
+<li><b>$theType</b>: This parameter represents the data type.
+</ul>
+<p>The method will cast the value according to the provided data type.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_NID
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kSESSION_DDICT
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theType</h4>
+                                                <code>string</code><p><p>Data type.</p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -791,75 +854,10 @@ will return all the object's offset values as an array.</p></div>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_manageProperty"></a>
-                        <div class="element clickable method public  method_manageProperty inherited" data-toggle="collapse" data-target=".method_manageProperty .collapse">
-                            <h2>&lt;h4&gt;Manage a property&lt;/h4&gt;</h2>
-                            <pre>manageProperty(\OntologyWrapper\reference &$theMember, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>This library implements a standard interface for managing object properties using
-accessor methods, this method implements this interface:</p>
-<ul>
-<li><tt>&$theMember</tt>: Reference to the property being managed.
-<li><tt>$theValue</tt>: The property value or operation:
- <ul>
-    <li><tt>NULL</tt>: Return the current property value.
-    <li><tt>FALSE</tt>: Reset the property to <tt>NULL</tt>, the default value.
-    <li><em>other</em>: Any other type represents the new value of the property.
- </ul>
-<li><tt>$getOld</tt>: Determines what the method will return:
- <ul>
-    <li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
-        eventually modified.
-    <li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
-        eventually modified.
- </ul>
-</ul></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    access
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theMember</h4>
-                                                <code>\OntologyWrapper\reference</code><p><p>Reference to the data member.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theValue</h4>
-                                                <code>mixed</code><p><p>Value or operation.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$getOld</h4>
-                                                <code>boolean</code><p><tt>TRUE</tt> get old value.</p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>mixed</code><p><p>Old or new property value.</p></p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_ArrayObject2Array"></a>
-                        <div class="element clickable method public  method_ArrayObject2Array inherited" data-toggle="collapse" data-target=".method_ArrayObject2Array .collapse">
-                            <h2>&lt;h4&gt;Convert structure to array&lt;/h4&gt;</h2>
-                            <pre>ArrayObject2Array(\OntologyWrapper\reference &$theSource, \OntologyWrapper\reference &$theDestination) </pre>
+                                            <a id="method_Object2Array"></a>
+                        <div class="element clickable method public  method_Object2Array inherited" data-toggle="collapse" data-target=".method_Object2Array .collapse">
+                            <h2>&lt;h4&gt;Convert object to array&lt;/h4&gt;</h2>
+                            <pre>Object2Array(\OntologyWrapper\reference &$theSource, \OntologyWrapper\reference &$theDestination) </pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
                             <div class="row collapse">
@@ -915,6 +913,368 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                                                                     </div>
                             </div>
                         </div>
+                                            <a id="method_manageOffset"></a>
+                        <div class="element clickable method protected  method_manageOffset inherited" data-toggle="collapse" data-target=".method_manageOffset .collapse">
+                            <h2>&lt;h4&gt;Manage a scalar offset&lt;/h4&gt;</h2>
+                            <pre>manageOffset(string $theOffset, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This class provides a protected interface for member accessor methods, both for
+properties and offsets, this method can be used to manage a scalar offset, its options
+involve setting, retrieving and deleting an offset of the provided array or ArrayObject.</p>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theOffset</tt>: The offset to the attribute contained in the previous
+    parameter that is to be managed.
+<li><tt>$theValue</tt>: The value or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the offset's current value.
+    <li><tt>FALSE</tt>: Delete the offset.
+    <li><i>other</i>: Any other type represents the offset's new value.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value of the offset <i>before</i> it was eventually
+        modified.
+    <li><tt>FALSE</tt>: Return the value of the offset <i>after</i> it was eventually
+        modified.
+ </ul>
+</ul></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset to be managed.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>New value or operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_manageSetOffset"></a>
+                        <div class="element clickable method protected  method_manageSetOffset inherited" data-toggle="collapse" data-target=".method_manageSetOffset .collapse">
+                            <h2>&lt;h4&gt;Manage value set offset&lt;/h4&gt;</h2>
+                            <pre>manageSetOffset(string $theOffset, mixed $theValue, mixed $theOperation = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This class provides a protected interface for member accessor methods, both for
+properties and offsets, this method can be used to manage the elements of a set of non
+repeting values, its options involve setting, retrieving and deleting elements of the
+set.</p>
+<p>It is assumed that the value at the provided offset is either an array or an
+{@link ArrayObject}, if this is not the case, the method will raise an exception.</p>
+<p>If you want to manage the set itself, you have to use the offset management methods.</p>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theOffset</tt>: The offset to the array attribute that is to be managed.
+<li><tt>$theValue</tt>: The value of the array element.
+<li><tt>$theOperation</tt>: The operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the value if it exists or <tt>NULL</tt>.
+    <li><tt>FALSE</tt>: Delete the value if it exists.
+    <li><i>other</i>: Any other type represents a new value.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>When setting new values, if the current offset is empty, the method will set the new
+value in an aray; when deleting values, if the existing value is the last one, the
+method will delete the offset itself.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset to be managed.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Array value.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOperation</h4>
+                                                <code>mixed</code><p><p>Operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_manageElementMatchOffset"></a>
+                        <div class="element clickable method protected  method_manageElementMatchOffset inherited" data-toggle="collapse" data-target=".method_manageElementMatchOffset .collapse">
+                            <h2>&lt;h4&gt;Manage element match offset&lt;/h4&gt;</h2>
+                            <pre>manageElementMatchOffset(string $theOffset, string $theTypeOffset, string $theDataOffset, string $theTypeValue, mixed $theDataValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This class provides a protected interface for member accessor methods, both for
+properties and offsets, this method can be used to manage the elements of an array of
+array elements in which one item's value represents the discriminant.</p>
+<p>Offsets of this kind are arrays or {@link ArrayObject} instances that represent a list
+of elements, each of which is constituted by an array of two elements, where the value
+matching the <tt>$theTypeOffset</tt> key represents the element key and the value
+matching the <tt>$theDataOffset</tt> key represents the element's value.</p>
+<p>This method allows retrieving the element value and deleting or setting an element.</p>
+<p>It is assumed that the value at the provided offset is either an array or an
+{@link ArrayObject}, if this is not the case, the method will raise an exception.</p>
+<p>If you want to manage the set itself, you have to use the offset management methods.</p>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theOffset</tt>: The offset to the attribute containing the match list.
+<li><tt>$theTypeOffset</tt>: The offset to the type within the element.
+<li><tt>$theDataOffset</tt>: The offset to the data within the element.
+<li><tt>$theTypeValue</tt>: The value of the element's type to match, it represents
+    the key to the element; we assume the value to be a string. A <tt>NULL</tt>
+    value is used to select the element missing the <tt>$theTypeOffset</tt> offset.
+<li><tt>$theDataValue</tt>: The value or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the offset's <tt>$theDataOffset</tt> value.
+    <li><tt>FALSE</tt>: Delete the element matchhing the <tt>$theTypeOffset</tt>.
+    <li><i>other</i>: Any other type represents the element's new value.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value of the offset <i>before</i> it was
+        eventually modified.
+    <li><tt>FALSE</tt>: Return the value of the offset <i>after</i> it was
+        eventually modified.
+ </ul>
+</ul>
+<p>The method expects each element to be a structure containing at least an element
+indexed by the <tt>$theDataOffset</tt> offset, if that is not the case, the method
+will raise an exception. All elements are supposed to be arrays.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset to be managed.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theTypeOffset</h4>
+                                                <code>string</code><p><p>Offset of type item.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theDataOffset</h4>
+                                                <code>string</code><p><p>Offset of data item.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theTypeValue</h4>
+                                                <code>string</code><p><p>Type value.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theDataValue</h4>
+                                                <code>mixed</code><p><p>New value or operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_manageProperty"></a>
+                        <div class="element clickable method protected  method_manageProperty inherited" data-toggle="collapse" data-target=".method_manageProperty .collapse">
+                            <h2>&lt;h4&gt;Manage a property&lt;/h4&gt;</h2>
+                            <pre>manageProperty(\OntologyWrapper\reference &$theMember, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This library implements a standard interface for managing object properties using
+accessor methods, this method implements this interface:</p>
+<ul>
+<li><tt>&$theMember</tt>: Reference to the property being managed.
+<li><tt>$theValue</tt>: The property value or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the current property value.
+    <li><tt>FALSE</tt>: Reset the property to <tt>NULL</tt>, the default value.
+    <li><em>other</em>: Any other type represents the new value of the property.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
+        eventually modified.
+    <li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
+        eventually modified.
+ </ul>
+</ul></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theMember</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Reference to the data member.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Value or operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><tt>TRUE</tt> get old value.</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new property value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
                     
                     
                                                         </div>
@@ -937,7 +1297,7 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Wed, 29 Jan 2014 19:17:26 +0100.<br/>
+            generated on Sun, 02 Feb 2014 20:54:50 +0100.<br/>
     </footer>
     </body>
 </html>

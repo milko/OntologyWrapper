@@ -79,9 +79,9 @@ class TagCache extends TagCacheObject
 	 * The constructor accepts two parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theId</b>: This string parameter represents the {@limk Memcached} persistent
-	 *		identifier provided to its constructor, the parameter is required, since the
-	 *		cache should be active across sessions.
+	 *	<li><b>$theIdentifier</b>: This string parameter represents the {@limk Memcached}
+	 *		persistent identifier provided to its constructor, the parameter is required,
+	 *		since the cache should be active across sessions.
 	 *	<li><b>$theServers</b>: This array parameter represents the list of servers that
 	 *		serve the cache, it is equivalent to the parameter of the
 	 *		{@link Memcached::addServers()} method, it is a list of elements comprised by

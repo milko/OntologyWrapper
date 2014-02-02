@@ -57,7 +57,27 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\OntologyObject{}
+class MyClass extends OntologyWrapper\OntologyObject
+{
+	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
+	
+	public function AccessorSetOffset( $theOffset, $theValue, $theOperation = NULL,
+															$getOld = FALSE )
+	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
+																				}
+	
+	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
+														  $theTypeValue, $theDataValue = NULL,
+														  $getOld = FALSE )
+	{	return $this->manageElementMatchOffset( $theOffset,
+												$theTypeOffset, $theDataOffset,
+												$theTypeValue, $theDataValue,
+												$getOld );						}
+	
+	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+}
 
 
 /*=======================================================================================
@@ -112,8 +132,8 @@ try
 		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
-		$test->manageProperty( $test->property, "value" );
+		echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
+		$test->AccessorProperty( $test->property, "value" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -122,15 +142,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test retrieve property.
 		//
 		echo( '<h4>Test retrieve property<br /><i>should return "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -139,15 +159,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test modify property returning new value.
 		//
 		echo( '<h4>Test modify property returning new value<br /><i>should return "new"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "new" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -161,15 +181,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test modify property returning old value.
 		//
 		echo( '<h4>Test modify property returning old value<br /><i>should return "new"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "modified", TRUE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "modified", TRUE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -183,15 +203,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test reset property returning old value.
 		//
 		echo( '<h4>Test reset property returning old value<br /><i>should return "modified"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, FALSE, TRUE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, FALSE, TRUE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -205,15 +225,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test reset property returning new value.
 		//
 		echo( '<h4>Test reset property returning new value<br /><i>should return NULL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "new" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -221,8 +241,8 @@ try
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, FALSE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, FALSE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );

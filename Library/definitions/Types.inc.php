@@ -57,8 +57,8 @@ define( "kTYPE_MIXED",							':type:mixed' );
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">A <i>string</i> data type indicates that the referred
- *			property may hold <i>alphanumeric</i> and <i>punctuation</i> characters, this
- *			type <i>does not include binary data</i>.</td>
+ *			property may hold <i>UNICODE</i> characters, this type <i>does not include
+ *			binary data</i>.</td>
  *	</tr>
  * </table>
  */
@@ -79,7 +79,7 @@ define( "kTYPE_STRING",							':type:string' );
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">An <i>integer</i> data type indicates that the
- *			referred property may hold a <i>32 or 64 bit integral numeric value</i>,.</td>
+ *			referred property may hold a <i>32 or 64 bit integral numeric value</i>.</td>
  *	</tr>
  * </table>
  */
@@ -101,7 +101,7 @@ define( "kTYPE_INT",							':type:int' );
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">A <i>float</i> data type indicates that the
  *			referred property may hold a <i>floating point number</i>, also known as
- *			<i>double</i> or <i>real</i>, the precision of such value is not inferred, in
+ *			<i>double</i> or <i>real</i>. The precision of such value is not inferred, in
  *			general it will be a <i>32 or 64 bit real</i>.</td>
  *	</tr>
  * </table>
@@ -127,8 +127,8 @@ define( "kTYPE_FLOAT",							':type:float' );
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">An <i>array</i> data type indicates that the
- *			referred property may only hold <i>a list of key/value pairs</i>, the data type
- *			of the array keys and values is not inferred.</td>
+ *			referred property may only hold <i>a list of values</i>, the data type of the
+ *			values is not inferred.</td>
  *	</tr>
  * </table>
  */
@@ -232,8 +232,8 @@ define( "kTYPE_SET",							':type:set' );
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">A <i>list</i> cardinality type indicates that the
- *			referred property will hold a <i>list of values</i> defined by the property
- *			<i>data type</i>.
+ *			referred property will hold a <i>list of values</i> in which each element will
+ *			have the data type defined by the property <i>data type</i>.
  *	</tr>
  * </table>
  */
