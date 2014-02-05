@@ -137,13 +137,14 @@ class TagCache extends TagCacheObject
 				throw new \Exception( $message, $code );						// !@! ==>
 			
 			} // Failed.
-			
-			//
-			// Add tags.
-			//
-			$this->init();
 		
 		} // Not initialised.
+		
+		//
+		// Add tags.
+		//
+		if( ! count( $this->mConnection->getAllKeys() ) )
+			$this->init();
 
 	} // Constructor.
 
@@ -225,37 +226,98 @@ class TagCache extends TagCacheObject
 		if( $this->mConnection instanceof \Memcached )
 		{
 			//
-			// Init local storage.
-			//
-			$ids = array( ':gid' => 1, ':data-type' => 2, ':cardinality-type' => 3,
-						  ':label' => 4, ':definition' => 5,
-						  ':part:kind' => 6, ':part:value' => 7 );
-			$objs = array( 1 => array( '_id' => 1, '1' => ':gid',
-									   '3' => 'Global identifier', '2' => ':type:string' ),
-						   2 => array( '_id' => 2, '1' => ':data-type',
-									   '3' => 'Data type', '2' => ':type:set' ),
-						   3 => array( '_id' => 3, '1' => ':cardinality-type',
-									   '3' => 'Data type', '2' => ':type:set' ),
-						   4 => array( '_id' => 4, '1' => ':label',
-									   '3' => 'Label', '2' => ':type:elem-match' ),
-						   5 => array( '_id' => 5, '1' => ':definition',
-									   '3' => 'Definition', '2' => ':type:elem-match' ),
-						   6 => array( '_id' => 6, '1' => ':part:kind',
-									   '3' => 'Kind part', '2' => ':type:string' ),
-						   7 => array( '_id' => 7, '1' => ':part:value',
-									   '3' => 'Value part', '2' => ':type:mixed' ) );
-		
-			//
 			// Flush cache.
 			//
 			$this->mConnection->flush();
-		
+	
+			//
+			// Init local storage.
+			//
+			$ids = array( ':gid' => 1, ':data-type' => 2, ':data-kind' => 3,
+						  ':label' => 4, ':definition' => 5,
+						  ':part:kind' => 6, ':part:value' => 7 );
+			$objs = array( 1 => array( '_id' => 1, '1' => ':gid',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Global identifier' ),
+									   '2' => array( ':type:string' ) ),
+						   2 => array( '_id' => 2, '1' => ':data-type',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Data type' ),
+									   '2' => array( ':type:set' ) ),
+						   3 => array( '_id' => 3, '1' => ':data-kind',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Cardinality type' ),
+									   '2' => array( ':type:set' ) ),
+						   4 => array( '_id' => 4, '1' => ':label',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Label' ),
+									   '2' => array( ':type:kind/value' ) ),
+						   5 => array( '_id' => 5, '1' => ':definition',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Definition' ),
+									   '2' => array( ':type:kind/value' ) ),
+						   6 => array( '_id' => 6, '1' => ':description',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Description' ),
+									   '2' => array( ':type:kind/value' ) ),
+						   7 => array( '_id' => 7, '1' => ':part:kind',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Part kind' ),
+									   '2' => array( ':type:string' ) ),
+						   8 => array( '_id' => 8, '1' => ':part:value',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Part value' ),
+									   '2' => array( ':type:mixed' ) ) );
+	
 			//
 			// Load identifiers.
 			//
 			foreach( $ids as $key => $value )
 				$this->setTagId( $key, $value );
+	
+			//
+			// Load objects.
+			//
+			foreach( $objs as $key => $value )
+				$this->setTagObject( $key, $value );
 		
+			//
+			// Init local storage.
+			//
+			$ids = array( ':test-string' => 8, ':test-int' => 9,
+						  ':test-float' => 10, ':test-enum' => 11,
+						  ':test-set' => 12, ':test-kind/value' => 13 );
+			$objs = array( 9 => array( '_id' => 9, '1' => ':test-string',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'String test' ),
+									   '2' => array( ':type:string' ) ),
+						   10 => array( '_id' => 10, '1' => ':test-int',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Int test' ),
+									   '2' => array( ':type:int' ) ),
+						   11 => array( '_id' => 11, '1' => ':test-float',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Float test' ),
+									   '2' => array( ':type:float' ) ),
+						   12 => array( '_id' => 12, '1' => ':test-enum',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Enumeration test' ),
+									   '2' => array( ':type:enum' ) ),
+						   13 => array( '_id' => 13, '1' => ':test-set',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Enumerated set test' ),
+									   '2' => array( ':type:set' ) ),
+						   14 => array( '_id' => 14, '1' => ':test-kind/value',
+									   '4' => array( kTAG_PART_KIND => 'en',
+													 kTAG_PART_VALUE => 'Kind/Value test' ),
+									   '2' => array( ':type:kind/value' ) ) );
+	
+			//
+			// Load identifiers.
+			//
+			foreach( $ids as $key => $value )
+				$this->setTagId( $key, $value );
+	
 			//
 			// Load objects.
 			//

@@ -113,7 +113,7 @@ define( "kTAG_GID",						1 );
 define( "kTAG_DATA_TYPE",				2 );
 
 /**
- * Cardinality type
+ * Data kind
  *
  * <table>
  *	<tr>
@@ -122,7 +122,7 @@ define( "kTAG_DATA_TYPE",				2 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:cardinality-type</code></td>
+ *		<td align="left" valign="top"><code>:data-kind</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
@@ -141,7 +141,7 @@ define( "kTAG_DATA_TYPE",				2 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CARD_TYPE",				3 );
+define( "kTAG_DATA_KIND",				3 );
 
 /**
  * Label
@@ -157,7 +157,7 @@ define( "kTAG_CARD_TYPE",				3 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:elem-match</code></td>
+ *		<td align="left" valign="top"><code>:type:kind/value</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
@@ -189,10 +189,10 @@ define( "kTAG_LABEL",					4 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:elem-match</code></td>
+ *		<td align="left" valign="top"><code>:type:kind/value</code></td>
  *	</tr>
  *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
  *		<td align="left" valign="top">Label</td>
  *	</tr>
  *	<tr>
@@ -208,6 +208,41 @@ define( "kTAG_LABEL",					4 );
  */
 define( "kTAG_DEFINITION",				5 );
 
+/**
+ * Description
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>6</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:description</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:kind/value</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Description</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents a <i>description</i>, this
+ *			property is similar to a <i>definition</i>, except that while definitions are
+ *			not dependant on the context, descriptions are. This property is generally used
+ *			to add context dependant information to the definition. Descriptions have the
+ *			same structure as labeld and definitions: they store the language code in the
+ *			key/value pair indexed by {@link kTAG_PART_KIND} and the definition text in the
+ *			pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+ *			language and only one element may omit the language pair.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_DESCRIPTION",				6 );
+
 /*=======================================================================================
  *	DEFAULT SUB-STRUCTURE TAGS															*
  *======================================================================================*/
@@ -218,7 +253,7 @@ define( "kTAG_DEFINITION",				5 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>6</code></td>
+ *		<td align="left" valign="top"><code>7</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -246,7 +281,7 @@ define( "kTAG_DEFINITION",				5 );
  *	</tr>
  * </table>
  */
-define( "kTAG_PART_KIND",				6 );
+define( "kTAG_PART_KIND",				7 );
 
 /**
  * Value part
@@ -254,7 +289,7 @@ define( "kTAG_PART_KIND",				6 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>7</code></td>
+ *		<td align="left" valign="top"><code>8</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -283,7 +318,7 @@ define( "kTAG_PART_KIND",				6 );
  *	</tr>
  * </table>
  */
-define( "kTAG_PART_VALUE",				7 );
+define( "kTAG_PART_VALUE",				8 );
 
 
 ?>

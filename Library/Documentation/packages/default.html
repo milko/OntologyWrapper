@@ -158,9 +158,9 @@
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Description:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents the offset of the session element
 		that holds the data dictionary. This cache allows retrieving the native
-		identifier of a {@link Tag} given its global identifier, and the {@link Tag}
-		object given its native identifier.&lt;br /&gt;&lt;i&gt;Note that this tag is also used the
-		{@link Memcached} persistent ID for the tag cache&lt;/i&gt;.&lt;/td&gt;
+		identifier of a {@link TagObject} given its global identifier, and the
+		{@link TagObject} object given its native identifier.&lt;br /&gt;&lt;i&gt;Note that this tag
+		is also used the {@link Memcached} persistent ID for the tag cache&lt;/i&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
         <a href="../namespaces/.html#constant_kSESSION_DDICT" class="more">« More »</a>
@@ -253,39 +253,17 @@
         <a href="../namespaces/.html#constant_kTYPE_FLOAT" class="more">« More »</a>
     </div>
 
-                                        <div id="kTYPE_ARRAY" class="element ajax clickable constant">
-        <h1>kTYPE_ARRAY<a href="../namespaces/.html#constant_kTYPE_ARRAY">¶</a></h1>
-        <p class="short_description">Array.</p>
+                                        <div id="kTYPE_KIND_VALUE" class="element ajax clickable constant">
+        <h1>kTYPE_KIND_VALUE<a href="../namespaces/.html#constant_kTYPE_KIND_VALUE">¶</a></h1>
+        <p class="short_description">Kind/Value element list.</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:array&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:kind/value&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Array&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;An &lt;i&gt;array&lt;/i&gt; data type indicates that the
-		referred property may only hold &lt;i&gt;a list of values&lt;/i&gt;, the data type of the
-		values is not inferred.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTYPE_ARRAY" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTYPE_ELEMENT" class="element ajax clickable constant">
-        <h1>kTYPE_ELEMENT<a href="../namespaces/.html#constant_kTYPE_ELEMENT">¶</a></h1>
-        <p class="short_description">Element match list.</p>
-        <div class="details collapse">&lt;table&gt;
-&lt;tr&gt;
-	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:type-value&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Element match list&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Kind/value element list&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -301,7 +279,7 @@
 		the same {@link kTAG_PART_KIND} value.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTYPE_ELEMENT" class="more">« More »</a>
+        <a href="../namespaces/.html#constant_kTYPE_KIND_VALUE" class="more">« More »</a>
     </div>
 
                                         <div id="kTYPE_ENUM" class="element ajax clickable constant">
@@ -533,9 +511,9 @@ native state.</div>
         <a href="../namespaces/.html#constant_kTAG_DATA_TYPE" class="more">« More »</a>
     </div>
 
-                                        <div id="kTAG_CARD_TYPE" class="element ajax clickable constant">
-        <h1>kTAG_CARD_TYPE<a href="../namespaces/.html#constant_kTAG_CARD_TYPE">¶</a></h1>
-        <p class="short_description">Cardinality type</p>
+                                        <div id="kTAG_DATA_KIND" class="element ajax clickable constant">
+        <h1>kTAG_DATA_KIND<a href="../namespaces/.html#constant_kTAG_DATA_KIND">¶</a></h1>
+        <p class="short_description">Data kind</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -543,7 +521,7 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:cardinality-type&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:data-kind&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -561,7 +539,7 @@ native state.</div>
 		a list, whether it is required or not, if it is indexed and other.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTAG_CARD_TYPE" class="more">« More »</a>
+        <a href="../namespaces/.html#constant_kTAG_DATA_KIND" class="more">« More »</a>
     </div>
 
                                         <div id="kTAG_LABEL" class="element ajax clickable constant">
@@ -578,7 +556,7 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:elem-match&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:kind/value&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -610,10 +588,10 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:elem-match&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:kind/value&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Label&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -629,13 +607,48 @@ native state.</div>
         <a href="../namespaces/.html#constant_kTAG_DEFINITION" class="more">« More »</a>
     </div>
 
+                                        <div id="kTAG_DESCRIPTION" class="element ajax clickable constant">
+        <h1>kTAG_DESCRIPTION<a href="../namespaces/.html#constant_kTAG_DESCRIPTION">¶</a></h1>
+        <p class="short_description">Description</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:description&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:kind/value&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Description&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents a &lt;i&gt;description&lt;/i&gt;, this
+		property is similar to a &lt;i&gt;definition&lt;/i&gt;, except that while definitions are
+		not dependant on the context, descriptions are. This property is generally used
+		to add context dependant information to the definition. Descriptions have the
+		same structure as labeld and definitions: they store the language code in the
+		key/value pair indexed by {@link kTAG_PART_KIND} and the definition text in the
+		pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+		language and only one element may omit the language pair.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTAG_DESCRIPTION" class="more">« More »</a>
+    </div>
+
                                         <div id="kTAG_PART_KIND" class="element ajax clickable constant">
         <h1>kTAG_PART_KIND<a href="../namespaces/.html#constant_kTAG_PART_KIND">¶</a></h1>
         <p class="short_description">Kind part</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -671,7 +684,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;8&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -828,9 +841,10 @@ handle properties and offsets in a standard way:
         <div class="details collapse">This &lt;i&gt;abstract&lt;/i&gt; class is the prototype of classes that implement a tag cache.
 
 The main purpose of a tag cache is to hold in a fast retrieval cache all the current
-ontology {@link Tag} objects and information, this cache is actively used by all classes
-derived from {@link OntologyObject} for resolving offsets into {@link Tag} references and
-to cast offset values according to the {@link Tag} declared data type.
+ontology {@link TagObject} objects and information, this cache is actively used by all
+classes derived from {@link OntologyObject} for resolving offsets into {@link TagObject}
+references and to cast offset values according to the {@link TagObject} declared data
+type.
 
 Concrete derived classes should implement a constructor that will instantiate the cache
 and load all current tag identifiers and objects.
@@ -868,13 +882,13 @@ the inherited array part of the object.
 
 The main purpose of this class is to ensure that all persistent data is annotated and
 documented by an ontology, guaranteeing that any persistent data element is defined and
-described by an entry of the ontology represented by an instance of the {@link Tag}
+described by an entry of the ontology represented by an instance of the {@link TagObject}
 class, which is itself derived from this class.
 
 All persistent data elements are represented by a key/value pair, in which the key is
 the data offset and the value the persistent data value. All persistent data offsets
 must be integer values or alphanumeric strings, with the exception of the
-{@link kTAG_NID} constant, these integer values represent references to {@link Tag}
+{@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
 object instances, which hold all the necessary information and references to document
 the current persistent data element.
 
@@ -884,18 +898,67 @@ from this class: this means that the whole system is self documenting.
 
 Whenever the object uses an offset, this will be first fed to a public method,
 {@link offsetResolve()}, which will take care of translating &lt;i&gt;global identifiers&lt;/i&gt;
-into &lt;i&gt;native identifiers&lt;/i&gt;. The {@link Tag} object native identifier is represented
-by an integer value, this value is used as the data offset. These native identifiers are
-not persistent, in other words, these value may change from one implementation to the
-other: for this reason {@link Tag} objects also hold a &lt;i&gt;global identifier&lt;/i&gt; which is
-a non-numeric string: this string will relmain the same across implementations and can
-be considered the &lt;i&gt;immutable tag identifier/i&gt;.
+into &lt;i&gt;native identifiers&lt;/i&gt;. The {@link TagObject} object native identifier is
+represented by an integer value, this value is used as the data offset. These native
+identifiers are not persistent, in other words, these value may change from one
+implementation to the other: for this reason {@link TagObject} objects also hold a
+&lt;i&gt;global identifier&lt;/i&gt; which is a non-numeric string: this string will relmain the same
+across implementations and can be considered the &lt;i&gt;immutable tag identifier/i&gt;.
 
-In this class by default an integer offset is assumed to be a {@link Tag} object
+In this class by default an integer offset is assumed to be a {@link TagObject} object
 reference, while a string offset will be resolved into a tag reference. This means that
 if you want to ensure that all offsets are correct you should always use tag global
-identifiers as offsets, while you should only use tag constants as integers.</div>
+identifiers as offsets, while you should only use tag constants as integers.
+
+Two offsets are managed in a special way, the &lt;em&gt;global identifier&lt;/em&gt; {@link kTAG_GID}
+and the &lt;em&gt;native identifier&lt;/em&gt; {@link kTAG_NID}: once set, these two identifiers
+cannot be modified. In concrete derived classes these two offsets will generally be
+automatically managed by a protected interface, and not directly set by clients.</div>
         <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="TagObject" class="element ajax clickable class">
+        <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
+        <p class="short_description">Tag object</p>
+        <div class="details collapse">This class extends {@link OntologyObject} to implement a concrete tag object class.
+
+A tag object is used to identify, describe and document a data property, it holds the
+data property offset, data and cardinality types and the label and description of the
+property.
+
+The class features the following default offsets:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label tag represents the &lt;i&gt;name or
+	short description&lt;/i&gt; of the property that the current tag defines. All tags
+	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
+	a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
+	{@link kTAG_PART_KIND} element holds the label language code and the
+	{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
+	language, use the {@link Label()} offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DESCRIPTION}&lt;/tt&gt;: &lt;em&gt;Description&lt;/em&gt;. The description tag
+	represents the &lt;i&gt;description or extended definition&lt;/i&gt; of the property that the
+	current tag defines. The description is similar to the &lt;em&gt;definition&lt;/em&gt;, except
+	that while the definition provides a description of the object it defines unrelated
+	to context, the description adds to the definition the elements added by the current
+	context. All tags &lt;em&gt;should&lt;/em&gt; have a label, if the tag label is not enough to
+	provide a sufficient description or definition. Descriptions have the
+	{@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
+	the description language code and the {@link kTAG_PART_VALUE} holds the description
+	text. To populate and handle descriptions by language, use the {@link Description()}
+	offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_TYPE}&lt;/tt&gt;: &lt;em&gt;Data type&lt;/em&gt;. This attribute is an enumerated
+	set of values listing all the &lt;em&gt;data types&lt;/em&gt; that the value of the property
+	defined by the current tag may take. To populate and handle individual data types
+	use the {@link DataType()} offset accessor method. This property is
+	&lt;em&gt;required&lt;/em&gt; by all tag objects.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_KIND}&lt;/tt&gt;: &lt;em&gt;Data kind&lt;/em&gt;. This attribute is an enumerated
+	set of values providing the &lt;em&gt;data attributes&lt;/em&gt; of the property defined by the
+	current tag. This may be whether the property is a list of values, or if the
+	property is required or not. To populate and handle individual data kinds use the
+	{@link DataKind()} offset accessor method.
+&lt;/ul&gt;</div>
+        <a href="../classes/OntologyWrapper.TagObject.html" class="more">« More »</a>
     </div>
 
                             </div>
@@ -909,7 +972,7 @@ identifiers as offsets, while you should only use tag constants as integers.</di
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sun, 02 Feb 2014 20:54:49 +0100.<br/>
+            generated on Thu, 06 Feb 2014 00:32:06 +0100.<br/>
     </footer>
     </body>
 </html>

@@ -47,13 +47,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  *
  * The main purpose of this class is to ensure that all persistent data is annotated and
  * documented by an ontology, guaranteeing that any persistent data element is defined and
- * described by an entry of the ontology represented by an instance of the {@link Tag}
+ * described by an entry of the ontology represented by an instance of the {@link TagObject}
  * class, which is itself derived from this class.
  *
  * All persistent data elements are represented by a key/value pair, in which the key is
  * the data offset and the value the persistent data value. All persistent data offsets
  * must be integer values or alphanumeric strings, with the exception of the
- * {@link kTAG_NID} constant, these integer values represent references to {@link Tag}
+ * {@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
  * object instances, which hold all the necessary information and references to document
  * the current persistent data element.
  *
@@ -63,17 +63,22 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  *
  * Whenever the object uses an offset, this will be first fed to a public method,
  * {@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
- * into <i>native identifiers</i>. The {@link Tag} object native identifier is represented
- * by an integer value, this value is used as the data offset. These native identifiers are
- * not persistent, in other words, these value may change from one implementation to the
- * other: for this reason {@link Tag} objects also hold a <i>global identifier</i> which is
- * a non-numeric string: this string will relmain the same across implementations and can
- * be considered the <i>immutable tag identifier/i>.
+ * into <i>native identifiers</i>. The {@link TagObject} object native identifier is
+ * represented by an integer value, this value is used as the data offset. These native
+ * identifiers are not persistent, in other words, these value may change from one
+ * implementation to the other: for this reason {@link TagObject} objects also hold a
+ * <i>global identifier</i> which is a non-numeric string: this string will relmain the same
+ * across implementations and can be considered the <i>immutable tag identifier/i>.
  *
- * In this class by default an integer offset is assumed to be a {@link Tag} object
+ * In this class by default an integer offset is assumed to be a {@link TagObject} object
  * reference, while a string offset will be resolved into a tag reference. This means that
  * if you want to ensure that all offsets are correct you should always use tag global
  * identifiers as offsets, while you should only use tag constants as integers.
+ *
+ * Two offsets are managed in a special way, the <em>global identifier</em> {@link kTAG_GID}
+ * and the <em>native identifier</em> {@link kTAG_NID}: once set, these two identifiers
+ * cannot be modified. In concrete derived classes these two offsets will generally be
+ * automatically managed by a protected interface, and not directly set by clients.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
@@ -167,12 +172,27 @@ class OntologyObject extends ContainerObject
 		if( $theValue !== NULL )
 		{
 			//
+			// Resolve offset.
+			//
+			$theOffset = $this->offsetResolve( $theOffset, TRUE );
+			
+			//
+			// Handle identifiers.
+			//
+			if( ( ($theOffset == kTAG_NID)
+			   && $this->offsetExists( kTAG_NID ) )
+			 || ( ($theOffset == kTAG_GID)
+			   && $this->offsetExists( kTAG_GID ) ) )
+				throw new \Exception(
+					"Cannot modify native or global identifier once set." );	// !@! ==>
+		
+			//
 			// Cast value.
 			//
 			$theOffset = $this->offsetCast( $theValue, $theOffset );
 		
 			//
-			// Resolve offset and set value.
+			// Set offset value.
 			//
 			parent::offsetSet( (string) $theOffset, $theValue );
 		
@@ -205,7 +225,22 @@ class OntologyObject extends ContainerObject
 	 */
 	public function offsetUnset( $theOffset )
 	{
-		parent::offsetUnset( (string) $this->offsetResolve( $theOffset ) );
+		//
+		// Resolve offset.
+		//
+		$theOffset = $this->offsetResolve( $theOffset, TRUE );
+		
+		//
+		// Handle identifiers.
+		//
+		if( ( ($theOffset == kTAG_NID)
+		   && $this->offsetExists( kTAG_NID ) )
+		 || ( ($theOffset == kTAG_GID)
+		   && $this->offsetExists( kTAG_GID ) ) )
+			throw new \Exception(
+				"Cannot modify native or global identifier once set." );	// !@! ==>
+				
+		parent::offsetUnset( (string) $theOffset );
 	
 	} // offsetUnset.
 
@@ -224,11 +259,11 @@ class OntologyObject extends ContainerObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Resolve offset</h4>
+	 * Resolve offset
 	 *
-	 * This method will resolve the provided offset into a {@link Tag} native identifier,
-	 * this is done by using a {@link TagCache} object stored in the {@link kSESSION_DDICT}
-	 * entry of the current session.
+	 * This method will resolve the provided offset into a {@link TagObject} native
+	 * identifier, this is done by using a {@link TagCache} object stored in the
+	 * {@link kSESSION_DDICT} entry of the current session.
 	 *
 	 * If you provide an integer or a numeric string, the method will simply cast the value
 	 * to an integer and return it.
@@ -288,39 +323,47 @@ class OntologyObject extends ContainerObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Cast offset value</h4>
+	 * Cast offset value
 	 *
 	 * This method will cast the offset value to the data type held by the tag referenced by
 	 * the offset. The method expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: This parameter references the value to be cast.
-	 *	<li><b>$theOffset</b>: This parameter contains the original offset.
+	 *	<li><b>$theOffset</b>: This parameter contains the resolved offset.
 	 * </ul>
 	 *
-	 * If the method is unable to resolve the offset it will raise an exception.
+	 * If the method is unable to resolve the offset into a tag, it will raise an exception.
 	 *
 	 * The method casts the value in the provided parameter and returns the resolved offset.
 	 *
 	 * @param reference				$theValue			Offset value.
-	 * @param mixed					$theOffset			Original offset.
+	 * @param integer				$theOffset			Original offset.
 	 *
 	 * @access public
 	 */
 	public function offsetCast( &$theValue, $theOffset )
 	{
 		//
-		// Resolve tag.
+		// Skip native identifier.
 		//
-		$tag = $_SESSION[ kSESSION_DDICT ]
-					->getTagObject( $this->offsetResolve( $theOffset, TRUE ), TRUE );
+		if( $theOffset != kTAG_NID )
+		{
+			//
+			// Resolve tag.
+			//
+			$tag = $_SESSION[ kSESSION_DDICT ]->getTagObject( $theOffset, TRUE );
 		
-		//
-		// Cast value.
-		//
-		$this->castOffsetValue( $theValue, $tag );
+			//
+			// Cast value.
+			//
+			$this->castOffsetValue( $theValue, $tag );
 		
-		return $offset;																// ==>
+			return $tag[ kTAG_NID ];												// ==>
+		
+		} // Not the native identifier.
+		
+		return $theOffset;															// ==>
 	
 	} // offsetCast.
 
@@ -339,7 +382,7 @@ class OntologyObject extends ContainerObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Cast provided value</h4>
+	 * Cast provided value
 	 *
 	 * This method expects the following parameters:
 	 *
@@ -350,7 +393,13 @@ class OntologyObject extends ContainerObject
 	 *
 	 * The method will cast the value according to the provided tag's data type.
 	 *
-	 * In this class if the tag has more than one data type, the value will not be changed.
+	 * In this class we omly cast the value if the tag has a single data type,
+	 * {@link kTAG_DATA_TYPE}; if the tag cardinality indicates a list, {@link kTYPE_LIST},
+	 * the method will cast the individual elements of the list.
+	 *
+	 * The main purpose of this method is to handle scalar values, structured values should
+	 * be handled by specific member accessor methods: this method should expect the
+	 * provided value to have the correct structure.
 	 *
 	 * @param reference				$theValue			Offset value.
 	 * @param mixed					$theTag				Tag object.
@@ -370,22 +419,26 @@ class OntologyObject extends ContainerObject
 		if( count( $theTag[ kTAG_DATA_TYPE ] ) == 1 )
 		{
 			//
+			// Get data type.
+			//
+			$type = current( $theTag[ kTAG_DATA_TYPE ] );
+			
+			//
 			// Handle arrays.
 			//
-			if( array_key_exists( kTAG_CARD_TYPE, $theTag )
-			 && in_array( kTYPE_LIST, $theTag[ kTAG_CARD_TYPE ] ) )
+			if( array_key_exists( kTAG_DATA_KIND, $theTag )
+			 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
 			{
 				$keys = array_keys( $theValue );
 				foreach( $keys as $key )
-					$this->castValue( $theValue[ $key ],
-									  current( $theTag[ kTAG_DATA_TYPE ] ) );
+					$this->castValue( $theValue[ $key ], $type );
 			}
 			
 			//
 			// Handle scalars.
 			//
 			else
-				$this->castValue( $theValue, current( $theTag[ kTAG_DATA_TYPE ] ) );
+				$this->castValue( $theValue, $type );
 		
 		} // Only one data type.
 	
@@ -397,13 +450,14 @@ class OntologyObject extends ContainerObject
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Cast value</h4>
+	 * Cast value
 	 *
 	 * This method expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: This parameter references the value to be cast.
 	 *	<li><b>$theType</b>: This parameter represents the data type.
+	 *	<li><b>$theCard</b>: This parameter represents the cardinality type.
 	 * </ul>
 	 *
 	 * The method will cast the value according to the provided data type.
@@ -425,18 +479,34 @@ class OntologyObject extends ContainerObject
 		//
 		switch( $theType )
 		{
+			//
+			// Handle strings.
+			//
 			case kTYPE_STRING:
 			case kTYPE_ENUM:
-			case kTYPE_SET:
 				$theValue = (string) $theValue;
 				break;
 			
+			//
+			// Handle integers.
+			//
 			case kTYPE_INT:
 				$theValue = (int) $theValue;
 				break;
 			
+			//
+			// Handle floats.
+			//
 			case kTYPE_FLOAT:
 				$theValue = (double) $theValue;
+				break;
+			
+			//
+			// Handle sets.
+			//
+			case kTYPE_SET:
+				if( ! is_array( $theValue ) )
+					$theValue = array( $theValue );
 				break;
 		
 		} // Parsing data type.

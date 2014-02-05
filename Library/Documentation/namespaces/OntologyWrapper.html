@@ -233,9 +233,10 @@ handle properties and offsets in a standard way:
         <p class="short_description">Tag cache object</p>
         <div class="details collapse"><p>This <i>abstract</i> class is the prototype of classes that implement a tag cache.</p>
 <p>The main purpose of a tag cache is to hold in a fast retrieval cache all the current
-ontology {@link Tag} objects and information, this cache is actively used by all classes
-derived from {@link OntologyObject} for resolving offsets into {@link Tag} references and
-to cast offset values according to the {@link Tag} declared data type.</p>
+ontology {@link TagObject} objects and information, this cache is actively used by all
+classes derived from {@link OntologyObject} for resolving offsets into {@link TagObject}
+references and to cast offset values according to the {@link TagObject} declared data
+type.</p>
 <p>Concrete derived classes should implement a constructor that will instantiate the cache
 and load all current tag identifiers and objects.</p>
 <p>The class features the following specific virtual methods:</p>
@@ -268,12 +269,12 @@ the object properties and <i>persistent data</i>, which is stored as <i>offsets<
 the inherited array part of the object.</p>
 <p>The main purpose of this class is to ensure that all persistent data is annotated and
 documented by an ontology, guaranteeing that any persistent data element is defined and
-described by an entry of the ontology represented by an instance of the {@link Tag}
+described by an entry of the ontology represented by an instance of the {@link TagObject}
 class, which is itself derived from this class.</p>
 <p>All persistent data elements are represented by a key/value pair, in which the key is
 the data offset and the value the persistent data value. All persistent data offsets
 must be integer values or alphanumeric strings, with the exception of the
-{@link kTAG_NID} constant, these integer values represent references to {@link Tag}
+{@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
 object instances, which hold all the necessary information and references to document
 the current persistent data element.</p>
 <p>This class implements the bridge between data and the ontology ensuring that all data
@@ -281,17 +282,63 @@ elements are defined in this ontology, which, itself, is implemented by objects 
 from this class: this means that the whole system is self documenting.</p>
 <p>Whenever the object uses an offset, this will be first fed to a public method,
 {@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
-into <i>native identifiers</i>. The {@link Tag} object native identifier is represented
-by an integer value, this value is used as the data offset. These native identifiers are
-not persistent, in other words, these value may change from one implementation to the
-other: for this reason {@link Tag} objects also hold a <i>global identifier</i> which is
-a non-numeric string: this string will relmain the same across implementations and can
-be considered the <i>immutable tag identifier/i>.</p>
-<p>In this class by default an integer offset is assumed to be a {@link Tag} object
+into <i>native identifiers</i>. The {@link TagObject} object native identifier is
+represented by an integer value, this value is used as the data offset. These native
+identifiers are not persistent, in other words, these value may change from one
+implementation to the other: for this reason {@link TagObject} objects also hold a</p>
+<i>global identifier</i> which is a non-numeric string: this string will relmain the same
+across implementations and can be considered the <i>immutable tag identifier/i>.
+
+In this class by default an integer offset is assumed to be a {@link TagObject} object
 reference, while a string offset will be resolved into a tag reference. This means that
 if you want to ensure that all offsets are correct you should always use tag global
-identifiers as offsets, while you should only use tag constants as integers.</p></div>
+identifiers as offsets, while you should only use tag constants as integers.
+
+Two offsets are managed in a special way, the <em>global identifier</em> {@link kTAG_GID}
+and the <em>native identifier</em> {@link kTAG_NID}: once set, these two identifiers
+cannot be modified. In concrete derived classes these two offsets will generally be
+automatically managed by a protected interface, and not directly set by clients.</div>
         <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_TagObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagObject .collapse">
+        <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
+        <p class="short_description">Tag object</p>
+        <div class="details collapse"><p>This class extends {@link OntologyObject} to implement a concrete tag object class.</p>
+<p>A tag object is used to identify, describe and document a data property, it holds the
+data property offset, data and cardinality types and the label and description of the
+property.</p>
+<p>The class features the following default offsets:</p>
+<ul>
+<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label tag represents the <i>name or
+    short description</i> of the property that the current tag defines. All tags
+    <em>should</em> have a label, since this is how human users will be able to identify
+    a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
+    {@link kTAG_PART_KIND} element holds the label language code and the
+    {@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
+    language, use the {@link Label()} offset accessor method.
+<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
+    represents the <i>description or extended definition</i> of the property that the
+    current tag defines. The description is similar to the <em>definition</em>, except
+    that while the definition provides a description of the object it defines unrelated
+    to context, the description adds to the definition the elements added by the current
+    context. All tags <em>should</em> have a label, if the tag label is not enough to
+    provide a sufficient description or definition. Descriptions have the
+    {@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
+    the description language code and the {@link kTAG_PART_VALUE} holds the description
+    text. To populate and handle descriptions by language, use the {@link Description()}
+    offset accessor method.
+<li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
+    set of values listing all the <em>data types</em> that the value of the property
+    defined by the current tag may take. To populate and handle individual data types
+    use the {@link DataType()} offset accessor method. This property is
+    <em>required</em> by all tag objects.
+<li><tt>{@link kTAG_DATA_KIND}</tt>: <em>Data kind</em>. This attribute is an enumerated
+    set of values providing the <em>data attributes</em> of the property defined by the
+    current tag. This may be whether the property is a list of values, or if the
+    property is required or not. To populate and handle individual data kinds use the
+    {@link DataKind()} offset accessor method.
+</ul></div>
+        <a href="../classes/OntologyWrapper.TagObject.html" class="more">« More »</a>    </div>
 
                             </div>
             
@@ -349,7 +396,7 @@ if the {@link Memcached} class is not available.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sun, 02 Feb 2014 20:54:49 +0100.<br/>
+            generated on Thu, 06 Feb 2014 00:32:06 +0100.<br/>
     </footer>
     </body>
 </html>

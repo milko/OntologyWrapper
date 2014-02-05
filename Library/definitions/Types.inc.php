@@ -113,38 +113,16 @@ define( "kTYPE_FLOAT",							':type:float' );
  *======================================================================================*/
 
 /**
- * Array.
+ * Kind/Value element list.
  *
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>Term:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:array</code></td>
+ *		<td align="left" valign="top"><code>:type:kind/value</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Array</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">An <i>array</i> data type indicates that the
- *			referred property may only hold <i>a list of values</i>, the data type of the
- *			values is not inferred.</td>
- *	</tr>
- * </table>
- */
-define( "kTYPE_ARRAY",							':type:array' );
-
-/**
- * Element match list.
- *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>Term:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:type-value</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Element match list</td>
+ *		<td align="left" valign="top">Kind/value element list</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
@@ -161,7 +139,7 @@ define( "kTYPE_ARRAY",							':type:array' );
  *	</tr>
  * </table>
  */
-define( "kTYPE_ELEMENT",						':type:elem-match' );
+define( "kTYPE_KIND_VALUE",						':type:kind/value' );
 
 /*=======================================================================================
  *	REFERENCE DATA TYPES																*

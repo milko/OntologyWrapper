@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    Ontology Wrapper &raquo; \OntologyWrapper\OntologyObject
+    <title>    Ontology Wrapper &raquo; \OntologyWrapper\TagObject
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -120,6 +120,30 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
+        <a href="#method_Label" title="Label :: Manage tag label">
+            <span class="description">Manage tag label</span><pre>Label</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_Description" title="Description :: Manage tag description">
+            <span class="description">Manage tag description</span><pre>Description</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_DataType" title="DataType :: Manage data type">
+            <span class="description">Manage data type</span><pre>DataType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_DataKind" title="DataKind :: Manage data kind">
+            <span class="description">Manage data kind</span><pre>DataKind</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
         <a href="#method_offsetExists" title="offsetExists :: Check if an offset exists">
             <span class="description">Check if an offset exists</span><pre>offsetExists</pre>
         </a>
@@ -143,25 +167,25 @@
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                        <li class="method public inherited">
         <a href="#method_offsetResolve" title="offsetResolve :: Resolve offset">
             <span class="description">Resolve offset</span><pre>offsetResolve</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                        <li class="method public inherited">
         <a href="#method_offsetCast" title="offsetCast :: Cast offset value">
             <span class="description">Cast offset value</span><pre>offsetCast</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                        <li class="method public inherited">
         <a href="#method_castOffsetValue" title="castOffsetValue :: Cast provided value">
             <span class="description">Cast provided value</span><pre>castOffsetValue</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                        <li class="method public inherited">
         <a href="#method_castValue" title="castValue :: Cast value">
             <span class="description">Cast value</span><pre>castValue</pre>
         </a>
@@ -189,7 +213,7 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
                             <a href="#method_manageOffset" title="manageOffset :: &lt;h4&gt;Manage a scalar offset&lt;/h4&gt;">
                                 <span class="description">&lt;h4&gt;Manage a scalar offset&lt;/h4&gt;</span><pre>manageOffset</pre>
                             </a>
@@ -213,7 +237,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -227,47 +251,48 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>OntologyObject</h1>
+                <h1>TagObject</h1>
                 <small style="display: block; text-align: right">
-                                            Extends <a href="../classes/OntologyWrapper.ContainerObject.html">\OntologyWrapper\ContainerObject</a>
+                                            Extends <a href="../classes/OntologyWrapper.OntologyObject.html">\OntologyWrapper\OntologyObject</a>
                                                         </small>
-                <p class="short_description">Ontology object</p>
+                <p class="short_description">Tag object</p>
                 <div class="details">
                     <div class="long_description">
-                        <p>Objects of this class hold two types of data: <i>run-time data</i>, which is stored in
-the object properties and <i>persistent data</i>, which is stored as <i>offsets</i> in
-the inherited array part of the object.</p>
-<p>The main purpose of this class is to ensure that all persistent data is annotated and
-documented by an ontology, guaranteeing that any persistent data element is defined and
-described by an entry of the ontology represented by an instance of the {@link TagObject}
-class, which is itself derived from this class.</p>
-<p>All persistent data elements are represented by a key/value pair, in which the key is
-the data offset and the value the persistent data value. All persistent data offsets
-must be integer values or alphanumeric strings, with the exception of the
-{@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
-object instances, which hold all the necessary information and references to document
-the current persistent data element.</p>
-<p>This class implements the bridge between data and the ontology ensuring that all data
-elements are defined in this ontology, which, itself, is implemented by objects derived
-from this class: this means that the whole system is self documenting.</p>
-<p>Whenever the object uses an offset, this will be first fed to a public method,
-{@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
-into <i>native identifiers</i>. The {@link TagObject} object native identifier is
-represented by an integer value, this value is used as the data offset. These native
-identifiers are not persistent, in other words, these value may change from one
-implementation to the other: for this reason {@link TagObject} objects also hold a</p>
-<i>global identifier</i> which is a non-numeric string: this string will relmain the same
-across implementations and can be considered the <i>immutable tag identifier/i>.
-
-In this class by default an integer offset is assumed to be a {@link TagObject} object
-reference, while a string offset will be resolved into a tag reference. This means that
-if you want to ensure that all offsets are correct you should always use tag global
-identifiers as offsets, while you should only use tag constants as integers.
-
-Two offsets are managed in a special way, the <em>global identifier</em> {@link kTAG_GID}
-and the <em>native identifier</em> {@link kTAG_NID}: once set, these two identifiers
-cannot be modified. In concrete derived classes these two offsets will generally be
-automatically managed by a protected interface, and not directly set by clients.
+                        <p>This class extends {@link OntologyObject} to implement a concrete tag object class.</p>
+<p>A tag object is used to identify, describe and document a data property, it holds the
+data property offset, data and cardinality types and the label and description of the
+property.</p>
+<p>The class features the following default offsets:</p>
+<ul>
+<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label tag represents the <i>name or
+    short description</i> of the property that the current tag defines. All tags
+    <em>should</em> have a label, since this is how human users will be able to identify
+    a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
+    {@link kTAG_PART_KIND} element holds the label language code and the
+    {@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
+    language, use the {@link Label()} offset accessor method.
+<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
+    represents the <i>description or extended definition</i> of the property that the
+    current tag defines. The description is similar to the <em>definition</em>, except
+    that while the definition provides a description of the object it defines unrelated
+    to context, the description adds to the definition the elements added by the current
+    context. All tags <em>should</em> have a label, if the tag label is not enough to
+    provide a sufficient description or definition. Descriptions have the
+    {@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
+    the description language code and the {@link kTAG_PART_VALUE} holds the description
+    text. To populate and handle descriptions by language, use the {@link Description()}
+    offset accessor method.
+<li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
+    set of values listing all the <em>data types</em> that the value of the property
+    defined by the current tag may take. To populate and handle individual data types
+    use the {@link DataType()} offset accessor method. This property is
+    <em>required</em> by all tag objects.
+<li><tt>{@link kTAG_DATA_KIND}</tt>: <em>Data kind</em>. This attribute is an enumerated
+    set of values providing the <em>data attributes</em> of the property defined by the
+    current tag. This may be whether the property is a list of values, or if the
+    property is required or not. To populate and handle individual data kinds use the
+    {@link DataKind()} offset accessor method.
+</ul>
                     </div>
                     <table class="table table-bordered">
                                                                                     <tr>
@@ -285,18 +310,374 @@ automatically managed by a protected interface, and not directly set by clients.
                                                                             </th>
                                     <td>
                                                                                     1.00
-                                                                                <p>10/01/2014</p>
+                                                                                <p>05/02/2014</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                                                                                                                         </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_offsetExists"></a>
-                        <div class="element clickable method public  method_offsetExists" data-toggle="collapse" data-target=".method_offsetExists .collapse">
+                                                                <a id="method_Label"></a>
+                        <div class="element clickable method public  method_Label" data-toggle="collapse" data-target=".method_Label .collapse">
+                            <h2>Manage tag label</h2>
+                            <pre>Label(string $theLanguage, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to add, retrieve and delete individual labels by language,
+while managing all the labels as a whole can be done using the {@link kTAG_LABEL}
+offset.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theLanguage</b>: This parameter holds the language code of the text we
+    want to manage. If <tt>NULL</tt>, it means that there is a text without a
+    language; this can occur if the label is a name unrelated to any language.
+<li><b>$theValue</b>: This parameter identifies the label text or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the label of the provided language.
+    <li><tt>FALSE</tt>: Delete the label of the provided language.
+    <li><i>other</i>: Any other value is cast to string and interpreted as the text
+        of the label in the provided language which will be inserted, or that will
+        replace an existing entry.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>The method will return either the label text, or <tt>NULL</tt> if the language was
+not matched.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_LABEL
+                                                                                                                <p>kTAG_PART_KIND kTAG_PART_VALUE</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theLanguage</h4>
+                                                <code>string</code><p><p>Label language.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Label text or operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_Description"></a>
+                        <div class="element clickable method public  method_Description" data-toggle="collapse" data-target=".method_Description .collapse">
+                            <h2>Manage tag description</h2>
+                            <pre>Description(string $theLanguage, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to add, retrieve and delete individual descriptions by
+language, while managing all the descriptions as a whole can be done using the
+{@link kTAG_DESCRIPTION} offset.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theLanguage</b>: This parameter holds the language code of the text we
+    want to manage. The <tt>NULL</tt> value should generally <em>not</em> be used,
+    definitions may not contain language elements, while descriptons should.
+<li><b>$theValue</b>: This parameter identifies the description text or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the description of the provided language.
+    <li><tt>FALSE</tt>: Delete the description of the provided language.
+    <li><i>other</i>: Any other value is cast to string and interpreted as the text
+        of the description in the provided language which will be inserted, or that
+        will replace an existing entry.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>The method will return either the description text, or <tt>NULL</tt> if the language
+was not matched.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_DESCRIPTION
+                                                                                                                <p>kTAG_PART_KIND kTAG_PART_VALUE</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theLanguage</h4>
+                                                <code>string</code><p><p>Description language.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Description text or operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_DataType"></a>
+                        <div class="element clickable method public  method_DataType" data-toggle="collapse" data-target=".method_DataType .collapse">
+                            <h2>Manage data type</h2>
+                            <pre>DataType(string $theValue, mixed $theOperation = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to add, retrieve and delete individual data type enumerated
+values; to manage the enumerated set as a whole, use the {@link kTAG_DATA_TYPE}
+offset.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+    manage.
+<li><b>$theOperation</b>: This parameter identifies the operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the enumerated value, if it exists, or <tt>NULL</tt>.
+    <li><tt>FALSE</tt>: Delete the enumerated value, if it exists.
+    <li><i>other</i>: Any other value means that we want to set the enumerated value
+        provided in the previous parameter.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>The method will return either the enumerated value, or <tt>NULL</tt> if the value was
+not matched.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_DATA_TYPE
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>string</code><p><p>Data type.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOperation</h4>
+                                                <code>mixed</code><p><p>Operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_DataKind"></a>
+                        <div class="element clickable method public  method_DataKind" data-toggle="collapse" data-target=".method_DataKind .collapse">
+                            <h2>Manage data kind</h2>
+                            <pre>DataKind(string $theValue, mixed $theOperation = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to add, retrieve and delete individual data kind enumerated
+values; to manage the enumerated set as a whole, use the {@link kTAG_DATA_KIND}
+offset.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+    manage.
+<li><b>$theOperation</b>: This parameter identifies the operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the enumerated value, if it exists, or <tt>NULL</tt>.
+    <li><tt>FALSE</tt>: Delete the enumerated value, if it exists.
+    <li><i>other</i>: Any other value means that we want to set the enumerated value
+        provided in the previous parameter.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>The method will return either the enumerated value, or <tt>NULL</tt> if the value was
+not matched.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_DATA_KIND
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>string</code><p><p>Data type.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOperation</h4>
+                                                <code>mixed</code><p><p>Operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetExists"></a>
+                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
                             <h2>Check if an offset exists</h2>
                             <pre>offsetExists(mixed $theOffset) : boolean</pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>We overload this method to resolve eventual string offsets into tag references; in
@@ -491,11 +872,11 @@ delete the offset.</p></div>
                             </div>
                         </div>
                                             <a id="method_offsetResolve"></a>
-                        <div class="element clickable method public  method_offsetResolve" data-toggle="collapse" data-target=".method_offsetResolve .collapse">
+                        <div class="element clickable method public  method_offsetResolve inherited" data-toggle="collapse" data-target=".method_offsetResolve .collapse">
                             <h2>Resolve offset</h2>
                             <pre>offsetResolve(mixed $theOffset, boolean $doAssert = FALSE) : mixed</pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method will resolve the provided offset into a {@link TagObject} native
@@ -569,11 +950,11 @@ parameter is <tt>FALSE</tt>.</p>
                             </div>
                         </div>
                                             <a id="method_offsetCast"></a>
-                        <div class="element clickable method public  method_offsetCast" data-toggle="collapse" data-target=".method_offsetCast .collapse">
+                        <div class="element clickable method public  method_offsetCast inherited" data-toggle="collapse" data-target=".method_offsetCast .collapse">
                             <h2>Cast offset value</h2>
                             <pre>offsetCast(\OntologyWrapper\reference &$theValue, integer $theOffset) </pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method will cast the offset value to the data type held by the tag referenced by
@@ -618,11 +999,11 @@ the offset. The method expects the following parameters:</p>
                             </div>
                         </div>
                                             <a id="method_castOffsetValue"></a>
-                        <div class="element clickable method public  method_castOffsetValue" data-toggle="collapse" data-target=".method_castOffsetValue .collapse">
+                        <div class="element clickable method public  method_castOffsetValue inherited" data-toggle="collapse" data-target=".method_castOffsetValue .collapse">
                             <h2>Cast provided value</h2>
                             <pre>castOffsetValue(\OntologyWrapper\reference &$theValue, mixed $theTag) </pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method expects the following parameters:</p>
@@ -693,11 +1074,11 @@ provided value to have the correct structure.</p></div>
                             </div>
                         </div>
                                             <a id="method_castValue"></a>
-                        <div class="element clickable method public  method_castValue" data-toggle="collapse" data-target=".method_castValue .collapse">
+                        <div class="element clickable method public  method_castValue inherited" data-toggle="collapse" data-target=".method_castValue .collapse">
                             <h2>Cast value</h2>
                             <pre>castValue(\OntologyWrapper\reference &$theValue, string $theType) </pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method expects the following parameters:</p>
@@ -1291,14 +1672,14 @@ accessor methods, this method implements this interface:</p>
                     
                                                         </div>
             </div>
-            <a id="\OntologyWrapper\OntologyObject"></a>
+            <a id="\OntologyWrapper\TagObject"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
     <li><span class="divider">\</span><a href="../namespaces/OntologyWrapper.html">OntologyWrapper</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/OntologyWrapper.TagObject.html">TagObject</a></li>
             </ul>
         </div>
     </div>

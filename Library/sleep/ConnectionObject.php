@@ -764,7 +764,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * The method will make use of the {@link parse_url()} function and pass each key/value
 	 * pair to the protected {@link loadDSNParameter()} method which has the responsibility
-	 * of matching the {@link parse_url()} keys to {@link Tag} instances.
+	 * of matching the {@link parse_url()} keys to {@link TagObject} instances.
 	 *
 	 * If the {@link parse_url()} function fails to parse the DSN, the method will raise an
 	 * exception.

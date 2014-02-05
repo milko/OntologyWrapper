@@ -20,9 +20,10 @@ namespace OntologyWrapper;
  * This <i>abstract</i> class is the prototype of classes that implement a tag cache.
  *
  * The main purpose of a tag cache is to hold in a fast retrieval cache all the current
- * ontology {@link Tag} objects and information, this cache is actively used by all classes
- * derived from {@link OntologyObject} for resolving offsets into {@link Tag} references and
- * to cast offset values according to the {@link Tag} declared data type.
+ * ontology {@link TagObject} objects and information, this cache is actively used by all
+ * classes derived from {@link OntologyObject} for resolving offsets into {@link TagObject}
+ * references and to cast offset values according to the {@link TagObject} declared data
+ * type.
  *
  * Concrete derived classes should implement a constructor that will instantiate the cache
  * and load all current tag identifiers and objects.
