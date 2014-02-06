@@ -365,7 +365,7 @@ abstract class ConnectionObject extends OntologyObject
 		parent::offsetSet( $theOffset, $theValue );
 	
 		//
-		// Reset dirty flag.
+		// Set dirty flag.
 		//
 		$this->isDirty( TRUE );
 	
@@ -404,7 +404,7 @@ abstract class ConnectionObject extends OntologyObject
 		parent::offsetUnset( $theOffset );
 	
 		//
-		// Reset dirty flag.
+		// Set dirty flag.
 		//
 		$this->isDirty( TRUE );
 	

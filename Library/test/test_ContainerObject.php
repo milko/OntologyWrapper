@@ -57,6 +57,11 @@ class MyClass extends OntologyWrapper\ContainerObject
 	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
 																				}
 	
+	public function AccessorarrayOffset( $theOffset, $theKey, $theValue = NULL,
+															  $getOld = FALSE )
+	{	return $this->manageArrayOffset( $theOffset, $theKey, $theValue, $getOld );
+																				}
+	
 	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
 														  $theTypeValue, $theDataValue = NULL,
 														  $getOld = FALSE )
@@ -703,6 +708,128 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set array offset.
+	//
+	echo( '<h4>Test set array offset<br /><i>should set the "OFFSET" to "key" / "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorarrayOffset( "OFFSET", "key", "value" );'.kSTYLE_HEAD_POS );
+	$test->AccessorarrayOffset( "OFFSET", "key", "value" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve array offset.
+	//
+	echo( '<h4>Test retrieve array offset<br /><i>should return "value"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorarrayOffset( "OFFSET", "key" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorarrayOffset("OFFSET", "key" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test modify array offset.
+	//
+	echo( '<h4>Test modify array offset<br /><i>should replace "value" with "new" in "OFFSET"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->AccessorarrayOffset( "OFFSET", "key", "new" );'.kSTYLE_HEAD_POS );
+	$test->AccessorarrayOffset( "OFFSET", "key", "new" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset array offset returning old value.
+	//
+	echo( '<h4>Test reset array offset returning old value<br /><i>should return "new"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorarrayOffset( "OFFSET", "key", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorarrayOffset( "OFFSET", "key", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test reset non-existing set value.
+	//
+	echo( '<h4>Test reset non-existing set value<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorarrayOffset( "OFFSET", "key", FALSE );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorarrayOffset( "OFFSET", "key", FALSE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve non-existing set value.
+	//
+	echo( '<h4>Test retrieve non-existing set value<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorarrayOffset( "OFFSET", "key" );'.kSTYLE_HEAD_POS );
+	$value = $test->AccessorarrayOffset( "OFFSET", "key" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

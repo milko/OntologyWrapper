@@ -396,9 +396,9 @@ abstract class ContainerObject extends \ArrayObject
 	 * <h4>Manage value set offset</h4>
 	 *
 	 * This class provides a protected interface for member accessor methods, both for
-	 * properties and offsets, this method can be used to manage the elements of a set of non
-	 * repeting values, its options involve setting, retrieving and deleting elements of the
-	 * set.
+	 * properties and offsets, this method can be used to manage the elements of a set of
+	 * non repeting values, its options involve setting, retrieving and deleting elements of
+	 * the set. This method generally applies to data of the {@link kTYPE_SET} data type.
 	 *
 	 * It is assumed that the value at the provided offset is either an array or an
 	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
@@ -579,6 +579,202 @@ abstract class ContainerObject extends \ArrayObject
 				  kERROR_PARAMETER );											// !@! ==>
 	
 	} // manageSetOffset.
+
+	 
+	/*===================================================================================
+	 *	manageArrayOffset																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Manage value set offset</h4>
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage the elements of a key/value
+	 * array, its options involve setting, retrieving and deleting elements of the list by
+	 * key. This method generally applies to data of the {@link kTYPE_ARRAY} data type.
+	 *
+	 * It is assumed that the value at the provided offset is either an array or an
+	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
+	 *
+	 * If you want to manage the array itself, you have to use the offset management
+	 + methods.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theOffset</tt>: The offset to the array attribute that is to be managed.
+	 *	<li><tt>$theKey</tt>: The element key.
+	 *	<li><tt>$theValue</tt>: The element value or operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the value at the provided key, or <tt>NULL</tt>.
+	 *		<li><tt>FALSE</tt>: Delete the value at the provided key.
+	 *		<li><i>other</i>: Any other type represents a new or a replacement value.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * When setting new values, if the current offset is empty, the method will set the new
+	 * value in an aray; when deleting values, if the existing value is the last one, the
+	 * method will delete the offset itself.
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param mixed					$theKey				Element key.
+	 * @param mixed					$theValue			Element value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageArrayOffset( $theOffset, $theKey, $theValue = NULL,
+															   $getOld = FALSE )
+	{
+		//
+		// Normalise offset.
+		//
+		$theOffset = (string) $theOffset;
+		
+		//
+		// Save current offset value.
+		//
+		$save = $this->offsetGet( $theOffset );
+		
+		//
+		// Handle empty offset.
+		//
+		if( $save === NULL )
+		{
+			//
+			// Handle retrieve and delete.
+			//
+			if( ($theOperation === NULL)
+			 || ($theOperation === FALSE) )
+				return NULL;														// ==>
+			
+			//
+			// Handle new value.
+			//
+			$this->offsetSet( $theOffset, array( $theKey => $theValue ) );
+			
+			return ( $getOld )
+				 ? NULL																// ==>
+				 : $theValue;														// ==>
+		
+		} // Empty offset.
+		
+		//
+		// Check offset type.
+		//
+		if( is_array( $save )
+		 || ($save instanceof \ArrayObject) )
+		{
+			//
+			// Convert to array.
+			//
+			if( $save instanceof \ArrayObject )
+				$array = $save->getArrayCopy();
+			else
+				$array = & $save;
+			
+			//
+			// Check current element.
+			//
+			$found = array_key_exists( $theKey, $array );
+			
+			//
+			// Return value.
+			//
+			if( $theOperation === NULL )
+				return ( $found  )
+					 ? $theValue													// ==>
+					 : NULL;														// ==>
+			
+			//
+			// Delete value.
+			//
+			if( $theOperation === FALSE )
+			{
+				//
+				// Handle found.
+				//
+				if( $found )
+				{
+					//
+					// Delete value.
+					//
+					unset( $array[ $theKey ] );
+					
+					//
+					// Handle empty array.
+					//
+					if( ! count( $array ) )
+						$this->offsetUnset( $theOffset );
+					
+					//
+					// Update set.
+					//
+					else
+					{
+						//
+						// Replace array.
+						//
+						if( is_array( $save ) )
+							$this->offsetSet( $theOffset, $array );
+						else
+							$save->exchangeArray( $array );
+					
+					} // Non empty set.
+				
+					if( $getOld )
+						return $theValue;											// ==>
+					
+				} // Found value.
+				
+				return NULL;														// ==>
+				
+			} // Delete value.
+			
+			//
+			// Save old value.
+			//
+			$old = ( $found )
+				 ? $array[ $theKey ]
+				 : NULL;
+			
+			//
+			// Set value.
+			//
+			$array[ $theKey ] = $theValue;
+			
+			//
+			// Replace array.
+			//
+			if( is_array( $save ) )
+				$this->offsetSet( $theOffset, $array );
+			else
+				$save->exchangeArray( $array );
+		
+			if( $getOld )
+				return $old;														// ==>
+			
+			return $theValue;														// ==>
+		
+		} // Offset is array or ArrayObject.
+
+		throw new Exception
+				( "Expecting array or ArrayObject at offset [$theOffset]",
+				  kERROR_PARAMETER );											// !@! ==>
+	
+	} // manageArrayOffset.
 
 	 
 	/*===================================================================================

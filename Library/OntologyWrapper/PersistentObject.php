@@ -48,18 +48,11 @@ use OntologyWrapper\OntologyObject;
 abstract class PersistentObject extends OntologyObject
 {
 	/**
-	 * Status trait.
+	 * Persistent trait.
 	 *
-	 * In this class we handle the {@link isDirty()} and the {@link isCommitted()} flags.
+	 * We use this trait to make objects of this class persistent.
 	 */
-	use	StatusTrait;
-
-	/**
-	 * Persistence trait.
-	 *
-	 * In this class we handle the {@link isDirty()} and the {@link isCommitted()} flags.
-	 */
-//	use	PersistenceTrait;
+	use	PersistentTrait;
 
 		
 
@@ -146,9 +139,9 @@ abstract class PersistentObject extends OntologyObject
 		else
 		{
 			//
-			// Select object.
+			// Load object.
 			//
-			$found = $this->objectFind( $theContainer, $theIdentifier );
+			$found = $this->objectLoad( $theContainer, $theIdentifier );
 			
 			//
 			// Handle selected object.
@@ -175,215 +168,6 @@ abstract class PersistentObject extends OntologyObject
 		$this->isDirty( FALSE );
 
 	} // Constructor.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set a value at a given offset
-	 *
-	 * We overload this method to prevent modifying the global and native identifiers if the
-	 * object is committed, {@link isCommitted()}.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 *
-	 * @uses isConnected()
-	 *
-	 * @throws Exception
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Skip deletions.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Resolve offset.
-			//
-			$theOffset = $this->offsetResolve( $theOffset, TRUE );
-			
-			//
-			// Check if committed.
-			//
-			if( $this->isCommitted() )
-			{
-				//
-				// Check global identifier.
-				//
-				if( $theOffset == kTAG_GID )
-					throw new \Exception(
-						"Cannot modify global identifier: "
-					   ."the object is committed." );							// !@! ==>
-			
-				//
-				// Check native identifier.
-				//
-				if( $theOffset == kTAG_NID )
-					throw new \Exception(
-						"Cannot modify native identifier: "
-					   ."the object is committed." );							// !@! ==>
-			
-			} // Object is committed.
-		
-			//
-			// Cast value.
-			//
-			$theOffset = $this->offsetCast( $theValue, $theOffset );
-		
-			//
-			// Set offset value.
-			//
-			ContainerObject::offsetSet( (string) $theOffset, $theValue );
-			
-			//
-			// Set status.
-			//
-			$this->isDirty( TRUE );
-		
-		} // Not deleting.
-		
-		//
-		// Handle delete.
-		//
-		else
-			$this->offsetUnset( $theOffset );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value at a given offset
-	 *
-	 * We overload this method to prevent deleting values while the connection is open.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @uses isConnected()
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->offsetResolve( $theOffset, TRUE );
-		
-		//
-		// Check if committed.
-		//
-		if( $this->isCommitted() )
-		{
-			//
-			// Check global identifier.
-			//
-			if( $theOffset == kTAG_GID )
-				throw new \Exception(
-					"Cannot modify global identifier: "
-				   ."the object is committed." );								// !@! ==>
-		
-			//
-			// Check native identifier.
-			//
-			if( $theOffset == kTAG_NID )
-				throw new \Exception(
-					"Cannot modify native identifier: "
-				   ."the object is committed." );								// !@! ==>
-		
-		} // Object is committed.
-				
-		ContainerObject::offsetUnset( (string) $theOffset );
-		
-		//
-		// Set status.
-		//
-		$this->isDirty( TRUE );
-	
-	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT RESOLUTION INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	objectFind																		*
-	 *==================================================================================*/
-
-	/**
-	 * Find an object
-	 *
-	 * This method should select the object matching the provided identifier in the provided
-	 * persistent container and return the object attributes as an array.
-	 *
-	 * If the provided identifier was not resolved, the method should return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @access protected
-	 * @return array				Found object as an array, or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function objectFind( $theContainer, $theIdentifier )
-	{
-		//
-		// Handle arrays and array objects.
-		//
-		if( is_array( $theContainer )
-		 || ($theContainer instanceof ArrayObject) )
-		{
-			//
-			// Serialise array object.
-			//
-			if( $theContainer instanceof ArrayObject )
-				$theContainer = $theContainer->getArrayCopy();
-			
-			//
-			// Locate identifier.
-			//
-			if( array_key_exists( $theIdentifier, $theContainer ) )
-				return $theContainer[ $theIdentifier ];								// ==>
-			
-			return NULL;															// ==>
-		
-		} // Array or array object.
-		
-		//
-		// Invalid container type.
-		//
-		throw new \Exception(
-			"Cannot find object: "
-		   ."invalid or unsupported container type." );							// !@! ==>
-	
-	} // objectFind.
 
 	 
 

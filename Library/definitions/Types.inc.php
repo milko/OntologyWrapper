@@ -113,6 +113,30 @@ define( "kTYPE_FLOAT",							':type:float' );
  *======================================================================================*/
 
 /**
+ * Array.
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Term:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:key/value</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Key/value array</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This data type defines an <i>array of elements in
+ *			which the key represents the discriminant</i>. Such arrays are identical to
+ *			PHP arrays, except that, unlike traditional arrays in which the key is a numeric
+ *			value, this kind of structure uses the key as part of the information. The data
+ *			type of the elements value is not ingferred.
+ *	</tr>
+ * </table>
+ */
+define( "kTYPE_ARRAY",							':type:array' );
+
+/**
  * Kind/Value element list.
  *
  * <table>

@@ -51,6 +51,25 @@ class MyClass extends OntologyWrapper\ConnectionObject
 {
 	protected function connectionOpen(){}
 	protected function connectionClose(){}
+
+	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
+	
+	public function AccessorSetOffset( $theOffset, $theValue, $theOperation = NULL,
+															$getOld = FALSE )
+	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
+																				}
+	
+	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
+														  $theTypeValue, $theDataValue = NULL,
+														  $getOld = FALSE )
+	{	return $this->manageElementMatchOffset( $theOffset,
+												$theTypeOffset, $theDataOffset,
+												$theTypeValue, $theDataValue,
+												$getOld );						}
+	
+	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
 }
 
 
@@ -64,21 +83,17 @@ class MyClass extends OntologyWrapper\ConnectionObject
 try
 {
 	//
-	// Set data dictionary.
+	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\MemcachedCache(
-			'memcached://localhost:11211' );
-	$_SESSION[ kSESSION_DDICT ]->openConnection();
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:protocol', kTAG_CONN_PROTOCOL );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:host', kTAG_CONN_HOST );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:port', kTAG_CONN_PORT );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:socket', kTAG_CONN_SOCKET );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:user', kTAG_CONN_USER );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pass', kTAG_CONN_PASS );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:pid', kTAG_CONN_PID );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:name', kTAG_CONN_NAME );
-	$_SESSION[ kSESSION_DDICT ]->set( ':connection:options', kTAG_CONN_OPTS );
+		= new OntologyWrapper\connection\TagCache(
+			kSESSION_DDICT,
+			array( array( 'localhost', 11211 ) ) );
+	
+	//
+	// Init cache.
+	//
+	$_SESSION[ kSESSION_DDICT ]->init();
 	
 	//
 	// Test parent class.
@@ -113,8 +128,8 @@ try
 		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->manageProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
-		$test->manageProperty( $test->property, "value" );
+		echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
+		$test->AccessorProperty( $test->property, "value" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -123,15 +138,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test retrieve property.
 		//
 		echo( '<h4>Test retrieve property<br /><i>should return "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -140,15 +155,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test modify property returning new value.
 		//
 		echo( '<h4>Test modify property returning new value<br /><i>should return "new"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "new" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -162,15 +177,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test modify property returning old value.
 		//
 		echo( '<h4>Test modify property returning old value<br /><i>should return "new"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "modified", TRUE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "modified", TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "modified", TRUE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -184,15 +199,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test reset property returning old value.
 		//
 		echo( '<h4>Test reset property returning old value<br /><i>should return "modified"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, FALSE, TRUE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, FALSE, TRUE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -206,15 +221,15 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-	
+
 		//
 		// Test reset property returning new value.
 		//
 		echo( '<h4>Test reset property returning new value<br /><i>should return NULL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, "new" );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, "new" );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, "new" );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -222,8 +237,8 @@ try
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test->manageProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
-		$value = $test->manageProperty( $test->property, FALSE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorProperty( $test->property, FALSE );'.kSTYLE_HEAD_POS );
+		$value = $test->AccessorProperty( $test->property, FALSE );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -241,15 +256,15 @@ try
 		//
 		// Set offset by global identifier.
 		//
-		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_CONN_PROTOCOL</i></h4>' );
+		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ ":connection:protocol" ] = "protocol";'.kSTYLE_HEAD_POS );
-		$test[ ":connection:protocol" ] = "protocol";
+		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
+		$test[ ":label" ] = "LABEL";
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -262,11 +277,129 @@ try
 		//
 		// Set offset by native identifier.
 		//
-		echo( '<h4>Set offset by global native<br /><i>should use kTAG_CONN_PORT</i></h4>' );
+		echo( '<h4>Set offset by native identifier<br /><i>should replace kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_CONN_PORT ] = 80;'.kSTYLE_HEAD_POS );
-		$test[ kTAG_CONN_PORT ] = 80;
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = "NEW LABEL";'.kSTYLE_HEAD_POS );
+		$test[ kTAG_LABEL ] = "NEW LABEL";
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Set invalid offset.
+		//
+		echo( '<h4>Set invalid offset<br /><i>should raise an exception</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ "not good" ] = "will never be set";'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		try
+		{
+			$test[ "not good" ] = "will never be set";
+		}
+		catch( \Exception $error )
+		{
+			echo( $error->xdebug_message );
+		}
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Unset by global identifier.
+		//
+		echo( '<h4>Unset by global identifier<br /><i>should delete kTAG_LABEL</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = NULL;'.kSTYLE_HEAD_POS );
+		$test[ kTAG_LABEL ] = NULL;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to string.
+		//
+		echo( '<h4>Test cast to string<br /><i>should cast integer to string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-string" ] = 12;'.kSTYLE_HEAD_POS );
+		$test[ ":test-string" ] = 12;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-string" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-string" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to integer.
+		//
+		echo( '<h4>Test cast to integer<br /><i>should cast string to integer</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-int" ] = "13";'.kSTYLE_HEAD_POS );
+		$test[ ":test-int" ] = "13";
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-int" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-int" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to float.
+		//
+		echo( '<h4>Test cast to float<br /><i>should cast integer to float</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-float" ] = 14;'.kSTYLE_HEAD_POS );
+		$test[ ":test-float" ] = 14;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-float" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-float" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
