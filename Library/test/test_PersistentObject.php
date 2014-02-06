@@ -1,21 +1,21 @@
 <?php
 
 /**
- * {@link OntologyObject} test suite.
+ * {@link PersistentObject} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link OntologyObject} class.
+ * {@link PersistentObject} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 13/01/2014
+ *	@version	1.00 06/02/2014
  */
 
 /*=======================================================================================
  *																						*
- *								test_OntologyObject.php									*
+ *								test_PersistentObject.php								*
  *																						*
  *======================================================================================*/
 
@@ -57,7 +57,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\OntologyObject
+class MyClass extends OntologyWrapper\PersistentObject
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -261,6 +261,162 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
+
+		//
+		// Set offset by global identifier.
+		//
+		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
+		$test[ ":label" ] = "LABEL";
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Set offset by native identifier.
+		//
+		echo( '<h4>Set offset by native identifier<br /><i>should replace kTAG_LABEL</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = "NEW LABEL";'.kSTYLE_HEAD_POS );
+		$test[ kTAG_LABEL ] = "NEW LABEL";
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Set invalid offset.
+		//
+		echo( '<h4>Set invalid offset<br /><i>should raise an exception</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ "not good" ] = "will never be set";'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		try
+		{
+			$test[ "not good" ] = "will never be set";
+		}
+		catch( \Exception $error )
+		{
+			echo( $error->xdebug_message );
+		}
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Unset by global identifier.
+		//
+		echo( '<h4>Unset by global identifier<br /><i>should delete kTAG_LABEL</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = NULL;'.kSTYLE_HEAD_POS );
+		$test[ kTAG_LABEL ] = NULL;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to string.
+		//
+		echo( '<h4>Test cast to string<br /><i>should cast integer to string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-string" ] = 12;'.kSTYLE_HEAD_POS );
+		$test[ ":test-string" ] = 12;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-string" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-string" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to integer.
+		//
+		echo( '<h4>Test cast to integer<br /><i>should cast string to integer</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-int" ] = "13";'.kSTYLE_HEAD_POS );
+		$test[ ":test-int" ] = "13";
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-int" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-int" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test cast to float.
+		//
+		echo( '<h4>Test cast to float<br /><i>should cast integer to float</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test[ ":test-float" ] = 14;'.kSTYLE_HEAD_POS );
+		$test[ ":test-float" ] = 14;
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-float" ];'.kSTYLE_HEAD_POS );
+		$value = $test[ ":test-float" ];
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -270,152 +426,17 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Set offset by global identifier.
+	// Test set label.
 	//
-	echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
+	echo( '<h4>Test set label</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
-	$test[ ":label" ] = "LABEL";
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Set offset by native identifier.
-	//
-	echo( '<h4>Set offset by native identifier<br /><i>should replace kTAG_LABEL</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = "NEW LABEL";'.kSTYLE_HEAD_POS );
-	$test[ kTAG_LABEL ] = "NEW LABEL";
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Set invalid offset.
-	//
-	echo( '<h4>Set invalid offset<br /><i>should raise an exception</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ "not good" ] = "will never be set";'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	try
-	{
-		$test[ "not good" ] = "will never be set";
-	}
-	catch( \Exception $error )
-	{
-		echo( $error->xdebug_message );
-	}
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Unset by global identifier.
-	//
-	echo( '<h4>Unset by global identifier<br /><i>should delete kTAG_LABEL</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LABEL ] = NULL;'.kSTYLE_HEAD_POS );
-	$test[ kTAG_LABEL ] = NULL;
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test cast to string.
-	//
-	echo( '<h4>Test cast to string<br /><i>should cast integer to string</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ ":test-string" ] = 12;'.kSTYLE_HEAD_POS );
-	$test[ ":test-string" ] = 12;
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-string" ];'.kSTYLE_HEAD_POS );
-	$value = $test[ ":test-string" ];
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $value );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test cast to integer.
-	//
-	echo( '<h4>Test cast to integer<br /><i>should cast string to integer</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ ":test-int" ] = "13";'.kSTYLE_HEAD_POS );
-	$test[ ":test-int" ] = "13";
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-int" ];'.kSTYLE_HEAD_POS );
-	$value = $test[ ":test-int" ];
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $value );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test cast to float.
-	//
-	echo( '<h4>Test cast to float<br /><i>should cast integer to float</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ ":test-float" ] = 14;'.kSTYLE_HEAD_POS );
-	$test[ ":test-float" ] = 14;
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-float" ];'.kSTYLE_HEAD_POS );
-	$value = $test[ ":test-float" ];
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $value );
-	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Label" );'.kSTYLE_HEAD_POS );
+	$test->Label( "en", "Label" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

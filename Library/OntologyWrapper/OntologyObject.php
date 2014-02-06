@@ -175,16 +175,6 @@ class OntologyObject extends ContainerObject
 			// Resolve offset.
 			//
 			$theOffset = $this->offsetResolve( $theOffset, TRUE );
-			
-			//
-			// Handle identifiers.
-			//
-			if( ( ($theOffset == kTAG_NID)
-			   && $this->offsetExists( kTAG_NID ) )
-			 || ( ($theOffset == kTAG_GID)
-			   && $this->offsetExists( kTAG_GID ) ) )
-				throw new \Exception(
-					"Cannot modify native or global identifier once set." );	// !@! ==>
 		
 			//
 			// Cast value.
@@ -229,16 +219,6 @@ class OntologyObject extends ContainerObject
 		// Resolve offset.
 		//
 		$theOffset = $this->offsetResolve( $theOffset, TRUE );
-		
-		//
-		// Handle identifiers.
-		//
-		if( ( ($theOffset == kTAG_NID)
-		   && $this->offsetExists( kTAG_NID ) )
-		 || ( ($theOffset == kTAG_GID)
-		   && $this->offsetExists( kTAG_GID ) ) )
-			throw new \Exception(
-				"Cannot modify native or global identifier once set." );	// !@! ==>
 				
 		parent::offsetUnset( (string) $theOffset );
 	

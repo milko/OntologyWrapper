@@ -760,6 +760,50 @@ using these methods in a public interface.</div>
 
                 
                 
+                                        <div id="TagObject" class="element ajax clickable class">
+        <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
+        <p class="short_description">Tag object</p>
+        <div class="details collapse">This class extends {@link OntologyObject} to implement a concrete tag object class.
+
+A tag object is used to identify, describe and document a data property, it holds the
+data property offset, data and cardinality types and the label and description of the
+property.
+
+The class features the following default offsets:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label tag represents the &lt;i&gt;name or
+	short description&lt;/i&gt; of the property that the current tag defines. All tags
+	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
+	a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
+	{@link kTAG_PART_KIND} element holds the label language code and the
+	{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
+	language, use the {@link Label()} offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DESCRIPTION}&lt;/tt&gt;: &lt;em&gt;Description&lt;/em&gt;. The description tag
+	represents the &lt;i&gt;description or extended definition&lt;/i&gt; of the property that the
+	current tag defines. The description is similar to the &lt;em&gt;definition&lt;/em&gt;, except
+	that while the definition provides a description of the object it defines unrelated
+	to context, the description adds to the definition the elements added by the current
+	context. All tags &lt;em&gt;should&lt;/em&gt; have a label, if the tag label is not enough to
+	provide a sufficient description or definition. Descriptions have the
+	{@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
+	the description language code and the {@link kTAG_PART_VALUE} holds the description
+	text. To populate and handle descriptions by language, use the {@link Description()}
+	offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_TYPE}&lt;/tt&gt;: &lt;em&gt;Data type&lt;/em&gt;. This attribute is an enumerated
+	set of values listing all the &lt;em&gt;data types&lt;/em&gt; that the value of the property
+	defined by the current tag may take. To populate and handle individual data types
+	use the {@link DataType()} offset accessor method. This property is
+	&lt;em&gt;required&lt;/em&gt; by all tag objects.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_KIND}&lt;/tt&gt;: &lt;em&gt;Data kind&lt;/em&gt;. This attribute is an enumerated
+	set of values providing the &lt;em&gt;data attributes&lt;/em&gt; of the property defined by the
+	current tag. This may be whether the property is a list of values, or if the
+	property is required or not. To populate and handle individual data kinds use the
+	{@link DataKind()} offset accessor method.
+&lt;/ul&gt;</div>
+        <a href="../classes/OntologyWrapper.TagObject.html" class="more">« More »</a>
+    </div>
+
                                         <div id="TagCache" class="element ajax clickable class">
         <h1>TagCache<a href="../classes/OntologyWrapper.connection.TagCache.html">¶</a></h1>
         <p class="short_description">Tag cache</p>
@@ -917,48 +961,32 @@ automatically managed by a protected interface, and not directly set by clients.
         <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>
     </div>
 
-                                        <div id="TagObject" class="element ajax clickable class">
-        <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
-        <p class="short_description">Tag object</p>
-        <div class="details collapse">This class extends {@link OntologyObject} to implement a concrete tag object class.
+                                        <div id="PersistentObject" class="element ajax clickable class">
+        <h1>PersistentObject<a href="../classes/OntologyWrapper.PersistentObject.html">¶</a></h1>
+        <p class="short_description">Persistent object</p>
+        <div class="details collapse">This &lt;i&gt;abstract&lt;/i&gt; class is the ancestor of all classes representing objects that can
+persist in a container and that are constituted by ontology offsets.
 
-A tag object is used to identify, describe and document a data property, it holds the
-data property offset, data and cardinality types and the label and description of the
-property.
+The main purpose of this class is to add the status and persistence traits to the parent
+class, providing the prototypes needed to implement concrete persistent objects.
 
-The class features the following default offsets:
+The class makes use of the {@link StatusTrait} and {@link PersistenceTrait} traits:
 
 &lt;ul&gt;
-&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label tag represents the &lt;i&gt;name or
-	short description&lt;/i&gt; of the property that the current tag defines. All tags
-	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
-	a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
-	{@link kTAG_PART_KIND} element holds the label language code and the
-	{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
-	language, use the {@link Label()} offset accessor method.
-&lt;li&gt;&lt;tt&gt;{@link kTAG_DESCRIPTION}&lt;/tt&gt;: &lt;em&gt;Description&lt;/em&gt;. The description tag
-	represents the &lt;i&gt;description or extended definition&lt;/i&gt; of the property that the
-	current tag defines. The description is similar to the &lt;em&gt;definition&lt;/em&gt;, except
-	that while the definition provides a description of the object it defines unrelated
-	to context, the description adds to the definition the elements added by the current
-	context. All tags &lt;em&gt;should&lt;/em&gt; have a label, if the tag label is not enough to
-	provide a sufficient description or definition. Descriptions have the
-	{@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
-	the description language code and the {@link kTAG_PART_VALUE} holds the description
-	text. To populate and handle descriptions by language, use the {@link Description()}
-	offset accessor method.
-&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_TYPE}&lt;/tt&gt;: &lt;em&gt;Data type&lt;/em&gt;. This attribute is an enumerated
-	set of values listing all the &lt;em&gt;data types&lt;/em&gt; that the value of the property
-	defined by the current tag may take. To populate and handle individual data types
-	use the {@link DataType()} offset accessor method. This property is
-	&lt;em&gt;required&lt;/em&gt; by all tag objects.
-&lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_KIND}&lt;/tt&gt;: &lt;em&gt;Data kind&lt;/em&gt;. This attribute is an enumerated
-	set of values providing the &lt;em&gt;data attributes&lt;/em&gt; of the property defined by the
-	current tag. This may be whether the property is a list of values, or if the
-	property is required or not. To populate and handle individual data kinds use the
-	{@link DataKind()} offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link StatusTrait}&lt;/tt&gt;: This trait handles a bitfirld data member that keeps
+	track of the object&#039;s status:
+ &lt;ul&gt;
+	&lt;li&gt;&lt;tt&gt;{@link isDirty()}&lt;/tt&gt;: This flag is set whenever any offset is modified,
+		this status can be tested whenever the object should be stored in a persistent
+		container: if set, it means the object has been modified, if not set, it means
+		that the object is identical to the persistent copy.
+	&lt;li&gt;&lt;tt&gt;{@link isCommitted()}&lt;/tt&gt;: This flag is set whenever the object has been
+		loaded or stored into a persistent container. This status can be useful to lock
+		properties that cannot change once the object is stored.
+ &lt;/ul&gt;
+&lt;li&gt;&lt;tt&gt;{@link PersistenceTrait}&lt;/tt&gt;: This trait handles the object persistence.
 &lt;/ul&gt;</div>
-        <a href="../classes/OntologyWrapper.TagObject.html" class="more">« More »</a>
+        <a href="../classes/OntologyWrapper.PersistentObject.html" class="more">« More »</a>
     </div>
 
                             </div>
@@ -972,7 +1000,7 @@ The class features the following default offsets:
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Thu, 06 Feb 2014 00:32:06 +0100.<br/>
+            generated on Thu, 06 Feb 2014 02:03:40 +0100.<br/>
     </footer>
     </body>
 </html>
