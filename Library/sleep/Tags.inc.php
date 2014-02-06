@@ -338,7 +338,7 @@ define( "kTAG_CONN_OPTS",						9 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_DBASE",						10 );
+define( "kTAG_CONN_BASE",						10 );
 
 /*=======================================================================================
  *	TYPE ATTRIBUTES																		*

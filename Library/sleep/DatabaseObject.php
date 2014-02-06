@@ -114,7 +114,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 * name is placed in the URL <code>fragment</code>.
 	 *
 	 * The method will set the current object's {@link kTAG_CONN_NAME} in the collection's
-	 * {@link kTAG_CONN_DBASE} offset, and the collection name will be set in the
+	 * {@link kTAG_CONN_BASE} offset, and the collection name will be set in the
 	 * {@link kTAG_CONN_NAME} offset.
 	 *
 	 * Derived classes may define other parameters.
@@ -168,11 +168,11 @@ abstract class DatabaseObject extends ConnectionObject
 	 * This method will instantiate a server object from the provided parameters.
 	 *
 	 * It is assumed that the parameters contain at least the server host and that the
-	 * protocol of the current database must be the same as the server.
+	 * protocol of the current database is the same as the server's.
 	 *
-	 * This method must be implemented by derived concrete classes.
+	 * Concrete derived classes must implement this method.
 	 *
-	 * @param mixed					$theParameter		Database DSN or parameters.
+	 * @param mixed					$theParameter		Current DSN or parameters.
 	 *
 	 * @access protected
 	 * @return ServerObject			Server object.
@@ -236,7 +236,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 * instantiate a collection object.
 	 *
 	 * In this class we replace the {@link kTAG_CONN_NAME} offset with the
-	 * and {@link kTAG_CONN_DBASE} and add all other database offsets.
+	 * and {@link kTAG_CONN_BASE} and add all other database offsets.
 	 *
 	 * @param array					$theOffsets			Collection offsets.
 	 *
@@ -251,7 +251,7 @@ abstract class DatabaseObject extends ConnectionObject
 		foreach( $this as $key => $value )
 		{
 			if( $key == kTAG_CONN_NAME )
-				$key = kTAG_CONN_DBASE;
+				$key = kTAG_CONN_BASE;
 			$theOffsets[ $key ] = $value;
 		}
 		

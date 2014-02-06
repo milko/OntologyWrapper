@@ -330,84 +330,6 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-
-		//
-		// Test cast to string.
-		//
-		echo( '<h4>Test cast to string<br /><i>should cast integer to string</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ ":test-string" ] = 12;'.kSTYLE_HEAD_POS );
-		$test[ ":test-string" ] = 12;
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-string" ];'.kSTYLE_HEAD_POS );
-		$value = $test[ ":test-string" ];
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		var_dump( $value );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Test cast to integer.
-		//
-		echo( '<h4>Test cast to integer<br /><i>should cast string to integer</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ ":test-int" ] = "13";'.kSTYLE_HEAD_POS );
-		$test[ ":test-int" ] = "13";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-int" ];'.kSTYLE_HEAD_POS );
-		$value = $test[ ":test-int" ];
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		var_dump( $value );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Test cast to float.
-		//
-		echo( '<h4>Test cast to float<br /><i>should cast integer to float</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ ":test-float" ] = 14;'.kSTYLE_HEAD_POS );
-		$test[ ":test-float" ] = 14;
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$value = $test[ ":test-float" ];'.kSTYLE_HEAD_POS );
-		$value = $test[ ":test-float" ];
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		var_dump( $value );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -439,7 +361,7 @@ try
 	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "protocol://user:pass@host:80/path?opt1=val1&opt2=val2&opt3&opt4#fragment";
+	$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4#collection";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );
@@ -467,6 +389,8 @@ try
 					 kTAG_CONN_PASS => "pass",
 					 kTAG_CONN_HOST => "host",
 					 kTAG_CONN_PORT => 80,
+					 kTAG_CONN_BASE => 'database',
+					 kTAG_CONN_COLL => 'collection',
 					 kTAG_CONN_OPTS => array( 'opt1' => 'val1',
 											  'opt2' => 'val2',
 											  'opt3' => NULL,
@@ -480,23 +404,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
 	$test = new MyClass($params);
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Open connection.
-	//
-	echo( '<h4>Open connection<br /><i>DSN should be updated</i></h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
-	$test->openConnection();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

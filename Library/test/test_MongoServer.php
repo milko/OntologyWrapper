@@ -1,21 +1,21 @@
 <?php
 
 /**
- * {@link PersistentObject} test suite.
+ * {@link MongoServer} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link PersistentObject} class.
+ * {@link MongoServer} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 06/02/2014
+ *	@version	1.00 21/01/2014
  */
 
 /*=======================================================================================
  *																						*
- *								test_PersistentObject.php								*
+ *								test_MongoServer.php									*
  *																						*
  *======================================================================================*/
 
@@ -28,16 +28,6 @@ require_once( 'includes.inc.php' );
 // Style includes.
 //
 require_once( 'styles.inc.php' );
-
-//
-// Tag definitions.
-//
-require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
-
-//
-// Session definitions.
-//
-require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
 
 /*=======================================================================================
@@ -57,7 +47,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\PersistentObject
+class MyClass extends OntologyWrapper\connection\MongoServer
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -83,8 +73,6 @@ class MyClass extends OntologyWrapper\PersistentObject
 /*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
-
-session_start();
  
 //
 // Test class.
@@ -339,6 +327,81 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
+
+		//
+		// Test instantiate empty object.
+		//
+		echo( '<h4>Test instantiate empty object</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test instantiate with full DSN.
+		//
+		echo( '<h4>Test instantiate with full DSN</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4#collection";
+		echo( kSTYLE_HEAD_PRE );
+		var_dump( $dsn );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
+		$test = new MyClass($dsn);
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test instantiate with full parameters.
+		//
+		echo( '<h4>Test instantiate with full parameters<br /><i>path and fragment are not mapped to parameters in this class</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		$params = array( kTAG_CONN_PROTOCOL => "protocol",
+						 kTAG_CONN_USER => "user",
+						 kTAG_CONN_PASS => "pass",
+						 kTAG_CONN_HOST => "host",
+						 kTAG_CONN_PORT => 80,
+						 kTAG_CONN_BASE => 'database',
+						 kTAG_CONN_COLL => 'collection',
+						 kTAG_CONN_OPTS => array( 'opt1' => 'val1',
+												  'opt2' => 'val2',
+												  'opt3' => NULL,
+												  'opt4' => NULL ) );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '<pre>' );
+		print_r( $params );
+		echo( '</pre>' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
+		$test = new MyClass($params);
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -348,21 +411,74 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Test set label.
+	// Test instantiate with full DSN.
 	//
-	echo( '<h4>Test set label</h4>' );
+	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-	$test = new MyClass();
+	$dsn = "mongodb://localhost:27017?connect=1";
+	echo( kSTYLE_HEAD_PRE );
+	var_dump( $dsn );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Label" );'.kSTYLE_HEAD_POS );
-	$test->Label( "en", "Label" );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
+	$test = new MyClass($dsn);
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Open connection.
+	//
+	echo( '<h4>Open connection</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
+	$test->openConnection();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Show stats.
+	//
+	echo( '<h4>Show stats</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$stats = $test->getStatistics();'.kSTYLE_HEAD_POS );
+	$stats = $test->getStatistics();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $stats );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test database.
+	//
+	echo( '<h4>Test database</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Database( "test" );'.kSTYLE_HEAD_POS );
+	$value = $test->Database( "test" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $value ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -375,7 +491,9 @@ try
 //
 catch( \Exception $error )
 {
-	echo( $error->xdebug_message );
+	echo( '<pre>' );
+	echo( (string) $error );
+	echo( '</pre>' );
 }
 
 echo( "\nDone!\n" );

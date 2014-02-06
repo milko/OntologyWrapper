@@ -260,7 +260,7 @@ class MongoServer extends ServerObject
 	 *==================================================================================*/
 
 	/**
-	 * Open connection
+	 * Close connection
 	 *
 	 * We overload this method to reset the connection resource.
 	 *
@@ -342,6 +342,10 @@ class MongoServer extends ServerObject
 	 */
 	protected function newDatabase( $theOffsets )
 	{
+		//
+		// Check protocol.
+		//
+		
 	
 	} // newDatabase.
 

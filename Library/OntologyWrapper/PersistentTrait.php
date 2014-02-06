@@ -206,16 +206,15 @@ trait PersistentTrait
 
 	 
 	/*===================================================================================
-	 *	objectLoad																		*
+	 *	objectResolve																	*
 	 *==================================================================================*/
 
 	/**
-	 * Find an object
+	 * Resolve an object
 	 *
-	 * This method should select the object matching the provided identifier in the provided
-	 * persistent container and return the object attributes as an array.
-	 *
-	 * If the provided identifier was not resolved, the method should return <tt>NULL</tt>.
+	 * This method should select the object using the provided identifier in the provided
+	 * persistent store container and return an array with the object's contents, if found,
+	 * or <tt>NULL</tt> if not found.
 	 *
 	 * In this trait we handle array and array object containers, concrete classes should
 	 * overload this method to handle other kinds of containers.
@@ -228,7 +227,7 @@ trait PersistentTrait
 	 *
 	 * @throws Exception
 	 */
-	public function objectLoad( $theContainer, $theIdentifier )
+	public function objectResolve( $theContainer, $theIdentifier )
 	{
 		//
 		// Handle arrays and array objects.
@@ -259,7 +258,7 @@ trait PersistentTrait
 			"Cannot find object: "
 		   ."invalid or unsupported container type." );							// !@! ==>
 	
-	} // objectLoad.
+	} // objectResolve.
 
 	 
 

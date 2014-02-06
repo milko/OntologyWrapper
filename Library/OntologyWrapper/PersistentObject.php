@@ -39,7 +39,7 @@ use OntologyWrapper\OntologyObject;
  *			loaded or stored into a persistent container. This status can be useful to lock
  *			properties that cannot change once the object is stored.
  *	 </ul>
- *	<li><tt>{@link PersistenceTrait}</tt>: This trait handles the object persistence.
+ *	<li><tt>{@link PersistentTrait}</tt>: This trait handles the object persistence.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -141,7 +141,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Load object.
 			//
-			$found = $this->objectLoad( $theContainer, $theIdentifier );
+			$found = $this->objectResolve( $theContainer, $theIdentifier );
 			
 			//
 			// Handle selected object.

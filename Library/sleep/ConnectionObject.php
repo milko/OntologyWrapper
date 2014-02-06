@@ -20,10 +20,10 @@ use OntologyWrapper\OntologyObject;
  * Connection object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing connection
- * instances, such as servers, databases and collections.
+ * instances, such as caches, servers, databases and collections.
  *
  * The main purpose of this class is to wrap a common interface around concrete instances of
- * specific server, database or collection or engines.
+ * specific server, database, collection or cache engines.
  *
  * The class features the following properties:
  *
@@ -86,29 +86,6 @@ use OntologyWrapper\OntologyObject;
  *
  * This object represents the building block for all concrete instances that represent
  * servers, databases, data collections and caches.
- +
- + When parsing the data source name, using the {@link parse_url()} function,, this class
- * will perform the following associations:
- *
- * <ul>
- *	<li><tt>scheme</tt>: <tt>{@link kTAG_CONN_PROTOCOL}</tt>. This corresponds to the server
- *		and database protocols, which must be the same.
- *	<li><tt>host</tt>: <tt>{@link kTAG_CONN_HOST}</tt>. This corresponds to the server
- *		object connection host.
- *	<li><tt>port</tt>: <tt>{@link kTAG_CONN_PORT}</tt>. This corresponds to the server
- *		object connection port.
- *	<li><tt>user</tt>: <tt>{@link kTAG_CONN_USER}</tt>. This corresponds to the server
- *		object connection user code.
- *	<li><tt>pass</tt>: <tt>{@link kTAG_CONN_PASS}</tt>. This corresponds to the server
- *		object connection user password.
- *	<li><tt>path</tt>: <tt>{@link kTAG_CONN_BASE}</tt>. This corresponds to the database
- *		object name.
- *	<li><tt>fragment</tt>: <tt>{@link kTAG_CONN_COLL}</tt>. This corresponds to the
- *		collection object name.
- * </ul>
- *
- * The above associations are stored in the object's offsets, which means that a collection
- * will hold its database name and all the parameters of the server connection.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 16/01/2014
@@ -131,7 +108,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @var string
 	 */
-	protected $mDSN = NULL;
+	private $mDSN = NULL;
 
 	/**
 	 * Parent connection.
@@ -142,7 +119,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @var ConnectionObject
 	 */
-	protected $mParent = NULL;
+	private $mParent = NULL;
 
 	/**
 	 * Connection resource.
@@ -223,7 +200,7 @@ abstract class ConnectionObject extends OntologyObject
 				//
 				// Generate and load DSN.
 				//
-				$this->DSN( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
+				$this->DSN( $this->parseOffsets(), FALSE, FALSE );
 			
 			} // Provided individual parameters.
 		
@@ -513,7 +490,7 @@ abstract class ConnectionObject extends OntologyObject
 			// Sync offsets.
 			//
 			if( $doSync )
-				$this->parseDSN( $this->mDSN );
+				$this->parseDSN();
 			
 			//
 			// Handle dirty flag.
@@ -634,7 +611,7 @@ abstract class ConnectionObject extends OntologyObject
 			// Synchronise DSN.
 			//
 			if( $this->isDirty() )
-				$this->DSN( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
+				$this->DSN( $this->parseOffsets(), FALSE, FALSE );
 		
 			//
 			// Open and set connection.
@@ -794,8 +771,6 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * Derived classes should overload the {@link loadDSNParameter()} method.
 	 *
-	 * @param string				$theDSN				Data source name.
-	 *
 	 * @access protected
 	 *
 	 * @throws Exception
@@ -803,7 +778,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * @uses DSN()
 	 * @uses loadDSNParameter()
 	 */
-	protected function parseDSN( $theDSN )
+	protected function parseDSN()
 	{
 		//
 		// Reset parameters.
@@ -814,12 +789,13 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Check if set.
 		//
-		if( strlen( $theDSN ) )
+		$dsn = $this->DSN();
+		if( strlen( $dsn ) )
 		{
 			//
 			// Parse DSN.
 			//
-			$encoded = parse_url( $theDSN );
+			$encoded = parse_url( $dsn );
 			if( $encoded === FALSE )
 				throw new \Exception(
 					"Invalid connection string [$dsn]." );						// !@! ==>
@@ -842,9 +818,9 @@ abstract class ConnectionObject extends OntologyObject
 	/**
 	 * Parse connection parameters
 	 *
-	 * This method will parse the provided key/value array and generate a connection URL.
+	 * This method will parse the current object's offsets and generate a connection URL.
 	 *
-	 * The method will iterate the provided offsets and feed them to the protected
+	 * The method will iterate the object's offsets and feed them to the protected
 	 * {@link parseOffset()} method which will populate an array structured as the result of
 	 * the {@link parse_url()} function, it will be the duty of this method to generate a
 	 * data source name from that array.
@@ -853,14 +829,12 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * If the resulting data source name is empty, the method will return <tt>FALSE</tt>.
 	 *
-	 * @param array					$theOffsets			Offsets.
-	 *
 	 * @access protected
 	 * @return mixed				Data source name or <tt>FALSE</tt> if empty.
 	 *
 	 * @uses parseOffset()
 	 */
-	protected function parseOffsets( $theOffsets )
+	protected function parseOffsets()
 	{
 		//
 		// Init local storage.
@@ -870,7 +844,8 @@ abstract class ConnectionObject extends OntologyObject
 		//
 		// Iterate offsets.
 		//
-		foreach( $theOffsets as $key => $value )
+		$offsets = $this->getArrayCopy();
+		foreach( $offsets as $key => $value )
 			$this->parseOffset( $params, $key, $value );
 		
 		//
@@ -931,7 +906,7 @@ abstract class ConnectionObject extends OntologyObject
 			//
 			if( array_key_exists( 'path', $params ) )
 			{
-				if( ! (substr( $params[ 'path' ], 0, 1 ) == '/') )
+				if( ! substr( $params[ 'path' ], 0, 1 ) == '/' )
 					$dsn .= '/';
 				$dsn .= $params[ 'path' ];
 			}
@@ -989,8 +964,6 @@ abstract class ConnectionObject extends OntologyObject
 	 *	<li><tt>{@link kTAG_CONN_PORT}</tt>: The connection <code>port</code>.
 	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: The <code>user</code> code.
 	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: The user <code>pass</code>word.
-	 *	<li><tt>{@link kTAG_CONN_BASE}</tt>: The user <code>path</code>word.
-	 *	<li><tt>{@link kTAG_CONN_COLL}</tt>: The user <code>fragment</code>word.
 	 *	<li><tt>{@link kTAG_CONN_OPTS}</tt>: The connection options, <code>query</code>.
 	 * </ul>
 	 *
@@ -1029,14 +1002,6 @@ abstract class ConnectionObject extends OntologyObject
 			
 			case kTAG_CONN_PASS:
 				$theParameters[ 'pass' ] = $theValue;
-				break;
-			
-			case kTAG_CONN_BASE:
-				$theParameters[ 'path' ] = $theValue;
-				break;
-			
-			case kTAG_CONN_COLL:
-				$theParameters[ 'fragment' ] = $theValue;
 				break;
 			
 			case kTAG_CONN_OPTS:
@@ -1122,10 +1087,12 @@ abstract class ConnectionObject extends OntologyObject
 	 *		<li><tt><code>port</code></tt>: We set it in {@link kTAG_CONN_PORT}.
 	 *		<li><tt><code>user</code></tt>: We set it in {@link kTAG_CONN_USER}.
 	 *		<li><tt><code>pass</code></tt>: We set it in {@link kTAG_CONN_PASS}.
-	 *		<li><tt><code>path</code></tt>: We set it in {@link kTAG_CONN_BASE}.
-	 *		<li><tt><code>fragment</code></tt>: We set it in {@link kTAG_CONN_COLL}.
+	 *		<li><tt><code>path</code></tt>: This parameter is not handled in this class,
+	 *			derived classes should overload this method to handle it.
 	 *		<li><tt><code>query</code></tt>: We load the key/value pairs into
 	 *			{@link kTAG_CONN_OPTS} array.
+	 *		<li><tt><code>fragment</code></tt>: This parameter is not handled in this class,
+	 *			derived classes should overload this method to handle it.
 	 *	 </ul>
 	 *	<li><b>$theKey</b>: This parameter represents the offset.
 	 *	<li><b>$theValue</b>: This parameter represents the offset value.
@@ -1164,16 +1131,6 @@ abstract class ConnectionObject extends OntologyObject
 			
 			case 'pass':
 				$this->offsetSet( kTAG_CONN_PASS, $theValue );
-				break;
-			
-			case 'path':
-				if( substr( $theValue, 0, 1 ) == '/' )
-					$theValue = substr( $theValue, 1 );
-				$this->offsetSet( kTAG_CONN_BASE, $theValue );
-				break;
-			
-			case 'fragment':
-				$this->offsetSet( kTAG_CONN_COLL, $theValue );
 				break;
 			
 			case 'query':
