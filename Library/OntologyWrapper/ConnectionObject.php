@@ -698,24 +698,6 @@ abstract class ConnectionObject extends OntologyObject
 	} // closeConnection.
 
 	 
-	/*===================================================================================
-	 *	getStatistics																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return statistics
-	 *
-	 * This method should return the connection statistics, the result depends on the
-	 * specific driver.
-	 *
-	 * We implement the method in this class to allow drivers that do not return statistics.
-	 *
-	 * @access public
-	 * @return mixed				Depends on driver.
-	 */
-	public function getStatistics()										{	return NULL;	}
-
-	 
 
 /*=======================================================================================
  *																						*

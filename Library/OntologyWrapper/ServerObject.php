@@ -32,7 +32,7 @@ abstract class ServerObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC CONNECTION INTERFACE								*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -72,6 +72,32 @@ abstract class ServerObject extends ConnectionObject
 		return $this->newDatabase( $params );										// ==>
 	
 	} // Database.
+
+	 
+	/*===================================================================================
+	 *	getStatistics																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return statistics
+	 *
+	 * This method should return the server statistics, the result depends on the specific
+	 * driver.
+	 *
+	 * The method should return the following retults:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: The operation is not supported.
+	 *	<li><tt>FALSE</tt>: The server is not connected.
+	 *	<li><tt>array</tt>: The server statistics.
+	 * </ul>
+	 *
+	 * We implement the method in this class as a fall-back.
+	 *
+	 * @access public
+	 * @return array				Server statistics, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 */
+	public function getStatistics()										{	return NULL;	}
 
 		
 

@@ -156,7 +156,7 @@
         <div class="details collapse"><table>
 <tr>
     <td align="right" valign="top"><i>Offset:&nbsp;</i></td>
-    <td align="left" valign="top"><code>ddict</code></td>
+    <td align="left" valign="top"><code>:ddict</code></td>
 </tr>
 <tr>
     <td align="right" valign="top"><i>Type:&nbsp;</i></td>
@@ -172,10 +172,85 @@
         that holds the data dictionary. This cache allows retrieving the native
         identifier of a {@link TagObject} given its global identifier, and the
         {@link TagObject} object given its native identifier.<br /><i>Note that this tag
-        is also used the {@link Memcached} persistent ID for the tag cache</i>.</td>
+        is also used as the {@link Memcached} persistent ID for the tag cache</i>.</td>
 </tr>
 </table></div>
         <a href="../namespaces/.html#constant_kSESSION_DDICT" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kSESSION_ONTO" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kSESSION_ONTO .collapse">
+        <h1>kSESSION_ONTO<a href="../namespaces/.html#constant_kSESSION_ONTO">¶</a></h1>
+        <p class="short_description">Ontology database.</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>Offset:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:ontology</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>DatabaseObject</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Ontology database</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Description:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the offset of the session element
+        that holds the ontology database connection object. This database contains all
+        the elements comprising the ontology.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kSESSION_ONTO" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kSESSION_ENTITIES" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kSESSION_ENTITIES .collapse">
+        <h1>kSESSION_ENTITIES<a href="../namespaces/.html#constant_kSESSION_ENTITIES">¶</a></h1>
+        <p class="short_description">Entities database.</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>Offset:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:entities</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>DatabaseObject</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Entities database</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Description:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the offset of the session element
+        that holds the entities database connection object. This database contains all
+        the data regarding system users and entities.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kSESSION_ENTITIES" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kSESSION_UNITS" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kSESSION_UNITS .collapse">
+        <h1>kSESSION_UNITS<a href="../namespaces/.html#constant_kSESSION_UNITS">¶</a></h1>
+        <p class="short_description">Units database.</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>Offset:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:units</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>DatabaseObject</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Units database</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Description:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the offset of the session element
+        that holds the units database connection object. This database contains all the
+        unit data.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kSESSION_UNITS" class="more">« More »</a>    </div>
 
                                         <div id="constant_kTYPE_MIXED" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTYPE_MIXED .collapse">
         <h1>kTYPE_MIXED<a href="../namespaces/.html#constant_kTYPE_MIXED">¶</a></h1>
@@ -259,6 +334,29 @@
 </tr>
 </table></div>
         <a href="../namespaces/.html#constant_kTYPE_FLOAT" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTYPE_ARRAY" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTYPE_ARRAY .collapse">
+        <h1>kTYPE_ARRAY<a href="../namespaces/.html#constant_kTYPE_ARRAY">¶</a></h1>
+        <p class="short_description">Array.</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>Term:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:key/value</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Key/value array</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This data type defines an <i>array of elements in
+        which the key represents the discriminant</i>. Such arrays are identical to
+        PHP arrays, except that, unlike traditional arrays in which the key is a numeric
+        value, this kind of structure uses the key as part of the information. The data
+        type of the elements value is not ingferred.
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTYPE_ARRAY" class="more">« More »</a>    </div>
 
                                         <div id="constant_kTYPE_KIND_VALUE" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTYPE_KIND_VALUE .collapse">
         <h1>kTYPE_KIND_VALUE<a href="../namespaces/.html#constant_kTYPE_KIND_VALUE">¶</a></h1>
@@ -434,10 +532,36 @@ native state.</p></div>
     <td align="left" valign="top">This tag represents the unique <i>native
         identifier</i> of an object. This identifier represents the primary key of an
         object, it can take any data type and it is not guaranteed to be persistent in
-        all instances.</td>
+        all instances. This tag is internal and will not be defined in the
+        ontology.</td>
 </tr>
 </table></div>
         <a href="../namespaces/.html#constant_kTAG_NID" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CLASS" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CLASS .collapse">
+        <h1>kTAG_CLASS<a href="../namespaces/.html#constant_kTAG_CLASS">¶</a></h1>
+        <p class="short_description">Class</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID/GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>_class</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Object class</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the <i>object class name</i>, this
+        string is used to instantiate the correct object once loaded from a container.
+        This tag is internal and will not be defined in the ontology.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CLASS" class="more">« More »</a>    </div>
 
                                         <div id="constant_kTAG_GID" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_GID .collapse">
         <h1>kTAG_GID<a href="../namespaces/.html#constant_kTAG_GID">¶</a></h1>
@@ -626,13 +750,237 @@ native state.</p></div>
 </table></div>
         <a href="../namespaces/.html#constant_kTAG_DESCRIPTION" class="more">« More »</a>    </div>
 
+                                        <div id="constant_kTAG_CONN_PROTOCOL" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_PROTOCOL .collapse">
+        <h1>kTAG_CONN_PROTOCOL<a href="../namespaces/.html#constant_kTAG_CONN_PROTOCOL">¶</a></h1>
+        <p class="short_description">Protocol</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>7</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:protocol</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Protocol</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>protocol or
+        scheme</i> used in a network communication.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_PROTOCOL" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_HOST" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_HOST .collapse">
+        <h1>kTAG_CONN_HOST<a href="../namespaces/.html#constant_kTAG_CONN_HOST">¶</a></h1>
+        <p class="short_description">Host</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>8</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:host</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Host</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>domain name or
+        internet address</i>.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_HOST" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_PORT" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_PORT .collapse">
+        <h1>kTAG_CONN_PORT<a href="../namespaces/.html#constant_kTAG_CONN_PORT">¶</a></h1>
+        <p class="short_description">Port</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>9</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:port</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:int</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Port</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>TCP or UDP
+        port</i>.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_PORT" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_USER" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_USER .collapse">
+        <h1>kTAG_CONN_USER<a href="../namespaces/.html#constant_kTAG_CONN_USER">¶</a></h1>
+        <p class="short_description">User</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>10</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:user</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">User code</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a <i>code used to authenticate
+        with a service</i>.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_USER" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_PASS" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_PASS .collapse">
+        <h1>kTAG_CONN_PASS<a href="../namespaces/.html#constant_kTAG_CONN_PASS">¶</a></h1>
+        <p class="short_description">Pass</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>11</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:pass</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">User password</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a <i>password used to authenticate
+        with a service</i>.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_PASS" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_BASE" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_BASE .collapse">
+        <h1>kTAG_CONN_BASE<a href="../namespaces/.html#constant_kTAG_CONN_BASE">¶</a></h1>
+        <p class="short_description">Database</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>12</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:database</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Database</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>database</i>
+        name.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_BASE" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_COLL" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_COLL .collapse">
+        <h1>kTAG_CONN_COLL<a href="../namespaces/.html#constant_kTAG_CONN_COLL">¶</a></h1>
+        <p class="short_description">Collection</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>13</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:collection</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:string</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Collection</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents a connection <i>collection</i>
+        name .</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_COLL" class="more">« More »</a>    </div>
+
+                                        <div id="constant_kTAG_CONN_OPTS" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_CONN_OPTS .collapse">
+        <h1>kTAG_CONN_OPTS<a href="../namespaces/.html#constant_kTAG_CONN_OPTS">¶</a></h1>
+        <p class="short_description">Options</p>
+        <div class="details collapse"><table>
+<tr>
+    <td align="right" valign="top"><i>NID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>14</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>GID:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:connection:options</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+    <td align="left" valign="top"><code>:type:array</code></td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Label:&nbsp;</i></td>
+    <td align="left" valign="top">Options</td>
+</tr>
+<tr>
+    <td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+    <td align="left" valign="top">This tag represents the <i>connection options</i> as
+        a list of <i>key</i>/<i>value</i> pairs.</td>
+</tr>
+</table></div>
+        <a href="../namespaces/.html#constant_kTAG_CONN_OPTS" class="more">« More »</a>    </div>
+
                                         <div id="constant_kTAG_PART_KIND" class="element ajax clickable constant" data-toggle="collapse" data-target="#constant_kTAG_PART_KIND .collapse">
         <h1>kTAG_PART_KIND<a href="../namespaces/.html#constant_kTAG_PART_KIND">¶</a></h1>
         <p class="short_description">Kind part</p>
         <div class="details collapse"><table>
 <tr>
     <td align="right" valign="top"><i>NID:&nbsp;</i></td>
-    <td align="left" valign="top"><code>7</code></td>
+    <td align="left" valign="top"><code>15</code></td>
 </tr>
 <tr>
     <td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -667,7 +1015,7 @@ native state.</p></div>
         <div class="details collapse"><table>
 <tr>
     <td align="right" valign="top"><i>NID:&nbsp;</i></td>
-    <td align="left" valign="top"><code>8</code></td>
+    <td align="left" valign="top"><code>16</code></td>
 </tr>
 <tr>
     <td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -716,6 +1064,26 @@ native state.</p></div>
         
                     <div class="namespace-indent">
                 <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                                        <div id="trait_PersistentTrait" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_PersistentTrait .collapse">
+        <h1>PersistentTrait<a href="../classes/OntologyWrapper.PersistentTrait.html">¶</a></h1>
+        <p class="short_description">Persistence trait</p>
+        <div class="details collapse"><p>The main purpose of this trait is to add the ability for classes to store and retrieve
+objects in and from persistent stores.</p>
+<p>This trait defines the common methods for managing the object in a persistent store:</p>
+<ul>
+</ul>
+<p>This trait makes also use of the {@link StatusTrait} trait in the following way:</p>
+<ul>
+<li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified, this
+    status can be tested whenever the object should be stored in a persistent container:
+    if set, it means the object has been modified, if not set, it means that the object
+    is identical to the persistent copy.
+<li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been loaded
+    or stored into a persistent container. This status can be useful to lock properties
+    that cannot change once the object is stored.
+</ul></div>
+        <a href="../classes/OntologyWrapper.PersistentTrait.html" class="more">« More »</a>    </div>
+
                                         <div id="trait_StatusTrait" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_StatusTrait .collapse">
         <h1>StatusTrait<a href="../classes/OntologyWrapper.StatusTrait.html">¶</a></h1>
         <p class="short_description">Status trait</p>
@@ -753,6 +1121,14 @@ using these methods in a public interface.</p></div>
 
                 
                 
+                                        <div id="class_DatabaseObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DatabaseObject .collapse">
+        <h1>DatabaseObject<a href="../classes/OntologyWrapper.DatabaseObject.html">¶</a></h1>
+        <p class="short_description">Database object</p>
+        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing database
+connection instances, this class extends the {@link ConnectionObject} class to implement
+database specific functionality prototypes.</p></div>
+        <a href="../classes/OntologyWrapper.DatabaseObject.html" class="more">« More »</a>    </div>
+
                                         <div id="class_TagObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagObject .collapse">
         <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
         <p class="short_description">Tag object</p>
@@ -842,6 +1218,111 @@ handle properties and offsets in a standard way:
 </ul></div>
         <a href="../classes/OntologyWrapper.ContainerObject.html" class="more">« More »</a>    </div>
 
+                                        <div id="class_ConnectionObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConnectionObject .collapse">
+        <h1>ConnectionObject<a href="../classes/OntologyWrapper.ConnectionObject.html">¶</a></h1>
+        <p class="short_description">Connection object</p>
+        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing connection
+instances, such as servers, databases and collections.</p>
+<p>The main purpose of this class is to wrap a common interface around concrete instances of
+specific server, database or collection or engines.</p>
+<p>The class features the following properties:</p>
+<ul>
+<li><tt>{@link $mDSN}</tt>: The <i>data source name</i>, it is an URL that represents
+    the connection string.
+<li><tt>{@link $mConnection}</tt>: The <i>connection resource</i>, it represents the
+    native connection.
+<li><tt>{@link $mParent}</tt>: The <i>parent connection</i>, it represents the instance
+    derived from this class that instantiated the current object.
+</ul>
+<p>The object is instantiated by providing a parameter that may either be a connection URL,
+such as a string that may be parsed by the {@link parse_url()} function, or an array
+containing the connection parameters.</p>
+<p>The public interface of this class, as well as for many other abstract classes, is
+implemented as templates in which protected methods do the actual work, so derived
+concrete classes should only need to implement the protected interface.</p>
+<p>This class declares three methods for managing the connection:</p>
+<ul>
+<li><tt>{@link isConnected()}</tt>: Returns <tt>TRUE</tt> if the connection is open.
+<li><tt>{@link openConnection()}</tt>: Create and open the connection.
+<li><tt>{@link closeConnection()}</tt>: Close and reset the connection.
+</ul>
+<p>When the object goes out of context it will close the connection, if open, and re-open it
+once it gets back into context:</p>
+<ul>
+<li><tt>{@link __sleep()}</tt>: This method will close the connection, if open, and
+    set the {@link $mConnection connection} property to <tt>TRUE</tt> as an indication
+    that the connection must be opened once the object gets back into scope.
+<li><tt>{@link __wakeup()}</tt>: This method will open the connection, if the object
+    went out of scope while the connection was open.
+</ul>
+<p>The class provides accessor methods for the object properties: the {@link $mDSN} data
+member can be managed with the {@link DSN()} method, the {@link $mConnection} data
+member can be retrieved with the {@link Connection()} method and the {@link $mParent}
+data member can be retrieved with the {@link Parent()} method.</p>
+<p>When setting the connection string, {@link DSN()}, the object's connection parameters
+will be synchronised. When setting offsets, the data source name will not be changed.
+When the connection is opened, {@link openConnection()}, the data source name will be
+re-constituted using the object's offsets. This means that the object offsets represent
+the actual connection parameters, although setting the DSN will reset these parameters to
+match the connection URL.</p>
+<p>When the connection is {@link isConnected() open}, any attempt to modify the object
+offsets will raise an exception: this is to prevent changing the connection properties
+while connected.</p>
+<p>In this class we make use of the {@link StatusTrait} trait, here we set the
+{@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
+open the connection; we reset the status bitfield data member after calling the parent
+constructor.</p>
+<p>This object represents the building block for all concrete instances that represent
+servers, databases, data collections and caches.
++</p>
+<ul>
+<li>When parsing the data source name, using the {@link parse_url()} function,, this class
+will perform the following associations:</li>
+</ul>
+<ul>
+<li><tt>scheme</tt>: <tt>{@link kTAG_CONN_PROTOCOL}</tt>. This corresponds to the server
+    and database protocols, which must be the same.
+<li><tt>host</tt>: <tt>{@link kTAG_CONN_HOST}</tt>. This corresponds to the server
+    object connection host.
+<li><tt>port</tt>: <tt>{@link kTAG_CONN_PORT}</tt>. This corresponds to the server
+    object connection port.
+<li><tt>user</tt>: <tt>{@link kTAG_CONN_USER}</tt>. This corresponds to the server
+    object connection user code.
+<li><tt>pass</tt>: <tt>{@link kTAG_CONN_PASS}</tt>. This corresponds to the server
+    object connection user password.
+<li><tt>path</tt>: <tt>{@link kTAG_CONN_BASE}</tt>. This corresponds to the database
+    object name.
+<li><tt>fragment</tt>: <tt>{@link kTAG_CONN_COLL}</tt>. This corresponds to the
+    collection object name.
+</ul>
+<p>The above associations are stored in the object's offsets, which means that a collection
+will hold its database name and all the parameters of the server connection.</p></div>
+        <a href="../classes/OntologyWrapper.ConnectionObject.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_PersistentObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PersistentObject .collapse">
+        <h1>PersistentObject<a href="../classes/OntologyWrapper.PersistentObject.html">¶</a></h1>
+        <p class="short_description">Persistent object</p>
+        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing objects that can
+persist in a container and that are constituted by ontology offsets.</p>
+<p>The main purpose of this class is to add the status and persistence traits to the parent
+class, providing the prototypes needed to implement concrete persistent objects.</p>
+<p>The class makes use of the {@link StatusTrait} and {@link PersistenceTrait} traits:</p>
+<ul>
+<li><tt>{@link StatusTrait}</tt>: This trait handles a bitfirld data member that keeps
+    track of the object's status:
+ <ul>
+    <li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified,
+        this status can be tested whenever the object should be stored in a persistent
+        container: if set, it means the object has been modified, if not set, it means
+        that the object is identical to the persistent copy.
+    <li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been
+        loaded or stored into a persistent container. This status can be useful to lock
+        properties that cannot change once the object is stored.
+ </ul>
+<li><tt>{@link PersistentTrait}</tt>: This trait handles the object persistence.
+</ul></div>
+        <a href="../classes/OntologyWrapper.PersistentObject.html" class="more">« More »</a>    </div>
+
                                         <div id="class_TagCacheObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCacheObject .collapse">
         <h1>TagCacheObject<a href="../classes/OntologyWrapper.TagCacheObject.html">¶</a></h1>
         <p class="short_description">Tag cache object</p>
@@ -875,6 +1356,22 @@ and load all current tag identifiers and objects.</p>
 </ul></div>
         <a href="../classes/OntologyWrapper.TagCacheObject.html" class="more">« More »</a>    </div>
 
+                                        <div id="class_ServerObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ServerObject .collapse">
+        <h1>ServerObject<a href="../classes/OntologyWrapper.ServerObject.html">¶</a></h1>
+        <p class="short_description">Server object</p>
+        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing server connection
+instances, this class extends the {@link ConnectionObject} class to implement server
+specific functionality prototypes.</p></div>
+        <a href="../classes/OntologyWrapper.ServerObject.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CollectionObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CollectionObject .collapse">
+        <h1>CollectionObject<a href="../classes/OntologyWrapper.CollectionObject.html">¶</a></h1>
+        <p class="short_description">Collection object</p>
+        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing database
+collection instances, this class extends the {@link ConnectionObject} class to implement
+collection specific functionality prototypes.</p></div>
+        <a href="../classes/OntologyWrapper.CollectionObject.html" class="more">« More »</a>    </div>
+
                                         <div id="class_OntologyObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OntologyObject .collapse">
         <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
         <p class="short_description">Ontology object</p>
@@ -886,11 +1383,11 @@ documented by an ontology, guaranteeing that any persistent data element is defi
 described by an entry of the ontology represented by an instance of the {@link TagObject}
 class, which is itself derived from this class.</p>
 <p>All persistent data elements are represented by a key/value pair, in which the key is
-the data offset and the value the persistent data value. All persistent data offsets
-must be integer values or alphanumeric strings, with the exception of the
-{@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
-object instances, which hold all the necessary information and references to document
-the current persistent data element.</p>
+the data offset and the value the persistent data value. All persistent data offset, s
+must be integer values or alphanumeric strings, with the exception of the tags defined in
+the static {@link $sInternalTags} list, these integer values represent references to
+{@link TagObject} object instances, which hold all the necessary information and
+references to document the current persistent data element.</p>
 <p>This class implements the bridge between data and the ontology ensuring that all data
 elements are defined in this ontology, which, itself, is implemented by objects derived
 from this class: this means that the whole system is self documenting.</p>
@@ -913,30 +1410,6 @@ and the <em>native identifier</em> {@link kTAG_NID}: once set, these two identif
 cannot be modified. In concrete derived classes these two offsets will generally be
 automatically managed by a protected interface, and not directly set by clients.</div>
         <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_PersistentObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PersistentObject .collapse">
-        <h1>PersistentObject<a href="../classes/OntologyWrapper.PersistentObject.html">¶</a></h1>
-        <p class="short_description">Persistent object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing objects that can
-persist in a container and that are constituted by ontology offsets.</p>
-<p>The main purpose of this class is to add the status and persistence traits to the parent
-class, providing the prototypes needed to implement concrete persistent objects.</p>
-<p>The class makes use of the {@link StatusTrait} and {@link PersistenceTrait} traits:</p>
-<ul>
-<li><tt>{@link StatusTrait}</tt>: This trait handles a bitfirld data member that keeps
-    track of the object's status:
- <ul>
-    <li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified,
-        this status can be tested whenever the object should be stored in a persistent
-        container: if set, it means the object has been modified, if not set, it means
-        that the object is identical to the persistent copy.
-    <li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been
-        loaded or stored into a persistent container. This status can be useful to lock
-        properties that cannot change once the object is stored.
- </ul>
-<li><tt>{@link PersistenceTrait}</tt>: This trait handles the object persistence.
-</ul></div>
-        <a href="../classes/OntologyWrapper.PersistentObject.html" class="more">« More »</a>    </div>
 
                             </div>
             
@@ -964,6 +1437,13 @@ class, providing the prototypes needed to implement concrete persistent objects.
                 <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
                 
                 
+                                        <div id="class_MongoDatabase" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoDatabase .collapse">
+        <h1>MongoDatabase<a href="../classes/OntologyWrapper.connection.MongoDatabase.html">¶</a></h1>
+        <p class="short_description">Mongo database</p>
+        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link DatabaseObject} wrapping a
+{@link MongoDB} class.</p></div>
+        <a href="../classes/OntologyWrapper.connection.MongoDatabase.html" class="more">« More »</a>    </div>
+
                                         <div id="class_TagCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCache .collapse">
         <h1>TagCache<a href="../classes/OntologyWrapper.connection.TagCache.html">¶</a></h1>
         <p class="short_description">Tag cache</p>
@@ -982,6 +1462,20 @@ implements a tag cache that uses the {@link Memcached} class.</p>
 if the {@link Memcached} class is not available.</p></div>
         <a href="../classes/OntologyWrapper.connection.TagCache.html" class="more">« More »</a>    </div>
 
+                                        <div id="class_MongoCollection" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoCollection .collapse">
+        <h1>MongoCollection<a href="../classes/OntologyWrapper.connection.MongoCollection.html">¶</a></h1>
+        <p class="short_description">Mongo database</p>
+        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
+{@link MongoDB} class.</p></div>
+        <a href="../classes/OntologyWrapper.connection.MongoCollection.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_MongoServer" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoServer .collapse">
+        <h1>MongoServer<a href="../classes/OntologyWrapper.connection.MongoServer.html">¶</a></h1>
+        <p class="short_description">Mongo server</p>
+        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link ServerObject} wrapping a
+{@link MongoClient} class.</p></div>
+        <a href="../classes/OntologyWrapper.connection.MongoServer.html" class="more">« More »</a>    </div>
+
                             </div>
             
     
@@ -995,7 +1489,7 @@ if the {@link Memcached} class is not available.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Thu, 06 Feb 2014 02:03:40 +0100.<br/>
+            generated on Fri, 07 Feb 2014 19:23:43 +0100.<br/>
     </footer>
     </body>
 </html>

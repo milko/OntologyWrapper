@@ -155,7 +155,7 @@
         </a>
     </li>
 
-                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
@@ -167,6 +167,11 @@
                                                                                 <li class="method protected">
                             <a href="#method_manageSetOffset" title="manageSetOffset :: &lt;h4&gt;Manage value set offset&lt;/h4&gt;">
                                 <span class="description">&lt;h4&gt;Manage value set offset&lt;/h4&gt;</span><pre>manageSetOffset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_manageArrayOffset" title="manageArrayOffset :: &lt;h4&gt;Manage value set offset&lt;/h4&gt;">
+                                <span class="description">&lt;h4&gt;Manage value set offset&lt;/h4&gt;</span><pre>manageArrayOffset</pre>
                             </a>
                         </li>
                                                                                 <li class="method protected">
@@ -183,7 +188,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -673,9 +678,9 @@ involve setting, retrieving and deleting an offset of the provided array or Arra
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This class provides a protected interface for member accessor methods, both for
-properties and offsets, this method can be used to manage the elements of a set of non
-repeting values, its options involve setting, retrieving and deleting elements of the
-set.</p>
+properties and offsets, this method can be used to manage the elements of a set of
+non repeting values, its options involve setting, retrieving and deleting elements of
+the set. This method generally applies to data of the {@link kTYPE_SET} data type.</p>
 <p>It is assumed that the value at the provided offset is either an array or an
 {@link ArrayObject}, if this is not the case, the method will raise an exception.</p>
 <p>If you want to manage the set itself, you have to use the offset management methods.</p>
@@ -752,6 +757,108 @@ method will delete the offset itself.</p></div>
                                                                                     <div class="subelement argument">
                                                 <h4>$theOperation</h4>
                                                 <code>mixed</code><p><p>Operation.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$getOld</h4>
+                                                <code>boolean</code><p><p>TRUE get old value.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Old or new value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_manageArrayOffset"></a>
+                        <div class="element clickable method protected  method_manageArrayOffset" data-toggle="collapse" data-target=".method_manageArrayOffset .collapse">
+                            <h2>&lt;h4&gt;Manage value set offset&lt;/h4&gt;</h2>
+                            <pre>manageArrayOffset(string $theOffset, mixed $theKey, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This class provides a protected interface for member accessor methods, both for
+properties and offsets, this method can be used to manage the elements of a key/value
+array, its options involve setting, retrieving and deleting elements of the list by
+key. This method generally applies to data of the {@link kTYPE_ARRAY} data type.</p>
+<p>It is assumed that the value at the provided offset is either an array or an
+{@link ArrayObject}, if this is not the case, the method will raise an exception.</p>
+<p>If you want to manage the array itself, you have to use the offset management</p>
+<ul>
+<li>methods.</li>
+</ul>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theOffset</tt>: The offset to the array attribute that is to be managed.
+<li><tt>$theKey</tt>: The element key.
+<li><tt>$theValue</tt>: The element value or operation:
+ <ul>
+    <li><tt>NULL</tt>: Return the value at the provided key, or <tt>NULL</tt>.
+    <li><tt>FALSE</tt>: Delete the value at the provided key.
+    <li><i>other</i>: Any other type represents a new or a replacement value.
+ </ul>
+<li><tt>$getOld</tt>: Determines what the method will return:
+ <ul>
+    <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+    <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+<p>When setting new values, if the current offset is empty, the method will set the new
+value in an aray; when deleting values, if the existing value is the last one, the
+method will delete the offset itself.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset to be managed.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theKey</h4>
+                                                <code>mixed</code><p><p>Element key.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Element value or operation.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$getOld</h4>
@@ -967,7 +1074,7 @@ accessor methods, this method implements this interface:</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Thu, 06 Feb 2014 02:03:40 +0100.<br/>
+            generated on Fri, 07 Feb 2014 19:23:44 +0100.<br/>
     </footer>
     </body>
 </html>

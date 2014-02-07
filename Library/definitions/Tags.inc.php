@@ -20,7 +20,7 @@
  */
 
 /*=======================================================================================
- *	DEFAULT OBJECT TAGS																	*
+ *	INTERNAL OBJECT TAGS																	*
  *======================================================================================*/
 
 /**
@@ -44,11 +44,42 @@
  *		<td align="left" valign="top">This tag represents the unique <i>native
  *			identifier</i> of an object. This identifier represents the primary key of an
  *			object, it can take any data type and it is not guaranteed to be persistent in
- *			all instances.</td>
+ *			all instances. This tag is internal and will not be defined in the
+ *			ontology.</td>
  *	</tr>
  * </table>
  */
 define( "kTAG_NID",						'_id' );
+
+/**
+ * Class
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID/GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>_class</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:string</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Object class</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents the <i>object class name</i>, this
+ *			string is used to instantiate the correct object once loaded from a container.
+ *			This tag is internal and will not be defined in the ontology.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_CLASS",						'_class' );
+
+/*=======================================================================================
+ *	DEFAULT OBJECT TAGS																	*
+ *======================================================================================*/
 
 /**
  * Global identifier

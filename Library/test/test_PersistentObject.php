@@ -77,6 +77,11 @@ class MyClass extends OntologyWrapper\PersistentObject
 	
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+	
+	protected function preCommit()											   {}
+	protected function postCommit()											   {}
+	
+	public function SetInited()					{	$this->isInited( TRUE );	}
 }
 
 
@@ -348,17 +353,102 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Test set label.
+	// Instantiate collection.
 	//
-	echo( '<h4>Test set label</h4>' );
+	echo( '<h4>Instantiate collection</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";'.kSTYLE_HEAD_POS );
+	$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$collection = new OntologyWrapper\connection\MongoCollection( $dsn );'.kSTYLE_HEAD_POS );
+	$collection = new OntologyWrapper\connection\MongoCollection( $dsn );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$collection->openConnection();'.kSTYLE_HEAD_POS );
+	$collection->openConnection();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Instantiate empty object.
+	//
+	echo( '<h4>Instantiate empty object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Label" );'.kSTYLE_HEAD_POS );
-	$test->Label( "en", "Label" );
+	echo( kSTYLE_HEAD_PRE.'$test->SetInited();'.kSTYLE_HEAD_POS );
+	$test->SetInited();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Load and store object.
+	//
+	echo( '<h4>Load and store object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_GID ] = "Global identifier";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_GID ] = "Global identifier";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $collection );'.kSTYLE_HEAD_POS );
+	$id = $test->insert( $collection );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Instantiate from collection by native identifier.
+	//
+	echo( '<h4>Instantiate from collection by native identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $collection, $id );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $collection, $id );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Instantiate from collection by global identifier.
+	//
+	echo( '<h4>Instantiate from collection by global identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $collection, "Global identifier" );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $collection, "Global identifier" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

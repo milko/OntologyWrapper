@@ -1,31 +1,31 @@
 <?php
 
 /**
- * MongoDatabase.php
+ * MongoCollection.php
  *
- * This file contains the definition of the {@link MongoDatabase} class.
+ * This file contains the definition of the {@link MongoCollection} class.
  */
 
 namespace OntologyWrapper\connection;
 
-use OntologyWrapper\DatabaseObject;
+use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*
- *									MongoDatabase.php									*
+ *									MongoCollection.php									*
  *																						*
  *======================================================================================*/
 
 /**
  * Mongo database
  *
- * This class is a <i>concrete</i> implementation of the {@link DatabaseObject} wrapping a
+ * This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
  * {@link MongoDB} class.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 06/02/2014
+ *	@version	1.00 07/02/2014
  */
-class MongoDatabase extends DatabaseObject
+class MongoCollection extends CollectionObject
 {
 		
 
@@ -52,33 +52,42 @@ class MongoDatabase extends DatabaseObject
 	 */
 	public function isConnected()
 	{
-		return ( $this->mConnection instanceof \MongoDB );							// ==>
+		return ( $this->mConnection instanceof \MongoCollection );					// ==>
 	
 	} // isConnected.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
 	 
 	/*===================================================================================
-	 *	getCollections																	*
+	 *	resolveIdentifier																*
 	 *==================================================================================*/
 
 	/**
-	 * Return collection names
+	 * Resolve an identifier
 	 *
-	 * In this class we use the {@link \MongoDB::listCollections()} method, we extract only
-	 * the name to conform with the method prototype: one should always instantiate an
-	 * object derived from {@link CollectionObject} when dealing wit collections.
+	 * In this class we assume the provided identifier is either the object's native or
+	 * global identifier, if none of the two are matched, the method will return
+	 * <tt>NULL</tt>.
 	 *
-	 * This method will return the following retults:
+	 * We first check if the current collection is connected, if that is not the case, we
+	 * raise an exception.
 	 *
-	 * <ul>
-	 *	<li><tt>FALSE</tt>: The database is not connected.
-	 *	<li><tt>array</tt>: The database collection names.
-	 * </ul>
+	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
-	 * @return array				List of collection names.
+	 * @return array				Found object as an array, or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
 	 */
-	public function getCollections()
+	public function resolveIdentifier( $theIdentifier )
 	{
 		//
 		// Check if connected.
@@ -86,20 +95,22 @@ class MongoDatabase extends DatabaseObject
 		if( $this->isConnected() )
 		{
 			//
-			// Extract collection names.
+			// Try native identifier.
 			//
-			$names = Array();
-			$collections = $this->mConnection->listCollections();
-			foreach( $collections as $collection )
-				$names[] = $collection->getName();
+			$object = $this->mConnection->findOne( array( kTAG_NID => $theIdentifier ) );
+			if( $object !== NULL )
+				return $object;														// ==>
 			
-			return $names;															// ==>
+			return $this->mConnection->findOne(
+						array( (string) kTAG_GID => $theIdentifier ) );				// ==>
 		
 		} // Connected.
-		
-		return FALSE;																// ==>
+			
+		throw new \Exception(
+			"Unable to resolve identifier: "
+		   ."connection is not open." );										// !@! ==>
 	
-	} // getCollections.
+	} // resolveIdentifier.
 
 		
 
@@ -118,7 +129,7 @@ class MongoDatabase extends DatabaseObject
 	/**
 	 * Open connection
 	 *
-	 * This method will instantiate a {@link MongoDB} object and set it in the
+	 * This method will instantiate a {@link \MongoCollection} object and set it in the
 	 * {@link Connection()} data member.
 	 *
 	 * This method expects the caller to have checked whether the connection is already
@@ -128,13 +139,15 @@ class MongoDatabase extends DatabaseObject
 	 *
 	 * @access protected
 	 * @return mixed				The native connection.
+	 *
+	 * @throws Exception
 	 */
 	protected function connectionOpen()
 	{
 		//
 		// Check parent.
 		//
-		if( $this->mParent instanceof MongoServer )
+		if( $this->mParent instanceof MongoDatabase )
 		{
 			//
 			// Connect server.
@@ -143,18 +156,18 @@ class MongoDatabase extends DatabaseObject
 				$this->mParent->openConnection();
 			
 			//
-			// Check database name.
+			// Check collection name.
 			//
-			if( $this->offsetExists( kTAG_CONN_BASE ) )
+			if( $this->offsetExists( kTAG_CONN_COLL ) )
 				$this->mConnection
 					= $this->mParent
-						->Connection()->selectDB(
-							$this->offsetGet( kTAG_CONN_BASE ) );
+						->Connection()->selectCollection(
+							$this->offsetGet( kTAG_CONN_COLL ) );
 			
 			else
 				throw new \Exception(
 					"Unable to open connection: "
-				   ."Missing database name." );									// !@! ==>
+				   ."Missing collection name." );								// !@! ==>
 			
 			return $this->mConnection;												// ==>
 		
@@ -162,7 +175,7 @@ class MongoDatabase extends DatabaseObject
 			
 		throw new \Exception(
 			"Unable to open connection: "
-		   ."Missing server." );												// !@! ==>
+		   ."Missing database." );												// !@! ==>
 	
 	} // connectionOpen.
 
@@ -191,49 +204,79 @@ class MongoDatabase extends DatabaseObject
 
 	 
 	/*===================================================================================
-	 *	newServer																		*
+	 *	newDatabase																		*
 	 *==================================================================================*/
 
 	/**
-	 * Return a new server instance
+	 * Return a new database instance
 	 *
 	 * We implement the method to return a {@link MongoServer} instance.
 	 *
 	 * @param mixed					$theParameter		Server parameters.
 	 *
 	 * @access protected
-	 * @return MongoServer			Server instance.
+	 * @return DatabaseObject		Database instance.
 	 */
-	protected function newServer( $theParameter )
+	protected function newDatabase( $theParameter )
 	{
-		return new MongoServer( $theParameter );									// ==>
+		return new MongoDatabase( $theParameter );									// ==>
 	
-	} // newServer.
+	} // newDatabase.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
 
 	 
 	/*===================================================================================
-	 *	newCollection																		*
+	 *	insertData																		*
 	 *==================================================================================*/
 
 	/**
-	 * Return a new collection instance
+	 * Insert provided data
 	 *
-	 * We implement this method to return a {@link MongoCollection} instance.
+	 * In this class we insert the provided array and return its {@link kTAG_NID} value.
 	 *
-	 * @param array					$theOffsets			Full collection offsets.
+	 * @param reference				$theData			Data to insert.
+	 * @param array					$theOptions			Insert options.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection instance.
+	 * @return mixed				Object identifier.
 	 */
-	protected function newCollection( $theOffsets )
+	function insertData( &$theData, $theOptions )
 	{
-		return new MongoCollection( $theOffsets );									// ==>
+		//
+		// Serialise object.
+		//
+		\OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Insert.
+		//
+		$ok = $this->mConnection->insert( $data, $theOptions );
+		
+		//
+		// Get identifier.
+		//
+		$id = $data[ kTAG_NID ];
+		
+		//
+		// Set identifier.
+		//
+		$theData[ kTAG_NID ] = $id;
+		
+		return $id;																	// ==>
 	
-	} // newCollection.
+	} // insertData.
 
 	 
 
-} // class MongoDatabase.
+} // class MongoCollection.
 
 
 ?>

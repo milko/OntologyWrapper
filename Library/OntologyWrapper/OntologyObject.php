@@ -51,11 +51,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  * class, which is itself derived from this class.
  *
  * All persistent data elements are represented by a key/value pair, in which the key is
- * the data offset and the value the persistent data value. All persistent data offsets
- * must be integer values or alphanumeric strings, with the exception of the
- * {@link kTAG_NID} constant, these integer values represent references to {@link TagObject}
- * object instances, which hold all the necessary information and references to document
- * the current persistent data element.
+ * the data offset and the value the persistent data value. All persistent data offset, s
+ * must be integer values or alphanumeric strings, with the exception of the tags defined in
+ * the static {@link $sInternalTags} list, these integer values represent references to
+ * {@link TagObject} object instances, which hold all the necessary information and
+ * references to document the current persistent data element.
  *
  * This class implements the bridge between data and the ontology ensuring that all data
  * elements are defined in this ontology, which, itself, is implemented by objects derived
@@ -85,7 +85,17 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  */
 class OntologyObject extends ContainerObject
 {
-			
+	/**
+	 * Internal tags.
+	 *
+	 * This static data member holds the list of internal tags, this is the list of string
+	 * offsets that do not need to be resolved.
+	 *
+	 * @var array
+	 */
+	static $sInternalTags = array( kTAG_NID, kTAG_CLASS );
+
+		
 
 /*=======================================================================================
  *																						*
@@ -248,10 +258,8 @@ class OntologyObject extends ContainerObject
 	 * If you provide an integer or a numeric string, the method will simply cast the value
 	 * to an integer and return it.
 	 *
-	 * If you provide the native identifier string, {@link kTAG_NID}, the method will return
-	 * it.
-	 *
-	 * All other types of offsets will be used to locate the tag native identifier using a
+	 * All other types of offsets, except those listed in the ststic {@link $sInternalTags}
+	 * data member, will be used to locate the tag native identifier using a
 	 * {@link TagCache} object stored in the {@link kSESSION_DDICT} offset of the current
 	 * session; if the provided offset cannot be resolved, the method will raise an
 	 * exception if the second parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second
@@ -267,7 +275,7 @@ class OntologyObject extends ContainerObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_NID
+	 * @see kTAG_NID kTAG_CLASS
 	 * @see kSESSION_DDICT
 	 */
 	public function offsetResolve( $theOffset, $doAssert = FALSE )
@@ -280,9 +288,9 @@ class OntologyObject extends ContainerObject
 			return (int) $theOffset;												// ==>
 		
 		//
-		// Handle native identifier.
+		// Handle internal offsets.
 		//
-		if( $theOffset == kTAG_NID )
+		if( in_array( $theOffset, static::$sInternalTags ) )
 			return $theOffset;														// ==>
 		
 		//
@@ -327,9 +335,9 @@ class OntologyObject extends ContainerObject
 	public function offsetCast( &$theValue, $theOffset )
 	{
 		//
-		// Skip native identifier.
+		// Skip internal tags.
 		//
-	//	if( $theOffset != kTAG_NID )
+	//	if( ! in_array( $theOffset, static::$sInternalTags ) )
 	//	{
 	//		//
 	//		// Resolve tag.

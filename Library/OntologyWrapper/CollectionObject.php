@@ -96,6 +96,98 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolveIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve an identifier
+	 *
+	 * This method should select an object in the current collection matching the provided
+	 * identifier and return its contents as an array.
+	 *
+	 * The main function of this method is to determine what the caller is looking for based
+	 * on the provided identifier and the nature of the current collection.
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access public
+	 * @return array				Found object as an array, or <tt>NULL</tt>.
+	 */
+	abstract public function resolveIdentifier( $theIdentifier );
+
+	 
+	/*===================================================================================
+	 *	insert																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert an object
+	 *
+	 * The method expects the object to be inserted, the value must either be an array or
+	 * an {@link ArrayObject} instance.
+	 *
+	 * The method will call the virtual {@link inserData()} method, passing the received
+	 * object to it, which will perform the actual insert.
+	 *
+	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
+	 *
+	 * @param reference				$theObject			Object to insert.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return mixed				Inserted object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses insertData()
+	 */
+	public function insert( &$theObject, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check object type.
+			//
+			if( is_array( $theObject )
+			 || ($theObject instanceof \ArrayObject) )
+			{
+			 	//
+			 	// Set class.
+			 	//
+			 	$theObject[ kTAG_CLASS ] = get_class( $theObject );
+			 	
+				return $this->insertData( $theObject, $theOptions );				// ==>
+			 
+			 } // Correct type.
+			
+			throw new \Exception(
+				"Unable to insert object: "
+			   ."provided invalid or unsupported data type." );					// !@! ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to insert object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // resolveIdentifier.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -120,9 +212,40 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param mixed					$theParameter		Database parameters.
 	 *
 	 * @access protected
-	 * @return ServerObject			Database instance.
+	 * @return DatabaseObject		Database instance.
 	 */
 	abstract protected function newDatabase( $theParameter );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	insertData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Insert provided data
+	 *
+	 * This method should be implemented by concrete derived classes, it should insert a
+	 * new record in the current collection featuring the provided data and return the
+	 * record identifier.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param reference				$theData			Data to insert.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	abstract protected function insertData( &$theData, $theOptions );
 
 	 
 

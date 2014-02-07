@@ -51,9 +51,12 @@ class MyClass extends OntologyWrapper\CollectionObject
 {
 	protected function newDatabase( $theParameter )
 									{	return new MyDatabase( $theParameter );	}
+	protected function insertData( &$theData, $theOptions )	{	return NULL;	}
 
 	protected function connectionOpen(){}
 	protected function connectionClose(){}
+
+	public function resolveIdentifier( $theIdentifier )		{	return NULL;	}
 
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -475,9 +478,44 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Test collection.
+	// Test instantiate with full DSN.
 	//
-	echo( '<h4>???</h4>' );
+	echo( '<h4>Test instantiate with full DSN</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4#collection";
+	echo( kSTYLE_HEAD_PRE );
+	var_dump( $dsn );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
+	$test = new MyClass($dsn);
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$database = $test->Parent();'.kSTYLE_HEAD_POS );
+	$database = $test->Parent();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $database ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$server = $database->Parent();'.kSTYLE_HEAD_POS );
+	$server = $database->Parent();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $server ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
 }

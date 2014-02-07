@@ -64,12 +64,27 @@ class MongoServer extends ServerObject
 	/**
 	 * Return statistics
 	 *
-	 * This method will call the {@link MongoClient::getConnections()} method.
+	 * This method will return the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>FALSE</tt>: The server is not connected.
+	 *	<li><tt>array</tt>: The server statistics.
+	 * </ul>
 	 *
 	 * @access public
-	 * @return mixed				Depends on driver.
+	 * @return array				Server statistics or <tt>FALSE</tt>.
 	 */
-	public function getStatistics()		{	return $this->mConnection->getConnections();	}
+	public function getStatistics()
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+			return $this->mConnection->getConnections();							// ==>
+		
+		return FALSE;																// ==>
+	
+	} // getStatistics.
 
 		
 

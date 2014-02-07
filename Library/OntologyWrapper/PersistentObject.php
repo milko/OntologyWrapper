@@ -88,84 +88,22 @@ abstract class PersistentObject extends OntologyObject
 	 *		using the provided connection.
 	 * </ul>
 	 *
-	 * Once the object has been instantiated, the method will reset the {@link isDirty()}
-	 * flag.
+	 * The constructor makes use of the {@link instantiateObject()} method that will return
+	 * the object offsets that the current constructor can use to instantiate the current
+	 * object.
 	 *
-	 * @param mixed					$theContainer		Object attributes or container.
+	 * @param ConnectionObject		$theContainer		Persistent store.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
 	 *
 	 * @throws Exception
+	 *
+	 * @uses instantiateObject()
 	 */
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{
-		//
-		// Instantiate empty object.
-		//
-		if( $theContainer === NULL )
-			parent::__construct();
-		
-		//
-		// Instantiate from object attributes.
-		//
-		elseif( $theIdentifier === NULL )
-		{
-			//
-			// Handle array objects.
-			//
-			if( $theContainer instanceof \ArrayObject )
-				parent::__construct( $theContainer->getArrayCopy() );
-		
-			//
-			// Handle arrays.
-			//
-			elseif( is_array( $theContainer ) )
-				parent::__construct( $theContainer );
-		
-			//
-			// Complain.
-			//
-			else
-				throw new \Exception(
-					"Cannot instantiate object: "
-				   ."invalid container parameter type." );						// !@! ==>
-		
-		} // Identifier not provided.
-		
-		//
-		// Instantiate from persistent store.
-		//
-		else
-		{
-			//
-			// Load object.
-			//
-			$found = $this->objectResolve( $theContainer, $theIdentifier );
-			
-			//
-			// Handle selected object.
-			//
-			if( $found !== NULL )
-			{
-				//
-				// Load object.
-				//
-				parent::__construct( $found );
-				
-				//
-				// Set committed status.
-				//
-				$this->isCommitted( TRUE );
-			
-			} // Found.
-		
-		} // Provided persistent store connection.
-		
-		//
-		// Reset dirty status.
-		//
-		$this->isDirty( FALSE );
+		parent::__construct( $this->instantiateObject( $theContainer, $theIdentifier ) );
 
 	} // Constructor.
 

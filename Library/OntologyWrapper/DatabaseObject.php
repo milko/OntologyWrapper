@@ -94,7 +94,7 @@ abstract class DatabaseObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC CONNECTION INTERFACE								*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -134,6 +134,30 @@ abstract class DatabaseObject extends ConnectionObject
 		return $this->newCollection( $params );										// ==>
 	
 	} // Collection.
+
+	 
+	/*===================================================================================
+	 *	getCollections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return collection names
+	 *
+	 * This method should return the list of collection names of the current database, the
+	 * method should return the following retults:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: The operation is not supported.
+	 *	<li><tt>FALSE</tt>: The database is not connected.
+	 *	<li><tt>array</tt>: The database collection names.
+	 * </ul>
+	 *
+	 * We implement the method in this class as a fall-back.
+	 *
+	 * @access public
+	 * @return array				Server statistics or <tt>NULL</tt> if unsupported.
+	 */
+	public function getCollections()									{	return NULL;	}
 
 		
 

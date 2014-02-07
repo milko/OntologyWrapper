@@ -433,7 +433,7 @@ try
 	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "mongodb://localhost:27017/test?connect=1";
+	$dsn = "mongodb://localhost:27017/METADATA?connect=1";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );
@@ -468,17 +468,17 @@ try
 	echo( '<hr>' );
 
 	//
-	// Show stats.
+	// Show collections.
 	//
-	echo( '<h4>Show stats</h4>' );
+	echo( '<h4>Show collections</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$stats = $test->getStatistics();'.kSTYLE_HEAD_POS );
-	$stats = $test->getStatistics();
+	echo( kSTYLE_HEAD_PRE.'$stats = $test->getCollections();'.kSTYLE_HEAD_POS );
+	$stats = $test->getCollections();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $stats );
+	echo( '<pre>' ); print_r( $stats ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

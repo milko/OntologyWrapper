@@ -1,21 +1,21 @@
 <?php
 
 /**
- * {@link DatabaseObject} test suite.
+ * {@link MongoCollection} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link DatabaseObject} class.
+ * {@link MongoCollection} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 21/01/2014
+ *	@version	1.00 07/02/2014
  */
 
 /*=======================================================================================
  *																						*
- *								test_DatabaseObject.php									*
+ *								test_MongoCollection.php								*
  *																						*
  *======================================================================================*/
 
@@ -47,15 +47,8 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\DatabaseObject
+class MyClass extends OntologyWrapper\connection\MongoCollection
 {
-	protected function newServer( $theParameter )
-									{	return new MyServer( $theParameter );	}
-	protected function newCollection( $theOffsets )		{	return $theOffsets;	}
-
-	protected function connectionOpen(){}
-	protected function connectionClose(){}
-
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
 	
@@ -65,8 +58,8 @@ class MyClass extends OntologyWrapper\DatabaseObject
 																				}
 	
 	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
-												$theTypeValue, $theDataValue = NULL,
-												$getOld = FALSE )
+														  $theTypeValue, $theDataValue = NULL,
+														  $getOld = FALSE )
 	{	return $this->manageElementMatchOffset( $theOffset,
 												$theTypeOffset, $theDataOffset,
 												$theTypeValue, $theDataValue,
@@ -74,17 +67,6 @@ class MyClass extends OntologyWrapper\DatabaseObject
 	
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
-}
-
-//
-// Concretize server class.
-//
-class MyServer extends OntologyWrapper\ServerObject
-{
-	protected function connectionOpen(){}
-	protected function connectionClose(){}
-	protected function newDatabase( $theOffsets )
-								{	return new MyClass( $theOffsets, $this );	}
 }
 
 
@@ -420,40 +402,6 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-
-		//
-		// Change host.
-		//
-		echo( '<h4>Change host</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_CONN_HOST ] = ":_don\'t try this";'.kSTYLE_HEAD_POS );
-		$test[ kTAG_CONN_HOST ] = ":_don\'t try this";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Open connection.
-		//
-		echo( '<h4>Open connection<br /><i>DSN should be updated</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
-		$test->openConnection();
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -463,12 +411,12 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Test collection.
+	// Test instantiate with full DSN.
 	//
-	echo( '<h4>Test collection</h4>' );
+	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4";
+	$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );
@@ -483,12 +431,56 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->Collection( "collection" );'.kSTYLE_HEAD_POS );
-	$value = $test->Collection( "collection" );
+	echo( kSTYLE_HEAD_PRE.'$database = $test->Parent();'.kSTYLE_HEAD_POS );
+	$database = $test->Parent();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $value ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $database ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$server = $database->Parent();'.kSTYLE_HEAD_POS );
+	$server = $database->Parent();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $server ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Insert object.
+	//
+	echo( '<h4>Insert object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
+	$test->openConnection();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$object = array( "name" => "My name" );'.kSTYLE_HEAD_POS );
+	$object = array( "name" => "My name" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $object );'.kSTYLE_HEAD_POS );
+	$id = $test->insert( $object );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
