@@ -27,6 +27,61 @@ use OntologyWrapper\DatabaseObject;
  */
 class MongoDatabase extends DatabaseObject
 {
+	/**
+	 * Sequences collection name.
+	 *
+	 * This constant holds the <i>sequences</i> collection name.
+	 *
+	 * @var string
+	 */
+	const kSEQ_COLLECTION = '_sequence';
+
+	/**
+	 * Sequences offset name.
+	 *
+	 * This constant holds the <i>sequences</i> offset name.
+	 *
+	 * @var string
+	 */
+	const kSEQ_OFFSET = '_seq';
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the database
+	 *
+	 * This method will drop the current database.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function drop()
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to drop database: "
+			   ."database is not connected." );									// !@! ==>
+		
+		$this->mConnection->drop();
+	
+	} // drop.
+
 		
 
 /*=======================================================================================
@@ -105,6 +160,119 @@ class MongoDatabase extends DatabaseObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Set sequence number
+	 *
+	 * In this class we match the provided parameter string with an entry in the
+	 * {@link kSEQ_COLLECTION} collection in the database, the native identifier of the
+	 * record is the sequence selector, while the sequence number will be found at the
+	 * {@link kSEQ_OFFSET} offset.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 * @param integer				$theNumber			Sequence number.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to set sequence: "
+			   ."database is not connected." );									// !@! ==>
+		
+		//
+		// Init local storage.
+		//
+		$collection = $this->mConnection->selectCollection( self::kSEQ_COLLECTION );
+		
+		//
+		// Set sequence.
+		//
+		$collection->update(
+			array( kTAG_NID => (string) $theSequence ),
+			array( '$set' => array( self::kSEQ_OFFSET => (int) $theNumber ) ),
+			array( 'upsert' => TRUE ) );
+	
+	} // setSequenceNumber.
+
+	 
+	/*===================================================================================
+	 *	getSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Return sequence number
+	 *
+	 * In this class we match the provided parameter string with an entry in the
+	 * {@link kSEQ_COLLECTION} collection in the database, the native identifier of the
+	 * record is the sequence selector, while the sequence number will be found at the
+	 * {@link kSEQ_OFFSET} offset.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 *
+	 * @access public
+	 * @return integer				Sequence number.
+	 *
+	 * @throws Exception
+	 */
+	public function getSequenceNumber( $theSequence )
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to get sequence: "
+			   ."database is not connected." );									// !@! ==>
+		
+		//
+		// Init local storage.
+		//
+		$criteria = array( kTAG_NID => (string) $theSequence );
+		$collection = $this->mConnection->selectCollection( self::kSEQ_COLLECTION );
+		
+		//
+		// Locate sequence.
+		//
+		$seq = $collection->findOne( $criteria );
+		
+		//
+		// Increment sequence.
+		//
+		if( $seq !== NULL )
+			$collection->update( $criteria,
+								 array( '$inc' => array( self::kSEQ_OFFSET => 1 ) ),
+								 array( 'upsert' => FALSE ) );
+		else
+			$collection->update( $criteria,
+								 array( '$set' => array( self::kSEQ_OFFSET => 2 ) ),
+								 array( 'upsert' => TRUE ) );
+		
+		return ( $seq !== NULL )
+			 ? $seq[ self::kSEQ_OFFSET ]											// ==>
+			 : 1;																	// ==>
+	
+	} // getSequenceNumber.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -128,6 +296,8 @@ class MongoDatabase extends DatabaseObject
 	 *
 	 * @access protected
 	 * @return mixed				The native connection.
+	 *
+	 * @throws Exception
 	 */
 	protected function connectionOpen()
 	{

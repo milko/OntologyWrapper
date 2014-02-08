@@ -32,6 +32,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
 
 /**
+ * Tokens.
+ *
+ * This file contains the default token definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
+
+/**
  * Session.
  *
  * This file contains the default session offset definitions.
@@ -51,34 +58,30 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  * class, which is itself derived from this class.
  *
  * All persistent data elements are represented by a key/value pair, in which the key is
- * the data offset and the value the persistent data value. All persistent data offset, s
+ * the data offset and the value the persistent data value. All persistent data offsets
  * must be integer values or alphanumeric strings, with the exception of the tags defined in
- * the static {@link $sInternalTags} list, these integer values represent references to
- * {@link TagObject} object instances, which hold all the necessary information and
- * references to document the current persistent data element.
+ * the static {@link $sInternalTags} list. These integer values represent references to
+ * Tag object instances, which hold all the necessary information to document the current
+ * persistent data element.
  *
  * This class implements the bridge between data and the ontology ensuring that all data
  * elements are defined in this ontology, which, itself, is implemented by objects derived
- * from this class: this means that the whole system is self documenting.
+ * from this same class: this means that the whole system is self documenting.
  *
  * Whenever the object uses an offset, this will be first fed to a public method,
  * {@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
- * into <i>native identifiers</i>. The {@link TagObject} object native identifier is
- * represented by an integer value, this value is used as the data offset. These native
- * identifiers are not persistent, in other words, these value may change from one
- * implementation to the other: for this reason {@link TagObject} objects also hold a
- * <i>global identifier</i> which is a non-numeric string: this string will relmain the same
- * across implementations and can be considered the <i>immutable tag identifier/i>.
+ * into <i>native identifiers</i>. The Tag object native identifier is represented by an
+ * integer value, this value is used as the data offset. These native identifiers are not
+ * persistent, in other words, these value may change from one implementation to the other:
+ * for this reason Tag objects also hold a <i>global identifier</i> which is a non-numeric
+ * string: this string will remain the same across implementations and can be considered the
+ * <i>immutable tag identifier/i>.
  *
- * In this class by default an integer offset is assumed to be a {@link TagObject} object
+ * In this class by default an integer offset is assumed to be a correct Tag object
  * reference, while a string offset will be resolved into a tag reference. This means that
  * if you want to ensure that all offsets are correct you should always use tag global
- * identifiers as offsets, while you should only use tag constants as integers.
- *
- * Two offsets are managed in a special way, the <em>global identifier</em> {@link kTAG_GID}
- * and the <em>native identifier</em> {@link kTAG_NID}: once set, these two identifiers
- * cannot be modified. In concrete derived classes these two offsets will generally be
- * automatically managed by a protected interface, and not directly set by clients.
+ * identifiers as offsets, while you should only use known tag native identifiers as integer
+ * offsets.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
@@ -94,145 +97,6 @@ class OntologyObject extends ContainerObject
 	 * @var array
 	 */
 	static $sInternalTags = array( kTAG_NID, kTAG_CLASS );
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	offsetExists																	*
-	 *==================================================================================*/
-
-	/**
-	 * Check if an offset exists
-	 *
-	 * We overload this method to resolve eventual string offsets into tag references; in
-	 * this case we do not assert the offset resolution.
-	 *
-	 * @param mixed					$theOffset			Offset.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> the offset exists.
-	 *
-	 * @uses offsetResolve()
-	 */
-	public function offsetExists( $theOffset )
-	{
-		return parent::offsetExists( (string) $this->offsetResolve( $theOffset ) );	// ==>
-	
-	} // offsetExists.
-
-	 
-	/*===================================================================================
-	 *	offsetGet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Return a value at a given offset
-	 *
-	 * We overload this method to resolve eventual string offsets into tag references; in
-	 * this case we do not assert the offset resolution.
-	 *
-	 * @param mixed					$theOffset			Offset.
-	 *
-	 * @access public
-	 * @return mixed				Offset value or <tt>NULL</tt> for non matching offsets.
-	 *
-	 * @uses offsetResolve()
-	 */
-	public function offsetGet( $theOffset )
-	{
-		return parent::offsetGet( (string) $this->offsetResolve( $theOffset ) );	// ==>
-	
-	} // offsetGet.
-
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set a value at a given offset
-	 *
-	 * We overload this method to cast the provided value prior to seting the offset. This
-	 * is done by the {@link offsetCast()} method which will also take care of resolving
-	 * the offset; in this case if the method is not able to resolve the tag, it will raise
-	 * an exception.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 * @throws Exception
-	 *
-	 * @uses offsetResolve()
-	 * @uses offsetCast()
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Skip deletions.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Resolve offset.
-			//
-			$theOffset = $this->offsetResolve( $theOffset, TRUE );
-		
-			//
-			// Cast value.
-			//
-			$this->offsetCast( $theValue, $theOffset );
-		
-			//
-			// Set offset value.
-			//
-			parent::offsetSet( (string) $theOffset, $theValue );
-		
-		} // Not deleting.
-		
-		//
-		// Handle delete.
-		//
-		else
-			$this->offsetUnset( $theOffset );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value at a given offset
-	 *
-	 * We overload this method to resolve eventual string offsets into tag references; in
-	 * this case we do not assert the offset resolution.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 *
-	 * @uses offsetResolve()
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->offsetResolve( $theOffset, TRUE );
-				
-		parent::offsetUnset( (string) $theOffset );
-	
-	} // offsetUnset.
 
 		
 
@@ -275,7 +139,7 @@ class OntologyObject extends ContainerObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kTAG_NID kTAG_CLASS
+	 * @see $sInternalTags
 	 * @see kSESSION_DDICT
 	 */
 	public function offsetResolve( $theOffset, $doAssert = FALSE )
@@ -305,53 +169,135 @@ class OntologyObject extends ContainerObject
 	
 	} // offsetResolve.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
 	 
 	/*===================================================================================
-	 *	offsetCast																		*
+	 *	preOffsetExists																	*
 	 *==================================================================================*/
 
 	/**
-	 * Cast offset value
+	 * Handle offset before checking it
 	 *
-	 * This method should cast the offset value to the data type held by the tag referenced
-	 * by the offset. The method expects the following parameters:
+	 * In this class we resolve the offset.
 	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: This parameter references the value to be cast.
-	 *	<li><b>$theOffset</b>: This parameter contains the resolved offset.
-	 * </ul>
+	 * @param reference				$theOffset			Offset reference.
 	 *
-	 * If the method is unable to resolve the offset into a tag, it should raise an
-	 * exception.
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> check offset, other, return.
 	 *
-	 * In this class we do not cast values, this is the responsibility or option of derived
-	 * classes.
-	 *
-	 * @param reference				$theValue			Offset value.
-	 * @param integer				$theOffset			Resolved offset.
-	 *
-	 * @access public
+	 * @uses offsetResolve()
 	 */
-	public function offsetCast( &$theValue, $theOffset )
+	protected function preOffsetExists( &$theOffset )
 	{
 		//
-		// Skip internal tags.
+		// Call parent method.
 		//
-	//	if( ! in_array( $theOffset, static::$sInternalTags ) )
-	//	{
-	//		//
-	//		// Resolve tag.
-	//		//
-	//		$tag = $_SESSION[ kSESSION_DDICT ]->getTagObject( $theOffset, TRUE );
-	//	
-	//		//
-	//		// Cast value.
-	//		//
-	//		do you stuff here...
-	//	
-	//	} // Not the native identifier.
+		$ok = parent::preOffsetExists( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->offsetResolve( $theOffset );
+		
+		return $ok;																	// ==>
 	
-	} // offsetCast.
+	} // preOffsetExists.
+
+	 
+	/*===================================================================================
+	 *	preOffsetGet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before getting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> get offset value, other, return.
+	 *
+	 * @uses offsetResolve()
+	 */
+	protected function preOffsetGet( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetGet( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->offsetResolve( $theOffset );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetGet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @uses offsetResolve()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+			$theOffset = (string) $this->offsetResolve( $theOffset, TRUE );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
+	 *
+	 * @uses offsetResolve()
+	 */
+	protected function preOffsetUnset( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetUnset( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->offsetResolve( $theOffset );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetUnset.
 
 	 
 

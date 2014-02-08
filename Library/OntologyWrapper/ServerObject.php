@@ -28,6 +28,18 @@ use OntologyWrapper\ConnectionObject;
  */
 abstract class ServerObject extends ConnectionObject
 {
+	/**
+	 * Object offsets.
+	 *
+	 * This static data member holds the list of default offsets used by server objects.
+	 *
+	 * @var array
+	 */
+	static $sOffsets = array( kTAG_CONN_PROTOCOL,
+							  kTAG_CONN_HOST, kTAG_CONN_PORT,
+							  kTAG_CONN_USER, kTAG_CONN_PASS,
+							  kTAG_CONN_OPTS );
+
 		
 
 /*=======================================================================================

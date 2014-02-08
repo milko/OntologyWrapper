@@ -53,6 +53,12 @@ class MyClass extends OntologyWrapper\DatabaseObject
 									{	return new MyServer( $theParameter );	}
 	protected function newCollection( $theOffsets )		{	return $theOffsets;	}
 
+	public function drop()													   {}
+	
+	public function getSequenceNumber( $theSequence )			{	return 1;	}
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+														{	return $theNumber;	}
+
 	protected function connectionOpen(){}
 	protected function connectionClose(){}
 

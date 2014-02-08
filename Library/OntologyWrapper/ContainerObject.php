@@ -33,6 +33,42 @@ namespace OntologyWrapper;
  * Retrieving non-existant offsets will <em>not</em> generate a warning, but only return
  * <tt>NULL</tt>.
  *
+ * The class features a series of methods that derived classes may use to customise the
+ * behaviour of the offset management methods:
+ *
+ * <ul>
+ *	<li><tt>{@link preOffsetExists()}</tt>: This method is called <i>before</i> the
+ *		{@link offsetExists()} method with the offset passed as a reference parameter, the
+ *		method can be used to change the value of the offset or to provide a custom result:
+ *		if the method returns <tt>NULL</tt>, {@link offsetExists()} will be called; if the
+ *		method returns any other type of value, this will be returned and
+ *		{@link offsetExists()} will be skipped.
+ *	<li><tt>{@link preOffsetGet()}</tt>: This is called <i>before</i> the
+ *		{@link offsetGet()} method with the offset passed as a reference parameter, the
+ *		method can be used to change the value of the offset or to provide a custom result:
+ *		if the method returns <tt>NULL</tt>, {@link offsetGet()} will be called; if the
+ *		method returns any other type of value, this will be returned and
+ *		{@link offsetGet()} will be skipped.
+ *	<li><tt>{@link preOffsetSet()}</tt>: This is called <i>before</i> the
+ *		{@link offsetSet()} method with the offset and value passed as reference parameters,
+ *		the method can be used to change the offset or the value: if the method returns
+ *		<tt>NULL</tt>, {@link offsetSet()} will be called; if the method returns any other
+ *		type of value, the {@link offsetSet()} will be skipped.
+ *	<li><tt>{@link postOffsetSet()}</tt>: This is called <i>after</i> the
+ *		{@link offsetSet()} method with the offset and value passed as reference parameters,
+ *		the method can be used to set status or statistical variables, it will only be
+ *		called if the {@link offsetSet()} method was called.
+ *	<li><tt>{@link preOffsetUnset()}</tt>: This is called <i>before</i> the
+ *		{@link offsetUnset()} method with the offset passed as a reference parameter, the
+ *		method can be used to change the offset: if the method returns <tt>NULL</tt>,
+ *		{@link offsetUnset()} will be called; if the method returns any other type of value,
+ *		the {@link offsetUnset()} will be skipped.
+ *	<li><tt>{@link postOffsetUnset()}</tt>: This is called <i>after</i> the
+ *		{@link offsetUnset()} method with the offset passed as a reference parameter, the
+ *		method can be used to set status or statistical variables, it will only be called if
+ *		the {@link offsetUnset()} method was called.
+ * </ul>
+ *
  * The class features a series of methods that are useful for handling the persistent data
  * as a whole:
  *
@@ -81,28 +117,69 @@ abstract class ContainerObject extends \ArrayObject
 
 	 
 	/*===================================================================================
+	 *	offsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check if an offset exists
+	 *
+	 * We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+	 * call the parent method; if not, we return the received value.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> the offset exists.
+	 *
+	 * @uses preOffsetExists()
+	 */
+	public function offsetExists( $theOffset )
+	{
+		//
+		// Call preflight.
+		//
+		$value = $this->preOffsetExists( $theOffset );
+		if( $value !== NULL )
+			return $value;															// ==>
+		
+		return parent::offsetExists( $theOffset );									// ==>
+	
+	} // offsetExists.
+
+	 
+	/*===================================================================================
 	 *	offsetGet																		*
 	 *==================================================================================*/
 
 	/**
 	 * Return a value at a given offset
 	 *
-	 * We overload this method to handle unmatched offsets: we prevent warnings from being
-	 * issued and return <tt>NULL</tt>.
+	 * We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+	 * call the parent method; if not, we return the received value.
+	 *
+	 * We also overload this method to handle unmatched offsets: we prevent warnings from
+	 * being issued and return <tt>NULL</tt>.
 	 *
 	 * @param mixed					$theOffset			Offset.
 	 *
 	 * @access public
 	 * @return mixed				Offset value or <tt>NULL</tt>.
 	 *
-	 * @uses offsetExists()
+	 * @uses preOffsetGet()
 	 */
 	public function offsetGet( $theOffset )
 	{
 		//
+		// Call preflight.
+		//
+		$value = $this->preOffsetGet( $theOffset );
+		if( $value !== NULL )
+			return $value;															// ==>
+		
+		//
 		// Matched offset.
 		//
-		if( $this->offsetExists( $theOffset ) )
+		if( parent::offsetExists( $theOffset ) )
 			return parent::offsetGet( $theOffset );									// ==>
 		
 		return NULL;																// ==>
@@ -117,7 +194,10 @@ abstract class ContainerObject extends \ArrayObject
 	/**
 	 * Set a value at a given offset
 	 *
-	 * We overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
+	 * We overload this method to call the preflight and postflight methods: if the
+	 * preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.
+	 *
+	 * We also overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
 	 * delete the offset.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -125,18 +205,38 @@ abstract class ContainerObject extends \ArrayObject
 	 *
 	 * @access public
 	 *
+	 * @uses preOffsetSet()
+	 * @uses postOffsetSet()
 	 * @uses offsetUnset()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
 		//
-		// Handle new value.
+		// Skip deletions.
 		//
 		if( $theValue !== NULL )
-			parent::offsetSet( $theOffset, $theValue );
+		{
+			//
+			// Call preflight.
+			//
+			if( $this->preOffsetSet( $theOffset, $theValue ) === NULL )
+			{
+				//
+				// Set value.
+				//
+				parent::offsetSet( $theOffset, $theValue );
+				
+				//
+				// Call postflight.
+				//
+				$this->postOffsetSet( $theOffset, $theValue );
+			
+			} // Preflight passed.
+		
+		} // Not deleting.
 		
 		//
-		// Delete offset.
+		// Handle delete.
 		//
 		else
 			$this->offsetUnset( $theOffset );
@@ -151,21 +251,37 @@ abstract class ContainerObject extends \ArrayObject
 	/**
 	 * Reset a value at a given offset
 	 *
-	 * We overload this method to prevent warnings on unmatched offsets.
+	 * We overload this method to call the preflight and postflight methods: if the
+	 * preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.
+	 *
+	 * We also overload this method to prevent warnings on unmatched offsets.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
 	 *
-	 * @uses offsetExists()
+	 * @uses preOffsetUnset()
+	 * @uses postOffsetUnset()
 	 */
 	public function offsetUnset( $theOffset )
 	{
 		//
-		// Handle existing offset.
+		// Call preflight.
 		//
-		if( $this->offsetExists( $theOffset ) )
-			parent::offsetUnset( $theOffset );
+		if( $this->preOffsetUnset( $theOffset ) === NULL )
+		{
+			//
+			// Delete value.
+			//
+			if( parent::offsetExists( $theOffset ) )
+				parent::offsetUnset( $theOffset );
+			
+			//
+			// Call postflight.
+			//
+			$this->postOffsetUnset( $theOffset );
+		
+		} // Postflight passed.
 	
 	} // offsetUnset.
 
@@ -295,6 +411,155 @@ abstract class ContainerObject extends \ArrayObject
 		} // Iterating source.
 	
 	} // Object2Array.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before checking it
+	 *
+	 * This method can be used to manage the offset before passing it to the inherited
+	 * {@link ArrayObject::OffsetExists()} method.
+	 *
+	 * The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+	 * it means that the offset must be passed to the inherited
+	 * {@link ArrayObject::OffsetExists()}; if the method returns any other value, this will
+	 * be returned and the inherited {@link ArrayObject::OffsetExists()} will be skipped.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> check offset, other, return.
+	 */
+	protected function preOffsetExists( &$theOffset )					{	return NULL;	}
+
+	 
+	/*===================================================================================
+	 *	preOffsetGet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before getting it
+	 *
+	 * This method can be used to manage the offset before passing it to the inherited
+	 * {@link ArrayObject::OffsetGet()} method.
+	 *
+	 * The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+	 * it means that the offset must be passed to the inherited
+	 * {@link ArrayObject::OffsetGet()}; if the method returns any other value, this must be
+	 * returned and the inherited {@link ArrayObject::OffsetGet()} skipped.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> get offset value, other, return.
+	 */
+	protected function preOffsetGet( &$theOffset )						{	return NULL;	}
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * This method can be used to manage the offset before passing it to the inherited
+	 * {@link ArrayObject::OffsetSet()} method.
+	 *
+	 * The method provides the offset and value as references, if the method returns
+	 * <tt>NULL</tt> it means that the offset and value must be passed to the inherited
+	 * {@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+	 * that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )			{	return NULL;	}
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * This method can be used to manage the object after calling the
+	 * {@link ArrayObject::OffsetSet()} method.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 */
+	protected function postOffsetSet( &$theOffset, &$theValue )							   {}
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * This method can be used to manage the offset before passing it to the inherited
+	 * {@link ArrayObject::OffsetUnset()} method.
+	 *
+	 * The method provides the offset as reference, if the method returns <tt>NULL</tt> it
+	 * means that the offset and value must be passed to the inherited
+	 * {@link ArrayObject::OffsetUnset()}; if the method returns any other value, this means
+	 * that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
+	 */
+	protected function preOffsetUnset( &$theOffset )					{	return NULL;	}
+
+	 
+	/*===================================================================================
+	 *	postOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset after deleting it
+	 *
+	 * This method can be used to manage the object after calling the
+	 * {@link ArrayObject::OffsetUnset()} method.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 */
+	protected function postOffsetUnset( &$theOffset )									   {}
 
 		
 
@@ -656,8 +921,8 @@ abstract class ContainerObject extends \ArrayObject
 			//
 			// Handle retrieve and delete.
 			//
-			if( ($theOperation === NULL)
-			 || ($theOperation === FALSE) )
+			if( ($theValue === NULL)
+			 || ($theValue === FALSE) )
 				return NULL;														// ==>
 			
 			//
@@ -693,15 +958,22 @@ abstract class ContainerObject extends \ArrayObject
 			//
 			// Return value.
 			//
-			if( $theOperation === NULL )
+			if( $theValue === NULL )
 				return ( $found  )
-					 ? $theValue													// ==>
+					 ? $array[ $theKey ]											// ==>
 					 : NULL;														// ==>
+			
+			//
+			// Save old value.
+			//
+			$old = ( $found )
+				 ? $array[ $theKey ]
+				 : NULL;
 			
 			//
 			// Delete value.
 			//
-			if( $theOperation === FALSE )
+			if( $theValue === FALSE )
 			{
 				//
 				// Handle found.
@@ -735,20 +1007,13 @@ abstract class ContainerObject extends \ArrayObject
 					} // Non empty set.
 				
 					if( $getOld )
-						return $theValue;											// ==>
+						return $old;												// ==>
 					
 				} // Found value.
 				
 				return NULL;														// ==>
 				
 			} // Delete value.
-			
-			//
-			// Save old value.
-			//
-			$old = ( $found )
-				 ? $array[ $theKey ]
-				 : NULL;
 			
 			//
 			// Set value.

@@ -120,6 +120,12 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
+        <a href="#method_offsetExists" title="offsetExists :: Check if an offset exists">
+            <span class="description">Check if an offset exists</span><pre>offsetExists</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_offsetGet" title="offsetGet :: Return a value at a given offset">
             <span class="description">Return a value at a given offset</span><pre>offsetGet</pre>
         </a>
@@ -155,11 +161,41 @@
         </a>
     </li>
 
-                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                                                                                                                                                                                                                                                                                                                                        <li class="method protected">
+                            <a href="#method_preOffsetExists" title="preOffsetExists :: Handle offset before checking it">
+                                <span class="description">Handle offset before checking it</span><pre>preOffsetExists</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_preOffsetGet" title="preOffsetGet :: Handle offset before getting it">
+                                <span class="description">Handle offset before getting it</span><pre>preOffsetGet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_preOffsetSet" title="preOffsetSet :: Handle offset and value before setting it">
+                                <span class="description">Handle offset and value before setting it</span><pre>preOffsetSet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_postOffsetSet" title="postOffsetSet :: Handle offset and value after setting it">
+                                <span class="description">Handle offset and value after setting it</span><pre>postOffsetSet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_preOffsetUnset" title="preOffsetUnset :: Handle offset and value before deleting it">
+                                <span class="description">Handle offset and value before deleting it</span><pre>preOffsetUnset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_postOffsetUnset" title="postOffsetUnset :: Handle offset after deleting it">
+                                <span class="description">Handle offset after deleting it</span><pre>postOffsetUnset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
                             <a href="#method_manageOffset" title="manageOffset :: &lt;h4&gt;Manage a scalar offset&lt;/h4&gt;">
                                 <span class="description">&lt;h4&gt;Manage a scalar offset&lt;/h4&gt;</span><pre>manageOffset</pre>
                             </a>
@@ -188,7 +224,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -221,6 +257,42 @@ data. No offset may hold the <tt>NULL</tt> value, setting an offset with <tt>NUL
 value is equivalent to <em>deleting the offset</em>.</p>
 <p>Retrieving non-existant offsets will <em>not</em> generate a warning, but only return</p>
 <tt>NULL</tt>.
+
+The class features a series of methods that derived classes may use to customise the
+behaviour of the offset management methods:
+
+<ul>
+<li><tt>{@link preOffsetExists()}</tt>: This method is called <i>before</i> the
+    {@link offsetExists()} method with the offset passed as a reference parameter, the
+    method can be used to change the value of the offset or to provide a custom result:
+    if the method returns <tt>NULL</tt>, {@link offsetExists()} will be called; if the
+    method returns any other type of value, this will be returned and
+    {@link offsetExists()} will be skipped.
+<li><tt>{@link preOffsetGet()}</tt>: This is called <i>before</i> the
+    {@link offsetGet()} method with the offset passed as a reference parameter, the
+    method can be used to change the value of the offset or to provide a custom result:
+    if the method returns <tt>NULL</tt>, {@link offsetGet()} will be called; if the
+    method returns any other type of value, this will be returned and
+    {@link offsetGet()} will be skipped.
+<li><tt>{@link preOffsetSet()}</tt>: This is called <i>before</i> the
+    {@link offsetSet()} method with the offset and value passed as reference parameters,
+    the method can be used to change the offset or the value: if the method returns
+    <tt>NULL</tt>, {@link offsetSet()} will be called; if the method returns any other
+    type of value, the {@link offsetSet()} will be skipped.
+<li><tt>{@link postOffsetSet()}</tt>: This is called <i>after</i> the
+    {@link offsetSet()} method with the offset and value passed as reference parameters,
+    the method can be used to set status or statistical variables, it will only be
+    called if the {@link offsetSet()} method was called.
+<li><tt>{@link preOffsetUnset()}</tt>: This is called <i>before</i> the
+    {@link offsetUnset()} method with the offset passed as a reference parameter, the
+    method can be used to change the offset: if the method returns <tt>NULL</tt>,
+    {@link offsetUnset()} will be called; if the method returns any other type of value,
+    the {@link offsetUnset()} will be skipped.
+<li><tt>{@link postOffsetUnset()}</tt>: This is called <i>after</i> the
+    {@link offsetUnset()} method with the offset passed as a reference parameter, the
+    method can be used to set status or statistical variables, it will only be called if
+    the {@link offsetUnset()} method was called.
+</ul>
 
 The class features a series of methods that are useful for handling the persistent data
 as a whole:
@@ -276,7 +348,57 @@ handle properties and offsets in a standard way:
                                                                                                                                                                                                                                                                                                                                                                                                                                                     </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_offsetGet"></a>
+                                                                <a id="method_offsetExists"></a>
+                        <div class="element clickable method public  method_offsetExists" data-toggle="collapse" data-target=".method_offsetExists .collapse">
+                            <h2>Check if an offset exists</h2>
+                            <pre>offsetExists(mixed $theOffset) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>mixed</code><p><p>Offset.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><tt>TRUE</tt> the offset exists.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetGet"></a>
                         <div class="element clickable method public  method_offsetGet" data-toggle="collapse" data-target=".method_offsetGet .collapse">
                             <h2>Return a value at a given offset</h2>
                             <pre>offsetGet(mixed $theOffset) : mixed</pre>
@@ -284,8 +406,10 @@ handle properties and offsets in a standard way:
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to handle unmatched offsets: we prevent warnings from being
-issued and return <tt>NULL</tt>.</p></div>
+                                    <div class="long_description"><p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p>
+<p>We also overload this method to handle unmatched offsets: we prevent warnings from
+being issued and return <tt>NULL</tt>.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -334,7 +458,9 @@ issued and return <tt>NULL</tt>.</p></div>
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
+                                    <div class="long_description"><p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
 delete the offset.</p></div>
 
                                     <table class="table">
@@ -352,6 +478,10 @@ delete the offset.</p></div>
                                                     uses
                                                 </th>
                                                 <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
                                                                                                                                                                         
                                                                                                                                                                         
                                                                                                     </td>
@@ -386,7 +516,9 @@ delete the offset.</p></div>
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to prevent warnings on unmatched offsets.</p></div>
+                                    <div class="long_description"><p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to prevent warnings on unmatched offsets.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -403,6 +535,8 @@ delete the offset.</p></div>
                                                     uses
                                                 </th>
                                                 <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
                                                                                                                                                                         
                                                                                                                                                                         
                                                                                                     </td>
@@ -583,6 +717,279 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                                                                                     <div class="subelement argument">
                                                 <h4>$theDestination</h4>
                                                 <code>\OntologyWrapper\reference</code><p><p>Reference to the destination array.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetExists"></a>
+                        <div class="element clickable method protected  method_preOffsetExists" data-toggle="collapse" data-target=".method_preOffsetExists .collapse">
+                            <h2>Handle offset before checking it</h2>
+                            <pre>preOffsetExists(\OntologyWrapper\reference &$theOffset) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetExists()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetExists()}; if the method returns any other value, this will
+be returned and the inherited {@link ArrayObject::OffsetExists()} will be skipped.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> check offset, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetGet"></a>
+                        <div class="element clickable method protected  method_preOffsetGet" data-toggle="collapse" data-target=".method_preOffsetGet .collapse">
+                            <h2>Handle offset before getting it</h2>
+                            <pre>preOffsetGet(\OntologyWrapper\reference &$theOffset) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetGet()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetGet()}; if the method returns any other value, this must be
+returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> get offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetSet"></a>
+                        <div class="element clickable method protected  method_preOffsetSet" data-toggle="collapse" data-target=".method_preOffsetSet .collapse">
+                            <h2>Handle offset and value before setting it</h2>
+                            <pre>preOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>The method provides the offset and value as references, if the method returns</p>
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
+
+In this class we do nothing.</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> set offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_postOffsetSet"></a>
+                        <div class="element clickable method protected  method_postOffsetSet" data-toggle="collapse" data-target=".method_postOffsetSet .collapse">
+                            <h2>Handle offset and value after setting it</h2>
+                            <pre>postOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetUnset"></a>
+                        <div class="element clickable method protected  method_preOffsetUnset" data-toggle="collapse" data-target=".method_preOffsetUnset .collapse">
+                            <h2>Handle offset and value before deleting it</h2>
+                            <pre>preOffsetUnset(\OntologyWrapper\reference &$theOffset) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>The method provides the offset as reference, if the method returns <tt>NULL</tt> it
+means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetUnset()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> delete offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_postOffsetUnset"></a>
+                        <div class="element clickable method protected  method_postOffsetUnset" data-toggle="collapse" data-target=".method_postOffsetUnset .collapse">
+                            <h2>Handle offset after deleting it</h2>
+                            <pre>postOffsetUnset(\OntologyWrapper\reference &$theOffset) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -1074,7 +1481,7 @@ accessor methods, this method implements this interface:</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Fri, 07 Feb 2014 19:23:44 +0100.<br/>
+            generated on Sat, 08 Feb 2014 05:05:16 +0100.<br/>
     </footer>
     </body>
 </html>

@@ -145,9 +145,9 @@ trait StatusTrait
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> inited, <tt>FALSE</tt> idle.
 	 *
-	 * @uses $this->manageBitField()
-	 *
 	 * @see kFLAG_STATE_INITED
+	 *
+	 * @uses $this->manageBitField()
 	 */
 	protected function isInited( $theState = NULL )
 	{
@@ -190,9 +190,9 @@ trait StatusTrait
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> dirty, <tt>FALSE</tt> clean.
 	 *
-	 * @uses $this->manageBitField()
-	 *
 	 * @see kFLAG_STATE_DIRTY
+	 *
+	 * @uses $this->manageBitField()
 	 */
 	protected function isDirty( $theState = NULL )
 	{
@@ -233,9 +233,9 @@ trait StatusTrait
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> committed, <tt>FALSE</tt> uncommitted.
 	 *
-	 * @uses $this->manageBitField()
-	 *
 	 * @see kFLAG_STATE_COMMITTED
+	 *
+	 * @uses $this->manageBitField()
 	 */
 	protected function isCommitted( $theState = NULL )
 	{
@@ -276,9 +276,9 @@ trait StatusTrait
 	 * @return boolean				<tt>TRUE</tt> supports encoding, <tt>FALSE</tt> does not
 	 *								support encoding.
 	 *
-	 * @uses $this->manageBitField()
-	 *
 	 * @see kFLAG_STATE_ENCODED
+	 *
+	 * @uses $this->manageBitField()
 	 */
 	protected function isEncoded( $theState = NULL )
 	{

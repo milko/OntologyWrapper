@@ -51,10 +51,12 @@ class MyClass extends OntologyWrapper\CollectionObject
 {
 	protected function newDatabase( $theParameter )
 									{	return new MyDatabase( $theParameter );	}
-	protected function insertData( &$theData, $theOptions )	{	return NULL;	}
+	protected function insertData( &$theData, &$theOptions ){	return NULL;	}
 
 	protected function connectionOpen(){}
 	protected function connectionClose(){}
+
+	public function drop()													   {}
 
 	public function resolveIdentifier( $theIdentifier )		{	return NULL;	}
 
@@ -94,12 +96,16 @@ class MyServer extends OntologyWrapper\ServerObject
 //
 class MyDatabase extends OntologyWrapper\DatabaseObject
 {
+	public function drop()													   {}
 	protected function connectionOpen(){}
 	protected function connectionClose(){}
 	protected function newServer( $theParameter )
 									{	return new MyServer( $theParameter );	}
 	protected function newCollection( $theOffsets )
 										{	return new MyClass( $theOffsets );	}
+	public function getSequenceNumber( $theSequence )			{	return 1;	}
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+																{	return 1;	}
 }
 
 

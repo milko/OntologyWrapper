@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>     &raquo; \OntologyWrapper\connection
+    <title>     &raquo; \OntologyWrapper\persistent
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -130,7 +130,7 @@
 
     
     <li>
-        <span class="divider">\</span><a href="../namespaces/OntologyWrapper.connection.html">connection</a>
+        <span class="divider">\</span><a href="../namespaces/OntologyWrapper.persistent.html">persistent</a>
     </li>
 
         </ul>
@@ -141,44 +141,25 @@
                 <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
                 
                 
-                                        <div id="class_MongoDatabase" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoDatabase .collapse">
-        <h1>MongoDatabase<a href="../classes/OntologyWrapper.connection.MongoDatabase.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link DatabaseObject} wrapping a
-{@link MongoDB} class.</p></div>
-        <a href="../classes/OntologyWrapper.connection.MongoDatabase.html" class="more">« More »</a>    </div>
+                                        <div id="class_Tag" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Tag .collapse">
+        <h1>Tag<a href="../classes/OntologyWrapper.persistent.Tag.html">¶</a></h1>
+        <p class="short_description">Tag</p>
+        <div class="details collapse"><p>This class implements a persistent {@link TagObject} instance, the class concentrates on
+implementing all the necessary elements to ensure persistence to instances of this class.</p>
+<p>The object is considered initialised, {@link isInited()}, if it has at least the data
+type, {@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.</p>
+<p>The specific ontology related functionality will be implemented by a derived class.</p></div>
+        <a href="../classes/OntologyWrapper.persistent.Tag.html" class="more">« More »</a>    </div>
 
-                                        <div id="class_TagCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCache .collapse">
-        <h1>TagCache<a href="../classes/OntologyWrapper.connection.TagCache.html">¶</a></h1>
-        <p class="short_description">Tag cache</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> derived instance of the {@link TagCacheObject} which
-implements a tag cache that uses the {@link Memcached} class.</p>
-<p>The class implements the following additional methods:</p>
-<ul>
-<li><tt>{@link init()}</tt>: The method will flush the current cache and reload all
-    tags.
-<li><tt>{@link Pid()}</tt>: The method will return the connection persistent identifier.
-<li><tt>{@link Connection()}</tt>: The method will return the connection resource, which
-    is, in this case, a {@link Memcached} instance.
-<li><tt>{@link stats()}</tt>: The method will return the connection statistics.
-</ul>
-<p>This class may be used as a template to implement tag caches that use other cache engines
-if the {@link Memcached} class is not available.</p></div>
-        <a href="../classes/OntologyWrapper.connection.TagCache.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_MongoCollection" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoCollection .collapse">
-        <h1>MongoCollection<a href="../classes/OntologyWrapper.connection.MongoCollection.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
-{@link MongoDB} class.</p></div>
-        <a href="../classes/OntologyWrapper.connection.MongoCollection.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_MongoServer" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoServer .collapse">
-        <h1>MongoServer<a href="../classes/OntologyWrapper.connection.MongoServer.html">¶</a></h1>
-        <p class="short_description">Mongo server</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link ServerObject} wrapping a
-{@link MongoClient} class.</p></div>
-        <a href="../classes/OntologyWrapper.connection.MongoServer.html" class="more">« More »</a>    </div>
+                                        <div id="class_Term" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Term .collapse">
+        <h1>Term<a href="../classes/OntologyWrapper.persistent.Term.html">¶</a></h1>
+        <p class="short_description">Term</p>
+        <div class="details collapse"><p>This class implements a persistent {@link TermObject} instance, the class concentrates on
+implementing all the necessary elements to ensure persistence to instances of this class.</p>
+<p>The object is considered initialised, {@link isInited()}, if it has at least the local
+identifier, {@link kTAG_LID}, and the label, {@link kTAG_LABEL}.</p>
+<p>The specific ontology related functionality will be implemented by a derived class.</p></div>
+        <a href="../classes/OntologyWrapper.persistent.Term.html" class="more">« More »</a>    </div>
 
                             </div>
             

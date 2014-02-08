@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link MongoCollection} test suite.
+ * {@link Tag} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link MongoCollection} class.
+ * {@link Tag} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
@@ -13,9 +13,11 @@
  *	@version	1.00 07/02/2014
  */
 
+use OntologyWrapper\persistent\Tag;
+
 /*=======================================================================================
  *																						*
- *								test_MongoCollection.php								*
+ *									test_Tag.php										*
  *																						*
  *======================================================================================*/
 
@@ -29,6 +31,16 @@ require_once( 'includes.inc.php' );
 //
 require_once( 'styles.inc.php' );
 
+//
+// Tag definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -41,38 +53,10 @@ define( 'kDEBUG_PARENT', TRUE );
 
 
 /*=======================================================================================
- *	CLASS SETTINGS																		*
- *======================================================================================*/
- 
-//
-// Cast current class.
-//
-class MyClass extends OntologyWrapper\connection\MongoCollection
-{
-	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
-	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
-	
-	public function AccessorSetOffset( $theOffset, $theValue, $theOperation = NULL,
-															$getOld = FALSE )
-	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
-																				}
-	
-	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
-														  $theTypeValue, $theDataValue = NULL,
-														  $getOld = FALSE )
-	{	return $this->manageElementMatchOffset( $theOffset,
-												$theTypeOffset, $theDataOffset,
-												$theTypeValue, $theDataValue,
-												$getOld );						}
-	
-	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
-	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
-}
-
-
-/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
+
+session_start();
  
 //
 // Test class.
@@ -104,8 +88,8 @@ try
 		echo( '<h4>Instantiate empty object</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
+		$test = new Tag();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -121,8 +105,8 @@ try
 		echo( '<h4>Test set property<br /><i>should set the "$property" to "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
+		$test = new Tag();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
@@ -256,8 +240,8 @@ try
 		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
+		$test = new Tag();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
@@ -327,81 +311,6 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-
-		//
-		// Test instantiate empty object.
-		//
-		echo( '<h4>Test instantiate empty object</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Test instantiate with full DSN.
-		//
-		echo( '<h4>Test instantiate with full DSN</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4#collection";
-		echo( kSTYLE_HEAD_PRE );
-		var_dump( $dsn );
-		echo( kSTYLE_HEAD_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
-		$test = new MyClass($dsn);
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Test instantiate with full parameters.
-		//
-		echo( '<h4>Test instantiate with full parameters<br /><i>path and fragment are not mapped to parameters in this class</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		$params = array( kTAG_CONN_PROTOCOL => "protocol",
-						 kTAG_CONN_USER => "user",
-						 kTAG_CONN_PASS => "pass",
-						 kTAG_CONN_HOST => "host",
-						 kTAG_CONN_PORT => 80,
-						 kTAG_CONN_BASE => 'database',
-						 kTAG_CONN_COLL => 'collection',
-						 kTAG_CONN_OPTS => array( 'opt1' => 'val1',
-												  'opt2' => 'val2',
-												  'opt3' => NULL,
-												  'opt4' => NULL ) );
-		echo( kSTYLE_HEAD_PRE );
-		echo( '<pre>' );
-		print_r( $params );
-		echo( '</pre>' );
-		echo( kSTYLE_HEAD_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
-		$test = new MyClass($params);
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -411,19 +320,51 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Test instantiate with full DSN.
+	// Instantiate collection.
 	//
-	echo( '<h4>Test instantiate with full DSN</h4>' );
+	echo( '<h4>Instantiate collection</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";'.kSTYLE_HEAD_POS );
 	$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";
-	echo( kSTYLE_HEAD_PRE );
-	var_dump( $dsn );
-	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
-	$test = new MyClass($dsn);
+	echo( kSTYLE_HEAD_PRE.'$collection = new OntologyWrapper\connection\MongoCollection( $dsn );'.kSTYLE_HEAD_POS );
+	$collection = new OntologyWrapper\connection\MongoCollection( $dsn );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$collection->openConnection();'.kSTYLE_HEAD_POS );
+	$collection->openConnection();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Instantiate empty object.
+	//
+	echo( '<h4>Instantiate empty object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
+	$test = new Tag();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
+
+	//
+	// Load and store object.
+	//
+	echo( '<h4>Load and store object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_GID ] = "Global identifier";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_GID ] = "Global identifier";
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -431,47 +372,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$database = $test->Parent();'.kSTYLE_HEAD_POS );
-	$database = $test->Parent();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $database ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$server = $database->Parent();'.kSTYLE_HEAD_POS );
-	$server = $database->Parent();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $server ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Insert object.
-	//
-	echo( '<h4>Insert object</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
-	$test->openConnection();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$object = array( "name" => "My name" );'.kSTYLE_HEAD_POS );
-	$object = array( "name" => "My name" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $object );'.kSTYLE_HEAD_POS );
-	$id = $test->insert( $object );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $collection );'.kSTYLE_HEAD_POS );
+	$id = $test->insert( $collection );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -480,28 +382,41 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 
 	//
-	// Drop collection.
+	// Instantiate from collection by native identifier.
 	//
-	echo( '<h4>Drop collection</h4>' );
+	echo( '<h4>Instantiate from collection by native identifier</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->drop();'.kSTYLE_HEAD_POS );
-	$test->drop();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$collections = $test->Parent()->getCollections();'.kSTYLE_HEAD_POS );
-	$collections = $test->Parent()->getCollections();
+	echo( kSTYLE_HEAD_PRE.'$test = new Tag( $collection, $id );'.kSTYLE_HEAD_POS );
+	$test = new Tag( $collection, $id );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $collections ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Instantiate from collection by global identifier.
+	//
+	echo( '<h4>Instantiate from collection by global identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new Tag( $collection, "Global identifier" );'.kSTYLE_HEAD_POS );
+	$test = new Tag( $collection, "Global identifier" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -514,9 +429,7 @@ try
 //
 catch( \Exception $error )
 {
-	echo( '<pre>' );
-	echo( (string) $error );
-	echo( '</pre>' );
+	echo( $error->xdebug_message );
 }
 
 echo( "\nDone!\n" );

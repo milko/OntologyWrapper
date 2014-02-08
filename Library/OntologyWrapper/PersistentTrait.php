@@ -65,144 +65,6 @@ trait PersistentTrait
 
 /*=======================================================================================
  *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set a value at a given offset
-	 *
-	 * We overload this method to prevent modifying the global and native identifiers if the
-	 * object is committed, {@link isCommitted()}.
-	 *
-	 * Note that we shadow the inherited method: we only use the
-	 * {@link ContainerObject::offsetSet()} method.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 *
-	 * @uses isConnected()
-	 *
-	 * @throws Exception
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Skip deletions.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Resolve offset.
-			//
-			$theOffset = $this->offsetResolve( $theOffset, TRUE );
-			
-			//
-			// Check if committed.
-			//
-			if( $this->isCommitted() )
-			{
-				//
-				// Check immutable tags.
-				//
-				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_GID) )
-					throw new \Exception(
-						"Cannot modify the [$theOffset] offset: "
-					   ."the object is committed." );							// !@! ==>
-			
-			} // Object is committed.
-		
-			//
-			// Cast value.
-			//
-			$this->offsetCast( $theValue, $theOffset );
-		
-			//
-			// Set offset value.
-			//
-			ContainerObject::offsetSet( (string) $theOffset, $theValue );
-			
-			//
-			// Set status.
-			//
-			$this->isDirty( TRUE );
-		
-		} // Not deleting.
-		
-		//
-		// Handle delete.
-		//
-		else
-			$this->offsetUnset( $theOffset );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value at a given offset
-	 *
-	 * We overload this method to prevent deleting values while the connection is open.
-	 *
-	 * Note that we shadow the inherited method: we only use the
-	 * {@link ContainerObject::offsetUnset()} method.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @uses isConnected()
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Resolve offset.
-		//
-		$theOffset = $this->offsetResolve( $theOffset, TRUE );
-		
-		//
-		// Check if committed.
-		//
-		if( $this->isCommitted() )
-		{
-				//
-				// Check immutable tags.
-				//
-				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_GID) )
-					throw new \Exception(
-						"Cannot modify the [$theOffset] offset: "
-					   ."the object is committed." );							// !@! ==>
-		
-		} // Object is committed.
-				
-		ContainerObject::offsetUnset( (string) $theOffset );
-		
-		//
-		// Set status.
-		//
-		$this->isDirty( TRUE );
-	
-	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
  *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -226,7 +88,7 @@ trait PersistentTrait
 	 *		collection canot be resolved, the method will raise an exception.
 	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible for
 	 *		preparing the object for being committed.
-	 *	<li>If the object is not initialised, {@link isInited()}, we raise an exception.
+	 *	<li>If the object is not ready, {@link isReady()}, we raise an exception.
 	 *	<li>We pass the current object to the collection's insert method and recuperate the
 	 *		identifier.
 	 *	<li>We call the <tt>{@link postCommit()}</tt> method that is responsible of cleaning
@@ -242,6 +104,14 @@ trait PersistentTrait
 	 * @return mixed				The object's native identifier.
 	 *
 	 * @throws Exception
+	 *
+	 * @uses resolveCollection()
+	 * @uses preCommit()
+	 * @uses isReady()
+	 * @uses isCommitted()
+	 * @uses postCommit()
+	 * @uses isDirty()
+	 * @uses isCommitted()
 	 */
 	public function insert( $theContainer = NULL )
 	{
@@ -274,7 +144,7 @@ trait PersistentTrait
 			//
 			// Get collection.
 			//
-			$theContainer = $this->manageCollection();
+			$theContainer = $this->mCollection();
 			if( ! ($theContainer instanceof CollectionObject) )
 				throw new \Exception(
 					"Cannot insert object: "
@@ -290,7 +160,7 @@ trait PersistentTrait
 		//
 		// Check if object is ready.
 		//
-		if( ! $this->isInited() )
+		if( ! $this->isReady() )
 			throw new \Exception(
 				"Cannot insert object: "
 			   ."the object is not yet initialised." );							// !@! ==>
@@ -371,6 +241,13 @@ trait PersistentTrait
 	 *
 	 * @access protected
 	 * @return array				Object offsets.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses resolveCollection()
+	 * @uses manageCollection()
+	 * @uses resolveObject()
+	 * @uses isCommitted()
 	 */
 	public function instantiateObject( $theContainer = NULL, $theIdentifier = NULL )
 	{
@@ -538,10 +415,9 @@ trait PersistentTrait
 	 * @access protected
 	 * @return CollectionObject		Persistent store or <tt>NULL</tt>.
 	 *
-	 * @uses isConnected()
-	 *
 	 * @throws Exception
 	 *
+	 * @uses isCommitted()
 	 * @uses manageProperty()
 	 */
 	protected function manageCollection( $theValue = NULL, $getOld = FALSE )
@@ -617,9 +493,8 @@ trait PersistentTrait
 		//
 		// Check collection.
 		//
-		$collection = $this->manageCollection();
-		if( $collection !== NULL )
-			return $collection->resolveIdentifier( $theIdentifier );				// ==>
+		if( $this->mCollection !== NULL )
+			return $this->mCollection->resolveIdentifier( $theIdentifier );			// ==>
 		
 		//
 		// Invalid container type.
@@ -672,6 +547,212 @@ trait PersistentTrait
 	 * @access protected
 	 */
 	abstract protected function postCommit();
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * This method should return <tt>TRUE</tt> if the object holds all the necessary
+	 * attributes.
+	 *
+	 * In this class we return <tt>FALSE</tt>, to allow method chaining across the
+	 * inheritance.
+	 *
+	 * @access protected
+	 * @return Boolean				<tt>TRUE</tt> means ready.
+	 */
+	protected function isReady()										{	return TRUE;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * We overload this method to prevent modifying the global and native identifiers if the
+	 * object is committed, {@link isCommitted()}.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @see self::$sInternalTags
+	 *
+	 * @uses isCommitted()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Resolve offset.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+		{
+			//
+			// Check if committed.
+			//
+			if( $this->isCommitted() )
+			{
+				//
+				// Check immutable tags.
+				//
+				if( in_array( $theOffset, static::$sInternalTags )
+				 || ($theOffset == kTAG_GID) )
+					throw new \Exception(
+						"Cannot set the [$theOffset] offset: "
+					   ."the object is committed." );							// !@! ==>
+		
+			} // Object is committed.
+		
+		} // Intercepted by preflight.
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * We overload the parent method to set the {@link isDirty()} status.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isDirty()
+	 */
+	protected function postOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Resolve offset.
+		//
+		$ok = parent::postOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+			$this->isDirty( TRUE );
+		
+		return $ok;																	// ==>
+		
+	} // postOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * We overload this method to prevent modifying the global and native identifiers if the
+	 * object is committed, {@link isCommitted()}.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @see self::$sInternalTags
+	 *
+	 * @uses isCommitted()
+	 */
+	protected function preOffsetUnset( &$theOffset )
+	{
+		//
+		// Resolve offset.
+		//
+		$ok = parent::preOffsetUnset( $theOffset );
+		if( $ok === NULL )
+		{
+			//
+			// Check if committed.
+			//
+			if( $this->isCommitted() )
+			{
+				//
+				// Check immutable tags.
+				//
+				if( in_array( $theOffset, static::$sInternalTags )
+				 || ($theOffset == kTAG_GID) )
+					throw new \Exception(
+						"Cannot delete the [$theOffset] offset: "
+					   ."the object is committed." );							// !@! ==>
+		
+			} // Object is committed.
+		
+		} // Intercepted by preflight.
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetUnset.
+
+	 
+	/*===================================================================================
+	 *	postOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset after deleting it
+	 *
+	 * This method can be used to manage the object after calling the
+	 * {@link ArrayObject::OffsetUnset()} method.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isDirty()
+	 */
+	protected function postOffsetUnset( &$theOffset )
+	{
+		//
+		// Resolve offset.
+		//
+		$ok = parent::postOffsetUnset( $theOffset );
+		if( $ok === NULL )
+			$this->isDirty( TRUE );
+		
+		return $ok;																	// ==>
+		
+	} // postOffsetUnset.
 
 	 
 

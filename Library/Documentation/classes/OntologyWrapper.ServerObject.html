@@ -156,18 +156,6 @@
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_offsetSet" title="offsetSet :: Set a value at a given offset">
-            <span class="description">Set a value at a given offset</span><pre>offsetSet</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
-        <a href="#method_offsetUnset" title="offsetUnset :: Reset a value at a given offset">
-            <span class="description">Reset a value at a given offset</span><pre>offsetUnset</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
         <a href="#method_DSN" title="DSN :: Manage data source name">
             <span class="description">Manage data source name</span><pre>DSN</pre>
         </a>
@@ -203,7 +191,13 @@
         </a>
     </li>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public inherited">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_offsetResolve" title="offsetResolve :: Resolve offset">
+            <span class="description">Resolve offset</span><pre>offsetResolve</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
         <a href="#method_offsetExists" title="offsetExists :: Check if an offset exists">
             <span class="description">Check if an offset exists</span><pre>offsetExists</pre>
         </a>
@@ -216,14 +210,14 @@
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_offsetResolve" title="offsetResolve :: Resolve offset">
-            <span class="description">Resolve offset</span><pre>offsetResolve</pre>
+        <a href="#method_offsetSet" title="offsetSet :: Set a value at a given offset">
+            <span class="description">Set a value at a given offset</span><pre>offsetSet</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_offsetCast" title="offsetCast :: Cast offset value">
-            <span class="description">Cast offset value</span><pre>offsetCast</pre>
+        <a href="#method_offsetUnset" title="offsetUnset :: Reset a value at a given offset">
+            <span class="description">Reset a value at a given offset</span><pre>offsetUnset</pre>
         </a>
     </li>
 
@@ -254,7 +248,7 @@
                                 <span class="description">Return a new database instance</span><pre>newDatabase</pre>
                             </a>
                         </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
                             <a href="#method_connectionOpen" title="connectionOpen :: Open connection">
                                 <span class="description">Open connection</span><pre>connectionOpen</pre>
                             </a>
@@ -289,6 +283,36 @@
                                 <span class="description">Load connection parameters from DSN</span><pre>loadDSNParameter</pre>
                             </a>
                         </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_preOffsetSet" title="preOffsetSet :: Handle offset and value before setting it">
+                                <span class="description">Handle offset and value before setting it</span><pre>preOffsetSet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_postOffsetSet" title="postOffsetSet :: Handle offset and value after setting it">
+                                <span class="description">Handle offset and value after setting it</span><pre>postOffsetSet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_preOffsetUnset" title="preOffsetUnset :: Handle offset and value before deleting it">
+                                <span class="description">Handle offset and value before deleting it</span><pre>preOffsetUnset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_postOffsetUnset" title="postOffsetUnset :: Handle offset after deleting it">
+                                <span class="description">Handle offset after deleting it</span><pre>postOffsetUnset</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_preOffsetExists" title="preOffsetExists :: Handle offset before checking it">
+                                <span class="description">Handle offset before checking it</span><pre>preOffsetExists</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_preOffsetGet" title="preOffsetGet :: Handle offset before getting it">
+                                <span class="description">Handle offset before getting it</span><pre>preOffsetGet</pre>
+                            </a>
+                        </li>
                                                                                                                                                                                                                                                                                                                                             <li class="method protected inherited">
                             <a href="#method_manageOffset" title="manageOffset :: &lt;h4&gt;Manage a scalar offset&lt;/h4&gt;">
                                 <span class="description">&lt;h4&gt;Manage a scalar offset&lt;/h4&gt;</span><pre>manageOffset</pre>
@@ -318,7 +342,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -557,6 +581,8 @@ parent method and then perform custom actions.</p></div>
                                                                                                                                                                         
                                                                                                                                                                         
                                                                                                                                                                         
+                                                                                                                                                                        
+                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -732,105 +758,6 @@ method.</p></div>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetSet"></a>
-                        <div class="element clickable method public  method_offsetSet inherited" data-toggle="collapse" data-target=".method_offsetSet .collapse">
-                            <h2>Set a value at a given offset</h2>
-                            <pre>offsetSet(string $theOffset, mixed $theValue) </pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
-delete the offset.</p></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    access
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theOffset</h4>
-                                                <code>string</code><p><p>Offset.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theValue</h4>
-                                                <code>mixed</code><p><p>Value to set at offset.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_offsetUnset"></a>
-                        <div class="element clickable method public  method_offsetUnset inherited" data-toggle="collapse" data-target=".method_offsetUnset .collapse">
-                            <h2>Reset a value at a given offset</h2>
-                            <pre>offsetUnset(string $theOffset) </pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to prevent warnings on unmatched offsets.</p></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    access
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theOffset</h4>
-                                                <code>string</code><p><p>Offset.</p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-                        </div>
                                             <a id="method_DSN"></a>
                         <div class="element clickable method public  method_DSN inherited" data-toggle="collapse" data-target=".method_DSN .collapse">
                             <h2>Manage data source name</h2>
@@ -893,6 +820,8 @@ object offsets.</p></div>
                                                     uses
                                                 </th>
                                                 <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
                                                                                                                                                                         
                                                                                                                                                                         
                                                                                                                                                                         
@@ -1325,8 +1254,6 @@ exception.</p>
                                                 <td>
                                                                                                                                                                         
                                                                                                                                                                         
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1597,16 +1524,22 @@ current object's offsets, it expects three parameters:</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetExists"></a>
-                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
-                            <h2>Check if an offset exists</h2>
-                            <pre>offsetExists(mixed $theOffset) : boolean</pre>
+                                            <a id="method_preOffsetSet"></a>
+                        <div class="element clickable method protected  method_preOffsetSet inherited" data-toggle="collapse" data-target=".method_preOffsetSet .collapse">
+                            <h2>Handle offset and value before setting it</h2>
+                            <pre>preOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) : mixed</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to resolve eventual string offsets into tag references; in
-this case we do not assert the offset resolution.</p></div>
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>The method provides the offset and value as references, if the method returns</p>
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
+
+In this class we do nothing.</div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -1615,16 +1548,7 @@ this case we do not assert the offset resolution.</p></div>
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1639,24 +1563,29 @@ this case we do not assert the offset resolution.</p></div>
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$theOffset</h4>
-                                                <code>mixed</code><p><p>Offset.</p></p>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>boolean</code><p><tt>TRUE</tt> the offset exists.</p>
+                                        <code>mixed</code><p><tt>NULL</tt> set offset value, other, return.</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetGet"></a>
-                        <div class="element clickable method public  method_offsetGet inherited" data-toggle="collapse" data-target=".method_offsetGet .collapse">
-                            <h2>Return a value at a given offset</h2>
-                            <pre>offsetGet(mixed $theOffset) : mixed</pre>
+                                            <a id="method_postOffsetSet"></a>
+                        <div class="element clickable method protected  method_postOffsetSet inherited" data-toggle="collapse" data-target=".method_postOffsetSet .collapse">
+                            <h2>Handle offset and value after setting it</h2>
+                            <pre>postOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) </pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>We overload this method to handle unmatched offsets: we prevent warnings from being
-issued and return <tt>NULL</tt>.</p></div>
+                                    <div class="long_description"><p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>In this class we do nothing.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -1665,16 +1594,7 @@ issued and return <tt>NULL</tt>.</p></div>
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>public</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    uses
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1689,11 +1609,99 @@ issued and return <tt>NULL</tt>.</p></div>
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$theOffset</h4>
-                                                <code>mixed</code><p><p>Offset.</p></p>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetUnset"></a>
+                        <div class="element clickable method protected  method_preOffsetUnset inherited" data-toggle="collapse" data-target=".method_preOffsetUnset .collapse">
+                            <h2>Handle offset and value before deleting it</h2>
+                            <pre>preOffsetUnset(\OntologyWrapper\reference &$theOffset) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>The method provides the offset as reference, if the method returns <tt>NULL</tt> it
+means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetUnset()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>mixed</code><p><p>Offset value or <tt>NULL</tt>.</p></p>
+                                        <code>mixed</code><p><tt>NULL</tt> delete offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_postOffsetUnset"></a>
+                        <div class="element clickable method protected  method_postOffsetUnset inherited" data-toggle="collapse" data-target=".method_postOffsetUnset .collapse">
+                            <h2>Handle offset after deleting it</h2>
+                            <pre>postOffsetUnset(\OntologyWrapper\reference &$theOffset) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
                         </div>
@@ -1743,8 +1751,8 @@ parameter is <tt>FALSE</tt>.</p>
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                            \OntologyWrapper\kTAG_NID
-                                                                                                                <p>kTAG_CLASS</p>
+                                                                                                                                                                            \OntologyWrapper\$sInternalTags
+                                                                                                                
                                                                                                                                                                         
                                                                                                                                                                             \OntologyWrapper\kSESSION_DDICT
                                                                                                                 
@@ -1774,24 +1782,21 @@ parameter is <tt>FALSE</tt>.</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetCast"></a>
-                        <div class="element clickable method public  method_offsetCast inherited" data-toggle="collapse" data-target=".method_offsetCast .collapse">
-                            <h2>Cast offset value</h2>
-                            <pre>offsetCast(\OntologyWrapper\reference &$theValue, integer $theOffset) </pre>
+                                            <a id="method_preOffsetExists"></a>
+                        <div class="element clickable method protected  method_preOffsetExists inherited" data-toggle="collapse" data-target=".method_preOffsetExists .collapse">
+                            <h2>Handle offset before checking it</h2>
+                            <pre>preOffsetExists(\OntologyWrapper\reference &$theOffset) : mixed</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>This method should cast the offset value to the data type held by the tag referenced
-by the offset. The method expects the following parameters:</p>
-<ul>
-<li><b>$theValue</b>: This parameter references the value to be cast.
-<li><b>$theOffset</b>: This parameter contains the resolved offset.
-</ul>
-<p>If the method is unable to resolve the offset into a tag, it should raise an
-exception.</p>
-<p>In this class we do not cast values, this is the responsibility or option of derived
-classes.</p></div>
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetExists()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetExists()}; if the method returns any other value, this will
+be returned and the inherited {@link ArrayObject::OffsetExists()} will be skipped.</p>
+<p>In this class we do nothing.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -1800,7 +1805,7 @@ classes.</p></div>
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>public</p>
+                                                                                                                                                                        <p>protected</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1814,12 +1819,267 @@ classes.</p></div>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$theValue</h4>
-                                                <code>\OntologyWrapper\reference</code><p><p>Offset value.</p></p>
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
                                             </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> check offset, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetGet"></a>
+                        <div class="element clickable method protected  method_preOffsetGet inherited" data-toggle="collapse" data-target=".method_preOffsetGet .collapse">
+                            <h2>Handle offset before getting it</h2>
+                            <pre>preOffsetGet(\OntologyWrapper\reference &$theOffset) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetGet()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetGet()}; if the method returns any other value, this must be
+returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
+<p>In this class we do nothing.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$theOffset</h4>
-                                                <code>integer</code><p><p>Resolved offset.</p></p>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> get offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetExists"></a>
+                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
+                            <h2>Check if an offset exists</h2>
+                            <pre>offsetExists(mixed $theOffset) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>mixed</code><p><p>Offset.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><tt>TRUE</tt> the offset exists.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetGet"></a>
+                        <div class="element clickable method public  method_offsetGet inherited" data-toggle="collapse" data-target=".method_offsetGet .collapse">
+                            <h2>Return a value at a given offset</h2>
+                            <pre>offsetGet(mixed $theOffset) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p>
+<p>We also overload this method to handle unmatched offsets: we prevent warnings from
+being issued and return <tt>NULL</tt>.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>mixed</code><p><p>Offset.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Offset value or <tt>NULL</tt>.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetSet"></a>
+                        <div class="element clickable method public  method_offsetSet inherited" data-toggle="collapse" data-target=".method_offsetSet .collapse">
+                            <h2>Set a value at a given offset</h2>
+                            <pre>offsetSet(string $theOffset, mixed $theValue) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
+delete the offset.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>mixed</code><p><p>Value to set at offset.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_offsetUnset"></a>
+                        <div class="element clickable method public  method_offsetUnset inherited" data-toggle="collapse" data-target=".method_offsetUnset .collapse">
+                            <h2>Reset a value at a given offset</h2>
+                            <pre>offsetUnset(string $theOffset) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to prevent warnings on unmatched offsets.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>string</code><p><p>Offset.</p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -2455,6 +2715,39 @@ accessor methods, this method implements this interface:</p>
                     
                     
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_sOffsets"> </a>
+                            <div class="element clickable property  public property_sOffsets" data-toggle="collapse" data-target=".property_sOffsets .collapse">
+                                <h2>Object offsets.</h2>
+                                <pre>sOffsets : array</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>This static data member holds the list of default offsets used by server objects.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
                                                     <a id="property_mDSN"> </a>
                             <div class="element clickable property  protected property_mDSN inherited" data-toggle="collapse" data-target=".property_mDSN .collapse">
                                 <h2>Data source name.</h2>
@@ -2613,7 +2906,7 @@ offsets that do not need to be resolved.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Fri, 07 Feb 2014 19:23:44 +0100.<br/>
+            generated on Sat, 08 Feb 2014 05:05:16 +0100.<br/>
     </footer>
     </body>
 </html>

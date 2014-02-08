@@ -40,8 +40,8 @@ use OntologyWrapper\OntologyObject;
  *		current tag defines. The description is similar to the <em>definition</em>, except
  *		that while the definition provides a description of the object it defines unrelated
  *		to context, the description adds to the definition the elements added by the current
- *		context. All tags <em>should</em> have a label, if the tag label is not enough to
- *		provide a sufficient description or definition. Descriptions have the
+ *		context. All tags <em>should</em> have a description, if the tag label is not enough
+ *		to provide a sufficient description or definition. Descriptions have the
  *		{@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
  *		the description language code and the {@link kTAG_PART_VALUE} holds the description
  *		text. To populate and handle descriptions by language, use the {@link Description()}
@@ -63,7 +63,7 @@ use OntologyWrapper\OntologyObject;
  */
 class TagObject extends OntologyObject
 {
-			
+		
 
 /*=======================================================================================
  *																						*

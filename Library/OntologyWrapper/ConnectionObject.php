@@ -196,6 +196,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @uses DSN()
 	 * @uses parseOffsets()
+	 * @uses statusReset()
 	 */
 	public function __construct( $theParameter = NULL, $theParent = NULL )
 	{
@@ -349,94 +350,6 @@ abstract class ConnectionObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set a value at a given offset
-	 *
-	 * We overload this method to prevent setting values while the connection is open.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 *
-	 * @uses isConnected()
-	 *
-	 * @throws Exception
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-			throw new \Exception(
-				"Cannot set value: the connection is open." );					// !@! ==>
-		
-		//
-		// Call parent method.
-		//
-		parent::offsetSet( $theOffset, $theValue );
-	
-		//
-		// Set dirty flag.
-		//
-		$this->isDirty( TRUE );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value at a given offset
-	 *
-	 * We overload this method to prevent deleting values while the connection is open.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @uses isConnected()
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-			throw new \Exception(
-				"Cannot delete value: the connection is open." );				// !@! ==>
-		
-		//
-		// Call parent method.
-		//
-		parent::offsetUnset( $theOffset );
-	
-		//
-		// Set dirty flag.
-		//
-		$this->isDirty( TRUE );
-	
-	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC MEMBER MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -488,6 +401,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * @uses isConnected()
 	 * @uses manageProperty()
 	 * @uses parseDSN()
+	 * @uses isDirty()
 	 */
 	public function DSN( $theValue = NULL, $getOld = FALSE, $doSync = TRUE )
 	{
@@ -618,10 +532,10 @@ abstract class ConnectionObject extends OntologyObject
 	 * @return mixed				Depends on implementation.
 	 *
 	 * @uses isConnected()
+	 * @uses isDirty()
 	 * @uses DSN()
 	 * @uses parseOffsets()
 	 * @uses connectionOpen()
-	 * @uses Connection()
 	 */
 	public function openConnection()
 	{
@@ -782,7 +696,6 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 *
-	 * @uses DSN()
 	 * @uses loadDSNParameter()
 	 */
 	protected function parseDSN( $theDSN )
@@ -1179,6 +1092,140 @@ abstract class ConnectionObject extends OntologyObject
 		}
 	
 	} // loadDSNParameter.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * We overload this method to prevent setting values while the connection is open.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isConnected()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+			throw new \Exception(
+				"Cannot set value: the connection is open." );					// !@! ==>
+		
+		return parent::preOffsetSet( $theOffset, $theValue );						// ==>
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * We set the {@link isDirty()} status.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isDirty()
+	 */
+	protected function postOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Set dirty status.
+		//
+		$this->isDirty( TRUE );
+	
+	} // postOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * We overload this method to prevent deleting values while the connection is open.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
+	 *
+	 * @uses isConnected()
+	 */
+	protected function preOffsetUnset( &$theOffset )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+			throw new \Exception(
+				"Cannot delete value: the connection is open." );				// !@! ==>
+		
+		return parent::preOffsetUnset( $theOffset );								// ==>
+	
+	} // preOffsetUnset.
+
+	 
+	/*===================================================================================
+	 *	postOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after deleting it
+	 *
+	 * We set the {@link isDirty()} status.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @uses isDirty()
+	 */
+	protected function postOffsetUnset( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postOffsetUnset( $theOffset );
+		
+		//
+		// Set dirty status.
+		//
+		$this->isDirty( TRUE );
+	
+	} // postOffsetSet.
 
 	 
 

@@ -81,7 +81,7 @@ class MyClass extends OntologyWrapper\PersistentObject
 	protected function preCommit()											   {}
 	protected function postCommit()											   {}
 	
-	public function SetInited()					{	$this->isInited( TRUE );	}
+	protected function isReady()							{	return TRUE;	}
 }
 
 
@@ -380,10 +380,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 	$test = new MyClass();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->SetInited();'.kSTYLE_HEAD_POS );
-	$test->SetInited();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

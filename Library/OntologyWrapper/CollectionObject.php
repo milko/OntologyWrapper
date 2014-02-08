@@ -28,6 +28,15 @@ use OntologyWrapper\ConnectionObject;
  */
 abstract class CollectionObject extends ConnectionObject
 {
+	/**
+	 * Object offsets.
+	 *
+	 * This static data member holds the list of default offsets used by collection objects.
+	 *
+	 * @var array
+	 */
+	static $sOffsets = array( kTAG_CONN_COLL );
+
 		
 
 /*=======================================================================================
@@ -53,8 +62,9 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * @access public
 	 *
-	 * @uses DSN()
-	 * @uses parseOffsets()
+	 * @see ServerObject::$sOffsets DatabaseObject::$sOffsets
+	 *
+	 * @uses newDatabase()
 	 */
 	public function __construct( $theParameter = NULL, $theParent = NULL )
 	{
@@ -73,10 +83,8 @@ abstract class CollectionObject extends ConnectionObject
 			// Get server and database parameters.
 			//
 			$params = Array();
-			$offsets = array( kTAG_CONN_PROTOCOL, kTAG_CONN_HOST, kTAG_CONN_PORT,
-							  kTAG_CONN_USER, kTAG_CONN_PASS, kTAG_CONN_OPTS,
-							  kTAG_CONN_BASE );
-			foreach( $offsets as $offset )
+			foreach( array_merge( ServerObject::$sOffsets, DatabaseObject::$sOffsets )
+						as $offset )
 			{
 				if( $this->offsetExists( $offset ) )
 					$params[ $offset ] = $this->offsetGet( $offset );
@@ -103,6 +111,87 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the collection
+	 *
+	 * This method should drop the current collection.
+	 *
+	 * @access public
+	 */
+	abstract public function drop();
+
+	 
+	/*===================================================================================
+	 *	insert																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert an object
+	 *
+	 * The method expects the provided parameter to be either an array or an
+	 * {@link ArrayObject} instance.
+	 *
+	 * The method will call the virtual {@link insertData()} method, passing the received
+	 * object to it, which will perform the actual insert.
+	 *
+	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
+	 *
+	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
+	 *
+	 * @param reference				$theObject			Object to insert.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return mixed				Inserted object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_CLASS
+	 *
+	 * @uses isConnected()
+	 * @uses insertData()
+	 */
+	public function insert( &$theObject, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check object type.
+			//
+			if( is_array( $theObject )
+			 || ($theObject instanceof \ArrayObject) )
+			{
+			 	//
+			 	// Set class.
+			 	//
+			 	if( is_object( $theObject ) )
+				 	$theObject[ kTAG_CLASS ]
+				 		= get_class( $theObject );
+			 	
+				return $this->insertData( $theObject, $theOptions );				// ==>
+			 
+			 } // Correct type.
+			
+			throw new \Exception(
+				"Unable to insert object: "
+			   ."provided invalid or unsupported data type." );					// !@! ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to insert object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // insert.
+
+	 
+	/*===================================================================================
 	 *	resolveIdentifier																*
 	 *==================================================================================*/
 
@@ -123,66 +212,6 @@ abstract class CollectionObject extends ConnectionObject
 	 * @return array				Found object as an array, or <tt>NULL</tt>.
 	 */
 	abstract public function resolveIdentifier( $theIdentifier );
-
-	 
-	/*===================================================================================
-	 *	insert																			*
-	 *==================================================================================*/
-
-	/**
-	 * Insert an object
-	 *
-	 * The method expects the object to be inserted, the value must either be an array or
-	 * an {@link ArrayObject} instance.
-	 *
-	 * The method will call the virtual {@link inserData()} method, passing the received
-	 * object to it, which will perform the actual insert.
-	 *
-	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
-	 *
-	 * @param reference				$theObject			Object to insert.
-	 * @param array					$theOptions			Insert options.
-	 *
-	 * @access public
-	 * @return mixed				Inserted object identifier.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses insertData()
-	 */
-	public function insert( &$theObject, $theOptions = Array() )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check object type.
-			//
-			if( is_array( $theObject )
-			 || ($theObject instanceof \ArrayObject) )
-			{
-			 	//
-			 	// Set class.
-			 	//
-			 	$theObject[ kTAG_CLASS ] = get_class( $theObject );
-			 	
-				return $this->insertData( $theObject, $theOptions );				// ==>
-			 
-			 } // Correct type.
-			
-			throw new \Exception(
-				"Unable to insert object: "
-			   ."provided invalid or unsupported data type." );					// !@! ==>
-		
-		} // Connected.
-			
-		throw new \Exception(
-			"Unable to insert object: "
-		   ."connection is not open." );										// !@! ==>
-	
-	} // resolveIdentifier.
 
 		
 
@@ -245,7 +274,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access protected
 	 * @return mixed				Object identifier.
 	 */
-	abstract protected function insertData( &$theData, $theOptions );
+	abstract protected function insertData( &$theData, &$theOptions );
 
 	 
 

@@ -8,6 +8,7 @@
 
 namespace OntologyWrapper\connection;
 
+use OntologyWrapper\ContainerObject;
 use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
@@ -27,6 +28,43 @@ use OntologyWrapper\CollectionObject;
  */
 class MongoCollection extends CollectionObject
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the database
+	 *
+	 * This method will drop the current collection.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function drop()
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to drop collection: "
+			   ."collection is not connected." );								// !@! ==>
+		
+		$this->mConnection->drop();
+	
+	} // drop.
+
 		
 
 /*=======================================================================================
@@ -248,12 +286,12 @@ class MongoCollection extends CollectionObject
 	 * @access protected
 	 * @return mixed				Object identifier.
 	 */
-	function insertData( &$theData, $theOptions )
+	function insertData( &$theData, &$theOptions )
 	{
 		//
 		// Serialise object.
 		//
-		\OntologyWrapper\ContainerObject::Object2Array( $theData, $data );
+		ContainerObject::Object2Array( $theData, $data );
 		
 		//
 		// Insert.

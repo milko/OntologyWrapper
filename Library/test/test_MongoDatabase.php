@@ -483,15 +483,14 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 
 	//
-	// Test collection.
+	// Test sequence number.
 	//
-	echo( '<h4>Test collection</h4>' );
+	echo( '<h4>Test sequence number</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4";
+	$dsn = "mongodb://localhost:27017/test?connect=1";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );
@@ -501,17 +500,94 @@ exit;
 	$test = new MyClass($dsn);
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->openConnection();'.kSTYLE_HEAD_POS );
+	$test->openConnection();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->drop();'.kSTYLE_HEAD_POS );
+	$test->drop();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$seq = $test->getSequenceNumber( "one" );'.kSTYLE_HEAD_POS );
+	$seq = $test->getSequenceNumber( "one" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	var_dump( $seq );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->Collection( "collection" );'.kSTYLE_HEAD_POS );
-	$value = $test->Collection( "collection" );
+	echo( kSTYLE_DATA_PRE );
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = iterator_to_array( $seqs );
+	var_dump( $seqs );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test other sequence number.
+	//
+	echo( '<h4>Test other sequence number</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$seq = $test->getSequenceNumber( "other" );'.kSTYLE_HEAD_POS );
+	$seq = $test->getSequenceNumber( "other" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $value ); echo( '</pre>' );
+	var_dump( $seq );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = iterator_to_array( $seqs );
+	var_dump( $seqs );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test other sequence number again.
+	//
+	echo( '<h4>Test other sequence number again</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$seq = $test->getSequenceNumber( "other" );'.kSTYLE_HEAD_POS );
+	$seq = $test->getSequenceNumber( "other" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $seq );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = iterator_to_array( $seqs );
+	var_dump( $seqs );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Set sequence number.
+	//
+	echo( '<h4>Set sequence number</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->setSequenceNumber( "one", 100 );'.kSTYLE_HEAD_POS );
+	$test->setSequenceNumber( "one", 100 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = iterator_to_array( $seqs );
+	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

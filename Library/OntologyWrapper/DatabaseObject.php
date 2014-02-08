@@ -28,6 +28,15 @@ use OntologyWrapper\ConnectionObject;
  */
 abstract class DatabaseObject extends ConnectionObject
 {
+	/**
+	 * Object offsets.
+	 *
+	 * This static data member holds the list of default offsets used by database objects.
+	 *
+	 * @var array
+	 */
+	static $sOffsets = array( kTAG_CONN_BASE );
+
 		
 
 /*=======================================================================================
@@ -45,13 +54,15 @@ abstract class DatabaseObject extends ConnectionObject
 	/**
 	 * Instantiate class.
 	 *
-	 * We overload the constructor to instantiate a server from the provided parameter if
-	 * the parent object was not provided.
+	 * We overload the constructor to instantiate a server from the provided parameter, if
+	 * the parent object was not provided, and set it as the parent.
 	 *
 	 * @param mixed					$theParameter		Data source name or parameters.
 	 * @param ConnectionObject		$theParent			Connection parent.
 	 *
 	 * @access public
+	 *
+	 * @see ServerObject::$sOffsets
 	 *
 	 * @uses newServer()
 	 */
@@ -72,12 +83,11 @@ abstract class DatabaseObject extends ConnectionObject
 			// Get server parameters.
 			//
 			$params = Array();
-			$offsets = array( kTAG_CONN_PROTOCOL, kTAG_CONN_HOST, kTAG_CONN_PORT,
-							  kTAG_CONN_USER, kTAG_CONN_PASS, kTAG_CONN_OPTS );
-			foreach( $offsets as $offset )
+			foreach( ServerObject::$sOffsets as $offset )
 			{
 				if( $this->offsetExists( $offset ) )
-					$params[ $offset ] = $this->offsetGet( $offset );
+					$params[ $offset ] =
+						$this->offsetGet( $offset );
 			
 			} // Extracting server parameters.
 			
@@ -86,9 +96,32 @@ abstract class DatabaseObject extends ConnectionObject
 			//
 			$this->mParent = $this->newServer( $params );
 		
-		} // Mising parent.
+		} // Missing parent.
 		
 	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the database
+	 *
+	 * This method should drop the current database.
+	 *
+	 * @access public
+	 */
+	abstract public function drop();
 
 		
 
@@ -158,6 +191,66 @@ abstract class DatabaseObject extends ConnectionObject
 	 * @return array				Server statistics or <tt>NULL</tt> if unsupported.
 	 */
 	public function getCollections()									{	return NULL;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Set sequence number
+	 *
+	 * This method should initialise a sequence number associated to the provided parameter.
+	 * This operation is equivalent to resetting an auto-number for a database.
+	 *
+	 * Once the sequence is set, the next requested sequence number will hold the value set
+	 * by this method, so to start counting from <tt>1</tt> you should provide this value to
+	 * this method.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 * @param integer				$theNumber			Sequence number.
+	 *
+	 * @access public
+	 */
+	abstract public function setSequenceNumber( $theSequence, $theNumber = 1 );
+
+	 
+	/*===================================================================================
+	 *	getSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Return sequence number
+	 *
+	 * This method should return a sequence number associated to the provided parameter.
+	 * This operation is equivalent to requesting an auto-number for a database.
+	 *
+	 * Each time a sequence number is requested, the sequence seed is updated, so use this
+	 * method only when the sequence is required.
+	 *
+	 * If the sequence selector is not found, a new one will be created starting with the
+	 * number <tt>1</tt>, so, if you need to start with another number, use the
+	 * {@link setSequenceNumber()} before.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 *
+	 * @access public
+	 * @return integer				Sequence number.
+	 */
+	abstract public function getSequenceNumber( $theSequence );
 
 		
 
