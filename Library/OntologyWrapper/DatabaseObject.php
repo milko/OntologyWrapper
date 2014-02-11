@@ -9,6 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\ConnectionObject;
+use OntologyWrapper\ServerObject;
 
 /*=======================================================================================
  *																						*

@@ -128,6 +128,11 @@ trait PersistentTrait
 				throw new \Exception(
 					"Cannot insert object: "
 				   ."invalid container parameter type." );						// !@! ==>
+			
+			//
+			// Open collection.
+			//
+			$theContainer->openConnection();
 		
 			//
 			// Set collection.
@@ -153,9 +158,15 @@ trait PersistentTrait
 		} // Use current collection.
 		
 		//
+		// Compute operation.
+		//
+		$op = 0x01;										// Signal saving.
+		$op |= ( $this->isCommitted() ) ? 0x10 : 0x00;	// Signal committed.
+		
+		//
 		// Prepare object.
 		//
-		$this->preCommit();
+		$this->preCommit( $op );
 		
 		//
 		// Check if object is ready.
@@ -179,7 +190,7 @@ trait PersistentTrait
 		//
 		// Cleanup object.
 		//
-		$this->postCommit();
+		$this->postCommit( $op );
 	
 		//
 		// Set object status.
@@ -297,6 +308,11 @@ trait PersistentTrait
 				throw new \Exception(
 					"Cannot instantiate object: "
 				   ."invalid container parameter type." );						// !@! ==>
+			
+			//
+			// Open collection.
+			//
+			$collection->openConnection();
 			
 			//
 			// Set collection.
@@ -525,11 +541,24 @@ trait PersistentTrait
 	 * This method should prepare the object for being committed, it should compute the
 	 * eventual identifiers and commit the eventual related objects.
 	 *
+	 * The method accepts a single bitfield parameter that indicates the current operation:
+	 *
+	 * <ul>
+	 *	<li><tt>0x01</tt>: Insert.
+	 *	<li><tt>0x11</tt>: Update.
+	 *	<li><tt>0x10</tt>: Delete.
+	 * </ul>
+	 *
+	 * The first bit is set if the object is committed and the second bit is set if we are
+	 * storing the object.
+	 *
 	 * The method must be implemented by concrete derived classes.
+	 *
+	 * @param bitfield				$theOperation		Operation code.
 	 *
 	 * @access protected
 	 */
-	abstract protected function preCommit();
+	abstract protected function preCommit( $theOperation = 0x00 );
 
 	 
 	/*===================================================================================
@@ -540,13 +569,26 @@ trait PersistentTrait
 	 * Cleanup object after commit
 	 *
 	 * This method should cleanup the object after it was committed, it should perform
-	 * eventual iodentifiers and commit the eventual related objects.
+	 * eventual identifiers and commit the eventual related objects.
+	 *
+	 * The method accepts a single bitfield parameter that indicates the current operation:
+	 *
+	 * <ul>
+	 *	<li><tt>0x01</tt>: Insert.
+	 *	<li><tt>0x11</tt>: Update.
+	 *	<li><tt>0x10</tt>: Delete.
+	 * </ul>
+	 *
+	 * The first bit is set if the object is committed and the second bit is set if we are
+	 * storing the object.
 	 *
 	 * The method must be implemented by concrete derived classes.
 	 *
+	 * @param bitfield				$theOperation		Operation code.
+	 *
 	 * @access protected
 	 */
-	abstract protected function postCommit();
+	abstract protected function postCommit( $theOperation = 0x00 );
 
 		
 
@@ -568,13 +610,12 @@ trait PersistentTrait
 	 * This method should return <tt>TRUE</tt> if the object holds all the necessary
 	 * attributes.
 	 *
-	 * In this class we return <tt>FALSE</tt>, to allow method chaining across the
-	 * inheritance.
+	 * All derived classes must implement this method.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 */
-	protected function isReady()										{	return TRUE;	}
+	abstract protected function isReady();
 
 		
 
@@ -625,7 +666,7 @@ trait PersistentTrait
 				// Check immutable tags.
 				//
 				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_GID) )
+				 || ($theOffset == kTAG_PID) )
 					throw new \Exception(
 						"Cannot set the [$theOffset] offset: "
 					   ."the object is committed." );							// !@! ==>
@@ -709,7 +750,7 @@ trait PersistentTrait
 				// Check immutable tags.
 				//
 				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_GID) )
+				 || ($theOffset == kTAG_PID) )
 					throw new \Exception(
 						"Cannot delete the [$theOffset] offset: "
 					   ."the object is committed." );							// !@! ==>

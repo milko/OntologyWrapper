@@ -47,7 +47,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\connection\MongoDatabase
+class MyClass extends OntologyWrapper\MongoDatabase
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -83,7 +83,7 @@ try
 	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\TagCache(
+		= new OntologyWrapper\TagCache(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
@@ -518,7 +518,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -542,7 +542,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -566,7 +566,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -585,7 +585,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\connection\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );

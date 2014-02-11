@@ -47,7 +47,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\connection\MemcachedCache{}
+class MyClass extends OntologyWrapper\MemcachedCache{}
 
 
 /*=======================================================================================
@@ -63,7 +63,7 @@ try
 	// Set data dictionary.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\MemcachedCache(
+		= new OntologyWrapper\MemcachedCache(
 			'memcached://localhost:11211' );
 	$_SESSION[ kSESSION_DDICT ]->openConnection();
 	$_SESSION[ kSESSION_DDICT ]->set( ':connection:protocol', kTAG_CONN_PROTOCOL );

@@ -77,6 +77,8 @@ class MyClass extends OntologyWrapper\OntologyObject
 	
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+	
+	public function __toString()						{	return "hello!";	}
 }
 
 
@@ -95,7 +97,7 @@ try
 	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\TagCache(
+		= new OntologyWrapper\TagCache(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
@@ -342,6 +344,50 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test failed object reference.
+	//
+	echo( '<h4>Test failed object reference<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ref = $test->Reference();'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$ref = $test->Reference();
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test successful object reference.
+	//
+	echo( '<h4>Test successful object reference<br /><i>should return the native identifier</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NID ] = "native identifier";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_NID ] = "native identifier";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ref = $test->Reference();'.kSTYLE_HEAD_POS );
+	$ref = $test->Reference();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ref );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

@@ -266,7 +266,7 @@ abstract class TagCacheObject
 		//
 		$tag = $this->getTagObject( (int) $theKey, $doAssert );
 		
-		return $tag[ (string) kTAG_GID ];											// ==>
+		return $tag[ (string) kTAG_PID ];											// ==>
 	
 	} // getTagGID.
 

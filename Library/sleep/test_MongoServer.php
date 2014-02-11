@@ -47,7 +47,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\connection\MongoServer
+class MyClass extends OntologyWrapper\MongoServer
 {
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
@@ -83,7 +83,7 @@ try
 	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\TagCache(
+		= new OntologyWrapper\TagCache(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	

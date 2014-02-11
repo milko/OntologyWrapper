@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT TERM TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Internal tags -->
+	
+	<META>
+		<!-- kTAG_NID -->
+       <TERM lid="_id">
+            <item const="kTAG_LABEL">
+                <item lang="en">Native identifier</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[The <em>native identifier</em> represents the <em>primary key</em> of an object, all objects which are persistent must have this property.]]></item>
+            </item>
+        </TERM>
+        
+		<!-- kTAG_CLASS -->
+       <TERM lid="_class">
+            <item const="kTAG_LABEL">
+                <item lang="en">Class</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[The <em>class</em> represents the <em>object class name</em>, this <em>string</em> is used to instantiate the correct object once loaded from a container.]]></item>
+            </item>
+        </TERM>
+	</META>
+	
+	<!-- Default tags -->
+	
+	<!-- 1 -->
+	<!-- kTAG_NS -->
+	<META>
+       <TERM ns="" lid="ns">
+            <item const="kTAG_LABEL">
+                <item lang="en">Namespace</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[The <em>namespace</em> is used to <em>disambiguate homonym identifiers</em>, it is a classification that <em>groups a set of related terms</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:ns</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+			    <item>:type:ref:term</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Namespace</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Namespaces are <em>term references</em> that are <em>prepended to the term local identifier</em> to form a global identifier.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 2 -->
+	<!-- kTAG_LID -->
+	<META>
+       <TERM ns="" lid="lid">
+            <item const="kTAG_LABEL">
+                <item lang="en">Local identifier</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>local identifier</em> is used to identify objects <em>within their specific domain</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:lid</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Local identifier</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>local identifier</em> is a <em>string</em> which represents a <em>unique identifier within a specific namespace or domain</em>, the combination of the namespace and the local identifier become the global identifier.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 3 -->
+	<!-- kTAG_PID -->
+	<META>
+       <TERM ns="" lid="pid">
+            <item const="kTAG_LABEL">
+                <item lang="en">Persistent identifier</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>persistent identifier</em> is <em>immutable</em>, which means that <em>once assigned it will not change</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:pid</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Persistent identifier</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>persistent identifier</em> is a <em>string</em> which represents a <em>unique identifier</em> that cannot be changed once it is assigned. Persistent identifiers are also <em>global identifiers</em>, which means that they also <em>feature the namespace</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 4 -->
+	<!-- kTAG_SEQ -->
+	<META>
+       <TERM ns="" lid="seq">
+            <item const="kTAG_LABEL">
+                <item lang="en">Sequence</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>sequence</em> is a <em>serial identifier</em>, generally an increasing integer, which is <em>automatically assigned to an object</em>. These identifiers are <em>not persistent</em> and are generally <em>global</em>, which means that they are <em>unique across namespaces</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:seq</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:int</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Sequence number</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[The <em>sequence number</em> is an <em>integer global identifier</em> that is <em>automatically assigned</em> to an object. This identifier is <em>unique</em> across domains, but it is <em>not persistent</em>, since it <em>depends the sequence in which objects are inserted</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 5 -->
+	<!-- kTAG_TERMS -->
+	<META>
+       <TERM ns="" lid="terms">
+            <item const="kTAG_LABEL">
+                <item lang="en">Terms list</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents a <em>list of term references</em>, the order in which these elements are set is significant. This list generally represents a lexical construct.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:terms</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:term</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Branch</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents a <em>branch of a graph or tree</em> constituted by the sequence of <em>vertex</em> - <em>predicate</em> - <em>vertex</em> elements which <em>are term object references</em>. This sequence represents a <em>lexical construct</em> which is used to <em>document a data property</em>. Each vertex of the sequence describes a more specific aspect of the data property: the first element is called <em>feature</em> and it describes <em>what</em> the data property is; the middle elements of the sequence are called <em>methods</em> and they describe the <em>methodology</em> used to measure the data property; the last element of the sequence is called <em>scale</em> and it rescribes the <em>META or scale</em> in which the data property value is expressed in.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 6 -->
+	<!-- kTAG_DATA_TYPE -->
+	<META>
+       <TERM ns="" lid="data-type">
+            <item const="kTAG_LABEL">
+                <item lang="en">Data type</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>data type</em>, of a property, it describes the internal representation of a value.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:data-type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Data type</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents a property or value <em>data type</em>. It is an enumerated set of values that indicate the various internal representations a value may be stored in.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 7 -->
+	<!-- kTAG_DATA_KIND -->
+	<META>
+       <TERM ns="" lid="data-kind">
+            <item const="kTAG_LABEL">
+                <item lang="en">Data kind</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>data attributes</em> of a property, it describes the structure and cardinality of a data property.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:data-kind</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Data kind</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents a property or value <em>data kind</em>. It is an enumerated set of values that indicate the structure and other attributes of a data property, this adds to and not replaces the information provided by the data type.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 8 -->
+	<!-- kTAG_LABEL -->
+	<META>
+       <TERM ns="" lid="label">
+            <item const="kTAG_LABEL">
+                <item lang="en">Label</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents a <em>name</em>, <em>label</em> or <em>short description</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:label</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:kind/value</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Label</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[<em>Labels</em> are used to <em>name</em> and provide <em>search access</em> to objects, labels are organised by language, which means that you may have several labels, each in its own language.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 9 -->
+	<!-- kTAG_DEFINITION -->
+	<META>
+       <TERM ns="" lid="definition">
+            <item const="kTAG_LABEL">
+                <item lang="en">Definition</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>definition</em> is a <em>descriptive text</em> that provides <em>documentation</em> and <em>description</em> for an object. A definition should provide <em>information not related to context</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:definition</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:kind/value</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Definition</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[<em>Definitions</em> are used to <em>provide a definition</em> for a term or object, definitions should not provide context specific information, but only that information which does not depend on the context. Definitions are organised by language, which means that you may have several definitions, each in its own language.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 10 -->
+	<!-- kTAG_DESCRIPTION -->
+	<META>
+       <TERM ns="" lid="description">
+            <item const="kTAG_LABEL">
+                <item lang="en">Description</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>description</em> is a <em>descriptive text</em> that provides <em>documentation</em> and <em>definition</em> for an object. A description should provide <em>information related to context</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:description</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:kind/value</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Description</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[<em>Descriptions</em> are used to <em>describe</em> a term or an object, descriptions should provide context specific information; unlike definitions, which should only provide context free information. Descriptions are organised by language, which means that you may have several descriptions, each in its own language.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- Connection attributes -->
+	
+	<!-- 11 -->
+	<!-- kTAG_CONN_PROTOCOL -->
+	<META>
+       <TERM ns=":connection" lid="protocol">
+            <item const="kTAG_LABEL">
+                <item lang="en">Protocol</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Connection or network protocol.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:protocol</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection protocol</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>protocol or scheme</em> used in a <em>network connection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 12 -->
+	<!-- kTAG_CONN_HOST -->
+	<META>
+       <TERM ns=":connection" lid="host">
+            <item const="kTAG_LABEL">
+                <item lang="en">Host</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Network host or IP address.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:host</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection host</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>host</em> or <em>IP address</em> used in a <em>network connection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 13 -->
+	<!-- kTAG_CONN_PORT -->
+	<META>
+       <TERM ns=":connection" lid="port">
+            <item const="kTAG_LABEL">
+                <item lang="en">Port</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Network TCP or UDP port number.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:port</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:int</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection port number</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the UDP or TCP <em>port number</em> used in a <em>network connection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 14 -->
+	<!-- kTAG_CONN_USER -->
+	<META>
+       <TERM ns=":connection" lid="user">
+            <item const="kTAG_LABEL">
+                <item lang="en">User code</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Credentials code used to identify with a system.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:user</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection user</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>code</em> used to identify the user in a <em>network connection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 15 -->
+	<!-- kTAG_CONN_USER -->
+	<META>
+       <TERM ns=":connection" lid="pass">
+            <item const="kTAG_LABEL">
+                <item lang="en">User password</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Credentials password used to identify with a system.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:pass</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection password</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>password</em> used to identify a user in a <em>network connection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 16 -->
+	<!-- kTAG_CONN_BASE -->
+	<META>
+       <TERM ns=":connection" lid="database">
+            <item const="kTAG_LABEL">
+                <item lang="en">Database</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Database name.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:database</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Database name</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>name</em> of a <em>database</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 17 -->
+	<!-- kTAG_CONN_COLL -->
+	<META>
+       <TERM ns=":connection" lid="collection">
+            <item const="kTAG_LABEL">
+                <item lang="en">Collection</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Database collection name.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:collection</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Collection name</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the <em>name</em> of a database <em>collection</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 18 -->
+	<!-- kTAG_CONN_OPTS -->
+	<META>
+       <TERM ns=":connection" lid="options">
+            <item const="kTAG_LABEL">
+                <item lang="en">Options</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Options list, generally implemented as a key value pair in which the key defines the type and the value the option.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>::connection:options</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:array</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Connection options</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This represents the connection <em>list of options</em>, these are implemented in a list of key/value pairs in which the key identifies the option and the value is the option.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- Sub-structure elements -->
+	
+	<!-- 19 -->
+	<!-- kTAG_SUB_LANGUAGE -->
+	<META>
+	    <TERM ns=":sub" lid="language">
+            <item const="kTAG_LABEL">
+                <item lang="en">Language</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[Language reference.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:sub:language</item>
+			</item>
+		    <item const="kTAG_DATA_TYPE">
+		        <item>:type:string</item>
+		    </item>
+		    <item const="kTAG_LABEL">
+                <item lang="en">Language code</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This is a <em>string</em> representing a <em>language code</em>, this is generally used as an element of an array to provide a list of strings in different languages.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 20 -->
+	<!-- kTAG_SUB_TEXT -->
+	<META>
+       <TERM ns=":sub" lid="text">
+            <item const="kTAG_LABEL">
+                <item lang="en">Text</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A string or text.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:sub:value</item>
+			</item>
+		    <item const="kTAG_DATA_TYPE">
+		        <item>:type:string</item>
+		    </item>
+		    <item const="kTAG_LABEL">
+                <item lang="en">Value</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This is a <em>string</em> or <em>text</em> component, it is generally used in combination with a language reference to provide a list of strings in different languages.]]></item>
+            </item>
+		</TAG>
+	</META>
+</METADATA>

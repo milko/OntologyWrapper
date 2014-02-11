@@ -86,7 +86,7 @@ try
 	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\TagCache(
+		= new OntologyWrapper\TagCache(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
@@ -445,6 +445,23 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test global identifier.
+	//
+	echo( '<h4>Test global identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'(string) $test;'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	echo( '<hr>' );
 }
 

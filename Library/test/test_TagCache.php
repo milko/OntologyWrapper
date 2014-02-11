@@ -57,7 +57,7 @@ define( 'kDEBUG_PARENT', TRUE );
 //
 // Cast current class.
 //
-class MyClass extends OntologyWrapper\connection\TagCache{}
+class MyClass extends OntologyWrapper\TagCache{}
 
 
 /*=======================================================================================
@@ -76,7 +76,7 @@ try
 	//
 	if( ! array_key_exists( kSESSION_DDICT, $_SESSION ) )
 		$_SESSION[ kSESSION_DDICT ]
-			= new OntologyWrapper\connection\TagCache(
+			= new OntologyWrapper\TagCache(
 				kSESSION_DDICT,
 				array( array( 'localhost', 11211 ) ) );
 	

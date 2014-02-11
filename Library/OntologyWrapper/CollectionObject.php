@@ -9,6 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\ConnectionObject;
+use OntologyWrapper\DatabaseObject;
 
 /*=======================================================================================
  *																						*
@@ -212,6 +213,101 @@ abstract class CollectionObject extends ConnectionObject
 	 * @return array				Found object as an array, or <tt>NULL</tt>.
 	 */
 	abstract public function resolveIdentifier( $theIdentifier );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Set sequence number
+	 *
+	 * This method should initialise a sequence number associated to the provided parameter.
+	 * This operation is equivalent to resetting an auto-number for a database.
+	 *
+	 * Once the sequence is set, the next requested sequence number will hold the value set
+	 * by this method, so to start counting from <tt>1</tt> you should provide this value to
+	 * this method.
+	 *
+	 * This method is intended to be handled by database objects, in this class we simply
+	 * let the object's parent, a database, perform the action.
+	 *
+	 * Derived classes should never need to overload this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 * @param integer				$theNumber			Sequence number.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+	{
+		//
+		// Check parent.
+		//
+		if( ! ($this->mParent instanceof DatabaseObject) )
+			throw new \Exception(
+				"Unable to set sequence number: "
+			   ."the collection is missing its database." );					// !@! ==>
+		
+		//
+		// Let papa do it.
+		//
+		$this->mParent->setSequenceNumber( $theSequence, $theNumber );
+	
+	} // setSequenceNumber.
+
+	 
+	/*===================================================================================
+	 *	getSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Return sequence number
+	 *
+	 * This method should return a sequence number associated to the provided parameter.
+	 * This operation is equivalent to requesting an auto-number for a database.
+	 *
+	 * Each time a sequence number is requested, the sequence seed is updated, so use this
+	 * method only when the sequence is required.
+	 *
+	 * If the sequence selector is not found, a new one will be created starting with the
+	 * number <tt>1</tt>, so, if you need to start with another number, use the
+	 * {@link setSequenceNumber()} before.
+	 *
+	 * This method is intended to be handled by database objects, in this class we simply
+	 * let the object's parent, a database, perform the action.
+	 *
+	 * Derived classes should never need to overload this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 *
+	 * @access public
+	 * @return integer				Sequence number.
+	 */
+	public function getSequenceNumber( $theSequence )
+	{
+		//
+		// Check parent.
+		//
+		if( ! ($this->mParent instanceof DatabaseObject) )
+			throw new \Exception(
+				"Unable to get sequence number: "
+			   ."the collection is missing its database." );					// !@! ==>
+		
+		return $this->mParent->getSequenceNumber( $theSequence );				 // ==>
+	
+	} // setSequenceNumber.
 
 		
 

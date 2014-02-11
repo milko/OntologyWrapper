@@ -337,22 +337,44 @@
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:key/value&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:array&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Key/value array&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Array&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This data type defines an &lt;i&gt;array of elements in
-		which the key represents the discriminant&lt;/i&gt;. Such arrays are identical to
-		PHP arrays, except that, unlike traditional arrays in which the key is a numeric
-		value, this kind of structure uses the key as part of the information. The data
-		type of the elements value is not ingferred.
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This data type defines a &lt;em&gt;list of key/value
+		pairs&lt;/em&gt;, the key will be in general a string, while the value type is not
+		inferred. This data type usually applies to arrays in which the key part is the
+		discriminant and determines the type of the value, while traditional arrays are
+		better defined by a fixed sata type and a list data kind.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
         <a href="../namespaces/.html#constant_kTYPE_ARRAY" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTYPE_STRUCT" class="element ajax clickable constant">
+        <h1>kTYPE_STRUCT<a href="../namespaces/.html#constant_kTYPE_STRUCT">¶</a></h1>
+        <p class="short_description">Struct.</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:struct&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Structure&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This data type defines a &lt;em&gt;structure&lt;/em&gt;, this
+		means that the value will be an &lt;em&gt;object&lt;/em&gt; or an array of objects if the
+		data kind is a list.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTYPE_STRUCT" class="more">« More »</a>
     </div>
 
                                         <div id="kTYPE_KIND_VALUE" class="element ajax clickable constant">
@@ -371,14 +393,14 @@
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This data type defines a &lt;i&gt;list of elements comprised
 		of two key value pairs&lt;/i&gt; in which the first pair, whose key is the
-		{@link kTAG_PART_KIND} tag, defines the type, kind or qualification of the
+		{@link kTAG_SUB_LANGUAGE} tag, defines the type, kind or qualification of the
 		property stored as the value of the second pair in which the key is the
-		{@link kTAG_PART_VALUE} tag. For instance a home telephone number could be
+		{@link kTAG_SUB_TEXT} tag. For instance a home telephone number could be
 		stored as an element as an array of two key/value pairs in which the first
-		pair with key {@link kTAG_PART_KIND} would hold the &lt;tt&gt;home&lt;/tt&gt; string value,
-		while the second pair with key {@link kTAG_PART_VALUE} would hold the actual
+		pair with key {@link kTAG_SUB_LANGUAGE} would hold the &lt;tt&gt;home&lt;/tt&gt; string value,
+		while the second pair with key {@link kTAG_SUB_TEXT} would hold the actual
 		telephone number. Lists of this kind cannot have more than one element matching
-		the same {@link kTAG_PART_KIND} value.&lt;/td&gt;
+		the same {@link kTAG_SUB_LANGUAGE} value.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
         <a href="../namespaces/.html#constant_kTYPE_KIND_VALUE" class="more">« More »</a>
@@ -430,6 +452,69 @@
         <a href="../namespaces/.html#constant_kTYPE_SET" class="more">« More »</a>
     </div>
 
+                                        <div id="kTYPE_REF_TERM" class="element ajax clickable constant">
+        <h1>kTYPE_REF_TERM<a href="../namespaces/.html#constant_kTYPE_REF_TERM">¶</a></h1>
+        <p class="short_description">Term reference.</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:ref:term&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Term reference&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;A &lt;i&gt;term reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must
+		correspond to the identifier of a Term object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTYPE_REF_TERM" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTYPE_REF_TAG" class="element ajax clickable constant">
+        <h1>kTYPE_REF_TAG<a href="../namespaces/.html#constant_kTYPE_REF_TAG">¶</a></h1>
+        <p class="short_description">Tag reference.</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:ref:tag&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Tag reference&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;A &lt;i&gt;tag reference&lt;/i&gt; is an &lt;em&gt;integer&lt;/em&gt; that
+		must correspond to the native identifier of a Tag object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTYPE_REF_TAG" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTYPE_REF_NODE" class="element ajax clickable constant">
+        <h1>kTYPE_REF_NODE<a href="../namespaces/.html#constant_kTYPE_REF_NODE">¶</a></h1>
+        <p class="short_description">Node reference.</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Term:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:ref:node&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Node reference&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;A &lt;i&gt;node reference&lt;/i&gt; is an &lt;em&gt;integer&lt;/em&gt; that
+		must correspond to the native identifier of a Node object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTYPE_REF_NODE" class="more">« More »</a>
+    </div>
+
                                         <div id="kTYPE_LIST" class="element ajax clickable constant">
         <h1>kTYPE_LIST<a href="../namespaces/.html#constant_kTYPE_LIST">¶</a></h1>
         <p class="short_description">List.</p>
@@ -446,7 +531,7 @@
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;A &lt;i&gt;list&lt;/i&gt; cardinality type indicates that the
 		referred property will hold a &lt;i&gt;list of values&lt;/i&gt; in which each element will
-		have the data type defined by the property &lt;i&gt;data type&lt;/i&gt;.
+		have the data type defined by the property &lt;i&gt;data type&lt;/i&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
         <a href="../namespaces/.html#constant_kTYPE_LIST" class="more">« More »</a>
@@ -522,6 +607,64 @@ In general, if this flag is set, the object has the knowledge on how to convert 
 members before being transmitted and on how to convert the serialised values back to
 native state.</div>
         <a href="../namespaces/.html#constant_kFLAG_STATE_ENCODED" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_DOMAIN_SEPARATOR" class="element ajax clickable constant">
+        <h1>kTOKEN_DOMAIN_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_DOMAIN_SEPARATOR">¶</a></h1>
+        <p class="short_description">Domain separator token.</p>
+        <div class="details collapse">This value defines the token that separates the object domain from other elements.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_DOMAIN_SEPARATOR" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_CLASS_SEPARATOR" class="element ajax clickable constant">
+        <h1>kTOKEN_CLASS_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_CLASS_SEPARATOR">¶</a></h1>
+        <p class="short_description">Class separator token.</p>
+        <div class="details collapse">This value defines the token that separates the object class from other elements.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_CLASS_SEPARATOR" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_NAMESPACE_SEPARATOR" class="element ajax clickable constant">
+        <h1>kTOKEN_NAMESPACE_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_NAMESPACE_SEPARATOR">¶</a></h1>
+        <p class="short_description">Namespace separator token.</p>
+        <div class="details collapse">This value defines the token used to separate namespaces from codes.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_NAMESPACE_SEPARATOR" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_OFFSET_SEPARATOR" class="element ajax clickable constant">
+        <h1>kTOKEN_OFFSET_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_OFFSET_SEPARATOR">¶</a></h1>
+        <p class="short_description">Sub-offset separator token.</p>
+        <div class="details collapse">This value defines the token used to indicate sub-offsets.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_OFFSET_SEPARATOR" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_INDEX_SEPARATOR" class="element ajax clickable constant">
+        <h1>kTOKEN_INDEX_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_INDEX_SEPARATOR">¶</a></h1>
+        <p class="short_description">Index separator token.</p>
+        <div class="details collapse">This value defines the token used to separate index elements.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_INDEX_SEPARATOR" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_INDEX_OPEN_TAG" class="element ajax clickable constant">
+        <h1>kTOKEN_INDEX_OPEN_TAG<a href="../namespaces/.html#constant_kTOKEN_INDEX_OPEN_TAG">¶</a></h1>
+        <p class="short_description">Namespace opening token.</p>
+        <div class="details collapse">This token is used to enclose namespaces or parent identification when merged with other
+identification sections, this value is used as a prefix.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_INDEX_OPEN_TAG" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_INDEX_CLOSE_TAG" class="element ajax clickable constant">
+        <h1>kTOKEN_INDEX_CLOSE_TAG<a href="../namespaces/.html#constant_kTOKEN_INDEX_CLOSE_TAG">¶</a></h1>
+        <p class="short_description">Namespace closing token.</p>
+        <div class="details collapse">This token is used to enclose namespaces or parent identification when merged with other
+identification sections, this value is used as a postfix.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_INDEX_CLOSE_TAG" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTOKEN_END_TAG" class="element ajax clickable constant">
+        <h1>kTOKEN_END_TAG<a href="../namespaces/.html#constant_kTOKEN_END_TAG">¶</a></h1>
+        <p class="short_description">Identification end token.</p>
+        <div class="details collapse">This token should close all identification strings.</div>
+        <a href="../namespaces/.html#constant_kTOKEN_END_TAG" class="more">« More »</a>
     </div>
 
                                         <div id="kTAG_NID" class="element ajax clickable constant">
@@ -642,9 +785,9 @@ native state.</div>
         <a href="../namespaces/.html#constant_kTAG_LID" class="more">« More »</a>
     </div>
 
-                                        <div id="kTAG_GID" class="element ajax clickable constant">
-        <h1>kTAG_GID<a href="../namespaces/.html#constant_kTAG_GID">¶</a></h1>
-        <p class="short_description">Global identifier</p>
+                                        <div id="kTAG_PID" class="element ajax clickable constant">
+        <h1>kTAG_PID<a href="../namespaces/.html#constant_kTAG_PID">¶</a></h1>
+        <p class="short_description">Persistent identifier</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -652,7 +795,7 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:gid&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:pid&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -660,18 +803,85 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Global identifier&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Pesistent identifier&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents the unique &lt;i&gt;global
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents the &lt;i&gt;persistent
 		identifier&lt;/i&gt; of an object. This identifier represents the unique key of an
 		object and it is by definition a string. This identifier is persistent, which
 		means that it will not change across implementations (&lt;i&gt;unlike the native
 		identifier, which may change across implementations&lt;/i&gt;).&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTAG_GID" class="more">« More »</a>
+        <a href="../namespaces/.html#constant_kTAG_PID" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTAG_SEQ" class="element ajax clickable constant">
+        <h1>kTAG_SEQ<a href="../namespaces/.html#constant_kTAG_SEQ">¶</a></h1>
+        <p class="short_description">Sequence</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:seq&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:int&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Sequence&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents a &lt;i&gt;unique identifier&lt;/i&gt; other
+		than the global identifier, it is constituted by an &lt;i&gt;sequential integer
+		number&lt;/i&gt;, which might change across implementations. The main use of such an
+		identifier is to reduce storage requirements when indexing and referencing
+		objects.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTAG_SEQ" class="more">« More »</a>
+    </div>
+
+                                        <div id="kTAG_TERMS" class="element ajax clickable constant">
+        <h1>kTAG_TERMS<a href="../namespaces/.html#constant_kTAG_TERMS">¶</a></h1>
+        <p class="short_description">Branch</p>
+        <div class="details collapse">&lt;table&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;5&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:terms&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:ref-term&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data kind:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:list&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Branch&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag holds a &lt;i&gt;path of a graph branch&lt;/i&gt;,
+		constituted by a &lt;i&gt;sequence of vertices connected by predicates&lt;/i&gt;. It is an
+		array holding an odd number of elements representing &lt;i&gt;term references&lt;/i&gt; in
+		which the odd elements are vertices and the even elements are predicates.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</div>
+        <a href="../namespaces/.html#constant_kTAG_TERMS" class="more">« More »</a>
     </div>
 
                                         <div id="kTAG_DATA_TYPE" class="element ajax clickable constant">
@@ -680,7 +890,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -710,7 +920,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;5&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -741,7 +951,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;8&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -759,8 +969,8 @@ native state.</div>
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents a &lt;i&gt;label&lt;/i&gt;, it is a &lt;i&gt;short
 		description or name&lt;/i&gt; referring to an object. Labels store the language code
-		in the key/value pair indexed by {@link kTAG_PART_KIND} and the label text in
-		the pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+		in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the label text in
+		the pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
 		language and only one element may omit the language pair.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
@@ -773,7 +983,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;9&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -791,8 +1001,8 @@ native state.</div>
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
 	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag represents a &lt;i&gt;definition&lt;/i&gt;, it is a
 		&lt;i&gt;description that represents the definition&lt;/i&gt; of an object. Definitions
-		store the language code in the key/value pair indexed by {@link kTAG_PART_KIND}
-		and the definition text in the pair indexed by {@link kTAG_PART_VALUE}. No two
+		store the language code in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE}
+		and the definition text in the pair indexed by {@link kTAG_SUB_TEXT}. No two
 		elements may share the same language and only one element may omit the language
 		pair.&lt;/td&gt;
 &lt;/tr&gt;
@@ -806,7 +1016,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;8&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;10&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -827,8 +1037,8 @@ native state.</div>
 		not dependant on the context, descriptions are. This property is generally used
 		to add context dependant information to the definition. Descriptions have the
 		same structure as labeld and definitions: they store the language code in the
-		key/value pair indexed by {@link kTAG_PART_KIND} and the definition text in the
-		pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+		key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the definition text in the
+		pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
 		language and only one element may omit the language pair.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
@@ -841,7 +1051,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;9&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;11&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -870,7 +1080,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;10&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;12&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -899,7 +1109,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;11&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;13&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -928,7 +1138,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;12&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;14&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -957,7 +1167,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;13&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;15&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -986,7 +1196,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;14&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;16&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -1015,7 +1225,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;15&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;17&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -1044,7 +1254,7 @@ native state.</div>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;16&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;18&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -1067,17 +1277,17 @@ native state.</div>
         <a href="../namespaces/.html#constant_kTAG_CONN_OPTS" class="more">« More »</a>
     </div>
 
-                                        <div id="kTAG_PART_KIND" class="element ajax clickable constant">
-        <h1>kTAG_PART_KIND<a href="../namespaces/.html#constant_kTAG_PART_KIND">¶</a></h1>
-        <p class="short_description">Kind part</p>
+                                        <div id="kTAG_SUB_LANGUAGE" class="element ajax clickable constant">
+        <h1>kTAG_SUB_LANGUAGE<a href="../namespaces/.html#constant_kTAG_SUB_LANGUAGE">¶</a></h1>
+        <p class="short_description">Language</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;17&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;19&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:part:kind&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:sub:language&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
@@ -1085,117 +1295,48 @@ native state.</div>
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Kind part&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Language code&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag is generally used in combination with the
-		{@link kTAG_PART_VALUE} to create a &lt;i&gt;list of typed or qualified entries&lt;/i&gt;.
-		Each entry is an array of two key/value pairs in which the pair featuring this
-		tag as a key has as value a term that &lt;i&gt;defines the type, value or
-		qualification&lt;/i&gt; of the property stored in the value part of the other pair.
-		For instance a home telephone number could be stored as an array of two
-		key/value pairs in which the first pair, indexed by this tag, would hold as
-		value the &lt;tt&gt;home&lt;/tt&gt; string, while the second pair would be indexd by the
-		{@link kTAG_PART_VALUE} tag and hold as value the telephone number.&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This attribute is a &lt;em&gt;string&lt;/em&gt; representing a
+		&lt;em&gt;language code&lt;/em&gt;, this is generally used in combination with the
+		{@link kTAG_SUB_TEXT} attribute to provide a list of strings in different
+		languages.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTAG_PART_KIND" class="more">« More »</a>
+        <a href="../namespaces/.html#constant_kTAG_SUB_LANGUAGE" class="more">« More »</a>
     </div>
 
-                                        <div id="kTAG_PART_VALUE" class="element ajax clickable constant">
-        <h1>kTAG_PART_VALUE<a href="../namespaces/.html#constant_kTAG_PART_VALUE">¶</a></h1>
-        <p class="short_description">Value part</p>
+                                        <div id="kTAG_SUB_TEXT" class="element ajax clickable constant">
+        <h1>kTAG_SUB_TEXT<a href="../namespaces/.html#constant_kTAG_SUB_TEXT">¶</a></h1>
+        <p class="short_description">Text</p>
         <div class="details collapse">&lt;table&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;NID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;18&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;20&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;GID:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:part:value&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:sub:text&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Data type:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:mixed&lt;/code&gt;&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;&lt;code&gt;:type:string&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Label:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Value part&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;Text&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 	&lt;td align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;i&gt;Definition:&amp;nbsp;&lt;/i&gt;&lt;/td&gt;
-	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This tag is generally used in combination with the
-		{@link kTAG_PART_KIND} tag to create a &lt;i&gt;list of typed or qualified
-		entries&lt;/i&gt;. Each entry is an array of two key/value pairs in which the pair
-		featuring the {@link kTAG_PART_KIND} tag as a key has as value a term that
-		defines the type, value or qualification of the property stored as the value of
-		the pair which uses this tag as the key. For instance a home telephone number
-		could be stored as an array of two key/value pairs in which the first pair,
-		indexed by the {@link kTAG_PART_KIND} tag, would hold as value the &lt;tt&gt;home&lt;/tt&gt;
-		string, while the second pair would be indexd by this tag and hold as value the
-		telephone number.&lt;/td&gt;
+	&lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;This attribute is a &lt;em&gt;string&lt;/em&gt; representing a
+		&lt;em&gt;string&lt;/em&gt; or &lt;em&gt;text&lt;/em&gt;, this is generally used in combination with the
+		{@link kTAG_SUB_LANGUAGE} attribute to provide a list of strings in different
+		languages.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;</div>
-        <a href="../namespaces/.html#constant_kTAG_PART_VALUE" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_DOMAIN_SEPARATOR" class="element ajax clickable constant">
-        <h1>kTOKEN_DOMAIN_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_DOMAIN_SEPARATOR">¶</a></h1>
-        <p class="short_description">Domain separator token.</p>
-        <div class="details collapse">This value defines the token that separates the object domain from other elements.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_DOMAIN_SEPARATOR" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_CLASS_SEPARATOR" class="element ajax clickable constant">
-        <h1>kTOKEN_CLASS_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_CLASS_SEPARATOR">¶</a></h1>
-        <p class="short_description">Class separator token.</p>
-        <div class="details collapse">This value defines the token that separates the object class from other elements.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_CLASS_SEPARATOR" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_NAMESPACE_SEPARATOR" class="element ajax clickable constant">
-        <h1>kTOKEN_NAMESPACE_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_NAMESPACE_SEPARATOR">¶</a></h1>
-        <p class="short_description">Namespace separator token.</p>
-        <div class="details collapse">This value defines the token used to separate namespaces from codes.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_NAMESPACE_SEPARATOR" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_OFFSET_SEPARATOR" class="element ajax clickable constant">
-        <h1>kTOKEN_OFFSET_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_OFFSET_SEPARATOR">¶</a></h1>
-        <p class="short_description">Sub-offset separator token.</p>
-        <div class="details collapse">This value defines the token used to indicate sub-offsets.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_OFFSET_SEPARATOR" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_INDEX_SEPARATOR" class="element ajax clickable constant">
-        <h1>kTOKEN_INDEX_SEPARATOR<a href="../namespaces/.html#constant_kTOKEN_INDEX_SEPARATOR">¶</a></h1>
-        <p class="short_description">Index separator token.</p>
-        <div class="details collapse">This value defines the token used to separate index elements.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_INDEX_SEPARATOR" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_INDEX_OPEN_TAG" class="element ajax clickable constant">
-        <h1>kTOKEN_INDEX_OPEN_TAG<a href="../namespaces/.html#constant_kTOKEN_INDEX_OPEN_TAG">¶</a></h1>
-        <p class="short_description">Namespace opening token.</p>
-        <div class="details collapse">This token is used to enclose namespaces or parent identification when merged with other
-identification sections, this value is used as a prefix.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_INDEX_OPEN_TAG" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_INDEX_CLOSE_TAG" class="element ajax clickable constant">
-        <h1>kTOKEN_INDEX_CLOSE_TAG<a href="../namespaces/.html#constant_kTOKEN_INDEX_CLOSE_TAG">¶</a></h1>
-        <p class="short_description">Namespace closing token.</p>
-        <div class="details collapse">This token is used to enclose namespaces or parent identification when merged with other
-identification sections, this value is used as a postfix.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_INDEX_CLOSE_TAG" class="more">« More »</a>
-    </div>
-
-                                        <div id="kTOKEN_END_TAG" class="element ajax clickable constant">
-        <h1>kTOKEN_END_TAG<a href="../namespaces/.html#constant_kTOKEN_END_TAG">¶</a></h1>
-        <p class="short_description">Identification end token.</p>
-        <div class="details collapse">This token should close all identification strings.</div>
-        <a href="../namespaces/.html#constant_kTOKEN_END_TAG" class="more">« More »</a>
+        <a href="../namespaces/.html#constant_kTAG_SUB_TEXT" class="more">« More »</a>
     </div>
 
                             </div>
@@ -1268,14 +1409,6 @@ using these methods in a public interface.</div>
 
                 
                 
-                                        <div id="MongoDatabase" class="element ajax clickable class">
-        <h1>MongoDatabase<a href="../classes/OntologyWrapper.connection.MongoDatabase.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link DatabaseObject} wrapping a
-{@link MongoDB} class.</div>
-        <a href="../classes/OntologyWrapper.connection.MongoDatabase.html" class="more">« More »</a>
-    </div>
-
                                         <div id="DatabaseObject" class="element ajax clickable class">
         <h1>DatabaseObject<a href="../classes/OntologyWrapper.DatabaseObject.html">¶</a></h1>
         <p class="short_description">Database object</p>
@@ -1285,36 +1418,78 @@ database specific functionality prototypes.</div>
         <a href="../classes/OntologyWrapper.DatabaseObject.html" class="more">« More »</a>
     </div>
 
+                                        <div id="MongoServer" class="element ajax clickable class">
+        <h1>MongoServer<a href="../classes/OntologyWrapper.MongoServer.html">¶</a></h1>
+        <p class="short_description">Mongo server</p>
+        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link ServerObject} wrapping a
+{@link MongoClient} class.</div>
+        <a href="../classes/OntologyWrapper.MongoServer.html" class="more">« More »</a>
+    </div>
+
                                         <div id="TagObject" class="element ajax clickable class">
         <h1>TagObject<a href="../classes/OntologyWrapper.TagObject.html">¶</a></h1>
         <p class="short_description">Tag object</p>
         <div class="details collapse">This class extends {@link OntologyObject} to implement a concrete tag object class.
 
-A tag object is used to identify, describe and document a data property, it holds the
-data property offset, data and cardinality types and the label and description of the
-property.
+A tag object is used to &lt;i&gt;identify&lt;/i&gt;, &lt;i&gt;document&lt;/i&gt; and &lt;i&gt;share&lt;/i&gt; a data
+property, it represents the &lt;i&gt;metadata&lt;/i&gt; of a data property, or its &lt;i&gt;definition&lt;/i&gt;
+in an ontology.
+
+This class features a {@link kTAG_TERMS} offset which is an array of {@link TermObject}
+references representing a path of vertex and predicate terms of the ontology graph, this
+chain of elements represents a lexical construct, like a phrase, that provides the
+explanation or definition of the current object.
+
+Using a chain of terms, rather than a single term, to provide metadata for a data element
+gives much more flexibility and reusability when defining a data dictionary. This
+sequence is divided in three main sections:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;i&gt;Feature&lt;/i&gt;: The first vertex represents the data element feature or trait, this
+	term defines &lt;em&gt;what the data element is&lt;/em&gt;.
+&lt;li&gt;&lt;i&gt;Method&lt;/i&gt;: The vertices between the first and the last ones represent the
+	&lt;em&gt;methodology&lt;/em&gt; or &lt;em&gt;method&lt;/em&gt; by which the described data was obtained.
+&lt;li&gt;&lt;i&gt;Scale&lt;/i&gt;: The last vertex of the path represents the &lt;em&gt;unit&lt;/em&gt; or
+	&lt;em&gt;scale&lt;/em&gt; in which the described value is expressed in.
+&lt;/ul&gt;
+
+The concatenation of these term references, separated by the
+{@link kTOKEN_INDEX_SEPARATOR} becomes the object global identifier which is stored in
+the object&#039;s native identifier offset.
+
+Tags have another offset, {@link kTAG_SEQ}, which is an integer sequence number: this
+value must be unique within the tags domain of the current ontology. Unlike global
+identifiers, this value may change across implementations, but this is the value used to
+uniquely identify tags among the other elements of the ontology and database.
+
+&lt;em&gt;All offsets in all classes, including this one, are tag sequence numbers, which makes
+the Tag class key in the structure and behaviour of all the elements implemented in this
+library&lt;/em&gt;.
 
 The class features the following default offsets:
 
 &lt;ul&gt;
-&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label tag represents the &lt;i&gt;name or
-	short description&lt;/i&gt; of the property that the current tag defines. All tags
-	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
-	a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
-	{@link kTAG_PART_KIND} element holds the label language code and the
-	{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
-	language, use the {@link Label()} offset accessor method.
-&lt;li&gt;&lt;tt&gt;{@link kTAG_DESCRIPTION}&lt;/tt&gt;: &lt;em&gt;Description&lt;/em&gt;. The description tag
-	represents the &lt;i&gt;description or extended definition&lt;/i&gt; of the property that the
-	current tag defines. The description is similar to the &lt;em&gt;definition&lt;/em&gt;, except
-	that while the definition provides a description of the object it defines unrelated
-	to context, the description adds to the definition the elements added by the current
-	context. All tags &lt;em&gt;should&lt;/em&gt; have a description, if the tag label is not enough
-	to provide a sufficient description or definition. Descriptions have the
-	{@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
-	the description language code and the {@link kTAG_PART_VALUE} holds the description
-	text. To populate and handle descriptions by language, use the {@link Description()}
-	offset accessor method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_NID}&lt;/tt&gt;: &lt;em&gt;Native identifier&lt;/em&gt;. This required attribute holds
+	a string value which represents the global identifier of the current object. This
+	identifier is immutable and represents the unique key. This string is constituted by
+	the concatenation of all term references stored in the current object&#039;s branch,
+	{@link kTAG_TERMS}. This attribute must be managed with its offset; in derived
+	classes it will be automatically assigned end only available as read-only.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_SEQ}&lt;/tt&gt;: &lt;em&gt;Sequence&lt;/em&gt;. This required attribute holds
+	an integer value which represents the current object&#039;s sequence number, as with the
+	global identifier, this value must be unique, except that it may change across
+	implementations. All offset keys in all objects derived from this class ancestor are
+	references to this sequence number. This attribute must be managed with its offset;
+	in derived classes it will be automatically assigned end only available as
+	read-only.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_TERMS}&lt;/tt&gt;: &lt;em&gt;Branch&lt;/em&gt;. This required attribute holds
+	the list of terms comprising the current tag: this is an array of term references
+	provided as an odd sequence of vertices and predicates forming a path of the
+	ontology graph in which the first vertex defines the feature, the middle ones
+	define the methodology and the last element indicates the scale or unit. To populate
+	the elements of this path, use the {@link BranchPush()} amd {@link BranchPop()}
+	offset accessor methods which respectively add and remove elements of the branch as
+	if it was a stack.
 &lt;li&gt;&lt;tt&gt;{@link kTAG_DATA_TYPE}&lt;/tt&gt;: &lt;em&gt;Data type&lt;/em&gt;. This attribute is an enumerated
 	set of values listing all the &lt;em&gt;data types&lt;/em&gt; that the value of the property
 	defined by the current tag may take. To populate and handle individual data types
@@ -1325,30 +1500,82 @@ The class features the following default offsets:
 	current tag. This may be whether the property is a list of values, or if the
 	property is required or not. To populate and handle individual data kinds use the
 	{@link DataKind()} offset accessor method.
-&lt;/ul&gt;</div>
+&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label represents the &lt;i&gt;name or
+	short description&lt;/i&gt; of the data property that the current object defines. All tags
+	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
+	and select them. This attribute has the {@link kTYPE_KIND_VALUE} data type, which
+	is constituted by a list of elements in which the {@link kTAG_SUB_LANGUAGE} item holds
+	the label language code and the {@link kTAG_SUB_TEXT} holds the label text. To
+	populate and handle labels by language, use the {@link Label()} offset accessor
+	method.
+&lt;li&gt;&lt;tt&gt;{@link kTAG_DESCRIPTION}&lt;/tt&gt;: &lt;em&gt;Description&lt;/em&gt;. The description tag
+	represents the &lt;i&gt;description or extended definition&lt;/i&gt; of the property that the
+	current tag defines. The description is similar to the &lt;em&gt;definition&lt;/em&gt;, except
+	that while the definition provides a description of the object it defines unrelated
+	to context, the description adds to the definition the elements added by the current
+	context. All tags &lt;em&gt;should&lt;/em&gt; have a description, if the tag label is not enough
+	to provide a sufficient description or definition. Descriptions have the
+	{@link kTYPE_KIND_VALUE} data type, which is constituted by a list of elements in
+	which the {@link kTAG_SUB_LANGUAGE} item holds the description language code and the
+	{@link kTAG_SUB_TEXT} holds the description text. To populate and handle
+	descriptions by language, use the {@link Description()} offset accessor method.
+&lt;/ul&gt;
+
+The {@link __toString()} method will return the value stored in the global identifier,
+if set, or the computed global identifier which is the concatenation of all term
+references stored in the {@link kTAG_TERMS} offset, separated by the
+{@link kTOKEN_INDEX_SEPARATOR}.
+
+The class also features a pair of methods, {@link Feature()} and {@link Scale()}, which
+respectively return the first and last vertex of the ontology branch this object
+represents: the feature is a term that represents the main feature or trait that the
+current tag defines, the scale is a term that represents the scale or unit in which
+values defined by the current tag are expressed in.
+
+Objects of this class can hold any additional attribute that is considered necessary or
+useful to define and share the current tag. In this class we define only those
+attributes that constitute the core functionality of the object, derived classes will add
+attributes specific to the domain in which the object will operate and eventually
+restrict the functionality of other offsets to provide referential integrity.</div>
         <a href="../classes/OntologyWrapper.TagObject.html" class="more">« More »</a>
     </div>
 
-                                        <div id="TagCache" class="element ajax clickable class">
-        <h1>TagCache<a href="../classes/OntologyWrapper.connection.TagCache.html">¶</a></h1>
-        <p class="short_description">Tag cache</p>
-        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; derived instance of the {@link TagCacheObject} which
-implements a tag cache that uses the {@link Memcached} class.
+                                        <div id="Wrapper" class="element ajax clickable class">
+        <h1>Wrapper<a href="../classes/OntologyWrapper.Wrapper.html">¶</a></h1>
+        <p class="short_description">Wrapper</p>
+        <div class="details collapse">This class wraps an interface around the various components of the system; the metadata,
+entities and the units.
 
-The class implements the following additional methods:
+The object is considered {@link isInited()} when the metadata, entities and units
+databases are set.</div>
+        <a href="../classes/OntologyWrapper.Wrapper.html" class="more">« More »</a>
+    </div>
 
-&lt;ul&gt;
-&lt;li&gt;&lt;tt&gt;{@link init()}&lt;/tt&gt;: The method will flush the current cache and reload all
-	tags.
-&lt;li&gt;&lt;tt&gt;{@link Pid()}&lt;/tt&gt;: The method will return the connection persistent identifier.
-&lt;li&gt;&lt;tt&gt;{@link Connection()}&lt;/tt&gt;: The method will return the connection resource, which
-	is, in this case, a {@link Memcached} instance.
-&lt;li&gt;&lt;tt&gt;{@link stats()}&lt;/tt&gt;: The method will return the connection statistics.
-&lt;/ul&gt;
+                                        <div id="Tag" class="element ajax clickable class">
+        <h1>Tag<a href="../classes/OntologyWrapper.Tag.html">¶</a></h1>
+        <p class="short_description">Tag</p>
+        <div class="details collapse">This class implements a persistent {@link TagObject} instance, the class concentrates on
+implementing all the necessary elements to ensure persistence to instances of this class
+and referential integrity.
 
-This class may be used as a template to implement tag caches that use other cache engines
-if the {@link Memcached} class is not available.</div>
-        <a href="../classes/OntologyWrapper.connection.TagCache.html" class="more">« More »</a>
+The object is considered initialised, {@link isInited()}, if it has at least the terms
+path, {@link kTAG_TERMS}, with an odd number of elements, the data type,
+{@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.
+
+In this class we set the sequence number, {@link kTAG_SEQ}, by retrieving a</div>
+        <a href="../classes/OntologyWrapper.Tag.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="Term" class="element ajax clickable class">
+        <h1>Term<a href="../classes/OntologyWrapper.Term.html">¶</a></h1>
+        <p class="short_description">Term</p>
+        <div class="details collapse">This class implements a persistent {@link TermObject} instance, the class concentrates on
+implementing all the necessary elements to ensure persistence to instances of this class
+and referential integrity.
+
+The object is considered initialised, {@link isInited()}, if it has at least the local
+identifier, {@link kTAG_LID}, and the label, {@link kTAG_LABEL}.</div>
+        <a href="../classes/OntologyWrapper.Term.html" class="more">« More »</a>
     </div>
 
                                         <div id="ContainerObject" class="element ajax clickable class">
@@ -1438,6 +1665,14 @@ handle properties and offsets in a standard way:
 	retrieve and reset data members.
 &lt;/ul&gt;</div>
         <a href="../classes/OntologyWrapper.ContainerObject.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="MongoDatabase" class="element ajax clickable class">
+        <h1>MongoDatabase<a href="../classes/OntologyWrapper.MongoDatabase.html">¶</a></h1>
+        <p class="short_description">Mongo database</p>
+        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link DatabaseObject} wrapping a
+{@link MongoDB} class.</div>
+        <a href="../classes/OntologyWrapper.MongoDatabase.html" class="more">« More »</a>
     </div>
 
                                         <div id="ConnectionObject" class="element ajax clickable class">
@@ -1536,34 +1771,6 @@ will hold its database name and all the parameters of the server connection.</di
         <a href="../classes/OntologyWrapper.ConnectionObject.html" class="more">« More »</a>
     </div>
 
-                                        <div id="PersistentObject" class="element ajax clickable class">
-        <h1>PersistentObject<a href="../classes/OntologyWrapper.PersistentObject.html">¶</a></h1>
-        <p class="short_description">Persistent object</p>
-        <div class="details collapse">This &lt;i&gt;abstract&lt;/i&gt; class is the ancestor of all classes representing objects that can
-persist in a container and that are constituted by ontology offsets.
-
-The main purpose of this class is to add the status and persistence traits to the parent
-class, providing the prototypes needed to implement concrete persistent objects.
-
-The class makes use of the {@link StatusTrait} and {@link PersistenceTrait} traits:
-
-&lt;ul&gt;
-&lt;li&gt;&lt;tt&gt;{@link StatusTrait}&lt;/tt&gt;: This trait handles a bitfirld data member that keeps
-	track of the object&#039;s status:
- &lt;ul&gt;
-	&lt;li&gt;&lt;tt&gt;{@link isDirty()}&lt;/tt&gt;: This flag is set whenever any offset is modified,
-		this status can be tested whenever the object should be stored in a persistent
-		container: if set, it means the object has been modified, if not set, it means
-		that the object is identical to the persistent copy.
-	&lt;li&gt;&lt;tt&gt;{@link isCommitted()}&lt;/tt&gt;: This flag is set whenever the object has been
-		loaded or stored into a persistent container. This status can be useful to lock
-		properties that cannot change once the object is stored.
- &lt;/ul&gt;
-&lt;li&gt;&lt;tt&gt;{@link PersistentTrait}&lt;/tt&gt;: This trait handles the object persistence.
-&lt;/ul&gt;</div>
-        <a href="../classes/OntologyWrapper.PersistentObject.html" class="more">« More »</a>
-    </div>
-
                                         <div id="TagCacheObject" class="element ajax clickable class">
         <h1>TagCacheObject<a href="../classes/OntologyWrapper.TagCacheObject.html">¶</a></h1>
         <p class="short_description">Tag cache object</p>
@@ -1620,88 +1827,6 @@ collection specific functionality prototypes.</div>
         <a href="../classes/OntologyWrapper.CollectionObject.html" class="more">« More »</a>
     </div>
 
-                                        <div id="MongoCollection" class="element ajax clickable class">
-        <h1>MongoCollection<a href="../classes/OntologyWrapper.connection.MongoCollection.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link CollectionObject} wrapping a
-{@link MongoDB} class.</div>
-        <a href="../classes/OntologyWrapper.connection.MongoCollection.html" class="more">« More »</a>
-    </div>
-
-                                        <div id="MongoServer" class="element ajax clickable class">
-        <h1>MongoServer<a href="../classes/OntologyWrapper.connection.MongoServer.html">¶</a></h1>
-        <p class="short_description">Mongo server</p>
-        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link ServerObject} wrapping a
-{@link MongoClient} class.</div>
-        <a href="../classes/OntologyWrapper.connection.MongoServer.html" class="more">« More »</a>
-    </div>
-
-                                        <div id="OntologyObject" class="element ajax clickable class">
-        <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
-        <p class="short_description">Ontology object</p>
-        <div class="details collapse">Objects of this class hold two types of data: &lt;i&gt;run-time data&lt;/i&gt;, which is stored in
-the object properties and &lt;i&gt;persistent data&lt;/i&gt;, which is stored as &lt;i&gt;offsets&lt;/i&gt; in
-the inherited array part of the object.
-
-The main purpose of this class is to ensure that all persistent data is annotated and
-documented by an ontology, guaranteeing that any persistent data element is defined and
-described by an entry of the ontology represented by an instance of the {@link TagObject}
-class, which is itself derived from this class.
-
-All persistent data elements are represented by a key/value pair, in which the key is
-the data offset and the value the persistent data value. All persistent data offsets
-must be integer values or alphanumeric strings, with the exception of the tags defined in
-the static {@link $sInternalTags} list. These integer values represent references to
-Tag object instances, which hold all the necessary information to document the current
-persistent data element.
-
-This class implements the bridge between data and the ontology ensuring that all data
-elements are defined in this ontology, which, itself, is implemented by objects derived
-from this same class: this means that the whole system is self documenting.
-
-Whenever the object uses an offset, this will be first fed to a public method,
-{@link offsetResolve()}, which will take care of translating &lt;i&gt;global identifiers&lt;/i&gt;
-into &lt;i&gt;native identifiers&lt;/i&gt;. The Tag object native identifier is represented by an
-integer value, this value is used as the data offset. These native identifiers are not
-persistent, in other words, these value may change from one implementation to the other:
-for this reason Tag objects also hold a &lt;i&gt;global identifier&lt;/i&gt; which is a non-numeric
-string: this string will remain the same across implementations and can be considered the
-&lt;i&gt;immutable tag identifier/i&gt;.
-
-In this class by default an integer offset is assumed to be a correct Tag object
-reference, while a string offset will be resolved into a tag reference. This means that
-if you want to ensure that all offsets are correct you should always use tag global
-identifiers as offsets, while you should only use known tag native identifiers as integer
-offsets.</div>
-        <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>
-    </div>
-
-                                        <div id="Tag" class="element ajax clickable class">
-        <h1>Tag<a href="../classes/OntologyWrapper.persistent.Tag.html">¶</a></h1>
-        <p class="short_description">Tag</p>
-        <div class="details collapse">This class implements a persistent {@link TagObject} instance, the class concentrates on
-implementing all the necessary elements to ensure persistence to instances of this class.
-
-The object is considered initialised, {@link isInited()}, if it has at least the data
-type, {@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.
-
-The specific ontology related functionality will be implemented by a derived class.</div>
-        <a href="../classes/OntologyWrapper.persistent.Tag.html" class="more">« More »</a>
-    </div>
-
-                                        <div id="Term" class="element ajax clickable class">
-        <h1>Term<a href="../classes/OntologyWrapper.persistent.Term.html">¶</a></h1>
-        <p class="short_description">Term</p>
-        <div class="details collapse">This class implements a persistent {@link TermObject} instance, the class concentrates on
-implementing all the necessary elements to ensure persistence to instances of this class.
-
-The object is considered initialised, {@link isInited()}, if it has at least the local
-identifier, {@link kTAG_LID}, and the label, {@link kTAG_LABEL}.
-
-The specific ontology related functionality will be implemented by a derived class.</div>
-        <a href="../classes/OntologyWrapper.persistent.Term.html" class="more">« More »</a>
-    </div>
-
                                         <div id="TermObject" class="element ajax clickable class">
         <h1>TermObject<a href="../classes/OntologyWrapper.TermObject.html">¶</a></h1>
         <p class="short_description">Term object</p>
@@ -1711,14 +1836,19 @@ A term object holds the necessary information to &lt;i&gt;uniquely identify&lt;/
 &lt;i&gt;document&lt;/i&gt; and &lt;i&gt;share&lt;/i&gt; a &lt;i&gt;generic term or concept&lt;/i&gt; which is &lt;i&gt;not related
 to a specific context&lt;/i&gt;.
 
-For instance, a &lt;tt&gt;name&lt;/tt&gt; is defined as a string or text that identifies an object,
+For instance, a &lt;tt&gt;name&lt;/tt&gt; is defined as a string or text that identifies something,
 this is true for both a person name or an object name, however, the term &lt;tt&gt;name&lt;/tt&gt;
 will bare a different meaning depending on what context it is used in: the term object
-holds the definition of the term that will not change with its context.
+holds the definition of that will not change with its context.
 
 The class features the following default offsets:
 
 &lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;{@link kTAG_NID}&lt;/tt&gt;: &lt;em&gt;Native identifier&lt;/em&gt;. This required attribute holds
+	the term global identifier. By convention this value is the combination of the
+	namespace, {@link kTAG_NS}, and the local identifier, {@link kTAG_LID}, separated by
+	the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global identifier may
+	be manually set. This attribute must be managed with its offset.
 &lt;li&gt;&lt;tt&gt;{@link kTAG_NS}&lt;/tt&gt;: &lt;em&gt;Namespace&lt;/em&gt;. This optional attribute is a reference
 	to another term object that represents the namespace of the current term. It is by
 	definition the global identifier of the namespace term. This attribute must be
@@ -1727,38 +1857,127 @@ The class features the following default offsets:
 	string that represents the current term unique identifier within its namespace. The
 	combination of the current term&#039;s namespace and this attribute form the term&#039;s
 	global identifier. This attribute must be managed with its offset.
-&lt;li&gt;&lt;tt&gt;{@link kTAG_NID}&lt;/tt&gt;: &lt;em&gt;Native identifier&lt;/em&gt;. This required attribute is
-	the combination of the term namespace and local identifier, this value should be
-	unique within the whole terms domain. The attribute is managed with its offset.
 &lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label represents the &lt;i&gt;name or
 	short description&lt;/i&gt; of the term that the current object defines. All terms
 	&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
-	and select them. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
-	{@link kTAG_PART_KIND} element holds the label language code and the
-	{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
-	language, use the {@link Label()} offset accessor method. Some terms may not have
-	a language element, for instance the number &lt;tt&gt;2&lt;/tt&gt; may not need to be expressed
-	in other ways.
+	and select them. This attribute has the {@link kTYPE_KIND_VALUE} data type, which
+	is constituted by a list of elements in which the {@link kTAG_SUB_LANGUAGE} item holds
+	the label language code and the {@link kTAG_SUB_TEXT} holds the label text. To
+	populate and handle labels by language, use the {@link Label()} offset accessor
+	method. Some terms may not have a language element, for instance the number
+	&lt;tt&gt;2&lt;/tt&gt; may not need to be expressed in other ways.
 &lt;li&gt;&lt;tt&gt;{@link kTAG_DEFINITION}&lt;/tt&gt;: &lt;em&gt;Definition&lt;/em&gt;. The definition represents the
 	&lt;i&gt;description or extended definition&lt;/i&gt; of the term that the current object object
 	defines. The definition is similar to the &lt;em&gt;description&lt;/em&gt;, except that while
 	the description provides context specific information, the definition should not.
 	All terms &lt;em&gt;should&lt;/em&gt; have a definition, if the object label is not enough to
 	provide a sufficient definition. Definitions have the {@link kTYPE_KIND_VALUE} data
-	type in which the {@link kTAG_PART_KIND} element holds the definition language code
-	and the {@link kTAG_PART_VALUE} holds the definition text. To populate and handle
+	type in which the {@link kTAG_SUB_LANGUAGE} element holds the definition language code
+	and the {@link kTAG_SUB_TEXT} holds the definition text. To populate and handle
 	definitions by language, use the {@link Definition()} offset accessor method.
 &lt;/ul&gt;
 
-The object features a method that can be used to retrieve the object&#039;s global identifier
-which, in this class, corresponds to the native identifier: if the offset is set, the
-method will return its value; if the offset is not set, the method will return the
-concatenation of the namespace and the local identifier separated by the
-{@link kTOKEN_NAMESPACE_SEPARATOR} token.
+The {@link __toString()} method will return the value stored in the native identifier,
+if set, or the computed global identifier if at least the local identifier is set; if the
+latter is not set, the method will fail.
 
 Objects of this class can hold any additional attribute that is considered necessary or
-useful to define and share the current term.</div>
+useful to define and share the current term. In this class we define only those
+attributes that constitute the core functionality of the object, derived classes will add
+attributes specific to the domain in which the object will operate.</div>
         <a href="../classes/OntologyWrapper.TermObject.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="MongoCollection" class="element ajax clickable class">
+        <h1>MongoCollection<a href="../classes/OntologyWrapper.MongoCollection.html">¶</a></h1>
+        <p class="short_description">Mongo database</p>
+        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link CollectionObject} wrapping a
+{@link MongoDB} class.</div>
+        <a href="../classes/OntologyWrapper.MongoCollection.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="OntologyObject" class="element ajax clickable class">
+        <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
+        <p class="short_description">Ontology object</p>
+        <div class="details collapse">Objects derived from this &lt;i&gt;abstract&lt;/i&gt; class hold two types of data:
+&lt;i&gt;run-time data&lt;/i&gt;, which is stored in the object member properties and
+&lt;i&gt;persistent data&lt;/i&gt;, which is stored in the inherited array part of the object.
+
+The main purpose of this class is to ensure that all persistent data elements are
+&lt;i&gt;referenced&lt;/i&gt;, &lt;i&gt;annotated&lt;/i&gt; and &lt;i&gt;documented&lt;/i&gt; in an ontology.
+
+Persistent data is stored as &lt;i&gt;key/value&lt;/i&gt; pair elements of the inherited array, the
+key part of the elements we call by convention &lt;em&gt;offset&lt;/em&gt;, these offsets, in this
+class, represent a reference to an object of the ontology that holds all the necessary
+information to &lt;i&gt;identify&lt;/i&gt;, &lt;i&gt;describe&lt;/i&gt; and &lt;i&gt;validate&lt;/i&gt; the value part of the
+array element pairs.
+
+This class implements the bridge between object persistent data and the ontology,
+ensuring that all data holds a reference to the ontology, which, itself, is implemented
+by objects derived from this same class: this means that the whole system is self
+sufficient and self documenting.
+
+Offsets can be uniquely identified in two ways: by native identifier, which is an integer
+value which may change across implementations, and a global identifier, which is a sring
+that will not change across implementations. This class provides a transparent interface
+that allows referring to offsets both by their &lt;i&gt;native&lt;/i&gt; identifier or by their
+&lt;i&gt;global&lt;/i&gt; identifier. Offsets, however, &lt;em&gt;will only hold the native
+identifier&lt;/em&gt;, which means that all persistent data offsets must be integers. This is
+because global identifiers may become large strings, which poses a problem if these are
+used as field names for data stored in a persistent container.
+
+Whenever the object is provided an offset, if this is a string, it will be fed to a
+static method, {@link ResolveOffset()}, which will check if the string represents the
+global identifier of an ontology Tag object, in that case, the method will return the
+Tag&#039;s native integer identifier which will be used as the data offset. The class
+features a static data member, {@link $sInternalTags}, that holds the list of exceptions.
+
+This means that to ensure referential integrity it is advisable to use integer constants
+as offsets when available, or string offsets if the integer constant is not known or
+available.
+
+The resolution of these offsets is provided by a {@link TagCache} object which records
+all the &lt;em&gt;Tag&lt;/em&gt; objects of the ontology which are the entities that all offsets
+reference: persistent data offsets represent these Tag native identifiers, while these
+Tag object global identifiers are decoded by the {@link TagCache} object to retrieve the
+corresponding integer native identifier.
+
+The class declares the {@link __toString()} method as virtual, it is essential that all
+derived classes implement this method which should return the current object&#039;s &lt;em&gt;global
+identifier string&lt;/em&gt;. The global identifier of an object can be considered its
+signature or unique identifier, although a global identifier not need to be unique; all
+objects derived from this class, just as the Tag object described above, must feature a
+global identifier, which may or may not coincide with their native identifier.
+
+Finally, the class declares a method, {@link Reference()}, which returns the current
+object&#039;s &lt;i&gt;reference&lt;/i&gt;, this will generally be the value of the {@link kTAG_NID}
+offset. If the offset is not set, the method will raise an exception. This method will be
+put to use by derived classes: when providing an object to an offset expecting an object
+reference, by using this method one can be assured the provided object does have a
+reference.</div>
+        <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>
+    </div>
+
+                                        <div id="TagCache" class="element ajax clickable class">
+        <h1>TagCache<a href="../classes/OntologyWrapper.TagCache.html">¶</a></h1>
+        <p class="short_description">Tag cache</p>
+        <div class="details collapse">This class is a &lt;i&gt;concrete&lt;/i&gt; derived instance of the {@link TagCacheObject} which
+implements a tag cache that uses the {@link Memcached} class.
+
+The class implements the following additional methods:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;{@link init()}&lt;/tt&gt;: The method will flush the current cache and reload all
+	tags.
+&lt;li&gt;&lt;tt&gt;{@link Pid()}&lt;/tt&gt;: The method will return the connection persistent identifier.
+&lt;li&gt;&lt;tt&gt;{@link Connection()}&lt;/tt&gt;: The method will return the connection resource, which
+	is, in this case, a {@link Memcached} instance.
+&lt;li&gt;&lt;tt&gt;{@link stats()}&lt;/tt&gt;: The method will return the connection statistics.
+&lt;/ul&gt;
+
+This class may be used as a template to implement tag caches that use other cache engines
+if the {@link Memcached} class is not available.</div>
+        <a href="../classes/OntologyWrapper.TagCache.html" class="more">« More »</a>
     </div>
 
                             </div>
@@ -1772,7 +1991,7 @@ useful to define and share the current term.</div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sat, 08 Feb 2014 05:05:15 +0100.<br/>
+            generated on Tue, 11 Feb 2014 17:56:43 +0100.<br/>
     </footer>
     </body>
 </html>

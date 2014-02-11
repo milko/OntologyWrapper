@@ -1109,11 +1109,10 @@ abstract class ContainerObject extends \ArrayObject
 	 * @uses offsetGet()
 	 * @uses offsetUnset()
 	 */
-	protected function manageElementMatchOffset( $theOffset, $theTypeOffset,
-															 $theDataOffset,
-															 $theTypeValue,
-															 $theDataValue = NULL,
-															 $getOld = FALSE )
+	protected function manageElementMatchOffset( $theOffset,
+												 $theTypeOffset, $theDataOffset,
+												 $theTypeValue, $theDataValue = NULL,
+												 $getOld = FALSE )
 	{
 		//
 		// Init local storage.

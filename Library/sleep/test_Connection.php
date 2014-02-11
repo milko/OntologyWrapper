@@ -62,8 +62,8 @@ try
 	echo( '<h4>Get memcached</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = OntologyWrapper\connection\Connection::NewConnection( "memcached://localhost:11211" );'.kSTYLE_HEAD_POS );
-	$test = OntologyWrapper\connection\Connection::NewConnection( "memcached://localhost:11211" );
+	echo( kSTYLE_HEAD_PRE.'$test = OntologyWrapper\Connection::NewConnection( "memcached://localhost:11211" );'.kSTYLE_HEAD_POS );
+	$test = OntologyWrapper\Connection::NewConnection( "memcached://localhost:11211" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -79,13 +79,13 @@ try
 	echo( '<h4>Test unsupported<br /><i>should raise an exception</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = OntologyWrapper\connection\Connection::NewConnection( "pippo://localhost:11211" );'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_HEAD_PRE.'$test = OntologyWrapper\Connection::NewConnection( "pippo://localhost:11211" );'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	try
 	{
-		$test = OntologyWrapper\connection\Connection::NewConnection( "pippo://localhost:11211" );
+		$test = OntologyWrapper\Connection::NewConnection( "pippo://localhost:11211" );
 	}
 	catch( Exception $error )
 	{

@@ -10,14 +10,12 @@
  *	@subpackage	Test
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 07/02/2014
+ *	@version	1.00 06/02/2014
  */
-
-use OntologyWrapper\persistent\Tag;
 
 /*=======================================================================================
  *																						*
- *									test_Tag.php										*
+ *										test_Tag.php									*
  *																						*
  *======================================================================================*/
 
@@ -53,6 +51,36 @@ define( 'kDEBUG_PARENT', TRUE );
 
 
 /*=======================================================================================
+ *	CLASS SETTINGS																		*
+ *======================================================================================*/
+ 
+//
+// Cast current class.
+//
+class MyClass extends OntologyWrapper\Tag
+{
+	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}
+	
+	public function AccessorSetOffset( $theOffset, $theValue, $theOperation = NULL,
+															$getOld = FALSE )
+	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
+																				}
+	
+	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
+														  $theTypeValue, $theDataValue = NULL,
+														  $getOld = FALSE )
+	{	return $this->manageElementMatchOffset( $theOffset,
+												$theTypeOffset, $theDataOffset,
+												$theTypeValue, $theDataValue,
+												$getOld );						}
+	
+	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
+	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+}
+
+
+/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
 
@@ -67,7 +95,7 @@ try
 	// Instantiate main tag cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\connection\TagCache(
+		= new OntologyWrapper\TagCache(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
@@ -75,6 +103,19 @@ try
 	// Init cache.
 	//
 	$_SESSION[ kSESSION_DDICT ]->init();
+	
+	//
+	// Instantiate server.
+	//
+	$server = new OntologyWrapper\MongoServer( "mongodb://localhost:27017" );
+	$server->openConnection();
+	
+	//
+	// Instantiate database.
+	//
+	$database = $server->Database( 'TEST' );
+	$database->openConnection();
+	$database->drop();
 	
 	//
 	// Test parent class.
@@ -88,8 +129,8 @@ try
 		echo( '<h4>Instantiate empty object</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
-		$test = new Tag();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -105,8 +146,8 @@ try
 		echo( '<h4>Test set property<br /><i>should set the "$property" to "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
-		$test = new Tag();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
@@ -240,8 +281,8 @@ try
 		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
-		$test = new Tag();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
@@ -311,6 +352,672 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
+
+		//
+		// Test set label.
+		//
+		echo( '<h4>Test set label</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Label" );'.kSTYLE_HEAD_POS );
+		$test->Label( "en", "Label" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve label.
+		//
+		echo( '<h4>Test retrieve label<br /><i>should retrieve "Label"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en" );'.kSTYLE_HEAD_POS );
+		$value = $test->Label( "en" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set other language label.
+		//
+		echo( '<h4>Test set other language label<br /><i>should add "Etichetta"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "it", "Etichetta" );'.kSTYLE_HEAD_POS );
+		$value = $test->Label( "it", "Etichetta" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set duplicate language label.
+		//
+		echo( '<h4>Test set duplicate language label</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "it", "Etichetta" );'.kSTYLE_HEAD_POS );
+		$value = $test->Label( "it", "Etichetta" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test delete label.
+		//
+		echo( '<h4>Test delete label<br /><i>should delete "Label"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->Label( "en", FALSE, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve non matching language label.
+		//
+		echo( '<h4>Test retrieve non matching language label<br /><i>should return <tt>NULL</tt></i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en" );'.kSTYLE_HEAD_POS );
+		$value = $test->Label( "en" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+		echo( '<hr>' );
+
+		//
+		// Test set description.
+		//
+		echo( '<h4>Test set description</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->Description( "en", "Description" );'.kSTYLE_HEAD_POS );
+		$test->Description( "en", "Description" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve description.
+		//
+		echo( '<h4>Test retrieve description<br /><i>should retrieve "Description"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Description( "en" );'.kSTYLE_HEAD_POS );
+		$value = $test->Description( "en" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set other language description.
+		//
+		echo( '<h4>Test set other language description<br /><i>should add "Descrizione"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Description( "it", "Descrizione" );'.kSTYLE_HEAD_POS );
+		$value = $test->Description( "it", "Descrizione" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set duplicate language description.
+		//
+		echo( '<h4>Test set duplicate language description</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Description( "it", "Descrizione" );'.kSTYLE_HEAD_POS );
+		$value = $test->Description( "it", "Descrizione" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test delete description.
+		//
+		echo( '<h4>Test delete description<br /><i>should delete "Description"</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Description( "en", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->Description( "en", FALSE, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve non matching language description.
+		//
+		echo( '<h4>Test retrieve non matching language description<br /><i>should return <tt>NULL</tt></i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->Description( "en" );'.kSTYLE_HEAD_POS );
+		$value = $test->Description( "en" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+		echo( '<hr>' );
+
+		//
+		// Test set data type.
+		//
+		echo( '<h4>Test set data type</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->DataType( kTYPE_STRING, TRUE );'.kSTYLE_HEAD_POS );
+		$test->DataType( kTYPE_STRING, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve data type.
+		//
+		echo( '<h4>Test retrieve data type<br /><i>should retrieve kTYPE_STRING</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataType( kTYPE_STRING );'.kSTYLE_HEAD_POS );
+		$value = $test->DataType( kTYPE_STRING );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve missing data type.
+		//
+		echo( '<h4>Test retrieve missing data type<br /><i>should return <tt>NULL</tt></i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataType( kTYPE_INT );'.kSTYLE_HEAD_POS );
+		$value = $test->DataType( kTYPE_INT );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set other data type.
+		//
+		echo( '<h4>Test set other data type<br /><i>should add kTYPE_INT</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataType( kTYPE_INT, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataType( kTYPE_INT, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set duplicate data type.
+		//
+		echo( '<h4>Test set duplicate data type</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataType( kTYPE_INT, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataType( kTYPE_INT, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test delete data type.
+		//
+		echo( '<h4>Test delete data type<br /><i>should delete kTYPE_STRING</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataType( kTYPE_STRING, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataType( kTYPE_STRING, FALSE, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+		echo( '<hr>' );
+
+		//
+		// Test set data kind.
+		//
+		echo( '<h4>Test set data kind</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->DataKind( kTYPE_STRING, TRUE );'.kSTYLE_HEAD_POS );
+		$test->DataKind( kTYPE_STRING, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve data kind.
+		//
+		echo( '<h4>Test retrieve data kind<br /><i>should retrieve kTYPE_STRING</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataKind( kTYPE_STRING );'.kSTYLE_HEAD_POS );
+		$value = $test->DataKind( kTYPE_STRING );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test retrieve missing data kind.
+		//
+		echo( '<h4>Test retrieve missing data kind<br /><i>should return <tt>NULL</tt></i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataKind( kTYPE_INT );'.kSTYLE_HEAD_POS );
+		$value = $test->DataKind( kTYPE_INT );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set other data kind.
+		//
+		echo( '<h4>Test set other data kind<br /><i>should add kTYPE_INT</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataKind( kTYPE_INT, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataKind( kTYPE_INT, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test set duplicate data kind.
+		//
+		echo( '<h4>Test set duplicate data kind</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataKind( kTYPE_INT, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataKind( kTYPE_INT, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test delete data kind.
+		//
+		echo( '<h4>Test delete data kind<br /><i>should delete kTYPE_STRING</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->DataKind( kTYPE_STRING, FALSE, TRUE );'.kSTYLE_HEAD_POS );
+		$value = $test->DataKind( kTYPE_STRING, FALSE, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+		echo( '<hr>' );
+
+		//
+		// Test add vertex reference path element.
+		//
+		echo( '<h4>Test add vertex reference path element<br /><i>should add the "feature" string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( "feature" );'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPush( "feature" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test add predicate reference path element.
+		//
+		echo( '<h4>Test add predicate reference path element<br /><i>should add the "predicate" string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( "predicate" );'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPush( "predicate" );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test add vertex reference path element.
+		//
+		echo( '<h4>Test add vertex reference path element<br /><i>should add the "method" term reference</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$term = new OntologyWrapper\TermObject( array( kTAG_NID => "method" ) );'.kSTYLE_HEAD_POS );
+		$term = new OntologyWrapper\TermObject( array( kTAG_NID => "method" ) );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $term ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( $term );'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPush( $term );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test count path elements.
+		//
+		echo( '<h4>Test count path elements</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchCount();'.kSTYLE_HEAD_POS );
+		$value = $test->BranchCount();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test pop vertex path element.
+		//
+		echo( '<h4>Test pop vertex path element<br /><i>should return the "method" string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPop();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test pop predicate path element.
+		//
+		echo( '<h4>Test pop predicate path element<br /><i>should return the "predicate" string</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPop();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test pop vertex path element.
+		//
+		echo( '<h4>Test pop vertex path element<br /><i>should return the "feature" string and delete the offset</i></h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
+		$value = $test->BranchPop();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $value );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( (string) $test );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -318,35 +1025,42 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
-
+	
 	//
-	// Instantiate collection.
+	// Instantiate and load object.
 	//
-	echo( '<h4>Instantiate collection</h4>' );
+	echo( '<h4>Instantiate and load object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";'.kSTYLE_HEAD_POS );
-	$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$collection = new OntologyWrapper\connection\MongoCollection( $dsn );'.kSTYLE_HEAD_POS );
-	$collection = new OntologyWrapper\connection\MongoCollection( $dsn );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test->BranchPush( "feature" );'.'<br \>' );
+	$test->BranchPush( "feature" );
+	echo( '$test->BranchPush( "predicate" );'.'<br \>' );
+	$test->BranchPush( "predicate" );
+	echo( '$test->BranchPush( "method" );'.'<br \>' );
+	$test->BranchPush( "method" );
+	echo( '$test->BranchPush( "predicate" );'.'<br \>' );
+	$test->BranchPush( "predicate" );
+	echo( '$test->BranchPush( "scale" );'.'<br \>' );
+	$test->BranchPush( "scale" );
+	echo( '$test->DataType( ":type:string", TRUE );'.'<br \>' );
+	$test->DataType( ":type:string", TRUE );
+	echo( '$test->DataKind( ":type:list", TRUE );'.'<br \>' );
+	$test->DataKind( ":type:list", TRUE );
+	echo( '$test->Label( "en", "Data property" );'.'<br \>' );
+	$test->Label( "en", "Data property" );
+	echo( '$test->Description( "en", "This is a data property" );'.'<br \>' );
+	$test->Description( "en", "This is a data property" );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$collection->openConnection();'.kSTYLE_HEAD_POS );
-	$collection->openConnection();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Instantiate empty object.
-	//
-	echo( '<h4>Instantiate empty object</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new Tag();'.kSTYLE_HEAD_POS );
-	$test = new Tag();
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -355,64 +1069,46 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
-
+	
 	//
-	// Load and store object.
+	// Instantiate loaded object.
 	//
-	echo( '<h4>Load and store object</h4>' );
+	echo( '<h4>Instantiate loaded object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_GID ] = "Global identifier";'.kSTYLE_HEAD_POS );
-	$test[ kTAG_GID ] = "Global identifier";
+	echo( kSTYLE_HEAD_PRE.'$data = $test->getArrayCopy();'.kSTYLE_HEAD_POS );
+	$data = $test->getArrayCopy();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $data );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $data );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Commit object.
+	//
+	echo( '<h4>Commit object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $collection );'.kSTYLE_HEAD_POS );
-	$id = $test->insert( $collection );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->Insert( $database );'.kSTYLE_HEAD_POS );
+	$id = $test->Insert( $database );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $id );
 	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Instantiate from collection by native identifier.
-	//
-	echo( '<h4>Instantiate from collection by native identifier</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new Tag( $collection, $id );'.kSTYLE_HEAD_POS );
-	$test = new Tag( $collection, $id );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Instantiate from collection by global identifier.
-	//
-	echo( '<h4>Instantiate from collection by global identifier</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new Tag( $collection, "Global identifier" );'.kSTYLE_HEAD_POS );
-	$test = new Tag( $collection, "Global identifier" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper\connection;
 
-use OntologyWrapper\connection\MemcachedCache;
+use OntologyWrapper\MemcachedCache;
 
 /*=======================================================================================
  *																						*

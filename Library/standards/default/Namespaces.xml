@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Namespaces -->
+	
+	<META>
+		<!-- Default namespace -->
+		<TERM lid="">
+			<item const="kTAG_LABEL">
+				<item lang="en">Default namespace</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
+			</item>
+		</TERM>
+		
+		<!-- Types -->
+		<TERM ns="" lid="type">
+			<item const="kTAG_LABEL">
+				<item lang="en">Types</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in types used in the ontology, these include data types and data kinds.]]></item>
+			</item>
+		</TERM>
+		
+		<!-- Reference types -->
+		<TERM ns=":type" lid="ref">
+			<item const="kTAG_LABEL">
+				<item lang="en">Reference types</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in types used in the ontology that represent a reference to an object.]]></item>
+			</item>
+		</TERM>
+		
+		<!-- Connections -->
+		<TERM ns="" lid="connection">
+			<item const="kTAG_LABEL">
+				<item lang="en">Connection</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This <em>namespace</em> groups all default connection and network related attributes used in the ontology.]]></item>
+			</item>
+		</TERM>
+		
+		<!-- Sub-structure elements -->
+		<TERM ns="" lid="sub">
+			<item const="kTAG_LABEL">
+				<item lang="en">Sub-structure elements</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This <em>namespace</em> groups all default sub-structure element offsets used in the ontology.]]></item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

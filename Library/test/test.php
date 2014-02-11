@@ -1,6 +1,16 @@
 <?php
 	
 	//
+	// Test stuff.
+	//
+	echo( (0 % 2)."\n" );
+	echo( (1 % 2)."\n" );
+	echo( (2 % 2)."\n" );
+	echo( (3 % 2)."\n" );
+	echo( (4 % 2)."\n" );
+exit;
+	
+	//
 	// Test parse_url.
 	//
 	$url = 'protocol://user:pass@host:80/name?parameter1=value1&parameter2=value2&parameter3&parameter4#fragment';

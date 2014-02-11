@@ -346,6 +346,25 @@ abstract class ConnectionObject extends OntologyObject
 		
 	} // __wakeup.
 
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return connection name</h4>
+	 *
+	 * In this class we consider the data source name as the global identifier; here we
+	 * return it as is, in derived classes you should be careful to shadow sensitive data.
+	 *
+	 * Note that this method cannot return the <tt>NULL</tt> value, which means that it
+	 * cannot be used until there is a data source name for the object.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	public function __toString()								{	return $this->DSN();	}
+
 		
 
 /*=======================================================================================

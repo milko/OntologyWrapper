@@ -25,14 +25,19 @@ use OntologyWrapper\OntologyObject;
  * <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related
  * to a specific context</i>.
  *
- * For instance, a <tt>name</tt> is defined as a string or text that identifies an object,
+ * For instance, a <tt>name</tt> is defined as a string or text that identifies something,
  * this is true for both a person name or an object name, however, the term <tt>name</tt>
  * will bare a different meaning depending on what context it is used in: the term object
- * holds the definition of the term that will not change with its context.
+ * holds the definition of that will not change with its context.
  *
  * The class features the following default offsets:
  *
  * <ul>
+ *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
+ *		the term global identifier. By convention this value is the combination of the
+ *		namespace, {@link kTAG_NS}, and the local identifier, {@link kTAG_LID}, separated by
+ *		the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global identifier may
+ *		be manually set. This attribute must be managed with its offset.
  *	<li><tt>{@link kTAG_NS}</tt>: <em>Namespace</em>. This optional attribute is a reference
  *		to another term object that represents the namespace of the current term. It is by
  *		definition the global identifier of the namespace term. This attribute must be
@@ -41,37 +46,34 @@ use OntologyWrapper\OntologyObject;
  *		string that represents the current term unique identifier within its namespace. The
  *		combination of the current term's namespace and this attribute form the term's
  *		global identifier. This attribute must be managed with its offset.
- *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute is
- *		the combination of the term namespace and local identifier, this value should be
- *		unique within the whole terms domain. The attribute is managed with its offset.
  *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
  *		short description</i> of the term that the current object defines. All terms
  *		<em>should</em> have a label, since this is how human users will be able to identify
- *		and select them. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
- *		{@link kTAG_PART_KIND} element holds the label language code and the
- *		{@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
- *		language, use the {@link Label()} offset accessor method. Some terms may not have
- *		a language element, for instance the number <tt>2</tt> may not need to be expressed
- *		in other ways.
+ *		and select them. This attribute has the {@link kTYPE_KIND_VALUE} data type, which
+ *		is constituted by a list of elements in which the {@link kTAG_SUB_LANGUAGE} item holds
+ *		the label language code and the {@link kTAG_SUB_TEXT} holds the label text. To
+ *		populate and handle labels by language, use the {@link Label()} offset accessor
+ *		method. Some terms may not have a language element, for instance the number
+ *		<tt>2</tt> may not need to be expressed in other ways.
  *	<li><tt>{@link kTAG_DEFINITION}</tt>: <em>Definition</em>. The definition represents the
  *		<i>description or extended definition</i> of the term that the current object object
  *		defines. The definition is similar to the <em>description</em>, except that while
  *		the description provides context specific information, the definition should not.
  *		All terms <em>should</em> have a definition, if the object label is not enough to
  *		provide a sufficient definition. Definitions have the {@link kTYPE_KIND_VALUE} data
- *		type in which the {@link kTAG_PART_KIND} element holds the definition language code
- *		and the {@link kTAG_PART_VALUE} holds the definition text. To populate and handle
+ *		type in which the {@link kTAG_SUB_LANGUAGE} element holds the definition language code
+ *		and the {@link kTAG_SUB_TEXT} holds the definition text. To populate and handle
  *		definitions by language, use the {@link Definition()} offset accessor method.
  * </ul>
  *
- * The object features a method that can be used to retrieve the object's global identifier
- * which, in this class, corresponds to the native identifier: if the offset is set, the
- * method will return its value; if the offset is not set, the method will return the
- * concatenation of the namespace and the local identifier separated by the
- * {@link kTOKEN_NAMESPACE_SEPARATOR} token.
+ * The {@link __toString()} method will return the value stored in the native identifier,
+ * if set, or the computed global identifier if at least the local identifier is set; if the
+ * latter is not set, the method will fail.
  *
  * Objects of this class can hold any additional attribute that is considered necessary or
- * useful to define and share the current term.
+ * useful to define and share the current term. In this class we define only those
+ * attributes that constitute the core functionality of the object, derived classes will add
+ * attributes specific to the domain in which the object will operate.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
@@ -82,72 +84,60 @@ class TermObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *											MAGIC										*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	GID																				*
+	 *	__toString																		*
 	 *==================================================================================*/
 
 	/**
-	 * Global identifier
+	 * <h4>Return global identifier</h4>
 	 *
-	 * This method can be used to set, retrieve and compute the object's global identifier,
-	 * which corresponds to the object's native identifier offset, {@link kTAG_NID}.
-	 *
-	 * If the object is {@link isCommitted()}, the method will only allow you to retrieve
-	 * the value, an exception will be raised if you try to set it (this is inherited
-	 * behaviour).
-	 *
-	 * If the offset is not yet set, the method will compute the global identifier by
-	 * concatenating the object's namespace, {@link kTAG_NS}, with the object's local
+	 * If the native identifier, {@link kTAG_NID}, is set, this method will return its
+	 * value. If that offset is not yet set, the method will compute the global identifier
+	 * by concatenating the object's namespace, {@link kTAG_NS}, with the object's local
 	 * identifier, {@link kTAG_LID}, separated by the {@link kTOKEN_NAMESPACE_SEPARATOR}
 	 * token. This will only occur if the object has the local identifier, if that is not
-	 * the case, the method will return <tt>NULL</tt>.
-	 *
-	 * The method expects a single parameter which represents either the new global
-	 * identifier, or, if <tt>NULL</tt>, the request to retrieve it.
-	 *
-	 * If the object has the native identifier offset, it will return it; if it has the
-	 * local identifier it will compute the global identifier; if it doesn't have the local
-	 * identifier it will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$theValue			Global identifier or operation.
+	 * the case, the method will return an empty string to prevent the method from causing
+	 * an error.
 	 *
 	 * @access public
-	 * @return string				Global identifier or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_LABEL kTAG_PART_KIND kTAG_PART_VALUE
-	 *
-	 * @uses manageElementMatchOffset()
+	 * @return string				The global identifier.
 	 */
-	public function GID( $theValue = NULL )
+	public function __toString()
 	{
 		//
-		// Return global identifier.
+		// Get native identifier.
 		//
-		if( $theValue === NULL )
-			return ( \ArrayObject::offsetExists( kTAG_NID ) )
-				 ? \ArrayObject::offsetGet( kTAG_NID )								// ==>
-				 : ( ( $this->offsetExists( kTAG_LID ) )
-				   ? ( ( $this->offsetExists( kTAG_NS ) )
-					 ? (\ArrayObject::offsetGet( kTAG_NS )
-					   .kTOKEN_NAMESPACE_SEPARATOR
-					   .\ArrayObject::offsetGet( kTAG_LID ))						// ==>
-					 : \ArrayObject::offsetGet( kTAG_LID ) )						// ==>
-				   : NULL );														// ==>
+		if( \ArrayObject::offsetExists( kTAG_NID ) )
+			return \ArrayObject::offsetGet( kTAG_NID );								// ==>
 		
 		//
-		// Set global identifier.
+		// Compute global identifier.
 		//
-		$this->offsetSet( kTAG_NID, $theValue );
+		if( \ArrayObject::offsetExists( kTAG_LID ) )
+			return ( \ArrayObject::offsetExists( kTAG_NS ) )
+				 ? (\ArrayObject::offsetGet( kTAG_NS )
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .\ArrayObject::offsetGet( kTAG_LID ))							// ==>
+				 : \ArrayObject::offsetGet( kTAG_LID );								// ==>
 		
-		return $theValue;															// ==>
+		return '';																	// ==>
 	
-	} // GID.
+	} // __toString.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
 
 	 
 	/*===================================================================================
@@ -192,14 +182,14 @@ class TermObject extends OntologyObject
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_LABEL kTAG_PART_KIND kTAG_PART_VALUE
+	 * @see kTAG_LABEL kTAG_SUB_LANGUAGE kTAG_SUB_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function Label( $theLanguage, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_LABEL, kTAG_PART_KIND, kTAG_PART_VALUE,
+				kTAG_LABEL, kTAG_SUB_LANGUAGE, kTAG_SUB_TEXT,
 				$theLanguage, $theValue, $getOld );									// ==>
 	
 	} // Label.
@@ -247,17 +237,120 @@ class TermObject extends OntologyObject
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_DEFINITION kTAG_PART_KIND kTAG_PART_VALUE
+	 * @see kTAG_DEFINITION kTAG_SUB_LANGUAGE kTAG_SUB_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function Definition( $theLanguage, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_DEFINITION, kTAG_PART_KIND, kTAG_PART_VALUE,
+				kTAG_DEFINITION, kTAG_SUB_LANGUAGE, kTAG_SUB_TEXT,
 				$theLanguage, $theValue, $getOld );									// ==>
 	
 	} // Definition.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * In this class we return <tt>TRUE</tt>, to allow method chaining across the
+	 * inheritance.
+	 *
+	 * @access protected
+	 * @return Boolean				<tt>TRUE</tt> means ready.
+	 */
+	protected function isReady()										{	return TRUE;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we cast the value of the namespace into a term reference, ensuring
+	 * that if an object is provided this is a term.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_NS
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method to resolve offset.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+		{
+			//
+			// Intercept namespace.
+			//
+			if( $theOffset == kTAG_NS )
+			{
+				//
+				// Handle objects.
+				//
+				if( is_object( $theValue ) )
+				{
+					//
+					// If term, get its reference.
+					//
+					if( $theValue instanceof self )
+						$theValue = $theValue->Reference();
+				
+					//
+					// If not a term, complain.
+					//
+					else
+						throw new \Exception(
+							"Unable to set namespace: "
+						   ."provided an object other than term." );			// !@! ==>
+			
+				} // Object.
+			
+				//
+				// Cast to setring.
+				//
+				else
+					$theValue = (string) $theValue;
+			
+			} // Setting namespace.
+			
+		} // Passed preflight.
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetSet.
 
 	 
 

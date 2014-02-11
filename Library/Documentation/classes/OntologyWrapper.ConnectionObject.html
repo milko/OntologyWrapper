@@ -143,6 +143,12 @@
         </a>
     </li>
 
+                                                                                                        <li class="method public inherited">
+        <a href="#method___toString" title="__toString :: &lt;h4&gt;Return global identifier&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Return global identifier&lt;/h4&gt;</span><pre>__toString</pre>
+        </a>
+    </li>
+
                                                                                                         <li class="method public">
         <a href="#method_DSN" title="DSN :: Manage data source name">
             <span class="description">Manage data source name</span><pre>DSN</pre>
@@ -180,8 +186,20 @@
     </li>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <li class="method public inherited">
-        <a href="#method_offsetResolve" title="offsetResolve :: Resolve offset">
-            <span class="description">Resolve offset</span><pre>offsetResolve</pre>
+        <a href="#method_Reference" title="Reference :: Return object reference">
+            <span class="description">Return object reference</span><pre>Reference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_ResolveOffset" title="ResolveOffset :: Resolve offset">
+            <span class="description">Resolve offset</span><pre>ResolveOffset</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_CastOffsetValue" title="CastOffsetValue :: Cast offset">
+            <span class="description">Cast offset</span><pre>CastOffsetValue</pre>
         </a>
     </li>
 
@@ -231,7 +249,7 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected">
                             <a href="#method_connectionOpen" title="connectionOpen :: Open connection">
                                 <span class="description">Open connection</span><pre>connectionOpen</pre>
                             </a>
@@ -286,7 +304,7 @@
                                 <span class="description">Handle offset after deleting it</span><pre>postOffsetUnset</pre>
                             </a>
                         </li>
-                                                                                                                    <li class="method protected inherited">
+                                                                                                                                                                                            <li class="method protected inherited">
                             <a href="#method_preOffsetExists" title="preOffsetExists :: Handle offset before checking it">
                                 <span class="description">Handle offset before checking it</span><pre>preOffsetExists</pre>
                             </a>
@@ -325,7 +343,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -667,6 +685,49 @@ method.</p></div>
                                                                             </table>
 
                                     
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method___toString"></a>
+                        <div class="element clickable method public  method___toString inherited" data-toggle="collapse" data-target=".method___toString .collapse">
+                            <h2>&lt;h4&gt;Return global identifier&lt;/h4&gt;</h2>
+                            <pre>__toString() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method should return the current object's global identifier.</p>
+<p>All derived concrete classes must implement this method.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The global identifier.</p></p>
                                                                     </div>
                             </div>
                         </div>
@@ -1617,12 +1678,68 @@ that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetResolve"></a>
-                        <div class="element clickable method public  method_offsetResolve inherited" data-toggle="collapse" data-target=".method_offsetResolve .collapse">
-                            <h2>Resolve offset</h2>
-                            <pre>offsetResolve(mixed $theOffset, boolean $doAssert = FALSE) : mixed</pre>
+                                            <a id="method_Reference"></a>
+                        <div class="element clickable method public  method_Reference inherited" data-toggle="collapse" data-target=".method_Reference .collapse">
+                            <h2>Return object reference</h2>
+                            <pre>Reference() : mixed</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method will return the current object's reference. This value should uniquely
+identify the referenced object, making it easy to retrieve the object given this
+reference.</p>
+<p>In this class, and generally in all classes, the reference of an object is its native
+identifier, {@link kTAG_NID}.</p>
+<p>The method must raise an exception if the reference cannot be provided.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Object reference.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_ResolveOffset"></a>
+                        <div class="element clickable method public  method_ResolveOffset inherited" data-toggle="collapse" data-target=".method_ResolveOffset .collapse">
+                            <h2>Resolve offset</h2>
+                            <pre>ResolveOffset(mixed $theOffset, boolean $doAssert = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method will resolve the provided offset into a {@link TagObject} native
@@ -1641,11 +1758,11 @@ parameter is <tt>FALSE</tt>.</p>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    access
+                                                    static
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>public</p>
+                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1691,6 +1808,84 @@ parameter is <tt>FALSE</tt>.</p>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>mixed</code><p><p>Resolved offset.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_CastOffsetValue"></a>
+                        <div class="element clickable method public  method_CastOffsetValue inherited" data-toggle="collapse" data-target=".method_CastOffsetValue .collapse">
+                            <h2>Cast offset</h2>
+                            <pre>CastOffsetValue(\OntologyWrapper\reference &$theValue, mixed $theOffset, boolean $doAssert = FALSE) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to cast a value to the data type of its referred Tag.</p>
+<p>The method will first resolve the offset into a Tag and then it will use the Tag's
+data type to cast the value.</p>
+<p>The value will be cast only if the Tag has <em>one</em> data type, if the provided
+value is an array, the method will cast each element to the data type.</p>
+<p>If the method is unable to resolve the offset and the assert flag parameter is set,
+the method will raise an exception.</p>
+<p>This method will handle in-line the data types of a series of default tags, this is
+necessary when loading the default ontology for the first time: since there are no
+tags in the system yet, any attempt to resolve these tags would fail; if you plan on
+changinf the data type of default tags, you should edit this method accordingly.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    static
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\$sInternalTags
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kSESSION_DDICT
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Value to cast.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>mixed</code><p><p>Data offset.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$doAssert</h4>
+                                                <code>boolean</code><p><p>Assert offset tag reference.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
                         </div>
@@ -2785,7 +2980,7 @@ offsets that do not need to be resolved.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sat, 08 Feb 2014 05:05:16 +0100.<br/>
+            generated on Tue, 11 Feb 2014 17:56:45 +0100.<br/>
     </footer>
     </body>
 </html>

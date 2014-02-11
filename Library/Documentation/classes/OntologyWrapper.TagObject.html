@@ -119,7 +119,13 @@
         <li class="nav-header">
             <i class="icon-custom icon-method"></i> Methods
             <ul>
-                                                                                                    <li class="method public">
+                                                                                                    <li class="method public inherited">
+        <a href="#method___toString" title="__toString :: &lt;h4&gt;Return global identifier&lt;/h4&gt;">
+            <span class="description">&lt;h4&gt;Return global identifier&lt;/h4&gt;</span><pre>__toString</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_Label" title="Label :: Manage tag label">
             <span class="description">Manage tag label</span><pre>Label</pre>
         </a>
@@ -143,13 +149,43 @@
         </a>
     </li>
 
-                                                                                                        <li class="method public inherited">
-        <a href="#method_offsetResolve" title="offsetResolve :: Resolve offset">
-            <span class="description">Resolve offset</span><pre>offsetResolve</pre>
+                                                                                                        <li class="method public">
+        <a href="#method_BranchPush" title="BranchPush :: Add to terms path">
+            <span class="description">Add to terms path</span><pre>BranchPush</pre>
         </a>
     </li>
 
-                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+                                                                                                        <li class="method public">
+        <a href="#method_BranchPop" title="BranchPop :: Add to terms path">
+            <span class="description">Add to terms path</span><pre>BranchPop</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_BranchCount" title="BranchCount :: Count terms path elements">
+            <span class="description">Count terms path elements</span><pre>BranchCount</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_Reference" title="Reference :: Return object reference">
+            <span class="description">Return object reference</span><pre>Reference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_ResolveOffset" title="ResolveOffset :: Resolve offset">
+            <span class="description">Resolve offset</span><pre>ResolveOffset</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_CastOffsetValue" title="CastOffsetValue :: Cast offset">
+            <span class="description">Cast offset</span><pre>CastOffsetValue</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                <li class="method public inherited">
         <a href="#method_offsetExists" title="offsetExists :: Check if an offset exists">
             <span class="description">Check if an offset exists</span><pre>offsetExists</pre>
         </a>
@@ -195,7 +231,17 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                                                                                                                                                                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_isReady" title="isReady :: Check if object is ready">
+                                <span class="description">Check if object is ready</span><pre>isReady</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_preOffsetSet" title="preOffsetSet :: Handle offset and value before setting it">
+                                <span class="description">Handle offset and value before setting it</span><pre>preOffsetSet</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method protected inherited">
                             <a href="#method_preOffsetExists" title="preOffsetExists :: Handle offset before checking it">
                                 <span class="description">Handle offset before checking it</span><pre>preOffsetExists</pre>
                             </a>
@@ -203,11 +249,6 @@
                                                                                 <li class="method protected inherited">
                             <a href="#method_preOffsetGet" title="preOffsetGet :: Handle offset before getting it">
                                 <span class="description">Handle offset before getting it</span><pre>preOffsetGet</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method protected inherited">
-                            <a href="#method_preOffsetSet" title="preOffsetSet :: Handle offset and value before setting it">
-                                <span class="description">Handle offset and value before setting it</span><pre>preOffsetSet</pre>
                             </a>
                         </li>
                                                                                 <li class="method protected inherited">
@@ -254,7 +295,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -276,29 +317,59 @@
                 <div class="details">
                     <div class="long_description">
                         <p>This class extends {@link OntologyObject} to implement a concrete tag object class.</p>
-<p>A tag object is used to identify, describe and document a data property, it holds the
-data property offset, data and cardinality types and the label and description of the
-property.</p>
-<p>The class features the following default offsets:</p>
+<p>A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a data
+property, it represents the <i>metadata</i> of a data property, or its <i>definition</i>
+in an ontology.</p>
+<p>This class features a {@link kTAG_TERMS} offset which is an array of {@link TermObject}
+references representing a path of vertex and predicate terms of the ontology graph, this
+chain of elements represents a lexical construct, like a phrase, that provides the
+explanation or definition of the current object.</p>
+<p>Using a chain of terms, rather than a single term, to provide metadata for a data element
+gives much more flexibility and reusability when defining a data dictionary. This
+sequence is divided in three main sections:</p>
 <ul>
-<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label tag represents the <i>name or
-    short description</i> of the property that the current tag defines. All tags
-    <em>should</em> have a label, since this is how human users will be able to identify
-    a property. Labels have the {@link kTYPE_KIND_VALUE} data type in which the
-    {@link kTAG_PART_KIND} element holds the label language code and the
-    {@link kTAG_PART_VALUE} holds the label text. To populate and handle labels by
-    language, use the {@link Label()} offset accessor method.
-<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
-    represents the <i>description or extended definition</i> of the property that the
-    current tag defines. The description is similar to the <em>definition</em>, except
-    that while the definition provides a description of the object it defines unrelated
-    to context, the description adds to the definition the elements added by the current
-    context. All tags <em>should</em> have a description, if the tag label is not enough
-    to provide a sufficient description or definition. Descriptions have the
-    {@link kTYPE_KIND_VALUE} data type in which the {@link kTAG_PART_KIND} element holds
-    the description language code and the {@link kTAG_PART_VALUE} holds the description
-    text. To populate and handle descriptions by language, use the {@link Description()}
-    offset accessor method.
+<li><i>Feature</i>: The first vertex represents the data element feature or trait, this
+    term defines <em>what the data element is</em>.
+<li><i>Method</i>: The vertices between the first and the last ones represent the
+    <em>methodology</em> or <em>method</em> by which the described data was obtained.
+<li><i>Scale</i>: The last vertex of the path represents the <em>unit</em> or
+    <em>scale</em> in which the described value is expressed in.
+</ul>
+<p>The concatenation of these term references, separated by the
+{@link kTOKEN_INDEX_SEPARATOR} becomes the object global identifier which is stored in
+the object's native identifier offset.</p>
+<p>Tags have another offset, {@link kTAG_SEQ}, which is an integer sequence number: this
+value must be unique within the tags domain of the current ontology. Unlike global
+identifiers, this value may change across implementations, but this is the value used to
+uniquely identify tags among the other elements of the ontology and database.</p>
+<em>All offsets in all classes, including this one, are tag sequence numbers, which makes
+the Tag class key in the structure and behaviour of all the elements implemented in this
+library</em>.
+
+The class features the following default offsets:
+
+<ul>
+<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
+    a string value which represents the global identifier of the current object. This
+    identifier is immutable and represents the unique key. This string is constituted by
+    the concatenation of all term references stored in the current object's branch,
+    {@link kTAG_TERMS}. This attribute must be managed with its offset; in derived
+    classes it will be automatically assigned end only available as read-only.
+<li><tt>{@link kTAG_SEQ}</tt>: <em>Sequence</em>. This required attribute holds
+    an integer value which represents the current object's sequence number, as with the
+    global identifier, this value must be unique, except that it may change across
+    implementations. All offset keys in all objects derived from this class ancestor are
+    references to this sequence number. This attribute must be managed with its offset;
+    in derived classes it will be automatically assigned end only available as
+    read-only.
+<li><tt>{@link kTAG_TERMS}</tt>: <em>Branch</em>. This required attribute holds
+    the list of terms comprising the current tag: this is an array of term references
+    provided as an odd sequence of vertices and predicates forming a path of the
+    ontology graph in which the first vertex defines the feature, the middle ones
+    define the methodology and the last element indicates the scale or unit. To populate
+    the elements of this path, use the {@link BranchPush()} amd {@link BranchPop()}
+    offset accessor methods which respectively add and remove elements of the branch as
+    if it was a stack.
 <li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
     set of values listing all the <em>data types</em> that the value of the property
     defined by the current tag may take. To populate and handle individual data types
@@ -309,7 +380,43 @@ property.</p>
     current tag. This may be whether the property is a list of values, or if the
     property is required or not. To populate and handle individual data kinds use the
     {@link DataKind()} offset accessor method.
+<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
+    short description</i> of the data property that the current object defines. All tags
+    <em>should</em> have a label, since this is how human users will be able to identify
+    and select them. This attribute has the {@link kTYPE_KIND_VALUE} data type, which
+    is constituted by a list of elements in which the {@link kTAG_SUB_LANGUAGE} item holds
+    the label language code and the {@link kTAG_SUB_TEXT} holds the label text. To
+    populate and handle labels by language, use the {@link Label()} offset accessor
+    method.
+<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
+    represents the <i>description or extended definition</i> of the property that the
+    current tag defines. The description is similar to the <em>definition</em>, except
+    that while the definition provides a description of the object it defines unrelated
+    to context, the description adds to the definition the elements added by the current
+    context. All tags <em>should</em> have a description, if the tag label is not enough
+    to provide a sufficient description or definition. Descriptions have the
+    {@link kTYPE_KIND_VALUE} data type, which is constituted by a list of elements in
+    which the {@link kTAG_SUB_LANGUAGE} item holds the description language code and the
+    {@link kTAG_SUB_TEXT} holds the description text. To populate and handle
+    descriptions by language, use the {@link Description()} offset accessor method.
 </ul>
+
+The {@link __toString()} method will return the value stored in the global identifier,
+if set, or the computed global identifier which is the concatenation of all term
+references stored in the {@link kTAG_TERMS} offset, separated by the
+{@link kTOKEN_INDEX_SEPARATOR}.
+
+The class also features a pair of methods, {@link Feature()} and {@link Scale()}, which
+respectively return the first and last vertex of the ontology branch this object
+represents: the feature is a term that represents the main feature or trait that the
+current tag defines, the scale is a term that represents the scale or unit in which
+values defined by the current tag are expressed in.
+
+Objects of this class can hold any additional attribute that is considered necessary or
+useful to define and share the current tag. In this class we define only those
+attributes that constitute the core functionality of the object, derived classes will add
+attributes specific to the domain in which the object will operate and eventually
+restrict the functionality of other offsets to provide referential integrity.
                     </div>
                     <table class="table table-bordered">
                                                                                     <tr>
@@ -333,7 +440,50 @@ property.</p>
                                                                                                                                                                                                                                                                                         </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_Label"></a>
+                                                                <a id="method___toString"></a>
+                        <div class="element clickable method public  method___toString inherited" data-toggle="collapse" data-target=".method___toString .collapse">
+                            <h2>&lt;h4&gt;Return global identifier&lt;/h4&gt;</h2>
+                            <pre>__toString() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method should return the current object's global identifier.</p>
+<p>All derived concrete classes must implement this method.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The global identifier.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_Label"></a>
                         <div class="element clickable method public  method_Label" data-toggle="collapse" data-target=".method_Label .collapse">
                             <h2>Manage tag label</h2>
                             <pre>Label(string $theLanguage, mixed $theValue = NULL, boolean $getOld = FALSE) : mixed</pre>
@@ -383,7 +533,7 @@ not matched.</p></div>
                                                 <td>
                                                                                                                                                                         
                                                                                                                                                                             \OntologyWrapper\kTAG_LABEL
-                                                                                                                <p>kTAG_PART_KIND kTAG_PART_VALUE</p>
+                                                                                                                <p>kTAG_SUB_LANGUAGE kTAG_SUB_TEXT</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -473,7 +623,7 @@ was not matched.</p></div>
                                                 <td>
                                                                                                                                                                         
                                                                                                                                                                             \OntologyWrapper\kTAG_DESCRIPTION
-                                                                                                                <p>kTAG_PART_KIND kTAG_PART_VALUE</p>
+                                                                                                                <p>kTAG_SUB_LANGUAGE kTAG_SUB_TEXT</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -689,12 +839,342 @@ not matched.</p></div>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_offsetResolve"></a>
-                        <div class="element clickable method public  method_offsetResolve inherited" data-toggle="collapse" data-target=".method_offsetResolve .collapse">
-                            <h2>Resolve offset</h2>
-                            <pre>offsetResolve(mixed $theOffset, boolean $doAssert = FALSE) : mixed</pre>
+                                            <a id="method_BranchPush"></a>
+                        <div class="element clickable method public  method_BranchPush" data-toggle="collapse" data-target=".method_BranchPush .collapse">
+                            <h2>Add to terms path</h2>
+                            <pre>BranchPush(mixed $theTerm) : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to append elements to the object's terms path, it will add
+the provided element to the end of the path.</p>
+<p>If you provide a {@link TermObject} as the parameter, the method will
+{@link Reference()} it.</p>
+<p>The method will return the number of elements in the path.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_TERMS
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theTerm</h4>
+                                                <code>mixed</code><p><p>Term reference or object.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>Number of elements in path.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_BranchPop"></a>
+                        <div class="element clickable method public  method_BranchPop" data-toggle="collapse" data-target=".method_BranchPop .collapse">
+                            <h2>Add to terms path</h2>
+                            <pre>BranchPop() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to pop elements off the end of the object's terms path, it
+will remove the last element in the sequence.</p>
+<p>When you remove the last element of the path, the method will also remove the offset.</p>
+<p>The method will return the removed element; if the path is empty, the method will
+return <tt>NULL</tt>.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_TERMS
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    uses
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>Removed element or <tt>NULL</tt>.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_BranchCount"></a>
+                        <div class="element clickable method public  method_BranchCount" data-toggle="collapse" data-target=".method_BranchCount .collapse">
+                            <h2>Count terms path elements</h2>
+                            <pre>BranchCount() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method will return the number of elements in the object's terms path.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kTAG_TERMS
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>Number of elements in terms path.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_isReady"></a>
+                        <div class="element clickable method protected  method_isReady" data-toggle="collapse" data-target=".method_isReady .collapse">
+                            <h2>Check if object is ready</h2>
+                            <pre>isReady() : Boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>In this class we return <tt>TRUE</tt>, to allow method chaining across the
+inheritance.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>Boolean</code><p><tt>TRUE</tt> means ready.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_preOffsetSet"></a>
+                        <div class="element clickable method protected  method_preOffsetSet inherited" data-toggle="collapse" data-target=".method_preOffsetSet .collapse">
+                            <h2>Handle offset and value before setting it</h2>
+                            <pre>preOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) : mixed</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>The method provides the offset and value as references, if the method returns</p>
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
+
+In this class we do nothing.</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><tt>NULL</tt> set offset value, other, return.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_Reference"></a>
+                        <div class="element clickable method public  method_Reference inherited" data-toggle="collapse" data-target=".method_Reference .collapse">
+                            <h2>Return object reference</h2>
+                            <pre>Reference() : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method will return the current object's reference. This value should uniquely
+identify the referenced object, making it easy to retrieve the object given this
+reference.</p>
+<p>In this class, and generally in all classes, the reference of an object is its native
+identifier, {@link kTAG_NID}.</p>
+<p>The method must raise an exception if the reference cannot be provided.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Object reference.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_ResolveOffset"></a>
+                        <div class="element clickable method public  method_ResolveOffset inherited" data-toggle="collapse" data-target=".method_ResolveOffset .collapse">
+                            <h2>Resolve offset</h2>
+                            <pre>ResolveOffset(mixed $theOffset, boolean $doAssert = FALSE) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method will resolve the provided offset into a {@link TagObject} native
@@ -713,11 +1193,11 @@ parameter is <tt>FALSE</tt>.</p>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    access
+                                                    static
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>public</p>
+                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -763,6 +1243,84 @@ parameter is <tt>FALSE</tt>.</p>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>mixed</code><p><p>Resolved offset.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_CastOffsetValue"></a>
+                        <div class="element clickable method public  method_CastOffsetValue inherited" data-toggle="collapse" data-target=".method_CastOffsetValue .collapse">
+                            <h2>Cast offset</h2>
+                            <pre>CastOffsetValue(\OntologyWrapper\reference &$theValue, mixed $theOffset, boolean $doAssert = FALSE) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to cast a value to the data type of its referred Tag.</p>
+<p>The method will first resolve the offset into a Tag and then it will use the Tag's
+data type to cast the value.</p>
+<p>The value will be cast only if the Tag has <em>one</em> data type, if the provided
+value is an array, the method will cast each element to the data type.</p>
+<p>If the method is unable to resolve the offset and the assert flag parameter is set,
+the method will raise an exception.</p>
+<p>This method will handle in-line the data types of a series of default tags, this is
+necessary when loading the default ontology for the first time: since there are no
+tags in the system yet, any attempt to resolve these tags would fail; if you plan on
+changinf the data type of default tags, you should edit this method accordingly.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    static
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\$sInternalTags
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\kSESSION_DDICT
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theValue</h4>
+                                                <code>\OntologyWrapper\reference</code><p><p>Value to cast.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$theOffset</h4>
+                                                <code>mixed</code><p><p>Data offset.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$doAssert</h4>
+                                                <code>boolean</code><p><p>Assert offset tag reference.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
                         </div>
@@ -855,57 +1413,6 @@ returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>mixed</code><p><tt>NULL</tt> get offset value, other, return.</p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_preOffsetSet"></a>
-                        <div class="element clickable method protected  method_preOffsetSet inherited" data-toggle="collapse" data-target=".method_preOffsetSet .collapse">
-                            <h2>Handle offset and value before setting it</h2>
-                            <pre>preOffsetSet(\OntologyWrapper\reference &$theOffset, \OntologyWrapper\reference &$theValue) : mixed</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"><p>This method can be used to manage the offset before passing it to the inherited
-{@link ArrayObject::OffsetSet()} method.</p>
-<p>The method provides the offset and value as references, if the method returns</p>
-<tt>NULL</tt> it means that the offset and value must be passed to the inherited
-{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
-that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
-
-In this class we do nothing.</div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    access
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>protected</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theOffset</h4>
-                                                <code>\OntologyWrapper\reference</code><p><p>Offset reference.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$theValue</h4>
-                                                <code>\OntologyWrapper\reference</code><p><p>Offset value reference.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>mixed</code><p><tt>NULL</tt> set offset value, other, return.</p>
                                                                     </div>
                             </div>
                         </div>
@@ -1934,7 +2441,7 @@ offsets that do not need to be resolved.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sat, 08 Feb 2014 05:05:16 +0100.<br/>
+            generated on Tue, 11 Feb 2014 17:56:44 +0100.<br/>
     </footer>
     </body>
 </html>

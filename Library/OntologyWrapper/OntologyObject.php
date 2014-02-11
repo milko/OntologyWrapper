@@ -9,7 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\ContainerObject;
-use OntologyWrapper\connection\TagCache;
+use OntologyWrapper\TagCache;
 
 /*=======================================================================================
  *																						*
@@ -48,45 +48,67 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 /**
  * Ontology object
  *
- * Objects of this class hold two types of data: <i>run-time data</i>, which is stored in
- * the object properties and <i>persistent data</i>, which is stored as <i>offsets</i> in
- * the inherited array part of the object.
+ * Objects derived from this <i>abstract</i> class hold two types of data:
+ * <i>run-time data</i>, which is stored in the object member properties and
+ * <i>persistent data</i>, which is stored in the inherited array part of the object.
  *
- * The main purpose of this class is to ensure that all persistent data is annotated and
- * documented by an ontology, guaranteeing that any persistent data element is defined and
- * described by an entry of the ontology represented by an instance of the {@link TagObject}
- * class, which is itself derived from this class.
+ * The main purpose of this class is to ensure that all persistent data elements are
+ * <i>referenced</i>, <i>annotated</i> and <i>documented</i> in an ontology.
  *
- * All persistent data elements are represented by a key/value pair, in which the key is
- * the data offset and the value the persistent data value. All persistent data offsets
- * must be integer values or alphanumeric strings, with the exception of the tags defined in
- * the static {@link $sInternalTags} list. These integer values represent references to
- * Tag object instances, which hold all the necessary information to document the current
- * persistent data element.
+ * Persistent data is stored as <i>key/value</i> pair elements of the inherited array, the
+ * key part of the elements we call by convention <em>offset</em>, these offsets, in this
+ * class, represent a reference to an object of the ontology that holds all the necessary
+ * information to <i>identify</i>, <i>describe</i> and <i>validate</i> the value part of the
+ * array element pairs.
  *
- * This class implements the bridge between data and the ontology ensuring that all data
- * elements are defined in this ontology, which, itself, is implemented by objects derived
- * from this same class: this means that the whole system is self documenting.
+ * This class implements the bridge between object persistent data and the ontology,
+ * ensuring that all data holds a reference to the ontology, which, itself, is implemented
+ * by objects derived from this same class: this means that the whole system is self
+ * sufficient and self documenting.
  *
- * Whenever the object uses an offset, this will be first fed to a public method,
- * {@link offsetResolve()}, which will take care of translating <i>global identifiers</i>
- * into <i>native identifiers</i>. The Tag object native identifier is represented by an
- * integer value, this value is used as the data offset. These native identifiers are not
- * persistent, in other words, these value may change from one implementation to the other:
- * for this reason Tag objects also hold a <i>global identifier</i> which is a non-numeric
- * string: this string will remain the same across implementations and can be considered the
- * <i>immutable tag identifier/i>.
+ * Offsets can be uniquely identified in two ways: by native identifier, which is an integer
+ * value which may change across implementations, and a global identifier, which is a sring
+ * that will not change across implementations. This class provides a transparent interface
+ * that allows referring to offsets both by their <i>native</i> identifier or by their
+ * <i>global</i> identifier. Offsets, however, <em>will only hold the native
+ * identifier</em>, which means that all persistent data offsets must be integers. This is
+ * because global identifiers may become large strings, which poses a problem if these are
+ * used as field names for data stored in a persistent container.
  *
- * In this class by default an integer offset is assumed to be a correct Tag object
- * reference, while a string offset will be resolved into a tag reference. This means that
- * if you want to ensure that all offsets are correct you should always use tag global
- * identifiers as offsets, while you should only use known tag native identifiers as integer
- * offsets.
+ * Whenever the object is provided an offset, if this is a string, it will be fed to a
+ * static method, {@link ResolveOffset()}, which will check if the string represents the
+ * global identifier of an ontology Tag object, in that case, the method will return the
+ * Tag's native integer identifier which will be used as the data offset. The class
+ * features a static data member, {@link $sInternalTags}, that holds the list of exceptions.
+ *
+ * This means that to ensure referential integrity it is advisable to use integer constants
+ * as offsets when available, or string offsets if the integer constant is not known or
+ * available.
+ *
+ * The resolution of these offsets is provided by a {@link TagCache} object which records
+ * all the <em>Tag</em> objects of the ontology which are the entities that all offsets
+ * reference: persistent data offsets represent these Tag native identifiers, while these
+ * Tag object global identifiers are decoded by the {@link TagCache} object to retrieve the
+ * corresponding integer native identifier.
+ *
+ * The class declares the {@link __toString()} method as virtual, it is essential that all
+ * derived classes implement this method which should return the current object's <em>global
+ * identifier string</em>. The global identifier of an object can be considered its
+ * signature or unique identifier, although a global identifier not need to be unique; all
+ * objects derived from this class, just as the Tag object described above, must feature a
+ * global identifier, which may or may not coincide with their native identifier.
+ *
+ * Finally, the class declares a method, {@link Reference()}, which returns the current
+ * object's <i>reference</i>, this will generally be the value of the {@link kTAG_NID}
+ * offset. If the offset is not set, the method will raise an exception. This method will be
+ * put to use by derived classes: when providing an object to an offset expecting an object
+ * reference, by using this method one can be assured the provided object does have a
+ * reference.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
  */
-class OntologyObject extends ContainerObject
+abstract class OntologyObject extends ContainerObject
 {
 	/**
 	 * Internal tags.
@@ -102,14 +124,84 @@ class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC OFFSET RESOLUTION INTERFACE							*
+ *											MAGIC										*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	offsetResolve																	*
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return global identifier</h4>
+	 *
+	 * This method should return the current object's global identifier.
+	 *
+	 * All derived concrete classes must implement this method.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	abstract public function __toString();
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Reference																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object reference
+	 *
+	 * This method will return the current object's reference. This value should uniquely
+	 * identify the referenced object, making it easy to retrieve the object given this
+	 * reference.
+	 *
+	 * In this class, and generally in all classes, the reference of an object is its native
+	 * identifier, {@link kTAG_NID}.
+	 *
+	 * The method must raise an exception if the reference cannot be provided.
+	 *
+	 * @access public
+	 * @return mixed				Object reference.
+	 *
+	 * @throws Exception
+	 */
+	public function Reference()
+	{
+		//
+		// Check native identifier.
+		//
+		if( $this->offsetExists( kTAG_NID ) )
+			return $this->offsetGet( kTAG_NID );									// ==>
+			
+		throw new \Exception(
+			"Unable to get object reference." );								// !@! ==>
+	
+	} // Reference.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							STATIC OFFSET RESOLUTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveOffset																	*
 	 *==================================================================================*/
 
 	/**
@@ -134,7 +226,7 @@ class OntologyObject extends ContainerObject
 	 * @param mixed					$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
-	 * @access public
+	 * @static
 	 * @return mixed				Resolved offset.
 	 *
 	 * @throws Exception
@@ -142,7 +234,7 @@ class OntologyObject extends ContainerObject
 	 * @see $sInternalTags
 	 * @see kSESSION_DDICT
 	 */
-	public function offsetResolve( $theOffset, $doAssert = FALSE )
+	static function ResolveOffset( $theOffset, $doAssert = FALSE )
 	{
 		//
 		// Handle numeric offsets.
@@ -154,7 +246,7 @@ class OntologyObject extends ContainerObject
 		//
 		// Handle internal offsets.
 		//
-		if( in_array( $theOffset, static::$sInternalTags ) )
+		if( in_array( $theOffset, self::$sInternalTags ) )
 			return $theOffset;														// ==>
 		
 		//
@@ -167,7 +259,438 @@ class OntologyObject extends ContainerObject
 		
 		return $_SESSION[ kSESSION_DDICT ]->getTagId( $theOffset, $doAssert );		// ==>
 	
-	} // offsetResolve.
+	} // ResolveOffset.
+
+	 
+	/*===================================================================================
+	 *	CastOffsetValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Cast offset
+	 *
+	 * This method can be used to cast a value to the data type of its referred Tag.
+	 *
+	 * The method will first resolve the offset into a Tag and then it will use the Tag's
+	 * data type to cast the value.
+	 *
+	 * The value will be cast only if the Tag has <em>one</em> data type, if the provided
+	 * value is an array, the method will cast each element to the data type.
+	 *
+	 * If the method is unable to resolve the offset and the assert flag parameter is set,
+	 * the method will raise an exception.
+	 *
+	 * This method will handle in-line the data types of a series of default tags, this is
+	 * necessary when loading the default ontology for the first time: since there are no
+	 * tags in the system yet, any attempt to resolve these tags would fail; if you plan on
+	 * changinf the data type of default tags, you should edit this method accordingly.
+	 *
+	 * @param reference				$theValue			Value to cast.
+	 * @param mixed					$theOffset			Data offset.
+	 * @param boolean				$doAssert			Assert offset tag reference.
+	 *
+	 * @static
+	 *
+	 * @throws Exception
+	 *
+	 * @see $sInternalTags
+	 * @see kSESSION_DDICT
+	 */
+	static function CastOffsetValue( &$theValue, $theOffset, $doAssert = FALSE )
+	{
+		//
+		// Resolve offset.
+		//
+		$offset_save = $theOffset;
+		$theOffset = static::ResolveOffset( $theOffset, $doAssert );
+		
+		//
+		// Handle default tags.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_NID:
+				return;																// ==>
+			
+			case kTAG_NS:
+			case kTAG_LID:
+			case kTAG_PID:
+			case kTAG_CLASS:
+			case kTAG_CONN_PROTOCOL:
+			case kTAG_CONN_HOST:
+			case kTAG_CONN_USER:
+			case kTAG_CONN_PASS:
+			case kTAG_CONN_BASE:
+			case kTAG_CONN_COLL:
+				$theValue = (string) $theValue;
+				return;																// ==>
+		
+			case kTAG_SEQ:
+			case kTAG_CONN_PORT:
+				$theValue = (int) $theValue;
+				return;																// ==>
+			
+			case kTAG_TERMS:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+				break;
+		}
+		
+		//
+		// Resolve tag.
+		//
+		$tag = $_SESSION[ kSESSION_DDICT ]->getTagObject( $theOffset, $doAssert );
+		
+		//
+		// Skip multiple types.
+		//
+		if( count( $tag[ kTAG_DATA_TYPE ] ) == 1 )
+		{
+			//
+			// Get list indicator.
+			//
+			$is_list = ( ($tag[ kTAG_DATA_KIND ] !== NULL)
+					  && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) );
+		
+			//
+			// Assert lists.
+			//
+			if( $is_list
+			 && (! is_array( $theValue )) )
+				throw new \Exception(
+					"Unable to cast [$offset_save]: "
+				   ."the list is not an array." );								// !@! ==>
+		
+			//
+			// Parse by type.
+			//
+			$type = current( $tag[ kTAG_DATA_TYPE ] );
+			switch( $type )
+			{
+				//
+				// Structures.
+				//
+				case kTYPE_STRUCT:
+				
+					//
+					// Handle struct list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									"Unable to cast [$offset_save]: "
+								   ."the value is not an array." );				// !@! ==>
+					
+							//
+							// Iterate structure.
+							//
+							$ref = & $theValue[ $key ];
+							$offsets = array_keys( $ref );
+							foreach( $offsets as $offset )
+								static::CastOffsetValue(
+									$ref[ $offset ], $offset, $doAssert );
+						
+						} // Iterating list.
+					
+					} // Struct list.
+					
+					//
+					// Handle scalar struct.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								"Unable to cast [$offset_save]: "
+							   ."the value is not an array." );					// !@! ==>
+				
+						//
+						// Iterate structure.
+						//
+						$offsets = array_keys( $theValue );
+						foreach( $offsets as $offset )
+							static::CastOffsetValue(
+								$theValue[ $offset ], $offset, $doAssert );
+					
+					} // Scalar struct.
+					
+					break;
+			
+				//
+				// Category lists.
+				//
+				case kTYPE_KIND_VALUE:
+					
+					//
+					// Handle categories list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue[ $index ] ) )
+								throw new \Exception(
+									"Unable to cast [$offset_save]: "
+								   ."the value is not an array." );				// !@! ==>
+					
+							//
+							// Iterate category.
+							//
+							$list = & $theValue[ $index ];
+							$keys = array_keys( $list );
+							foreach( $keys as $key )
+							{
+								//
+								// Assert array.
+								//
+								if( ! is_array( $list[ $key ] ) )
+									throw new \Exception(
+										"Unable to cast [$offset_save]: "
+									   ."the element is not an array." );		// !@! ==>
+				
+								//
+								// Iterate category elements.
+								//
+								$ref = $list[ $key ];
+								$offsets = array_keys( $ref );
+								foreach( $offsets as $offset )
+									static::CastOffsetValue(
+										$ref[ $offset ], $offset, $doAssert );
+							
+							} // Iterating category elements.
+						
+						} // Iterating list.
+					
+					} // Category list.
+					
+					//
+					// Handle category.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								"Unable to cast [$offset_save]: "
+							   ."the value is not an array." );					// !@! ==>
+				
+						//
+						// Iterate category.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									"Unable to cast [$offset_save]: "
+								   ."the element is not an array." );			// !@! ==>
+				
+							//
+							// Iterate category elements.
+							//
+							$ref = $theValue[ $key ];
+							$offsets = array_keys( $ref );
+							foreach( $offsets as $offset )
+								static::CastOffsetValue(
+									$ref[ $offset ], $offset, $doAssert );
+						
+						} // Iterating category elements.
+					
+					} // Scalar category.
+					
+					break;
+			
+				//
+				// Enumerated sets.
+				//
+				case kTYPE_SET:
+				
+					//
+					// Handle sets list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									"Unable to cast [$offset_save]: "
+								   ."the set is not an array." );				// !@! ==>
+					
+							//
+							// Iterate set.
+							//
+							$ref = & $theValue[ $index ];
+							$keys = array_keys( $ref );
+							foreach( $keys as $key )
+								$ref[ $key ] = (string) $ref[ $key ];
+						
+						} // Iterating list.
+					
+					} // Sets list.
+					
+					//
+					// Handle set.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								"Unable to cast [$offset_save]: "
+							   ."the set is not an array." );					// !@! ==>
+				
+						//
+						// Iterate set.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+							$theValue[ $key ] = (string) $theValue[ $key ];
+					
+					} // Set.
+					
+					break;
+				
+				//
+				// String scalars.
+				//
+				case kTYPE_STRING:
+				case kTYPE_ENUM:
+				case kTYPE_REF_TERM:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (string) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (string) $theValue;
+					
+					break;
+				
+				//
+				// Integer scalars.
+				//
+				case kTYPE_INT:
+				case kTYPE_REF_TAG:
+				case kTYPE_REF_NODE:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (int) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (int) $theValue;
+					
+					break;
+				
+				//
+				// Float scalars.
+				//
+				case kTYPE_FLOAT:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (double) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (double) $theValue;
+					
+					break;
+			
+				//
+				// Skip these types.
+				//
+				case kTYPE_MIXED:
+				case kTYPE_ARRAY:
+
+					break;
+				
+				//
+				// Unknown types.
+				//
+				default:
+					throw new \Exception(
+						"Unable to cast [$offset_save]: "
+					   ."Unknown or unsupported type [$type]." );				// !@! ==>
+			
+			} // Parsed type.
+		
+		} // One data type.
+	
+	} // CastOffsetValue.
 
 		
 
@@ -193,7 +716,7 @@ class OntologyObject extends ContainerObject
 	 * @access protected
 	 * @return mixed				<tt>NULL</tt> check offset, other, return.
 	 *
-	 * @uses offsetResolve()
+	 * @uses ResolveOffset()
 	 */
 	protected function preOffsetExists( &$theOffset )
 	{
@@ -202,7 +725,7 @@ class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetExists( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->offsetResolve( $theOffset );
+			$theOffset = (string) static::ResolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -223,7 +746,7 @@ class OntologyObject extends ContainerObject
 	 * @access protected
 	 * @return mixed				<tt>NULL</tt> get offset value, other, return.
 	 *
-	 * @uses offsetResolve()
+	 * @uses ResolveOffset()
 	 */
 	protected function preOffsetGet( &$theOffset )
 	{
@@ -232,7 +755,7 @@ class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetGet( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->offsetResolve( $theOffset );
+			$theOffset = (string) static::ResolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	
@@ -254,7 +777,7 @@ class OntologyObject extends ContainerObject
 	 * @access protected
 	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
 	 *
-	 * @uses offsetResolve()
+	 * @uses ResolveOffset()
 	 */
 	protected function preOffsetSet( &$theOffset, &$theValue )
 	{
@@ -263,7 +786,7 @@ class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetSet( $theOffset, $theValue );
 		if( $ok === NULL )
-			$theOffset = (string) $this->offsetResolve( $theOffset, TRUE );
+			$theOffset = (string) static::ResolveOffset( $theOffset, TRUE );
 		
 		return $ok;																	// ==>
 	
@@ -284,7 +807,7 @@ class OntologyObject extends ContainerObject
 	 * @access protected
 	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
 	 *
-	 * @uses offsetResolve()
+	 * @uses ResolveOffset()
 	 */
 	protected function preOffsetUnset( &$theOffset )
 	{
@@ -293,7 +816,7 @@ class OntologyObject extends ContainerObject
 		//
 		$ok = parent::preOffsetUnset( $theOffset );
 		if( $ok === NULL )
-			$theOffset = (string) $this->offsetResolve( $theOffset );
+			$theOffset = (string) static::ResolveOffset( $theOffset );
 		
 		return $ok;																	// ==>
 	

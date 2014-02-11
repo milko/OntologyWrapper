@@ -146,7 +146,7 @@ define( "kTAG_NS",						1 );
 define( "kTAG_LID",						2 );
 
 /**
- * Global identifier
+ * Persistent identifier
  *
  * <table>
  *	<tr>
@@ -155,7 +155,7 @@ define( "kTAG_LID",						2 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:gid</code></td>
+ *		<td align="left" valign="top"><code>:pid</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
@@ -163,11 +163,11 @@ define( "kTAG_LID",						2 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Global identifier</td>
+ *		<td align="left" valign="top">Pesistent identifier</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the unique <i>global
+ *		<td align="left" valign="top">This tag represents the <i>persistent
  *			identifier</i> of an object. This identifier represents the unique key of an
  *			object and it is by definition a string. This identifier is persistent, which
  *			means that it will not change across implementations (<i>unlike the native
@@ -175,7 +175,74 @@ define( "kTAG_LID",						2 );
  *	</tr>
  * </table>
  */
-define( "kTAG_GID",						3 );
+define( "kTAG_PID",						3 );
+
+/**
+ * Sequence
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>4</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:seq</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:int</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Sequence</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag represents a <i>unique identifier</i> other
+ *			than the global identifier, it is constituted by an <i>sequential integer
+ *			number</i>, which might change across implementations. The main use of such an
+ *			identifier is to reduce storage requirements when indexing and referencing
+ *			objects.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_SEQ",						4 );
+
+/**
+ * Branch
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>5</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:terms</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-term</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data kind:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:list</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Branch</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>path of a graph branch</i>,
+ *			constituted by a <i>sequence of vertices connected by predicates</i>. It is an
+ *			array holding an odd number of elements representing <i>term references</i> in
+ *			which the odd elements are vertices and the even elements are predicates.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_TERMS",					5 );
 
 /**
  * Data type
@@ -183,7 +250,7 @@ define( "kTAG_GID",						3 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>4</code></td>
+ *		<td align="left" valign="top"><code>6</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -205,7 +272,7 @@ define( "kTAG_GID",						3 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DATA_TYPE",				4 );
+define( "kTAG_DATA_TYPE",				6 );
 
 /**
  * Data kind
@@ -213,7 +280,7 @@ define( "kTAG_DATA_TYPE",				4 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>5</code></td>
+ *		<td align="left" valign="top"><code>7</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -236,7 +303,7 @@ define( "kTAG_DATA_TYPE",				4 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DATA_KIND",				5 );
+define( "kTAG_DATA_KIND",				7 );
 
 /**
  * Label
@@ -244,7 +311,7 @@ define( "kTAG_DATA_KIND",				5 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>6</code></td>
+ *		<td align="left" valign="top"><code>8</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -262,13 +329,13 @@ define( "kTAG_DATA_KIND",				5 );
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">This tag represents a <i>label</i>, it is a <i>short
  *			description or name</i> referring to an object. Labels store the language code
- *			in the key/value pair indexed by {@link kTAG_PART_KIND} and the label text in
- *			the pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+ *			in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the label text in
+ *			the pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
  *			language and only one element may omit the language pair.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_LABEL",					6 );
+define( "kTAG_LABEL",					8 );
 
 /**
  * Definition
@@ -276,7 +343,7 @@ define( "kTAG_LABEL",					6 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>7</code></td>
+ *		<td align="left" valign="top"><code>9</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -294,14 +361,14 @@ define( "kTAG_LABEL",					6 );
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
  *		<td align="left" valign="top">This tag represents a <i>definition</i>, it is a
  *			<i>description that represents the definition</i> of an object. Definitions
- *			store the language code in the key/value pair indexed by {@link kTAG_PART_KIND}
- *			and the definition text in the pair indexed by {@link kTAG_PART_VALUE}. No two
+ *			store the language code in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE}
+ *			and the definition text in the pair indexed by {@link kTAG_SUB_TEXT}. No two
  *			elements may share the same language and only one element may omit the language
  *			pair.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_DEFINITION",				7 );
+define( "kTAG_DEFINITION",				9 );
 
 /**
  * Description
@@ -309,7 +376,7 @@ define( "kTAG_DEFINITION",				7 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>8</code></td>
+ *		<td align="left" valign="top"><code>10</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -330,13 +397,13 @@ define( "kTAG_DEFINITION",				7 );
  *			not dependant on the context, descriptions are. This property is generally used
  *			to add context dependant information to the definition. Descriptions have the
  *			same structure as labeld and definitions: they store the language code in the
- *			key/value pair indexed by {@link kTAG_PART_KIND} and the definition text in the
- *			pair indexed by {@link kTAG_PART_VALUE}. No two elements may share the same
+ *			key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the definition text in the
+ *			pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
  *			language and only one element may omit the language pair.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_DESCRIPTION",				8 );
+define( "kTAG_DESCRIPTION",				10 );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -348,7 +415,7 @@ define( "kTAG_DESCRIPTION",				8 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>9</code></td>
+ *		<td align="left" valign="top"><code>11</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -369,7 +436,7 @@ define( "kTAG_DESCRIPTION",				8 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PROTOCOL",				9 );
+define( "kTAG_CONN_PROTOCOL",				11 );
 
 /**
  * Host
@@ -377,7 +444,7 @@ define( "kTAG_CONN_PROTOCOL",				9 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>10</code></td>
+ *		<td align="left" valign="top"><code>12</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -398,7 +465,7 @@ define( "kTAG_CONN_PROTOCOL",				9 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_HOST",					10 );
+define( "kTAG_CONN_HOST",					12 );
 
 /**
  * Port
@@ -406,7 +473,7 @@ define( "kTAG_CONN_HOST",					10 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>11</code></td>
+ *		<td align="left" valign="top"><code>13</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -427,7 +494,7 @@ define( "kTAG_CONN_HOST",					10 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PORT",					11 );
+define( "kTAG_CONN_PORT",					13 );
 
 /**
  * User
@@ -435,7 +502,7 @@ define( "kTAG_CONN_PORT",					11 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>12</code></td>
+ *		<td align="left" valign="top"><code>14</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -456,7 +523,7 @@ define( "kTAG_CONN_PORT",					11 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_USER",					12 );
+define( "kTAG_CONN_USER",					14 );
 
 /**
  * Pass
@@ -464,7 +531,7 @@ define( "kTAG_CONN_USER",					12 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>13</code></td>
+ *		<td align="left" valign="top"><code>15</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -485,7 +552,7 @@ define( "kTAG_CONN_USER",					12 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PASS",					13 );
+define( "kTAG_CONN_PASS",					15 );
 
 /**
  * Database
@@ -493,7 +560,7 @@ define( "kTAG_CONN_PASS",					13 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>14</code></td>
+ *		<td align="left" valign="top"><code>16</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -514,7 +581,7 @@ define( "kTAG_CONN_PASS",					13 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_BASE",					14 );
+define( "kTAG_CONN_BASE",					16 );
 
 /**
  * Collection
@@ -522,7 +589,7 @@ define( "kTAG_CONN_BASE",					14 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>15</code></td>
+ *		<td align="left" valign="top"><code>17</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -543,7 +610,7 @@ define( "kTAG_CONN_BASE",					14 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_COLL",					15 );
+define( "kTAG_CONN_COLL",					17 );
 
 /**
  * Options
@@ -551,7 +618,7 @@ define( "kTAG_CONN_COLL",					15 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>16</code></td>
+ *		<td align="left" valign="top"><code>18</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -572,23 +639,23 @@ define( "kTAG_CONN_COLL",					15 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_OPTS",					16 );
+define( "kTAG_CONN_OPTS",					18 );
 
 /*=======================================================================================
  *	DEFAULT SUB-STRUCTURE TAGS															*
  *======================================================================================*/
 
 /**
- * Kind part
+ * Language
  *
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>17</code></td>
+ *		<td align="left" valign="top"><code>19</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:part:kind</code></td>
+ *		<td align="left" valign="top"><code>:sub:language</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
@@ -596,60 +663,49 @@ define( "kTAG_CONN_OPTS",					16 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Kind part</td>
+ *		<td align="left" valign="top">Language code</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag is generally used in combination with the
- *			{@link kTAG_PART_VALUE} to create a <i>list of typed or qualified entries</i>.
- *			Each entry is an array of two key/value pairs in which the pair featuring this
- *			tag as a key has as value a term that <i>defines the type, value or
- *			qualification</i> of the property stored in the value part of the other pair.
- *			For instance a home telephone number could be stored as an array of two
- *			key/value pairs in which the first pair, indexed by this tag, would hold as
- *			value the <tt>home</tt> string, while the second pair would be indexd by the
- *			{@link kTAG_PART_VALUE} tag and hold as value the telephone number.</td>
+ *		<td align="left" valign="top">This attribute is a <em>string</em> representing a
+ *			<em>language code</em>, this is generally used in combination with the
+ *			{@link kTAG_SUB_TEXT} attribute to provide a list of strings in different
+ *			languages.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_PART_KIND",				17 );
+define( "kTAG_SUB_LANGUAGE",				19 );
 
 /**
- * Value part
+ * Text
  *
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>18</code></td>
+ *		<td align="left" valign="top"><code>20</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:part:value</code></td>
+ *		<td align="left" valign="top"><code>:sub:text</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:mixed</code></td>
+ *		<td align="left" valign="top"><code>:type:string</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Value part</td>
+ *		<td align="left" valign="top">Text</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag is generally used in combination with the
- *			{@link kTAG_PART_KIND} tag to create a <i>list of typed or qualified
- *			entries</i>. Each entry is an array of two key/value pairs in which the pair
- *			featuring the {@link kTAG_PART_KIND} tag as a key has as value a term that
- *			defines the type, value or qualification of the property stored as the value of
- *			the pair which uses this tag as the key. For instance a home telephone number
- *			could be stored as an array of two key/value pairs in which the first pair,
- *			indexed by the {@link kTAG_PART_KIND} tag, would hold as value the <tt>home</tt>
- *			string, while the second pair would be indexd by this tag and hold as value the
- *			telephone number.</td>
+ *		<td align="left" valign="top">This attribute is a <em>string</em> representing a
+ *			<em>string</em> or <em>text</em>, this is generally used in combination with the
+ *			{@link kTAG_SUB_LANGUAGE} attribute to provide a list of strings in different
+ *			languages.</td>
  *	</tr>
  * </table>
  */
-define( "kTAG_PART_VALUE",				18 );
+define( "kTAG_SUB_TEXT",					20 );
 
 
 ?>
