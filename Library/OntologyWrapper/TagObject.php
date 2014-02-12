@@ -77,7 +77,7 @@ use OntologyWrapper\OntologyObject;
  *		provided as an odd sequence of vertices and predicates forming a path of the
  *		ontology graph in which the first vertex defines the feature, the middle ones
  *		define the methodology and the last element indicates the scale or unit. To populate
- *		the elements of this path, use the {@link BranchPush()} amd {@link BranchPop()}
+ *		the elements of this path, use the {@link TermPush()} amd {@link TermPop()}
  *		offset accessor methods which respectively add and remove elements of the branch as
  *		if it was a stack.
  *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
@@ -415,7 +415,7 @@ class TagObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	BranchPush																		*
+	 *	TermPush																		*
 	 *==================================================================================*/
 
 	/**
@@ -438,7 +438,7 @@ class TagObject extends OntologyObject
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
-	public function BranchPush( $theTerm )
+	public function TermPush( $theTerm )
 	{
 		//
 		// Handle objects.
@@ -491,15 +491,15 @@ class TagObject extends OntologyObject
 		
 		return $count;																// ==>
 	
-	} // BranchPush.
+	} // TermPush.
 
 	 
 	/*===================================================================================
-	 *	BranchPop																		*
+	 *	TermPop																			*
 	 *==================================================================================*/
 
 	/**
-	 * Add to terms path
+	 * Pop terms from path
 	 *
 	 * This method can be used to pop elements off the end of the object's terms path, it
 	 * will remove the last element in the sequence.
@@ -516,7 +516,7 @@ class TagObject extends OntologyObject
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
-	public function BranchPop()
+	public function TermPop()
 	{
 		//
 		// Get current path.
@@ -551,11 +551,11 @@ class TagObject extends OntologyObject
 		
 		return NULL;																// ==>
 	
-	} // BranchPop.
+	} // TermPop.
 
 	 
 	/*===================================================================================
-	 *	BranchCount																		*
+	 *	TermCount																		*
 	 *==================================================================================*/
 
 	/**
@@ -568,7 +568,7 @@ class TagObject extends OntologyObject
 	 *
 	 * @see kTAG_TERMS
 	 */
-	public function BranchCount()
+	public function TermCount()
 	{
 		//
 		// Check branch.
@@ -578,7 +578,7 @@ class TagObject extends OntologyObject
 		
 		return 0;																	// ==>
 	
-	} // BranchCount.
+	} // TermCount.
 
 		
 
@@ -597,8 +597,7 @@ class TagObject extends OntologyObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we return <tt>TRUE</tt>, to allow method chaining across the
-	 * inheritance.
+	 * In this class we return <tt>TRUE</tt> , assuming the object is ready.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.

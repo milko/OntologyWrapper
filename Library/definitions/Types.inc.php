@@ -276,8 +276,8 @@ define( "kTYPE_REF_TERM",						':type:ref:term' );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">A <i>tag reference</i> is an <em>integer</em> that
- *			must correspond to the native identifier of a Tag object.</td>
+ *		<td align="left" valign="top">A <i>tag reference</i> is a <em>string</em> that must
+ *			correspond to the native identifier of a Tag object.</td>
  *	</tr>
  * </table>
  */

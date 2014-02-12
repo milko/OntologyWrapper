@@ -149,7 +149,7 @@ trait PersistentTrait
 			//
 			// Get collection.
 			//
-			$theContainer = $this->mCollection();
+			$theContainer = $this->mCollection;
 			if( ! ($theContainer instanceof CollectionObject) )
 				throw new \Exception(
 					"Cannot insert object: "
@@ -749,8 +749,7 @@ trait PersistentTrait
 				//
 				// Check immutable tags.
 				//
-				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_PID) )
+				if( in_array( $theOffset, $this->lockedOffsets() ) )
 					throw new \Exception(
 						"Cannot delete the [$theOffset] offset: "
 					   ."the object is committed." );							// !@! ==>
@@ -794,6 +793,42 @@ trait PersistentTrait
 		return $ok;																	// ==>
 		
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET STATUS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	lockedOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return list of locked offsets
+	 *
+	 * This method should return the list of locked offsets, that is, the offsets which
+	 * cannot be modified once the object has been committed.
+	 *
+	 * In this class we return the same offsets as the {@link $sInternalTags} list and the
+	 * {@link kTAG_PID} offset, in derived classes you should merge the offsets of the
+	 * parent classes with the current ones.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_PID
+	 * @see self::$sInternalTags
+	 */
+	protected function lockedOffsets()
+	{
+		return array_merge( (array) kTAG_PID, static::$sInternalTags );				// ==>
+	
+	} // lockedOffsets.
 
 	 
 

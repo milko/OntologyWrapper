@@ -17,8 +17,8 @@ namespace OntologyWrapper;
 /**
  * Container object
  *
- * This <em>abstract</em> class is the ancestor of classes that define objects that handle
- * structured data and that are persistent.
+ * This class is the ancestor of classes that define objects that handle structured data and
+ * that are persistent.
  *
  * The class extends <code>{@link ArrayObject}</code> by treating the inherited array as the
  * persistent store and all other data members as run-time data. The convention is that
@@ -104,7 +104,7 @@ namespace OntologyWrapper;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
  */
-abstract class ContainerObject extends \ArrayObject
+class ContainerObject extends \ArrayObject
 {
 		
 

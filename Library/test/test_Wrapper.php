@@ -96,15 +96,7 @@ try
 	$database = $server->Database( 'TEST' );
 	$database->openConnection();
 	$database->drop();
-	
-$test = new MyClass();
-$test->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-$test->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-$test->openConnections();
-$_SESSION[ kSESSION_DDICT ]->Connection()->flush();
-$test->loadXMLFile( '/Library/WebServer/Library/OntologyWrapper/Library/standards/default/Tags.xml' );
-exit;
+
 	//
 	// Test parent class.
 	//
@@ -202,6 +194,25 @@ exit;
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Reset ontology.
+	//
+	echo( '<h4>Reset ontology</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test->resetOntology();' );
+	$test->resetOntology();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $_SESSION[ kSESSION_DDICT ]->Connection()->getAllKeys() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

@@ -1,38 +1,40 @@
 <?php
 
 /**
- * Term.php
+ * Edge.php
  *
- * This file contains the definition of the {@link Term} class.
+ * This file contains the definition of the {@link Edge} class.
  */
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\TermObject;
+use OntologyWrapper\Node;
+use OntologyWrapper\Term;
+use OntologyWrapper\EdgeObject;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*
- *										Term.php										*
+ *										Edge.php										*
  *																						*
  *======================================================================================*/
 
 /**
- * Term
+ * Edge
  *
- * This class implements a persistent {@link TermObject} instance, the class concentrates on
+ * This class implements a persistent {@link EdgeObject} instance, the class concentrates on
  * implementing all the necessary elements to ensure persistence to instances of this class
  * and referential integrity.
  *
- * The object is considered initialised, {@link isInited()}, if it has at least the local
- * identifier, {@link kTAG_LID}, and the label, {@link kTAG_LABEL}.
+ * The object is considered initialised, {@link isInited()}, if it has at least the subject,
+ * predicate and object references.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 07/02/2014
+ *	@version	1.00 11/02/2014
  */
-class Term extends TermObject
+class Edge extends EdgeObject
 {
 	/**
 	 * Persistent trait.
@@ -49,7 +51,7 @@ class Term extends TermObject
 	 *
 	 * @var string
 	 */
-	const kSEQ_NAME = '_terms';
+	const kSEQ_NAME = '_edges';
 
 		
 
@@ -76,6 +78,8 @@ class Term extends TermObject
 	 * @access public
 	 *
 	 * @uses instantiateObject()
+	 *
+	 * @see kTAG_SUBJECT kTAG_PREDICATE kTAG_OBJECT
 	 */
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{
@@ -87,8 +91,9 @@ class Term extends TermObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+		$this->isInited( \ArrayObject::offsetExists( kTAG_OBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_SUBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_PREDICATE ) );
 
 	} // Constructor.
 
@@ -277,7 +282,7 @@ class Term extends TermObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_LID kTAG_LABEL
+	 * @see kTAG_SUBJECT kTAG_PREDICATE kTAG_OBJECT
 	 */
 	protected function postOffsetSet( &$theOffset, &$theValue )
 	{
@@ -289,8 +294,9 @@ class Term extends TermObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+		$this->isInited( \ArrayObject::offsetExists( kTAG_OBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_SUBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_PREDICATE ) );
 	
 	} // postOffsetSet.
 
@@ -308,7 +314,7 @@ class Term extends TermObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_LID kTAG_LABEL
+	 * @see kTAG_SUBJECT kTAG_PREDICATE kTAG_OBJECT
 	 */
 	protected function postOffsetUnset( &$theOffset )
 	{
@@ -320,8 +326,9 @@ class Term extends TermObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+		$this->isInited( \ArrayObject::offsetExists( kTAG_OBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_SUBJECT ) &&
+						 \ArrayObject::offsetExists( kTAG_PREDICATE ) );
 	
 	} // postOffsetUnset.
 
@@ -342,23 +349,25 @@ class Term extends TermObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we add the namespace and local identifier offsets.
+	 * In this class we add the subject, predicate and object offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_NS kTAG_LID
+	 * @see kTAG_SUBJECT kTAG_PREDICATE kTAG_OBJECT
 	 */
 	protected function lockedOffsets()
 	{
 		return array_merge( parent::lockedOffsets(),
-							array( kTAG_NS, kTAG_LID ) );							// ==>
+							array( kTAG_OBJECT,
+								   kTAG_SUBJECT,
+								   kTAG_PREDICATE ) );								// ==>
 	
 	} // lockedOffsets.
 
 	 
 
-} // class Term.
+} // class Edge.
 
 
 ?>

@@ -142,6 +142,60 @@
 	</META>
 	
 	<!-- 5 -->
+	<!-- kTAG_TAG -->
+	<META>
+       <TERM ns="" lid="tag">
+            <item const="kTAG_LABEL">
+                <item lang="en">Tag reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>reference</em> to a <em>tag</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:tag</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:tag</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Tag</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>string</em> representing the <em>native identifier</em> of a <em>tag object</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 6 -->
+	<!-- kTAG_TERM -->
+	<META>
+       <TERM ns="" lid="term">
+            <item const="kTAG_LABEL">
+                <item lang="en">Term reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>reference</em> to a <em>term</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:term</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:term</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Term reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>string</em> representing the <em>native identifier</em> of a <em>term object</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 7 -->
 	<!-- kTAG_TERMS -->
 	<META>
        <TERM ns="" lid="terms">
@@ -171,7 +225,88 @@
 		</TAG>
 	</META>
 	
-	<!-- 6 -->
+	<!-- 8 -->
+	<!-- kTAG_SUBJECT -->
+	<META>
+       <TERM ns="" lid="subject">
+            <item const="kTAG_LABEL">
+                <item lang="en">Subject vertex reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>reference</em> to the <em>subject of a relationship</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:subject</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:node</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Subject</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[An <em>integer</em> value representing the <em>native identifier</em> of the <em>node object</em> which is the <em>subject of a relationship</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 9 -->
+	<!-- kTAG_PREDICATE -->
+	<META>
+       <TERM ns="" lid="predicate">
+            <item const="kTAG_LABEL">
+                <item lang="en">Relationship predicate reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>reference</em> to the <em>predicate of a relationship</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:predicate</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:term</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Predicate</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>string</em> value representing the <em>native identifier</em> of the <em>term object</em> which is the <em>predicate of a relationship</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 10 -->
+	<!-- kTAG_OBJECT -->
+	<META>
+       <TERM ns="" lid="object">
+            <item const="kTAG_LABEL">
+                <item lang="en">Object vertex reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <em>reference</em> to the <em>object of a relationship</em>.]]></item>
+            </item>
+        </TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:object</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:node</item>
+			</item>
+            <item const="kTAG_LABEL">
+                <item lang="en">Object</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[An <em>integer</em> value representing the <em>native identifier</em> of the <em>node object</em> which is the <em>object of a relationship</em>.]]></item>
+            </item>
+		</TAG>
+	</META>
+	
+	<!-- 11 -->
 	<!-- kTAG_DATA_TYPE -->
 	<META>
        <TERM ns="" lid="data-type">
@@ -198,7 +333,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 7 -->
+	<!-- 12 -->
 	<!-- kTAG_DATA_KIND -->
 	<META>
        <TERM ns="" lid="data-kind">
@@ -225,7 +360,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 8 -->
+	<!-- 13 -->
 	<!-- kTAG_LABEL -->
 	<META>
        <TERM ns="" lid="label">
@@ -252,7 +387,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 9 -->
+	<!-- 14 -->
 	<!-- kTAG_DEFINITION -->
 	<META>
        <TERM ns="" lid="definition">
@@ -279,7 +414,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 10 -->
+	<!-- 15 -->
 	<!-- kTAG_DESCRIPTION -->
 	<META>
        <TERM ns="" lid="description">
@@ -308,7 +443,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 11 -->
+	<!-- 16 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
        <TERM ns=":connection" lid="protocol">
@@ -321,7 +456,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:protocol</item>
+				<item>:connection:protocol</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -335,7 +470,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 12 -->
+	<!-- 17 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
        <TERM ns=":connection" lid="host">
@@ -348,7 +483,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:host</item>
+				<item>:connection:host</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -362,7 +497,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 13 -->
+	<!-- 18 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
        <TERM ns=":connection" lid="port">
@@ -375,7 +510,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:port</item>
+				<item>:connection:port</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:int</item>
@@ -389,7 +524,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 14 -->
+	<!-- 19 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
        <TERM ns=":connection" lid="user">
@@ -402,7 +537,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:user</item>
+				<item>:connection:user</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -416,7 +551,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 15 -->
+	<!-- 20 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
        <TERM ns=":connection" lid="pass">
@@ -429,7 +564,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:pass</item>
+				<item>:connection:pass</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -443,7 +578,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 16 -->
+	<!-- 21 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
        <TERM ns=":connection" lid="database">
@@ -456,7 +591,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:database</item>
+				<item>:connection:database</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -470,7 +605,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 17 -->
+	<!-- 22 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
        <TERM ns=":connection" lid="collection">
@@ -483,7 +618,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:collection</item>
+				<item>:connection:collection</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -497,7 +632,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 18 -->
+	<!-- 23 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
        <TERM ns=":connection" lid="options">
@@ -510,7 +645,7 @@
         </TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>::connection:options</item>
+				<item>:connection:options</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:array</item>
@@ -526,7 +661,7 @@
 	
 	<!-- Sub-structure elements -->
 	
-	<!-- 19 -->
+	<!-- 24 -->
 	<!-- kTAG_SUB_LANGUAGE -->
 	<META>
 	    <TERM ns=":sub" lid="language">
@@ -553,7 +688,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 20 -->
+	<!-- 25 -->
 	<!-- kTAG_SUB_TEXT -->
 	<META>
        <TERM ns=":sub" lid="text">

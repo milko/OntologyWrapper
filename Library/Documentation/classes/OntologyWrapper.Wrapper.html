@@ -155,13 +155,25 @@
         </a>
     </li>
 
-                                                                                                                                                                <li class="method public">
+                                                                                                        <li class="method public">
+        <a href="#method_resetOntology" title="resetOntology :: Reset databases">
+            <span class="description">Reset databases</span><pre>resetOntology</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadTagCache" title="loadTagCache :: Reload tag cache">
+            <span class="description">Reload tag cache</span><pre>loadTagCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_loadXMLFile" title="loadXMLFile :: Load an XML file">
             <span class="description">Load an XML file</span><pre>loadXMLFile</pre>
         </a>
     </li>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public inherited">
         <a href="#method_offsetExists" title="offsetExists :: Check if an offset exists">
             <span class="description">Check if an offset exists</span><pre>offsetExists</pre>
         </a>
@@ -207,12 +219,7 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                    <li class="method protected">
-                            <a href="#method_isReady" title="isReady :: Check if object is ready">
-                                <span class="description">Check if object is ready</span><pre>isReady</pre>
-                            </a>
-                        </li>
-                                                                                                                    <li class="method protected">
+                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected">
                             <a href="#method_loadXMLMetadata" title="loadXMLMetadata :: Parse and load metadata">
                                 <span class="description">Parse and load metadata</span><pre>loadXMLMetadata</pre>
                             </a>
@@ -250,6 +257,11 @@
                                                                                 <li class="method protected">
                             <a href="#method_castXMLScalarValue" title="castXMLScalarValue :: Cast an XML scalar value">
                                 <span class="description">Cast an XML scalar value</span><pre>castXMLScalarValue</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_isReady" title="isReady :: Check if object is ready">
+                                <span class="description">Check if object is ready</span><pre>isReady</pre>
                             </a>
                         </li>
                                                                                                                                                                                                                                                                                                                                             <li class="method protected inherited">
@@ -311,7 +323,7 @@
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -806,17 +818,19 @@ In practice this is true if the metadata, entities and units connections are ope
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_isReady"></a>
-                        <div class="element clickable method protected  method_isReady" data-toggle="collapse" data-target=".method_isReady .collapse">
-                            <h2>Check if object is ready</h2>
-                            <pre>isReady() : boolean</pre>
+                                            <a id="method_resetOntology"></a>
+                        <div class="element clickable method public  method_resetOntology" data-toggle="collapse" data-target=".method_resetOntology .collapse">
+                            <h2>Reset databases</h2>
+                            <pre>resetOntology() </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>This method returns a boolean flag indicating whether the object is ready to be
-connected, in practice, this is true if the object has the metadata, entities and
-units connections.</p></div>
+                                    <div class="long_description"><p>This method can be used to reset the ontology, it will <b>erase the current
+ontology</em>, and re-load it from the files in the standards directory.</p>
+<b><em>When you erase the ontology, you might lose tags and terms which are necessary
+for the entities and the data databases: be aware that by doing so you might render
+these databases useless</em></b>.</div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -825,17 +839,16 @@ units connections.</p></div>
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                        <p>protected</p>
+                                                                                                                                                                        <p>public</p>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
                                                 <th>
-                                                    see
+                                                    throws
                                                 </th>
                                                 <td>
                                                                                                                                                                         
-                                                                                                                                                                            \OntologyWrapper\$mMetadata
-                                                                                                                <p>$mEntities $mUnits</p>
+                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -855,8 +868,55 @@ units connections.</p></div>
                                                                             </table>
 
                                     
-                                                                            <h3>Response</h3>
-                                        <code>boolean</code><p><tt>TRUE</tt> is ready.</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_loadTagCache"></a>
+                        <div class="element clickable method public  method_loadTagCache" data-toggle="collapse" data-target=".method_loadTagCache .collapse">
+                            <h2>Reload tag cache</h2>
+                            <pre>loadTagCache() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method can be used to reset the tag cache.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>public</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
                                                                     </div>
                             </div>
                         </div>
@@ -1170,7 +1230,11 @@ structure has the correct root element.</p></div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>This method will parse and load the provided XML element and return the tag, the
-eventual array element key and the value in the provided references.</p></div>
+eventual array element key and the value in the provided references.</p>
+<p>This method is called recursively, it will first parse the attributes of the element
+determining the current tag, then it will traverse eventual embedded structures until
+a scalar value is found which will be fed to the {@link castXMLScalarValue()} method
+that will cast the value according to the most recent tag's data type.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -1286,6 +1350,60 @@ loading the ontology for the first time, because tags cannot be resolved.</p></d
                                                                             
                                                                             <h3>Response</h3>
                                         <code>mixed</code><p><p>Cast value.</p></p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_isReady"></a>
+                        <div class="element clickable method protected  method_isReady" data-toggle="collapse" data-target=".method_isReady .collapse">
+                            <h2>Check if object is ready</h2>
+                            <pre>isReady() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method returns a boolean flag indicating whether the object is ready to be
+connected, in practice, this is true if the object has the metadata, entities and
+units connections.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>protected</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \OntologyWrapper\$mMetadata
+                                                                                                                <p>$mEntities $mUnits</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><tt>TRUE</tt> is ready.</p>
                                                                     </div>
                             </div>
                         </div>
@@ -2522,7 +2640,7 @@ accessor methods, this method implements this interface:</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 11 Feb 2014 17:56:44 +0100.<br/>
+            generated on Wed, 12 Feb 2014 01:27:31 +0100.<br/>
     </footer>
     </body>
 </html>

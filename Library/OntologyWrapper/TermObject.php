@@ -266,8 +266,7 @@ class TermObject extends OntologyObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we return <tt>TRUE</tt>, to allow method chaining across the
-	 * inheritance.
+	 * In this class we return <tt>TRUE</tt> , assuming the object is ready.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.

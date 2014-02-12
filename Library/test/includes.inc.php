@@ -43,11 +43,19 @@ define( "kPATH_NAMESPACE_ROOT",	"OntologyWrapper" );
 define( "kPATH_LIBRARY_ROOT",	"/Library/WebServer/Library/OntologyWrapper/Library" );
 
 /**
- * Class library root.
+ * Library definitions root.
  *
- * This value defines the <b><i>absolute</i></b> path to the class library root directory.
+ * This value defines the <b><i>absolute</i></b> path to the class library definitions
+ * directory.
  */
 define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
+
+/**
+ * Library standards root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the library standards directory.
+ */
+define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

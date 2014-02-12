@@ -210,12 +210,70 @@ define( "kTAG_PID",						3 );
 define( "kTAG_SEQ",						4 );
 
 /**
- * Branch
+ * Tag
  *
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
  *		<td align="left" valign="top"><code>5</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:tag</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-tag</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Tag</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>tag object reference</i>, it is an
+ *			<i>integer value</i> that must reference an existing tag object.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_TAG",						5 );
+
+/**
+ * Term
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>6</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:term</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-term</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Term</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>term object reference</i>, it is a
+ *			<i>string value</i> that must reference an existing term object.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_TERM",					6 );
+
+/**
+ * Terms
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>7</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -231,7 +289,7 @@ define( "kTAG_SEQ",						4 );
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Branch</td>
+ *		<td align="left" valign="top">Terms</td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
@@ -242,7 +300,95 @@ define( "kTAG_SEQ",						4 );
  *	</tr>
  * </table>
  */
-define( "kTAG_TERMS",					5 );
+define( "kTAG_TERMS",					7 );
+
+/**
+ * Subject
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>8</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:subject</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-node</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Subject</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>node object reference</i>, it
+ *			represents the origin of a <i>subject-predicate-object relationship</i>.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_SUBJECT",					8 );
+
+/**
+ * Predicate
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>9</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:subject</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-term</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Predicate</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>term object reference</i>, it
+ *			represents the <i>relationship between a subject and an object</i>.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_PREDICATE",				9 );
+
+/**
+ * Object
+ *
+ * <table>
+ *	<tr>
+ *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>10</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:subject</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
+ *		<td align="left" valign="top"><code>:type:ref-node</code></td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
+ *		<td align="left" valign="top">Object</td>
+ *	</tr>
+ *	<tr>
+ *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
+ *		<td align="left" valign="top">This tag holds a <i>node object reference</i>, it
+ *			represents the destination of a <i>subject-predicate-object
+ relationship</i>.</td>
+ *	</tr>
+ * </table>
+ */
+define( "kTAG_OBJECT",					10 );
 
 /**
  * Data type
@@ -250,7 +396,7 @@ define( "kTAG_TERMS",					5 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>6</code></td>
+ *		<td align="left" valign="top"><code>11</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -272,7 +418,7 @@ define( "kTAG_TERMS",					5 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DATA_TYPE",				6 );
+define( "kTAG_DATA_TYPE",				11 );
 
 /**
  * Data kind
@@ -280,7 +426,7 @@ define( "kTAG_DATA_TYPE",				6 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>7</code></td>
+ *		<td align="left" valign="top"><code>12</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -303,7 +449,7 @@ define( "kTAG_DATA_TYPE",				6 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DATA_KIND",				7 );
+define( "kTAG_DATA_KIND",				12 );
 
 /**
  * Label
@@ -311,7 +457,7 @@ define( "kTAG_DATA_KIND",				7 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>8</code></td>
+ *		<td align="left" valign="top"><code>13</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -335,7 +481,7 @@ define( "kTAG_DATA_KIND",				7 );
  *	</tr>
  * </table>
  */
-define( "kTAG_LABEL",					8 );
+define( "kTAG_LABEL",					13 );
 
 /**
  * Definition
@@ -343,7 +489,7 @@ define( "kTAG_LABEL",					8 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>9</code></td>
+ *		<td align="left" valign="top"><code>14</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -368,7 +514,7 @@ define( "kTAG_LABEL",					8 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DEFINITION",				9 );
+define( "kTAG_DEFINITION",				14 );
 
 /**
  * Description
@@ -376,7 +522,7 @@ define( "kTAG_DEFINITION",				9 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>10</code></td>
+ *		<td align="left" valign="top"><code>15</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -403,7 +549,7 @@ define( "kTAG_DEFINITION",				9 );
  *	</tr>
  * </table>
  */
-define( "kTAG_DESCRIPTION",				10 );
+define( "kTAG_DESCRIPTION",				15 );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -415,7 +561,7 @@ define( "kTAG_DESCRIPTION",				10 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>11</code></td>
+ *		<td align="left" valign="top"><code>16</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -436,7 +582,7 @@ define( "kTAG_DESCRIPTION",				10 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PROTOCOL",				11 );
+define( "kTAG_CONN_PROTOCOL",				16 );
 
 /**
  * Host
@@ -444,7 +590,7 @@ define( "kTAG_CONN_PROTOCOL",				11 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>12</code></td>
+ *		<td align="left" valign="top"><code>17</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -465,7 +611,7 @@ define( "kTAG_CONN_PROTOCOL",				11 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_HOST",					12 );
+define( "kTAG_CONN_HOST",					17 );
 
 /**
  * Port
@@ -473,7 +619,7 @@ define( "kTAG_CONN_HOST",					12 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>13</code></td>
+ *		<td align="left" valign="top"><code>18</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -494,7 +640,7 @@ define( "kTAG_CONN_HOST",					12 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PORT",					13 );
+define( "kTAG_CONN_PORT",					18 );
 
 /**
  * User
@@ -502,7 +648,7 @@ define( "kTAG_CONN_PORT",					13 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>14</code></td>
+ *		<td align="left" valign="top"><code>19</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -523,7 +669,7 @@ define( "kTAG_CONN_PORT",					13 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_USER",					14 );
+define( "kTAG_CONN_USER",					19 );
 
 /**
  * Pass
@@ -531,7 +677,7 @@ define( "kTAG_CONN_USER",					14 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>15</code></td>
+ *		<td align="left" valign="top"><code>20</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -552,7 +698,7 @@ define( "kTAG_CONN_USER",					14 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_PASS",					15 );
+define( "kTAG_CONN_PASS",					20 );
 
 /**
  * Database
@@ -560,7 +706,7 @@ define( "kTAG_CONN_PASS",					15 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>16</code></td>
+ *		<td align="left" valign="top"><code>21</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -581,7 +727,7 @@ define( "kTAG_CONN_PASS",					15 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_BASE",					16 );
+define( "kTAG_CONN_BASE",					21 );
 
 /**
  * Collection
@@ -589,7 +735,7 @@ define( "kTAG_CONN_BASE",					16 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>17</code></td>
+ *		<td align="left" valign="top"><code>22</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -610,7 +756,7 @@ define( "kTAG_CONN_BASE",					16 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_COLL",					17 );
+define( "kTAG_CONN_COLL",					22 );
 
 /**
  * Options
@@ -618,7 +764,7 @@ define( "kTAG_CONN_COLL",					17 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>18</code></td>
+ *		<td align="left" valign="top"><code>23</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -639,7 +785,7 @@ define( "kTAG_CONN_COLL",					17 );
  *	</tr>
  * </table>
  */
-define( "kTAG_CONN_OPTS",					18 );
+define( "kTAG_CONN_OPTS",					23 );
 
 /*=======================================================================================
  *	DEFAULT SUB-STRUCTURE TAGS															*
@@ -651,7 +797,7 @@ define( "kTAG_CONN_OPTS",					18 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>19</code></td>
+ *		<td align="left" valign="top"><code>24</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -674,7 +820,7 @@ define( "kTAG_CONN_OPTS",					18 );
  *	</tr>
  * </table>
  */
-define( "kTAG_SUB_LANGUAGE",				19 );
+define( "kTAG_SUB_LANGUAGE",				24 );
 
 /**
  * Text
@@ -682,7 +828,7 @@ define( "kTAG_SUB_LANGUAGE",				19 );
  * <table>
  *	<tr>
  *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>20</code></td>
+ *		<td align="left" valign="top"><code>25</code></td>
  *	</tr>
  *	<tr>
  *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
@@ -705,7 +851,7 @@ define( "kTAG_SUB_LANGUAGE",				19 );
  *	</tr>
  * </table>
  */
-define( "kTAG_SUB_TEXT",					20 );
+define( "kTAG_SUB_TEXT",					25 );
 
 
 ?>

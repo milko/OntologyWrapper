@@ -831,8 +831,8 @@ try
 	echo( '<h4>Test add vertex reference path element<br /><i>should add the "feature" string</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( "feature" );'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPush( "feature" );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPush( "feature" );'.kSTYLE_HEAD_POS );
+	$value = $test->TermPush( "feature" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -858,8 +858,8 @@ try
 	echo( '<h4>Test add predicate reference path element<br /><i>should add the "predicate" string</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( "predicate" );'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPush( "predicate" );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPush( "predicate" );'.kSTYLE_HEAD_POS );
+	$value = $test->TermPush( "predicate" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -894,8 +894,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPush( $term );'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPush( $term );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPush( $term );'.kSTYLE_HEAD_POS );
+	$value = $test->TermPush( $term );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -921,8 +921,8 @@ try
 	echo( '<h4>Test count path elements</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchCount();'.kSTYLE_HEAD_POS );
-	$value = $test->BranchCount();
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermCount();'.kSTYLE_HEAD_POS );
+	$value = $test->TermCount();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -938,8 +938,8 @@ try
 	echo( '<h4>Test pop vertex path element<br /><i>should return the "method" string</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPop();
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPop();'.kSTYLE_HEAD_POS );
+	$value = $test->TermPop();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -965,8 +965,8 @@ try
 	echo( '<h4>Test pop predicate path element<br /><i>should return the "predicate" string</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPop();
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPop();'.kSTYLE_HEAD_POS );
+	$value = $test->TermPop();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -992,8 +992,8 @@ try
 	echo( '<h4>Test pop vertex path element<br /><i>should return the "feature" string and delete the offset</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->BranchPop();'.kSTYLE_HEAD_POS );
-	$value = $test->BranchPop();
+	echo( kSTYLE_HEAD_PRE.'$value = $test->TermPop();'.kSTYLE_HEAD_POS );
+	$value = $test->TermPop();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

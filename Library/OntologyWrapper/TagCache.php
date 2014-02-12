@@ -524,7 +524,7 @@ class TagCache extends TagCacheObject
 		//
 		// Load cache.
 		//
-		if( ! $this->mConnection->set( (string) $theKey, $theValue, 0 ) )
+		if( ! $this->mConnection->set( (int) $theKey, $theValue, 0 ) )
 		{
 			$code = $this->mConnection->getResultCode();
 			$message = $this->mConnection->getResultMessage();

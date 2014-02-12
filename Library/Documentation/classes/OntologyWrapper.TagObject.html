@@ -150,20 +150,20 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_BranchPush" title="BranchPush :: Add to terms path">
-            <span class="description">Add to terms path</span><pre>BranchPush</pre>
+        <a href="#method_TermPush" title="TermPush :: Add to terms path">
+            <span class="description">Add to terms path</span><pre>TermPush</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_BranchPop" title="BranchPop :: Add to terms path">
-            <span class="description">Add to terms path</span><pre>BranchPop</pre>
+        <a href="#method_TermPop" title="TermPop :: Pop terms from path">
+            <span class="description">Pop terms from path</span><pre>TermPop</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_BranchCount" title="BranchCount :: Count terms path elements">
-            <span class="description">Count terms path elements</span><pre>BranchCount</pre>
+        <a href="#method_TermCount" title="TermCount :: Count terms path elements">
+            <span class="description">Count terms path elements</span><pre>TermCount</pre>
         </a>
     </li>
 
@@ -367,7 +367,7 @@ The class features the following default offsets:
     provided as an odd sequence of vertices and predicates forming a path of the
     ontology graph in which the first vertex defines the feature, the middle ones
     define the methodology and the last element indicates the scale or unit. To populate
-    the elements of this path, use the {@link BranchPush()} amd {@link BranchPop()}
+    the elements of this path, use the {@link TermPush()} amd {@link TermPop()}
     offset accessor methods which respectively add and remove elements of the branch as
     if it was a stack.
 <li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
@@ -839,10 +839,10 @@ not matched.</p></div>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_BranchPush"></a>
-                        <div class="element clickable method public  method_BranchPush" data-toggle="collapse" data-target=".method_BranchPush .collapse">
+                                            <a id="method_TermPush"></a>
+                        <div class="element clickable method public  method_TermPush" data-toggle="collapse" data-target=".method_TermPush .collapse">
                             <h2>Add to terms path</h2>
-                            <pre>BranchPush(mixed $theTerm) : integer</pre>
+                            <pre>TermPush(mixed $theTerm) : integer</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
                             <div class="row collapse">
@@ -902,10 +902,10 @@ the provided element to the end of the path.</p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_BranchPop"></a>
-                        <div class="element clickable method public  method_BranchPop" data-toggle="collapse" data-target=".method_BranchPop .collapse">
-                            <h2>Add to terms path</h2>
-                            <pre>BranchPop() : string</pre>
+                                            <a id="method_TermPop"></a>
+                        <div class="element clickable method public  method_TermPop" data-toggle="collapse" data-target=".method_TermPop .collapse">
+                            <h2>Pop terms from path</h2>
+                            <pre>TermPop() : string</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
                             <div class="row collapse">
@@ -967,10 +967,10 @@ return <tt>NULL</tt>.</p></div>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_BranchCount"></a>
-                        <div class="element clickable method public  method_BranchCount" data-toggle="collapse" data-target=".method_BranchCount .collapse">
+                                            <a id="method_TermCount"></a>
+                        <div class="element clickable method public  method_TermCount" data-toggle="collapse" data-target=".method_TermCount .collapse">
                             <h2>Count terms path elements</h2>
-                            <pre>BranchCount() : integer</pre>
+                            <pre>TermCount() : integer</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
                             <div class="row collapse">
@@ -1027,8 +1027,7 @@ return <tt>NULL</tt>.</p></div>
                                                                                                                                                                                             </div>
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>In this class we return <tt>TRUE</tt>, to allow method chaining across the
-inheritance.</p></div>
+                                    <div class="long_description"><p>In this class we return <tt>TRUE</tt> , assuming the object is ready.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -2441,7 +2440,7 @@ offsets that do not need to be resolved.</p></div>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 11 Feb 2014 17:56:44 +0100.<br/>
+            generated on Wed, 12 Feb 2014 01:27:31 +0100.<br/>
     </footer>
     </body>
 </html>

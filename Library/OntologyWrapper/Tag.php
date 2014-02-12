@@ -90,7 +90,7 @@ class Tag extends TagObject
 		//
 		// Set initialised status.
 		//
-		$count = $this->BranchCount();
+		$count = $this->TermCount();
 		$this->isInited( $count &&
 						 ($count % 2) &&
 						 \ArrayObject::offsetExists( kTAG_DATA_TYPE ) &&
@@ -249,6 +249,12 @@ class Tag extends TagObject
 				"Tag cache is not set in the session." );						// !@! ==>
 		
 		//
+		// Init local storage.
+		//
+		$nid = (string) $this->offsetGet( kTAG_NID );
+		$seq = (int) $this->offsetGet( kTAG_SEQ );
+		
+		//
 		// Set cache.
 		//
 		if( $theOperation & 0x01 )
@@ -256,19 +262,17 @@ class Tag extends TagObject
 			//
 			// Set tag identifier.
 			//
-			$_SESSION[ kSESSION_DDICT ]
-				->setTagId( kTAG_NID, $this->offsetGet( kTAG_NID ) );
+			$_SESSION[ kSESSION_DDICT ]->setTagId( $nid, $seq );
 		
 			//
 			// Set tag object.
 			//
-			$_SESSION[ kSESSION_DDICT ]
-				->setTagObject( $this->offsetGet( kTAG_NID ), $this );
+			$_SESSION[ kSESSION_DDICT ]->setTagObject( $seq, $this->getArrayCopy() );
 		
 		} // Saving.
 		
 		//
-		// delete cache.
+		// Delete cache.
 		//
 		else
 		{
@@ -280,7 +284,7 @@ class Tag extends TagObject
 			//
 			// Set tag object.
 			//
-			$_SESSION[ kSESSION_DDICT ]->delTagObject( $this->offsetGet( kTAG_NID ) );
+			$_SESSION[ kSESSION_DDICT ]->delTagObject( (int) $this->offsetGet( kTAG_SEQ ) );
 		
 		} // Saving.
 	
@@ -355,7 +359,7 @@ class Tag extends TagObject
 		//
 		// Set initialised status.
 		//
-		$count = $this->BranchCount();
+		$count = $this->TermCount();
 		$this->isInited( $count &&
 						 ($count % 2) &&
 						 \ArrayObject::offsetExists( kTAG_DATA_TYPE ) &&
@@ -389,13 +393,48 @@ class Tag extends TagObject
 		//
 		// Set initialised status.
 		//
-		$count = $this->BranchCount();
+		$count = $this->TermCount();
 		$this->isInited( $count &&
 						 ($count % 2) &&
 						 \ArrayObject::offsetExists( kTAG_DATA_TYPE ) &&
 						 \ArrayObject::offsetExists( kTAG_LABEL ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET STATUS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	lockedOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return list of locked offsets
+	 *
+	 * In this class we add the sequence number, the terms list, the data type and the data
+	 * kind offsets.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_SEQ kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
+	 */
+	protected function lockedOffsets()
+	{
+		return array_merge( parent::lockedOffsets(),
+							array( kTAG_SEQ,
+								   kTAG_TERMS,
+								   kTAG_DATA_TYPE,
+								   kTAG_DATA_KIND ) );								// ==>
+	
+	} // lockedOffsets.
 
 	 
 

@@ -435,35 +435,93 @@ abstract class Wrapper extends ContainerObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED STATUS INTERFACE								*
+ *							PUBLIC INITIALISATION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	isReady																			*
+	 *	resetOntology																	*
 	 *==================================================================================*/
 
 	/**
-	 * Check if object is ready
+	 * Reset databases
 	 *
-	 * This method returns a boolean flag indicating whether the object is ready to be
-	 * connected, in practice, this is true if the object has the metadata, entities and
-	 * units connections.
+	 * This method can be used to reset the ontology, it will <b>erase the current
+	 * ontology</em>, and re-load it from the files in the standards directory.
 	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> is ready.
+	 * <b><em>When you erase the ontology, you might lose tags and terms which are necessary
+	 * for the entities and the data databases: be aware that by doing so you might render
+	 * these databases useless</em></b>.
 	 *
-	 * @see $mMetadata $mEntities $mUnits
+	 * @access public
+	 *
+	 * @throws Exception
 	 */
-	protected function isReady()
+	public function resetOntology()
 	{
-		return ( ($this->mMetadata !== NULL)
-			  && ($this->mEntities !== NULL)
-			  && ($this->mUnits !== NULL) );										// ==>
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Reset the tag cache.
+		//
+		$_SESSION[ kSESSION_DDICT ]->Connection()->flush();
+		
+		//
+		// Drop the ontology database.
+		//
+		$this->mMetadata->drop();
+		
+		//
+		// Load XML files.
+		//
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Types.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
 	
-	} // isReady.
+	} // resetOntology.
+
+	 
+	/*===================================================================================
+	 *	loadTagCache																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reload tag cache
+	 *
+	 * This method can be used to reset the tag cache.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadTagCache()
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load tag cache: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Reset the tag cache.
+		//
+		$_SESSION[ kSESSION_DDICT ]->Connection()->flush();
+		
+		//
+		// Load all tags.
+		//
+	
+	} // resetOntology.
 
 		
 
@@ -812,6 +870,11 @@ abstract class Wrapper extends ContainerObject
 	 * This method will parse and load the provided XML element and return the tag, the
 	 * eventual array element key and the value in the provided references.
 	 *
+	 * This method is called recursively, it will first parse the attributes of the element
+	 * determining the current tag, then it will traverse eventual embedded structures until
+	 * a scalar value is found which will be fed to the {@link castXMLScalarValue()} method
+	 * that will cast the value according to the most recent tag's data type.
+	 *
 	 * @param reference				$theTag				Receives tag identifier.
 	 * @param reference				$theKey				Receives key identifier.
 	 * @param reference				$theValue			Receives tag value.
@@ -1004,6 +1067,40 @@ abstract class Wrapper extends ContainerObject
 		return $value;																// ==>
 	
 	} // loadXMLMetadata.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * This method returns a boolean flag indicating whether the object is ready to be
+	 * connected, in practice, this is true if the object has the metadata, entities and
+	 * units connections.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> is ready.
+	 *
+	 * @see $mMetadata $mEntities $mUnits
+	 */
+	protected function isReady()
+	{
+		return ( ($this->mMetadata !== NULL)
+			  && ($this->mEntities !== NULL)
+			  && ($this->mUnits !== NULL) );										// ==>
+	
+	} // isReady.
 
 	 
 
