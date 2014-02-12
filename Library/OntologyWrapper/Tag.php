@@ -8,6 +8,7 @@
 
 namespace OntologyWrapper;
 
+use OntologyWrapper\Term;
 use OntologyWrapper\TagObject;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
@@ -102,43 +103,435 @@ class Tag extends TagObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CONNECTION INTERFACE							*
+ *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	resolveCollection																*
+	 *	loadTerms																		*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve the collection
+	 * Load term objects list
 	 *
-	 * In this class we use the {@link kSEQ_NAME} constant as the default tags collection
-	 * name.
+	 * This method can be used to resolve the list of terms into a list of objects.
 	 *
-	 * If the method is passed a {@link DatabaseObject} derived instance, the method will
-	 * return a collection for that database with the {@link kSEQ_NAME} name.
+	 * The method will return an array, indexed by term native identifier, containing the
+	 * resolved objects.
 	 *
-	 * If the method is passed any other kind of value it will let its parent handle it.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * If any term cannot be resolved, the method will raise an exception.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection or <tt>NULL</tt>.
+	 * @return array				List of term objects or <tt>NULL</tt>.
 	 */
-	public function resolveCollection( ConnectionObject $theConnection )
+	public function loadTerms()
 	{
 		//
-		// Handle databases.
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check terms.
+				//
+				if( \ArrayObject::offsetExists( kTAG_TERMS ) )
+				{
+					//
+					// Init local storage.
+					//
+					$terms = \ArrayObject::offsetGet( kTAG_TERMS );
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Term::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Iterate terms.
+					//
+					$result = Array();
+					foreach( $terms as $term )
+					{
+						//
+						// Check array.
+						//
+						if( ! array_key_exists( $term, $result ) )
+						{
+							//
+							// Resolve reference.
+							//
+							$object = $collection->resolve( $term );
+							if( $object === NULL )
+								throw new \Exception(
+									"Unable to resolve [$term] term." );		// !@! ==>
+							
+							//
+							// Set object.
+							//
+							$result[ $term ] = $object;
+						
+						} // Not there already.
+					
+					} // Iterating terms.
+					
+					return $result;													// ==>
+					
+				} // Has terms.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadTerms.
+
+	 
+	/*===================================================================================
+	 *	loadDataTypes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load data type objects list
+	 *
+	 * This method can be used to resolve the list of data types into a list of objects.
+	 *
+	 * The method will return an array, indexed by term native identifier, containing the
+	 * resolved objects.
+	 *
+	 * If any term cannot be resolved, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return array				List of term objects or <tt>NULL</tt>.
+	 */
+	public function loadDataTypes()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check terms.
+				//
+				if( \ArrayObject::offsetExists( kTAG_DATA_TYPE ) )
+				{
+					//
+					// Init local storage.
+					//
+					$terms = \ArrayObject::offsetGet( kTAG_DATA_TYPE );
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Term::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Iterate terms.
+					//
+					$result = Array();
+					foreach( $terms as $term )
+					{
+						//
+						// Check array.
+						//
+						if( ! array_key_exists( $term, $result ) )
+						{
+							//
+							// Resolve reference.
+							//
+							$object = $collection->resolve( $term );
+							if( $object === NULL )
+								throw new \Exception(
+									"Unable to resolve [$term] term." );		// !@! ==>
+							
+							//
+							// Set object.
+							//
+							$result[ $term ] = $object;
+						
+						} // Not there already.
+					
+					} // Iterating terms.
+					
+					return $result;													// ==>
+					
+				} // Has terms.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadDataTypes.
+
+	 
+	/*===================================================================================
+	 *	loadDataKinds																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load data type objects list
+	 *
+	 * This method can be used to resolve the list of data types into a list of objects.
+	 *
+	 * The method will return an array, indexed by term native identifier, containing the
+	 * resolved objects.
+	 *
+	 * If any term cannot be resolved, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return array				List of term objects or <tt>NULL</tt>.
+	 */
+	public function loadDataKinds()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check terms.
+				//
+				if( \ArrayObject::offsetExists( kTAG_DATA_KIND ) )
+				{
+					//
+					// Init local storage.
+					//
+					$terms = \ArrayObject::offsetGet( kTAG_DATA_KIND );
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Term::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Iterate terms.
+					//
+					$result = Array();
+					foreach( $terms as $term )
+					{
+						//
+						// Check array.
+						//
+						if( ! array_key_exists( $term, $result ) )
+						{
+							//
+							// Resolve reference.
+							//
+							$object = $collection->resolve( $term );
+							if( $object === NULL )
+								throw new \Exception(
+									"Unable to resolve [$term] term." );		// !@! ==>
+							
+							//
+							// Set object.
+							//
+							$result[ $term ] = $object;
+						
+						} // Not there already.
+					
+					} // Iterating terms.
+					
+					return $result;													// ==>
+					
+				} // Has terms.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadDataKinds.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT AGGREGATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect references
+	 *
+	 * In this class we collect the terms list, the data types and the data kinds.
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access public
+	 */
+	public function collectReferences( &$theContainer, $doObject = TRUE )
+	{
+		//
+		// Check if committed.
+		//
+		if( ! $this->isCommitted() )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object is not committed." );								// !@! ==>
+
+		//
+		// Check collection.
+		//
+		if( $this->mCollection === NULL )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object has no collection." );								// !@! ==>
+		
+		//
+		// Get terms collection.
+		//
+		$collection
+			= $this->mCollection
+				->Parent()
+				->Collection( Term::kSEQ_NAME );
+		$collection->openConnection();
+
+		//
+		// Check terms.
+		//
+		if( \ArrayObject::offsetExists( kTAG_TERMS ) )
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_TERMS ),
+				Term::kSEQ_NAME,
+				$doObject );
+
+		//
+		// Check data types.
+		//
+		if( \ArrayObject::offsetExists( kTAG_DATA_TYPE ) )
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_DATA_TYPE ),
+				Term::kSEQ_NAME,
+				$doObject );
+
+		//
+		// Check data kinds.
+		//
+		if( \ArrayObject::offsetExists( kTAG_DATA_KIND ) )
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_DATA_KIND ),
+				Term::kSEQ_NAME,
+				$doObject );
+	
+	} // collectReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC INSTANTIATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve object
+	 *
+	 * This method can be used to statically instantiate an object from the provided data
+	 * store, it will attempt to select the object matching the provided native identifier
+	 * and return an instance of the originally committed class.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
+	 *		retrieved.
+	 *	<li><b>$theIdentifier</b>: The objet native identifier or sequence number.
+	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
+	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
+	 *		<tt>NULL</tt>.
+	 * </ul>
+	 *
+	 * We implement this method to match objects in the tags collection by matching string
+	 * identifiers with the native identifier and integer identifiers with the sequence
+	 * number.
+	 *
+	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param boolean				$doAssert			Assert object.
+	 *
+	 * @access public
+	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 */
+	static function ResolveObject( ConnectionObject $theConnection,
+													$theIdentifier,
+													$doAssert = TRUE )
+	{
+		//
+		// Resolve collection.
 		//
 		if( $theConnection instanceof DatabaseObject )
-			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
+		{
+			//
+			// Get collection.
+			//
+			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			
+			//
+			// Connect it.
+			//
+			$theConnection->openConnection();
 		
-		return parent::resolveCollection( $theConnection );							// ==>
+		} // Database connection.
+		
+		//
+		// Find object.
+		//
+		$object = ( is_int( $theIdentifier ) )
+				? $theConnection->resolve( $theIdentifier, kTAG_SEQ, TRUE )
+				: $theConnection->resolve( (string) $theIdentifier, kTAG_NID, TRUE );
+		if( $object !== NULL )
+			return $object;															// ==>
+		
+		//
+		// Assert.
+		//
+		if( $doAssert )
+			throw new \Exception(
+				"Unable to locate object." );									// !@! ==>
+		
+		return NULL;																// ==>
 	
-	} // resolveConnection.
+	} // ResolveObject.
 
 		
 
@@ -418,8 +811,9 @@ class Tag extends TagObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we add the sequence number, the terms list, the data type and the data
-	 * kind offsets.
+	 * In this class we return the static {@link $sInternalTags} list, the {@link kTAG_PID},
+	 * {@link kTAG_SEQ}, {@link kTAG_TERMS}, {@link kTAG_DATA_TYPE} and the
+	 * {@link kTAG_DATA_KIND} offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
@@ -428,11 +822,10 @@ class Tag extends TagObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( parent::lockedOffsets(),
-							array( kTAG_SEQ,
-								   kTAG_TERMS,
-								   kTAG_DATA_TYPE,
-								   kTAG_DATA_KIND ) );								// ==>
+		return array_merge( static::$sInternalTags,
+							array( kTAG_PID,
+								   kTAG_SEQ, kTAG_TERMS,
+								   kTAG_DATA_TYPE, kTAG_DATA_KIND ) );				// ==>
 	
 	} // lockedOffsets.
 

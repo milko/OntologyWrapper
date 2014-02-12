@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['getcollections',['getCollections',['../class_ontology_wrapper_1_1_database_object.html#a23409291f9aebd68da532a77c5143a84',1,'OntologyWrapper\DatabaseObject\getCollections()'],['../class_ontology_wrapper_1_1_mongo_database.html#aea2876ae9fc23f227d34fadfcd91c52b',1,'OntologyWrapper\MongoDatabase\getCollections()']]],
+  ['getsequencenumber',['getSequenceNumber',['../class_ontology_wrapper_1_1_collection_object.html#a17487ff9e82b493434a074c787262df0',1,'OntologyWrapper\CollectionObject\getSequenceNumber()'],['../class_ontology_wrapper_1_1_database_object.html#ab731d606a297f2b1980f457efa1bc80d',1,'OntologyWrapper\DatabaseObject\getSequenceNumber()'],['../class_ontology_wrapper_1_1_mongo_database.html#a86848d0cc3c72a0a40938338483799a7',1,'OntologyWrapper\MongoDatabase\getSequenceNumber()']]],
+  ['getstatistics',['getStatistics',['../class_ontology_wrapper_1_1_mongo_server.html#ad0339362ebaba5c344a179ef11d4e102',1,'OntologyWrapper\MongoServer\getStatistics()'],['../class_ontology_wrapper_1_1_server_object.html#afdff50c16982e3266578d75d1fb19dea',1,'OntologyWrapper\ServerObject\getStatistics()']]],
+  ['gettaggid',['getTagGID',['../class_ontology_wrapper_1_1_tag_cache_object.html#ac0cb491eae6addb59a132b8fb11f8c31',1,'OntologyWrapper::TagCacheObject']]],
+  ['gettagid',['getTagId',['../class_ontology_wrapper_1_1_tag_cache.html#ae1b912d5cda8480ad9808d7a13c78e2e',1,'OntologyWrapper\TagCache\getTagId()'],['../class_ontology_wrapper_1_1_tag_cache_object.html#a136e04c97cbefe02abd6f237f2118287',1,'OntologyWrapper\TagCacheObject\getTagId()']]],
+  ['gettagobject',['getTagObject',['../class_ontology_wrapper_1_1_tag_cache.html#a89bb41e8e92f93d4f785dd2bee347e86',1,'OntologyWrapper\TagCache\getTagObject()'],['../class_ontology_wrapper_1_1_tag_cache_object.html#af9f3670137201be86107461026b70a10',1,'OntologyWrapper\TagCacheObject\getTagObject()']]]
+];

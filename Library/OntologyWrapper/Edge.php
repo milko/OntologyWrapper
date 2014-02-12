@@ -101,43 +101,404 @@ class Edge extends EdgeObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CONNECTION INTERFACE							*
+ *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	resolveCollection																*
+	 *	loadSubject																		*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve the collection
+	 * Load subject vertex object
 	 *
-	 * In this class we use the {@link kSEQ_NAME} constant as the default terms collection
-	 * name.
+	 * This method can be used to resolve the subject vertex into an object.
 	 *
-	 * If the method is passed a {@link DatabaseObject} derived instance, the method will
-	 * return a collection for that database with the {@link kSEQ_NAME} name.
+	 * The method will return the subject vertex object if the operation succeeded and
+	 * <tt>NULL</tt> if the object is not committed, if the object does not hold a
+	 * collection reference, or if the object has no subject vertex.
 	 *
-	 * If the method is passed any other kind of value it will let its parent handle it.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * If the subject cannot be resolved, the method will raise an exception.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection or <tt>NULL</tt>.
+	 * @return Node					Resolved reference or <tt>NULL</tt>.
 	 */
-	public function resolveCollection( ConnectionObject $theConnection )
+	public function loadSubject()
 	{
 		//
-		// Handle databases.
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_SUBJECT ) )
+				{
+					//
+					// Get nodes collection.
+					//
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Node::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_SUBJECT );
+					$object = $collection->resolve( $id );
+					if( $object === NULL )
+						throw new \Exception(
+							"Unable to resolve [$id] node." );					// !@! ==>
+					
+					return $object;													// ==>
+					
+				} // Has subject.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadSubject.
+
+	 
+	/*===================================================================================
+	 *	loadPredicate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load predicate object
+	 *
+	 * This method can be used to resolve the predicate into an object.
+	 *
+	 * The method will return the predicate object if the operation succeeded and
+	 * <tt>NULL</tt> if the object is not committed, if the object does not hold a
+	 * collection reference, or if the object has no predicate.
+	 *
+	 * If the predicate cannot be resolved, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return Term					Resolved reference or <tt>NULL</tt>.
+	 */
+	public function loadPredicate()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_PREDICATE ) )
+				{
+					//
+					// Get nodes collection.
+					//
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Term::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_PREDICATE );
+					$object = $collection->resolve( $id );
+					if( $object === NULL )
+						throw new \Exception(
+							"Unable to resolve [$id] term." );					// !@! ==>
+					
+					return $object;													// ==>
+					
+				} // Has predicate.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadPredicate.
+
+	 
+	/*===================================================================================
+	 *	loadObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load object vertex object
+	 *
+	 * This method can be used to resolve the object vertex into an object.
+	 *
+	 * The method will return the object vertex object if the operation succeeded and
+	 * <tt>NULL</tt> if the object is not committed, if the object does not hold a
+	 * collection reference, or if the object has no object vertex.
+	 *
+	 * If the object vertex cannot be resolved, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return Node					Resolved reference or <tt>NULL</tt>.
+	 */
+	public function loadObject()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_OBJECT ) )
+				{
+					//
+					// Get nodes collection.
+					//
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Node::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_OBJECT );
+					$object = $collection->resolve( $id );
+					if( $object === NULL )
+						throw new \Exception(
+							"Unable to resolve [$id] node." );					// !@! ==>
+					
+					return $object;													// ==>
+					
+				} // Has object.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadObject.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT AGGREGATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect references
+	 *
+	 * In this class we collect the subject, predicate and object.
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access public
+	 */
+	public function collectReferences( &$theContainer, $doObject = TRUE )
+	{
+		//
+		// Check if committed.
+		//
+		if( ! $this->isCommitted() )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object is not committed." );								// !@! ==>
+
+		//
+		// Check collection.
+		//
+		if( $this->mCollection === NULL )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object has no collection." );								// !@! ==>
+		
+		//
+		// Handle subject and object.
+		//
+		if( \ArrayObject::offsetExists( kTAG_SUBJECT )
+		 || \ArrayObject::offsetExists( kTAG_OBJECT ) )
+		{
+			//
+			// Get tags collection.
+			//
+			$collection
+				= $this->mCollection
+					->Parent()
+					->Collection( Node::kSEQ_NAME );
+			$collection->openConnection();
+
+			//
+			// Get subject.
+			//
+			if( \ArrayObject::offsetExists( kTAG_SUBJECT ) )
+				$this->collectObjects(
+					$theContainer,
+					$collection,
+					\ArrayObject::offsetGet( kTAG_SUBJECT ),
+					Tag::kSEQ_NAME,
+					$doObject );
+
+			//
+			// Get object.
+			//
+			if( \ArrayObject::offsetExists( kTAG_OBJECT ) )
+				$this->collectObjects(
+					$theContainer,
+					$collection,
+					\ArrayObject::offsetGet( kTAG_OBJECT ),
+					Tag::kSEQ_NAME,
+					$doObject );
+		
+		} // Has subject and/or object.
+		
+		//
+		// Handle predicate.
+		//
+		if( \ArrayObject::offsetExists( kTAG_PREDICATE ) )
+		{
+			//
+			// Get tags collection.
+			//
+			$collection
+				= $this->mCollection
+					->Parent()
+					->Collection( Term::kSEQ_NAME );
+			$collection->openConnection();
+
+			//
+			// Get tag.
+			//
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_PREDICATE ),
+				Term::kSEQ_NAME,
+				$doObject );
+		
+		} // Has predicate.
+	
+	} // collectReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC INSTANTIATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve object
+	 *
+	 * This method can be used to statically instantiate an object from the provided data
+	 * store, it will attempt to select the object matching the provided native identifier
+	 * or the provided array of subject, predicate, object references and return an instance
+	 * of the originally committed class.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
+	 *		retrieved.
+	 *	<li><b>$theIdentifier</b>: The objet native identifier.
+	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
+	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
+	 *		<tt>NULL</tt>.
+	 * </ul>
+	 *
+	 * We implement this method to match objects in the edges collection.
+	 *
+	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param boolean				$doAssert			Assert object.
+	 *
+	 * @access public
+	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 */
+	static function ResolveObject( ConnectionObject $theConnection,
+													$theIdentifier,
+													$doAssert = TRUE )
+	{
+		//
+		// Resolve collection.
 		//
 		if( $theConnection instanceof DatabaseObject )
-			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
+		{
+			//
+			// Get collection.
+			//
+			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			
+			//
+			// Connect it.
+			//
+			$theConnection->openConnection();
 		
-		return parent::resolveCollection( $theConnection );							// ==>
+		} // Database connection.
+		
+		//
+		// Normalise identifier.
+		//
+		if( is_array( $theIdentifier ) )
+			$theIdentifier = implode( kTOKEN_INDEX_SEPARATOR, $theIdentifier );
+		
+		//
+		// Find object.
+		//
+		$object = $theConnection->resolve( $theIdentifier );
+		if( $object !== NULL )
+			return $object;															// ==>
+		
+		//
+		// Assert.
+		//
+		if( $doAssert )
+			throw new \Exception(
+				"Unable to locate object." );									// !@! ==>
+		
+		return NULL;																// ==>
 	
-	} // resolveConnection.
+	} // ResolveObject.
 
 		
 

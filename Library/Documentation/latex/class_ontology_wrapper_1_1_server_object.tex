@@ -1,0 +1,136 @@
+\hypertarget{class_ontology_wrapper_1_1_server_object}{\section{Ontology\-Wrapper\textbackslash{}Server\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_server_object}\index{Ontology\-Wrapper\textbackslash{}\-Server\-Object@{Ontology\-Wrapper\textbackslash{}\-Server\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Server\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_ontology_wrapper_1_1_server_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Server\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{class_ontology_wrapper_1_1_server_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_server_object_a3ce047db243e208640e8eaf89b986c7a}{Database} (\$the\-Name)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_server_object_afdff50c16982e3266578d75d1fb19dea}{get\-Statistics} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static {\bfseries \$s\-Offsets}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_server_object_a0ba24c5513d7b5dc168a0d058adb2aca}{new\-Database} (\$the\-Offsets)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Server object
+
+This {\itshape abstract} class is the ancestor of all classes representing server connection instances, this class extends the \hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} class to implement server specific functionality prototypes. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 06/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_server_object_a3ce047db243e208640e8eaf89b986c7a}{\index{Ontology\-Wrapper\-::\-Server\-Object@{Ontology\-Wrapper\-::\-Server\-Object}!Database@{Database}}
+\index{Database@{Database}!OntologyWrapper::ServerObject@{Ontology\-Wrapper\-::\-Server\-Object}}
+\subsubsection[{Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Server\-Object\-::\-Database (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_server_object_a3ce047db243e208640e8eaf89b986c7a}
+Return database connection
+
+This method can be used to return a database connection from the current server.
+
+The method expects a single parameter which represents the database name, the method should return an instance of a class derived from \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Name} & Database name.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} Database object.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_server_object_a0ba24c5513d7b5dc168a0d058adb2aca}{new\-Database()} \hypertarget{class_ontology_wrapper_1_1_server_object_afdff50c16982e3266578d75d1fb19dea}{\index{Ontology\-Wrapper\-::\-Server\-Object@{Ontology\-Wrapper\-::\-Server\-Object}!get\-Statistics@{get\-Statistics}}
+\index{get\-Statistics@{get\-Statistics}!OntologyWrapper::ServerObject@{Ontology\-Wrapper\-::\-Server\-Object}}
+\subsubsection[{get\-Statistics}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Server\-Object\-::get\-Statistics (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_server_object_afdff50c16982e3266578d75d1fb19dea}
+Return statistics
+
+This method should return the server statistics, the result depends on the specific driver.
+
+The method should return the following retults\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The operation is not supported. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The server is not connected. 
+\item {\ttfamily array}\-: The server statistics. 
+\end{DoxyItemize}
+
+We implement the method in this class as a fall-\/back.
+
+public \begin{DoxyReturn}{Returns}
+array Server statistics, {\ttfamily N\-U\-L\-L} or {\ttfamily F\-A\-L\-S\-E}. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_server_object_a0ba24c5513d7b5dc168a0d058adb2aca}{\index{Ontology\-Wrapper\-::\-Server\-Object@{Ontology\-Wrapper\-::\-Server\-Object}!new\-Database@{new\-Database}}
+\index{new\-Database@{new\-Database}!OntologyWrapper::ServerObject@{Ontology\-Wrapper\-::\-Server\-Object}}
+\subsubsection[{new\-Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Server\-Object\-::new\-Database (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offsets}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_server_object_a0ba24c5513d7b5dc168a0d058adb2aca}
+Return a new database instance
+
+This method should implemented by concrete derived classes, it expects a list of offsets which include server information and should use them to instantiate a \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} instance.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Offsets} & Full database offsets.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} Database instance. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_ontology_wrapper_1_1_server_object_a733e75c9315f054ccf24d9f7b77ebe6c}{\index{Ontology\-Wrapper\-::\-Server\-Object@{Ontology\-Wrapper\-::\-Server\-Object}!\$s\-Offsets@{\$s\-Offsets}}
+\index{\$s\-Offsets@{\$s\-Offsets}!OntologyWrapper::ServerObject@{Ontology\-Wrapper\-::\-Server\-Object}}
+\subsubsection[{\$s\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Server\-Object\-::\$s\-Offsets\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_server_object_a733e75c9315f054ccf24d9f7b77ebe6c}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= array( kTAG\_CONN\_PROTOCOL,
+                                                          kTAG\_CONN\_HOST, kTAG\_CONN\_PORT,
+                                                          kTAG\_CONN\_USER, kTAG\_CONN\_PASS,
+                                                          kTAG\_CONN\_OPTS )
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Server\-Object.\-php\end{DoxyCompactItemize}

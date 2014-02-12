@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\ContainerObject | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li class="active"><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ContainerObject</h1>
+
+
+	<div class="description">
+	
+<p>Container object</p>
+
+<p>This class is the ancestor of classes that define objects that handle
+structured data and that are persistent.</p>
+
+<p>The class extends <code>{@&lt;span class="php-keyword2"&gt;link&lt;/span&gt;
+ArrayObject}</code> by treating the inherited array as the persistent store and
+all other data members as run-time data. The convention is that items stored in
+the array part of the object are called &lt;em&gt;offsets&lt;/em&gt; and are
+considered &lt;em&gt;persistent&lt;/em&gt;, while all other data members are
+called &lt;em&gt;members&lt;/em&gt; and are considered
+&lt;em&gt;run-time&lt;/em&gt; data.</p>
+
+<p>This class implements a framework that governs tha management of the object's
+persistent data. No offset may hold the <tt>NULL</tt> value, setting an offset
+with <tt>NULL</tt> value is equivalent to &lt;em&gt;deleting the
+offset&lt;/em&gt;.</p>
+
+<p>Retrieving non-existant offsets will &lt;em&gt;not&lt;/em&gt; generate a
+warning, but only return <tt>NULL</tt>.</p>
+
+<p>The class features a series of methods that derived classes may use to
+customise the behaviour of the offset management methods:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetExists">OntologyWrapper\ContainerObject::preOffsetExists()</a></code></tt>: This method is called <i>before</i> the
+	<code><a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">OntologyWrapper\ContainerObject::offsetExists()</a></code> method with the offset passed as a reference parameter,
+	the method can be used to change the value of the offset or to provide a custom
+	result: if the method returns <tt>NULL</tt>, <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">OntologyWrapper\ContainerObject::offsetExists()</a></code> will be
+	called; if the method returns any other type of value, this will be returned and
+	<code><a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">OntologyWrapper\ContainerObject::offsetExists()</a></code> will be skipped.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetGet">OntologyWrapper\ContainerObject::preOffsetGet()</a></code></tt>: This is called <i>before</i> the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code> method with the offset passed as a reference parameter, the method
+	can be used to change the value of the offset or to provide a custom result: if
+	the method returns <tt>NULL</tt>, <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code> will be called; if the
+	method returns any other type of value, this will be returned and <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code> will be skipped.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetSet">OntologyWrapper\ContainerObject::preOffsetSet()</a></code></tt>: This is called <i>before</i> the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code> method with the offset and value passed as reference parameters,
+	the method can be used to change the offset or the value: if the method returns
+	<tt>NULL</tt>, <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code> will be called; if the method returns any
+	other type of value, the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code> will be skipped.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetSet">OntologyWrapper\ContainerObject::postOffsetSet()</a></code></tt>: This is called <i>after</i> the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code> method with the offset and value passed as reference parameters,
+	the method can be used to set status or statistical variables, it will only be
+	called if the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code> method was called.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetUnset">OntologyWrapper\ContainerObject::preOffsetUnset()</a></code></tt>: This is called <i>before</i> the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code> method with the offset passed as a reference parameter, the
+	method can be used to change the offset: if the method returns <tt>NULL</tt>,
+	<code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code> will be called; if the method returns any other type of
+	value, the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code> will be skipped.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetUnset">OntologyWrapper\ContainerObject::postOffsetUnset()</a></code></tt>: This is called <i>after</i> the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code> method with the offset passed as a reference parameter, the
+	method can be used to set status or statistical variables, it will only be
+	called if the <code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code> method was called.</li>
+</ul>
+
+<p>The class features a series of methods that are useful for handling the
+persistent data as a whole:</p>
+
+<ul>
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_arrayKeys">OntologyWrapper\ContainerObject::arrayKeys()</a></code>&lt;/em&gt;: This method is the equivalent of
+	the array_keys() function.</li>
+
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_arrayValues">OntologyWrapper\ContainerObject::arrayValues()</a></code>&lt;/em&gt;: This method is the equivalent of
+	the array_values() function.</li>
+</ul>
+
+<p>The class features a static method, <code><a href="class-OntologyWrapper.ContainerObject.html#_Object2Array">OntologyWrapper\ContainerObject::Object2Array()</a></code>, that can be used to
+convert a structure of nested <code><a href="class-ArrayObject.html">ArrayObject</a></code> instances into a nested array,
+this will be useful when normalising objects before persisting.</p>
+
+<p>This class implements a series of methods that can be used by member accessor
+methods to handle properties and offsets in a standard way:</p>
+
+<ul>
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">OntologyWrapper\ContainerObject::manageOffset()</a></code>&lt;/em&gt;: This method provides a standard
+	interface to set, retrieve and delete offset values.</li>
+
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code>&lt;/em&gt;: This method provides a
+	standard interface to set, retrieve and delete elements of an array set, this
+	method provides access to elements of the offset, rather than to the offset,
+	which must be an array or <code><a href="class-ArrayObject.html">ArrayObject</a></code>.</li>
+
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code>&lt;/em&gt;: This method
+	provides a standard interface to set, retrieve and delete elements of an array
+	or <code><a href="class-ArrayObject.html">ArrayObject</a></code>, these elements are an array of two items in which the
+	first one is the discriminator and the second is the value.</li>
+
+	<li>&lt;em&gt;<code><a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">OntologyWrapper\ContainerObject::manageProperty()</a></code>&lt;/em&gt;: This method provides a
+	standard interface to set, retrieve and reset data members.</li>
+</ul>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>OntologyWrapper\ContainerObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-OntologyWrapper.OntologyObject.html">OntologyWrapper\OntologyObject</a>, 
+			<a href="class-OntologyWrapper.Wrapper.html">OntologyWrapper\Wrapper</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a>, 
+			<a href="class-OntologyWrapper.ServerObject.html">OntologyWrapper\ServerObject</a>, 
+			<a href="class-OntologyWrapper.Tag.html">OntologyWrapper\Tag</a>, 
+			<a href="class-OntologyWrapper.TagObject.html">OntologyWrapper\TagObject</a>, 
+			<a href="class-OntologyWrapper.Term.html">OntologyWrapper\Term</a>, 
+			<a href="class-OntologyWrapper.TermObject.html">OntologyWrapper\TermObject</a>, 
+			<a href="class-OntologyWrapper.DatabaseObject.html">OntologyWrapper\DatabaseObject</a>, 
+			<a href="class-OntologyWrapper.Edge.html">OntologyWrapper\Edge</a>, 
+			<a href="class-OntologyWrapper.EdgeObject.html">OntologyWrapper\EdgeObject</a>, 
+			<a href="class-OntologyWrapper.MongoCollection.html">OntologyWrapper\MongoCollection</a>, 
+			<a href="class-OntologyWrapper.MongoDatabase.html">OntologyWrapper\MongoDatabase</a>, 
+			<a href="class-OntologyWrapper.MongoServer.html">OntologyWrapper\MongoServer</a>, 
+			<a href="class-OntologyWrapper.Node.html">OntologyWrapper\Node</a>, 
+			<a href="class-OntologyWrapper.NodeObject.html">OntologyWrapper\NodeObject</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 10/01/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.ContainerObject.html#17-1409" title="Go to source code">ContainerObject.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="offsetExists" id="_offsetExists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#123-147" title="Go to source code">offsetExists</a>( <span>mixed <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Check if an offset exists</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if an offset exists</p>
+
+<p>We overload this method to call the preflight method: if it returns
+<tt>NULL</tt> we call the parent method; if not, we return the received
+value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>mixed</code><br>$theOffset Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br><tt>TRUE</tt> the offset exists.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetExists">OntologyWrapper\ContainerObject::preOffsetExists()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_offsetExists">ArrayObject::offsetExists()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetGet" id="_offsetGet">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#154-187" title="Go to source code">offsetGet</a>( <span>mixed <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a value at a given offset</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a value at a given offset</p>
+
+<p>We overload this method to call the preflight method: if it returns
+<tt>NULL</tt> we call the parent method; if not, we return the received
+value.</p>
+
+<p>We also overload this method to handle unmatched offsets: we prevent warnings
+from being issued and return <tt>NULL</tt>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>mixed</code><br>$theOffset Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Offset value or <tt>NULL</tt>.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetGet">OntologyWrapper\ContainerObject::preOffsetGet()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">OntologyWrapper\ContainerObject::manageOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">OntologyWrapper\ContainerObject::manageArrayOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_offsetGet">ArrayObject::offsetGet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetSet" id="_offsetSet">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#194-244" title="Go to source code">offsetSet</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set a value at a given offset</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set a value at a given offset</p>
+
+<p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we
+stop.</p>
+
+<p>We also overload this method to handle <tt>NULL</tt>
+&lt;em&gt;values&lt;/em&gt;: in that case we delete the offset.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Value to set at offset.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetSet">OntologyWrapper\ContainerObject::preOffsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetSet">OntologyWrapper\ContainerObject::postOffsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">OntologyWrapper\ContainerObject::manageOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">OntologyWrapper\ContainerObject::manageArrayOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_offsetSet">ArrayObject::offsetSet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetUnset" id="_offsetUnset">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#251-286" title="Go to source code">offsetUnset</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Reset a value at a given offset</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reset a value at a given offset</p>
+
+<p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we
+stop.</p>
+
+<p>We also overload this method to prevent warnings on unmatched offsets.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_preOffsetUnset">OntologyWrapper\ContainerObject::preOffsetUnset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetUnset">OntologyWrapper\ContainerObject::postOffsetUnset()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">OntologyWrapper\ContainerObject::manageOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">OntologyWrapper\ContainerObject::manageArrayOffset()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_offsetUnset">ArrayObject::offsetUnset()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="arrayKeys" id="_arrayKeys">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_arrayKeys">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#302-313" title="Go to source code">arrayKeys</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return object's offsets</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object's offsets</p>
+
+<p>This method has the same function as the PHP function array_keys(),
+it will return all the object's offset keys as an array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>List of object offsets.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-ArrayObject.html#_getArrayCopy">ArrayObject::getArrayCopy()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="arrayValues" id="_arrayValues">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_arrayValues">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#320-331" title="Go to source code">arrayValues</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return object's offset values</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object's offset values</p>
+
+<p>This method has the same function as the PHP function array_values(),
+it will return all the object's offset values as an array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>List of object offset values.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-ArrayObject.html#_getArrayCopy">ArrayObject::getArrayCopy()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Object2Array" id="_Object2Array">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Object2Array">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#347-413" title="Go to source code">Object2Array</a>( <span>reference <var>&amp; $theSource</var></span>, <span>reference <var>&amp; $theDestination</var></span> )</code>
+
+		<div class="description short">
+			
+<h4>Convert object to array</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Convert object to array</h4>
+
+<p>This method can be used to obtain an array of arrays from a nested
+structure.</p>
+
+<p>The method expects as the first parameter a reference to an <code><a href="class-ArrayObject.html">ArrayObject</a></code> or to an array, it will convert the provided parameter to an array
+and traverse it, converting recursively any <code><a href="class-ArrayObject.html">ArrayObject</a></code> instance into an
+array.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theSource</tt>: Source structure reference
+	(&lt;em&gt;read-only&lt;/em&gt;).</li>
+
+	<li><tt>$theDestination</tt>: Destination array reference.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSource</var></dt>
+					<dd><code>reference</code><br>$theSource Reference to the source structure.</dd>
+					<dt><var>$theDestination</var></dt>
+					<dd><code>reference</code><br>$theDestination Reference to the destination array.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetExists" id="_preOffsetExists">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetExists">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#429-447" title="Go to source code">preOffsetExists</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset before checking it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset before checking it</p>
+
+<p>This method can be used to manage the offset before passing it to the
+inherited ArrayObject::OffsetExists() method.</p>
+
+<p>The method provides the offset as a reference, if the method returns
+<tt>NULL</tt> it means that the offset must be passed to the inherited ArrayObject::OffsetExists(); if the method returns any other value, this will
+be returned and the inherited ArrayObject::OffsetExists() will be
+skipped.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> check offset, other, return.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">OntologyWrapper\ContainerObject::offsetExists()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetGet" id="_preOffsetGet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetGet">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#454-472" title="Go to source code">preOffsetGet</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset before getting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset before getting it</p>
+
+<p>This method can be used to manage the offset before passing it to the
+inherited ArrayObject::OffsetGet() method.</p>
+
+<p>The method provides the offset as a reference, if the method returns
+<tt>NULL</tt> it means that the offset must be passed to the inherited ArrayObject::OffsetGet(); if the method returns any other value, this must be
+returned and the inherited ArrayObject::OffsetGet() skipped.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> get offset value, other, return.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetSet" id="_preOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#479-498" title="Go to source code">preOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before setting it</p>
+
+<p>This method can be used to manage the offset before passing it to the
+inherited ArrayObject::OffsetSet() method.</p>
+
+<p>The method provides the offset and value as references, if the method returns
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+ArrayObject::OffsetSet(); if the method returns any other value, this
+means that the inherited ArrayObject::OffsetSet() should be skipped.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> set offset value, other, return.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetSet" id="_postOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#505-518" title="Go to source code">postOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value after setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value after setting it</p>
+
+<p>This method can be used to manage the object after calling the ArrayObject::OffsetSet() method.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetUnset" id="_preOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#525-543" title="Go to source code">preOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before deleting it</p>
+
+<p>This method can be used to manage the offset before passing it to the
+inherited ArrayObject::OffsetUnset() method.</p>
+
+<p>The method provides the offset as reference, if the method returns
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+ArrayObject::OffsetUnset(); if the method returns any other value, this
+means that the inherited ArrayObject::OffsetUnset() should be
+skipped.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> delete offset value, other, return.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetUnset" id="_postOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#550-562" title="Go to source code">postOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset after deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset after deleting it</p>
+
+<p>This method can be used to manage the object after calling the ArrayObject::OffsetUnset() method.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageOffset" id="_manageOffset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageOffset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#578-653" title="Go to source code">manageOffset</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<h4>Manage a scalar offset</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Manage a scalar offset</h4>
+
+<p>This class provides a protected interface for member accessor methods, both
+for properties and offsets, this method can be used to manage a scalar offset,
+its options involve setting, retrieving and deleting an offset of the provided
+array or ArrayObject.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theOffset</tt>: The offset to the attribute contained in the previous
+	parameter that is to be managed.</li>
+
+	<li><tt>$theValue</tt>: The value or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the offset's current value.</li>
+
+			<li><tt>FALSE</tt>: Delete the offset.</li>
+
+			<li><i>other</i>: Any other type represents the offset's new value.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value of the offset <i>before</i> it was
+			eventually modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value of the offset <i>after</i> it was
+			eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset to be managed.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue New value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageSetOffset" id="_manageSetOffset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageSetOffset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#660-846" title="Go to source code">manageSetOffset</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<h4>Manage value set offset</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Manage value set offset</h4>
+
+<p>This class provides a protected interface for member accessor methods, both
+for properties and offsets, this method can be used to manage the elements of a
+set of non repeting values, its options involve setting, retrieving and deleting
+elements of the set. This method generally applies to data of the kTYPE_SET data type.</p>
+
+<p>It is assumed that the value at the provided offset is either an array or an
+<code><a href="class-ArrayObject.html">ArrayObject</a></code>, if this is not the case, the method will raise an
+exception.</p>
+
+<p>If you want to manage the set itself, you have to use the offset management
+methods.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theOffset</tt>: The offset to the array attribute that is to be
+	managed.</li>
+
+	<li><tt>$theValue</tt>: The value of the array element.</li>
+
+	<li><tt>$theOperation</tt>: The operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the value if it exists or <tt>NULL</tt>.</li>
+
+			<li><tt>FALSE</tt>: Delete the value if it exists.</li>
+
+			<li><i>other</i>: Any other type represents a new value.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>When setting new values, if the current offset is empty, the method will set
+the new value in an aray; when deleting values, if the existing value is the
+last one, the method will delete the offset itself.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset to be managed.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Array value.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br>$theOperation Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageArrayOffset" id="_manageArrayOffset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageArrayOffset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#853-1042" title="Go to source code">manageArrayOffset</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theKey</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<h4>Manage value set offset</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Manage value set offset</h4>
+
+<p>This class provides a protected interface for member accessor methods, both
+for properties and offsets, this method can be used to manage the elements of a
+key/value array, its options involve setting, retrieving and deleting elements
+of the list by key. This method generally applies to data of the kTYPE_ARRAY data type.</p>
+
+<p>It is assumed that the value at the provided offset is either an array or an
+<code><a href="class-ArrayObject.html">ArrayObject</a></code>, if this is not the case, the method will raise an
+exception.</p>
+
+<p>If you want to manage the array itself, you have to use the offset
+management</p>
+
+<ul>
+	<li>methods.</li>
+</ul>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theOffset</tt>: The offset to the array attribute that is to be
+	managed.</li>
+
+	<li><tt>$theKey</tt>: The element key.</li>
+
+	<li><tt>$theValue</tt>: The element value or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the value at the provided key, or <tt>NULL</tt>.</li>
+
+			<li><tt>FALSE</tt>: Delete the value at the provided key.</li>
+
+			<li><i>other</i>: Any other type represents a new or a replacement value.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>When setting new values, if the current offset is empty, the method will set
+the new value in an aray; when deleting values, if the existing value is the
+last one, the method will delete the offset itself.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset to be managed.</dd>
+					<dt><var>$theKey</var></dt>
+					<dd><code>mixed</code><br>$theKey Element key.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Element value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageElementMatchOffset" id="_manageElementMatchOffset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageElementMatchOffset">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#1049-1338" title="Go to source code">manageElementMatchOffset</a>( <span>string <var>$theOffset</var></span>, <span>string <var>$theTypeOffset</var></span>, <span>string <var>$theDataOffset</var></span>, <span>string <var>$theTypeValue</var></span>, <span>mixed <var>$theDataValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<h4>Manage element match offset</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Manage element match offset</h4>
+
+<p>This class provides a protected interface for member accessor methods, both
+for properties and offsets, this method can be used to manage the elements of an
+array of array elements in which one item's value represents the
+discriminant.</p>
+
+<p>Offsets of this kind are arrays or <code><a href="class-ArrayObject.html">ArrayObject</a></code> instances that
+represent a list of elements, each of which is constituted by an array of two
+elements, where the value matching the <tt>$theTypeOffset</tt> key represents
+the element key and the value matching the <tt>$theDataOffset</tt> key
+represents the element's value.</p>
+
+<p>This method allows retrieving the element value and deleting or setting an
+element.</p>
+
+<p>It is assumed that the value at the provided offset is either an array or an
+<code><a href="class-ArrayObject.html">ArrayObject</a></code>, if this is not the case, the method will raise an
+exception.</p>
+
+<p>If you want to manage the set itself, you have to use the offset management
+methods.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theOffset</tt>: The offset to the attribute containing the match
+	list.</li>
+
+	<li><tt>$theTypeOffset</tt>: The offset to the type within the element.</li>
+
+	<li><tt>$theDataOffset</tt>: The offset to the data within the element.</li>
+
+	<li><tt>$theTypeValue</tt>: The value of the element's type to match, it
+	represents the key to the element; we assume the value to be a string. A
+	<tt>NULL</tt> value is used to select the element missing the
+	<tt>$theTypeOffset</tt> offset.</li>
+
+	<li><tt>$theDataValue</tt>: The value or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the offset's <tt>$theDataOffset</tt> value.</li>
+
+			<li><tt>FALSE</tt>: Delete the element matchhing the
+			<tt>$theTypeOffset</tt>.</li>
+
+			<li><i>other</i>: Any other type represents the element's new value.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value of the offset <i>before</i> it was
+			eventually modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value of the offset <i>after</i> it was
+			eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method expects each element to be a structure containing at least an
+element indexed by the <tt>$theDataOffset</tt> offset, if that is not the case,
+the method will raise an exception. All elements are supposed to be arrays.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset to be managed.</dd>
+					<dt><var>$theTypeOffset</var></dt>
+					<dd><code>string</code><br>$theTypeOffset Offset of type item.</dd>
+					<dt><var>$theDataOffset</var></dt>
+					<dd><code>string</code><br>$theDataOffset Offset of data item.</dd>
+					<dt><var>$theTypeValue</var></dt>
+					<dd><code>string</code><br>$theTypeValue Type value.</dd>
+					<dt><var>$theDataValue</var></dt>
+					<dd><code>mixed</code><br>$theDataValue New value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">OntologyWrapper\ContainerObject::offsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">OntologyWrapper\ContainerObject::offsetGet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">OntologyWrapper\ContainerObject::offsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageProperty" id="_manageProperty">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageProperty">#</a>
+		<code><a href="source-class-OntologyWrapper.ContainerObject.html#1345-1405" title="Go to source code">manageProperty</a>( <span>reference <var>&amp; $theMember</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<h4>Manage a property</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Manage a property</h4>
+
+<p>This library implements a standard interface for managing object properties
+using accessor methods, this method implements this interface:</p>
+
+<ul>
+	<li><tt>&amp;$theMember</tt>: Reference to the property being managed.</li>
+
+	<li><tt>$theValue</tt>: The property value or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the current property value.</li>
+
+			<li><tt>FALSE</tt>: Reset the property to <tt>NULL</tt>, the default value.</li>
+
+			<li>&lt;em&gt;other&lt;/em&gt;: Any other type represents the new value of the
+			property.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value of the property &lt;em&gt;before&lt;/em&gt;
+			it was eventually modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value of the property &lt;em&gt;after&lt;/em&gt;
+			it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theMember</var></dt>
+					<dd><code>reference</code><br>$theMember Reference to the data member.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld <tt>TRUE</tt> get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new property value.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#___construct">__construct()</a>, 
+			<a href="class-ArrayObject.html#_append">append()</a>, 
+			<a href="class-ArrayObject.html#_asort">asort()</a>, 
+			<a href="class-ArrayObject.html#_count">count()</a>, 
+			<a href="class-ArrayObject.html#_exchangeArray">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_getArrayCopy">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_getFlags">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_getIterator">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_getIteratorClass">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_ksort">ksort()</a>, 
+			<a href="class-ArrayObject.html#_natcasesort">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_natsort">natsort()</a>, 
+			<a href="class-ArrayObject.html#_serialize">serialize()</a>, 
+			<a href="class-ArrayObject.html#_setFlags">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_setIteratorClass">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_uasort">uasort()</a>, 
+			<a href="class-ArrayObject.html#_uksort">uksort()</a>, 
+			<a href="class-ArrayObject.html#_unserialize">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -96,43 +96,202 @@ class Term extends TermObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CONNECTION INTERFACE							*
+ *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	resolveCollection																*
+	 *	loadNamespace																	*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve the collection
+	 * Load namespace object
 	 *
-	 * In this class we use the {@link kSEQ_NAME} constant as the default terms collection
-	 * name.
+	 * This method can be used to resolve the namespace into an object.
 	 *
-	 * If the method is passed a {@link DatabaseObject} derived instance, the method will
-	 * return a collection for that database with the {@link kSEQ_NAME} name.
+	 * The method will return the namespace object if the operation succeeded and
+	 * <tt>NULL</tt> if the object is not committed, if the object does not hold a
+	 * collection reference, or if the object has no namespace.
 	 *
-	 * If the method is passed any other kind of value it will let its parent handle it.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * If the namespace cannot be resolved, the method will raise an exception.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection or <tt>NULL</tt>.
+	 * @return Term					Resolved reference or <tt>NULL</tt>.
 	 */
-	public function resolveCollection( ConnectionObject $theConnection )
+	public function loadNamespace()
 	{
 		//
-		// Handle databases.
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_NS ) )
+				{
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_NS );
+					$object = $this->mCollection->resolve( $id );
+					if( $object instanceof self )
+						return $object;												// ==>
+					
+					throw new \Exception(
+						"Unable to resolve [$id] namespace." );					// !@! ==>
+				
+				} // Has namespace.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadNamespace.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT AGGREGATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect references
+	 *
+	 * In this class we collect the namespace.
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access public
+	 */
+	public function collectReferences( &$theContainer, $doObject = TRUE )
+	{
+		//
+		// Check if committed.
+		//
+		if( ! $this->isCommitted() )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object is not committed." );								// !@! ==>
+
+		//
+		// Check collection.
+		//
+		if( $this->mCollection === NULL )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object has no collection." );								// !@! ==>
+
+		//
+		// Check namespace.
+		//
+		if( \ArrayObject::offsetExists( kTAG_NS ) )
+			$this->collectObjects(
+				$theContainer,
+				$this->mCollection,
+				\ArrayObject::offsetGet( kTAG_NS ),
+				static::kSEQ_NAME,
+				$doObject );
+	
+	} // collectReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC INSTANTIATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve object
+	 *
+	 * This method can be used to statically instantiate an object from the provided data
+	 * store, it will attempt to select the object matching the provided native identifier
+	 * and return an instance of the originally committed class.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
+	 *		retrieved.
+	 *	<li><b>$theIdentifier</b>: The objet native identifier.
+	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
+	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
+	 *		<tt>NULL</tt>.
+	 * </ul>
+	 *
+	 * We implement this method to match objects in the terms collection.
+	 *
+	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param boolean				$doAssert			Assert object.
+	 *
+	 * @access public
+	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 */
+	static function ResolveObject( ConnectionObject $theConnection,
+													$theIdentifier,
+													$doAssert = TRUE )
+	{
+		//
+		// Resolve collection.
 		//
 		if( $theConnection instanceof DatabaseObject )
-			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
+		{
+			//
+			// Get collection.
+			//
+			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			
+			//
+			// Connect it.
+			//
+			$theConnection->openConnection();
 		
-		return parent::resolveCollection( $theConnection );							// ==>
+		} // Database connection.
+		
+		//
+		// Find object.
+		//
+		$object = $theConnection->resolve( $theIdentifier );
+		if( $object !== NULL )
+			return $object;															// ==>
+		
+		//
+		// Assert.
+		//
+		if( $doAssert )
+			throw new \Exception(
+				"Unable to locate object." );									// !@! ==>
+		
+		return NULL;																// ==>
 	
-	} // resolveConnection.
+	} // ResolveObject.
 
 		
 
@@ -342,7 +501,8 @@ class Term extends TermObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we add the namespace and local identifier offsets.
+	 * In this class we return the static {@link $sInternalTags} list, the {@link kTAG_PID},
+	 * {@link kTAG_NS} and the {@link kTAG_LID} offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
@@ -351,8 +511,8 @@ class Term extends TermObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( parent::lockedOffsets(),
-							array( kTAG_NS, kTAG_LID ) );							// ==>
+		return array_merge( static::$sInternalTags,
+							array( kTAG_PID, kTAG_NS, kTAG_LID ) );					// ==>
 	
 	} // lockedOffsets.
 

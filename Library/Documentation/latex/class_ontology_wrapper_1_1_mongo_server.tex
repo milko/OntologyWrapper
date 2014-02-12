@@ -1,0 +1,139 @@
+\hypertarget{class_ontology_wrapper_1_1_mongo_server}{\section{Ontology\-Wrapper\textbackslash{}Mongo\-Server Class Reference}
+\label{class_ontology_wrapper_1_1_mongo_server}\index{Ontology\-Wrapper\textbackslash{}\-Mongo\-Server@{Ontology\-Wrapper\textbackslash{}\-Mongo\-Server}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Server\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_ontology_wrapper_1_1_mongo_server__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Server\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{class_ontology_wrapper_1_1_mongo_server__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_a2bde1d3f28624801cbb42bf8b94673d4}{is\-Connected} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_ad0339362ebaba5c344a179ef11d4e102}{get\-Statistics} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_abd478e3c641bbe1f40f7edf41e986558}{connection\-Open} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_a0817afd4db82e176e0ebb6c7d5752e6e}{connection\-Close} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}{new\-Database} (\$the\-Offsets)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Mongo server
+
+This class is a {\itshape concrete} implementation of the \hyperlink{class_ontology_wrapper_1_1_server_object}{Server\-Object} wrapping a \hyperlink{}{Mongo\-Client} class. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 06/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_mongo_server_a0817afd4db82e176e0ebb6c7d5752e6e}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!connection\-Close@{connection\-Close}}
+\index{connection\-Close@{connection\-Close}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
+\subsubsection[{connection\-Close}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::connection\-Close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_server_a0817afd4db82e176e0ebb6c7d5752e6e}
+Close connection
+
+We overload this method to reset the connection resource.
+
+protected \hypertarget{class_ontology_wrapper_1_1_mongo_server_abd478e3c641bbe1f40f7edf41e986558}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!connection\-Open@{connection\-Open}}
+\index{connection\-Open@{connection\-Open}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
+\subsubsection[{connection\-Open}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::connection\-Open (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_server_abd478e3c641bbe1f40f7edf41e986558}
+Open connection
+
+This method will instantiate a \hyperlink{}{Mongo\-Client} object and set it in the m\-Connection data member.
+
+This method expects the caller to have checked whether the connection is already open.
+
+If the operation fails, the method will raise an exception.
+
+protected \begin{DoxyReturn}{Returns}
+mixed The native connection. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_server_ad0339362ebaba5c344a179ef11d4e102}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!get\-Statistics@{get\-Statistics}}
+\index{get\-Statistics@{get\-Statistics}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
+\subsubsection[{get\-Statistics}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::get\-Statistics (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_server_ad0339362ebaba5c344a179ef11d4e102}
+Return statistics
+
+This method will return the following values\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily F\-A\-L\-S\-E}\-: The server is not connected. 
+\item {\ttfamily array}\-: The server statistics. 
+\end{DoxyItemize}
+
+public \begin{DoxyReturn}{Returns}
+array Server statistics or {\ttfamily F\-A\-L\-S\-E}. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_server_a2bde1d3f28624801cbb42bf8b94673d4}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!is\-Connected@{is\-Connected}}
+\index{is\-Connected@{is\-Connected}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
+\subsubsection[{is\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::is\-Connected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_server_a2bde1d3f28624801cbb42bf8b94673d4}
+Check if connection is open
+
+We overload this method to assume the object is connected if the resource is a \hyperlink{}{Mongo\-Client}.
+
+public \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} is open. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!new\-Database@{new\-Database}}
+\index{new\-Database@{new\-Database}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
+\subsubsection[{new\-Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::new\-Database (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offsets}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}
+Return a new database instance
+
+This method should implemented by concrete derived classes, it expects a list of offsets which include server information and should use them to instantiate a \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} instance.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Offsets} & Full database offsets.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} Database instance. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Mongo\-Server.\-php\end{DoxyCompactItemize}

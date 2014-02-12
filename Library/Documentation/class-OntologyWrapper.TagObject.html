@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\TagObject | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li class="active"><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class TagObject</h1>
+
+
+	<div class="description">
+	
+<p>Tag object</p>
+
+<p>This class extends <code><a href="class-OntologyWrapper.OntologyObject.html">OntologyWrapper\OntologyObject</a></code> to implement a concrete tag object
+class.</p>
+
+<p>A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a
+data property, it represents the <i>metadata</i> of a data property, or its
+<i>definition</i> in an ontology.</p>
+
+<p>This class features a kTAG_TERMS offset which is an array of <code><a href="class-OntologyWrapper.TermObject.html">OntologyWrapper\TermObject</a></code> references representing a path of vertex and predicate terms of the
+ontology graph, this chain of elements represents a lexical construct, like a
+phrase, that provides the explanation or definition of the current object.</p>
+
+<p>Using a chain of terms, rather than a single term, to provide metadata for a
+data element gives much more flexibility and reusability when defining a data
+dictionary. This sequence is divided in three main sections:</p>
+
+<ul>
+	<li><i>Feature</i>: The first vertex represents the data element feature or
+	trait, this term defines &lt;em&gt;what the data element is&lt;/em&gt;.</li>
+
+	<li><i>Method</i>: The vertices between the first and the last ones represent
+	the &lt;em&gt;methodology&lt;/em&gt; or &lt;em&gt;method&lt;/em&gt; by which the
+	described data was obtained.</li>
+
+	<li><i>Scale</i>: The last vertex of the path represents the
+	&lt;em&gt;unit&lt;/em&gt; or &lt;em&gt;scale&lt;/em&gt; in which the described
+	value is expressed in.</li>
+</ul>
+
+<p>The concatenation of these term references, separated by the kTOKEN_INDEX_SEPARATOR becomes the object global identifier which is stored in
+the object's native identifier offset.</p>
+
+<p>Tags have another offset, kTAG_SEQ, which is an integer sequence
+number: this value must be unique within the tags domain of the current
+ontology. Unlike global identifiers, this value may change across
+implementations, but this is the value used to uniquely identify tags among the
+other elements of the ontology and database.</p>
+
+<p>&lt;em&gt;All offsets in all classes, including this one, are tag sequence
+numbers, which makes the Tag class key in the structure and behaviour of all the
+elements implemented in this library&lt;/em&gt;.</p>
+
+<p>The class features the following default offsets:</p>
+
+<ul>
+	<li><tt>kTAG_NID</tt>: &lt;em&gt;Native identifier&lt;/em&gt;. This
+	required attribute holds a string value which represents the global identifier
+	of the current object. This identifier is immutable and represents the unique
+	key. This string is constituted by the concatenation of all term references
+	stored in the current object's branch, kTAG_TERMS. This attribute must
+	be managed with its offset; in derived classes it will be automatically assigned
+	end only available as read-only.</li>
+
+	<li><tt>kTAG_SEQ</tt>: &lt;em&gt;Sequence&lt;/em&gt;. This required
+	attribute holds an integer value which represents the current object's sequence
+	number, as with the global identifier, this value must be unique, except that it
+	may change across implementations. All offset keys in all objects derived from
+	this class ancestor are references to this sequence number. This attribute must
+	be managed with its offset; in derived classes it will be automatically assigned
+	end only available as read-only.</li>
+
+	<li><tt>kTAG_TERMS</tt>: &lt;em&gt;Branch&lt;/em&gt;. This required
+	attribute holds the list of terms comprising the current tag: this is an array
+	of term references provided as an odd sequence of vertices and predicates
+	forming a path of the ontology graph in which the first vertex defines the
+	feature, the middle ones define the methodology and the last element indicates
+	the scale or unit. To populate the elements of this path, use the <code><a href="class-OntologyWrapper.TagObject.html#_TermPush">OntologyWrapper\TagObject::TermPush()</a></code> amd <code><a href="class-OntologyWrapper.TagObject.html#_TermPop">OntologyWrapper\TagObject::TermPop()</a></code> offset accessor methods which respectively add
+	and remove elements of the branch as if it was a stack.</li>
+
+	<li><tt>kTAG_DATA_TYPE</tt>: &lt;em&gt;Data type&lt;/em&gt;. This
+	attribute is an enumerated set of values listing all the &lt;em&gt;data
+	types&lt;/em&gt; that the value of the property defined by the current tag may
+	take. To populate and handle individual data types use the <code><a href="class-OntologyWrapper.TagObject.html#_DataType">OntologyWrapper\TagObject::DataType()</a></code>
+	offset accessor method. This property is &lt;em&gt;required&lt;/em&gt; by all
+	tag objects.</li>
+
+	<li><tt>kTAG_DATA_KIND</tt>: &lt;em&gt;Data kind&lt;/em&gt;. This
+	attribute is an enumerated set of values providing the &lt;em&gt;data
+	attributes&lt;/em&gt; of the property defined by the current tag. This may be
+	whether the property is a list of values, or if the property is required or not.
+	To populate and handle individual data kinds use the <code><a href="class-OntologyWrapper.TagObject.html#_DataKind">OntologyWrapper\TagObject::DataKind()</a></code> offset
+	accessor method.</li>
+
+	<li><tt>kTAG_LABEL</tt>: &lt;em&gt;Label&lt;/em&gt;. The label
+	represents the <i>name or short description</i> of the data property that the
+	current object defines. All tags &lt;em&gt;should&lt;/em&gt; have a label, since
+	this is how human users will be able to identify and select them. This attribute
+	has the kTYPE_KIND_VALUE data type, which is constituted by a list of
+	elements in which the kTAG_SUB_LANGUAGE item holds the label language
+	code and the kTAG_SUB_TEXT holds the label text. To populate and handle
+	labels by language, use the <code><a href="class-OntologyWrapper.TagObject.html#_Label">OntologyWrapper\TagObject::Label()</a></code> offset accessor method.</li>
+
+	<li><tt>kTAG_DESCRIPTION</tt>: &lt;em&gt;Description&lt;/em&gt;. The
+	description tag represents the <i>description or extended definition</i> of the
+	property that the current tag defines. The description is similar to the
+	&lt;em&gt;definition&lt;/em&gt;, except that while the definition provides a
+	description of the object it defines unrelated to context, the description adds
+	to the definition the elements added by the current context. All tags
+	&lt;em&gt;should&lt;/em&gt; have a description, if the tag label is not enough
+	to provide a sufficient description or definition. Descriptions have the kTYPE_KIND_VALUE data type, which is constituted by a list of elements in which
+	the kTAG_SUB_LANGUAGE item holds the description language code and the
+	kTAG_SUB_TEXT holds the description text. To populate and handle
+	descriptions by language, use the <code><a href="class-OntologyWrapper.TagObject.html#_Description">OntologyWrapper\TagObject::Description()</a></code> offset accessor
+	method.</li>
+</ul>
+
+<p>The <code><a href="class-OntologyWrapper.TagObject.html#___toString">OntologyWrapper\TagObject::__toString()</a></code> method will return the value stored in the global
+identifier, if set, or the computed global identifier which is the concatenation
+of all term references stored in the kTAG_TERMS offset, separated by the
+kTOKEN_INDEX_SEPARATOR.</p>
+
+<p>The class also features a pair of methods, Feature() and Scale(), which respectively return the first and last vertex of the ontology
+branch this object represents: the feature is a term that represents the main
+feature or trait that the current tag defines, the scale is a term that
+represents the scale or unit in which values defined by the current tag are
+expressed in.</p>
+
+<p>Objects of this class can hold any additional attribute that is considered
+necessary or useful to define and share the current tag. In this class we define
+only those attributes that constitute the core functionality of the object,
+derived classes will add attributes specific to the domain in which the object
+will operate and eventually restrict the functionality of other offsets to
+provide referential integrity.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.ContainerObject.html"><span>OntologyWrapper\ContainerObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.OntologyObject.html"><span>OntologyWrapper\OntologyObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>OntologyWrapper\TagObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-OntologyWrapper.Tag.html">OntologyWrapper\Tag</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 05/02/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.TagObject.html#19-656" title="Go to source code">TagObject.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#150-180" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<h4>Return global identifier</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Return global identifier</h4>
+
+<p>The global identifier of tags is stored in its kTAG_NID offset: if
+set, this method will return that value. If that offset is not set, the method
+will concatenate the value of all the elements of the kTAG_TERMS
+separated by the kTOKEN_INDEX_SEPARATOR token.</p>
+
+<p>If the kTAG_TERMS offset is not set, the method will return an empty
+string.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>The global identifier.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Label" id="_Label">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Label">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#196-244" title="Go to source code">Label</a>( <span>string <var>$theLanguage</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage tag label</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage tag label</p>
+
+<p>This method can be used to add, retrieve and delete individual labels by
+language, while managing all the labels as a whole can be done using the kTAG_LABEL offset.</p>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+	<li><b>$theLanguage</b>: This parameter holds the language code of the text we
+	want to manage. If <tt>NULL</tt>, it means that there is a text without a
+	language; this can occur if the label is a name unrelated to any language.</li>
+
+	<li><b>$theValue</b>: This parameter identifies the label text or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the label of the provided language.</li>
+
+			<li><tt>FALSE</tt>: Delete the label of the provided language.</li>
+
+			<li><i>other</i>: Any other value is cast to string and interpreted as the text
+			of the label in the provided language which will be inserted, or that will
+			replace an existing entry.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will return either the label text, or <tt>NULL</tt> if the
+language was not matched.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theLanguage</var></dt>
+					<dd><code>string</code><br>$theLanguage Label language.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Label text or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_LABEL kTAG_SUB_LANGUAGE kTAG_SUB_TEXT<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Description" id="_Description">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Description">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#251-299" title="Go to source code">Description</a>( <span>string <var>$theLanguage</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage tag description</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage tag description</p>
+
+<p>This method can be used to add, retrieve and delete individual descriptions
+by language, while managing all the descriptions as a whole can be done using
+the kTAG_DESCRIPTION offset.</p>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+	<li><b>$theLanguage</b>: This parameter holds the language code of the text we
+	want to manage. The <tt>NULL</tt> value should generally
+	&lt;em&gt;not&lt;/em&gt; be used, definitions may not contain language elements,
+	while descriptons should.</li>
+
+	<li><b>$theValue</b>: This parameter identifies the description text or
+	operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the description of the provided language.</li>
+
+			<li><tt>FALSE</tt>: Delete the description of the provided language.</li>
+
+			<li><i>other</i>: Any other value is cast to string and interpreted as the text
+			of the description in the provided language which will be inserted, or that will
+			replace an existing entry.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will return either the description text, or <tt>NULL</tt> if the
+language was not matched.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theLanguage</var></dt>
+					<dd><code>string</code><br>$theLanguage Description language.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Description text or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_DESCRIPTION kTAG_SUB_LANGUAGE kTAG_SUB_TEXT<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="DataType" id="_DataType">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DataType">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#306-352" title="Go to source code">DataType</a>( <span>string <var>$theValue</var></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage data type</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage data type</p>
+
+<p>This method can be used to add, retrieve and delete individual data type
+enumerated values; to manage the enumerated set as a whole, use the kTAG_DATA_TYPE offset.</p>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+	manage.</li>
+
+	<li><b>$theOperation</b>: This parameter identifies the operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the enumerated value, if it exists, or
+			<tt>NULL</tt>.</li>
+
+			<li><tt>FALSE</tt>: Delete the enumerated value, if it exists.</li>
+
+			<li><i>other</i>: Any other value means that we want to set the enumerated value
+			provided in the previous parameter.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will return either the enumerated value, or <tt>NULL</tt> if the
+value was not matched.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br>$theValue Data type.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br>$theOperation Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_DATA_TYPE<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="DataKind" id="_DataKind">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DataKind">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#359-405" title="Go to source code">DataKind</a>( <span>string <var>$theValue</var></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage data kind</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage data kind</p>
+
+<p>This method can be used to add, retrieve and delete individual data kind
+enumerated values; to manage the enumerated set as a whole, use the kTAG_DATA_KIND offset.</p>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+	manage.</li>
+
+	<li><b>$theOperation</b>: This parameter identifies the operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the enumerated value, if it exists, or
+			<tt>NULL</tt>.</li>
+
+			<li><tt>FALSE</tt>: Delete the enumerated value, if it exists.</li>
+
+			<li><i>other</i>: Any other value means that we want to set the enumerated value
+			provided in the previous parameter.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually
+			modified.</li>
+
+			<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will return either the enumerated value, or <tt>NULL</tt> if the
+value was not matched.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br>$theValue Data type.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br>$theOperation Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Old or new value.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_DATA_KIND<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">OntologyWrapper\ContainerObject::manageSetOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="TermPush" id="_TermPush">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_TermPush">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#421-494" title="Go to source code">TermPush</a>( <span>mixed <var>$theTerm</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add to terms path</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add to terms path</p>
+
+<p>This method can be used to append elements to the object's terms path, it
+will add the provided element to the end of the path.</p>
+
+<p>If you provide a <code><a href="class-OntologyWrapper.TermObject.html">OntologyWrapper\TermObject</a></code> as the parameter, the method will <code><a href="class-OntologyWrapper.OntologyObject.html#_Reference">OntologyWrapper\OntologyObject::Reference()</a></code> it.</p>
+
+<p>The method will return the number of elements in the path.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theTerm</var></dt>
+					<dd><code>mixed</code><br>$theTerm Term reference or object.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Number of elements in path.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TERMS<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="TermPop" id="_TermPop">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_TermPop">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#501-554" title="Go to source code">TermPop</a>( )</code>
+
+		<div class="description short">
+			
+<p>Pop terms from path</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Pop terms from path</p>
+
+<p>This method can be used to pop elements off the end of the object's terms
+path, it will remove the last element in the sequence.</p>
+
+<p>When you remove the last element of the path, the method will also remove the
+offset.</p>
+
+<p>The method will return the removed element; if the path is empty, the method
+will return <tt>NULL</tt>.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Removed element or <tt>NULL</tt>.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TERMS<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">OntologyWrapper\ContainerObject::manageElementMatchOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="TermCount" id="_TermCount">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_TermCount">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#561-581" title="Go to source code">TermCount</a>( )</code>
+
+		<div class="description short">
+			
+<p>Count terms path elements</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Count terms path elements</p>
+
+<p>This method will return the number of elements in the object's terms
+path.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Number of elements in terms path.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TERMS<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isReady" id="_isReady">
+
+		<td class="attributes"><code>
+			 protected 
+			Boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isReady">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#597-605" title="Go to source code">isReady</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check if object is ready</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if object is ready</p>
+
+<p>In this class we return <tt>TRUE</tt> , assuming the object is ready.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Boolean</code><br><tt>TRUE</tt> means ready.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetSet" id="_preOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.TagObject.html#621-652" title="Go to source code">preOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before setting it</p>
+
+<p>In this class we cast the value of the sequence number into an integer.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> set offset value, other, return.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_NS<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.OntologyObject.html#_preOffsetSet">OntologyWrapper\OntologyObject::preOffsetSet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.OntologyObject.html#methods">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#_CastOffsetValue">CastOffsetValue()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_Reference">Reference()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_ResolveOffset">ResolveOffset()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetExists">preOffsetExists()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetGet">preOffsetGet()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetUnset">preOffsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.ContainerObject.html#methods">OntologyWrapper\ContainerObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ContainerObject.html#_Object2Array">Object2Array()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayKeys">arrayKeys()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayValues">arrayValues()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">manageArrayOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">manageElementMatchOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">manageOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">manageProperty()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">manageSetOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">offsetUnset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_postOffsetSet">postOffsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_postOffsetUnset">postOffsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#___construct">__construct()</a>, 
+			<a href="class-ArrayObject.html#_append">append()</a>, 
+			<a href="class-ArrayObject.html#_asort">asort()</a>, 
+			<a href="class-ArrayObject.html#_count">count()</a>, 
+			<a href="class-ArrayObject.html#_exchangeArray">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_getArrayCopy">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_getFlags">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_getIterator">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_getIteratorClass">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_ksort">ksort()</a>, 
+			<a href="class-ArrayObject.html#_natcasesort">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_natsort">natsort()</a>, 
+			<a href="class-ArrayObject.html#_serialize">serialize()</a>, 
+			<a href="class-ArrayObject.html#_setFlags">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_setIteratorClass">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_uasort">uasort()</a>, 
+			<a href="class-ArrayObject.html#_uksort">uksort()</a>, 
+			<a href="class-ArrayObject.html#_unserialize">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.OntologyObject.html#properties">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#$sInternalTags"><var>$sInternalTags</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

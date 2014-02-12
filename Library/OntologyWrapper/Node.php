@@ -100,43 +100,318 @@ class Node extends NodeObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CONNECTION INTERFACE							*
+ *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	resolveCollection																*
+	 *	loadTag																			*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve the collection
+	 * Load tag object
 	 *
-	 * In this class we use the {@link kSEQ_NAME} constant as the default terms collection
-	 * name.
+	 * This method can be used to resolve the tag into an object.
 	 *
-	 * If the method is passed a {@link DatabaseObject} derived instance, the method will
-	 * return a collection for that database with the {@link kSEQ_NAME} name.
+	 * The method will return the tag object if the operation succeeded and <tt>NULL</tt> if
+	 * the object is not committed, if the object does not hold a collection reference, or
+	 * if the object has no tag.
 	 *
-	 * If the method is passed any other kind of value it will let its parent handle it.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * If the tag cannot be resolved, the method will raise an exception.
 	 *
 	 * @access protected
-	 * @return CollectionObject		Collection or <tt>NULL</tt>.
+	 * @return Tag					Resolved reference or <tt>NULL</tt>.
 	 */
-	public function resolveCollection( ConnectionObject $theConnection )
+	public function loadTag()
 	{
 		//
-		// Handle databases.
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_TAG ) )
+				{
+					//
+					// Get tags collection.
+					//
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Tag::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_TAG );
+					$object = $collection->resolve( $id );
+					if( $object === NULL )
+						throw new \Exception(
+							"Unable to resolve [$id] tag." );					// !@! ==>
+					
+					return $object;													// ==>
+					
+				} // Has tag.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadTag.
+
+	 
+	/*===================================================================================
+	 *	loadTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load term object
+	 *
+	 * This method can be used to resolve the term into an object.
+	 *
+	 * The method will return the term object if the operation succeeded and <tt>NULL</tt>
+	 * if the object is not committed, if the object does not hold a collection reference,
+	 * or if the object has no term.
+	 *
+	 * If the term cannot be resolved, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return Term					Resolved reference or <tt>NULL</tt>.
+	 */
+	public function loadTerm()
+	{
+		//
+		// Check if committed.
+		//
+		if( $this->isCommitted() )
+		{
+			//
+			// Check collection.
+			//
+			if( $this->mCollection !== NULL )
+			{
+				//
+				// Check namespace.
+				//
+				if( \ArrayObject::offsetExists( kTAG_TERM ) )
+				{
+					//
+					// Get tags collection.
+					//
+					$collection
+						= $this->mCollection
+							->Parent()
+							->Collection( Term::kSEQ_NAME );
+					$collection->openConnection();
+					
+					//
+					// Resolve reference.
+					//
+					$id = \ArrayObject::offsetGet( kTAG_TERM );
+					$object = $collection->resolve( $id );
+					if( $object === NULL )
+						throw new \Exception(
+							"Unable to resolve [$id] term." );					// !@! ==>
+					
+					return $object;													// ==>
+					
+				} // Has tag.
+			
+			} // Has collection.
+		
+		} // Committed.
+		
+		return NULL;																// ==>
+	
+	} // loadTerm.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT AGGREGATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect references
+	 *
+	 * In this class we collect the tag or term.
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access public
+	 */
+	public function collectReferences( &$theContainer, $doObject = TRUE )
+	{
+		//
+		// Check if committed.
+		//
+		if( ! $this->isCommitted() )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object is not committed." );								// !@! ==>
+
+		//
+		// Check collection.
+		//
+		if( $this->mCollection === NULL )
+			throw new \Exception(
+				"Unable to collect references: "
+			   ."the object has no collection." );								// !@! ==>
+		
+		//
+		// Handle tag.
+		//
+		if( \ArrayObject::offsetExists( kTAG_TAG ) )
+		{
+			//
+			// Get tags collection.
+			//
+			$collection
+				= $this->mCollection
+					->Parent()
+					->Collection( Tag::kSEQ_NAME );
+			$collection->openConnection();
+
+			//
+			// Get tag.
+			//
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_TAG ),
+				Tag::kSEQ_NAME,
+				$doObject );
+		
+		} // Has tag.
+		
+		//
+		// Handle term.
+		//
+		elseif( \ArrayObject::offsetExists( kTAG_TERM ) )
+		{
+			//
+			// Get tags collection.
+			//
+			$collection
+				= $this->mCollection
+					->Parent()
+					->Collection( Term::kSEQ_NAME );
+			$collection->openConnection();
+
+			//
+			// Get tag.
+			//
+			$this->collectObjects(
+				$theContainer,
+				$collection,
+				\ArrayObject::offsetGet( kTAG_TERM ),
+				Term::kSEQ_NAME,
+				$doObject );
+		
+		} // Has tag.
+	
+	} // collectReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC INSTANTIATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve object
+	 *
+	 * This method can be used to statically instantiate an object from the provided data
+	 * store, it will attempt to select the object matching the provided native identifier
+	 * and return an instance of the originally committed class.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
+	 *		retrieved.
+	 *	<li><b>$theIdentifier</b>: The objet native identifier.
+	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
+	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
+	 *		<tt>NULL</tt>.
+	 * </ul>
+	 *
+	 * We implement this method to match objects in the nodes collection.
+	 *
+	 * @param ConnectionObject		$theConnection		Persistent store.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param boolean				$doAssert			Assert object.
+	 *
+	 * @access public
+	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 */
+	static function ResolveObject( ConnectionObject $theConnection,
+													$theIdentifier,
+													$doAssert = TRUE )
+	{
+		//
+		// Resolve collection.
 		//
 		if( $theConnection instanceof DatabaseObject )
-			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
+		{
+			//
+			// Get collection.
+			//
+			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			
+			//
+			// Connect it.
+			//
+			$theConnection->openConnection();
 		
-		return parent::resolveCollection( $theConnection );							// ==>
+		} // Database connection.
+		
+		//
+		// Find object.
+		//
+		$object = $theConnection->resolve( $theIdentifier );
+		if( $object !== NULL )
+			return $object;															// ==>
+		
+		//
+		// Assert.
+		//
+		if( $doAssert )
+			throw new \Exception(
+				"Unable to locate object." );									// !@! ==>
+		
+		return NULL;																// ==>
 	
-	} // resolveConnection.
+	} // ResolveObject.
 
 		
 
@@ -348,7 +623,8 @@ class Node extends NodeObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we add the term and tag offsets.
+	 * In this class we return the static {@link $sInternalTags} list, the {@link kTAG_PID},
+	 * {@link kTAG_TAG} and the {@link kTAG_TERM} offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
@@ -357,9 +633,9 @@ class Node extends NodeObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( parent::lockedOffsets(),
-							array( kTAG_TAG,
-								   kTAG_TERM ) );									// ==>
+		return array_merge( static::$sInternalTags,
+							array( kTAG_PID,
+								   kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.
 

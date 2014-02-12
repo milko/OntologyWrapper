@@ -77,6 +77,11 @@ class MyClass extends OntologyWrapper\Tag
 	
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+	
+	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
+	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
+	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
+	public function Encoded()	{	return ( $this->isEncoded() ) ? 'checked="1"' : '';	}
 }
 
 
@@ -105,17 +110,19 @@ try
 	$_SESSION[ kSESSION_DDICT ]->init();
 	
 	//
-	// Instantiate server.
+	// Instantiate wrapper.
 	//
-	$server = new OntologyWrapper\MongoServer( "mongodb://localhost:27017" );
-	$server->openConnection();
-	
+	$wrapper = new OntologyWrapper\Wrapper();
+	$wrapper->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->openConnections();
+	$wrapper->resetOntology();
+
 	//
 	// Instantiate database.
 	//
-	$database = $server->Database( 'TEST' );
-	$database->openConnection();
-	$database->drop();
+	$database = $wrapper->Metadata();
 	
 	//
 	// Test parent class.
@@ -1027,6 +1034,50 @@ try
 		echo( "<h3>Current class test</h3>" );
 	
 	//
+	// Instantiate test terms.
+	//
+	echo( '<h4>Instantiate test terms</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$term = new OntologyWrapper\Term();'.'<br \>' );
+	echo( '$term[ kTAG_LID ] = "feature";'.'<br \>' );
+	echo( '$term->Label( "en", "Feature" );'.'<br \>' );
+	echo( '$term->insert( $database );'.'<br \>' );
+	$term = new OntologyWrapper\Term();
+	$term[ kTAG_LID ] = "feature";
+	$term->Label( "en", "Feature" );
+	$term->insert( $database );
+	echo( '$term = new OntologyWrapper\Term();'.'<br \>' );
+	echo( '$term[ kTAG_LID ] = "method";'.'<br \>' );
+	echo( '$term->Label( "en", "Method" );'.'<br \>' );
+	echo( '$term->insert( $database );'.'<br \>' );
+	$term = new OntologyWrapper\Term();
+	$term[ kTAG_LID ] = "method";
+	$term->Label( "en", "Method" );
+	$term->insert( $database );
+	echo( '$term = new OntologyWrapper\Term();'.'<br \>' );
+	echo( '$term[ kTAG_LID ] = "scale";'.'<br \>' );
+	echo( '$term->Label( "en", "Scale" );'.'<br \>' );
+	echo( '$term->insert( $database );'.'<br \>' );
+	$term = new OntologyWrapper\Term();
+	$term[ kTAG_LID ] = "scale";
+	$term->Label( "en", "Scale" );
+	$term->insert( $database );
+	echo( '$term = new OntologyWrapper\Term();'.'<br \>' );
+	echo( '$term[ kTAG_LID ] = "predicate";'.'<br \>' );
+	echo( '$term->Label( "en", "Predicate" );'.'<br \>' );
+	echo( '$term->insert( $database );'.'<br \>' );
+	$term = new OntologyWrapper\Term();
+	$term[ kTAG_LID ] = "predicate";
+	$term->Label( "en", "Predicate" );
+	$term->insert( $database );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
 	// Instantiate and load object.
 	//
 	echo( '<h4>Instantiate and load object</h4>' );
@@ -1047,14 +1098,22 @@ try
 	$test->TermPush( "predicate" );
 	echo( '$test->TermPush( "scale" );'.'<br \>' );
 	$test->TermPush( "scale" );
-	echo( '$test->DataType( ":type:string", TRUE );'.'<br \>' );
-	$test->DataType( ":type:string", TRUE );
-	echo( '$test->DataKind( ":type:list", TRUE );'.'<br \>' );
-	$test->DataKind( ":type:list", TRUE );
+	echo( '$test->DataType( kTYPE_STRING, TRUE );'.'<br \>' );
+	$test->DataType( kTYPE_STRING, TRUE );
+	echo( '$test->DataKind( kTYPE_LIST, TRUE );'.'<br \>' );
+	$test->DataKind( kTYPE_LIST, TRUE );
 	echo( '$test->Label( "en", "Data property" );'.'<br \>' );
 	$test->Label( "en", "Data property" );
 	echo( '$test->Description( "en", "This is a data property" );'.'<br \>' );
 	$test->Description( "en", "This is a data property" );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1084,6 +1143,14 @@ try
 	$test = new MyClass( $data );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( (string) $test );
 	echo( kSTYLE_DATA_POS );
@@ -1106,6 +1173,14 @@ try
 	$id = $test->Insert( $database );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $id );
 	echo( kSTYLE_DATA_POS );
@@ -1113,6 +1188,193 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Instantiate from committed.
+	//
+	echo( '<h4>Instantiate from committed</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = $test->getArrayCopy();<br />' );
+	$data = $test->getArrayCopy();
+	echo( '$test = new MyClass( $database, $data );' );
+	$test = new MyClass( $database, $data );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Insert again.
+	//
+	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->insert();'.kSTYLE_HEAD_POS );
+	$id = $test->insert();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Resolve object by native identifier.
+	//
+	echo( '<h4>Resolve object by native identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = MyClass::ResolveObject( $database, $id );'.kSTYLE_HEAD_POS );
+	$test = MyClass::ResolveObject( $database, $id );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Resolve object by serial number.
+	//
+	echo( '<h4>Resolve object by serial number</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = MyClass::ResolveObject( $database, $test[ kTAG_SEQ ] );'.kSTYLE_HEAD_POS );
+	$test = MyClass::ResolveObject( $database, $test[ kTAG_SEQ ] );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Load terms.
+	//
+	echo( '<h4>Load terms</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$list = $test->loadTerms();'.kSTYLE_HEAD_POS );
+	$list = $test->loadTerms();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $list ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Load data types.
+	//
+	echo( '<h4>Load data types</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$objects = NULL;<br />' );
+	$objects = NULL;
+	echo( '$list = $test->loadDataTypes();' );
+	$list = $test->loadDataTypes();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $list ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Load data kinds.
+	//
+	echo( '<h4>Load data kinds</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$list = $test->loadDataKinds()' );
+	$list = $test->loadDataKinds();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $list ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Collect references.
+	//
+	echo( '<h4>Collect references</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = NULL;'.'<br \>' );
+	$data = NULL;
+	echo( '$test->collectReferences( $data, FALSE );'.'<br \>' );
+	$test->collectReferences( $data, FALSE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

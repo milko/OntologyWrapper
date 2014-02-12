@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\ConnectionObject | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li class="active"><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ConnectionObject</h1>
+
+
+	<div class="description">
+	
+<p>Connection object</p>
+
+<p>This <i>abstract</i> class is the ancestor of all classes representing
+connection instances, such as servers, databases and collections.</p>
+
+<p>The main purpose of this class is to wrap a common interface around concrete
+instances of specific server, database or collection or engines.</p>
+
+<p>The class features the following properties:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#$mDSN">OntologyWrapper\ConnectionObject::<var>$mDSN</var></a></code></tt>: The <i>data source name</i>, it is an URL that
+	represents the connection string.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#$mConnection">OntologyWrapper\ConnectionObject::<var>$mConnection</var></a></code></tt>: The <i>connection resource</i>, it represents
+	the native connection.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#$mParent">OntologyWrapper\ConnectionObject::<var>$mParent</var></a></code></tt>: The <i>parent connection</i>, it represents the
+	instance derived from this class that instantiated the current object.</li>
+</ul>
+
+<p>The object is instantiated by providing a parameter that may either be a
+connection URL, such as a string that may be parsed by the parse_url()
+function, or an array containing the connection parameters.</p>
+
+<p>The public interface of this class, as well as for many other abstract
+classes, is implemented as templates in which protected methods do the actual
+work, so derived concrete classes should only need to implement the protected
+interface.</p>
+
+<p>This class declares three methods for managing the connection:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></tt>: Returns <tt>TRUE</tt> if the connection is
+	open.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></tt>: Create and open the connection.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">OntologyWrapper\ConnectionObject::closeConnection()</a></code></tt>: Close and reset the connection.</li>
+</ul>
+
+<p>When the object goes out of context it will close the connection, if open,
+and re-open it once it gets back into context:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#___sleep">OntologyWrapper\ConnectionObject::__sleep()</a></code></tt>: This method will close the connection, if open,
+	and set the $mConnection connection property to <tt>TRUE</tt> as an
+	indication that the connection must be opened once the object gets back into
+	scope.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.ConnectionObject.html#___wakeup">OntologyWrapper\ConnectionObject::__wakeup()</a></code></tt>: This method will open the connection, if the
+	object went out of scope while the connection was open.</li>
+</ul>
+
+<p>The class provides accessor methods for the object properties: the <code><a href="class-OntologyWrapper.ConnectionObject.html#$mDSN">OntologyWrapper\ConnectionObject::<var>$mDSN</var></a></code> data member can be managed with the <code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code> method, the <code><a href="class-OntologyWrapper.ConnectionObject.html#$mConnection">OntologyWrapper\ConnectionObject::<var>$mConnection</var></a></code> data member can be retrieved with the <code><a href="class-OntologyWrapper.ConnectionObject.html#_Connection">OntologyWrapper\ConnectionObject::Connection()</a></code> method
+and the <code><a href="class-OntologyWrapper.ConnectionObject.html#$mParent">OntologyWrapper\ConnectionObject::<var>$mParent</var></a></code> data member can be retrieved with the <code><a href="class-OntologyWrapper.ConnectionObject.html#_Parent">OntologyWrapper\ConnectionObject::Parent()</a></code>
+method.</p>
+
+<p>When setting the connection string, <code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code>, the object's connection
+parameters will be synchronised. When setting offsets, the data source name will
+not be changed. When the connection is opened, <code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code>, the
+data source name will be re-constituted using the object's offsets. This means
+that the object offsets represent the actual connection parameters, although
+setting the DSN will reset these parameters to match the connection URL.</p>
+
+<p>When the connection is isConnected() open, any attempt to modify the
+object offsets will raise an exception: this is to prevent changing the
+connection properties while connected.</p>
+
+<p>In this class we make use of the <code><a href="class-OntologyWrapper.StatusTrait.html">OntologyWrapper\StatusTrait</a></code> trait, here we set the
+<code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code> flag whenever we modify an object offset, and we reset it
+whenever we open the connection; we reset the status bitfield data member after
+calling the parent constructor.</p>
+
+<p>This object represents the building block for all concrete instances that
+represent servers, databases, data collections and caches. +</p>
+
+<ul>
+	<li>When parsing the data source name, using the parse_url() function,,
+	this class</li>
+</ul>
+
+<p>will perform the following associations:</p>
+
+<ul>
+	<li><tt>scheme</tt>: <tt>kTAG_CONN_PROTOCOL</tt>. This corresponds to
+	the server and database protocols, which must be the same.</li>
+
+	<li><tt>host</tt>: <tt>kTAG_CONN_HOST</tt>. This corresponds to the
+	server object connection host.</li>
+
+	<li><tt>port</tt>: <tt>kTAG_CONN_PORT</tt>. This corresponds to the
+	server object connection port.</li>
+
+	<li><tt>user</tt>: <tt>kTAG_CONN_USER</tt>. This corresponds to the
+	server object connection user code.</li>
+
+	<li><tt>pass</tt>: <tt>kTAG_CONN_PASS</tt>. This corresponds to the
+	server object connection user password.</li>
+
+	<li><tt>path</tt>: <tt>kTAG_CONN_BASE</tt>. This corresponds to the
+	database object name.</li>
+
+	<li><tt>fragment</tt>: <tt>kTAG_CONN_COLL</tt>. This corresponds to the
+	collection object name.</li>
+</ul>
+
+<p>The above associations are stored in the object's offsets, which means that a
+collection will hold its database name and all the parameters of the server
+connection.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.ContainerObject.html"><span>OntologyWrapper\ContainerObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.OntologyObject.html"><span>OntologyWrapper\OntologyObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>OntologyWrapper\ConnectionObject</span></b>			
+			
+			 uses 
+				<a href="class-OntologyWrapper.StatusTrait.html"><span>OntologyWrapper\StatusTrait</span></a>
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a>, 
+			<a href="class-OntologyWrapper.DatabaseObject.html">OntologyWrapper\DatabaseObject</a>, 
+			<a href="class-OntologyWrapper.ServerObject.html">OntologyWrapper\ServerObject</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-OntologyWrapper.MongoCollection.html">OntologyWrapper\MongoCollection</a>, 
+			<a href="class-OntologyWrapper.MongoDatabase.html">OntologyWrapper\MongoDatabase</a>, 
+			<a href="class-OntologyWrapper.MongoServer.html">OntologyWrapper\MongoServer</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 16/01/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.ConnectionObject.html#19-1251" title="Go to source code">ConnectionObject.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#171-263" title="Go to source code">__construct</a>( <span>mixed <var>$theParameter</var> = <span class="php-keyword1">NULL</span></span>, <span><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code> <var>$theParent</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>The object may be instantiated as an empty object, by omitting both
+parameters; with a <i>data source name</i> in the form of a connection URL; or
+by providing an array of tag/value parameters which will constitute the object's
+offsets.</p>
+
+<p>If you provide a data source name, this must be parsable by the parse_url() function, if this is not the case, you should use the parameters
+list.</p>
+
+<p>If the first parameter was provided, the method will synchronise both the
+data source name and the connection parameters.</p>
+
+<p>The second parameter represents the <i>connection parent</i>, it must be an
+instance derived from this class and will only be set by the constructor.</p>
+
+<p>When overloading the constructor in derived classes you should always first
+call the parent method and then perform custom actions.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theParameter</var></dt>
+					<dd><code>mixed</code><br>$theParameter Data source name or parameters.</dd>
+					<dt><var>$theParent</var></dt>
+					<dd><code><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code></code><br>$theParent Connection parent.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffsets">OntologyWrapper\ConnectionObject::parseOffsets()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_statusReset">OntologyWrapper\ConnectionObject::statusReset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#___construct">ArrayObject::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__destruct" id="___destruct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___destruct">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#270-279" title="Go to source code">__destruct</a>( )</code>
+
+		<div class="description short">
+			
+<p>Destruct instance.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Destruct instance.</p>
+
+<p>The destructor will close the connection if open.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">OntologyWrapper\ConnectionObject::closeConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__sleep" id="___sleep">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___sleep">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#286-322" title="Go to source code">__sleep</a>( )</code>
+
+		<div class="description short">
+			
+<p>Sleep</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sleep</p>
+
+<p>This method will close the connection and replace the connection resource
+with <tt>TRUE</tt> if the connection was open.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">OntologyWrapper\ConnectionObject::closeConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__wakeup" id="___wakeup">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___wakeup">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#329-347" title="Go to source code">__wakeup</a>( )</code>
+
+		<div class="description short">
+			
+<p>Wake up</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Wake up</p>
+
+<p>This method will re-open the connection if it was closed by the <code><a href="class-OntologyWrapper.ConnectionObject.html#___sleep">OntologyWrapper\ConnectionObject::__sleep()</a></code> method.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#354-366" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<h4>Return connection name</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Return connection name</h4>
+
+<p>In this class we consider the data source name as the global identifier; here
+we return it as is, in derived classes you should be careful to shadow sensitive
+data.</p>
+
+<p>Note that this method cannot return the <tt>NULL</tt> value, which means that
+it cannot be used until there is a data source name for the object.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>The global identifier.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="DSN" id="_DSN">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DSN">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#382-459" title="Go to source code">DSN</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span></span>, <span>boolean <var>$doSync</var> = <span class="php-keyword1">TRUE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage data source name</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage data source name</p>
+
+<p>This method can be used to manage the <i>data source name</i>, it accepts a
+parameter which represents either the data source name or the requested
+operation, depending on its value:</p>
+
+<ul>
+	<li><tt>NULL</tt>: Return the current value.</li>
+
+	<li><tt>FALSE</tt>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <tt>TRUE</tt> will return the
+<i>old</i> value when replacing or resetting; if <tt>FALSE</tt>, it will return
+the current value.</p>
+
+<p>The last parameter is a switch that determines whether the object offsets
+should be synchronised: if <tt>TRUE</tt>, the object offsets will be reset and
+populated with the elements parsed from the data source name; if <tt>FALSE</tt>,
+the object offsets will not be modified. This parameter is set to <tt>FALSE</tt>
+by the constructor, since using all offsets may produce an invalid URL and is
+<tt>TRUE</tt> by default, since setting a connection URL generally means
+changing the parameters.</p>
+
+<p>Whenever a new value is set or the value is deleted, the method will
+synchronise the object offsets.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Data source name or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld <tt>TRUE</tt> get old value.</dd>
+					<dt><var>$doSync</var></dt>
+					<dd><code>boolean</code><br>$doSync <tt>TRUE</tt> will sync offsets.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><i>New</i> or <i>old</i> data source name.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						<code>mixed</code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">OntologyWrapper\ContainerObject::manageProperty()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseDSN">OntologyWrapper\ConnectionObject::parseDSN()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___construct">OntologyWrapper\ConnectionObject::__construct()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Connection" id="_Connection">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Connection">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#466-480" title="Go to source code">Connection</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return connection resource.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return connection resource.</p>
+
+<p>This method can be used to retrieve the <i>connection resource</i>, this
+method is read-only, since the connection resource should only be set by the
+object's connection methods.</p>
+
+<p>The connection resource represents the native connection.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Connection resource.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code>mixed</code><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Parent" id="_Parent">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Parent">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#487-501" title="Go to source code">Parent</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return connection parent.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return connection parent.</p>
+
+<p>This method can be used to retrieve the <i>parent connection</i>, this method
+is read-only, since the connection parent can only be set by the constructor and
+cannot be changed once the object has been instantiated.</p>
+
+<p>The connection parent represents the connection creator as the server for a
+database.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code></code><br>Parent connection.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code>mixed</code><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isConnected" id="_isConnected">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isConnected">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#517-530" title="Go to source code">isConnected</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check if connection is open</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if connection is open</p>
+
+<p>This method returns a boolean flag indicating whether the connection is open
+or not.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br><tt>TRUE</tt> is open.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___sleep">OntologyWrapper\ConnectionObject::__sleep()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">OntologyWrapper\ConnectionObject::closeConnection()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_preOffsetSet">OntologyWrapper\ConnectionObject::preOffsetSet()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_preOffsetUnset">OntologyWrapper\ConnectionObject::preOffsetUnset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="openConnection" id="_openConnection">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_openConnection">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#537-586" title="Go to source code">openConnection</a>( )</code>
+
+		<div class="description short">
+			
+<p>Open connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Open connection</p>
+
+<p>This method can be used to create and open the connection.</p>
+
+<p>We first check if the connection is already set: if so we do nothing.</p>
+
+<p>We call the protected <code><a href="class-OntologyWrapper.ConnectionObject.html#_connectionOpen">OntologyWrapper\ConnectionObject::connectionOpen()</a></code> method which will open the
+connection and return the connection resource which will be set in the data
+member, <code><a href="class-OntologyWrapper.ConnectionObject.html#$mConnection">OntologyWrapper\ConnectionObject::<var>$mConnection</var></a></code>.</p>
+
+<p>The method will return the connection resource.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Depends on implementation.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffsets">OntologyWrapper\ConnectionObject::parseOffsets()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_connectionOpen">OntologyWrapper\ConnectionObject::connectionOpen()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___wakeup">OntologyWrapper\ConnectionObject::__wakeup()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="closeConnection" id="_closeConnection">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_closeConnection">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#593-631" title="Go to source code">closeConnection</a>( )</code>
+
+		<div class="description short">
+			
+<p>Close connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Close connection</p>
+
+<p>If the connection is open, this method will close the connection and reset
+the <code><a href="class-OntologyWrapper.ConnectionObject.html#_Connection">OntologyWrapper\ConnectionObject::Connection()</a></code> data member.</p>
+
+<p>The method will return <tt>TRUE</tt> if the connection was open and
+<tt>FALSE</tt> if not.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br><tt>TRUE</tt> if closed, <tt>FALSE</tt> if was closed.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_connectionClose">OntologyWrapper\ConnectionObject::connectionClose()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___destruct">OntologyWrapper\ConnectionObject::__destruct()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___sleep">OntologyWrapper\ConnectionObject::__sleep()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="connectionOpen" id="_connectionOpen">
+
+		<td class="attributes"><code>
+			abstract protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_connectionOpen">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#647-661" title="Go to source code">connectionOpen</a>( )</code>
+
+		<div class="description short">
+			
+<p>Open connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Open connection</p>
+
+<p>This method should open the actual connection and set the <code><a href="class-OntologyWrapper.ConnectionObject.html#$mConnection">OntologyWrapper\ConnectionObject::<var>$mConnection</var></a></code>
+data member; in this class the method is virtual.</p>
+
+<p>This method expects the caller to have checked whether the connection is
+already open.</p>
+
+<p>If the operation fails, the method should raise an exception.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>The native connection.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="connectionClose" id="_connectionClose">
+
+		<td class="attributes"><code>
+			abstract protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_connectionClose">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#668-681" title="Go to source code">connectionClose</a>( )</code>
+
+		<div class="description short">
+			
+<p>Open connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Open connection</p>
+
+<p>This method should close the actual connection, in this class the method is
+virtual.</p>
+
+<p>This method expects the caller to have checked whether the connection is
+open.</p>
+
+<p>If the operation fails, the method should raise an exception.</p>
+
+
+
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">OntologyWrapper\ConnectionObject::closeConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseDSN" id="_parseDSN">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseDSN">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#697-749" title="Go to source code">parseDSN</a>( <span>string <var>$theDSN</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Parse data source name</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parse data source name</p>
+
+<p>This method will parse the provided data source name, extract the connection
+parameters and set them in the current object.</p>
+
+<p>The method will make use of the parse_url() function and pass each
+key/value pair to the protected <code><a href="class-OntologyWrapper.ConnectionObject.html#_loadDSNParameter">OntologyWrapper\ConnectionObject::loadDSNParameter()</a></code> method which has the
+responsibility of matching the parse_url() keys to <code><a href="class-OntologyWrapper.TagObject.html">OntologyWrapper\TagObject</a></code>
+instances.</p>
+
+<p>If the parse_url() function fails to parse the DSN, the method will
+raise an exception.</p>
+
+<p>Derived classes should overload the <code><a href="class-OntologyWrapper.ConnectionObject.html#_loadDSNParameter">OntologyWrapper\ConnectionObject::loadDSNParameter()</a></code> method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theDSN</var></dt>
+					<dd><code>string</code><br>$theDSN Data source name.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_loadDSNParameter">OntologyWrapper\ConnectionObject::loadDSNParameter()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_DSN">OntologyWrapper\ConnectionObject::DSN()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseOffsets" id="_parseOffsets">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseOffsets">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#756-871" title="Go to source code">parseOffsets</a>( <span>array <var>$theOffsets</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Parse connection parameters</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parse connection parameters</p>
+
+<p>This method will parse the provided key/value array and generate a connection
+URL.</p>
+
+<p>The method will iterate the provided offsets and feed them to the protected
+<code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffset">OntologyWrapper\ConnectionObject::parseOffset()</a></code> method which will populate an array structured as the
+result of the parse_url() function, it will be the duty of this method
+to generate a data source name from that array.</p>
+
+<p>Derived classes should overload the called methods and not this one.</p>
+
+<p>If the resulting data source name is empty, the method will return
+<tt>FALSE</tt>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffsets</var></dt>
+					<dd><code>array</code><br>$theOffsets Offsets.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Data source name or <tt>FALSE</tt> if empty.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffset">OntologyWrapper\ConnectionObject::parseOffset()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#___construct">OntologyWrapper\ConnectionObject::__construct()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">OntologyWrapper\ConnectionObject::openConnection()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseOffset" id="_parseOffset">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseOffset">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#878-963" title="Go to source code">parseOffset</a>( <span>reference <var>&amp; $theParameters</var></span>, <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Parse offset</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parse offset</p>
+
+<p>This method will parse the provided offset and populate the provided
+parameters. The main duty is to load the offset values into the provided
+parameters array so to create the same result as the parse_url()
+function.</p>
+
+<p>The resulting array can have the following elements:</p>
+
+<ul>
+	<li><tt><code>scheme</code></tt>: The protocol or scheme.</li>
+
+	<li><tt><code>host</code></tt>: The connection host.</li>
+
+	<li><tt><code>port</code></tt>: The connection port.</li>
+
+	<li><tt><code>user</code></tt>: The user code.</li>
+
+	<li><tt><code>pass</code></tt>: The user password.</li>
+
+	<li><tt><code>path</code></tt>: The connection path.</li>
+
+	<li><tt><code>query</code></tt>: The connection options.</li>
+
+	<li><tt><code>fragment</code></tt>: The URL fragment.</li>
+</ul>
+
+<p>In this class we handle the following offsets:</p>
+
+<ul>
+	<li><tt>kTAG_CONN_PROTOCOL</tt>: The <code>scheme</code>.</li>
+
+	<li><tt>kTAG_CONN_HOST</tt>: The connection <code>host</code>.</li>
+
+	<li><tt>kTAG_CONN_PORT</tt>: The connection <code>port</code>.</li>
+
+	<li><tt>kTAG_CONN_USER</tt>: The <code>user</code> code.</li>
+
+	<li><tt>kTAG_CONN_PASS</tt>: The user <code>pass</code>word.</li>
+
+	<li><tt>kTAG_CONN_BASE</tt>: The user <code>path</code>word.</li>
+
+	<li><tt>kTAG_CONN_COLL</tt>: The user <code>fragment</code>word.</li>
+
+	<li><tt>kTAG_CONN_OPTS</tt>: The connection options,
+	<code>query</code>.</li>
+</ul>
+
+<p>Derived classes can overload this method to customise the parameters.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theParameters</var></dt>
+					<dd><code>reference</code><br>$theParameters Receives parsed offset.</dd>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br>$theOffset Offset.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Offset value.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOption">OntologyWrapper\ConnectionObject::parseOption()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffsets">OntologyWrapper\ConnectionObject::parseOffsets()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseOption" id="_parseOption">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseOption">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#970-1008" title="Go to source code">parseOption</a>( <span>reference <var>&amp; $theParameters</var></span>, <span>string <var>$theOption</var></span>, <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Parse option</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parse option</p>
+
+<p>This method will parse the provided option and populate the query parameters.
+The main duty is to load the option into the <code>query</code> element of the
+provided parameters list as the result of the parse_url() function.</p>
+
+<p>In this class we load what we find.</p>
+
+<p>Derived classes can overload this method to customise the options.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theParameters</var></dt>
+					<dd><code>reference</code><br>$theParameters Receives parsed offset.</dd>
+					<dt><var>$theOption</var></dt>
+					<dd><code>string</code><br>$theOption Option.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Option value.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseOffset">OntologyWrapper\ConnectionObject::parseOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadDSNParameter" id="_loadDSNParameter">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadDSNParameter">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#1024-1113" title="Go to source code">loadDSNParameter</a>( <span>reference <var>&amp; $theParameters</var></span>, <span>string <var>$theKey</var></span>, <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Load connection parameters from DSN</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load connection parameters from DSN</p>
+
+<p>This method will load the parameters parsed from the data source name into
+the current object's offsets, it expects three parameters:</p>
+
+<ul>
+	<li><b>$theParameters</b>: This array is the result of the parse_url()
+	function on the data source name:
+		<ul>
+			<li><tt><code>scheme</code></tt>: We set it in kTAG_CONN_PROTOCOL.</li>
+
+			<li><tt><code>host</code></tt>: We set it in kTAG_CONN_HOST.</li>
+
+			<li><tt><code>port</code></tt>: We set it in kTAG_CONN_PORT.</li>
+
+			<li><tt><code>user</code></tt>: We set it in kTAG_CONN_USER.</li>
+
+			<li><tt><code>pass</code></tt>: We set it in kTAG_CONN_PASS.</li>
+
+			<li><tt><code>path</code></tt>: We set it in kTAG_CONN_BASE.</li>
+
+			<li><tt><code>fragment</code></tt>: We set it in kTAG_CONN_COLL.</li>
+
+			<li><tt><code>query</code></tt>: We load the key/value pairs into kTAG_CONN_OPTS array.</li>
+		</ul>
+	</li>
+
+	<li><b>$theKey</b>: This parameter represents the offset.</li>
+
+	<li><b>$theValue</b>: This parameter represents the offset value.</li>
+</ul>
+
+<p>This is the method that derived classes may overload to customise the
+parameters.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theParameters</var></dt>
+					<dd><code>reference</code><br>$theParameters Original parameters list.</dd>
+					<dt><var>$theKey</var></dt>
+					<dd><code>string</code><br>$theKey Parameter key.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br>$theValue Parameter value.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_parseDSN">OntologyWrapper\ConnectionObject::parseDSN()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetSet" id="_preOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#1129-1155" title="Go to source code">preOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before setting it</p>
+
+<p>We overload this method to prevent setting values while the connection is
+open.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> set offset value, other, return.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.OntologyObject.html#_preOffsetSet">OntologyWrapper\OntologyObject::preOffsetSet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetSet" id="_postOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#1162-1186" title="Go to source code">postOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value after setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value after setting it</p>
+
+<p>We set the <code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code> status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetSet">OntologyWrapper\ContainerObject::postOffsetSet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetUnset" id="_preOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#1193-1216" title="Go to source code">preOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before deleting it</p>
+
+<p>We overload this method to prevent deleting values while the connection is
+open.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> delete offset value, other, return.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.OntologyObject.html#_preOffsetUnset">OntologyWrapper\OntologyObject::preOffsetUnset()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetUnset" id="_postOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.ConnectionObject.html#1223-1247" title="Go to source code">postOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value after deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value after deleting it</p>
+
+<p>We set the <code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code> status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.ConnectionObject.html#_isDirty">OntologyWrapper\ConnectionObject::isDirty()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.ContainerObject.html#_postOffsetUnset">OntologyWrapper\ContainerObject::postOffsetUnset()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.OntologyObject.html#methods">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#_CastOffsetValue">CastOffsetValue()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_Reference">Reference()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_ResolveOffset">ResolveOffset()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetExists">preOffsetExists()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetGet">preOffsetGet()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.ContainerObject.html#methods">OntologyWrapper\ContainerObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ContainerObject.html#_Object2Array">Object2Array()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayKeys">arrayKeys()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayValues">arrayValues()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">manageArrayOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">manageElementMatchOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">manageOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">manageProperty()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">manageSetOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_append">append()</a>, 
+			<a href="class-ArrayObject.html#_asort">asort()</a>, 
+			<a href="class-ArrayObject.html#_count">count()</a>, 
+			<a href="class-ArrayObject.html#_exchangeArray">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_getArrayCopy">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_getFlags">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_getIterator">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_getIteratorClass">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_ksort">ksort()</a>, 
+			<a href="class-ArrayObject.html#_natcasesort">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_natsort">natsort()</a>, 
+			<a href="class-ArrayObject.html#_serialize">serialize()</a>, 
+			<a href="class-ArrayObject.html#_setFlags">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_setIteratorClass">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_uasort">uasort()</a>, 
+			<a href="class-ArrayObject.html#_uksort">uksort()</a>, 
+			<a href="class-ArrayObject.html#_unserialize">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+	<table class="summary used">
+	<caption>Methods used from <a href="class-OntologyWrapper.StatusTrait.html#methods">OntologyWrapper\StatusTrait</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.StatusTrait.html#_isCommitted">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isDirty">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isEncoded">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isInited">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_manageBitField">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_statusReset">()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mDSN" id="$mDSN">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-OntologyWrapper.ConnectionObject.html#125-134" title="Go to source code"><var>$mDSN</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mDSN" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Data source name.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Data source name.</p>
+
+<p>This data member holds the <i>data source name</i>, or <tt>DSN</tt>, it is an
+URL connection string that should be compatible with the parse_url()
+function. This string should hold all the connection parameters.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mParent" id="$mParent">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-OntologyWrapper.ConnectionObject.html#136-145" title="Go to source code"><var>$mParent</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mParent" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Parent connection.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Parent connection.</p>
+
+<p>This data member holds the <i>parent connection object</i>, this value should
+be an instance derived from this class which is used to instantiate the current
+object's connection resource.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mConnection" id="$mConnection">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-OntologyWrapper.ConnectionObject.html#147-155" title="Go to source code"><var>$mConnection</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mConnection" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Connection resource.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Connection resource.</p>
+
+<p>This data member holds the <i>connection resource</i>, or <i>native
+connection</i>, this property represents the actual connection resource.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.OntologyObject.html#properties">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#$sInternalTags"><var>$sInternalTags</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

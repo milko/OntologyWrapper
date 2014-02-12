@@ -193,26 +193,31 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	resolveIdentifier																*
+	 *	resolve																			*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve an identifier
+	 * Resolve an object
 	 *
 	 * This method should select an object in the current collection matching the provided
-	 * identifier and return its contents as an array.
+	 * native identifier with the provided offset and return either the object, if the
+	 * second parameter is <tt>TRUE</tt>, or an array if <tt>FALSE</tt>; if the object
+	 * cannot be resolved, the method should return <tt>NULL</tt>.
 	 *
-	 * The main function of this method is to determine what the caller is looking for based
-	 * on the provided identifier and the nature of the current collection.
+	 * If there are more than one objects selected, this method should only return the
+	 * first.
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theOffset			Offset.
+	 * @param boolean				$asObject			Return object if <tt>TRUE</tt>.
 	 *
 	 * @access public
-	 * @return array				Found object as an array, or <tt>NULL</tt>.
+	 * @return mixed				Found object, array, or <tt>NULL</tt>.
 	 */
-	abstract public function resolveIdentifier( $theIdentifier );
+	abstract public function resolve( $theIdentifier, $theOffset = kTAG_NID,
+													  $asObject = TRUE );
 
 		
 

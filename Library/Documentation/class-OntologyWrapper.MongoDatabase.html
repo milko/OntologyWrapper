@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\MongoDatabase | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li class="active"><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class MongoDatabase</h1>
+
+
+	<div class="description">
+	
+<p>Mongo database</p>
+
+<p>This class is a <i>concrete</i> implementation of the <code><a href="class-OntologyWrapper.DatabaseObject.html">OntologyWrapper\DatabaseObject</a></code>
+wrapping a MongoDB class.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.ContainerObject.html"><span>OntologyWrapper\ContainerObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.OntologyObject.html"><span>OntologyWrapper\OntologyObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.ConnectionObject.html"><span>OntologyWrapper\ConnectionObject</span></a>
+			
+			
+			 uses 
+				<a href="class-OntologyWrapper.StatusTrait.html"><span>OntologyWrapper\StatusTrait</span></a>
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.DatabaseObject.html"><span>OntologyWrapper\DatabaseObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>OntologyWrapper\MongoDatabase</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 06/02/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.MongoDatabase.html#20-407" title="Go to source code">MongoDatabase.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="drop" id="_drop">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_drop">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#63-84" title="Go to source code">drop</a>( )</code>
+
+		<div class="description short">
+			
+<p>Drop the database</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Drop the database</p>
+
+<p>This method will drop the current database.</p>
+
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isConnected" id="_isConnected">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isConnected">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#100-113" title="Go to source code">isConnected</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check if connection is open</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if connection is open</p>
+
+<p>We overload this method to assume the object is connected if the resource is
+a MongoDB.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br><tt>TRUE</tt> is open.<br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.ConnectionObject.html#_isConnected">OntologyWrapper\ConnectionObject::isConnected()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCollections" id="_getCollections">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCollections">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#120-158" title="Go to source code">getCollections</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return collection names</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return collection names</p>
+
+<p>In this class we use the \MongoDB::listCollections() method, we
+extract only the name to conform with the method prototype: one should always
+instantiate an object derived from <code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code> when dealing wit
+collections.</p>
+
+<p>This method will return the following retults:</p>
+
+<ul>
+	<li><tt>FALSE</tt>: The database is not connected.</li>
+
+	<li><tt>array</tt>: The database collection names.</li>
+</ul>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>List of collection names.<br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.DatabaseObject.html#_getCollections">OntologyWrapper\DatabaseObject::getCollections()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSequenceNumber" id="_setSequenceNumber">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSequenceNumber">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#174-212" title="Go to source code">setSequenceNumber</a>( <span>string <var>$theSequence</var></span>, <span>integer <var>$theNumber</var> = <span class="php-num">1</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Set sequence number</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set sequence number</p>
+
+<p>In this class we match the provided parameter string with an entry in the
+<code><a href="class-OntologyWrapper.MongoDatabase.html#kSEQ_COLLECTION">OntologyWrapper\MongoDatabase::<b>kSEQ_COLLECTION</b></a></code> collection in the database, the native identifier of the
+record is the sequence selector, while the sequence number will be found at the
+<code><a href="class-OntologyWrapper.MongoDatabase.html#kSEQ_OFFSET">OntologyWrapper\MongoDatabase::<b>kSEQ_OFFSET</b></a></code> offset.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSequence</var></dt>
+					<dd><code>string</code><br>$theSequence Sequence selector.</dd>
+					<dt><var>$theNumber</var></dt>
+					<dd><code>integer</code><br>$theNumber Sequence number.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSequenceNumber" id="_getSequenceNumber">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSequenceNumber">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#219-271" title="Go to source code">getSequenceNumber</a>( <span>string <var>$theSequence</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return sequence number</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return sequence number</p>
+
+<p>In this class we match the provided parameter string with an entry in the
+<code><a href="class-OntologyWrapper.MongoDatabase.html#kSEQ_COLLECTION">OntologyWrapper\MongoDatabase::<b>kSEQ_COLLECTION</b></a></code> collection in the database, the native identifier of the
+record is the sequence selector, while the sequence number will be found at the
+<code><a href="class-OntologyWrapper.MongoDatabase.html#kSEQ_OFFSET">OntologyWrapper\MongoDatabase::<b>kSEQ_OFFSET</b></a></code> offset.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSequence</var></dt>
+					<dd><code>string</code><br>$theSequence Sequence selector.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Sequence number.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="connectionOpen" id="_connectionOpen">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_connectionOpen">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#287-338" title="Go to source code">connectionOpen</a>( )</code>
+
+		<div class="description short">
+			
+<p>Open connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Open connection</p>
+
+<p>This method will instantiate a MongoDB object and set it in the
+<code><a href="class-OntologyWrapper.ConnectionObject.html#_Connection">OntologyWrapper\ConnectionObject::Connection()</a></code> data member.</p>
+
+<p>This method expects the caller to have checked whether the connection is
+already open.</p>
+
+<p>If the operation fails, the method will raise an exception.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>The native connection.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="connectionClose" id="_connectionClose">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_connectionClose">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#345-352" title="Go to source code">connectionClose</a>( )</code>
+
+		<div class="description short">
+			
+<p>Close connection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Close connection</p>
+
+<p>We overload this method to reset the connection resource.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="newServer" id="_newServer">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-OntologyWrapper.MongoServer.html">OntologyWrapper\MongoServer</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_newServer">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#368-382" title="Go to source code">newServer</a>( <span>mixed <var>$theParameter</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a new server instance</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a new server instance</p>
+
+<p>We implement the method to return a <code><a href="class-OntologyWrapper.MongoServer.html">OntologyWrapper\MongoServer</a></code> instance.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theParameter</var></dt>
+					<dd><code>mixed</code><br>$theParameter Server parameters.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-OntologyWrapper.MongoServer.html">OntologyWrapper\MongoServer</a></code></code><br>Server instance.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="newCollection" id="_newCollection">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_newCollection">#</a>
+		<code><a href="source-class-OntologyWrapper.MongoDatabase.html#389-403" title="Go to source code">newCollection</a>( <span>array <var>$theOffsets</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a new collection instance</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a new collection instance</p>
+
+<p>We implement this method to return a <code><a href="class-OntologyWrapper.MongoCollection.html">OntologyWrapper\MongoCollection</a></code> instance.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffsets</var></dt>
+					<dd><code>array</code><br>$theOffsets Full collection offsets.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code></code><br>Collection instance.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.DatabaseObject.html#methods">OntologyWrapper\DatabaseObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.DatabaseObject.html#_Collection">Collection()</a>, 
+			<a href="class-OntologyWrapper.DatabaseObject.html#___construct">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.ConnectionObject.html#methods">OntologyWrapper\ConnectionObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ConnectionObject.html#_Connection">Connection()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_DSN">DSN()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_Parent">Parent()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#___destruct">__destruct()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#___sleep">__sleep()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#___toString">__toString()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#___wakeup">__wakeup()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_closeConnection">closeConnection()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_loadDSNParameter">loadDSNParameter()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_openConnection">openConnection()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_parseDSN">parseDSN()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_parseOffset">parseOffset()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_parseOffsets">parseOffsets()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_parseOption">parseOption()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_postOffsetSet">postOffsetSet()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_postOffsetUnset">postOffsetUnset()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_preOffsetSet">preOffsetSet()</a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#_preOffsetUnset">preOffsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.OntologyObject.html#methods">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#_CastOffsetValue">CastOffsetValue()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_Reference">Reference()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_ResolveOffset">ResolveOffset()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetExists">preOffsetExists()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetGet">preOffsetGet()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.ContainerObject.html#methods">OntologyWrapper\ContainerObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ContainerObject.html#_Object2Array">Object2Array()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayKeys">arrayKeys()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayValues">arrayValues()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">manageArrayOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">manageElementMatchOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">manageOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">manageProperty()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">manageSetOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_append">append()</a>, 
+			<a href="class-ArrayObject.html#_asort">asort()</a>, 
+			<a href="class-ArrayObject.html#_count">count()</a>, 
+			<a href="class-ArrayObject.html#_exchangeArray">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_getArrayCopy">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_getFlags">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_getIterator">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_getIteratorClass">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_ksort">ksort()</a>, 
+			<a href="class-ArrayObject.html#_natcasesort">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_natsort">natsort()</a>, 
+			<a href="class-ArrayObject.html#_serialize">serialize()</a>, 
+			<a href="class-ArrayObject.html#_setFlags">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_setIteratorClass">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_uasort">uasort()</a>, 
+			<a href="class-ArrayObject.html#_uksort">uksort()</a>, 
+			<a href="class-ArrayObject.html#_unserialize">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+	<table class="summary used">
+	<caption>Methods used from <a href="class-OntologyWrapper.StatusTrait.html#methods">OntologyWrapper\StatusTrait</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.StatusTrait.html#_isCommitted">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isDirty">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isEncoded">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isInited">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_manageBitField">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_statusReset">()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="kSEQ_COLLECTION" id="kSEQ_COLLECTION">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-OntologyWrapper.MongoDatabase.html#31-38" title="Go to source code"><b>kSEQ_COLLECTION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'_sequence'</span></code></td>
+		<td class="description"><div>
+			<a href="#kSEQ_COLLECTION" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sequences collection name.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sequences collection name.</p>
+
+<p>This constant holds the <i>sequences</i> collection name.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="kSEQ_OFFSET" id="kSEQ_OFFSET">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-OntologyWrapper.MongoDatabase.html#40-47" title="Go to source code"><b>kSEQ_OFFSET</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'_seq'</span></code></td>
+		<td class="description"><div>
+			<a href="#kSEQ_OFFSET" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sequences offset name.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sequences offset name.</p>
+
+<p>This constant holds the <i>sequences</i> offset name.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.DatabaseObject.html#properties">OntologyWrapper\DatabaseObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.DatabaseObject.html#$sOffsets"><var>$sOffsets</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.ConnectionObject.html#properties">OntologyWrapper\ConnectionObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ConnectionObject.html#$mConnection"><var>$mConnection</var></a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#$mDSN"><var>$mDSN</var></a>, 
+			<a href="class-OntologyWrapper.ConnectionObject.html#$mParent"><var>$mParent</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.OntologyObject.html#properties">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#$sInternalTags"><var>$sInternalTags</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+\hypertarget{class_ontology_wrapper_1_1_mongo_database}{\section{Ontology\-Wrapper\textbackslash{}Mongo\-Database Class Reference}
+\label{class_ontology_wrapper_1_1_mongo_database}\index{Ontology\-Wrapper\textbackslash{}\-Mongo\-Database@{Ontology\-Wrapper\textbackslash{}\-Mongo\-Database}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Database\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_ontology_wrapper_1_1_mongo_database__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Database\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_ontology_wrapper_1_1_mongo_database__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_ab3df5cac7ce7f15f3c3a2c0feb9cb0ae}{drop} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_aa0d740a0f02a9093b84367d608e0b781}{is\-Connected} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_aea2876ae9fc23f227d34fadfcd91c52b}{get\-Collections} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_abb8850dbf55ad8684ec5244f60d220ba}{set\-Sequence\-Number} (\$the\-Sequence, \$the\-Number=1)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_a86848d0cc3c72a0a40938338483799a7}{get\-Sequence\-Number} (\$the\-Sequence)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_a3d737abcfa3f477fa6b90fcd44cf6952}{const {\bfseries k\-S\-E\-Q\-\_\-\-C\-O\-L\-L\-E\-C\-T\-I\-O\-N} = '\-\_\-sequence'}\label{class_ontology_wrapper_1_1_mongo_database_a3d737abcfa3f477fa6b90fcd44cf6952}
+
+\item 
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_a267f9e486b60ce3d63b67c2f215be9f2}{const {\bfseries k\-S\-E\-Q\-\_\-\-O\-F\-F\-S\-E\-T} = '\-\_\-seq'}\label{class_ontology_wrapper_1_1_mongo_database_a267f9e486b60ce3d63b67c2f215be9f2}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_a4b976e0857cbbbfd1fba2b33b7b2512c}{connection\-Open} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_a0960889565708ebe8759388284043d6d}{connection\-Close} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}{new\-Server} (\$the\-Parameter)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}{new\-Collection} (\$the\-Offsets)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Mongo database
+
+This class is a {\itshape concrete} implementation of the \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} wrapping a \hyperlink{}{Mongo\-D\-B} class. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 06/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_a0960889565708ebe8759388284043d6d}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!connection\-Close@{connection\-Close}}
+\index{connection\-Close@{connection\-Close}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{connection\-Close}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::connection\-Close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_a0960889565708ebe8759388284043d6d}
+Close connection
+
+We overload this method to reset the connection resource.
+
+protected \hypertarget{class_ontology_wrapper_1_1_mongo_database_a4b976e0857cbbbfd1fba2b33b7b2512c}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!connection\-Open@{connection\-Open}}
+\index{connection\-Open@{connection\-Open}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{connection\-Open}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::connection\-Open (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_a4b976e0857cbbbfd1fba2b33b7b2512c}
+Open connection
+
+This method will instantiate a \hyperlink{}{Mongo\-D\-B} object and set it in the \hyperlink{class_ontology_wrapper_1_1_connection_object_aeffe3ba284ae71caacaab38b3c80d345}{Connection()} data member.
+
+This method expects the caller to have checked whether the connection is already open.
+
+If the operation fails, the method will raise an exception.
+
+protected \begin{DoxyReturn}{Returns}
+mixed The native connection.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_ab3df5cac7ce7f15f3c3a2c0feb9cb0ae}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!drop@{drop}}
+\index{drop@{drop}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{drop}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::drop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_database_ab3df5cac7ce7f15f3c3a2c0feb9cb0ae}
+Drop the database
+
+This method will drop the current database.
+
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_aea2876ae9fc23f227d34fadfcd91c52b}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!get\-Collections@{get\-Collections}}
+\index{get\-Collections@{get\-Collections}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{get\-Collections}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::get\-Collections (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_database_aea2876ae9fc23f227d34fadfcd91c52b}
+Return collection names
+
+In this class we use the Mongo\-D\-B\-::list\-Collections()method,weextractonlythenametoconformwiththemethodprototype\-:oneshouldalwaysinstantiateanobjectderivedfrom@linkCollection\-Objectwhendealingwitcollections.Thismethodwillreturnthefollowingretults\-:$<$ul$>$$<$li$>$$<$tt$>$\-F\-A\-L\-S\-E$<$/tt$>$\-:Thedatabaseisnotconnected.$<$li$>$$<$tt$>$array$<$/tt$>$\-:Thedatabasecollectionnames.$<$/ul$>$@accesspublic@returnarrayListofcollectionnames.\hypertarget{class_ontology_wrapper_1_1_mongo_database_a86848d0cc3c72a0a40938338483799a7}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!get\-Sequence\-Number@{get\-Sequence\-Number}}
+\index{get\-Sequence\-Number@{get\-Sequence\-Number}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{get\-Sequence\-Number}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::get\-Sequence\-Number (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Sequence}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_database_a86848d0cc3c72a0a40938338483799a7}
+Return sequence number
+
+In this class we match the provided parameter string with an entry in the \hyperlink{}{k\-S\-E\-Q\-\_\-\-C\-O\-L\-L\-E\-C\-T\-I\-O\-N} collection in the database, the native identifier of the record is the sequence selector, while the sequence number will be found at the \hyperlink{}{k\-S\-E\-Q\-\_\-\-O\-F\-F\-S\-E\-T} offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Sequence} & Sequence selector.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+integer Sequence number.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_aa0d740a0f02a9093b84367d608e0b781}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!is\-Connected@{is\-Connected}}
+\index{is\-Connected@{is\-Connected}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{is\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::is\-Connected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_database_aa0d740a0f02a9093b84367d608e0b781}
+Check if connection is open
+
+We overload this method to assume the object is connected if the resource is a \hyperlink{}{Mongo\-D\-B}.
+
+public \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} is open. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Collection@{new\-Collection}}
+\index{new\-Collection@{new\-Collection}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{new\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::new\-Collection (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offsets}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}
+Return a new collection instance
+
+We implement this method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_collection}{Mongo\-Collection} instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Offsets} & Full collection offsets.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} Collection instance. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Server@{new\-Server}}
+\index{new\-Server@{new\-Server}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{new\-Server}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::new\-Server (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Parameter}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}
+Return a new server instance
+
+We implement the method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_server}{Mongo\-Server} instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Parameter} & Server parameters.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_mongo_server}{Mongo\-Server} Server instance. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_abb8850dbf55ad8684ec5244f60d220ba}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!set\-Sequence\-Number@{set\-Sequence\-Number}}
+\index{set\-Sequence\-Number@{set\-Sequence\-Number}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
+\subsubsection[{set\-Sequence\-Number}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::set\-Sequence\-Number (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Sequence, }
+\item[{}]{\$the\-Number = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_database_abb8850dbf55ad8684ec5244f60d220ba}
+Set sequence number
+
+In this class we match the provided parameter string with an entry in the \hyperlink{}{k\-S\-E\-Q\-\_\-\-C\-O\-L\-L\-E\-C\-T\-I\-O\-N} collection in the database, the native identifier of the record is the sequence selector, while the sequence number will be found at the \hyperlink{}{k\-S\-E\-Q\-\_\-\-O\-F\-F\-S\-E\-T} offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Sequence} & Sequence selector. \\
+\hline
+integer & {\em \$the\-Number} & Sequence number.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Mongo\-Database.\-php\end{DoxyCompactItemize}

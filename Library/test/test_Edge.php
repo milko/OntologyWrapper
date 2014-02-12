@@ -77,6 +77,11 @@ class MyClass extends OntologyWrapper\Edge
 	
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
+	
+	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
+	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
+	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
+	public function Encoded()	{	return ( $this->isEncoded() ) ? 'checked="1"' : '';	}
 }
 
 
@@ -105,17 +110,19 @@ try
 	$_SESSION[ kSESSION_DDICT ]->init();
 	
 	//
-	// Instantiate server.
+	// Instantiate wrapper.
 	//
-	$server = new OntologyWrapper\MongoServer( "mongodb://localhost:27017" );
-	$server->openConnection();
-	
+	$wrapper = new OntologyWrapper\Wrapper();
+	$wrapper->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->openConnections();
+	$wrapper->resetOntology();
+
 	//
 	// Instantiate database.
 	//
-	$database = $server->Database( 'TEST' );
-	$database->openConnection();
-	$database->drop();
+	$database = $wrapper->Metadata();
 	
 	//
 	// Test parent class.
@@ -600,6 +607,30 @@ try
 		echo( "<h3>Current class test</h3>" );
 	
 	//
+	// Instantiate test data.
+	//
+	echo( '<h4>Instantiate test data</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$subject = new OntologyWrapper\Node();'.'<br \>' );
+	echo( '$subject[ kTAG_TERM ] = ":pid";'.'<br \>' );
+	echo( '$subject->insert( $database );'.'<br \>' );
+	$subject = new OntologyWrapper\Node();
+	$subject[ kTAG_TERM ] = ":pid";
+	$subject->insert( $database );
+	echo( '$object = new OntologyWrapper\Node();'.'<br \>' );
+	echo( '$object[ kTAG_TERM ] = ":lid";'.'<br \>' );
+	echo( '$object->insert( $database );'.'<br \>' );
+	$object = new OntologyWrapper\Node();
+	$object[ kTAG_TERM ] = ":lid";
+	$object->insert( $database );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
 	// Instantiate and load object.
 	//
 	echo( '<h4>Instantiate and load object</h4>' );
@@ -610,12 +641,20 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$test[ kTAG_SUBJECT ] = 1;'.'<br \>' );
-	$test[ kTAG_SUBJECT ] = 1;
-	echo( '$test[ kTAG_PREDICATE ] = "predicate";'.'<br \>' );
-	$test[ kTAG_PREDICATE ] = "predicate";
-	echo( '$test[ kTAG_OBJECT ] = 2;'.'<br \>' );
+	echo( '$test[ kTAG_SUBJECT ] = $subject;'.'<br \>' );
+	$test[ kTAG_SUBJECT ] = $subject;
+	echo( '$test[ kTAG_PREDICATE ] = ":type";'.'<br \>' );
+	$test[ kTAG_PREDICATE ] = ":type";
+	echo( '$test[ kTAG_OBJECT ] = $object;'.'<br \>' );
 	$test[ kTAG_OBJECT ] = 2;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -645,6 +684,14 @@ try
 	$test = new MyClass( $data );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( (string) $test );
 	echo( kSTYLE_DATA_POS );
@@ -667,6 +714,14 @@ try
 	$id = $test->Insert( $database );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $id );
 	echo( kSTYLE_DATA_POS );
@@ -674,6 +729,192 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Instantiate from committed.
+	//
+	echo( '<h4>Instantiate from committed</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = $test->getArrayCopy();<br />' );
+	$data = $test->getArrayCopy();
+	echo( '$test = new MyClass( $database, $data );' );
+	$test = new MyClass( $database, $data );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Insert again.
+	//
+	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->insert();'.kSTYLE_HEAD_POS );
+	$id = $test->insert();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Resolve object.
+	//
+	echo( '<h4>Resolve object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = MyClass::ResolveObject( $database, $id );'.kSTYLE_HEAD_POS );
+	$test = MyClass::ResolveObject( $database, $id );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Resolve object with triplet.
+	//
+	echo( '<h4>Resolve object with triplet</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$id = array( $test[ kTAG_SUBJECT ], $test[ kTAG_PREDICATE ], $test[ kTAG_OBJECT ] );<br />' );
+	$id = array( $test[ kTAG_SUBJECT ], $test[ kTAG_PREDICATE ], $test[ kTAG_OBJECT ] );
+	echo( '$test = MyClass::ResolveObject( $database, $id );<br />' );
+	$test = MyClass::ResolveObject( $database, $id );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Load subject.
+	//
+	echo( '<h4>Load subject</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadSubject();'.kSTYLE_HEAD_POS );
+	$ns = $test->loadSubject();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Load predicate.
+	//
+	echo( '<h4>Load predicate</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadPredicate();'.kSTYLE_HEAD_POS );
+	$ns = $test->loadPredicate();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Load object.
+	//
+	echo( '<h4>Load object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadObject();'.kSTYLE_HEAD_POS );
+	$ns = $test->loadObject();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Collect references.
+	//
+	echo( '<h4>Collect references</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$data = NULL;'.'<br \>' );
+	$data = NULL;
+	echo( '$test->collectReferences( $data, FALSE );'.'<br \>' );
+	$test->collectReferences( $data, FALSE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

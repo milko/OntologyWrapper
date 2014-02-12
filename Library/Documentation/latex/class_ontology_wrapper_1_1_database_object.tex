@@ -1,0 +1,239 @@
+\hypertarget{class_ontology_wrapper_1_1_database_object}{\section{Ontology\-Wrapper\textbackslash{}Database\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_database_object}\index{Ontology\-Wrapper\textbackslash{}\-Database\-Object@{Ontology\-Wrapper\textbackslash{}\-Database\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Database\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{class_ontology_wrapper_1_1_database_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Database\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{class_ontology_wrapper_1_1_database_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_a12746bd4b3a9a869544ccaa06cf3bf34}{\-\_\-\-\_\-construct} (\$the\-Parameter=N\-U\-L\-L, \$the\-Parent=N\-U\-L\-L)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_a0a3f541e719b56e1191aaf75a0b58b03}{drop} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_a58886acb97fd38139340f649f12254a5}{Collection} (\$the\-Name)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_a23409291f9aebd68da532a77c5143a84}{get\-Collections} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_a4c7bd0ce9eb62750ef1c84351ed565cd}{set\-Sequence\-Number} (\$the\-Sequence, \$the\-Number=1)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_ab731d606a297f2b1980f457efa1bc80d}{get\-Sequence\-Number} (\$the\-Sequence)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ontology_wrapper_1_1_database_object_a28b9a48fa04bbf9c64e584b99ada9704}{static {\bfseries \$s\-Offsets} = array( k\-T\-A\-G\-\_\-\-C\-O\-N\-N\-\_\-\-B\-A\-S\-E )}\label{class_ontology_wrapper_1_1_database_object_a28b9a48fa04bbf9c64e584b99ada9704}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_aa145306a1c58b9469d04dd17daa7fdbb}{new\-Server} (\$the\-Parameter)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_database_object_aa72c5ba47e852c983f746aa95ec06c1d}{new\-Collection} (\$the\-Offsets)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Database object
+
+This {\itshape abstract} class is the ancestor of all classes representing database connection instances, this class extends the \hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} class to implement database specific functionality prototypes. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 06/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ontology_wrapper_1_1_database_object_a12746bd4b3a9a869544ccaa06cf3bf34}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Parameter = {\ttfamily NULL}, }
+\item[{}]{\$the\-Parent = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_database_object_a12746bd4b3a9a869544ccaa06cf3bf34}
+Instantiate class.
+
+We overload the constructor to instantiate a server from the provided parameter, if the parent object was not provided, and set it as the parent.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Parameter} & Data source name or parameters. \\
+\hline
+\hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} & {\em \$the\-Parent} & Connection parent.\\
+\hline
+\end{DoxyParams}
+public
+
+\begin{DoxySeeAlso}{See Also}
+Server\-Object\-::\$s\-Offsets
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_database_object_aa145306a1c58b9469d04dd17daa7fdbb}{new\-Server()} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_database_object_a58886acb97fd38139340f649f12254a5}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!Collection@{Collection}}
+\index{Collection@{Collection}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{Collection}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::\-Collection (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_database_object_a58886acb97fd38139340f649f12254a5}
+Return collection connection
+
+This method can be used to return a collection connection from the current database.
+
+The method expects a single parameter which represents the collection name, the method should return an instance of a class derived from \hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Name} & Collection name.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} Collection object.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_database_object_aa72c5ba47e852c983f746aa95ec06c1d}{new\-Collection()} \hypertarget{class_ontology_wrapper_1_1_database_object_a0a3f541e719b56e1191aaf75a0b58b03}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!drop@{drop}}
+\index{drop@{drop}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{drop}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::drop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}}}\label{class_ontology_wrapper_1_1_database_object_a0a3f541e719b56e1191aaf75a0b58b03}
+Drop the database
+
+This method should drop the current database.
+
+public \hypertarget{class_ontology_wrapper_1_1_database_object_a23409291f9aebd68da532a77c5143a84}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!get\-Collections@{get\-Collections}}
+\index{get\-Collections@{get\-Collections}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{get\-Collections}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::get\-Collections (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_database_object_a23409291f9aebd68da532a77c5143a84}
+Return collection names
+
+This method should return the list of collection names of the current database, the method should return the following retults\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The operation is not supported. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The database is not connected. 
+\item {\ttfamily array}\-: The database collection names. 
+\end{DoxyItemize}
+
+We implement the method in this class as a fall-\/back.
+
+public \begin{DoxyReturn}{Returns}
+array Server statistics or {\ttfamily N\-U\-L\-L} if unsupported. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_database_object_ab731d606a297f2b1980f457efa1bc80d}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!get\-Sequence\-Number@{get\-Sequence\-Number}}
+\index{get\-Sequence\-Number@{get\-Sequence\-Number}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{get\-Sequence\-Number}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::get\-Sequence\-Number (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Sequence}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}}}\label{class_ontology_wrapper_1_1_database_object_ab731d606a297f2b1980f457efa1bc80d}
+Return sequence number
+
+This method should return a sequence number associated to the provided parameter. This operation is equivalent to requesting an auto-\/number for a database.
+
+Each time a sequence number is requested, the sequence seed is updated, so use this method only when the sequence is required.
+
+If the sequence selector is not found, a new one will be created starting with the number {\ttfamily 1}, so, if you need to start with another number, use the \hyperlink{class_ontology_wrapper_1_1_database_object_a4c7bd0ce9eb62750ef1c84351ed565cd}{set\-Sequence\-Number()} before.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Sequence} & Sequence selector.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+integer Sequence number. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_database_object_aa72c5ba47e852c983f746aa95ec06c1d}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!new\-Collection@{new\-Collection}}
+\index{new\-Collection@{new\-Collection}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{new\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::new\-Collection (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offsets}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_database_object_aa72c5ba47e852c983f746aa95ec06c1d}
+Return a new collection instance
+
+This method should be implemented by concrete derived classes, it expects a list of offsets which include database information and should use them to instantiate a \hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} instance.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Offsets} & Full collection offsets.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} Collection instance. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_database_object_aa145306a1c58b9469d04dd17daa7fdbb}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!new\-Server@{new\-Server}}
+\index{new\-Server@{new\-Server}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{new\-Server}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::new\-Server (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Parameter}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_database_object_aa145306a1c58b9469d04dd17daa7fdbb}
+Return a new server instance
+
+This method should be implemented by concrete derived classes, it expects a list of offsets or a data source name containing the necessary elements to instantiate a \hyperlink{class_ontology_wrapper_1_1_server_object}{Server\-Object} instance which will be considered the current object's parent.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Parameter} & Server parameters.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_server_object}{Server\-Object} Server instance. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_database_object_a4c7bd0ce9eb62750ef1c84351ed565cd}{\index{Ontology\-Wrapper\-::\-Database\-Object@{Ontology\-Wrapper\-::\-Database\-Object}!set\-Sequence\-Number@{set\-Sequence\-Number}}
+\index{set\-Sequence\-Number@{set\-Sequence\-Number}!OntologyWrapper::DatabaseObject@{Ontology\-Wrapper\-::\-Database\-Object}}
+\subsubsection[{set\-Sequence\-Number}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Database\-Object\-::set\-Sequence\-Number (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Sequence, }
+\item[{}]{\$the\-Number = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}}}\label{class_ontology_wrapper_1_1_database_object_a4c7bd0ce9eb62750ef1c84351ed565cd}
+Set sequence number
+
+This method should initialise a sequence number associated to the provided parameter. This operation is equivalent to resetting an auto-\/number for a database.
+
+Once the sequence is set, the next requested sequence number will hold the value set by this method, so to start counting from {\ttfamily 1} you should provide this value to this method.
+
+Derived classes must implement this method.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Sequence} & Sequence selector. \\
+\hline
+integer & {\em \$the\-Number} & Sequence number.\\
+\hline
+\end{DoxyParams}
+public 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Database\-Object.\-php\end{DoxyCompactItemize}

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\TagCacheObject | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li class="active"><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class TagCacheObject</h1>
+
+
+	<div class="description">
+	
+<p>Tag cache object</p>
+
+<p>This <i>abstract</i> class is the prototype of classes that implement a tag
+cache.</p>
+
+<p>The main purpose of a tag cache is to hold in a fast retrieval cache all the
+current ontology <code><a href="class-OntologyWrapper.TagObject.html">OntologyWrapper\TagObject</a></code> objects and information, this cache is
+actively used by all classes derived from <code><a href="class-OntologyWrapper.OntologyObject.html">OntologyWrapper\OntologyObject</a></code> for resolving
+offsets into <code><a href="class-OntologyWrapper.TagObject.html">OntologyWrapper\TagObject</a></code> references and to cast offset values according to
+the <code><a href="class-OntologyWrapper.TagObject.html">OntologyWrapper\TagObject</a></code> declared data type.</p>
+
+<p>Concrete derived classes should implement a constructor that will instantiate
+the cache and load all current tag identifiers and objects.</p>
+
+<p>The class features the following specific virtual methods:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_init">OntologyWrapper\TagCacheObject::init()</a></code></tt>: This method should <i>initialise</i> the
+	cache.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_setTagId">OntologyWrapper\TagCacheObject::setTagId()</a></code></tt>: This method should <i>set a key/value pair</i>
+	in which the key represents the tag <i>global identifier</i> and the value the
+	tag <i>native identifier</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_getTagId">OntologyWrapper\TagCacheObject::getTagId()</a></code></tt>: This method should <i>return a tag native
+	identifier given a tag global identifier</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_delTagId">OntologyWrapper\TagCacheObject::delTagId()</a></code></tt>: This method should <i>delete a key/value
+	pair</i> in which the key represents the tag <i>global identifier</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_setTagObject">OntologyWrapper\TagCacheObject::setTagObject()</a></code></tt>: This method should <i>set a key/value
+	pair</i> in which the key represents the tag <i>native identifier</i> and the
+	value the tag <i>object or array of contents</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_getTagObject">OntologyWrapper\TagCacheObject::getTagObject()</a></code></tt>: This method should <i>return a tag object
+	or array of contents given a tag native identifier</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_delTagObject">OntologyWrapper\TagCacheObject::delTagObject()</a></code></tt>: This method should <i>delete a key/value
+	pair</i> in which the key represents the tag <i>native identifier</i>.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.TagCacheObject.html#_getTagGID">OntologyWrapper\TagCacheObject::getTagGID()</a></code></tt>: This method should <i>return a tag global
+	identifier given a tag native identifier</i>.</li>
+</ul>
+
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-OntologyWrapper.TagCache.html">OntologyWrapper\TagCache</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 29/01/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.TagCacheObject.html#17-275" title="Go to source code">TagCacheObject.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#72-82" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initialise cache</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise cache</p>
+
+<p>This method should reset the cache, if initialised, and load all the current
+tag identifiers and objects.</p>
+
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTagId" id="_setTagId">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTagId">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#89-107" title="Go to source code">setTagId</a>( <span>string <var>$theKey</var></span>, <span>integer <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set a tag identifier</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set a tag identifier</p>
+
+<p>This method should set a key/value pair in the cache, in which the key
+represents a tag global identifier and the value the tag native identifier.</p>
+
+<p>The global identifier will be cast to <tt>string</tt> and the native
+identifier will be cast to <i>integer</i>.</p>
+
+<p>The method should raise an exception if the operation fails.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>string</code><br>$theKey Global identifier.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>integer</code><br>$theValue Native identifier.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTagId" id="_getTagId">
+
+		<td class="attributes"><code>
+			abstract public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTagId">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#114-131" title="Go to source code">getTagId</a>( <span>string <var>$theKey</var></span>, <span>boolean <var>$doAssert</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Get a tag identifier</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get a tag identifier</p>
+
+<p>This method should return a tag native identifier given a tag global
+identifier.</p>
+
+<p>If the provided global identifier is not matched and the second parameter is
+<tt>TRUE</tt>, the method should raise an exception; if the parameter is
+<tt>FALSE</tt>, the method should return <tt>NULL</tt>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>string</code><br>$theKey Global identifier.</dd>
+					<dt><var>$doAssert</var></dt>
+					<dd><code>boolean</code><br>$doAssert Assert match.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>The tag native identifier or <tt>NULL</tt>.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delTagId" id="_delTagId">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delTagId">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#138-155" title="Go to source code">delTagId</a>( <span>string <var>$theKey</var></span>, <span>boolean <var>$doAssert</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Delete a tag identifier</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Delete a tag identifier</p>
+
+<p>This method should delete the tag native identifier matching the provided tag
+global identifier.</p>
+
+<p>If the provided global identifier is not matched and the second parameter is
+<tt>TRUE</tt>, the method should raise an exception; if the parameter is
+<tt>FALSE</tt> no exception should be raised.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>string</code><br>$theKey Global identifier.</dd>
+					<dt><var>$doAssert</var></dt>
+					<dd><code>boolean</code><br>$doAssert Assert match.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTagObject" id="_setTagObject">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTagObject">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#162-179" title="Go to source code">setTagObject</a>( <span>integer <var>$theKey</var></span>, <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set a tag object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set a tag object</p>
+
+<p>This method should set a key/value pair in the cache, in which the key
+represents a tag native identifier and the value the tag object or array of
+contents.</p>
+
+<p>The native identifier will be cast to <i>integer</i>.</p>
+
+<p>The method should raise an exception if the operation fails.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>integer</code><br>$theKey Native identifier.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Tag object.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTagObject" id="_getTagObject">
+
+		<td class="attributes"><code>
+			abstract public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTagObject">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#186-204" title="Go to source code">getTagObject</a>( <span>integer <var>$theKey</var></span>, <span>boolean <var>$doAssert</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Get a tag object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get a tag object</p>
+
+<p>This method should return a tag object or contents array given a tag native
+identifier.</p>
+
+<p>If the provided native identifier is not matched and the second parameter is
+<tt>TRUE</tt>, the method should raise an exception; if the parameter is
+<tt>FALSE</tt>, the method should return <tt>NULL</tt>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>integer</code><br>$theKey Native identifier.</dd>
+					<dt><var>$doAssert</var></dt>
+					<dd><code>boolean</code><br>$doAssert Assert match.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>The tag object, contents array or <tt>NULL</tt>.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.TagCacheObject.html#_getTagGID">OntologyWrapper\TagCacheObject::getTagGID()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delTagObject" id="_delTagObject">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delTagObject">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#211-227" title="Go to source code">delTagObject</a>( <span>integer <var>$theKey</var></span>, <span>boolean <var>$doAssert</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Delete a tag object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Delete a tag object</p>
+
+<p>This method should delete the tag object matching the provided tag native
+identifier.</p>
+
+<p>If the provided native identifier is not matched and the second parameter is
+<tt>TRUE</tt>, the method should raise an exception; if the parameter is
+<tt>FALSE</tt> no exception should be raised.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>integer</code><br>$theKey Native identifier.</dd>
+					<dt><var>$doAssert</var></dt>
+					<dd><code>boolean</code><br>$doAssert Assert match.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTagGID" id="_getTagGID">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTagGID">#</a>
+		<code><a href="source-class-OntologyWrapper.TagCacheObject.html#234-271" title="Go to source code">getTagGID</a>( <span>integer <var>$theKey</var></span>, <span>boolean <var>$doAssert</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Get a tag global identifier</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get a tag global identifier</p>
+
+<p>This method should return a tag global identifier given a tag native
+identifier.</p>
+
+<p>If the provided native identifier is not matched and the second parameter is
+<tt>TRUE</tt>, the method should raise an exception; if the parameter is
+<tt>FALSE</tt>, the method should return <tt>NULL</tt>.</p>
+
+<p>If you provide kTAG_NID, the method will return it.</p>
+
+<p><i>Note that the provided key will be cast to <tt>integer</tt>, which means
+that if you did not provide a numeric value, the results will be
+unexpected</i>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theKey</var></dt>
+					<dd><code>integer</code><br>$theKey Native identifier.</dd>
+					<dt><var>$doAssert</var></dt>
+					<dd><code>boolean</code><br>$doAssert Assert match.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>The tag global identifier.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.TagCacheObject.html#_getTagObject">OntologyWrapper\TagCacheObject::getTagObject()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

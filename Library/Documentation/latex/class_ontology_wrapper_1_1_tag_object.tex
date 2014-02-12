@@ -1,0 +1,414 @@
+\hypertarget{class_ontology_wrapper_1_1_tag_object}{\section{Ontology\-Wrapper\textbackslash{}Tag\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_tag_object}\index{Ontology\-Wrapper\textbackslash{}\-Tag\-Object@{Ontology\-Wrapper\textbackslash{}\-Tag\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Tag\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_tag_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Tag\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_tag_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_aa942610424d0d9ccd25f77fa2d5ac175}{\-\_\-\-\_\-to\-String} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_aff2f456246175999477d30308ba46f5d}{Label} (\$the\-Language, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_a3af9d817a489a0adfa3bbaf6b1a3484a}{Description} (\$the\-Language, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_aafaa4544bcec86e5d788ef360128d7fb}{Data\-Type} (\$the\-Value, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_a4e45b95407e911cc4dfdce3c5384ee0c}{Data\-Kind} (\$the\-Value, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_af1f5bda567cfd03e3098faf68b34ff1b}{Term\-Push} (\$the\-Term)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_adb3d32d6ac4285202f4b2e725e04b946}{Term\-Pop} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_aa1ffca0b0a8b996910eaf8a5645b8d6e}{Term\-Count} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_a5e348ec21f6570dfd4024ffaa9dfb2e2}{is\-Ready} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_object_a052746406bd482f55c790d5af4132899}{pre\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object
+
+This class extends \hyperlink{class_ontology_wrapper_1_1_ontology_object}{Ontology\-Object} to implement a concrete tag object class.
+
+A tag object is used to {\itshape identify}, {\itshape document} and {\itshape share} a data property, it represents the {\itshape metadata} of a data property, or its {\itshape definition} in an ontology.
+
+This class features a \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S} offset which is an array of \hyperlink{class_ontology_wrapper_1_1_term_object}{Term\-Object} references representing a path of vertex and predicate terms of the ontology graph, this chain of elements represents a lexical construct, like a phrase, that provides the explanation or definition of the current object.
+
+Using a chain of terms, rather than a single term, to provide metadata for a data element gives much more flexibility and reusability when defining a data dictionary. This sequence is divided in three main sections\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape Feature}\-: The first vertex represents the data element feature or trait, this term defines {\itshape what the data element is}. 
+\item {\itshape Method}\-: The vertices between the first and the last ones represent the {\itshape methodology} or {\itshape method} by which the described data was obtained. 
+\item {\itshape Scale}\-: The last vertex of the path represents the {\itshape unit} or {\itshape scale} in which the described value is expressed in. 
+\end{DoxyItemize}
+
+The concatenation of these term references, separated by the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-I\-N\-D\-E\-X\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R} becomes the object global identifier which is stored in the object's native identifier offset.
+
+Tags have another offset, \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-E\-Q}, which is an integer sequence number\-: this value must be unique within the tags domain of the current ontology. Unlike global identifiers, this value may change across implementations, but this is the value used to uniquely identify tags among the other elements of the ontology and database.
+
+{\itshape All offsets in all classes, including this one, are tag sequence numbers, which makes the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} class key in the structure and behaviour of all the elements implemented in this library}.
+
+The class features the following default offsets\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}}\-: {\itshape Native identifier}. This required attribute holds a string value which represents the global identifier of the current object. This identifier is immutable and represents the unique key. This string is constituted by the concatenation of all term references stored in the current object's branch, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S}. This attribute must be managed with its offset; in derived classes it will be automatically assigned end only available as read-\/only. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-E\-Q}}\-: {\itshape Sequence}. This required attribute holds an integer value which represents the current object's sequence number, as with the global identifier, this value must be unique, except that it may change across implementations. All offset keys in all objects derived from this class ancestor are references to this sequence number. This attribute must be managed with its offset; in derived classes it will be automatically assigned end only available as read-\/only. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S}}\-: {\itshape Branch}. This required attribute holds the list of terms comprising the current tag\-: this is an array of term references provided as an odd sequence of vertices and predicates forming a path of the ontology graph in which the first vertex defines the feature, the middle ones define the methodology and the last element indicates the scale or unit. To populate the elements of this path, use the \hyperlink{class_ontology_wrapper_1_1_tag_object_af1f5bda567cfd03e3098faf68b34ff1b}{Term\-Push()} amd \hyperlink{class_ontology_wrapper_1_1_tag_object_adb3d32d6ac4285202f4b2e725e04b946}{Term\-Pop()} offset accessor methods which respectively add and remove elements of the branch as if it was a stack. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-T\-Y\-P\-E}}\-: {\itshape Data type}. This attribute is an enumerated set of values listing all the {\itshape data types} that the value of the property defined by the current tag may take. To populate and handle individual data types use the \hyperlink{class_ontology_wrapper_1_1_tag_object_aafaa4544bcec86e5d788ef360128d7fb}{Data\-Type()} offset accessor method. This property is {\itshape required} by all tag objects. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-K\-I\-N\-D}}\-: {\itshape Data kind}. This attribute is an enumerated set of values providing the {\itshape data attributes} of the property defined by the current tag. This may be whether the property is a list of values, or if the property is required or not. To populate and handle individual data kinds use the \hyperlink{class_ontology_wrapper_1_1_tag_object_a4e45b95407e911cc4dfdce3c5384ee0c}{Data\-Kind()} offset accessor method. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-L\-A\-B\-E\-L}}\-: {\itshape Label}. The label represents the {\itshape name or short description} of the data property that the current object defines. All tags {\itshape should} have a label, since this is how human users will be able to identify and select them. This attribute has the \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-K\-I\-N\-D\-\_\-\-V\-A\-L\-U\-E} data type, which is constituted by a list of elements in which the \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E} item holds the label language code and the \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-T\-E\-X\-T} holds the label text. To populate and handle labels by language, use the \hyperlink{class_ontology_wrapper_1_1_tag_object_aff2f456246175999477d30308ba46f5d}{Label()} offset accessor method. 
+\item {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-E\-S\-C\-R\-I\-P\-T\-I\-O\-N}}\-: {\itshape Description}. The description tag represents the {\itshape description or extended definition} of the property that the current tag defines. The description is similar to the {\itshape definition}, except that while the definition provides a description of the object it defines unrelated to context, the description adds to the definition the elements added by the current context. All tags {\itshape should} have a description, if the tag label is not enough to provide a sufficient description or definition. Descriptions have the \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-K\-I\-N\-D\-\_\-\-V\-A\-L\-U\-E} data type, which is constituted by a list of elements in which the \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E} item holds the description language code and the \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-T\-E\-X\-T} holds the description text. To populate and handle descriptions by language, use the \hyperlink{class_ontology_wrapper_1_1_tag_object_a3af9d817a489a0adfa3bbaf6b1a3484a}{Description()} offset accessor method. 
+\end{DoxyItemize}
+
+The \hyperlink{class_ontology_wrapper_1_1_tag_object_aa942610424d0d9ccd25f77fa2d5ac175}{\-\_\-\-\_\-to\-String()} method will return the value stored in the global identifier, if set, or the computed global identifier which is the concatenation of all term references stored in the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S} offset, separated by the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-I\-N\-D\-E\-X\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R}.
+
+The class also features a pair of methods, \hyperlink{}{Feature()} and \hyperlink{}{Scale()}, which respectively return the first and last vertex of the ontology branch this object represents\-: the feature is a term that represents the main feature or trait that the current tag defines, the scale is a term that represents the scale or unit in which values defined by the current tag are expressed in.
+
+Objects of this class can hold any additional attribute that is considered necessary or useful to define and share the current tag. In this class we define only those attributes that constitute the core functionality of the object, derived classes will add attributes specific to the domain in which the object will operate and eventually restrict the functionality of other offsets to provide referential integrity. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 05/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_tag_object_aa942610424d0d9ccd25f77fa2d5ac175}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}}
+\index{\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{\-\_\-\-\_\-to\-String}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-\_\-\-\_\-to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_aa942610424d0d9ccd25f77fa2d5ac175}
+\subparagraph*{Return global identifier}
+
+The global identifier of tags is stored in its \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} offset\-: if set, this method will return that value. If that offset is not set, the method will concatenate the value of all the elements of the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S} separated by the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-I\-N\-D\-E\-X\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R} token.
+
+If the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S} offset is not set, the method will return an empty string.
+
+public \begin{DoxyReturn}{Returns}
+string The global identifier. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_tag_object_a4e45b95407e911cc4dfdce3c5384ee0c}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Data\-Kind@{Data\-Kind}}
+\index{Data\-Kind@{Data\-Kind}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Data\-Kind}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Data\-Kind (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_a4e45b95407e911cc4dfdce3c5384ee0c}
+Manage data kind
+
+This method can be used to add, retrieve and delete individual data kind enumerated values; to manage the enumerated set as a whole, use the \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-K\-I\-N\-D} offset.
+
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: This parameter represents the enumerated value we want to manage. 
+\item {\bfseries \$the\-Operation}\-: This parameter identifies the operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the enumerated value, if it exists, or {\ttfamily N\-U\-L\-L}. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the enumerated value, if it exists. 
+\item {\itshape other}\-: Any other value means that we want to set the enumerated value provided in the previous parameter. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method will return either the enumerated value, or {\ttfamily N\-U\-L\-L} if the value was not matched.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Data type. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-K\-I\-N\-D
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}{manage\-Set\-Offset()} \hypertarget{class_ontology_wrapper_1_1_tag_object_aafaa4544bcec86e5d788ef360128d7fb}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Data\-Type@{Data\-Type}}
+\index{Data\-Type@{Data\-Type}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Data\-Type}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Data\-Type (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_aafaa4544bcec86e5d788ef360128d7fb}
+Manage data type
+
+This method can be used to add, retrieve and delete individual data type enumerated values; to manage the enumerated set as a whole, use the \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-T\-Y\-P\-E} offset.
+
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: This parameter represents the enumerated value we want to manage. 
+\item {\bfseries \$the\-Operation}\-: This parameter identifies the operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the enumerated value, if it exists, or {\ttfamily N\-U\-L\-L}. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the enumerated value, if it exists. 
+\item {\itshape other}\-: Any other value means that we want to set the enumerated value provided in the previous parameter. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method will return either the enumerated value, or {\ttfamily N\-U\-L\-L} if the value was not matched.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Data type. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-T\-Y\-P\-E
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}{manage\-Set\-Offset()} \hypertarget{class_ontology_wrapper_1_1_tag_object_a3af9d817a489a0adfa3bbaf6b1a3484a}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Description@{Description}}
+\index{Description@{Description}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Description}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Description (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Language, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_a3af9d817a489a0adfa3bbaf6b1a3484a}
+Manage tag description
+
+This method can be used to add, retrieve and delete individual descriptions by language, while managing all the descriptions as a whole can be done using the \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-E\-S\-C\-R\-I\-P\-T\-I\-O\-N} offset.
+
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Language}\-: This parameter holds the language code of the text we want to manage. The {\ttfamily N\-U\-L\-L} value should generally {\itshape not} be used, definitions may not contain language elements, while descriptons should. 
+\item {\bfseries \$the\-Value}\-: This parameter identifies the description text or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the description of the provided language. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the description of the provided language. 
+\item {\itshape other}\-: Any other value is cast to string and interpreted as the text of the description in the provided language which will be inserted, or that will replace an existing entry. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method will return either the description text, or {\ttfamily N\-U\-L\-L} if the language was not matched.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Language} & Description language. \\
+\hline
+mixed & {\em \$the\-Value} & Description text or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-E\-S\-C\-R\-I\-P\-T\-I\-O\-N k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-T\-E\-X\-T
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset()} \hypertarget{class_ontology_wrapper_1_1_tag_object_a5e348ec21f6570dfd4024ffaa9dfb2e2}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!is\-Ready@{is\-Ready}}
+\index{is\-Ready@{is\-Ready}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{is\-Ready}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::is\-Ready (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_tag_object_a5e348ec21f6570dfd4024ffaa9dfb2e2}
+Check if object is ready
+
+In this class we return {\ttfamily T\-R\-U\-E} , assuming the object is ready.
+
+protected \begin{DoxyReturn}{Returns}
+Boolean {\ttfamily T\-R\-U\-E} means ready. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_tag_object_aff2f456246175999477d30308ba46f5d}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Label@{Label}}
+\index{Label@{Label}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Label}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Label (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Language, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_aff2f456246175999477d30308ba46f5d}
+Manage tag label
+
+This method can be used to add, retrieve and delete individual labels by language, while managing all the labels as a whole can be done using the \hyperlink{}{k\-T\-A\-G\-\_\-\-L\-A\-B\-E\-L} offset.
+
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Language}\-: This parameter holds the language code of the text we want to manage. If {\ttfamily N\-U\-L\-L}, it means that there is a text without a language; this can occur if the label is a name unrelated to any language. 
+\item {\bfseries \$the\-Value}\-: This parameter identifies the label text or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the label of the provided language. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the label of the provided language. 
+\item {\itshape other}\-: Any other value is cast to string and interpreted as the text of the label in the provided language which will be inserted, or that will replace an existing entry. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method will return either the label text, or {\ttfamily N\-U\-L\-L} if the language was not matched.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Language} & Label language. \\
+\hline
+mixed & {\em \$the\-Value} & Label text or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-L\-A\-B\-E\-L k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E k\-T\-A\-G\-\_\-\-S\-U\-B\-\_\-\-T\-E\-X\-T
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset()} \hypertarget{class_ontology_wrapper_1_1_tag_object_a052746406bd482f55c790d5af4132899}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+\index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::pre\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_tag_object_a052746406bd482f55c790d5af4132899}
+Handle offset and value before setting it
+
+In this class we cast the value of the sequence number into an integer.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} set offset value, other, return.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-N\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_ontology_wrapper_1_1_tag_object_aa1ffca0b0a8b996910eaf8a5645b8d6e}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Term\-Count@{Term\-Count}}
+\index{Term\-Count@{Term\-Count}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Term\-Count}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Term\-Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_aa1ffca0b0a8b996910eaf8a5645b8d6e}
+Count terms path elements
+
+This method will return the number of elements in the object's terms path.
+
+public \begin{DoxyReturn}{Returns}
+integer Number of elements in terms path.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_ontology_wrapper_1_1_tag_object_adb3d32d6ac4285202f4b2e725e04b946}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Term\-Pop@{Term\-Pop}}
+\index{Term\-Pop@{Term\-Pop}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Term\-Pop}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Term\-Pop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_adb3d32d6ac4285202f4b2e725e04b946}
+Pop terms from path
+
+This method can be used to pop elements off the end of the object's terms path, it will remove the last element in the sequence.
+
+When you remove the last element of the path, the method will also remove the offset.
+
+The method will return the removed element; if the path is empty, the method will return {\ttfamily N\-U\-L\-L}.
+
+public \begin{DoxyReturn}{Returns}
+string Removed element or {\ttfamily N\-U\-L\-L}.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset()} \hypertarget{class_ontology_wrapper_1_1_tag_object_af1f5bda567cfd03e3098faf68b34ff1b}{\index{Ontology\-Wrapper\-::\-Tag\-Object@{Ontology\-Wrapper\-::\-Tag\-Object}!Term\-Push@{Term\-Push}}
+\index{Term\-Push@{Term\-Push}!OntologyWrapper::TagObject@{Ontology\-Wrapper\-::\-Tag\-Object}}
+\subsubsection[{Term\-Push}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Object\-::\-Term\-Push (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Term}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_object_af1f5bda567cfd03e3098faf68b34ff1b}
+Add to terms path
+
+This method can be used to append elements to the object's terms path, it will add the provided element to the end of the path.
+
+If you provide a \hyperlink{class_ontology_wrapper_1_1_term_object}{Term\-Object} as the parameter, the method will \hyperlink{class_ontology_wrapper_1_1_ontology_object_a28e1502b1cc43e05c07d854e79780e9c}{Reference()} it.
+
+The method will return the number of elements in the path.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Term} & \hyperlink{class_ontology_wrapper_1_1_term}{Term} reference or object.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+integer Number of elements in path.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-E\-R\-M\-S
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset()} 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Tag\-Object.\-php\end{DoxyCompactItemize}

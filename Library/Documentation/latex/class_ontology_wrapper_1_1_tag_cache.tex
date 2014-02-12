@@ -1,0 +1,388 @@
+\hypertarget{class_ontology_wrapper_1_1_tag_cache}{\section{Ontology\-Wrapper\textbackslash{}Tag\-Cache Class Reference}
+\label{class_ontology_wrapper_1_1_tag_cache}\index{Ontology\-Wrapper\textbackslash{}\-Tag\-Cache@{Ontology\-Wrapper\textbackslash{}\-Tag\-Cache}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Tag\-Cache\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_ontology_wrapper_1_1_tag_cache__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Tag\-Cache\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_ontology_wrapper_1_1_tag_cache__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_ac773acbec3cb36c003389286705b4338}{\-\_\-\-\_\-construct} (\$the\-Identifier, \$the\-Servers=N\-U\-L\-L)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_abb702b90d228a9b7546d13c468db26fd}{P\-I\-D} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a205ab6592fa82d6a3265d20fda2c3721}{Connection} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_ae64d13e0014dd859a1f44e2fa445f2a9}{init} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a0759bc0731624f19e60e9f8fa1d713dc}{set\-Tag\-Id} (\$the\-Key, \$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_ae1b912d5cda8480ad9808d7a13c78e2e}{get\-Tag\-Id} (\$the\-Key, \$do\-Assert=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_ae173d79b363c3527a20d711e2682a498}{del\-Tag\-Id} (\$the\-Key, \$do\-Assert=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_aa40cb3a1f612fcc205e660a8397c22e4}{set\-Tag\-Object} (\$the\-Key, \$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a89bb41e8e92f93d4f785dd2bee347e86}{get\-Tag\-Object} (\$the\-Key, \$do\-Assert=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a4c7f47ee102fd5d71e6bc712ab18b90f}{del\-Tag\-Object} (\$the\-Key, \$do\-Assert=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_aaecd49741c55d6fdb7f94d892a84f8d3}{stats} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a02652ffd7800662d949483a478bada82}{connection\-Close} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a42e4e43a5fe659d1eb9a756bfe3a9fb0}{{\bfseries \$m\-P\-I\-D} = N\-U\-L\-L}\label{class_ontology_wrapper_1_1_tag_cache_a42e4e43a5fe659d1eb9a756bfe3a9fb0}
+
+\item 
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a8e30af2e9bcca11d86da598df580cd09}{{\bfseries \$m\-Connection} = N\-U\-L\-L}\label{class_ontology_wrapper_1_1_tag_cache_a8e30af2e9bcca11d86da598df580cd09}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_ontology_wrapper_1_1_tag}{Tag} cache
+
+This class is a {\itshape concrete} derived instance of the \hyperlink{class_ontology_wrapper_1_1_tag_cache_object}{Tag\-Cache\-Object} which implements a tag cache that uses the \hyperlink{}{Memcached} class.
+
+The class implements the following additional methods\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_tag_cache_ae64d13e0014dd859a1f44e2fa445f2a9}{init()}}\-: The method will flush the current cache and reload all tags. 
+\item {\ttfamily \hyperlink{}{Pid()}}\-: The method will return the connection persistent identifier. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_tag_cache_a205ab6592fa82d6a3265d20fda2c3721}{Connection()}}\-: The method will return the connection resource, which is, in this case, a \hyperlink{}{Memcached} instance. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_tag_cache_aaecd49741c55d6fdb7f94d892a84f8d3}{stats()}}\-: The method will return the connection statistics. 
+\end{DoxyItemize}
+
+This class may be used as a template to implement tag caches that use other cache engines if the \hyperlink{}{Memcached} class is not available. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 29/01/2014\end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_ac773acbec3cb36c003389286705b4338}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Identifier, }
+\item[{}]{\$the\-Servers = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_ac773acbec3cb36c003389286705b4338}
+Instantiate class.
+
+The constructor accepts two parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Identifier}\-: This string parameter represents the \{ Memcached\} persistent identifier provided to its constructor, the parameter is required, since the cache should be active across sessions. 
+\item {\bfseries \$the\-Servers}\-: This array parameter represents the list of servers that serve the cache, it is equivalent to the parameter of the \hyperlink{}{Memcached\-::add\-Servers()} method, it is a list of elements comprised by three parameters\-: 
+\begin{DoxyItemize}
+\item {\itshape Host}\-: The server host. 
+\item {\itshape Port}\-: The server port. 
+\item {\itshape Weight}\-: The weight of the server relative to the total weight of all the servers in the pool. 
+\end{DoxyItemize}This parameter may be omitted if the cache has been initialised beforehand. 
+\end{DoxyItemize}
+
+The constructor will first instantiate the \hyperlink{}{Memcached} object, then it will check if the connection resource has already a list of servers associated, if that is the case we assume the cache is already initialised; if that is not the case, we will add the servers provided in the second parameter and load all the current tag identifiers and objects.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Identifier} & Persistent identifier. \\
+\hline
+array & {\em \$the\-Servers} & List of servers.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_tag_cache_ae64d13e0014dd859a1f44e2fa445f2a9}{init()} \\
+\hline
+\end{DoxyExceptions}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a205ab6592fa82d6a3265d20fda2c3721}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!Connection@{Connection}}
+\index{Connection@{Connection}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{Connection}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::\-Connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_a205ab6592fa82d6a3265d20fda2c3721}
+Return connection resource.
+
+This method will return the current connection resource object, the method can be used to perform custom actions on the cache.
+
+public \begin{DoxyReturn}{Returns}
+Memcached Connection resource.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\$m\-Connection 
+\end{DoxySeeAlso}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a02652ffd7800662d949483a478bada82}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!connection\-Close@{connection\-Close}}
+\index{connection\-Close@{connection\-Close}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{connection\-Close}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::connection\-Close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_tag_cache_a02652ffd7800662d949483a478bada82}
+Close connection
+
+This method will close the connection to the cache and reset the connection resource.
+
+If the operation fails, the method should raise an exception.
+
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_ae173d79b363c3527a20d711e2682a498}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!del\-Tag\-Id@{del\-Tag\-Id}}
+\index{del\-Tag\-Id@{del\-Tag\-Id}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{del\-Tag\-Id}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::del\-Tag\-Id (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$do\-Assert = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_ae173d79b363c3527a20d711e2682a498}
+Delete a tag identifier
+
+This method will delete the tag native identifier matching the provided tag global identifier.
+
+If the provided global identifier is not matched and the second parameter is {\ttfamily T\-R\-U\-E}, the method will raise an exception; if the parameter is {\ttfamily F\-A\-L\-S\-E} no exception should be raised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Key} & Global identifier. \\
+\hline
+boolean & {\em \$do\-Assert} & Assert match.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a4c7f47ee102fd5d71e6bc712ab18b90f}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!del\-Tag\-Object@{del\-Tag\-Object}}
+\index{del\-Tag\-Object@{del\-Tag\-Object}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{del\-Tag\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::del\-Tag\-Object (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$do\-Assert = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_a4c7f47ee102fd5d71e6bc712ab18b90f}
+Delete a tag object
+
+This method will delete the tag object matching the provided tag native identifier.
+
+If the provided native identifier is not matched and the second parameter is {\ttfamily T\-R\-U\-E}, the method will raise an exception; if the parameter is {\ttfamily F\-A\-L\-S\-E} no exception should be raised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$the\-Key} & Native identifier. \\
+\hline
+boolean & {\em \$do\-Assert} & Assert match.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_ae1b912d5cda8480ad9808d7a13c78e2e}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!get\-Tag\-Id@{get\-Tag\-Id}}
+\index{get\-Tag\-Id@{get\-Tag\-Id}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{get\-Tag\-Id}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::get\-Tag\-Id (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$do\-Assert = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_ae1b912d5cda8480ad9808d7a13c78e2e}
+Get a tag identifier
+
+This method will return a tag native identifier given a tag global identifier, if the identifier is not matched the method will raise an exception if the second parameter is {\ttfamily T\-R\-U\-E}, or {\ttfamily N\-U\-L\-L} if the second parameter is {\ttfamily F\-A\-L\-S\-E}.
+
+The method assumes the cache is initialised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Key} & Global identifier. \\
+\hline
+boolean & {\em \$do\-Assert} & Assert match.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+integer The tag native identifier or {\ttfamily N\-U\-L\-L}.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a89bb41e8e92f93d4f785dd2bee347e86}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!get\-Tag\-Object@{get\-Tag\-Object}}
+\index{get\-Tag\-Object@{get\-Tag\-Object}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{get\-Tag\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::get\-Tag\-Object (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$do\-Assert = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_a89bb41e8e92f93d4f785dd2bee347e86}
+Get a tag object
+
+This method will return a tag object or array given a tag native identifier, if the identifier is not matched the method will raise an exception if the second parameter is {\ttfamily T\-R\-U\-E}, or {\ttfamily N\-U\-L\-L} if the second parameter is {\ttfamily F\-A\-L\-S\-E}.
+
+The method assumes the cache is initialised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Key} & Native identifier. \\
+\hline
+boolean & {\em \$do\-Assert} & Assert match.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed The tag object, contents array or {\ttfamily N\-U\-L\-L}.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_ae64d13e0014dd859a1f44e2fa445f2a9}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!init@{init}}
+\index{init@{init}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_ae64d13e0014dd859a1f44e2fa445f2a9}
+Initialise cache
+
+This method will invalidate the cache and load all tag identifiers and objects.
+
+If the operation fails, the method will raise an exception.
+
+public
+
+\hyperlink{class_ontology_wrapper_1_1_tag_cache_a0759bc0731624f19e60e9f8fa1d713dc}{set\-Tag\-Id()}  \hyperlink{class_ontology_wrapper_1_1_tag_cache_aa40cb3a1f612fcc205e660a8397c22e4}{set\-Tag\-Object()} \hypertarget{class_ontology_wrapper_1_1_tag_cache_abb702b90d228a9b7546d13c468db26fd}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!P\-I\-D@{P\-I\-D}}
+\index{P\-I\-D@{P\-I\-D}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{P\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::\-P\-I\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_abb702b90d228a9b7546d13c468db26fd}
+Return persistent identifier.
+
+This method will return the current connection persistent identifier.
+
+public \begin{DoxyReturn}{Returns}
+string Persistent identifier.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+\$m\-P\-I\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_a0759bc0731624f19e60e9f8fa1d713dc}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!set\-Tag\-Id@{set\-Tag\-Id}}
+\index{set\-Tag\-Id@{set\-Tag\-Id}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{set\-Tag\-Id}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::set\-Tag\-Id (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_a0759bc0731624f19e60e9f8fa1d713dc}
+Set a tag identifier
+
+This method will set a key/value pair in the cache consisting of the tag global identifier as the key and the tag native identifier as the value; both values will be cast.
+
+The expiration period is infinite by default, since the tags should persist in the cache.
+
+The method assumes the cache is initialised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Key} & Global identifier. \\
+\hline
+integer & {\em \$the\-Value} & Native identifier.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_aa40cb3a1f612fcc205e660a8397c22e4}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!set\-Tag\-Object@{set\-Tag\-Object}}
+\index{set\-Tag\-Object@{set\-Tag\-Object}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{set\-Tag\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::set\-Tag\-Object (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_aa40cb3a1f612fcc205e660a8397c22e4}
+Set a tag object
+
+This method will set a key/value pair in the cache consisting of the tag native identifier as the key and the tag object or array as the value; the identifier will be cast.
+
+The expiration period is infinite by default, since the tags should persist in the cache.
+
+The method assumes the cache is initialised.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Key} & Native identifier. \\
+\hline
+mixed & {\em \$the\-Value} & \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_tag_cache_aaecd49741c55d6fdb7f94d892a84f8d3}{\index{Ontology\-Wrapper\-::\-Tag\-Cache@{Ontology\-Wrapper\-::\-Tag\-Cache}!stats@{stats}}
+\index{stats@{stats}!OntologyWrapper::TagCache@{Ontology\-Wrapper\-::\-Tag\-Cache}}
+\subsubsection[{stats}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Tag\-Cache\-::stats (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_tag_cache_aaecd49741c55d6fdb7f94d892a84f8d3}
+Return cache statistics
+
+This method will return the current cache statistics.
+
+public \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Tag\-Cache.\-php\end{DoxyCompactItemize}

@@ -116,91 +116,142 @@ trait PersistentTrait
 	public function insert( $theContainer = NULL )
 	{
 		//
-		// Handle container.
+		// Do it only if the object is dirty or not committed.
 		//
-		if( $theContainer !== NULL )
+		if( $this->isDirty()
+		 || (! $this->isCommitted()) )
 		{
 			//
-			// Resolve collection.
+			// Handle container.
 			//
-			$theContainer = $this->resolveCollection( $theContainer );
-			if( ! ($theContainer instanceof CollectionObject) )
-				throw new \Exception(
-					"Cannot insert object: "
-				   ."invalid container parameter type." );						// !@! ==>
+			if( $theContainer !== NULL )
+			{
+				//
+				// Resolve collection.
+				//
+				$theContainer = $this->resolveCollection( $theContainer );
+				if( ! ($theContainer instanceof CollectionObject) )
+					throw new \Exception(
+						"Cannot insert object: "
+					   ."invalid container parameter type." );					// !@! ==>
 			
-			//
-			// Open collection.
-			//
-			$theContainer->openConnection();
+				//
+				// Open collection.
+				//
+				$theContainer->openConnection();
+		
+				//
+				// Set collection.
+				//
+				$this->manageCollection( $theContainer );
+		
+			} // Provided persistent store.
 		
 			//
-			// Set collection.
+			// Use collection.
 			//
-			$this->manageCollection( $theContainer );
+			else
+			{
+				//
+				// Get collection.
+				//
+				$theContainer = $this->mCollection;
+				if( ! ($theContainer instanceof CollectionObject) )
+					throw new \Exception(
+						"Cannot insert object: "
+					   ."no collection provided." );							// !@! ==>
 		
-		} // Provided persistent store.
+			} // Use current collection.
 		
-		//
-		// Use collection.
-		//
-		else
-		{
 			//
-			// Get collection.
+			// Compute operation.
 			//
-			$theContainer = $this->mCollection;
-			if( ! ($theContainer instanceof CollectionObject) )
+			$op = 0x01;										// Signal saving.
+			$op |= ( $this->isCommitted() ) ? 0x10 : 0x00;	// Signal committed.
+		
+			//
+			// Prepare object.
+			//
+			$this->preCommit( $op );
+		
+			//
+			// Check if object is ready.
+			//
+			if( ! $this->isReady() )
 				throw new \Exception(
 					"Cannot insert object: "
-				   ."no collection provided." );								// !@! ==>
+				   ."the object is not yet initialised." );						// !@! ==>
 		
-		} // Use current collection.
-		
-		//
-		// Compute operation.
-		//
-		$op = 0x01;										// Signal saving.
-		$op |= ( $this->isCommitted() ) ? 0x10 : 0x00;	// Signal committed.
-		
-		//
-		// Prepare object.
-		//
-		$this->preCommit( $op );
-		
-		//
-		// Check if object is ready.
-		//
-		if( ! $this->isReady() )
-			throw new \Exception(
-				"Cannot insert object: "
-			   ."the object is not yet initialised." );							// !@! ==>
-		
-		//
-		// Commit.
-		//
-		$id = $theContainer->insert( $this );
+			//
+			// Commit.
+			//
+			$id = $theContainer->insert( $this );
 	
-		//
-		// Copy identifier if new.
-		//
-		if( ! $this->isCommitted() )
-			$this->offsetSet( kTAG_NID, $id );
+			//
+			// Copy identifier if new.
+			//
+			if( ! $this->isCommitted() )
+				$this->offsetSet( kTAG_NID, $id );
 		
-		//
-		// Cleanup object.
-		//
-		$this->postCommit( $op );
+			//
+			// Cleanup object.
+			//
+			$this->postCommit( $op );
 	
-		//
-		// Set object status.
-		//
-		$this->isDirty( FALSE );
-		$this->isCommitted( TRUE );
+			//
+			// Set object status.
+			//
+			$this->isDirty( FALSE );
+			$this->isCommitted( TRUE );
 		
-		return $id;																	// ==>
+		} // Dirty or not committed.
+		
+		return $this->offsetGet( kTAG_NID );										// ==>
 	
 	} // insert.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT AGGREGATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect references
+	 *
+	 * This method should resolve and collect all the current object's references into the
+	 * provided array reference. The array is divided into a series of sub-arrays with an
+	 * offset corresponding to the relative class {@link kSEQ_NAME} constant Each of these
+	 * sub-arrays will contain the list of objects with the offset corresponding to the
+	 * object native identifier.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: Receives objects.
+	 *	<li><b>$doObject</b>: If <tt>TRUE</tt>, the data will be loaded as objects, if
+	 *		<tt>FALSE</tt>, as arrays.
+	 * </ul>
+	 *
+	 * If the current object is not committed, or it doesn't feature the collection, or any
+	 * reference cannot be resolved, the method should raise an exception.
+	 *
+	 * Derived classes should implement the method.
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access public
+	 */
+	abstract public function collectReferences( &$theContainer, $doObject = TRUE );
 
 		
 
@@ -229,26 +280,40 @@ trait PersistentTrait
 	 * providing an identifier and a container to retrieve the object from a persistent
 	 * store.
 	 *
-	 * The method expects the following parameters:
+	 * The method accepts two parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theContainer</b>: This may be either an array containing the object's
-	 *		persistent attributes, or a reference to a persistent connection, in which case
-	 *		the second parameter is required to select the object. If this parameter is
-	 *		<tt>NULL</tt>, the next parameter will be ignored.
-	 *	<li><b>$theIdentifier</b>: This parameter should only be provided if the fist
-	 *		parameter is a persistent connection: this value will be used to find the object
-	 *		using the provided connection.
+	 *		persistent attributes, or a reference to a persistent connection. If this
+	 *		parameter is <tt>NULL</tt>, the next parameter will be ignored.
+	 *	<li><b>$theIdentifier</b>: This parameter represents the object identifier or the
+	 *		object persistent attributes: in the first case it will used to select the
+	 *		object from the provided container, in the second case, it is assumed that the
+	 *		provided array holds the persistent attributes of an object committed in the
+	 *		provided container.
 	 * </ul>
 	 *
-	 * This method will return an array which can be handed to the calling object
+	 * The workflow is as follows:
+	 *
+	 * <ul>
+	 *	<li><i>Empty object</i>: Both parameters are omitted.
+	 *	<li><i>Filled non committed object</i>: The first parameter is an array.
+	 *	<li><i>Load object from container</i>: The first parameter is connection object and
+	 *		the second object is a scalar identifier.
+	 *	<li><i>Filled committed object</i>: The first parameter is connection object and the
+	 *		second parameter is an array holding the object's persistent data.
+	 * </ul>
+	 *
+	 * Any other combination will raise an exception.
+	 *
+	 * This method will return an array which can be handed to the calling object's
 	 * constructor.
 	 *
 	 * Note that the {@link isCommitted()} flag is managed in this method and the
 	 * {@link isDirty()} flag is not expected to be changed by this method.
 	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theContainer		Persistent store or data.
+	 * @param mixed					$theIdentifier		Object identifier or data.
 	 *
 	 * @access protected
 	 * @return array				Object offsets.
@@ -257,10 +322,9 @@ trait PersistentTrait
 	 *
 	 * @uses resolveCollection()
 	 * @uses manageCollection()
-	 * @uses resolveObject()
 	 * @uses isCommitted()
 	 */
-	public function instantiateObject( $theContainer = NULL, $theIdentifier = NULL )
+	protected function instantiateObject( $theContainer = NULL, $theIdentifier = NULL )
 	{
 		//
 		// Instantiate empty object.
@@ -269,36 +333,22 @@ trait PersistentTrait
 			return Array();															// ==>
 		
 		//
-		// Instantiate from object attributes.
+		// Instantiate from object attributes array.
 		//
-		elseif( $theIdentifier === NULL )
-		{
-			//
-			// Handle array objects.
-			//
-			if( $theContainer instanceof \ArrayObject )
-				return $theContainer->getArrayCopy();								// ==>
-		
-			//
-			// Handle arrays.
-			//
-			elseif( is_array( $theContainer ) )
-				return $theContainer;												// ==>
-		
-			//
-			// Complain.
-			//
-			else
-				throw new \Exception(
-					"Cannot instantiate object: "
-				   ."invalid container parameter type." );						// !@! ==>
-		
-		} // Identifier not provided.
+		if( is_array( $theContainer ) )
+			return $theContainer;													// ==>
 		
 		//
-		// Instantiate from persistent store.
+		// Instantiate from object.
 		//
-		else
+		if( ($theIdentifier === NULL)
+		 && ($theContainer instanceof \ArrayObject) )
+			return $theContainer->getArrayCopy();									// ==>
+		
+		//
+		// Handle container.
+		//
+		if( $theContainer instanceof ConnectionObject )
 		{
 			//
 			// Resolve collection.
@@ -320,13 +370,23 @@ trait PersistentTrait
 			$this->manageCollection( $collection );
 			
 			//
-			// Resolve object.
+			// Load object data.
 			//
-			$found = $this->resolveObject( $theIdentifier );
+			if( is_array( $theIdentifier ) )
+			{
+				//
+				// Set committed status.
+				//
+				$this->isCommitted( TRUE );
+				
+				return $theIdentifier;												// ==>
+				
+			} // Provided data.
 			
 			//
-			// Handle selected object.
+			// Resolve object.
 			//
+			$found = $this->mCollection->resolve( $theIdentifier, kTAG_NID, FALSE );
 			if( $found !== NULL )
 			{
 				//
@@ -337,8 +397,14 @@ trait PersistentTrait
 				return $found;														// ==>
 				
 			} // Found.
+			
+			return Array();															// ==>
 		
-		} // Provided persistent store connection.
+		} // Container connection.
+		
+		throw new \Exception(
+			"Cannot instantiate object: "
+		   ."invalid container parameter type." );								// !@! ==>
 	
 	} // instantiateObject.
 
@@ -369,25 +435,33 @@ trait PersistentTrait
 	 * the main duty of this method is to determine the collection of the current object
 	 * and return it.
 	 *
-	 * If the collection cannot be resolved, the method should return <tt>NULL</tt>.
+	 * If the collection cannot be resolved, the method should raise an exception.
 	 *
-	 * In this class we simply return the provided parameter if it is a
-	 * {@link CollectionObject} instance, if not, we return <tt>NULL</tt>.
+	 * In this trait we assume all using objects implement a constant, {@link kSEQ_NAME},
+	 * which serves the double purpose of providing the default database name and the
+	 * eventual sequence number index.
 	 *
 	 * @param ConnectionObject		$theConnection		Persistent store.
 	 *
 	 * @access protected
 	 * @return CollectionObject		Collection or <tt>NULL</tt>.
 	 */
-	public function resolveCollection( ConnectionObject $theConnection )
+	protected function resolveCollection( ConnectionObject $theConnection )
 	{
 		//
-		// Handle collection object.
+		// Handle collection.
 		//
 		if( $theConnection instanceof CollectionObject )
 			return $theConnection;													// ==>
 		
-		return NULL;																// ==>
+		//
+		// Handle databases.
+		//
+		if( $theConnection instanceof DatabaseObject )
+			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
+		
+		throw new \Exception(
+			"Invalid or unsupported connection." );								// !@! ==>
 	
 	} // resolveConnection.
 
@@ -471,55 +545,6 @@ trait PersistentTrait
 		return $this->manageProperty( $this->mCollection, $theValue, $getOld );		// ==>
 	
 	} // manageCollection.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	resolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve an object
-	 *
-	 * This method should select the record of the current object's collection matching the
-	 * provided identifier and return the result as an array, if found, or <tt>NULL</tt> if
-	 * not.
-	 *
-	 * The method will first check if the current object has a collection, if that is not
-	 * the case, this method will raise an exception; it will then call the collection's
-	 * {@link resolveIdentifier()} method that will do the actual job.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @access protected
-	 * @return array				Found object as an array, or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	public function resolveObject( $theIdentifier )
-	{
-		//
-		// Check collection.
-		//
-		if( $this->mCollection !== NULL )
-			return $this->mCollection->resolveIdentifier( $theIdentifier );			// ==>
-		
-		//
-		// Invalid container type.
-		//
-		throw new \Exception(
-			"Cannot resolve object: "
-		   ."no collection to search in." );									// !@! ==>
-	
-	} // resolveObject.
 
 		
 
@@ -814,9 +839,7 @@ trait PersistentTrait
 	 * This method should return the list of locked offsets, that is, the offsets which
 	 * cannot be modified once the object has been committed.
 	 *
-	 * In this class we return the same offsets as the {@link $sInternalTags} list and the
-	 * {@link kTAG_PID} offset, in derived classes you should merge the offsets of the
-	 * parent classes with the current ones.
+	 * Derived classes must implement this method.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
@@ -824,11 +847,103 @@ trait PersistentTrait
 	 * @see kTAG_PID
 	 * @see self::$sInternalTags
 	 */
-	protected function lockedOffsets()
+	abstract protected function lockedOffsets();
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT AGGREGATION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectObjects																	*
+	 *==================================================================================*/
+
+	/**
+	 * Collect objects
+	 *
+	 * This method will resolve and collect the provided list of object references loading
+	 * them into the provided array reference, objects will be indexed by native identifier
+	 * and existing objects will not be resolved.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: Receives objects.
+	 *	<li><b>$theConnection</b>: Objects collection.
+	 *	<li><b>$theReferences</b>: Either a list of references or a scalar reference.
+	 *	<li><b>$theClass</b>: A string corresponding to the container offset that will
+	 *		receive the list of objects.
+	 *	<li><b>$doObject</b>: If <tt>TRUE</tt>, the data will be loaded as objects, if
+	 *		<tt>FALSE</tt>, as arrays.
+	 * </ul>
+	 *
+	 * @param reference				$theContainer		Receives objects.
+	 * @param CollectionObject		$theCollection		Objects collection.
+	 * @param array					$theReferences		Object references.
+	 * @param string				$theClass			Sub-container index.
+	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
+	 *
+	 * @access protected
+	 */
+	protected function collectObjects( &$theContainer, CollectionObject  $theCollection,
+										   								 $theReferences,
+										   								 $theClass,
+										   								 $doObject = TRUE )
 	{
-		return array_merge( (array) kTAG_PID, static::$sInternalTags );				// ==>
+		//
+		// Init array.
+		//
+		if( ! is_array( $theContainer ) )
+			$theContainer = Array();
+		
+		//
+		// Init objects list.
+		//
+		if( ! array_key_exists( $theClass, $theContainer ) )
+			$theContainer[ $theClass ] = Array();
+		
+		//
+		// Normalise references.
+		//
+		if( ! is_array( $theReferences ) )
+			$theReferences = array( $theReferences );
+		
+		//
+		// Iterate references.
+		//
+		$ref = & $theContainer[ $theClass ];
+		foreach( $theReferences as $reference )
+		{
+			//
+			// Check if there.
+			//
+			if( ! array_key_exists( $reference, $ref ) )
+			{
+				//
+				// Resolve object.
+				//
+				$tmp = $theCollection->resolve( $reference );
+				if( $tmp === NULL )
+					throw new \Exception(
+						"Unable to resolve [$reference] object." );				// !@! ==>
+			
+				//
+				// Load result.
+				//
+				$ref[ $reference ] = ( $doObject )
+								   ? $tmp
+								   : $tmp->getArrayCopy();
+			
+			} // New object.
+		
+		} // Iterating references.
 	
-	} // lockedOffsets.
+	} // collectObjects.
 
 	 
 

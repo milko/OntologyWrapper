@@ -105,27 +105,25 @@ class MongoCollection extends CollectionObject
 
 	 
 	/*===================================================================================
-	 *	resolveIdentifier																*
+	 *	resolve																			*
 	 *==================================================================================*/
 
 	/**
 	 * Resolve an identifier
 	 *
-	 * In this class we assume the provided identifier is either the object's native or
-	 * global identifier, if none of the two are matched, the method will return
-	 * <tt>NULL</tt>.
-	 *
 	 * We first check if the current collection is connected, if that is not the case, we
 	 * raise an exception.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theOffset			Offset.
+	 * @param boolean				$asObject			Return object if <tt>TRUE</tt>.
 	 *
 	 * @access public
-	 * @return array				Found object as an array, or <tt>NULL</tt>.
+	 * @return mixed				Found object, array, or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
-	public function resolveIdentifier( $theIdentifier )
+	public function resolve( $theIdentifier, $theOffset = kTAG_NID, $asObject = TRUE )
 	{
 		//
 		// Check if connected.
@@ -133,22 +131,51 @@ class MongoCollection extends CollectionObject
 		if( $this->isConnected() )
 		{
 			//
-			// Try native identifier.
+			// Resolve offset.
 			//
-			$object = $this->mConnection->findOne( array( kTAG_NID => $theIdentifier ) );
-			if( $object !== NULL )
-				return $object;														// ==>
+			$theOffset = (string) OntologyObject::ResolveOffset( $theOffset, TRUE );
 			
-			return $this->mConnection->findOne(
-						array( (string) kTAG_PID => $theIdentifier ) );				// ==>
+			//
+			// Match object.
+			//
+			$object = $this->mConnection->findOne( array( $theOffset => $theIdentifier ) );
+			if( $object !== NULL )
+			{
+				//
+				// Return array.
+				//
+				if( ! $asObject )
+					return $object;													// ==>
+				
+				//
+				// Check class.
+				//
+				if( array_key_exists( kTAG_CLASS, $object ) )
+				{
+					//
+					// Save class.
+					//
+					$class = $object[ kTAG_CLASS ];
+					
+					return new $class( $this, $object );							// ==>
+				
+				} // Has class.
+			
+				throw new \Exception(
+					"Unable to resolve object: "
+				   ."missing object class." );									// !@! ==>
+			
+			} // Found.
+			
+			return NULL;															// ==>
 		
 		} // Connected.
 			
 		throw new \Exception(
-			"Unable to resolve identifier: "
+			"Unable to resolve object: "
 		   ."connection is not open." );										// !@! ==>
 	
-	} // resolveIdentifier.
+	} // resolve.
 
 		
 

@@ -61,7 +61,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/02/2014
  */
-abstract class Wrapper extends ContainerObject
+class Wrapper extends ContainerObject
 {
 	/**
 	 * Status trait.

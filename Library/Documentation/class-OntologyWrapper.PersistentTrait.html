@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Trait OntologyWrapper\PersistentTrait | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li class="active"><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Trait PersistentTrait</h1>
+
+
+	<div class="description">
+	
+<p>Persistence trait</p>
+
+<p>The main purpose of this trait is to add the ability for classes to store and
+retrieve objects in and from persistent stores.</p>
+
+<p>This trait defines the common methods for managing the object in a persistent
+store:</p>
+
+<ul></ul>
+
+<p>This trait makes also use of the <code><a href="class-OntologyWrapper.StatusTrait.html">OntologyWrapper\StatusTrait</a></code> trait in the following
+way:</p>
+
+<ul>
+	<li><tt><code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code></tt>: This flag is set whenever any offset is
+	modified, this status can be tested whenever the object should be stored in a
+	persistent container: if set, it means the object has been modified, if not set,
+	it means that the object is identical to the persistent copy.</li>
+
+	<li><tt><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></tt>: This flag is set whenever the object has
+	been loaded or stored into a persistent container. This status can be useful to
+	lock properties that cannot change once the object is stored.</li>
+</ul>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>OntologyWrapper\PersistentTrait</span></b>			
+			
+			 uses 
+				<a href="class-OntologyWrapper.StatusTrait.html"><span>OntologyWrapper\StatusTrait</span></a>
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+	<div>
+		<h4>Direct Known Users</h4>
+			<a href="class-OntologyWrapper.Edge.html">OntologyWrapper\Edge</a>, 
+			<a href="class-OntologyWrapper.Node.html">OntologyWrapper\Node</a>, 
+			<a href="class-OntologyWrapper.Tag.html">OntologyWrapper\Tag</a>, 
+			<a href="class-OntologyWrapper.Term.html">OntologyWrapper\Term</a>
+	</div>
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 06/02/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.PersistentTrait.html#17-950" title="Go to source code">PersistentTrait.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="insert" id="_insert">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insert">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#78-211" title="Go to source code">insert</a>( <span><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code> <var>$theContainer</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Insert the object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Insert the object</p>
+
+<p>This method should insert the current object into the provided persistent
+store.</p>
+
+<p>In this method we perform the following steps:</p>
+
+<ul>
+	<li>We resolve the eventually provided persistent store into a collection
+	object, or we use the current object's collection; if this is not set, or if the
+	collection canot be resolved, the method will raise an exception.</li>
+
+	<li>We call the <tt><code><a href="class-OntologyWrapper.PersistentTrait.html#_preCommit">OntologyWrapper\PersistentTrait::preCommit()</a></code></tt> method that is responsible for
+	preparing the object for being committed.</li>
+
+	<li>If the object is not ready, <code><a href="class-OntologyWrapper.PersistentTrait.html#_isReady">OntologyWrapper\PersistentTrait::isReady()</a></code>, we raise an exception.</li>
+
+	<li>We pass the current object to the collection's insert method and recuperate
+	the identifier.</li>
+
+	<li>We call the <tt><code><a href="class-OntologyWrapper.PersistentTrait.html#_postCommit">OntologyWrapper\PersistentTrait::postCommit()</a></code></tt> method that is responsible of
+	cleaning up the objecxt after the commit.</li>
+
+	<li>We return the object's identifier.</li>
+</ul>
+
+<p>If any of the above steps fail the method must raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code></code><br>$theContainer Persistent store.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>The object's native identifier.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_resolveCollection">OntologyWrapper\PersistentTrait::resolveCollection()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_preCommit">OntologyWrapper\PersistentTrait::preCommit()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isReady">OntologyWrapper\PersistentTrait::isReady()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_postCommit">OntologyWrapper\PersistentTrait::postCommit()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="collectReferences" id="_collectReferences">
+
+		<td class="attributes"><code>
+			abstract public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_collectReferences">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#227-254" title="Go to source code">collectReferences</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>boolean <var>$doObject</var> = <span class="php-keyword1">TRUE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Collect references</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Collect references</p>
+
+<p>This method should resolve and collect all the current object's references
+into the provided array reference. The array is divided into a series of
+sub-arrays with an offset corresponding to the relative class kSEQ_NAME
+constant Each of these sub-arrays will contain the list of objects with the
+offset corresponding to the object native identifier.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: Receives objects.</li>
+
+	<li><b>$doObject</b>: If <tt>TRUE</tt>, the data will be loaded as objects, if
+	<tt>FALSE</tt>, as arrays.</li>
+</ul>
+
+<p>If the current object is not committed, or it doesn't feature the collection,
+or any reference cannot be resolved, the method should raise an exception.</p>
+
+<p>Derived classes should implement the method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>$theContainer Receives objects.</dd>
+					<dt><var>$doObject</var></dt>
+					<dd><code>boolean</code><br>$doObject <tt>TRUE</tt> load objects.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="instantiateObject" id="_instantiateObject">
+
+		<td class="attributes"><code>
+			 protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_instantiateObject">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#270-409" title="Go to source code">instantiateObject</a>( <span>mixed <var>$theContainer</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theIdentifier</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate object</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate object</p>
+
+<p>This method has been developed to provide a constructor template from the
+current trait. Since traits should not implement constructors, we implement this
+method which will return an array than can be used to instantiate the current
+object, all other object elements are handled in this method.</p>
+
+<p>Objects derived from this class share the same constructor prototype, this
+allows instantiating an object by providing content, as for the parent class, or
+by providing an identifier and a container to retrieve the object from a
+persistent store.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: This may be either an array containing the object's
+	persistent attributes, or a reference to a persistent connection. If this
+	parameter is <tt>NULL</tt>, the next parameter will be ignored.</li>
+
+	<li><b>$theIdentifier</b>: This parameter represents the object identifier or
+	the object persistent attributes: in the first case it will used to select the
+	object from the provided container, in the second case, it is assumed that the
+	provided array holds the persistent attributes of an object committed in the
+	provided container.</li>
+</ul>
+
+<p>The workflow is as follows:</p>
+
+<ul>
+	<li><i>Empty object</i>: Both parameters are omitted.</li>
+
+	<li><i>Filled non committed object</i>: The first parameter is an array.</li>
+
+	<li><i>Load object from container</i>: The first parameter is connection object
+	and the second object is a scalar identifier.</li>
+
+	<li><i>Filled committed object</i>: The first parameter is connection object and
+	the second parameter is an array holding the object's persistent data.</li>
+</ul>
+
+<p>Any other combination will raise an exception.</p>
+
+<p>This method will return an array which can be handed to the calling object's
+constructor.</p>
+
+<p>Note that the <code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code> flag is managed in this method and the
+<code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code> flag is not expected to be changed by this method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br>$theContainer Persistent store or data.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>mixed</code><br>$theIdentifier Object identifier or data.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Object offsets.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_resolveCollection">OntologyWrapper\PersistentTrait::resolveCollection()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_manageCollection">OntologyWrapper\PersistentTrait::manageCollection()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="resolveCollection" id="_resolveCollection">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_resolveCollection">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#425-466" title="Go to source code">resolveCollection</a>( <span><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code> <var>$theConnection</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Resolve the collection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Resolve the collection</p>
+
+<p>This method should resolve a collection object from the provided <code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code> parameter. This method is generally called by the constructor
+or by the persistence methods to select the <code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code> instance
+from which the object will be retrieved, or in which the object will be
+stored.</p>
+
+<p>The provided parameter should be an instance of the <code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code>
+class, the main duty of this method is to determine the collection of the
+current object and return it.</p>
+
+<p>If the collection cannot be resolved, the method should raise an
+exception.</p>
+
+<p>In this trait we assume all using objects implement a constant, kSEQ_NAME, which serves the double purpose of providing the default database
+name and the eventual sequence number index.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theConnection</var></dt>
+					<dd><code><code><a href="class-OntologyWrapper.ConnectionObject.html">OntologyWrapper\ConnectionObject</a></code></code><br>$theConnection Persistent store.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code></code><br>Collection or <tt>NULL</tt>.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_insert">OntologyWrapper\PersistentTrait::insert()</a></code></code> <br />
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_instantiateObject">OntologyWrapper\PersistentTrait::instantiateObject()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="manageCollection" id="_manageCollection">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_manageCollection">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#473-547" title="Go to source code">manageCollection</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the current object's collection</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the current object's collection</p>
+
+<p>This method can be used to set, delete or retrieve the object's collection,
+which represents the object's persistent store.</p>
+
+<p>The value may only be modified as long as the object is not yet <code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code>, once this status is set, this value can only be consulted.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><tt>$theValue</tt>: The collection object or operation:
+		<ul>
+			<li><tt>NULL</tt>: Return the current collection.</li>
+
+			<li><tt>FALSE</tt>: Reset the current collection to <tt>NULL</tt>.</li>
+
+			<li><tt><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code></tt>: Set the current collection to the
+			provided value.</li>
+
+			<li>&lt;em&gt;other&lt;/em&gt;: Any other type will raise an exception.</li>
+		</ul>
+	</li>
+
+	<li><tt>$getOld</tt>: Determines what the method will return:
+		<ul>
+			<li><tt>TRUE</tt>: Return the collection &lt;em&gt;before&lt;/em&gt; it was
+			eventually modified.</li>
+
+			<li><tt>FALSE</tt>: Return the collection &lt;em&gt;after&lt;/em&gt; it was
+			eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br>$theValue Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br>$getOld <tt>TRUE</tt> get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code></code><br>Persistent store or <tt>NULL</tt>.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+						manageProperty()<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_instantiateObject">OntologyWrapper\PersistentTrait::instantiateObject()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preCommit" id="_preCommit">
+
+		<td class="attributes"><code>
+			abstract protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preCommit">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#563-586" title="Go to source code">preCommit</a>( <span>bitfield <var>$theOperation</var> = <span class="php-num">0x00</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Prepare object for commit</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Prepare object for commit</p>
+
+<p>This method should prepare the object for being committed, it should compute
+the eventual identifiers and commit the eventual related objects.</p>
+
+<p>The method accepts a single bitfield parameter that indicates the current
+operation:</p>
+
+<ul>
+	<li><tt>0x01</tt>: Insert.</li>
+
+	<li><tt>0x11</tt>: Update.</li>
+
+	<li><tt>0x10</tt>: Delete.</li>
+</ul>
+
+<p>The first bit is set if the object is committed and the second bit is set if
+we are storing the object.</p>
+
+<p>The method must be implemented by concrete derived classes.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>bitfield</code><br>$theOperation Operation code.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_insert">OntologyWrapper\PersistentTrait::insert()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postCommit" id="_postCommit">
+
+		<td class="attributes"><code>
+			abstract protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postCommit">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#593-616" title="Go to source code">postCommit</a>( <span>bitfield <var>$theOperation</var> = <span class="php-num">0x00</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Cleanup object after commit</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Cleanup object after commit</p>
+
+<p>This method should cleanup the object after it was committed, it should
+perform eventual identifiers and commit the eventual related objects.</p>
+
+<p>The method accepts a single bitfield parameter that indicates the current
+operation:</p>
+
+<ul>
+	<li><tt>0x01</tt>: Insert.</li>
+
+	<li><tt>0x11</tt>: Update.</li>
+
+	<li><tt>0x10</tt>: Delete.</li>
+</ul>
+
+<p>The first bit is set if the object is committed and the second bit is set if
+we are storing the object.</p>
+
+<p>The method must be implemented by concrete derived classes.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>bitfield</code><br>$theOperation Operation code.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_insert">OntologyWrapper\PersistentTrait::insert()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isReady" id="_isReady">
+
+		<td class="attributes"><code>
+			abstract protected 
+			Boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isReady">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#632-643" title="Go to source code">isReady</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check if object is ready</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if object is ready</p>
+
+<p>This method should return <tt>TRUE</tt> if the object holds all the necessary
+attributes.</p>
+
+<p>All derived classes must implement this method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Boolean</code><br><tt>TRUE</tt> means ready.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_insert">OntologyWrapper\PersistentTrait::insert()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetSet" id="_preOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#659-705" title="Go to source code">preOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before setting it</p>
+
+<p>We overload this method to prevent modifying the global and native
+identifiers if the object is committed, <code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> set offset value, other, return.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						self::$sInternalTags<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetSet" id="_postOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#712-737" title="Go to source code">postOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value after setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value after setting it</p>
+
+<p>We overload the parent method to set the <code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code> status.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetUnset" id="_preOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#744-788" title="Go to source code">preOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before deleting it</p>
+
+<p>We overload this method to prevent modifying the global and native
+identifiers if the object is committed, <code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> delete offset value, other, return.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						self::$sInternalTags<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isCommitted">OntologyWrapper\PersistentTrait::isCommitted()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postOffsetUnset" id="_postOffsetUnset">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postOffsetUnset">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#795-820" title="Go to source code">postOffsetUnset</a>( <span>reference <var>&amp; $theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset after deleting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset after deleting it</p>
+
+<p>This method can be used to manage the object after calling the ArrayObject::OffsetUnset() method.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-OntologyWrapper.PersistentTrait.html#_isDirty">OntologyWrapper\PersistentTrait::isDirty()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="lockedOffsets" id="_lockedOffsets">
+
+		<td class="attributes"><code>
+			abstract protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_lockedOffsets">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#836-850" title="Go to source code">lockedOffsets</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return list of locked offsets</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return list of locked offsets</p>
+
+<p>This method should return the list of locked offsets, that is, the offsets
+which cannot be modified once the object has been committed.</p>
+
+<p>Derived classes must implement this method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>List of locked offsets.<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_PID<br />
+						self::$sInternalTags<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="collectObjects" id="_collectObjects">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_collectObjects">#</a>
+		<code><a href="source-class-OntologyWrapper.PersistentTrait.html#866-946" title="Go to source code">collectObjects</a>( <span>reference <var>&amp; $theContainer</var></span>, <span><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code> <var>$theCollection</var></span>, <span>array <var>$theReferences</var></span>, <span>string <var>$theClass</var></span>, <span>boolean <var>$doObject</var> = <span class="php-keyword1">TRUE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Collect objects</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Collect objects</p>
+
+<p>This method will resolve and collect the provided list of object references
+loading them into the provided array reference, objects will be indexed by
+native identifier and existing objects will not be resolved.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: Receives objects.</li>
+
+	<li><b>$theConnection</b>: Objects collection.</li>
+
+	<li><b>$theReferences</b>: Either a list of references or a scalar
+	reference.</li>
+
+	<li><b>$theClass</b>: A string corresponding to the container offset that will
+	receive the list of objects.</li>
+
+	<li><b>$doObject</b>: If <tt>TRUE</tt>, the data will be loaded as objects, if
+	<tt>FALSE</tt>, as arrays.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>$theContainer Receives objects.</dd>
+					<dt><var>$theCollection</var></dt>
+					<dd><code><code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code></code><br>$theCollection Objects collection.</dd>
+					<dt><var>$theReferences</var></dt>
+					<dd><code>array</code><br>$theReferences Object references.</dd>
+					<dt><var>$theClass</var></dt>
+					<dd><code>string</code><br>$theClass Sub-container index.</dd>
+					<dt><var>$doObject</var></dt>
+					<dd><code>boolean</code><br>$doObject <tt>TRUE</tt> load objects.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+	<table class="summary used">
+	<caption>Methods used from <a href="class-OntologyWrapper.StatusTrait.html#methods">OntologyWrapper\StatusTrait</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.StatusTrait.html#_isCommitted">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isDirty">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isEncoded">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_isInited">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_manageBitField">()</a>, 
+			<a href="class-OntologyWrapper.StatusTrait.html#_statusReset">()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mCollection" id="$mCollection">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-OntologyWrapper.PersistentTrait.html#52-62" title="Go to source code"><var>$mCollection</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mCollection" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Container.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Container.</p>
+
+<p>This data member holds the object's persistent store reference, it should be
+a concrete instance derived from the <code><a href="class-OntologyWrapper.CollectionObject.html">OntologyWrapper\CollectionObject</a></code> class.</p>
+
+<p>This data member will be set when the object is instantiated from a
+collection.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

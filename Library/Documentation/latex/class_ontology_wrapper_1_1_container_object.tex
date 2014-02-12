@@ -1,0 +1,673 @@
+\hypertarget{class_ontology_wrapper_1_1_container_object}{\section{Ontology\-Wrapper\textbackslash{}Container\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_container_object}\index{Ontology\-Wrapper\textbackslash{}\-Container\-Object@{Ontology\-Wrapper\textbackslash{}\-Container\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Container\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_ontology_wrapper_1_1_container_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Container\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_container_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}{offset\-Exists} (\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get} (\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset} (\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae27d07c2dcb4b4e95a167ef9fa6a419a}{array\-Keys} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a65780ec62aa8b6e5f699be556f9e316f}{array\-Values} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_ontology_wrapper_1_1_container_object_a0af6d7a3fcaeeb50be636280e95bc2db}{Object2\-Array} (\&\$the\-Source, \&\$the\-Destination)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae03602f378081e220f8e6280d75bdc3e}{pre\-Offset\-Exists} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a7053dffd7fc10440eebfecd74e73d4af}{pre\-Offset\-Get} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ab7d07dda2c4b88ffa98b41d48814d03f}{pre\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a0fa0ab4b7e742d00f2daa9206aa0b44a}{post\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae9f60cec5e7e40aed32c51dd7efa0429}{pre\-Offset\-Unset} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ada715084328ddac15b67491ea7c8e8cb}{post\-Offset\-Unset} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a9858b2ffc8e2c3474f1cc0f7a01df8d5}{manage\-Offset} (\$the\-Offset, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}{manage\-Set\-Offset} (\$the\-Offset, \$the\-Value, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_aa0d380cae8b4eef94d7d9ba0098b1454}{manage\-Array\-Offset} (\$the\-Offset, \$the\-Key, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset} (\$the\-Offset, \$the\-Type\-Offset, \$the\-Data\-Offset, \$the\-Type\-Value, \$the\-Data\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property} (\&\$the\-Member, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Container object
+
+This class is the ancestor of classes that define objects that handle structured data and that are persistent.
+
+The class extends {\ttfamily \hyperlink{}{Array\-Object}} by treating the inherited array as the persistent store and all other data members as run-\/time data. The convention is that items stored in the array part of the object are called {\itshape offsets} and are considered {\itshape persistent}, while all other data members are called {\itshape members} and are considered {\itshape run-\/time} data.
+
+This class implements a framework that governs tha management of the object's persistent data. No offset may hold the {\ttfamily N\-U\-L\-L} value, setting an offset with {\ttfamily N\-U\-L\-L} value is equivalent to {\itshape deleting the offset}.
+
+Retrieving non-\/existant offsets will {\itshape not} generate a warning, but only return {\ttfamily N\-U\-L\-L}.
+
+The class features a series of methods that derived classes may use to customise the behaviour of the offset management methods\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_ae03602f378081e220f8e6280d75bdc3e}{pre\-Offset\-Exists()}}\-: This method is called {\itshape before} the \hyperlink{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}{offset\-Exists()} method with the offset passed as a reference parameter, the method can be used to change the value of the offset or to provide a custom result\-: if the method returns {\ttfamily N\-U\-L\-L}, \hyperlink{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}{offset\-Exists()} will be called; if the method returns any other type of value, this will be returned and \hyperlink{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}{offset\-Exists()} will be skipped. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_a7053dffd7fc10440eebfecd74e73d4af}{pre\-Offset\-Get()}}\-: This is called {\itshape before} the \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()} method with the offset passed as a reference parameter, the method can be used to change the value of the offset or to provide a custom result\-: if the method returns {\ttfamily N\-U\-L\-L}, \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()} will be called; if the method returns any other type of value, this will be returned and \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()} will be skipped. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_ab7d07dda2c4b88ffa98b41d48814d03f}{pre\-Offset\-Set()}}\-: This is called {\itshape before} the \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()} method with the offset and value passed as reference parameters, the method can be used to change the offset or the value\-: if the method returns {\ttfamily N\-U\-L\-L}, \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()} will be called; if the method returns any other type of value, the \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()} will be skipped. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_a0fa0ab4b7e742d00f2daa9206aa0b44a}{post\-Offset\-Set()}}\-: This is called {\itshape after} the \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()} method with the offset and value passed as reference parameters, the method can be used to set status or statistical variables, it will only be called if the \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()} method was called. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_ae9f60cec5e7e40aed32c51dd7efa0429}{pre\-Offset\-Unset()}}\-: This is called {\itshape before} the \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} method with the offset passed as a reference parameter, the method can be used to change the offset\-: if the method returns {\ttfamily N\-U\-L\-L}, \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} will be called; if the method returns any other type of value, the \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} will be skipped. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_container_object_ada715084328ddac15b67491ea7c8e8cb}{post\-Offset\-Unset()}}\-: This is called {\itshape after} the \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} method with the offset passed as a reference parameter, the method can be used to set status or statistical variables, it will only be called if the \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} method was called. 
+\end{DoxyItemize}
+
+The class features a series of methods that are useful for handling the persistent data as a whole\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_ae27d07c2dcb4b4e95a167ef9fa6a419a}{array\-Keys()}}\-: This method is the equivalent of the \hyperlink{}{array\-\_\-keys()} function. 
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_a65780ec62aa8b6e5f699be556f9e316f}{array\-Values()}}\-: This method is the equivalent of the \hyperlink{}{array\-\_\-values()} function. 
+\end{DoxyItemize}
+
+The class features a static method, \hyperlink{class_ontology_wrapper_1_1_container_object_a0af6d7a3fcaeeb50be636280e95bc2db}{Object2\-Array}, that can be used to convert a structure of nested \hyperlink{}{Array\-Object} instances into a nested array, this will be useful when normalising objects before persisting.
+
+This class implements a series of methods that can be used by member accessor methods to handle properties and offsets in a standard way\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_a9858b2ffc8e2c3474f1cc0f7a01df8d5}{manage\-Offset()}}\-: This method provides a standard interface to set, retrieve and delete offset values. 
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}{manage\-Set\-Offset()}}\-: This method provides a standard interface to set, retrieve and delete elements of an array set, this method provides access to elements of the offset, rather than to the offset, which must be an array or \hyperlink{}{Array\-Object}. 
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{manage\-Element\-Match\-Offset()}}\-: This method provides a standard interface to set, retrieve and delete elements of an array or \hyperlink{}{Array\-Object}, these elements are an array of two items in which the first one is the discriminator and the second is the value. 
+\item {\itshape \hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property()}}\-: This method provides a standard interface to set, retrieve and reset data members. 
+\end{DoxyItemize}\begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 10/01/2014\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_container_object_ae27d07c2dcb4b4e95a167ef9fa6a419a}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!array\-Keys@{array\-Keys}}
+\index{array\-Keys@{array\-Keys}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{array\-Keys}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::array\-Keys (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_ae27d07c2dcb4b4e95a167ef9fa6a419a}
+Return object's offsets
+
+This method has the same function as the P\-H\-P function \hyperlink{}{array\-\_\-keys()}, it will return all the object's offset keys as an array.
+
+public \begin{DoxyReturn}{Returns}
+array List of object offsets.
+\end{DoxyReturn}
+get\-Array\-Copy() \hypertarget{class_ontology_wrapper_1_1_container_object_a65780ec62aa8b6e5f699be556f9e316f}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!array\-Values@{array\-Values}}
+\index{array\-Values@{array\-Values}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{array\-Values}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::array\-Values (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_a65780ec62aa8b6e5f699be556f9e316f}
+Return object's offset values
+
+This method has the same function as the P\-H\-P function \hyperlink{}{array\-\_\-values()}, it will return all the object's offset values as an array.
+
+public \begin{DoxyReturn}{Returns}
+array List of object offset values.
+\end{DoxyReturn}
+get\-Array\-Copy() \hypertarget{class_ontology_wrapper_1_1_container_object_aa0d380cae8b4eef94d7d9ba0098b1454}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!manage\-Array\-Offset@{manage\-Array\-Offset}}
+\index{manage\-Array\-Offset@{manage\-Array\-Offset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{manage\-Array\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::manage\-Array\-Offset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Key, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_aa0d380cae8b4eef94d7d9ba0098b1454}
+\subparagraph*{Manage value set offset}
+
+This class provides a protected interface for member accessor methods, both for properties and offsets, this method can be used to manage the elements of a key/value array, its options involve setting, retrieving and deleting elements of the list by key. This method generally applies to data of the \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-A\-R\-R\-A\-Y} data type.
+
+It is assumed that the value at the provided offset is either an array or an \hyperlink{}{Array\-Object}, if this is not the case, the method will raise an exception.
+
+If you want to manage the array itself, you have to use the offset management
+\begin{DoxyItemize}
+\item methods.
+
+The method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$the\-Offset}\-: The offset to the array attribute that is to be managed. 
+\item {\ttfamily \$the\-Key}\-: The element key. 
+\item {\ttfamily \$the\-Value}\-: The element value or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the value at the provided key, or {\ttfamily N\-U\-L\-L}. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the value at the provided key. 
+\item {\itshape other}\-: Any other type represents a new or a replacement value. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+When setting new values, if the current offset is empty, the method will set the new value in an aray; when deleting values, if the existing value is the last one, the method will delete the offset itself.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset to be managed. \\
+\hline
+mixed & {\em \$the\-Key} & Element key. \\
+\hline
+mixed & {\em \$the\-Value} & Element value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} \\
+\hline
+\end{DoxyExceptions}
+
+\end{DoxyItemize}\hypertarget{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!manage\-Element\-Match\-Offset@{manage\-Element\-Match\-Offset}}
+\index{manage\-Element\-Match\-Offset@{manage\-Element\-Match\-Offset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{manage\-Element\-Match\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::manage\-Element\-Match\-Offset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Type\-Offset, }
+\item[{}]{\$the\-Data\-Offset, }
+\item[{}]{\$the\-Type\-Value, }
+\item[{}]{\$the\-Data\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_ac54aca8b612d63b316350e8d9d82ebea}
+\subparagraph*{Manage element match offset}
+
+This class provides a protected interface for member accessor methods, both for properties and offsets, this method can be used to manage the elements of an array of array elements in which one item's value represents the discriminant.
+
+Offsets of this kind are arrays or \hyperlink{}{Array\-Object} instances that represent a list of elements, each of which is constituted by an array of two elements, where the value matching the {\ttfamily \$the\-Type\-Offset} key represents the element key and the value matching the {\ttfamily \$the\-Data\-Offset} key represents the element's value.
+
+This method allows retrieving the element value and deleting or setting an element.
+
+It is assumed that the value at the provided offset is either an array or an \hyperlink{}{Array\-Object}, if this is not the case, the method will raise an exception.
+
+If you want to manage the set itself, you have to use the offset management methods.
+
+The method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$the\-Offset}\-: The offset to the attribute containing the match list. 
+\item {\ttfamily \$the\-Type\-Offset}\-: The offset to the type within the element. 
+\item {\ttfamily \$the\-Data\-Offset}\-: The offset to the data within the element. 
+\item {\ttfamily \$the\-Type\-Value}\-: The value of the element's type to match, it represents the key to the element; we assume the value to be a string. A {\ttfamily N\-U\-L\-L} value is used to select the element missing the {\ttfamily \$the\-Type\-Offset} offset. 
+\item {\ttfamily \$the\-Data\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the offset's {\ttfamily \$the\-Data\-Offset} value. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the element matchhing the {\ttfamily \$the\-Type\-Offset}. 
+\item {\itshape other}\-: Any other type represents the element's new value. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value of the offset {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value of the offset {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method expects each element to be a structure containing at least an element indexed by the {\ttfamily \$the\-Data\-Offset} offset, if that is not the case, the method will raise an exception. All elements are supposed to be arrays.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset to be managed. \\
+\hline
+string & {\em \$the\-Type\-Offset} & Offset of type item. \\
+\hline
+string & {\em \$the\-Data\-Offset} & Offset of data item. \\
+\hline
+string & {\em \$the\-Type\-Value} & Type value. \\
+\hline
+mixed & {\em \$the\-Data\-Value} & New value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_container_object_a9858b2ffc8e2c3474f1cc0f7a01df8d5}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!manage\-Offset@{manage\-Offset}}
+\index{manage\-Offset@{manage\-Offset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{manage\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::manage\-Offset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_a9858b2ffc8e2c3474f1cc0f7a01df8d5}
+\subparagraph*{Manage a scalar offset}
+
+This class provides a protected interface for member accessor methods, both for properties and offsets, this method can be used to manage a scalar offset, its options involve setting, retrieving and deleting an offset of the provided array or Array\-Object.
+
+The method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$the\-Offset}\-: The offset to the attribute contained in the previous parameter that is to be managed. 
+\item {\ttfamily \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the offset's current value. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the offset. 
+\item {\itshape other}\-: Any other type represents the offset's new value. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value of the offset {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value of the offset {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset to be managed. \\
+\hline
+mixed & {\em \$the\-Value} & New value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} \hypertarget{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!manage\-Property@{manage\-Property}}
+\index{manage\-Property@{manage\-Property}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{manage\-Property}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::manage\-Property (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Member, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}
+\subparagraph*{Manage a property}
+
+This library implements a standard interface for managing object properties using accessor methods, this method implements this interface\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \&\$the\-Member}\-: Reference to the property being managed. 
+\item {\ttfamily \$the\-Value}\-: The property value or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the current property value. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Reset the property to {\ttfamily N\-U\-L\-L}, the default value. 
+\item {\itshape other}\-: Any other type represents the new value of the property. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value of the property {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value of the property {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Member} & Reference to the data member. \\
+\hline
+mixed & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed Old or new property value. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!manage\-Set\-Offset@{manage\-Set\-Offset}}
+\index{manage\-Set\-Offset@{manage\-Set\-Offset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{manage\-Set\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::manage\-Set\-Offset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_a3fbfa8a211060c0407db32f31eba101b}
+\subparagraph*{Manage value set offset}
+
+This class provides a protected interface for member accessor methods, both for properties and offsets, this method can be used to manage the elements of a set of non repeting values, its options involve setting, retrieving and deleting elements of the set. This method generally applies to data of the \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-S\-E\-T} data type.
+
+It is assumed that the value at the provided offset is either an array or an \hyperlink{}{Array\-Object}, if this is not the case, the method will raise an exception.
+
+If you want to manage the set itself, you have to use the offset management methods.
+
+The method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$the\-Offset}\-: The offset to the array attribute that is to be managed. 
+\item {\ttfamily \$the\-Value}\-: The value of the array element. 
+\item {\ttfamily \$the\-Operation}\-: The operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the value if it exists or {\ttfamily N\-U\-L\-L}. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Delete the value if it exists. 
+\item {\itshape other}\-: Any other type represents a new value. 
+\end{DoxyItemize}
+\item {\ttfamily \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+When setting new values, if the current offset is empty, the method will set the new value in an aray; when deleting values, if the existing value is the last one, the method will delete the offset itself.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset to be managed. \\
+\hline
+mixed & {\em \$the\-Value} & Array value. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed Old or new value.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{offset\-Get()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_container_object_a0af6d7a3fcaeeb50be636280e95bc2db}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!Object2\-Array@{Object2\-Array}}
+\index{Object2\-Array@{Object2\-Array}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{Object2\-Array}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::\-Object2\-Array (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Source, }
+\item[{\&}]{\$the\-Destination}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_container_object_a0af6d7a3fcaeeb50be636280e95bc2db}
+\subparagraph*{Convert object to array}
+
+This method can be used to obtain an array of arrays from a nested structure.
+
+The method expects as the first parameter a reference to an \hyperlink{}{Array\-Object} or to an array, it will convert the provided parameter to an array and traverse it, converting recursively any \hyperlink{}{Array\-Object} instance into an array.
+
+The method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$the\-Source}\-: Source structure reference ({\itshape read-\/only}). 
+\item {\ttfamily \$the\-Destination}\-: Destination array reference. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Source} & Reference to the source structure. \\
+\hline
+reference & {\em \$the\-Destination} & Reference to the destination array.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!offset\-Exists@{offset\-Exists}}
+\index{offset\-Exists@{offset\-Exists}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{offset\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::offset\-Exists (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_aff6fe69abda5124438458b687ab30c4f}
+Check if an offset exists
+
+We overload this method to call the preflight method\-: if it returns {\ttfamily N\-U\-L\-L} we call the parent method; if not, we return the received value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} the offset exists.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae03602f378081e220f8e6280d75bdc3e}{pre\-Offset\-Exists()} \hypertarget{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!offset\-Get@{offset\-Get}}
+\index{offset\-Get@{offset\-Get}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{offset\-Get}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::offset\-Get (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_a1fcd9bbec807c35973f634eb0a98ae13}
+Return a value at a given offset
+
+We overload this method to call the preflight method\-: if it returns {\ttfamily N\-U\-L\-L} we call the parent method; if not, we return the received value.
+
+We also overload this method to handle unmatched offsets\-: we prevent warnings from being issued and return {\ttfamily N\-U\-L\-L}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Offset value or {\ttfamily N\-U\-L\-L}.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_container_object_a7053dffd7fc10440eebfecd74e73d4af}{pre\-Offset\-Get()} \hypertarget{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::offset\-Set (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_ae7c3dbc16f8e0e2bbd667c0168539a3e}
+Set a value at a given offset
+
+We overload this method to call the preflight and postflight methods\-: if the preflight method returns {\ttfamily N\-U\-L\-L} we call the parent method; if not, we stop.
+
+We also overload this method to handle {\ttfamily N\-U\-L\-L} {\itshape values}\-: in that case we delete the offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+mixed & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_ontology_wrapper_1_1_container_object_ab7d07dda2c4b88ffa98b41d48814d03f}{pre\-Offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a0fa0ab4b7e742d00f2daa9206aa0b44a}{post\-Offset\-Set()}  \hyperlink{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{offset\-Unset()} \hypertarget{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_container_object_a6aec41ee5dafbd52a6e9963eb49f3e7e}
+Reset a value at a given offset
+
+We overload this method to call the preflight and postflight methods\-: if the preflight method returns {\ttfamily N\-U\-L\-L} we call the parent method; if not, we stop.
+
+We also overload this method to prevent warnings on unmatched offsets.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_ontology_wrapper_1_1_container_object_ae9f60cec5e7e40aed32c51dd7efa0429}{pre\-Offset\-Unset()}  \hyperlink{class_ontology_wrapper_1_1_container_object_ada715084328ddac15b67491ea7c8e8cb}{post\-Offset\-Unset()} \hypertarget{class_ontology_wrapper_1_1_container_object_a0fa0ab4b7e742d00f2daa9206aa0b44a}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!post\-Offset\-Set@{post\-Offset\-Set}}
+\index{post\-Offset\-Set@{post\-Offset\-Set}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{post\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::post\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_a0fa0ab4b7e742d00f2daa9206aa0b44a}
+Handle offset and value after setting it
+
+This method can be used to manage the object after calling the \hyperlink{}{Array\-Object\-::\-Offset\-Set()} method.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_ontology_wrapper_1_1_container_object_ada715084328ddac15b67491ea7c8e8cb}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!post\-Offset\-Unset@{post\-Offset\-Unset}}
+\index{post\-Offset\-Unset@{post\-Offset\-Unset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{post\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::post\-Offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_ada715084328ddac15b67491ea7c8e8cb}
+Handle offset after deleting it
+
+This method can be used to manage the object after calling the \hyperlink{}{Array\-Object\-::\-Offset\-Unset()} method.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_ontology_wrapper_1_1_container_object_ae03602f378081e220f8e6280d75bdc3e}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!pre\-Offset\-Exists@{pre\-Offset\-Exists}}
+\index{pre\-Offset\-Exists@{pre\-Offset\-Exists}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{pre\-Offset\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::pre\-Offset\-Exists (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_ae03602f378081e220f8e6280d75bdc3e}
+Handle offset before checking it
+
+This method can be used to manage the offset before passing it to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Exists()} method.
+
+The method provides the offset as a reference, if the method returns {\ttfamily N\-U\-L\-L} it means that the offset must be passed to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Exists()}; if the method returns any other value, this will be returned and the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Exists()} will be skipped.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} check offset, other, return. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_container_object_a7053dffd7fc10440eebfecd74e73d4af}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!pre\-Offset\-Get@{pre\-Offset\-Get}}
+\index{pre\-Offset\-Get@{pre\-Offset\-Get}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{pre\-Offset\-Get}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::pre\-Offset\-Get (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_a7053dffd7fc10440eebfecd74e73d4af}
+Handle offset before getting it
+
+This method can be used to manage the offset before passing it to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Get()} method.
+
+The method provides the offset as a reference, if the method returns {\ttfamily N\-U\-L\-L} it means that the offset must be passed to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Get()}; if the method returns any other value, this must be returned and the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Get()} skipped.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} get offset value, other, return. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_container_object_ab7d07dda2c4b88ffa98b41d48814d03f}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+\index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::pre\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_ab7d07dda2c4b88ffa98b41d48814d03f}
+Handle offset and value before setting it
+
+This method can be used to manage the offset before passing it to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Set()} method.
+
+The method provides the offset and value as references, if the method returns {\ttfamily N\-U\-L\-L} it means that the offset and value must be passed to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Set()}; if the method returns any other value, this means that the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Set()} should be skipped.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} set offset value, other, return. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_container_object_ae9f60cec5e7e40aed32c51dd7efa0429}{\index{Ontology\-Wrapper\-::\-Container\-Object@{Ontology\-Wrapper\-::\-Container\-Object}!pre\-Offset\-Unset@{pre\-Offset\-Unset}}
+\index{pre\-Offset\-Unset@{pre\-Offset\-Unset}!OntologyWrapper::ContainerObject@{Ontology\-Wrapper\-::\-Container\-Object}}
+\subsubsection[{pre\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Container\-Object\-::pre\-Offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_container_object_ae9f60cec5e7e40aed32c51dd7efa0429}
+Handle offset and value before deleting it
+
+This method can be used to manage the offset before passing it to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Unset()} method.
+
+The method provides the offset as reference, if the method returns {\ttfamily N\-U\-L\-L} it means that the offset and value must be passed to the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Unset()}; if the method returns any other value, this means that the inherited \hyperlink{}{Array\-Object\-::\-Offset\-Unset()} should be skipped.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} delete offset value, other, return. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Container\-Object.\-php\end{DoxyCompactItemize}

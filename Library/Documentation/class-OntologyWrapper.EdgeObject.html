@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class OntologyWrapper\EdgeObject | Ontology Wrapper Reference Documentation</title>
+
+	<script type="text/javascript" src="resources/combined.js?2293761133"></script>
+	<script type="text/javascript" src="elementlist.js?1659415462"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active main"><a href="namespace-OntologyWrapper.html">OntologyWrapper</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+				<li><a href="class-OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+				<li><a href="class-OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+				<li><a href="class-OntologyWrapper.Edge.html">Edge</a></li>
+				<li class="active"><a href="class-OntologyWrapper.EdgeObject.html">EdgeObject</a></li>
+				<li><a href="class-OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+				<li><a href="class-OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+				<li><a href="class-OntologyWrapper.MongoServer.html">MongoServer</a></li>
+				<li><a href="class-OntologyWrapper.Node.html">Node</a></li>
+				<li><a href="class-OntologyWrapper.NodeObject.html">NodeObject</a></li>
+				<li><a href="class-OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+				<li><a href="class-OntologyWrapper.ServerObject.html">ServerObject</a></li>
+				<li><a href="class-OntologyWrapper.Tag.html">Tag</a></li>
+				<li><a href="class-OntologyWrapper.TagCache.html">TagCache</a></li>
+				<li><a href="class-OntologyWrapper.TagCacheObject.html">TagCacheObject</a></li>
+				<li><a href="class-OntologyWrapper.TagObject.html">TagObject</a></li>
+				<li><a href="class-OntologyWrapper.Term.html">Term</a></li>
+				<li><a href="class-OntologyWrapper.TermObject.html">TermObject</a></li>
+				<li><a href="class-OntologyWrapper.Wrapper.html">Wrapper</a></li>
+			</ul>
+
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-OntologyWrapper.PersistentTrait.html">PersistentTrait</a></li>
+				<li><a href="class-OntologyWrapper.StatusTrait.html">StatusTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-OntologyWrapper.html" title="Summary of OntologyWrapper"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class EdgeObject</h1>
+
+
+	<div class="description">
+	
+<p>Edge object</p>
+
+<p>This class extends <code><a href="class-OntologyWrapper.OntologyObject.html">OntologyWrapper\OntologyObject</a></code> to implement a concrete edge object
+class.</p>
+
+<p>This class implements a &lt;em&gt;directed graph&lt;/em&gt; by
+&lt;em&gt;relating a subject vertex&lt;/em&gt; with an &lt;em&gt;object
+vertex&lt;/em&gt; through a &lt;em&gt;predicate&lt;/em&gt;, the direction of the
+relationship is &lt;em&gt;from the subject to the object&lt;/em&gt;.</p>
+
+<p>The vertices of this relatonship, the subject and object, are <code><a href="class-OntologyWrapper.NodeObject.html">OntologyWrapper\NodeObject</a></code> instance references, while the relationship predicate is represented
+by a <code><a href="class-OntologyWrapper.TermObject.html">OntologyWrapper\TermObject</a></code> instance reference.</p>
+
+<p>The class features the following default offsets:</p>
+
+<ul>
+	<li><tt>kTAG_NID</tt>: &lt;em&gt;Native identifier&lt;/em&gt;. This
+	required attribute holds a &lt;em&gt;string&lt;/em&gt; which represents the
+	&lt;em&gt;combination of the subject, predicate and object&lt;/em&gt; of the
+	relationship. This attribute must be managed with its offset, although in
+	derived classes it will be set automatically.</li>
+
+	<li><tt>kTAG_SUBJECT</tt>: &lt;em&gt;Subject&lt;/em&gt;. This attribute
+	represents the &lt;em&gt;origin of the relationship&lt;/em&gt;, it is an
+	&lt;em&gt;integer&lt;/em&gt; value representing the &lt;em&gt;reference to a
+	<code><a href="class-OntologyWrapper.NodeObject.html">OntologyWrapper\NodeObject</a></code> instance&lt;/em&gt;. This attribute must be managed with its
+	offset.</li>
+
+	<li><tt>kTAG_PREDICATE</tt>: &lt;em&gt;Predicate&lt;/em&gt;. This
+	attribute represents the &lt;em&gt;type of relationship&lt;/em&gt;, it is a
+	&lt;em&gt;string&lt;/em&gt; value representing the &lt;em&gt;reference to a
+	<code><a href="class-OntologyWrapper.TermObject.html">OntologyWrapper\TermObject</a></code> instance&lt;/em&gt;. This attribute must be managed with its
+	offset.</li>
+
+	<li><tt>kTAG_OBJECT</tt>: &lt;em&gt;Object&lt;/em&gt;. This attribute
+	represents the &lt;em&gt;destination of the relationship&lt;/em&gt;, it is an
+	&lt;em&gt;integer&lt;/em&gt; value representing the &lt;em&gt;reference to a
+	<code><a href="class-OntologyWrapper.NodeObject.html">OntologyWrapper\NodeObject</a></code> instance&lt;/em&gt;. This attribute must be managed with its
+	offset.</li>
+</ul>
+
+<p>The <code><a href="class-OntologyWrapper.EdgeObject.html#___toString">OntologyWrapper\EdgeObject::__toString()</a></code> method will return the value stored in the native
+identifier, if set, or the computed native identifier, which is the
+concatenation of the subject, predicate and object references separated by the
+kTOKEN_INDEX_SEPARATOR token.</p>
+
+<p>Objects of this class feature a primary key which is not persistent: the
+vertices referenced in the native identifier are integer sequences which depend
+on the order these objects were inserted: this means that both <code><a href="class-OntologyWrapper.NodeObject.html">OntologyWrapper\NodeObject</a></code> and <code><a href="class-OntologyWrapper.EdgeObject.html">OntologyWrapper\EdgeObject</a></code> instances must be re-created when
+exported.</p>
+
+<p>Objects of this class can hold any additional attribute that is considered
+necessary or useful to define and share the current node. In this class we
+define only those attributes that constitute the core functionality of the
+object, derived classes will add attributes specific to the domain in which the
+object will operate.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.ContainerObject.html"><span>OntologyWrapper\ContainerObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-OntologyWrapper.OntologyObject.html"><span>OntologyWrapper\OntologyObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>OntologyWrapper\EdgeObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-OntologyWrapper.Edge.html">OntologyWrapper\Edge</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-OntologyWrapper.html">OntologyWrapper</a><br />
+		
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!-- -->cgiar.org</a>&gt;<br />
+				<b>Version:</b>
+				1.00 11/02/2014<br />
+		<b>Located at</b> <a href="source-class-OntologyWrapper.EdgeObject.html#20-250" title="Go to source code">EdgeObject.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-OntologyWrapper.EdgeObject.html#87-108" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<h4>Return global identifier</h4>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<h4>Return global identifier</h4>
+
+<p>The global identifier of the current object is represented by the subject,
+predicate and object references separated by the kTOKEN_INDEX_SEPARATOR
+token.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>The global identifier.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isReady" id="_isReady">
+
+		<td class="attributes"><code>
+			 protected 
+			Boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isReady">#</a>
+		<code><a href="source-class-OntologyWrapper.EdgeObject.html#124-132" title="Go to source code">isReady</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check if object is ready</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check if object is ready</p>
+
+<p>In this class we return <tt>TRUE</tt>, assuming the object is ready.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Boolean</code><br><tt>TRUE</tt> means ready.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="preOffsetSet" id="_preOffsetSet">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_preOffsetSet">#</a>
+		<code><a href="source-class-OntologyWrapper.EdgeObject.html#148-246" title="Go to source code">preOffsetSet</a>( <span>reference <var>&amp; $theOffset</var></span>, <span>reference <var>&amp; $theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle offset and value before setting it</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle offset and value before setting it</p>
+
+<p>In this class we cast the value of the relationship vertices into node
+reference, and the value of the predicate into a term reference, if provided as
+objects; we also ensure the provided objects arer of the correct type.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>reference</code><br>$theOffset Offset reference.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>reference</code><br>$theValue Offset value reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br><tt>NULL</tt> set offset value, other, return.<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_SUBJECT kTAG_PREDICATE kTAG_OBJECT<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-OntologyWrapper.OntologyObject.html#_preOffsetSet">OntologyWrapper\OntologyObject::preOffsetSet()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.OntologyObject.html#methods">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#_CastOffsetValue">CastOffsetValue()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_Reference">Reference()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_ResolveOffset">ResolveOffset()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetExists">preOffsetExists()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetGet">preOffsetGet()</a>, 
+			<a href="class-OntologyWrapper.OntologyObject.html#_preOffsetUnset">preOffsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-OntologyWrapper.ContainerObject.html#methods">OntologyWrapper\ContainerObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.ContainerObject.html#_Object2Array">Object2Array()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayKeys">arrayKeys()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_arrayValues">arrayValues()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageArrayOffset">manageArrayOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageElementMatchOffset">manageElementMatchOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageOffset">manageOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageProperty">manageProperty()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_manageSetOffset">manageSetOffset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_offsetUnset">offsetUnset()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_postOffsetSet">postOffsetSet()</a>, 
+			<a href="class-OntologyWrapper.ContainerObject.html#_postOffsetUnset">postOffsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#___construct">__construct()</a>, 
+			<a href="class-ArrayObject.html#_append">append()</a>, 
+			<a href="class-ArrayObject.html#_asort">asort()</a>, 
+			<a href="class-ArrayObject.html#_count">count()</a>, 
+			<a href="class-ArrayObject.html#_exchangeArray">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_getArrayCopy">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_getFlags">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_getIterator">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_getIteratorClass">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_ksort">ksort()</a>, 
+			<a href="class-ArrayObject.html#_natcasesort">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_natsort">natsort()</a>, 
+			<a href="class-ArrayObject.html#_serialize">serialize()</a>, 
+			<a href="class-ArrayObject.html#_setFlags">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_setIteratorClass">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_uasort">uasort()</a>, 
+			<a href="class-ArrayObject.html#_uksort">uksort()</a>, 
+			<a href="class-ArrayObject.html#_unserialize">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-OntologyWrapper.OntologyObject.html#properties">OntologyWrapper\OntologyObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-OntologyWrapper.OntologyObject.html#$sInternalTags"><var>$sInternalTags</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Ontology Wrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
