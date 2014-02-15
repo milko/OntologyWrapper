@@ -40,8 +40,8 @@
  *		<td align="right" valign="top"><i>Description:&nbsp;</i></td>
  *		<td align="left" valign="top">This tag represents the offset of the session element
  *			that holds the data dictionary. This cache allows retrieving the native
- *			identifier of a {@link TagObject} given its global identifier, and the
- *			{@link TagObject} object given its native identifier.<br /><i>Note that this tag
+ *			identifier of a {@link Tag} given its global identifier, and the
+ *			{@link Tag} object given its native identifier.<br /><i>Note that this tag
  *			is also used as the {@link Memcached} persistent ID for the tag cache</i>.</td>
  *	</tr>
  * </table>

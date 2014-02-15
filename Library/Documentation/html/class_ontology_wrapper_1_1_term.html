@@ -281,7 +281,8 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </dd>
 </dl>
 <p>public</p>
-<p><a class="el" href="namespace_ontology_wrapper.html#ae6754181b2df357062755fcfe794a8b4">instantiateObject()</a> </p>
+<p><a class="el" href="namespace_ontology_wrapper.html#ae6754181b2df357062755fcfe794a8b4">instantiateObject()</a>  <a class="el" href="namespace_ontology_wrapper.html#a7c06300cb0043d3bab108f92cb9be3db">isInited()</a></p>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_LID kTAG_LABEL </dd></dl>
 
 </div>
 </div>
@@ -318,7 +319,15 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </table>
   </dd>
 </dl>
-<p>public </p>
+<p>public</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_NS</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a76edb24c245971fe5fdb3163a6d947b0">isCommitted()</a>  <a class="el" href="namespace_ontology_wrapper.html#af1e0f4bf0ea13a70be89b2254b41ce3e">collectObjects()</a> </p>
 
 </div>
 </div>
@@ -345,7 +354,9 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
 <p>Check if object is ready</p>
 <p>In this class we ensure the object has the native identifier, <a class="el" href="">kTAG_NID</a>, the global identifier,  kTAG_PID}, the data type, <a class="el" href="">kTAG_DATA_TYPE</a>, and the label, <a class="el" href="">kTAG_LABEL</a>.</p>
 <p>protected </p>
-<dl class="section return"><dt>Returns</dt><dd>Boolean <code>TRUE</code> means ready. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Boolean <code>TRUE</code> means ready.</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_NID</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a7c06300cb0043d3bab108f92cb9be3db">isInited()</a> </p>
 
 </div>
 </div>
@@ -366,7 +377,15 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
 <p>The method will return the namespace object if the operation succeeded and <code>NULL</code> if the object is not committed, if the object does not hold a collection reference, or if the object has no namespace.</p>
 <p>If the namespace cannot be resolved, the method will raise an exception.</p>
 <p>protected </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ontology_wrapper_1_1_term.html">Term</a> Resolved reference or <code>NULL</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ontology_wrapper_1_1_term.html">Term</a> Resolved reference or <code>NULL</code>.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_NS</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a76edb24c245971fe5fdb3163a6d947b0">isCommitted()</a> </p>
 
 </div>
 </div>
@@ -394,7 +413,9 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
 <p>In this class we return the static <a class="el" href="">$sInternalTags</a> list, the <a class="el" href="">kTAG_PID</a>, <a class="el" href="">kTAG_NS</a> and the <a class="el" href="">kTAG_LID</a> offsets.</p>
 <p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>array List of locked offsets.</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd>kTAG_NS kTAG_LID </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_PID kTAG_NS kTAG_LID </dd>
+<dd>
+$sInternalTags </dd></dl>
 
 </div>
 </div>
@@ -472,7 +493,8 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </dd>
 </dl>
 <p>protected</p>
-<dl class="section see"><dt>See Also</dt><dd>kTAG_LID kTAG_LABEL </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_LID kTAG_LABEL</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a7c06300cb0043d3bab108f92cb9be3db">isInited()</a> </p>
 
 </div>
 </div>
@@ -506,7 +528,8 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </dd>
 </dl>
 <p>protected</p>
-<dl class="section see"><dt>See Also</dt><dd>kTAG_LID kTAG_LABEL </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_LID kTAG_LABEL</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a7c06300cb0043d3bab108f92cb9be3db">isInited()</a> </p>
 
 </div>
 </div>
@@ -542,7 +565,14 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </dd>
 </dl>
 <p>protected</p>
-<p>Exception </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd>kTAG_NID</dd></dl>
+<p><a class="el" href="namespace_ontology_wrapper.html#a7c06300cb0043d3bab108f92cb9be3db">isInited()</a>  <a class="el" href="class_ontology_wrapper_1_1_term_object.html#a31dc54e3b2e1993f347a15314c071c5a">__toString()</a> </p>
 
 </div>
 </div>
@@ -604,7 +634,13 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
   </dd>
 </dl>
 <p>public </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html">OntologyObject</a> Object or <code>NULL</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html">OntologyObject</a> Object or <code>NULL</code>.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -617,7 +653,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_ontology_wrapper.html">OntologyWrapper</a></li><li class="navelem"><a class="el" href="class_ontology_wrapper_1_1_term.html">Term</a></li>
-    <li class="footer">Generated on Wed Feb 12 2014 19:50:35 for OntologyWrapper by
+    <li class="footer">Generated on Wed Feb 12 2014 22:29:43 for OntologyWrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

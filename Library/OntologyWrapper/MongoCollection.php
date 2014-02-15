@@ -116,10 +116,10 @@ class MongoCollection extends CollectionObject
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param mixed					$theOffset			Offset.
-	 * @param boolean				$asObject			Return object if <tt>TRUE</tt>.
+	 * @param mixed					$asObject			Return object if <tt>TRUE</tt>.
 	 *
 	 * @access public
-	 * @return mixed				Found object, array, or <tt>NULL</tt>.
+	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
@@ -138,36 +138,53 @@ class MongoCollection extends CollectionObject
 			//
 			// Match object.
 			//
-			$object = $this->mConnection->findOne( array( $theOffset => $theIdentifier ) );
-			if( $object !== NULL )
+			if( $asObject !== NULL )
 			{
 				//
-				// Return array.
+				// Find first.
 				//
-				if( ! $asObject )
-					return $object;													// ==>
-				
-				//
-				// Check class.
-				//
-				if( array_key_exists( kTAG_CLASS, $object ) )
+				$object
+					= $this->
+						mConnection->
+							findOne( array( $theOffset => $theIdentifier ) );
+				if( $object !== NULL )
 				{
 					//
-					// Save class.
+					// Return array.
 					//
-					$class = $object[ kTAG_CLASS ];
-					
-					return new $class( $this, $object );							// ==>
+					if( ! $asObject )
+						return $object;												// ==>
 				
-				} // Has class.
+					//
+					// Check class.
+					//
+					if( array_key_exists( kTAG_CLASS, $object ) )
+					{
+						//
+						// Save class.
+						//
+						$class = $object[ kTAG_CLASS ];
+					
+						return new $class( $this, $object );						// ==>
+				
+					} // Has class.
 			
-				throw new \Exception(
-					"Unable to resolve object: "
-				   ."missing object class." );									// !@! ==>
+					throw new \Exception(
+						"Unable to resolve object: "
+					   ."missing object class." );								// !@! ==>
 			
-			} // Found.
+				} // Found.
 			
-			return NULL;															// ==>
+				return NULL;														// ==>
+			
+			} // Return object or array.
+			
+			//
+			// Find objects.
+			//
+			$rs = $this-> mConnection-> find( array( $theOffset => $theIdentifier ) );
+			
+			return $rs->count();													// ==>
 		
 		} // Connected.
 			

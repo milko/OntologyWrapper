@@ -68,7 +68,7 @@ class Wrapper extends ContainerObject
 	 *
 	 * In this class we handle the {@link isDirtyFlag()}
 	 */
-	use	StatusTrait;
+	use	traits\Status;
 
 	/**
 	 * Metadata.
@@ -701,25 +701,25 @@ class Wrapper extends ContainerObject
 		// Iterate terms.
 		//
 		foreach( $theXML->{'TERM'} as $item )
-			$this->loadXMLTerm( $item );
+			$this->loadXMLTerm( $item, $cache );
 	
 		//
 		// Iterate tags.
 		//
 		foreach( $theXML->{'TAG'} as $item )
-			$this->loadXMLTag( $item );
+			$this->loadXMLTag( $item, $cache );
 	
 		//
 		// Iterate nodes.
 		//
 		foreach( $theXML->{'NODE'} as $item )
-			$this->loadXMLNode( $item );
+			$this->loadXMLNode( $item, $cache );
 	
 		//
 		// Iterate edges.
 		//
 		foreach( $theXML->{'EDGE'} as $item )
-			$this->loadXMLEdge( $item );
+			$this->loadXMLEdge( $item, $cache );
 	
 	} // loadXMLMetadataBlock.
 
@@ -734,13 +734,20 @@ class Wrapper extends ContainerObject
 	 * This method will parse and load the provided term XML structure.
 	 *
 	 * @param SimpleXMLElement		$theXML				Term XML structure.
+	 * @param reference				$theCache			Objects cache.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
-	protected function loadXMLTerm( \SimpleXMLElement $theXML )
+	protected function loadXMLTerm( \SimpleXMLElement $theXML, &$theCache )
 	{
+		//
+		// Init cache.
+		//
+		if( ! is_array( $theCache ) )
+			$theCache = Array();
+		
 		//
 		// Check if updating.
 		//
@@ -761,7 +768,7 @@ class Wrapper extends ContainerObject
 		if( $mod
 		 && (! $object->isCommitted()) )
 			throw new \Exception(
-				"Unable to update term [$id] in [$theFile]: "
+				"Unable to update term [$id]: "
 			   ."the term does not exist." );									// !@! ==>
 		
 		//
@@ -769,7 +776,9 @@ class Wrapper extends ContainerObject
 		//
 		if( ! $mod )
 		{
-			$tmp = array( 'ns' => kTAG_NS, 'lid' => kTAG_LID, 'pid' => kTAG_NID );
+			$tmp = array( 'ns' => kTAG_NAMESPACE,
+						  'lid' => kTAG_ID_LOCAL,
+						  'pid' => kTAG_NID );
 			foreach( $tmp as $key => $tag )
 			{
 				if( isset( $theXML[ $key ] ) )
@@ -795,15 +804,27 @@ class Wrapper extends ContainerObject
 				$object[ $tag ] = $value;
 			else
 				throw new \Exception(
-					"Unable to set term property from [$theFile]: "
+					"Unable to set term property: "
 				   ."the the property is missing its offset." );				// !@! ==>
 		
 		} // Iterating properties.
 		
 		//
+		// Check namespace.
+		//
+		$object->loadNamespace();
+		
+		//
 		// Commit object.
 		//
 		$object->insert( $this->Metadata() );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
+			$theCache[ Term::kSEQ_NAME ] = Array();
+		$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLTerm.
 
@@ -818,13 +839,20 @@ class Wrapper extends ContainerObject
 	 * This method will parse and load the provided tag XML structure.
 	 *
 	 * @param SimpleXMLElement		$theXML				Tag XML structure.
+	 * @param reference				$theCache			Objects cache.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
-	protected function loadXMLTag( \SimpleXMLElement $theXML )
+	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
+		//
+		// Init cache.
+		//
+		if( ! is_array( $theCache ) )
+			$theCache = Array();
+		
 		//
 		// Instantiate tag.
 		//
@@ -847,7 +875,7 @@ class Wrapper extends ContainerObject
 				$object[ $tag ] = $value;
 			else
 				throw new \Exception(
-					"Unable to set tag property from [$theFile]: "
+					"Unable to set tag property: "
 				   ."the the property is missing its offset." );				// !@! ==>
 		
 		} // Iterating properties.
@@ -856,6 +884,13 @@ class Wrapper extends ContainerObject
 		// Commit object.
 		//
 		$object->insert( $this->Metadata() );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+			$theCache[ Tag::kSEQ_NAME ] = Array();
+		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLTag.
 
@@ -908,12 +943,12 @@ class Wrapper extends ContainerObject
 			// Set language.
 			//
 			if( strlen( (string) $theElement[ 'lang' ] ) )
-				$theValue[ kTAG_SUB_LANGUAGE ] = (string) $theElement[ 'lang' ];
+				$theValue[ kTAG_LANGUAGE ] = (string) $theElement[ 'lang' ];
 			
 			//
 			// Set text.
 			//
-			$theValue[ kTAG_SUB_TEXT ] = (string) $theElement;
+			$theValue[ kTAG_TEXT ] = (string) $theElement;
 		
 		} // Language string property.
 		
@@ -1038,9 +1073,9 @@ class Wrapper extends ContainerObject
 			case kTAG_NID:
 				return $value;														// ==>
 			
-			case kTAG_NS:
-			case kTAG_LID:
-			case kTAG_PID:
+			case kTAG_NAMESPACE:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
 			case kTAG_CLASS:
 			case kTAG_CONN_PROTOCOL:
 			case kTAG_CONN_HOST:
@@ -1050,7 +1085,7 @@ class Wrapper extends ContainerObject
 			case kTAG_CONN_COLL:
 				return (string) $value;												// ==>
 		
-			case kTAG_SEQ:
+			case kTAG_ID_SEQUENCE:
 			case kTAG_CONN_PORT:
 				return (int) $value;												// ==>
 			

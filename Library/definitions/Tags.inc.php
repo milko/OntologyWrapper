@@ -13,845 +13,402 @@
  * default tags used in the objects comprising the ontology and the core objects of this
  * library.
  *
- * Each entry is a definitions that holds the <i>global identifier</i> of the tag.
+ * Each entry is a definitions that holds the <em>global identifier</em> of the tag.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 13/01/2014
  */
 
 /*=======================================================================================
- *	INTERNAL OBJECT TAGS																	*
+ *	INTERNAL OFFSETS																	*
  *======================================================================================*/
 
 /**
- * Native identifier
+ * Native identifier (<code>_id</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID/GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>_id</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:mixed</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Native identifier</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the unique <i>native
- *			identifier</i> of an object. This identifier represents the primary key of an
- *			object, it can take any data type and it is not guaranteed to be persistent in
- *			all instances. This tag is internal and will not be defined in the
- *			ontology.</td>
- *	</tr>
- * </table>
+ * This offset is the <em>primary key</em> of all persistent objects, it doesn't have a
+ * specific data type and all objects must have it. This attribute is internal and it is not
+ * defined in the ontology.
  */
 define( "kTAG_NID",						'_id' );
 
 /**
- * Class
+ * Class (<code>_class</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID/GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>_class</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Object class</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the <i>object class name</i>, this
- *			string is used to instantiate the correct object once loaded from a container.
- *			This tag is internal and will not be defined in the ontology.</td>
- *	</tr>
- * </table>
+ * This offset represents the <em>object class name</em>, this string is used to
+ * instantiate the correct object once loaded from a container. This attribute is internal
+ * and it is not defined in the ontology.
  */
-define( "kTAG_CLASS",						'_class' );
+define( "kTAG_CLASS",					'_class' );
 
 /*=======================================================================================
- *	DEFAULT OBJECT TAGS																	*
+ *	OBJECT IDENTIFICATION TAGS															*
  *======================================================================================*/
 
 /**
- * Namespace
+ * Domain (<code>:domain</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>1</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:ns</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Namespace</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the <i>namespace</i> of an
- *			identifier, it is used to <i>disambiguate homonym local identifiers</i> in order
- *			to come up with a global unique identifier. Namespaces are by definition strings
- *			which should represent global identifiers, for this reason namespaces are
- *			persistent, which means that they will not change across implementations.</td>
- *	</tr>
- * </table>
+ * This tag represents the <em>domain</em> of an object, it is an <em>enumerated set</em> of
+ * <em>term object references</em> which represent the <em>kind</em> or <em>nature</em> of
+ * the object, this type of property is used to <em>disambiguate objects of different
+ * domains within a single collection.</em>.
  */
-define( "kTAG_NS",						1 );
+define( "kTAG_DOMAIN",					1 );
 
 /**
- * Local identifier
+ * Authority (<code>:authority</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>2</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:lid</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Local identifier</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the unique <i>local
- *			identifier</i> of an object. This identifier represents the unique key of an
- *			object within its <i>namespace</i> and it is by definition a string. This
- *			identifier is persistent, which means that it will not change across
- *			implementations.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> representing the <em>native identifier</em> of the
+ * <em>entity object</em> which is responsible for the <em>identification</em> of an object,
+ * or which is the <em>author of the information</em> regarding an object.
  */
-define( "kTAG_LID",						2 );
+define( "kTAG_AUTHORITY",				2 );
 
 /**
- * Persistent identifier
+ * Collection (<code>:collection</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>3</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:pid</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Pesistent identifier</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the <i>persistent
- *			identifier</i> of an object. This identifier represents the unique key of an
- *			object and it is by definition a string. This identifier is persistent, which
- *			means that it will not change across implementations (<i>unlike the native
- *			identifier, which may change across implementations</i>).</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> representing the <em>name</em> or <em>code</em> of the
+ * <em>collection</em> to which an object belongs. It has the same function as the
+ * namespace, except that it is may not be an enumerated set.
  */
-define( "kTAG_PID",						3 );
+define( "kTAG_COLLECTION",				3 );
 
 /**
- * Sequence
+ * Namespace (<code>:namespace</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>4</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:seq</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:int</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Sequence</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>unique identifier</i> other
- *			than the global identifier, it is constituted by an <i>sequential integer
- *			number</i>, which might change across implementations. The main use of such an
- *			identifier is to reduce storage requirements when indexing and referencing
- *			objects.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>reference to a term object</em>, it is a <em>string</em> representing
+ * the <em>native identifier</em> of a term. Namespaces are used to <em>disambiguate
+ * homonym local identifiers</em> in order to come up with a global unique identifier. This
+ * identifier is <em>persistent</em>. 
  */
-define( "kTAG_SEQ",						4 );
+define( "kTAG_NAMESPACE",				4 );
 
 /**
- * Tag
+ * Local identifier (<code>:id-local</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>5</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:tag</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-tag</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Tag</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>tag object reference</i>, it is an
- *			<i>integer value</i> that must reference an existing tag object.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> which represents the <em>local identifier</em> of an
+ * object. Local identifiers are <em>unique within their namespace</em> and are
+ * <em>persistent</em>. In general, the namespace is concatenated to the local identifier to
+ * form the persistent identifier.
  */
-define( "kTAG_TAG",						5 );
+define( "kTAG_ID_LOCAL",				5 );
 
 /**
- * Term
+ * Persistent identifier (<code>:id-persistent</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>6</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:term</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-term</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Term</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>term object reference</i>, it is a
- *			<i>string value</i> that must reference an existing term object.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> which represents the <em>persistent identifier</em> of an
+ * object. Persistent identifiers are <em>unique across namespaces</em>, they are
+ * <em>global</em>, in that they <em>include the namespace</em> and they are
+ * <em>persistent</em>. In general, this identifier is the concatenation of the namespace
+ * and the local identifier.
  */
-define( "kTAG_TERM",					6 );
+define( "kTAG_ID_PERSISTENT",			6 );
 
 /**
- * Terms
+ * Valid identifier (<code>:id-valid</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>7</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:terms</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-term</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data kind:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:list</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Terms</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>path of a graph branch</i>,
- *			constituted by a <i>sequence of vertices connected by predicates</i>. It is an
- *			array holding an odd number of elements representing <i>term references</i> in
- *			which the odd elements are vertices and the even elements are predicates.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> which represents the <em>persistent global identifier</em>
+ * of the object that is <em>considered the valid choice</em>. This is generally used by
+ * <em>legacy</em> or <em>obsolete</em> objects for referring to the <em>valid</em>,
+ * <em>current</em> or <em>official</em> object.
  */
-define( "kTAG_TERMS",					7 );
+define( "kTAG_ID_VALID",				7 );
 
 /**
- * Subject
+ * Sequence number (<code>:id-sequence</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>8</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:subject</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-node</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Subject</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>node object reference</i>, it
- *			represents the origin of a <i>subject-predicate-object relationship</i>.</td>
- *	</tr>
- * </table>
+ * This tag is an <em>integer sequence number</em> which is <em>automatically assigned</em>
+ * to objects just before they are <em>committed</em>. This represents an <em>identifier
+ * unique to the collection</em> to which the object belongs. This identifier is <em>not
+ * persistent</em>, in that it depends on the order in which the object was committed.
  */
-define( "kTAG_SUBJECT",					8 );
+define( "kTAG_ID_SEQUENCE",				8 );
 
 /**
- * Predicate
+ * Version (<code>:version</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>9</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:subject</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-term</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Predicate</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>term object reference</i>, it
- *			represents the <i>relationship between a subject and an object</i>.</td>
- *	</tr>
- * </table>
+ * This tag is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>.
+ * It is generally used to identify different versions of an object by <em>disambiguating
+ * duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object
+ * information it identifies.
  */
-define( "kTAG_PREDICATE",				9 );
+define( "kTAG_VERSION",					9 );
+
+/*=======================================================================================
+ *	OBJECT REFERENCE TAGS																*
+ *======================================================================================*/
 
 /**
- * Object
+ * Tag (<code>:tag</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>10</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:subject</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:ref-node</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Object</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag holds a <i>node object reference</i>, it
- *			represents the destination of a <i>subject-predicate-object
- relationship</i>.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> representing a <em>tag object reference</em>, it is the
+ * <em>tag native identifier</em> of the <em>tag object</em> it references.
  */
-define( "kTAG_OBJECT",					10 );
+define( "kTAG_TAG",						10 );
 
 /**
- * Data type
+ * Tags (<code>:tags</code>)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>11</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:data-type</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:set</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Data type</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>data type</i>, it is an
- *			<i>enumerated set of term references</i> which define the format and type of
- *			a data property.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>list of strings</em> representing <em>tag object references</em>,
+ * these elements are the <em>native identifiers</em> of the <em>tag objects</em> they
+ * reference.
  */
-define( "kTAG_DATA_TYPE",				11 );
+define( "kTAG_TAGS",					11 );
 
 /**
- * Data kind
+ * Term (<code>:term</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>12</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:data-kind</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:set</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Cardinality type</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>cardinality type</i>, it is
- *			an <i>enumerated set of term references</i> which define the structure and
- *			properties of a data attribute. This generally indicates whether a property is
- *			a list, whether it is required or not, if it is indexed and other.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> representing a <em>term object reference</em>, it is the
+ * <em>native identifier</em> of the <em>term object</em> it references.
  */
-define( "kTAG_DATA_KIND",				12 );
+define( "kTAG_TERM",					12 );
 
 /**
- * Label
+ * Terms (<code>:terms</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>13</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:label</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:kind/value</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Label</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>label</i>, it is a <i>short
- *			description or name</i> referring to an object. Labels store the language code
- *			in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the label text in
- *			the pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
- *			language and only one element may omit the language pair.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>list of strings</em> representing <em>term object references</em>,
+ * these elements are the <em>native identifiers</em> of the <em>term objects</em> they
+ * reference.
  */
-define( "kTAG_LABEL",					13 );
+define( "kTAG_TERMS",					13 );
 
 /**
- * Definition
+ * Relationship subject (<code>:relationship:subject</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>14</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:definition</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:kind/value</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Label</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>definition</i>, it is a
- *			<i>description that represents the definition</i> of an object. Definitions
- *			store the language code in the key/value pair indexed by {@link kTAG_SUB_LANGUAGE}
- *			and the definition text in the pair indexed by {@link kTAG_SUB_TEXT}. No two
- *			elements may share the same language and only one element may omit the language
- *			pair.</td>
- *	</tr>
- * </table>
+ * This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+ * a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
+ * describes the <em>origin vertex of a directed graph relationship</em>.
  */
-define( "kTAG_DEFINITION",				14 );
+define( "kTAG_SUBJECT",					14 );
 
 /**
- * Description
+ * Relationship predicate (<code>:relationship:predicate</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>15</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:description</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:kind/value</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Description</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>description</i>, this
- *			property is similar to a <i>definition</i>, except that while definitions are
- *			not dependant on the context, descriptions are. This property is generally used
- *			to add context dependant information to the definition. Descriptions have the
- *			same structure as labeld and definitions: they store the language code in the
- *			key/value pair indexed by {@link kTAG_SUB_LANGUAGE} and the definition text in the
- *			pair indexed by {@link kTAG_SUB_TEXT}. No two elements may share the same
- *			language and only one element may omit the language pair.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>term object reference</em>, it is a <em>string</em> that represents
+ * the term <em>native identifier</em>. This tag describes the <em>predicate of a directed
+ * graph relationship</em>.
  */
-define( "kTAG_DESCRIPTION",				15 );
+define( "kTAG_PREDICATE",				15 );
+
+/**
+ * Relationship object (<code>:relationship:object</code)
+ *
+ * This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+ * a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
+ * describes the <em>destination vertex of a directed graph relationship</em>.
+ */
+define( "kTAG_OBJECT",					16 );
+
+/**
+ * Affiliation (<code>:affiliation</code)
+ *
+ * This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
+ * a <em>reference to the entity object which represents the affiliation of the current
+ * entity object</em>.
+ */
+define( "kTAG_AFFILIATION",				17 );
+
+/*=======================================================================================
+ *	OBJECT CATEGORY TAGS																*
+ *======================================================================================*/
+
+/**
+ * Category (<code>:category</code)
+ *
+ * This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+ * represent the <em>different categories to which an object belongs</em>.
+ */
+define( "kTAG_CATEGORY",				18 );
+
+/**
+ * Data type (<code>:type:data</code)
+ *
+ * This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+ * indicate the <em>data type</em> of a data property. This type corresponds to the
+ * <em>primitive data representation and structure of a data property</em>.
+ */
+define( "kTAG_DATA_TYPE",				19 );
+
+/**
+ * Data kind (<code>:type:kind</code)
+ *
+ * This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+ * indicate the <em>cardinality</em> and <em>requirements</em> of a data property. This type
+ * corresponds to the <em>attributes of a data property</em>, <em>not to its type</em>.
+ */
+define( "kTAG_DATA_KIND",				20 );
+
+/*=======================================================================================
+ *	OBJECT DESCRIPTION TAGS																*
+ *======================================================================================*/
+
+/**
+ * Name (<code>:name</code)
+ *
+ * This tag holds a <em>string</em> representing the <en>name of an object</em>. This is
+ * generally the way humans refer to the object and it is <em>not related to a specific
+ * language</em>.
+ */
+define( "kTAG_NAME",					21 );
+
+/**
+ * Label (<code>:label</code)
+ *
+ * This tag holds a <em>list of strings<em> representing <en>labels of an object in several
+ * languages</em>. Each element holds the <em>language</em> in which the label is expressed
+ * in and the <em>text</em> of the label.
+ */
+define( "kTAG_LABEL",					22 );
+
+/**
+ * Definition (<code>:definition</code)
+ *
+ * This tag holds a <em>list of texts<em> representing <en>definitions of an object in
+ * several languages</em>. Each element holds the <em>language</em> in which the definition
+ * is expressed in and the <em>text</em> of the definition. <em>A definition should provide
+ * detailed information on an object without reference to the context</em>.
+ */
+define( "kTAG_DEFINITION",				23 );
+
+/**
+ * Description (<code>:description</code)
+ *
+ * This tag holds a <em>list of texts<em> representing <en>descriptions of an object in
+ * several languages</em>. Each element holds the <em>language</em> in which the description
+ * is expressed in and the <em>text</em> of the description. <em>A description should add
+ * context related information to the definition of the object</em>.
+ */
+define( "kTAG_DESCRIPTION",				24 );
+
+/**
+ * Notes (<code>:notes</code)
+ *
+ * This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
+ * to a specific language.
+ */
+define( "kTAG_NOTES",					25 );
+
+/*=======================================================================================
+ *	OBJECT STATISTICAL TAGS																*
+ *======================================================================================*/
+
+/**
+ * Units count (<code>:unit-count</code)
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of unit objects
+ * featuring a specific property</em>. This is generally used to assess <em>tag usage
+ * frequency in unit objects</em>.
+ */
+define( "kTAG_UNIT_COUNT",				26 );
+
+/**
+ * Entity count (<code>:entity-count</code)
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of entity objects
+ * featuring a specific property</em>. This is generally used to assess <em>tag usage
+ * frequency in entity objects</em>.
+ */
+define( "kTAG_ENTITY_COUNT",			27 );
+
+/*=======================================================================================
+ *	GENERIC TAGS																		*
+ *======================================================================================*/
+
+/**
+ * Language (<code>:language</code)
+ *
+ * This tag holds a <em>string</em> which represents a specific <em>language name or
+ * code</em>, this tag is generally used as an element of a structure for indicating the
+ * element's language.
+ */
+define( "kTAG_LANGUAGE",				28 );
+
+/**
+ * Text (<code>:text</code)
+ *
+ * This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
+ * used as an element of a structure for indicating the element's text.
+ */
+define( "kTAG_TEXT",					29 );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
  *======================================================================================*/
 
 /**
- * Protocol
+ * Connection protocol (<code>:connection:protocol</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>16</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:protocol</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Protocol</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>protocol or
- *			scheme</i> used in a network communication.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific network connection
+ * <em>protocol</em> or <em>scheme</em>.
  */
-define( "kTAG_CONN_PROTOCOL",				16 );
+define( "kTAG_CONN_PROTOCOL",			30 );
 
 /**
- * Host
+ * Connection host (<code>:connection:host</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>17</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:host</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Host</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>domain name or
- *			internet address</i>.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific network connection
+ * <em>domain name</em> or <em>internet address</em>.
  */
-define( "kTAG_CONN_HOST",					17 );
+define( "kTAG_CONN_HOST",				31 );
 
 /**
- * Port
+ * Connection port (<code>:connection:port</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>18</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:port</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:int</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Port</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>TCP or UDP
- *			port</i>.</td>
- *	</tr>
- * </table>
+ * This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
+ * port number</em>.
  */
-define( "kTAG_CONN_PORT",					18 );
+define( "kTAG_CONN_PORT",				32 );
 
 /**
- * User
+ * Connection user code (<code>:connection:user</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>19</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:user</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">User code</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>code used to authenticate
- *			with a service</i>.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to
+ * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_USER",					19 );
+define( "kTAG_CONN_USER",				33 );
 
 /**
- * Pass
+ * Connection user password (<code>:connection:password</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>20</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:pass</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">User password</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a <i>password used to authenticate
- *			with a service</i>.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
+ * allows to <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_PASS",					20 );
+define( "kTAG_CONN_PASS",				34 );
 
 /**
- * Database
+ * Database name (<code>:connection:database</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>21</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:database</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Database</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>database</i>
- *			name.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific <em>database</em>.
  */
-define( "kTAG_CONN_BASE",					21 );
+define( "kTAG_CONN_BASE",				35 );
 
 /**
- * Collection
+ * Collection name (<code>:connection:collection</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>22</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:collection</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Collection</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents a connection <i>collection</i>
- *			name .</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>string</em> which identifies a specific <em>database
+ * collection</em>.
  */
-define( "kTAG_CONN_COLL",					22 );
+define( "kTAG_CONN_COLL",				36 );
 
 /**
- * Options
+ * Connection options (<code>:connection:options</code)
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>23</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:connection:options</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:array</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Options</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This tag represents the <i>connection options</i> as
- *			a list of <i>key</i>/<i>value</i> pairs.</td>
- *	</tr>
- * </table>
+ * This tag holds a <em>list of key/value pairs</em> which represent the <em>options for a
+ * network connection</em>. The key part identifies the option, the value part provides the
+ * option value.
  */
-define( "kTAG_CONN_OPTS",					23 );
+define( "kTAG_CONN_OPTS",				37 );
 
 /*=======================================================================================
- *	DEFAULT SUB-STRUCTURE TAGS															*
+ *	DEFAULT TAGS LIMIT																	*
  *======================================================================================*/
 
 /**
- * Language
+ * Dynamic tag sequence origin
  *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>24</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:sub:language</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Language code</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This attribute is a <em>string</em> representing a
- *			<em>language code</em>, this is generally used in combination with the
- *			{@link kTAG_SUB_TEXT} attribute to provide a list of strings in different
- *			languages.</td>
- *	</tr>
- * </table>
+ * This defines the first dynamically assigned sequence tag number.
  */
-define( "kTAG_SUB_LANGUAGE",				24 );
-
-/**
- * Text
- *
- * <table>
- *	<tr>
- *		<td align="right" valign="top"><i>NID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>25</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>GID:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:sub:text</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Data type:&nbsp;</i></td>
- *		<td align="left" valign="top"><code>:type:string</code></td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Label:&nbsp;</i></td>
- *		<td align="left" valign="top">Text</td>
- *	</tr>
- *	<tr>
- *		<td align="right" valign="top"><i>Definition:&nbsp;</i></td>
- *		<td align="left" valign="top">This attribute is a <em>string</em> representing a
- *			<em>string</em> or <em>text</em>, this is generally used in combination with the
- *			{@link kTAG_SUB_LANGUAGE} attribute to provide a list of strings in different
- *			languages.</td>
- *	</tr>
- * </table>
- */
-define( "kTAG_SUB_TEXT",					25 );
+define( "kTAG_SEQUENCE_START",			101 );
 
 
 ?>

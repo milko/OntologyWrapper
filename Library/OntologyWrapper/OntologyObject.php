@@ -207,7 +207,7 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Resolve offset
 	 *
-	 * This method will resolve the provided offset into a {@link TagObject} native
+	 * This method will resolve the provided offset into a {@link Tag} native
 	 * identifier, this is done by using a {@link TagCache} object stored in the
 	 * {@link kSESSION_DDICT} entry of the current session.
 	 *
@@ -312,9 +312,9 @@ abstract class OntologyObject extends ContainerObject
 			case kTAG_NID:
 				return;																// ==>
 			
-			case kTAG_NS:
-			case kTAG_LID:
-			case kTAG_PID:
+			case kTAG_NAMESPACE:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
 			case kTAG_CLASS:
 			case kTAG_CONN_PROTOCOL:
 			case kTAG_CONN_HOST:
@@ -325,7 +325,7 @@ abstract class OntologyObject extends ContainerObject
 				$theValue = (string) $theValue;
 				return;																// ==>
 		
-			case kTAG_SEQ:
+			case kTAG_ID_SEQUENCE:
 			case kTAG_CONN_PORT:
 				$theValue = (int) $theValue;
 				return;																// ==>
@@ -432,7 +432,7 @@ abstract class OntologyObject extends ContainerObject
 				//
 				// Category lists.
 				//
-				case kTYPE_KIND_VALUE:
+				case kTYPE_LANGUAGE_STRINGS:
 					
 					//
 					// Handle categories list.
@@ -821,6 +821,41 @@ abstract class OntologyObject extends ContainerObject
 		return $ok;																	// ==>
 	
 	} // preOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offsets
+	 *
+	 * This method can be used to retrieve the list of offsets that comprise the object.
+	 * Offsets are recursed if they have the {@link kTYPE_STRUCT} data type and they are
+	 * recorded only once. The result of this operation is returned by the object.
+	 *
+	 * @access protected
+	 * @return array				List of object tags.
+	 */
+	protected function collectOffsets()
+	{
+		//
+		// INit local storage.
+		//
+		$tags = Array();
+		
+		return $tags;																// ==>
+	
+	} // collectOffsets.
 
 	 
 

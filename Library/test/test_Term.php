@@ -376,8 +376,8 @@ try
 		echo( '<h4>Test set namespace</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NS ] = "namespace";'.kSTYLE_HEAD_POS );
-		$test[ kTAG_NS ] = "namespace";
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NAMESPACE ] = "namespace";'.kSTYLE_HEAD_POS );
+		$test[ kTAG_NAMESPACE ] = "namespace";
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -398,8 +398,8 @@ try
 		echo( '<h4>Test local identifier</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_LID ] = "local-id";'.kSTYLE_HEAD_POS );
-		$test[ kTAG_LID ] = "local-id";
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_ID_LOCAL ] = "local-id";'.kSTYLE_HEAD_POS );
+		$test[ kTAG_ID_LOCAL ] = "local-id";
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -420,8 +420,8 @@ try
 		echo( '<h4>Test remove namespace</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NS ] = NULL;'.kSTYLE_HEAD_POS );
-		$test[ kTAG_NS ] = NULL;
+		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NAMESPACE ] = NULL;'.kSTYLE_HEAD_POS );
+		$test[ kTAG_NAMESPACE ] = NULL;
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -693,8 +693,8 @@ try
 		$other = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$other[ kTAG_NS ] = $test;'.kSTYLE_HEAD_POS );
-		$other[ kTAG_NS ] = $test;
+		echo( kSTYLE_HEAD_PRE.'$other[ kTAG_NAMESPACE ] = $test;'.kSTYLE_HEAD_POS );
+		$other[ kTAG_NAMESPACE ] = $test;
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -710,6 +710,352 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
+
+	//
+	// Set empty object.
+	//
+	echo( '<h4>Set empty object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set namespace.
+	//
+	echo( '<h4>Test set namespace</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NAMESPACE ] = "namespace";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_NAMESPACE ] = "namespace";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set local identifier.
+	//
+	echo( '<h4>Test local identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_ID_LOCAL ] = "local-id";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_ID_LOCAL ] = "local-id";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test remove namespace.
+	//
+	echo( '<h4>Test remove namespace</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NAMESPACE ] = NULL;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_NAMESPACE ] = NULL;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set native identifier.
+	//
+	echo( '<h4>Test set native identifier</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NID ] = "global-id";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_NID ] = "global-id";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set label.
+	//
+	echo( '<h4>Test set label</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Label" );'.kSTYLE_HEAD_POS );
+	$test->Label( "en", "Label" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve label.
+	//
+	echo( '<h4>Test retrieve label<br /><i>should retrieve "Label"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en" );'.kSTYLE_HEAD_POS );
+	$value = $test->Label( "en" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set other language label.
+	//
+	echo( '<h4>Test set other language label<br /><i>should add "Etichetta"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "it", "Etichetta" );'.kSTYLE_HEAD_POS );
+	$value = $test->Label( "it", "Etichetta" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set duplicate language label.
+	//
+	echo( '<h4>Test set duplicate language label</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "it", "Etichetta" );'.kSTYLE_HEAD_POS );
+	$value = $test->Label( "it", "Etichetta" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test delete label.
+	//
+	echo( '<h4>Test delete label<br /><i>should delete "Label"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->Label( "en", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve non matching language label.
+	//
+	echo( '<h4>Test retrieve non matching language label<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Label( "en" );'.kSTYLE_HEAD_POS );
+	$value = $test->Label( "en" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set definition.
+	//
+	echo( '<h4>Test set definition</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->Definition( "en", "Definition" );'.kSTYLE_HEAD_POS );
+	$test->Definition( "en", "Definition" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve definition.
+	//
+	echo( '<h4>Test retrieve definition<br /><i>should retrieve "Definition"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Definition( "en" );'.kSTYLE_HEAD_POS );
+	$value = $test->Definition( "en" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set other language definition.
+	//
+	echo( '<h4>Test set other language definition<br /><i>should add "Descrizione"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Definition( "it", "Descrizione" );'.kSTYLE_HEAD_POS );
+	$value = $test->Definition( "it", "Descrizione" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set duplicate language definition.
+	//
+	echo( '<h4>Test set duplicate language definition</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Definition( "it", "Descrizione" );'.kSTYLE_HEAD_POS );
+	$value = $test->Definition( "it", "Descrizione" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test delete definition.
+	//
+	echo( '<h4>Test delete definition<br /><i>should delete "Definition"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Definition( "en", FALSE, TRUE );'.kSTYLE_HEAD_POS );
+	$value = $test->Definition( "en", FALSE, TRUE );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test retrieve non matching language definition.
+	//
+	echo( '<h4>Test retrieve non matching language definition<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->Definition( "en" );'.kSTYLE_HEAD_POS );
+	$value = $test->Definition( "en" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $value );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set namespace by object.
+	//
+	echo( '<h4>Test set namespace by object<br /><i>should set "global-id"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$other = new MyClass();'.kSTYLE_HEAD_POS );
+	$other = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$other[ kTAG_NAMESPACE ] = $test;'.kSTYLE_HEAD_POS );
+	$other[ kTAG_NAMESPACE ] = $test;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $other ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	
 	//
 	// Instantiate and load object.
@@ -722,8 +1068,8 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$test[ kTAG_LID ] = "namespace";'.'<br \>' );
-	$test[ kTAG_LID ] = "namespace";
+	echo( '$test[ kTAG_ID_LOCAL ] = "namespace";'.'<br \>' );
+	$test[ kTAG_ID_LOCAL ] = "namespace";
 	echo( '$test->Label( "en", "Namespace" );'.'<br \>' );
 	$test->Label( "en", "Namespace" );
 	echo( '$test->Definition( "en", "This is a namespace" );'.'<br \>' );
@@ -855,10 +1201,10 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
-	echo( '$other[ kTAG_NS ] = $test;'.'<br \>' );
-	$other[ kTAG_NS ] = $test;
-	echo( '$other[ kTAG_LID ] = "term";'.'<br \>' );
-	$other[ kTAG_LID ] = "term";
+	echo( '$other[ kTAG_NAMESPACE ] = $test;'.'<br \>' );
+	$other[ kTAG_NAMESPACE ] = $test;
+	echo( '$other[ kTAG_ID_LOCAL ] = "term";'.'<br \>' );
+	$other[ kTAG_ID_LOCAL ] = "term";
 	echo( '$other->Label( "en", "Term" );'.'<br \>' );
 	$other->Label( "en", "Term" );
 	echo( '$other->Definition( "en", "This is a term" );'.'<br \>' );

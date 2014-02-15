@@ -401,8 +401,8 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$subject = new OntologyWrapper\NodeObject();<br />' );
-		$subject = new OntologyWrapper\NodeObject();
+		echo( '$subject = new OntologyWrapper\Node();<br />' );
+		$subject = new OntologyWrapper\Node();
 		echo( '$subject[ kTAG_NID ] = 100;<br />' );
 		$subject[ kTAG_NID ] = 100;
 		echo( kSTYLE_HEAD_POS );
@@ -453,10 +453,10 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$predicate = new OntologyWrapper\TermObject();<br />' );
-		$predicate = new OntologyWrapper\TermObject();
-		echo( '$predicate[ kTAG_LID ] = "predicate-object";<br />' );
-		$predicate[ kTAG_LID ] = "predicate-object";
+		echo( '$predicate = new OntologyWrapper\Term();<br />' );
+		$predicate = new OntologyWrapper\Term();
+		echo( '$predicate[ kTAG_ID_LOCAL ] = "predicate-object";<br />' );
+		$predicate[ kTAG_ID_LOCAL ] = "predicate-object";
 		echo( '$predicate[ kTAG_NID ] = (string) $predicate;<br />' );
 		$predicate[ kTAG_NID ] = (string) $predicate;
 		echo( kSTYLE_HEAD_POS );
@@ -507,8 +507,8 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$object = new OntologyWrapper\NodeObject();<br />' );
-		$object = new OntologyWrapper\NodeObject();
+		echo( '$object = new OntologyWrapper\Node();<br />' );
+		$object = new OntologyWrapper\Node();
 		echo( '$object[ kTAG_NID ] = 200;<br />' );
 		$object[ kTAG_NID ] = 200;
 		echo( kSTYLE_HEAD_POS );
@@ -605,6 +605,245 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
+
+	//
+	// Set empty object.
+	//
+	echo( '<h4>Set empty object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set subject.
+	//
+	echo( '<h4>Test set subject</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_SUBJECT ] = 1;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_SUBJECT ] = 1;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set subject by object.
+	//
+	echo( '<h4>Test set subject by object<br /><i>should set "100"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$subject = new OntologyWrapper\Node();<br />' );
+	$subject = new OntologyWrapper\Node();
+	echo( '$subject[ kTAG_NID ] = 100;<br />' );
+	$subject[ kTAG_NID ] = 100;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_SUBJECT ] = $subject;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_SUBJECT ] = $subject;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set predicate.
+	//
+	echo( '<h4>Test set predicate</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_PREDICATE ] = "predicate";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_PREDICATE ] = "predicate";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set predicate by object.
+	//
+	echo( '<h4>Test set predicate by object<br /><i>should set "predicate-object"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$predicate = new OntologyWrapper\Term();<br />' );
+	$predicate = new OntologyWrapper\Term();
+	echo( '$predicate[ kTAG_ID_LOCAL ] = "predicate-object";<br />' );
+	$predicate[ kTAG_ID_LOCAL ] = "predicate-object";
+	echo( '$predicate[ kTAG_NID ] = (string) $predicate;<br />' );
+	$predicate[ kTAG_NID ] = (string) $predicate;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_PREDICATE ] = $predicate;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_PREDICATE ] = $predicate;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set object.
+	//
+	echo( '<h4>Test set object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_OBJECT ] = 2;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_OBJECT ] = 2;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set object by object.
+	//
+	echo( '<h4>Test set object by object<br /><i>should set "200"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$object = new OntologyWrapper\Node();<br />' );
+	$object = new OntologyWrapper\Node();
+	echo( '$object[ kTAG_NID ] = 200;<br />' );
+	$object[ kTAG_NID ] = 200;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_OBJECT ] = $object;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_OBJECT ] = $object;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test setting subject with wrong object.
+	//
+	echo( '<h4>Test setting subject with wrong object<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test[ kTAG_SUBJECT ] = $predicate;' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ kTAG_SUBJECT ] = $predicate;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test setting predicate with wrong object.
+	//
+	echo( '<h4>Test setting predicate with wrong object<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test[ kTAG_PREDICATE ] = $subject;' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ kTAG_PREDICATE ] = $subject;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test setting object with wrong object.
+	//
+	echo( '<h4>Test setting object with wrong object<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test[ kTAG_OBJECT ] = $predicate;' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ kTAG_OBJECT ] = $predicate;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	
 	//
 	// Instantiate test data.

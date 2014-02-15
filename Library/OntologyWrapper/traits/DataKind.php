@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * DataKind.php
+ *
+ * This file contains the definition of the {@link DataKind} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									DataKind.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * DataKind trait
+ *
+ * This trait implements a method for managing the data kind offset,
+ * {@link kTAG_DATA_KIND}. The method allows the management of the individual elements of
+ * the enumerated set.
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 14/02/2014
+ */
+trait DataKind
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DataKind																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data kind
+	 *
+	 * This method can be used to add, retrieve and delete individual data kind enumerated
+	 * values; to manage the enumerated set as a whole, use the {@link kTAG_DATA_KIND}
+	 * offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+	 *		manage.
+	 *	<li><b>$theOperation</b>: This parameter identifies the operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the enumerated value, if it exists, or <tt>NULL</tt>.
+	 *		<li><tt>FALSE</tt>: Delete the enumerated value, if it exists.
+	 *		<li><i>other</i>: Any other value means that we want to set the enumerated value
+	 *			provided in the previous parameter.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will return either the enumerated value, or <tt>NULL</tt> if the value was
+	 * not matched.
+	 *
+	 * @param string				$theValue			Data type.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed				Old or new value.
+	 *
+	 * @see kTAG_DATA_KIND
+	 *
+	 * @uses manageSetOffset()
+	 */
+	public function DataKind( $theValue, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->manageSetOffset(
+				kTAG_DATA_KIND,
+				(string) $theValue, $theOperation, $getOld );						// ==>
+	
+	} // DataKind.
+
+	 
+
+} // trait DataKind.
+
+
+?>

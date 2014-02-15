@@ -60,6 +60,11 @@ class MyClass extends OntologyWrapper\ConnectionObject
 	{	return $this->manageSetOffset( $theOffset, $theValue, $theOperation, $getOld );
 																				}
 	
+	public function AccessorArrayOffset( $theOffset, $theKey, $theValue = NULL,
+															  $getOld = FALSE )
+	{	return $this->manageArrayOffset( $theOffset, $theKey, $theValue, $getOld );
+																				}
+	
 	public function AccessorElementMatchOffset( $theOffset, $theTypeOffset, $theDataOffset,
 														  $theTypeValue, $theDataValue = NULL,
 														  $getOld = FALSE )

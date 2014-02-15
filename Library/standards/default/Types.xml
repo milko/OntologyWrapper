@@ -74,13 +74,13 @@
             </item>
         </TERM>
         
-        <!-- Kind/value list -->
-        <TERM ns=":type" lid="kind/value">
+        <!-- Language strings -->
+        <TERM ns=":type" lid="language-strings">
             <item const="kTAG_LABEL">
-                <item lang="en">Kind/value list</item>
+                <item lang="en">Language strings</item>
             </item>
             <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This data type defines a <em>list of elements comprised of two key value pairs</em> in which the first pair, whose key is the <tt>:kind</tt> tag, defines the type, kind or qualification of the property stored as the value of the second pair in which the key is the <tt>:value</tt> tag. For instance a home telephone number could be stored as an element as an array of two key/value pairs in which the first pair with key <tt>:kind</tt> would hold the <tt>home</tt> string value, while the second pair with key <tt>:value</tt> would hold the actual telephone number. Lists of this kind cannot have more than one element matching the same <tt>:kind</tt> value.]]></item>
+                <item lang="en"><![CDATA[This data type defines a <em>list of strings expressed in different languages</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:language</tt> persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the <tt>:text</tt> persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element mat omit the language pair.]]></item>
             </item>
         </TERM>
     </META>

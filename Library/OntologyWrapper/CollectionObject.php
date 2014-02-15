@@ -200,21 +200,33 @@ abstract class CollectionObject extends ConnectionObject
 	 * Resolve an object
 	 *
 	 * This method should select an object in the current collection matching the provided
-	 * native identifier with the provided offset and return either the object, if the
-	 * second parameter is <tt>TRUE</tt>, or an array if <tt>FALSE</tt>; if the object
-	 * cannot be resolved, the method should return <tt>NULL</tt>.
+	 * identifier with the provided offset.
 	 *
-	 * If there are more than one objects selected, this method should only return the
-	 * first.
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: This parameter represents the value to match with the
+	 *		provided offset.
+	 *	<li><b>$theOffset</b>: This parameter represents either the native or persistent
+	 *		identifier of the offset tag.
+	 *	<li><b>$asObject</b>: This parameter determines what the method should return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the object; if there are more than one objects
+	 *			selected, this method should only return the first.
+	 *		<li><tt>FALSE</tt>: Return the object array; if there are more than one objects
+	 *			selected, this method should only return the first.
+	 *		<li><tt>NULL</tt>: Return the objects count.
+	 *	 </ul>
+	 * </ul>
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param mixed					$theOffset			Offset.
-	 * @param boolean				$asObject			Return object if <tt>TRUE</tt>.
+	 * @param mixed					$asObject			Return object if <tt>TRUE</tt>.
 	 *
 	 * @access public
-	 * @return mixed				Found object, array, or <tt>NULL</tt>.
+	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
 	 */
 	abstract public function resolve( $theIdentifier, $theOffset = kTAG_NID,
 													  $asObject = TRUE );

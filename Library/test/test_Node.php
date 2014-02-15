@@ -423,8 +423,8 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$tag = new OntologyWrapper\TagObject();<br />' );
-		$tag = new OntologyWrapper\TagObject();
+		echo( '$tag = new OntologyWrapper\Tag();<br />' );
+		$tag = new OntologyWrapper\Tag();
 		echo( '$tag->TermPush( "tag-object" );<br />' );
 		$tag->TermPush( "tag-object" );
 		echo( '$tag[ kTAG_NID ] = (string) $tag;' );
@@ -455,10 +455,10 @@ try
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$term = new OntologyWrapper\TermObject();<br />' );
-		$term = new OntologyWrapper\TermObject();
-		echo( '$term[ kTAG_LID ] = "term-object";<br />' );
-		$term[ kTAG_LID ] = "term-object";
+		echo( '$term = new OntologyWrapper\Term();<br />' );
+		$term = new OntologyWrapper\Term();
+		echo( '$term[ kTAG_ID_LOCAL ] = "term-object";<br />' );
+		$term[ kTAG_ID_LOCAL ] = "term-object";
 		echo( '$term[ kTAG_NID ] = (string) $term;<br />' );
 		$term[ kTAG_NID ] = (string) $term;
 		echo( kSTYLE_HEAD_POS );
@@ -533,6 +533,172 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
+
+	//
+	// Set empty object.
+	//
+	echo( '<h4>Set empty object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
+	$test = new MyClass();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set tag.
+	//
+	echo( '<h4>Test set tag</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_TAG ] = "tag";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_TAG ] = "tag";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set term.
+	//
+	echo( '<h4>Test set term</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_TERM ] = "term";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_TERM ] = "term";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set tag by object.
+	//
+	echo( '<h4>Test set tag by object<br /><i>should set "tag-object"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tag = new OntologyWrapper\Tag();<br />' );
+	$tag = new OntologyWrapper\Tag();
+	echo( '$tag->TermPush( "tag-object" );<br />' );
+	$tag->TermPush( "tag-object" );
+	echo( '$tag[ kTAG_NID ] = (string) $tag;' );
+	$tag[ kTAG_NID ] = (string) $tag;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_TAG ] = $tag;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_TAG ] = $tag;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test set term by object.
+	//
+	echo( '<h4>Test set term by object<br /><i>should set "term-object"</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$term = new OntologyWrapper\Term();<br />' );
+	$term = new OntologyWrapper\Term();
+	echo( '$term[ kTAG_ID_LOCAL ] = "term-object";<br />' );
+	$term[ kTAG_ID_LOCAL ] = "term-object";
+	echo( '$term[ kTAG_NID ] = (string) $term;<br />' );
+	$term[ kTAG_NID ] = (string) $term;
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_TERM ] = $term;'.kSTYLE_HEAD_POS );
+	$test[ kTAG_TERM ] = $term;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( (string) $test );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test setting tag with wrong object.
+	//
+	echo( '<h4>Test setting tag with wrong object<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test[ kTAG_TAG ] = $term;' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ kTAG_TAG ] = $term;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test setting term with wrong object.
+	//
+	echo( '<h4>Test setting term with wrong object<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test[ kTAG_TERM ] = $tag;' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ kTAG_TERM ] = $tag;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	
 	//
 	// Instantiate and load object.

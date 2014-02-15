@@ -79,7 +79,7 @@ use OntologyWrapper\OntologyObject;
  * offsets will raise an exception: this is to prevent changing the connection properties
  * while connected.
  *
- * In this class we make use of the {@link StatusTrait} trait, here we set the
+ * In this class we make use of the {@link Status} trait, here we set the
  * {@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
  * open the connection; we reset the status bitfield data member after calling the parent
  * constructor.
@@ -120,7 +120,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * In this class we handle the {@link isDirtyFlag()}
 	 */
-	use	StatusTrait;
+	use	traits\Status;
 
 	/**
 	 * Data source name.
@@ -702,7 +702,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * The method will make use of the {@link parse_url()} function and pass each key/value
 	 * pair to the protected {@link loadDSNParameter()} method which has the responsibility
-	 * of matching the {@link parse_url()} keys to {@link TagObject} instances.
+	 * of matching the {@link parse_url()} keys to {@link Tag} instances.
 	 *
 	 * If the {@link parse_url()} function fails to parse the DSN, the method will raise an
 	 * exception.

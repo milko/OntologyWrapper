@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\TermObject;
+use OntologyWrapper\PersistentObject;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -22,24 +22,81 @@ use OntologyWrapper\CollectionObject;
 /**
  * Term
  *
- * This class implements a persistent {@link TermObject} instance, the class concentrates on
- * implementing all the necessary elements to ensure persistence to instances of this class
- * and referential integrity.
+ * A term object holds the necessary information to <i>uniquely identify</i>,
+ * <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related
+ * to a specific context</i>.
+ *
+ * For instance, a <tt>name</tt> is defined as a string or text that identifies something,
+ * this is true for both a person name or an object name, however, the term <tt>name</tt>
+ * will bare a different meaning depending on what context it is used in: the term object
+ * holds the definition of that will not change with its context.
+ *
+ * The class features the following default offsets:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
+ *		the term global identifier. By convention this value is the combination of the
+ *		namespace, {@link kTAG_NAMESPACE}, and the local identifier, {@link kTAG_ID_LOCAL},
+ *		separated by the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global
+ *		identifier may be manually set. This attribute must be managed with its offset.
+ *	<li><tt>{@link kTAG_NAMESPACE}</tt>: <em>Namespace</em>. This optional attribute is a
+ *		reference to another term object that represents the namespace of the current term.
+ *		It is by definition the global identifier of the namespace term. This attribute must
+ *		be managed with its offset.
+ *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: <em>Local identifier</em>. This required attribute
+ *		is a string that represents the current term unique identifier within its namespace.
+ *		The combination of the current term's namespace and this attribute form the term's
+ *		global identifier. This attribute must be managed with its offset.
+ *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
+ *		short description</i> of the term that the current object defines. All terms
+ *		<em>should</em> have a label, since this is how human users will be able to identify
+ *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
+ *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
+ *		holds the label language code and the {@link kTAG_TEXT} holds the label text. To
+ *		populate and handle labels by language, use the {@link Label()} offset accessor
+ *		method. Some terms may not have a language element, for instance the number
+ *		<tt>2</tt> may not need to be expressed in other ways.
+ *	<li><tt>{@link kTAG_DEFINITION}</tt>: <em>Definition</em>. The definition represents the
+ *		<i>description or extended definition</i> of the term that the current object object
+ *		defines. The definition is similar to the <em>description</em>, except that while
+ *		the description provides context specific information, the definition should not.
+ *		All terms <em>should</em> have a definition, if the object label is not enough to
+ *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRINGS}
+ *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
+ *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
+ *		definitions by language, use the {@link Definition()} offset accessor method.
+ * </ul>
+ *
+ * The {@link __toString()} method will return the value stored in the native identifier,
+ * if set, or the computed global identifier if at least the local identifier is set; if the
+ * latter is not set, the method will fail.
+ *
+ * Objects of this class can hold any additional attribute that is considered necessary or
+ * useful to define and share the current term. In this class we define only those
+ * attributes that constitute the core functionality of the object, derived classes will add
+ * attributes specific to the domain in which the object will operate.
  *
  * The object is considered initialised, {@link isInited()}, if it has at least the local
- * identifier, {@link kTAG_LID}, and the label, {@link kTAG_LABEL}.
+ * identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL}.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Term extends TermObject
+class Term extends PersistentObject
 {
 	/**
-	 * Persistent trait.
+	 * Label trait.
 	 *
-	 * We use this trait to make objects of this class persistent.
+	 * We use this trait to handle labels.
 	 */
-	use	\OntologyWrapper\PersistentTrait;
+	use	traits\Label;
+
+	/**
+	 * Definition trait.
+	 *
+	 * We use this trait to handle definitions.
+	 */
+	use	traits\Definition;
 
 	/**
 	 * Default collection name.
@@ -68,31 +125,75 @@ class Term extends TermObject
 	/**
 	 * Instantiate class.
 	 *
-	 * This constructor is standard for all persistent classes, we do nothing special here.
+	 * In this class we link the inited status with the presence of the local identifier and
+	 * the label.
 	 *
 	 * @param ConnectionObject		$theContainer		Persistent store.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @access public
 	 *
-	 * @uses instantiateObject()
+	 * @uses isInited()
+	 *
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
 	 */
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{
 		//
 		// Load object with contents.
 		//
-		parent::__construct( $this->instantiateObject( $theContainer, $theIdentifier ) );
+		parent::__construct( $theContainer, $theIdentifier );
 		
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
+		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
 						 \ArrayObject::offsetExists( kTAG_LABEL ) );
 
 	} // Constructor.
 
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return global identifier</h4>
+	 *
+	 * If the native identifier, {@link kTAG_NID}, is set, this method will return its
+	 * value. If that offset is not yet set, the method will compute the global identifier
+	 * by concatenating the object's namespace, {@link kTAG_NAMESPACE}, with the object's
+	 * local identifier, {@link kTAG_ID_LOCAL}, separated by the
+	 * {@link kTOKEN_NAMESPACE_SEPARATOR} token. This will only occur if the object has the
+	 * local identifier, if that is not the case, the method will return an empty string to
+	 * prevent the method from causing an error.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	public function __toString()
+	{
+		//
+		// Get native identifier.
+		//
+		if( \ArrayObject::offsetExists( kTAG_NID ) )
+			return \ArrayObject::offsetGet( kTAG_NID );								// ==>
 		
+		//
+		// Compute global identifier.
+		//
+		if( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) )
+			return ( \ArrayObject::offsetExists( kTAG_NAMESPACE ) )
+				 ? (\ArrayObject::offsetGet( kTAG_NAMESPACE )
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .\ArrayObject::offsetGet( kTAG_ID_LOCAL ))						// ==>
+				 : \ArrayObject::offsetGet( kTAG_ID_LOCAL );						// ==>
+		
+		return '';																	// ==>
+	
+	} // __toString.
+
+	
 
 /*=======================================================================================
  *																						*
@@ -109,52 +210,35 @@ class Term extends TermObject
 	/**
 	 * Load namespace object
 	 *
-	 * This method can be used to resolve the namespace into an object.
+	 * This method can be used to resolve the namespace into an object, array or check
+	 * whether the namespace exists.
 	 *
-	 * The method will return the namespace object if the operation succeeded and
-	 * <tt>NULL</tt> if the object is not committed, if the object does not hold a
-	 * collection reference, or if the object has no namespace.
+	 * The method expects a single parameter that determines what the method should return:
 	 *
-	 * If the namespace cannot be resolved, the method will raise an exception.
+	 * <ul>
+	 *	<li><tt>TRUE</tt>: Return the namespace object; if it is not found, raise an
+	 *		exception.
+	 *	<li><tt>TRUE</tt>: Return the namespace array; if it is not found, raise an
+	 *		exception.
+	 *	<li><tt>NULL</tt>: Return the count of namespaces matching the identifier (1 or 0).
+	 * </ul>
+	 *
+	 * If the current object is not committed, if it doesn't have a collection, or if it
+	 * doesn't have the namespace, the method will return <tt>NULL</tt>.
+	 *
+	 * @param mixed					$asObject			Return object, array or count.
 	 *
 	 * @access protected
-	 * @return Term					Resolved reference or <tt>NULL</tt>.
+	 * @return mixed				Namespace object, array, count or <tt>NULL</tt>.
+	 *
+	 * @see kTAG_NAMESPACE Term::kSEQ_NAME
+	 *
+	 * @uses loadOffsetReference()
 	 */
-	public function loadNamespace()
+	public function loadNamespace( $asObject = TRUE )
 	{
-		//
-		// Check if committed.
-		//
-		if( $this->isCommitted() )
-		{
-			//
-			// Check collection.
-			//
-			if( $this->mCollection !== NULL )
-			{
-				//
-				// Check namespace.
-				//
-				if( \ArrayObject::offsetExists( kTAG_NS ) )
-				{
-					//
-					// Resolve reference.
-					//
-					$id = \ArrayObject::offsetGet( kTAG_NS );
-					$object = $this->mCollection->resolve( $id );
-					if( $object instanceof self )
-						return $object;												// ==>
-					
-					throw new \Exception(
-						"Unable to resolve [$id] namespace." );					// !@! ==>
-				
-				} // Has namespace.
-			
-			} // Has collection.
-		
-		} // Committed.
-		
-		return NULL;																// ==>
+		return $this->loadOffsetReference(
+					kTAG_NAMESPACE, Term::kSEQ_NAME, $asObject );					// ==>
 	
 	} // loadNamespace.
 
@@ -181,117 +265,30 @@ class Term extends TermObject
 	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
 	 *
 	 * @access public
+	 *
+	 * @see kTAG_NAMESPACE
+	 *
+	 * @uses collectObjects()
 	 */
 	public function collectReferences( &$theContainer, $doObject = TRUE )
 	{
 		//
-		// Check if committed.
+		// Call parent method.
 		//
-		if( ! $this->isCommitted() )
-			throw new \Exception(
-				"Unable to collect references: "
-			   ."the object is not committed." );								// !@! ==>
-
-		//
-		// Check collection.
-		//
-		if( $this->mCollection === NULL )
-			throw new \Exception(
-				"Unable to collect references: "
-			   ."the object has no collection." );								// !@! ==>
+		parent::collectReferences( $theContainer, $doObject );
 
 		//
 		// Check namespace.
 		//
-		if( \ArrayObject::offsetExists( kTAG_NS ) )
+		if( \ArrayObject::offsetExists( kTAG_NAMESPACE ) )
 			$this->collectObjects(
 				$theContainer,
 				$this->mCollection,
-				\ArrayObject::offsetGet( kTAG_NS ),
+				\ArrayObject::offsetGet( kTAG_NAMESPACE ),
 				static::kSEQ_NAME,
 				$doObject );
 	
 	} // collectReferences.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	ResolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve object
-	 *
-	 * This method can be used to statically instantiate an object from the provided data
-	 * store, it will attempt to select the object matching the provided native identifier
-	 * and return an instance of the originally committed class.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
-	 *		retrieved.
-	 *	<li><b>$theIdentifier</b>: The objet native identifier.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
-	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
-	 *		<tt>NULL</tt>.
-	 * </ul>
-	 *
-	 * We implement this method to match objects in the terms collection.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param boolean				$doAssert			Assert object.
-	 *
-	 * @access public
-	 * @return OntologyObject		Object or <tt>NULL</tt>.
-	 */
-	static function ResolveObject( ConnectionObject $theConnection,
-													$theIdentifier,
-													$doAssert = TRUE )
-	{
-		//
-		// Resolve collection.
-		//
-		if( $theConnection instanceof DatabaseObject )
-		{
-			//
-			// Get collection.
-			//
-			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
-			
-			//
-			// Connect it.
-			//
-			$theConnection->openConnection();
-		
-		} // Database connection.
-		
-		//
-		// Find object.
-		//
-		$object = $theConnection->resolve( $theIdentifier );
-		if( $object !== NULL )
-			return $object;															// ==>
-		
-		//
-		// Assert.
-		//
-		if( $doAssert )
-			throw new \Exception(
-				"Unable to locate object." );									// !@! ==>
-		
-		return NULL;																// ==>
-	
-	} // ResolveObject.
 
 		
 
@@ -310,35 +307,29 @@ class Term extends TermObject
 	/**
 	 * Prepare object for commit
 	 *
-	 * In this class we first check if the object is {@link isInited()}, if that is not the
-	 * case, we raise an exception, since the object cannot be committed if not initialised.
-	 *
-	 * We then set the native identifier, if not yet filled, with the global identifier
-	 * generated by the {@link __toString()} method.
-	 *
-	 * When deleting we check whether the object has its native identifier.
+	 * In this class we set the native identifier, if not yet filled, with the global
+	 * identifier generated by the {@link __toString()} method.
 	 *
 	 * @param bitfield				$theOperation		Operation code.
 	 *
 	 * @access protected
 	 *
-	 * @throes Exception
+	 * @see kTAG_NID
+	 *
+	 * @uses __toString()
 	 */
 	protected function preCommit( $theOperation = 0x00 )
 	{
+		//
+		// Call parent method.
+		//
+		parent::preCommit( $theOperation );
+		
 		//
 		// Handle insert and update.
 		//
 		if( $theOperation & 0x01 )
 		{
-			//
-			// Check if initialised.
-			//
-			if( ! $this->isInited() )
-				throw new \Exception(
-					"Unable to commit: "
-				   ."the object is not initialised." );							// !@! ==>
-		
 			//
 			// Set native identifier.
 			//
@@ -346,39 +337,8 @@ class Term extends TermObject
 				\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
 		
 		} // Saving.
-		
-		//
-		// Handle delete.
-		//
-		else
-		{
-			//
-			// Ensure the object has its native identifier.
-			//
-			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-				throw new \Exception(
-					"Unable to delete: "
-				   ."the object is missing its native identifier." );			// !@! ==>
-		
-		} // Deleting.
 	
 	} // preCommit.
-
-	 
-	/*===================================================================================
-	 *	postCommit																		*
-	 *==================================================================================*/
-
-	/**
-	 * Cleanup object after commit
-	 *
-	 * In this class we do nothing... yet.
-	 *
-	 * @param bitfield				$theOperation		Operation code.
-	 *
-	 * @access protected
-	 */
-	protected function postCommit( $theOperation = 0x00 )								   {}
 
 		
 
@@ -397,18 +357,20 @@ class Term extends TermObject
 	/**
 	 * Check if object is ready
 	 *
-	 * In this class we ensure the object has the native identifier, {@link kTAG_NID}, the
-	 * global identifier, {@linkl kTAG_PID}, the data type, {@link kTAG_DATA_TYPE}, and the
-	 * label, {@link kTAG_LABEL}.
+	 * In this class we ensure the object is initialised, {@link isInited()} and has the
+	 * native identifier.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
+	 *
+	 * @see kTAG_NID
+	 *
+	 * @uses isInited()
 	 */
 	protected function isReady()
 	{
 		return ( parent::isReady()
-			  && $this->isInited()
-			  && $this->offsetExists( kTAG_NID ) );									// ==>
+			  && \ArrayObject::offsetExists( kTAG_NID ) );							// ==>
 	
 	} // isReady.
 
@@ -423,20 +385,92 @@ class Term extends TermObject
 
 	 
 	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we cast the value of the namespace into a term reference, ensuring
+	 * that if an object is provided this is a term.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_NAMESPACE
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method to resolve offset.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+		{
+			//
+			// Intercept namespace.
+			//
+			if( $theOffset == kTAG_NAMESPACE )
+			{
+				//
+				// Handle objects.
+				//
+				if( is_object( $theValue ) )
+				{
+					//
+					// If term, get its reference.
+					//
+					if( $theValue instanceof self )
+						$theValue = $theValue->Reference();
+				
+					//
+					// If not a term, complain.
+					//
+					else
+						throw new \Exception(
+							"Unable to set namespace: "
+						   ."provided an object other than term." );			// !@! ==>
+			
+				} // Object.
+			
+				//
+				// Cast to setring.
+				//
+				else
+					$theValue = (string) $theValue;
+			
+			} // Setting namespace.
+			
+		} // Passed preflight.
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
 	 *	postOffsetSet																	*
 	 *==================================================================================*/
 
 	/**
 	 * Handle offset and value after setting it
 	 *
-	 * In this class we set the {@link isInited()} status.
+	 * In this class we set the {@link isInited()} status if the object has the local
+	 * identifier and the label.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 * @param reference				$theValue			Offset value reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_LID kTAG_LABEL
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
+	 *
+	 * @uses isInited()
 	 */
 	protected function postOffsetSet( &$theOffset, &$theValue )
 	{
@@ -448,7 +482,7 @@ class Term extends TermObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
+		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
 						 \ArrayObject::offsetExists( kTAG_LABEL ) );
 	
 	} // postOffsetSet.
@@ -461,13 +495,16 @@ class Term extends TermObject
 	/**
 	 * Handle offset after deleting it
 	 *
-	 * In this class we set the {@link isInited()} status.
+	 * In this class we reset the {@link isInited()} status if the object is missing the
+	 * local identifier or the label.
 	 *
 	 * @param reference				$theOffset			Offset reference.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_LID kTAG_LABEL
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
+	 *
+	 * @uses isInited()
 	 */
 	protected function postOffsetUnset( &$theOffset )
 	{
@@ -479,7 +516,7 @@ class Term extends TermObject
 		//
 		// Set initialised status.
 		//
-		$this->isInited( \ArrayObject::offsetExists( kTAG_LID ) &&
+		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
 						 \ArrayObject::offsetExists( kTAG_LABEL ) );
 	
 	} // postOffsetUnset.
@@ -501,18 +538,19 @@ class Term extends TermObject
 	/**
 	 * Return list of locked offsets
 	 *
-	 * In this class we return the static {@link $sInternalTags} list, the {@link kTAG_PID},
-	 * {@link kTAG_NS} and the {@link kTAG_LID} offsets.
+	 * In this class we return the {@link kTAG_NAMESPACE} and the {@link kTAG_ID_LOCAL}
+	 * offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_NS kTAG_LID
+	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( static::$sInternalTags,
-							array( kTAG_PID, kTAG_NS, kTAG_LID ) );					// ==>
+		return array_merge( parent::lockedOffsets(),
+							array( kTAG_NAMESPACE,
+								   kTAG_ID_LOCAL ) );								// ==>
 	
 	} // lockedOffsets.
 

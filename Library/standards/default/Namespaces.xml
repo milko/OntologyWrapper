@@ -20,43 +20,43 @@
 			</item>
 		</TERM>
 		
-		<!-- Types -->
+		<!-- Domain -->
+		<TERM ns="" lid="domain">
+			<item const="kTAG_LABEL">
+				<item lang="en">Domain</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[The <em>domain</em> represents the <em>kind</em> or <em>class</em>, it indicates <em>what</em> an object is.]]></item>
+			</item>
+		</TERM>
+		
+		<!-- Type -->
 		<TERM ns="" lid="type">
 			<item const="kTAG_LABEL">
-				<item lang="en">Types</item>
+				<item lang="en">Type</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in types used in the ontology, these include data types and data kinds.]]></item>
+				<item lang="en"><![CDATA[The <em>type</em> describes the <em>nature or composition</em> of a <em>data value</em>.]]></item>
 			</item>
 		</TERM>
 		
-		<!-- Reference types -->
+		<!-- Reference -->
 		<TERM ns=":type" lid="ref">
 			<item const="kTAG_LABEL">
-				<item lang="en">Reference types</item>
+				<item lang="en">Reference</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in types used in the ontology that represent a reference to an object.]]></item>
+				<item lang="en"><![CDATA[A <em>reference</em> represents a <em>link</em> to an object.]]></item>
 			</item>
 		</TERM>
 		
-		<!-- Connections -->
+		<!-- Connection -->
 		<TERM ns="" lid="connection">
 			<item const="kTAG_LABEL">
 				<item lang="en">Connection</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This <em>namespace</em> groups all default connection and network related attributes used in the ontology.]]></item>
-			</item>
-		</TERM>
-		
-		<!-- Sub-structure elements -->
-		<TERM ns="" lid="sub">
-			<item const="kTAG_LABEL">
-				<item lang="en">Sub-structure elements</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This <em>namespace</em> groups all default sub-structure element offsets used in the ontology.]]></item>
+				<item lang="en"><![CDATA[A <em>connection</em> groups <em>network connection related attributes</em>.]]></item>
 			</item>
 		</TERM>
 	</META>
