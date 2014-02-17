@@ -10,7 +10,9 @@ namespace OntologyWrapper;
 
 use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
-use OntologyWrapper\TagCache;
+use OntologyWrapper\Node;
+use OntologyWrapper\Edge;
+use OntologyWrapper\Dictionary;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -43,17 +45,10 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
 
 /**
- * Session.
- *
- * This file contains the default session offset definitions.
- */
-require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
-
-/**
  * Wrapper
  *
- * This class wraps an interface around the various components of the system; the metadata,
- * entities and the units.
+ * This class extends its ancestor to wrap an interface around the various components of the
+ * system; the metadata, entities and the units.
  *
  * The object is considered {@link isInited()} when the metadata, entities and units
  * databases are set.
@@ -61,7 +56,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/02/2014
  */
-class Wrapper extends ContainerObject
+class Wrapper extends Dictionary
 {
 	/**
 	 * Status trait.
@@ -130,6 +125,7 @@ class Wrapper extends ContainerObject
 	 *
 	 * @param mixed					$theValue			Metadata database or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
 	 * @return mixed				<i>New</i> or <i>old</i> metadata database.
@@ -142,16 +138,33 @@ class Wrapper extends ContainerObject
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Metadata( $theValue = NULL, $getOld = FALSE )
+	public function Metadata( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
 		// Check metadata type.
 		//
 		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! ($theValue instanceof DatabaseObject)) )
-			throw new \Exception(
-				"Invalid metadata database type." );							// !@! ==>
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					"Invalid metadata database type." );						// !@! ==>
+			
+			//
+			// Set dictionary.
+			//
+			$theValue->dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue->openConnection();
+		
+		} // Setting new value.
 		
 		//
 		// Manage member.
@@ -191,6 +204,7 @@ class Wrapper extends ContainerObject
 	 *
 	 * @param mixed					$theValue			Entities database or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
 	 * @return mixed				<i>New</i> or <i>old</i> entities database.
@@ -203,16 +217,33 @@ class Wrapper extends ContainerObject
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Entities( $theValue = NULL, $getOld = FALSE )
+	public function Entities( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
-		// Check metadata type.
+		// Check entities type.
 		//
 		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! ($theValue instanceof DatabaseObject)) )
-			throw new \Exception(
-				"Invalid entities database type." );							// !@! ==>
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					"Invalid entities database type." );						// !@! ==>
+			
+			//
+			// Set dictionary.
+			//
+			$theValue->dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue->openConnection();
+		
+		} // Setting new value.
 		
 		//
 		// Manage member.
@@ -252,6 +283,7 @@ class Wrapper extends ContainerObject
 	 *
 	 * @param mixed					$theValue			Units database or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
 	 * @return mixed				<i>New</i> or <i>old</i> units database.
@@ -264,16 +296,33 @@ class Wrapper extends ContainerObject
 	 * @uses isInited()
 	 * @uses isReady()
 	 */
-	public function Units( $theValue = NULL, $getOld = FALSE )
+	public function Units( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
 	{
 		//
-		// Check metadata type.
+		// Check units type.
 		//
 		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! ($theValue instanceof DatabaseObject)) )
-			throw new \Exception(
-				"Invalid entities database type." );							// !@! ==>
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					"Invalid units database type." );						// !@! ==>
+			
+			//
+			// Set dictionary.
+			//
+			$theValue->dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue->openConnection();
+		
+		} // Setting new value.
 		
 		//
 		// Manage member.
@@ -321,9 +370,7 @@ class Wrapper extends ContainerObject
 		return ( $this->isInited()
 			  && $this->mMetadata->isConnected()
 			  && $this->mEntities->isConnected()
-			  && $this->mUnits->isConnected()
-			  && isset( $_SESSION )
-			  && array_key_exists( kSESSION_DDICT, $_SESSION ) );					// ==>
+			  && $this->mUnits->isConnected() );									// ==>
 	
 	} // isConnected.
 
@@ -472,7 +519,7 @@ class Wrapper extends ContainerObject
 		//
 		// Reset the tag cache.
 		//
-		$_SESSION[ kSESSION_DDICT ]->Connection()->flush();
+		$this->dictionaryFlush();
 		
 		//
 		// Drop the ontology database.
@@ -515,11 +562,19 @@ class Wrapper extends ContainerObject
 		//
 		// Reset the tag cache.
 		//
-		$_SESSION[ kSESSION_DDICT ]->Connection()->flush();
+		$this->dictionaryFlush();
+		
+		//
+		// Get tags collection.
+		//
+		$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME );
 		
 		//
 		// Load all tags.
 		//
+		$tags = $collection->getAll();
+		foreach( $tags as $tag )
+			$this->setTag( $tag, 0 );
 	
 	} // resetOntology.
 
@@ -810,14 +865,9 @@ class Wrapper extends ContainerObject
 		} // Iterating properties.
 		
 		//
-		// Check namespace.
-		//
-		$object->loadNamespace();
-		
-		//
 		// Commit object.
 		//
-		$object->insert( $this->Metadata() );
+		$object->insert( $this );
 		
 		//
 		// Load cache.
@@ -883,7 +933,7 @@ class Wrapper extends ContainerObject
 		//
 		// Commit object.
 		//
-		$object->insert( $this->Metadata() );
+		$object->insert( $this );
 		
 		//
 		// Load cache.
@@ -1056,7 +1106,7 @@ class Wrapper extends ContainerObject
 	 * @access protected
 	 * @return mixed				Cast value.
 	 *
-	 * @uses OntologyObject::CastOffsetValue()
+	 * @uses OntologyObject::castOffsetValue()
 	 */
 	protected function castXMLScalarValue( \SimpleXMLElement $theElement, $theTag )
 	{
@@ -1095,7 +1145,7 @@ class Wrapper extends ContainerObject
 				return (string) $value;												// ==>
 			
 			default:
-				OntologyObject::CastOffsetValue( $value, $theTag, TRUE );
+				OntologyObject::castOffsetValue( $value, $theTag, TRUE );
 				break;
 		}
 		

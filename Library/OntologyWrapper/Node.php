@@ -161,263 +161,59 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
+ *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadTag																			*
+	 *	ResolveDatabase																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load tag object
+	 * Resolve the database
 	 *
-	 * This method can be used to resolve the tag into an object, array or check whether the
-	 * tag exists.
+	 * In this class we return the metadata database.
 	 *
-	 * The method expects a single parameter that determines what the method should return:
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the namespace object; if it is not found, raise an
-	 *		exception.
-	 *	<li><tt>TRUE</tt>: Return the namespace array; if it is not found, raise an
-	 *		exception.
-	 *	<li><tt>NULL</tt>: Return the count of namespaces matching the identifier (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the tag, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Tag object, array, count or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TAG, Tag::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadTag( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_TAG, Tag::kSEQ_NAME, $asObject );							// ==>
-	
-	} // loadTag.
-
-	 
-	/*===================================================================================
-	 *	loadTerm																		*
-	 *==================================================================================*/
-
-	/**
-	 * Load term object
-	 *
-	 * This method can be used to resolve the term into an object, array or check whether
-	 * the term exists.
-	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the term object; if it is not found, raise an exception.
-	 *	<li><tt>TRUE</tt>: Return the term array; if it is not found, raise an exception.
-	 *	<li><tt>NULL</tt>: Return the count of terms matching the identifier (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the term, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Term object, array, count or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_TERM Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadTerm( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_TERM, Term::kSEQ_NAME, $asObject );						// ==>
-	
-	} // loadTerm.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT AGGREGATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectReferences																*
-	 *==================================================================================*/
-
-	/**
-	 * Collect references
-	 *
-	 * In this class we collect the tag or term.
-	 *
-	 * @param reference				$theContainer		Receives objects.
-	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TAG kTAG_TERM
-	 *
-	 * @uses collectObjects()
-	 */
-	public function collectReferences( &$theContainer, $doObject = TRUE )
-	{
-		//
-		// Call parent method.
-		//
-		parent::collectReferences( $theContainer, $doObject );
-		
-		//
-		// Handle tag.
-		//
-		if( \ArrayObject::offsetExists( kTAG_TAG ) )
-		{
-			//
-			// Get tags collection.
-			//
-			$collection
-				= $this->mCollection
-					->Parent()
-					->Collection( Tag::kSEQ_NAME );
-			$collection->openConnection();
-
-			//
-			// Get tag.
-			//
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_TAG ),
-				Tag::kSEQ_NAME,
-				$doObject );
-		
-		} // Has tag.
-		
-		//
-		// Handle term.
-		//
-		elseif( \ArrayObject::offsetExists( kTAG_TERM ) )
-		{
-			//
-			// Get tags collection.
-			//
-			$collection
-				= $this->mCollection
-					->Parent()
-					->Collection( Term::kSEQ_NAME );
-			$collection->openConnection();
-
-			//
-			// Get tag.
-			//
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_TERM ),
-				Term::kSEQ_NAME,
-				$doObject );
-		
-		} // Has tag.
-	
-	} // collectReferences.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	ResolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve object
-	 *
-	 * This method can be used to statically instantiate an object from the provided data
-	 * store, it will attempt to select the object matching the provided native identifier
-	 * and return an instance of the originally committed class.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
-	 *		retrieved.
-	 *	<li><b>$theIdentifier</b>: The objet native identifier.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
-	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
-	 *		<tt>NULL</tt>.
-	 * </ul>
-	 *
-	 * We implement this method to match objects in the nodes collection.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param boolean				$doAssert			Assert object.
-	 *
-	 * @access public
-	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 * @static
+	 * @return DatabaseObject		Database or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
-	static function ResolveObject( ConnectionObject $theConnection,
-													$theIdentifier,
-													$doAssert = TRUE )
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
 		//
-		// Resolve collection.
+		// Get metadata database.
 		//
-		if( $theConnection instanceof DatabaseObject )
+		$database = $theWrapper->Metadata();
+		if( $database instanceof DatabaseObject )
 		{
 			//
-			// Get collection.
+			// Open connection.
 			//
-			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			if( $doOpen )
+				$database->openConnection();
 			
-			//
-			// Connect it.
-			//
-			$theConnection->openConnection();
+			return $database;														// ==>
 		
-		} // Database connection.
+		} // Retrieved metadata database.
 		
 		//
-		// Find object.
-		//
-		$object = $theConnection->resolve( $theIdentifier );
-		if( $object !== NULL )
-			return $object;															// ==>
-		
-		//
-		// Assert.
+		// Raise exception.
 		//
 		if( $doAssert )
 			throw new \Exception(
-				"Unable to locate object." );									// !@! ==>
+				"Unable to resolve database: "
+			   ."missing metadata reference in wrapper." );						// !@! ==>
 		
 		return NULL;																// ==>
 	
-	} // ResolveObject.
+	} // ResolveDatabase.
 
 		
 
@@ -577,7 +373,7 @@ class Node extends PersistentObject
 					// If term, get its reference.
 					//
 					if( $theValue instanceof Tag )
-						$theValue = $theValue->Reference();
+						$theValue = $theValue->reference();
 				
 					//
 					// If not a term, complain.
@@ -611,7 +407,7 @@ class Node extends PersistentObject
 					// If term, get its reference.
 					//
 					if( $theValue instanceof Term )
-						$theValue = $theValue->Reference();
+						$theValue = $theValue->reference();
 				
 					//
 					// If not a term, complain.
@@ -737,7 +533,7 @@ class Node extends PersistentObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( static::$sInternalTags,
+		return array_merge( $this->InternalOffsets(),
 							array( kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.

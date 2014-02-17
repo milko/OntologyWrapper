@@ -72,32 +72,6 @@ session_start();
 try
 {
 	//
-	// Instantiate main tag cache.
-	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
-			kSESSION_DDICT,
-			array( array( 'localhost', 11211 ) ) );
-	
-	//
-	// Init cache.
-	//
-	$_SESSION[ kSESSION_DDICT ]->init();
-	
-	//
-	// Instantiate server.
-	//
-	$server = new OntologyWrapper\MongoServer( "mongodb://localhost:27017" );
-	$server->openConnection();
-	
-	//
-	// Instantiate database.
-	//
-	$database = $server->Database( 'TEST' );
-	$database->openConnection();
-	$database->drop();
-
-	//
 	// Test parent class.
 	//
 	if( kDEBUG_PARENT )
@@ -116,8 +90,8 @@ try
 	echo( '<h4>Instantiate object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-	$test = new MyClass();
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( kSESSION_DDICT, array( array( "localhost", 11211 ) ) );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( kSESSION_DDICT, array( array( "localhost", 11211 ) ) );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -212,7 +186,12 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $_SESSION[ kSESSION_DDICT ]->Connection()->getAllKeys() );
+	var_dump( $test->dictionaryCount() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->cache()->getAllKeys() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

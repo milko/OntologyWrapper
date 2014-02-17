@@ -29,6 +29,11 @@ require_once( 'includes.inc.php' );
 //
 require_once( 'styles.inc.php' );
 
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -88,17 +93,12 @@ class MyClass extends OntologyWrapper\ConnectionObject
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$dictionary
+		= new OntologyWrapper\Dictionary(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
-	
-	//
-	// Init cache.
-	//
-	$_SESSION[ kSESSION_DDICT ]->init();
 	
 	//
 	// Test parent class.
@@ -266,6 +266,10 @@ try
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
 		$test = new MyClass();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->dictionary( $dictionary );'.kSTYLE_HEAD_POS );
+		$test->dictionary( $dictionary );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );

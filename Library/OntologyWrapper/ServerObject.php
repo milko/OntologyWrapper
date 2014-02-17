@@ -28,18 +28,6 @@ use OntologyWrapper\ConnectionObject;
  */
 abstract class ServerObject extends ConnectionObject
 {
-	/**
-	 * Object offsets.
-	 *
-	 * This static data member holds the list of default offsets used by server objects.
-	 *
-	 * @var array
-	 */
-	static $sOffsets = array( kTAG_CONN_PROTOCOL,
-							  kTAG_CONN_HOST, kTAG_CONN_PORT,
-							  kTAG_CONN_USER, kTAG_CONN_PASS,
-							  kTAG_CONN_OPTS );
-
 		
 
 /*=======================================================================================
@@ -63,13 +51,14 @@ abstract class ServerObject extends ConnectionObject
 	 * should return an instance of a class derived from {@link DatabaseObject}.
 	 *
 	 * @param string				$theName			Database name.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
 	 * @return DatabaseObject		Database object.
 	 *
 	 * @uses newDatabase()
 	 */
-	public function Database( $theName )
+	public function Database( $theName, $doOpen = TRUE )
 	{
 		//
 		// Get current server parameters.
@@ -81,7 +70,7 @@ abstract class ServerObject extends ConnectionObject
 		//
 		$params[ kTAG_CONN_BASE ] = $theName;
 		
-		return $this->newDatabase( $params );										// ==>
+		return $this->newDatabase( $params, $doOpen );								// ==>
 	
 	} // Database.
 
@@ -115,6 +104,40 @@ abstract class ServerObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return {@link kTAG_CONN_PROTOCOL}, {@link kTAG_CONN_HOST},
+	 * {@link kTAG_CONN_PORT}, {@link kTAG_CONN_USER}, {@link kTAG_CONN_PASS} and
+	 * {@link kTAG_CONN_OPTS}.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_CONN_PROTOCOL,
+								   kTAG_CONN_HOST, kTAG_CONN_PORT,
+								   kTAG_CONN_USER, kTAG_CONN_PASS,
+								   kTAG_CONN_OPTS ) );								// ==>
+	
+	} // DefaultOffsets;
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -134,12 +157,15 @@ abstract class ServerObject extends ConnectionObject
 	 *
 	 * Derived classes must implement this method.
 	 *
+	 * <em>When implementing this method you should not forget to set the dictionary</em>.
+	 *
 	 * @param array					$theOffsets			Full database offsets.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return DatabaseObject		Database instance.
 	 */
-	abstract protected function newDatabase( $theOffsets );
+	abstract protected function newDatabase( $theOffsets, $doOpen = TRUE );
 
 	 
 

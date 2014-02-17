@@ -29,15 +29,6 @@ use OntologyWrapper\DatabaseObject;
  */
 abstract class CollectionObject extends ConnectionObject
 {
-	/**
-	 * Object offsets.
-	 *
-	 * This static data member holds the list of default offsets used by collection objects.
-	 *
-	 * @var array
-	 */
-	static $sOffsets = array( kTAG_CONN_COLL );
-
 		
 
 /*=======================================================================================
@@ -63,7 +54,8 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * @access public
 	 *
-	 * @see ServerObject::$sOffsets DatabaseObject::$sOffsets
+	 * @uses ServerObject::DefaultOffsets()
+	 * @uses DatabaseObject::DefaultOffsets()
 	 *
 	 * @uses newDatabase()
 	 */
@@ -84,7 +76,8 @@ abstract class CollectionObject extends ConnectionObject
 			// Get server and database parameters.
 			//
 			$params = Array();
-			foreach( array_merge( ServerObject::$sOffsets, DatabaseObject::$sOffsets )
+			foreach( array_merge( ServerObject::DefaultOffsets(),
+								  DatabaseObject::DefaultOffsets() )
 						as $offset )
 			{
 				if( $this->offsetExists( $offset ) )
@@ -231,6 +224,23 @@ abstract class CollectionObject extends ConnectionObject
 	abstract public function resolve( $theIdentifier, $theOffset = kTAG_NID,
 													  $asObject = TRUE );
 
+	 
+	/*===================================================================================
+	 *	getAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return all objects
+	 *
+	 * This method should select all the objects of the collection and return an iterator.
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @access public
+	 * @return Iterator				Selection of all objects of the collection.
+	 */
+	abstract public function getAll();
+
 		
 
 /*=======================================================================================
@@ -330,6 +340,35 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return the {@link kTAG_CONN_COLL} offset.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_CONN_COLL ) );								// ==>
+	
+	} // DefaultOffsets;
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -352,11 +391,12 @@ abstract class CollectionObject extends ConnectionObject
 	 * Derived classes must implement this method.
 	 *
 	 * @param mixed					$theParameter		Database parameters.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return DatabaseObject		Database instance.
 	 */
-	abstract protected function newDatabase( $theParameter );
+	abstract protected function newDatabase( $theParameter, $doOpen = TRUE );
 
 		
 

@@ -9,7 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\ContainerObject;
-use OntologyWrapper\TagCache;
+use OntologyWrapper\Dictionary;
 
 /*=======================================================================================
  *																						*
@@ -37,13 +37,6 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
  * This file contains the default token definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
-
-/**
- * Session.
- *
- * This file contains the default session offset definitions.
- */
-require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
 /**
  * Ontology object
@@ -76,20 +69,20 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  * used as field names for data stored in a persistent container.
  *
  * Whenever the object is provided an offset, if this is a string, it will be fed to a
- * static method, {@link ResolveOffset()}, which will check if the string represents the
+ * protected method, {@link resolveOffset()}, which will check if the string represents the
  * global identifier of an ontology Tag object, in that case, the method will return the
  * Tag's native integer identifier which will be used as the data offset. The class
- * features a static data member, {@link $sInternalTags}, that holds the list of exceptions.
+ * features a public method, {@link InternalOffsets()}, that returns the list of exceptions.
  *
  * This means that to ensure referential integrity it is advisable to use integer constants
  * as offsets when available, or string offsets if the integer constant is not known or
  * available.
  *
- * The resolution of these offsets is provided by a {@link TagCache} object which records
+ * The resolution of these offsets is provided by a {@link Dictionary} object which records
  * all the <em>Tag</em> objects of the ontology which are the entities that all offsets
  * reference: persistent data offsets represent these Tag native identifiers, while these
- * Tag object global identifiers are decoded by the {@link TagCache} object to retrieve the
- * corresponding integer native identifier.
+ * Tag object global identifiers are decoded by the {@link Dictionary} object to retrieve
+ * the corresponding integer native identifier.
  *
  * The class declares the {@link __toString()} method as virtual, it is essential that all
  * derived classes implement this method which should return the current object's <em>global
@@ -98,7 +91,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
  * objects derived from this class, just as the Tag object described above, must feature a
  * global identifier, which may or may not coincide with their native identifier.
  *
- * Finally, the class declares a method, {@link Reference()}, which returns the current
+ * Finally, the class declares a method, {@link reference()}, which returns the current
  * object's <i>reference</i>, this will generally be the value of the {@link kTAG_NID}
  * offset. If the offset is not set, the method will raise an exception. This method will be
  * put to use by derived classes: when providing an object to an offset expecting an object
@@ -111,14 +104,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 abstract class OntologyObject extends ContainerObject
 {
 	/**
-	 * Internal tags.
+	 * Dictionary.
 	 *
-	 * This static data member holds the list of internal tags, this is the list of string
-	 * offsets that do not need to be resolved.
+	 * This protected data member holds the data dictionary reference.
 	 *
-	 * @var array
+	 * @var Dictionary
 	 */
-	static $sInternalTags = array( kTAG_NID, kTAG_CLASS );
+	protected $mDictionary = NULL;
 
 		
 
@@ -150,6 +142,89 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	dictionary																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set or return data dictionary
+	 *
+	 * This method can be used to set or retrieve the object's data dictionary, which is
+	 * required by all derived objects to resolve offsets.
+	 *
+	 * You should set this data member as soon as the object has been instantiated, before
+	 * adding offsets to it.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theDictionary</b>: Data dictionary or operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return current dictionary.
+	 *		<li><tt>{@link Dictionary}</tt>: Set dictionary with provided value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: This parameter is a boolean which if <tt>TRUE</tt> will return
+	 *		the <i>old</i> dictionary when replacing, if <tt>FALSE</tt>, it will return the
+	 *		current value.
+	 * </ul>
+	 *
+	 * The method will raise an exception if the dictionary holds any other type except the
+	 * above.
+	 *
+	 * @param mixed					$theDictionary		New dictionary or <tt>NULL</tt>.
+	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 *
+	 * @access public
+	 * @return Dictionary			Object data dictionary.
+	 *
+	 * @throws Exception
+	 */
+	public function dictionary( $theDictionary = NULL, $getOld = FALSE )
+	{
+		//
+		// Return dictionary
+		//
+		if( $theDictionary === NULL )
+			return $this->mDictionary;												// ==>
+		
+		//
+		// Save old value.
+		//
+		$save = $this->mDictionary;
+		
+		//
+		// Set dictionary.
+		//
+		if( $theDictionary instanceof Dictionary )
+		{
+			//
+			// Replace dictionary.
+			//
+			$this->mDictionary = $theDictionary;
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return $theDictionary;													// ==>
+		
+		} // provided a dictionary.
+		
+		throw new \Exception(
+			"Unable to set dictionary: "
+		   ."invalid or unsupported value." );									// !@! ==>
+	
+	} // dictionary.
+
+	
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC OBJECT REFERENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -157,7 +232,7 @@ abstract class OntologyObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	Reference																		*
+	 *	reference																		*
 	 *==================================================================================*/
 
 	/**
@@ -177,7 +252,7 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * @throws Exception
 	 */
-	public function Reference()
+	public function reference()
 	{
 		//
 		// Check native identifier.
@@ -188,53 +263,273 @@ abstract class OntologyObject extends ContainerObject
 		throw new \Exception(
 			"Unable to get object reference." );								// !@! ==>
 	
-	} // Reference.
+	} // reference.
 
-	
+		
 
 /*=======================================================================================
  *																						*
- *							STATIC OFFSET RESOLUTION INTERFACE							*
+ *								STATIC OFFSET INTERFACE									*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	ResolveOffset																	*
+	 *	InternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return internal offsets
+	 *
+	 * This method will return the current object list of internal offsets, these offsets
+	 * are not defined in the data dictionary and are private to the object. This method
+	 * is used to exclude these offsets from the default offset resolution workflow.
+	 *
+	 * In this class we return {@link kTAG_NID} and {@link kTAG_CLASS}, which all persistent
+	 * objects share.
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function InternalOffsets()			{	return array( kTAG_NID, kTAG_CLASS );	}
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * This method will return the current object list of default offsets, these offsets
+	 * represent the default offsets of the object, which means that all objects derived
+	 * from this class may feature these offsets. This method is used to exclude these
+	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
+	 * implied that these offsets will be there.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	CollectOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offsets
+	 *
+	 * This method can be used to retrieve the list of offsets that comprise the provided
+	 * object. Offsets are recursed if they have the {@link kTYPE_STRUCT} data type and they
+	 * are recorded only once.
+	 *
+	 * @param mixed					$theObject			Object or array.
+	 *
+	 * @static
+	 * @return array				List of object tags.
+	 */
+	static function CollectOffsets( $theObject )
+	{
+		//
+		// Init local storage.
+		//
+		$tags = Array();
+		$iterator = new \RecursiveIteratorIterator(
+						new \RecursiveArrayIterator( $this ),
+						\RecursiveIteratorIterator::SELF_FIRST );
+		if( $theObject instanceof ArrayObject )
+			$theObject = $theObject->getArrayCopy();
+		
+		//
+		// Traverse object.
+		//
+		foreach( $iterator as $key => $value )
+		{
+		
+		} // Iterating object
+		
+		return $tags;																// ==>
+	
+	} // CollectOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before checking it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> check offset, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetExists( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetExists( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->resolveOffset( $theOffset );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetExists.
+
+	 
+	/*===================================================================================
+	 *	preOffsetGet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before getting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> get offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetGet( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetGet( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->resolveOffset( $theOffset );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetGet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetSet( &$theOffset, &$theValue )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+			$theOffset = (string) $this->resolveOffset( $theOffset, TRUE );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetUnset( &$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetUnset( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this->resolveOffset( $theOffset );
+		
+		return $ok;																	// ==>
+	
+	} // preOffsetUnset.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET RESOLUTION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolveOffset																	*
 	 *==================================================================================*/
 
 	/**
 	 * Resolve offset
 	 *
 	 * This method will resolve the provided offset into a {@link Tag} native
-	 * identifier, this is done by using a {@link TagCache} object stored in the
-	 * {@link kSESSION_DDICT} entry of the current session.
+	 * identifier, this is done by using a {@link Dictionary} object stored in the current
+	 * object's {@link $mDictionary} data member.
 	 *
 	 * If you provide an integer or a numeric string, the method will simply cast the value
 	 * to an integer and return it.
 	 *
-	 * All other types of offsets, except those listed in the ststic {@link $sInternalTags}
-	 * data member, will be used to locate the tag native identifier using a
-	 * {@link TagCache} object stored in the {@link kSESSION_DDICT} offset of the current
-	 * session; if the provided offset cannot be resolved, the method will raise an
-	 * exception if the second parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second
-	 * parameter is <tt>FALSE</tt>.
+	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
+	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
+	 * object stored in the current object's {@link $mDictionary} data member; if the
+	 * provided offset cannot be resolved, the method will raise an exception if the second
+	 * parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
+	 * <tt>FALSE</tt>.
 	 *
 	 * The method will raise an exception if the tag cache is not set.
 	 *
 	 * @param mixed					$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
-	 * @static
+	 * @access protected
 	 * @return mixed				Resolved offset.
 	 *
 	 * @throws Exception
 	 *
-	 * @see $sInternalTags
-	 * @see kSESSION_DDICT
+	 * @uses InternalOffsets()
 	 */
-	static function ResolveOffset( $theOffset, $doAssert = FALSE )
+	protected function resolveOffset( $theOffset, $doAssert = FALSE )
 	{
 		//
 		// Handle numeric offsets.
@@ -246,24 +541,23 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Handle internal offsets.
 		//
-		if( in_array( $theOffset, self::$sInternalTags ) )
+		if( in_array( $theOffset, $this->InternalOffsets() ) )
 			return $theOffset;														// ==>
 		
 		//
 		// Check cache.
 		//
-		if( (! isset( $_SESSION ))
-		 || (! array_key_exists( kSESSION_DDICT, $_SESSION )) )
+		if( ! ($this->mDictionary instanceof Dictionary) )
 			throw new \Exception(
-				"Tag cache is not set in the session." );						// !@! ==>
+				"Missing data dictionary." );									// !@! ==>
 		
-		return $_SESSION[ kSESSION_DDICT ]->getTagId( $theOffset, $doAssert );		// ==>
+		return $this->mDictionary->getIdentifier( $theOffset, $doAssert );			// ==>
 	
-	} // ResolveOffset.
+	} // resolveOffset.
 
 	 
 	/*===================================================================================
-	 *	CastOffsetValue																	*
+	 *	castOffsetValue																	*
 	 *==================================================================================*/
 
 	/**
@@ -275,7 +569,7 @@ abstract class OntologyObject extends ContainerObject
 	 * data type to cast the value.
 	 *
 	 * The value will be cast only if the Tag has <em>one</em> data type, if the provided
-	 * value is an array, the method will cast each element to the data type.
+	 * value is an array, the method will cast each element to that data type.
 	 *
 	 * If the method is unable to resolve the offset and the assert flag parameter is set,
 	 * the method will raise an exception.
@@ -283,26 +577,23 @@ abstract class OntologyObject extends ContainerObject
 	 * This method will handle in-line the data types of a series of default tags, this is
 	 * necessary when loading the default ontology for the first time: since there are no
 	 * tags in the system yet, any attempt to resolve these tags would fail; if you plan on
-	 * changinf the data type of default tags, you should edit this method accordingly.
+	 * changing the data type of default tags, you should edit this method accordingly.
 	 *
 	 * @param reference				$theValue			Value to cast.
 	 * @param mixed					$theOffset			Data offset.
 	 * @param boolean				$doAssert			Assert offset tag reference.
 	 *
-	 * @static
+	 * @access protected
 	 *
 	 * @throws Exception
-	 *
-	 * @see $sInternalTags
-	 * @see kSESSION_DDICT
 	 */
-	static function CastOffsetValue( &$theValue, $theOffset, $doAssert = FALSE )
+	protected function castOffsetValue( &$theValue, $theOffset, $doAssert = FALSE )
 	{
 		//
 		// Resolve offset.
 		//
 		$offset_save = $theOffset;
-		$theOffset = static::ResolveOffset( $theOffset, $doAssert );
+		$theOffset = $this->resolveOffset( $theOffset, $doAssert );
 		
 		//
 		// Handle default tags.
@@ -339,7 +630,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Resolve tag.
 		//
-		$tag = $_SESSION[ kSESSION_DDICT ]->getTagObject( $theOffset, $doAssert );
+		$tag = $this->mDictionary->getObject( $theOffset, $doAssert );
 		
 		//
 		// Skip multiple types.
@@ -397,7 +688,7 @@ abstract class OntologyObject extends ContainerObject
 							$ref = & $theValue[ $key ];
 							$offsets = array_keys( $ref );
 							foreach( $offsets as $offset )
-								static::CastOffsetValue(
+								$this->castOffsetValue(
 									$ref[ $offset ], $offset, $doAssert );
 						
 						} // Iterating list.
@@ -422,7 +713,7 @@ abstract class OntologyObject extends ContainerObject
 						//
 						$offsets = array_keys( $theValue );
 						foreach( $offsets as $offset )
-							static::CastOffsetValue(
+							$this->castOffsetValue(
 								$theValue[ $offset ], $offset, $doAssert );
 					
 					} // Scalar struct.
@@ -474,7 +765,7 @@ abstract class OntologyObject extends ContainerObject
 								$ref = $list[ $key ];
 								$offsets = array_keys( $ref );
 								foreach( $offsets as $offset )
-									static::CastOffsetValue(
+									$this->castOffsetValue(
 										$ref[ $offset ], $offset, $doAssert );
 							
 							} // Iterating category elements.
@@ -516,7 +807,7 @@ abstract class OntologyObject extends ContainerObject
 							$ref = $theValue[ $key ];
 							$offsets = array_keys( $ref );
 							foreach( $offsets as $offset )
-								static::CastOffsetValue(
+								$this->castOffsetValue(
 									$ref[ $offset ], $offset, $doAssert );
 						
 						} // Iterating category elements.
@@ -690,172 +981,7 @@ abstract class OntologyObject extends ContainerObject
 		
 		} // One data type.
 	
-	} // CastOffsetValue.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preOffsetExists																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset before checking it
-	 *
-	 * In this class we resolve the offset.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> check offset, other, return.
-	 *
-	 * @uses ResolveOffset()
-	 */
-	protected function preOffsetExists( &$theOffset )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::preOffsetExists( $theOffset );
-		if( $ok === NULL )
-			$theOffset = (string) static::ResolveOffset( $theOffset );
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetExists.
-
-	 
-	/*===================================================================================
-	 *	preOffsetGet																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset before getting it
-	 *
-	 * In this class we resolve the offset.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> get offset value, other, return.
-	 *
-	 * @uses ResolveOffset()
-	 */
-	protected function preOffsetGet( &$theOffset )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::preOffsetGet( $theOffset );
-		if( $ok === NULL )
-			$theOffset = (string) static::ResolveOffset( $theOffset );
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetGet.
-
-	 
-	/*===================================================================================
-	 *	preOffsetSet																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset and value before setting it
-	 *
-	 * In this class we resolve the offset.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 * @param reference				$theValue			Offset value reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> set offset value, other, return.
-	 *
-	 * @uses ResolveOffset()
-	 */
-	protected function preOffsetSet( &$theOffset, &$theValue )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::preOffsetSet( $theOffset, $theValue );
-		if( $ok === NULL )
-			$theOffset = (string) static::ResolveOffset( $theOffset, TRUE );
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetSet.
-
-	 
-	/*===================================================================================
-	 *	preOffsetUnset																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle offset and value before deleting it
-	 *
-	 * In this class we resolve the offset.
-	 *
-	 * @param reference				$theOffset			Offset reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt> delete offset value, other, return.
-	 *
-	 * @uses ResolveOffset()
-	 */
-	protected function preOffsetUnset( &$theOffset )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::preOffsetUnset( $theOffset );
-		if( $ok === NULL )
-			$theOffset = (string) static::ResolveOffset( $theOffset );
-		
-		return $ok;																	// ==>
-	
-	} // preOffsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Collect offsets
-	 *
-	 * This method can be used to retrieve the list of offsets that comprise the object.
-	 * Offsets are recursed if they have the {@link kTYPE_STRUCT} data type and they are
-	 * recorded only once. The result of this operation is returned by the object.
-	 *
-	 * @access protected
-	 * @return array				List of object tags.
-	 */
-	protected function collectOffsets()
-	{
-		//
-		// INit local storage.
-		//
-		$tags = Array();
-		
-		return $tags;																// ==>
-	
-	} // collectOffsets.
+	} // castOffsetValue.
 
 	 
 

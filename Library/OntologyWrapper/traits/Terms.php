@@ -46,7 +46,7 @@ trait Terms
 	 * the provided element to the end of the path.
 	 *
 	 * If you provide a {@link Term} as the parameter, the method will
-	 * {@link Reference()} it.
+	 * {@link reference()} it.
 	 *
 	 * The method will return the number of elements in the path.
 	 *
@@ -70,7 +70,7 @@ trait Terms
 			// If term, get its reference.
 			//
 			if( $theTerm instanceof \OntologyWrapper\Term )
-				$theTerm = $theTerm->Reference();
+				$theTerm = $theTerm->reference();
 		
 			//
 			// If not a term, complain.

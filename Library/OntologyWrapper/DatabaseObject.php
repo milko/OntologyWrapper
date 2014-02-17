@@ -29,15 +29,6 @@ use OntologyWrapper\ServerObject;
  */
 abstract class DatabaseObject extends ConnectionObject
 {
-	/**
-	 * Object offsets.
-	 *
-	 * This static data member holds the list of default offsets used by database objects.
-	 *
-	 * @var array
-	 */
-	static $sOffsets = array( kTAG_CONN_BASE );
-
 		
 
 /*=======================================================================================
@@ -63,7 +54,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * @access public
 	 *
-	 * @see ServerObject::$sOffsets
+	 * @uses ServerObject::DefaultOffsets()
 	 *
 	 * @uses newServer()
 	 */
@@ -84,7 +75,7 @@ abstract class DatabaseObject extends ConnectionObject
 			// Get server parameters.
 			//
 			$params = Array();
-			foreach( ServerObject::$sOffsets as $offset )
+			foreach( ServerObject::DefaultOffsets() as $offset )
 			{
 				if( $this->offsetExists( $offset ) )
 					$params[ $offset ] =
@@ -147,13 +138,14 @@ abstract class DatabaseObject extends ConnectionObject
 	 * method should return an instance of a class derived from {@link CollectionObject}.
 	 *
 	 * @param string				$theName			Collection name.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access public
 	 * @return CollectionObject		Collection object.
 	 *
 	 * @uses newCollection()
 	 */
-	public function Collection( $theName )
+	public function Collection( $theName, $doOpen = TRUE )
 	{
 		//
 		// Get current database parameters.
@@ -165,7 +157,7 @@ abstract class DatabaseObject extends ConnectionObject
 		//
 		$params[ kTAG_CONN_COLL ] = $theName;
 		
-		return $this->newCollection( $params );										// ==>
+		return $this->newCollection( $params, $doOpen );							// ==>
 	
 	} // Collection.
 
@@ -257,6 +249,35 @@ abstract class DatabaseObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return the {@link kTAG_CONN_BASE} offset.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_CONN_BASE ) );								// ==>
+	
+	} // DefaultOffsets;
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -276,12 +297,15 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * Derived classes must implement this method.
 	 *
+	 * <em>When implementing this method you should not forget to set the dictionary</em>.
+	 *
 	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return ServerObject			Server instance.
 	 */
-	abstract protected function newServer( $theParameter );
+	abstract protected function newServer( $theParameter, $doOpen = TRUE );
 
 	 
 	/*===================================================================================
@@ -297,12 +321,15 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * Derived classes must implement this method.
 	 *
+	 * <em>When implementing this method you should not forget to set the dictionary</em>.
+	 *
 	 * @param array					$theOffsets			Full collection offsets.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return CollectionObject		Collection instance.
 	 */
-	abstract protected function newCollection( $theOffsets );
+	abstract protected function newCollection( $theOffsets, $doOpen = TRUE );
 
 	 
 

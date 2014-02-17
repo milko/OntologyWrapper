@@ -163,317 +163,59 @@ class Edge extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
+ *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadSubject																		*
+	 *	ResolveDatabase																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load subject vertex object
+	 * Resolve the database
 	 *
-	 * This method can be used to resolve the subject vertex into an object, array or check
-	 * whether the vertex exists.
+	 * In this class we return the metadata database.
 	 *
-	 * The method expects a single parameter that determines what the method should return:
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the node object; if it is not found, raise an exception.
-	 *	<li><tt>TRUE</tt>: Return the node array; if it is not found, raise an exception.
-	 *	<li><tt>NULL</tt>: Return the count of nodes matching the identifier (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the subject, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Node object, array, count or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_SUBJECT Node::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadSubject( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_SUBJECT, Node::kSEQ_NAME, $asObject );						// ==>
-	
-	} // loadSubject.
-
-	 
-	/*===================================================================================
-	 *	loadPredicate																	*
-	 *==================================================================================*/
-
-	/**
-	 * Load predicate object
-	 *
-	 * This method can be used to resolve the predicate into an object, array or check
-	 * whether the predicate exists.
-	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the term object; if it is not found, raise an exception.
-	 *	<li><tt>TRUE</tt>: Return the term array; if it is not found, raise an exception.
-	 *	<li><tt>NULL</tt>: Return the count of terms matching the identifier (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the predicate, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Term object, array, count or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_PREDICATE Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadPredicate( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_PREDICATE, Term::kSEQ_NAME, $asObject );					// ==>
-	
-	} // loadPredicate.
-
-	 
-	/*===================================================================================
-	 *	loadObject																		*
-	 *==================================================================================*/
-
-	/**
-	 * Load object vertex object
-	 *
-	 * This method can be used to resolve the object vertex into an object, array or check
-	 * whether the vertex exists.
-	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the node object; if it is not found, raise an exception.
-	 *	<li><tt>TRUE</tt>: Return the node array; if it is not found, raise an exception.
-	 *	<li><tt>NULL</tt>: Return the count of nodes matching the identifier (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the object vertex, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Node object, array, count or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_OBJECT Node::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadObject( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_OBJECT, Node::kSEQ_NAME, $asObject );						// ==>
-	
-	} // loadObject.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT AGGREGATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectReferences																*
-	 *==================================================================================*/
-
-	/**
-	 * Collect references
-	 *
-	 * In this class we collect the subject, predicate and object.
-	 *
-	 * @param reference				$theContainer		Receives objects.
-	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_SUBJECT kTAG_OBJECT kTAG_PREDICATE
-	 *
-	 * @uses collectObjects()
-	 */
-	public function collectReferences( &$theContainer, $doObject = TRUE )
-	{
-		//
-		// Call parent method.
-		//
-		parent::collectReferences( $theContainer, $doObject );
-		
-		//
-		// Handle subject and object.
-		//
-		if( \ArrayObject::offsetExists( kTAG_SUBJECT )
-		 || \ArrayObject::offsetExists( kTAG_OBJECT ) )
-		{
-			//
-			// Get tags collection.
-			//
-			$collection
-				= $this->mCollection
-					->Parent()
-					->Collection( Node::kSEQ_NAME );
-			$collection->openConnection();
-
-			//
-			// Get subject.
-			//
-			if( \ArrayObject::offsetExists( kTAG_SUBJECT ) )
-				$this->collectObjects(
-					$theContainer,
-					$collection,
-					\ArrayObject::offsetGet( kTAG_SUBJECT ),
-					Tag::kSEQ_NAME,
-					$doObject );
-
-			//
-			// Get object.
-			//
-			if( \ArrayObject::offsetExists( kTAG_OBJECT ) )
-				$this->collectObjects(
-					$theContainer,
-					$collection,
-					\ArrayObject::offsetGet( kTAG_OBJECT ),
-					Tag::kSEQ_NAME,
-					$doObject );
-		
-		} // Has subject and/or object.
-		
-		//
-		// Handle predicate.
-		//
-		if( \ArrayObject::offsetExists( kTAG_PREDICATE ) )
-		{
-			//
-			// Get tags collection.
-			//
-			$collection
-				= $this->mCollection
-					->Parent()
-					->Collection( Term::kSEQ_NAME );
-			$collection->openConnection();
-
-			//
-			// Get tag.
-			//
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_PREDICATE ),
-				Term::kSEQ_NAME,
-				$doObject );
-		
-		} // Has predicate.
-	
-	} // collectReferences.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	ResolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve object
-	 *
-	 * This method can be used to statically instantiate an object from the provided data
-	 * store, it will attempt to select the object matching the provided native identifier
-	 * or the provided array of subject, predicate, object references and return an instance
-	 * of the originally committed class.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
-	 *		retrieved.
-	 *	<li><b>$theIdentifier</b>: The objet native identifier.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
-	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
-	 *		<tt>NULL</tt>.
-	 * </ul>
-	 *
-	 * We implement this method to match objects in the edges collection.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param boolean				$doAssert			Assert object.
-	 *
-	 * @access public
-	 * @return OntologyObject		Object or <tt>NULL</tt>.
+	 * @static
+	 * @return DatabaseObject		Database or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
-	static function ResolveObject( ConnectionObject $theConnection,
-													$theIdentifier,
-													$doAssert = TRUE )
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
 		//
-		// Resolve collection.
+		// Get metadata database.
 		//
-		if( $theConnection instanceof DatabaseObject )
+		$database = $theWrapper->Metadata();
+		if( $database instanceof DatabaseObject )
 		{
 			//
-			// Get collection.
+			// Open connection.
 			//
-			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			if( $doOpen )
+				$database->openConnection();
 			
-			//
-			// Connect it.
-			//
-			$theConnection->openConnection();
+			return $database;														// ==>
 		
-		} // Database connection.
+		} // Retrieved metadata database.
 		
 		//
-		// Normalise identifier.
-		//
-		if( is_array( $theIdentifier ) )
-			$theIdentifier = implode( kTOKEN_INDEX_SEPARATOR, $theIdentifier );
-		
-		//
-		// Find object.
-		//
-		$object = $theConnection->resolve( $theIdentifier );
-		if( $object !== NULL )
-			return $object;															// ==>
-		
-		//
-		// Assert.
+		// Raise exception.
 		//
 		if( $doAssert )
 			throw new \Exception(
-				"Unable to locate object." );									// !@! ==>
+				"Unable to resolve database: "
+			   ."missing metadata reference in wrapper." );						// !@! ==>
 		
 		return NULL;																// ==>
 	
-	} // ResolveObject.
+	} // ResolveDatabase.
 
 		
 
@@ -655,7 +397,7 @@ class Edge extends PersistentObject
 					// If term, get its reference.
 					//
 					if( $theValue instanceof Node )
-						$theValue = $theValue->Reference();
+						$theValue = $theValue->reference();
 				
 					//
 					// If not a term, complain.
@@ -689,7 +431,7 @@ class Edge extends PersistentObject
 					// If term, get its reference.
 					//
 					if( $theValue instanceof Term )
-						$theValue = $theValue->Reference();
+						$theValue = $theValue->reference();
 				
 					//
 					// If not a term, complain.

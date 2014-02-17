@@ -8,6 +8,7 @@
 
 namespace OntologyWrapper;
 
+use OntologyWrapper\Wrapper;
 use OntologyWrapper\OntologyObject;
 
 /*=======================================================================================
@@ -76,16 +77,12 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Instantiate class.
 	 *
-	 * Objects derived from this class share the same constructor prototype, this allows
-	 * instantiating an object by providing content, as for the parent class, or by
-	 * providing an identifier and a container to retrieve the object from a persistent
-	 * store.
-	 *
-	 * The method accepts two parameters:
+	 * Objects derived from this class share the same constructor prototype, the method
+	 * accepts two parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theContainer</b>: This may be either an array containing the object's
-	 *		persistent attributes, or a reference to a persistent connection. If this
+	 *	<li><b>$theContainer</b>: This may either be an array containing the object's
+	 *		persistent attributes, or a reference to a {@link Wrapper} object. If this
 	 *		parameter is <tt>NULL</tt>, the next parameter will be ignored.
 	 *	<li><b>$theIdentifier</b>: This parameter represents the object identifier or the
 	 *		object persistent attributes: in the first case it will used to select the
@@ -99,10 +96,10 @@ abstract class PersistentObject extends OntologyObject
 	 * <ul>
 	 *	<li><i>Empty object</i>: Both parameters are omitted.
 	 *	<li><i>Filled non committed object</i>: The first parameter is an array.
-	 *	<li><i>Load object from container</i>: The first parameter is connection object and
-	 *		the second object is a scalar identifier.
-	 *	<li><i>Filled committed object</i>: The first parameter is connection object and the
-	 *		second parameter is an array holding the object's persistent data.
+	 *	<li><i>Load object from container</i>: The first parameter is a {@link Wrapper}
+	 *		object and the second parameter is a scalar identifier.
+	 *	<li><i>Filled committed object</i>: The first parameter is {@link Wrapper} object
+	 *		and the second parameter is an array holding the object's persistent data.
 	 * </ul>
 	 *
 	 * Any other combination will raise an exception.
@@ -117,8 +114,8 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 *
-	 * @uses resolveCollection()
-	 * @uses manageCollection()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
 	 * @uses isCommitted()
 	 */
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
@@ -143,28 +140,26 @@ abstract class PersistentObject extends OntologyObject
 			parent::__construct( $theContainer->getArrayCopy() );
 		
 		//
-		// Handle container.
+		// Handle wrapper.
 		//
-		elseif( $theContainer instanceof ConnectionObject )
+		elseif( $theContainer instanceof Wrapper )
 		{
+			//
+			// Set dictionary.
+			//
+			$this->dictionary( $theContainer );
+			
 			//
 			// Resolve collection.
 			//
-			$collection = $this->resolveCollection( $theContainer );
-			if( ! ($collection instanceof CollectionObject) )
-				throw new \Exception(
-					"Cannot instantiate object: "
-				   ."invalid container parameter type." );						// !@! ==>
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theContainer, TRUE ) );
 			
 			//
 			// Open collection.
 			//
 			$collection->openConnection();
-			
-			//
-			// Set collection.
-			//
-			$this->manageCollection( $collection );
 			
 			//
 			// Load object data.
@@ -191,7 +186,7 @@ abstract class PersistentObject extends OntologyObject
 				//
 				// Find object.
 				//
-				$found = $this->mCollection->resolve( $theIdentifier, kTAG_NID, FALSE );
+				$found = $collection->resolve( $theIdentifier, kTAG_NID, FALSE );
 				if( $found !== NULL )
 				{
 					//
@@ -222,241 +217,6 @@ abstract class PersistentObject extends OntologyObject
 			   ."invalid container parameter type." );							// !@! ==>
 
 	} // Constructor.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	ResolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve object
-	 *
-	 * This method should be used to statically instantiate an object from the provided data
-	 * store, it should attempt to select the object matching the provided identifier and
-	 * return an instance of the originally committed class.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
-	 *		retrieved.
-	 *	<li><b>$theIdentifier</b>: The objet native identifier.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
-	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
-	 *		<tt>NULL</tt>.
-	 * </ul>
-	 *
-	 * In this class we assume the provided identifier is the native identifier, derived
-	 * classes can override this method to provide more options.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param boolean				$doAssert			Assert object.
-	 *
-	 * @access public
-	 * @return OntologyObject		Object or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 */
-	static function ResolveObject( ConnectionObject $theConnection,
-													$theIdentifier,
-													$doAssert = TRUE )
-	{
-		//
-		// Resolve collection.
-		//
-		if( $theConnection instanceof DatabaseObject )
-		{
-			//
-			// Get collection.
-			//
-			$theConnection = $theConnection->Collection( static::kSEQ_NAME );
-			
-			//
-			// Connect it.
-			//
-			$theConnection->openConnection();
-		
-		} // Database connection.
-		
-		//
-		// Find object.
-		//
-		$object = $theConnection->resolve( $theIdentifier );
-		if( $object !== NULL )
-			return $object;															// ==>
-		
-		//
-		// Assert.
-		//
-		if( $doAssert )
-			throw new \Exception(
-				"Unable to locate object." );									// !@! ==>
-		
-		return NULL;																// ==>
-	
-	} // ResolveObject.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	loadOffsetReference																*
-	 *==================================================================================*/
-
-	/**
-	 * Load offset references
-	 *
-	 * This method can be used to resolve an offset containing an object reference or a list
-	 * of object references into a list of objects, list of arrays or list of counts.
-	 *
-	 * The method will return an array, indexed by the referenced object's native
-	 * identifier, containing the results of the operation.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: The offset containing the object reference.
-	 *	<li><b>$theSelector</b>: The sequences selector, <tt>kSEQ_NAME</tt>, of the class
-	 *		of the referenced object.
-	 *	<li><b>$asObject</b>: This parameter determines what is returned:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the referenced objects; the method will raise an
-	 *			exception if any reference was not resolved.
-	 *		<li><tt>TRUE</tt>: Return the referenced objects as arrays; the mathod will
-	 *			raise an exception if any reference was not resolved.
-	 *		<li><tt>NULL</tt>: Return the referenced objects count (1 or 0).
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * If the offset contains a nested list od references, the method will return a
-	 * flattened list of results.
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the offset, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$theOffset			Object reference offset.
-	 * @param string				$theSelector		Sequences selector.
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Object, array, count or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses isCommitted()
-	 */
-	protected function loadOffsetReference( $theOffset, $theSelector, $asObject = TRUE )
-	{
-		//
-		// Check if committed.
-		//
-		if( $this->isCommitted() )
-		{
-			//
-			// Check collection.
-			//
-			if( $this->mCollection !== NULL )
-			{
-				//
-				// Check offset.
-				//
-				if( \ArrayObject::offsetExists( $theOffset ) )
-				{
-					//
-					// Init local storage.
-					//
-					$references = $this->offsetGet( $theOffset );
-					$collection
-						= $this->mCollection
-							->Parent()
-							->Collection( $theSelector );
-					$collection->openConnection();
-					
-					//
-					// Handle list.
-					//
-					if( is_array( $references ) )
-					{
-						//
-						// Flatten list.
-						//
-						$result = Array();
-						$iterator = new \RecursiveIteratorIterator(
-										new \RecursiveArrayIterator( $references ),
-										\RecursiveIteratorIterator::LEAVES_ONLY );
-						foreach( $iterator as $reference )
-						{
-							//
-							// Check array.
-							//
-							if( ! array_key_exists( $reference, $result ) )
-							{
-								//
-								// Resolve reference.
-								//
-								$object
-									= $collection->resolve(
-										$reference, kTAG_NID, $asObject );
-								if( $object === NULL )
-									throw new \Exception(
-										"Unable to resolve [$reference]." );	// !@! ==>
-							
-								//
-								// Set object.
-								//
-								$result[ $reference ] = $object;
-						
-							} // Not there already.
-					
-						} // Iterating terms.
-					
-						return $result;												// ==>
-					
-					} // List of references.
-					
-					//
-					// Handle scalar.
-					//
-					else
-					{
-						//
-						// Resolve reference.
-						//
-						$object = $collection->resolve( $references, kTAG_NID, $asObject );
-						if( $object !== NULL )
-							return $object;											// ==>
-					
-						throw new \Exception(
-							"Unable to resolve [$id]." );						// !@! ==>
-					
-					} // Scalar reference.
-					
-				} // Has offset.
-			
-			} // Has collection.
-		
-		} // Committed.
-		
-		return NULL;																// ==>
-	
-	} // loadOffsetReference.
 
 	 
 

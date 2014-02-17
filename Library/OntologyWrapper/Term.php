@@ -197,98 +197,59 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
+ *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadNamespace																	*
+	 *	ResolveDatabase																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load namespace object
+	 * Resolve the database
 	 *
-	 * This method can be used to resolve the namespace into an object, array or check
-	 * whether the namespace exists.
+	 * In this class we return the metadata database.
 	 *
-	 * The method expects a single parameter that determines what the method should return:
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the namespace object; if it is not found, raise an
-	 *		exception.
-	 *	<li><tt>TRUE</tt>: Return the namespace array; if it is not found, raise an
-	 *		exception.
-	 *	<li><tt>NULL</tt>: Return the count of namespaces matching the identifier (1 or 0).
-	 * </ul>
+	 * @static
+	 * @return DatabaseObject		Database or <tt>NULL</tt>.
 	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the namespace, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Namespace object, array, count or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_NAMESPACE Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
+	 * @throws Exception
 	 */
-	public function loadNamespace( $asObject = TRUE )
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
-		return $this->loadOffsetReference(
-					kTAG_NAMESPACE, Term::kSEQ_NAME, $asObject );					// ==>
-	
-	} // loadNamespace.
-
+		//
+		// Get metadata database.
+		//
+		$database = $theWrapper->Metadata();
+		if( $database instanceof DatabaseObject )
+		{
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$database->openConnection();
+			
+			return $database;														// ==>
 		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT AGGREGATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectReferences																*
-	 *==================================================================================*/
-
-	/**
-	 * Collect references
-	 *
-	 * In this class we collect the namespace.
-	 *
-	 * @param reference				$theContainer		Receives objects.
-	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
-	 *
-	 * @access public
-	 *
-	 * @see kTAG_NAMESPACE
-	 *
-	 * @uses collectObjects()
-	 */
-	public function collectReferences( &$theContainer, $doObject = TRUE )
-	{
+		} // Retrieved metadata database.
+		
 		//
-		// Call parent method.
+		// Raise exception.
 		//
-		parent::collectReferences( $theContainer, $doObject );
-
-		//
-		// Check namespace.
-		//
-		if( \ArrayObject::offsetExists( kTAG_NAMESPACE ) )
-			$this->collectObjects(
-				$theContainer,
-				$this->mCollection,
-				\ArrayObject::offsetGet( kTAG_NAMESPACE ),
-				static::kSEQ_NAME,
-				$doObject );
+		if( $doAssert )
+			throw new \Exception(
+				"Unable to resolve database: "
+			   ."missing metadata reference in wrapper." );						// !@! ==>
+		
+		return NULL;																// ==>
 	
-	} // collectReferences.
+	} // ResolveDatabase.
 
 		
 
@@ -426,7 +387,7 @@ class Term extends PersistentObject
 					// If term, get its reference.
 					//
 					if( $theValue instanceof self )
-						$theValue = $theValue->Reference();
+						$theValue = $theValue->reference();
 				
 					//
 					// If not a term, complain.

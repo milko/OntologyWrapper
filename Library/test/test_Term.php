@@ -47,7 +47,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 //
 // Debug switches.
 //
-define( 'kDEBUG_PARENT', TRUE );
+define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
@@ -97,30 +97,31 @@ session_start();
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$wrapper
+		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Init cache.
+	// Set databases.
 	//
-	$_SESSION[ kSESSION_DDICT ]->init();
+	$meta = $wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$meta->drop();
+	$wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
-	// Instantiate server.
+	// Reset ontology.
 	//
-	$server = new OntologyWrapper\MongoServer( "mongodb://localhost:27017" );
-	$server->openConnection();
-	
-	//
-	// Instantiate database.
-	//
-	$database = $server->Database( 'TEST' );
-	$database->openConnection();
-	$database->drop();
+	$wrapper->resetOntology();
 	
 	//
 	// Test parent class.
@@ -717,8 +718,8 @@ try
 	echo( '<h4>Set empty object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-	$test = new MyClass();
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
@@ -1137,8 +1138,8 @@ try
 	echo( '<h4>Commit object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->Insert( $database );'.kSTYLE_HEAD_POS );
-	$id = $test->Insert( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->Insert( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $test->Insert( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1170,8 +1171,8 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$data = $test->getArrayCopy();<br />' );
 	$data = $test->getArrayCopy();
-	echo( '$test = new MyClass( $database, $data );' );
-	$test = new MyClass( $database, $data );
+	echo( '$test = new MyClass( $wrapper, $data );' );
+	$test = new MyClass( $wrapper, $data );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1212,8 +1213,8 @@ try
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $other->Insert( $database );'.kSTYLE_HEAD_POS );
-	$id = $other->Insert( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $other->Insert( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $other->Insert( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1242,8 +1243,8 @@ try
 	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $other->insert();'.kSTYLE_HEAD_POS );
-	$id = $other->insert();
+	echo( kSTYLE_HEAD_PRE.'$id = $other->insert( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $other->insert( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1261,77 +1262,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $other ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Resolve object.
-	//
-	echo( '<h4>Resolve object</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = MyClass::ResolveObject( $database, "namespace" );'.kSTYLE_HEAD_POS );
-	$test = MyClass::ResolveObject( $database, "namespace" );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
-	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
-	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Load namespace.
-	//
-	echo( '<h4>Load namespace</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ns = $other->loadNamespace();'.kSTYLE_HEAD_POS );
-	$ns = $other->loadNamespace();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Inited: <input type="checkbox" disabled="true" '.$ns->Inited().'>&nbsp;' );
-	echo( 'Dirty: <input type="checkbox" disabled="true" '.$ns->Dirty().'>&nbsp;' );
-	echo( 'Committed: <input type="checkbox" disabled="true" '.$ns->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$ns->Encoded().'>' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Collect references.
-	//
-	echo( '<h4>Collect references</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = NULL;'.'<br \>' );
-	$data = NULL;
-	echo( '$other->collectReferences( $data, FALSE );'.'<br \>' );
-	$other->collectReferences( $data, FALSE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

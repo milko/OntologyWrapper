@@ -9,7 +9,7 @@
 			$theValue = $theValue * 10;
 	}
 
-	$array = array( 1, 2, array( 6, 7, array( 8, 9 ) ) );
+	$array = new ArrayObject( array( 1, 2, array( 6, 7, array( 8, 9 ) ) ) );
 	var_dump( $array );
 	
 	array_walk_recursive( $array, 'multX10' );

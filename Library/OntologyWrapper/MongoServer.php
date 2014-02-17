@@ -182,13 +182,30 @@ class MongoServer extends ServerObject
 	 * Derived classes must implement this method.
 	 *
 	 * @param array					$theOffsets			Full database offsets.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return DatabaseObject		Database instance.
 	 */
-	protected function newDatabase( $theOffsets )
+	protected function newDatabase( $theOffsets, $doOpen = TRUE )
 	{
-		return new MongoDatabase( $theOffsets );									// ==>
+		//
+		// Instantiate database.
+		//
+		$database = new MongoDatabase( $theOffsets );
+		
+		//
+		// Set data dictionary.
+		//
+		$database->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$database->openConnection();
+		
+		return $database;															// ==>
 	
 	} // newDatabase;
 

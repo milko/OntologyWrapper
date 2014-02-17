@@ -61,6 +61,9 @@ class MyClass extends OntologyWrapper\PersistentObject
 {
 	const kSEQ_NAME = 'test';
 	
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE )
+	{	return $theWrapper->Units();											}
+	
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{	parent::__construct( $theContainer, $theIdentifier );
 		$this->isInited( TRUE );												}
@@ -110,24 +113,25 @@ session_start();
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$wrapper
+		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Init cache.
+	// Set databases.
 	//
-	$_SESSION[ kSESSION_DDICT ]->init();
-	
-	//
-	// Init database.
-	//
-	$database = new OntologyWrapper\MongoDatabase(
-		"mongodb://localhost:27017/TEST?connect=1" );
-	$database->openConnection();
+	$wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
 	// Test parent class.
@@ -1125,13 +1129,13 @@ try
 		echo( '<h4>Test failed object reference<br /><i>should raise an exception</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$ref = $test->Reference();'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_HEAD_PRE.'$ref = $test->reference();'.kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
 		try
 		{
-			$ref = $test->Reference();
+			$ref = $test->reference();
 		}
 		catch( \Exception $error )
 		{
@@ -1152,8 +1156,8 @@ try
 		$test[ kTAG_NID ] = "native identifier";
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$ref = $test->Reference();'.kSTYLE_HEAD_POS );
-		$ref = $test->Reference();
+		echo( kSTYLE_HEAD_PRE.'$ref = $test->reference();'.kSTYLE_HEAD_POS );
+		$ref = $test->reference();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -1226,31 +1230,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $database, $id );'.kSTYLE_HEAD_POS );
 	$test = new MyClass( $database, $id );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Resolve object.
-	//
-	echo( '<h4>Resolve object</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = MyClass::ResolveObject( $database, $id );'.kSTYLE_HEAD_POS );
-	$test = MyClass::ResolveObject( $database, $id );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
-	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
-	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
-	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

@@ -368,22 +368,40 @@ class MongoDatabase extends DatabaseObject
 	/**
 	 * Return a new server instance
 	 *
-	 * We implement the method to return a {@link MongoServer} instance.
+	 * We implement the method to return a {@link MongoServer} instance and set the current
+	 * object dictionary in it.
 	 *
 	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return MongoServer			Server instance.
 	 */
-	protected function newServer( $theParameter )
+	protected function newServer( $theParameter, $doOpen = TRUE )
 	{
-		return new MongoServer( $theParameter );									// ==>
+		//
+		// Instantiate server.
+		//
+		$server = new MongoServer( $theParameter );
+		
+		//
+		// Set dictionary.
+		//
+		$server->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$server->openConnection();
+		
+		return $server;																// ==>
 	
 	} // newServer.
 
 	 
 	/*===================================================================================
-	 *	newCollection																		*
+	 *	newCollection																	*
 	 *==================================================================================*/
 
 	/**
@@ -392,13 +410,30 @@ class MongoDatabase extends DatabaseObject
 	 * We implement this method to return a {@link MongoCollection} instance.
 	 *
 	 * @param array					$theOffsets			Full collection offsets.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return CollectionObject		Collection instance.
 	 */
-	protected function newCollection( $theOffsets )
+	protected function newCollection( $theOffsets, $doOpen = TRUE )
 	{
-		return new MongoCollection( $theOffsets );									// ==>
+		//
+		// Instantiate collection.
+		//
+		$collection = new MongoCollection( $theOffsets );
+		
+		//
+		// Copy dictionary.
+		//
+		$collection->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$collection->openConnection();
+		
+		return $collection;															// ==>
 	
 	} // newCollection.
 

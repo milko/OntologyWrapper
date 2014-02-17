@@ -29,6 +29,11 @@ require_once( 'includes.inc.php' );
 //
 require_once( 'styles.inc.php' );
 
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -104,17 +109,12 @@ class MyServer extends OntologyWrapper\ServerObject
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$dictionary
+		= new OntologyWrapper\Dictionary(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
-	
-	//
-	// Init cache.
-	//
-	$_SESSION[ kSESSION_DDICT ]->init();
 	
 	//
 	// Test parent class.

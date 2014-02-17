@@ -49,18 +49,6 @@ trait Persistence
 	 */
 	use	Status;
 
-	/**
-	 * Container.
-	 *
-	 * This data member holds the object's persistent store reference, it should be a
-	 * concrete instance derived from the {@link CollectionObject} class.
-	 *
-	 * This data member will be set when the object is instantiated from a collection.
-	 *
-	 * @var CollectionObject
-	 */
-	protected $mCollection = NULL;
-
 		
 
 /*=======================================================================================
@@ -98,22 +86,23 @@ trait Persistence
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
+	 * @param Wrapper				$theWrapper			Persistent store.
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier.
 	 *
 	 * @throws Exception
 	 *
-	 * @uses resolveCollection()
-	 * @uses preCommit()
-	 * @uses isReady()
-	 * @uses isCommitted()
-	 * @uses postCommit()
 	 * @uses isDirty()
 	 * @uses isCommitted()
+	 * @uses dictionary()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses preCommit()
+	 * @uses isReady()
+	 * @uses postCommit()
 	 */
-	public function insert( $theContainer = NULL )
+	public function insert( \OntologyWrapper\Wrapper $theWrapper )
 	{
 		//
 		// Do it only if the object is dirty or not committed.
@@ -122,47 +111,17 @@ trait Persistence
 		 || (! $this->isCommitted()) )
 		{
 			//
-			// Handle container.
+			// Set dictionary wrapper.
 			//
-			if( $theContainer !== NULL )
-			{
-				//
-				// Resolve collection.
-				//
-				$theContainer = $this->resolveCollection( $theContainer );
-				if( ! ($theContainer instanceof \OntologyWrapper\CollectionObject) )
-					throw new \Exception(
-						"Cannot insert object: "
-					   ."invalid container parameter type." );					// !@! ==>
+			$this->dictionary( $theWrapper );
 			
-				//
-				// Open collection.
-				//
-				$theContainer->openConnection();
-		
-				//
-				// Set collection.
-				//
-				$this->manageCollection( $theContainer );
-		
-			} // Provided persistent store.
-		
 			//
-			// Use collection.
+			// Resolve collection.
 			//
-			else
-			{
-				//
-				// Get collection.
-				//
-				$theContainer = $this->mCollection;
-				if( ! ($theContainer instanceof \OntologyWrapper\CollectionObject) )
-					throw new \Exception(
-						"Cannot insert object: "
-					   ."no collection provided." );							// !@! ==>
-		
-			} // Use current collection.
-		
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theWrapper, TRUE ) );
+			
 			//
 			// Compute operation.
 			//
@@ -185,7 +144,7 @@ trait Persistence
 			//
 			// Commit.
 			//
-			$id = $theContainer->insert( $this );
+			$id = $collection->insert( $this );
 	
 			//
 			// Copy identifier if new.
@@ -280,139 +239,70 @@ trait Persistence
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CONNECTION INTERFACE							*
+ *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	resolveCollection																*
+	 *	ResolveDatabase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve the database
+	 *
+	 * This method should return a {@link DatabaseObject} instance corresponding to the
+	 * default database of the current class extracted from the provided {@link Wrapper}
+	 * instance.
+	 *
+	 * Since we cannot declare this method abstract, we raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
+	 *
+	 * @static
+	 * @return DatabaseObject		Database or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
+	{
+		throw new \Exception(
+			"Unable to resolve database: "
+		   ."this method must be implemented." );								// !@! ==>
+	
+	} // ResolveDatabase.
+
+	 
+	/*===================================================================================
+	 *	ResolveCollection																*
 	 *==================================================================================*/
 
 	/**
 	 * Resolve the collection
 	 *
-	 * This method should resolve a collection object from the provided
-	 * {@link ConnectionObject} parameter. This method is generally called by the
-	 * constructor or by the persistence methods to select the {@link CollectionObject}
-	 * instance from which the object will be retrieved, or in which the object will be
-	 * stored.
+	 * This method should return a {@link CollectionObject} instance corresponding to the
+	 * persistent store in which the current object was either read or will be inserted.
 	 *
-	 * The provided parameter should be an instance of the {@link ConnectionObject} class,
-	 * the main duty of this method is to determine the collection of the current object
-	 * and return it.
+	 * The method expects the object to feature a constant, {@link kSEQ_NAME}, which serves
+	 * the double purpose of providing the default collection name and the eventual sequence
+	 * number index: the method will use this constant and the provided database reference
+	 * to return the default {@link CollectionObject} instance.
 	 *
-	 * If the collection cannot be resolved, the method should raise an exception.
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
-	 * In this trait we assume all using objects implement a constant, {@link kSEQ_NAME},
-	 * which serves the double purpose of providing the default database name and the
-	 * eventual sequence number index.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 *
-	 * @access protected
+	 * @static
 	 * @return CollectionObject		Collection or <tt>NULL</tt>.
 	 */
-	protected function resolveCollection( \OntologyWrapper\ConnectionObject $theConnection )
+	static function ResolveCollection( \OntologyWrapper\DatabaseObject $theDatabase,
+																	   $doOpen = TRUE )
 	{
-		//
-		// Handle collection.
-		//
-		if( $theConnection instanceof \OntologyWrapper\CollectionObject )
-			return $theConnection;													// ==>
-		
-		//
-		// Handle databases.
-		//
-		if( $theConnection instanceof \OntologyWrapper\DatabaseObject )
-			return $theConnection->Collection( static::kSEQ_NAME );					// ==>
-		
-		throw new \Exception(
-			"Invalid or unsupported connection." );								// !@! ==>
+		return $theDatabase->Collection( static::kSEQ_NAME, $doOpen );				// ==>
 	
-	} // resolveConnection.
-
-	 
-	/*===================================================================================
-	 *	manageCollection																*
-	 *==================================================================================*/
-
-	/**
-	 * Manage the current object's collection
-	 *
-	 * This method can be used to set, delete or retrieve the object's collection, which
-	 * represents the object's persistent store.
-	 *
-	 * The value may only be modified as long as the object is not yet
-	 * {@link isCommitted()}, once this status is set, this value can only be consulted.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><tt>$theValue</tt>: The collection object or operation:
-	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the current collection.
-	 *		<li><tt>FALSE</tt>: Reset the current collection to <tt>NULL</tt>.
-	 *		<li><tt>{@link CollectionObject}</tt>: Set the current collection to the
-	 *			provided value.
-	 *		<li><em>other</em>: Any other type will raise an exception.
-	 *	 </ul>
-	 *	<li><tt>$getOld</tt>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the collection <em>before</em> it was eventually
-	 *			modified.
-	 *		<li><tt>FALSE</tt>: Return the collection <em>after</em> it was eventually
-	 *			modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param mixed					$theValue			Value or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
-	 *
-	 * @access protected
-	 * @return CollectionObject		Persistent store or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses isCommitted()
-	 * @uses manageProperty()
-	 */
-	protected function manageCollection( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Check modifications.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Lock if committed.
-			//
-			if( $this->isCommitted() )
-				throw new \Exception(
-					"Cannot modify collection: "
-				   ."the object is committed." );								// !@! ==>
-			
-			//
-			// Check collection type.
-			//
-			if( $theValue !== FALSE )
-			{
-				//
-				// Check collection data type.
-				//
-				if( ! ($theValue instanceof \OntologyWrapper\CollectionObject) )
-					throw new \Exception(
-						"Cannot set collection: "
-					   ."invalid or unsupported data type." );					// !@! ==>
-			
-			} // Not deleting.
-		
-		} // New collection.
-		
-		return $this->manageProperty( $this->mCollection, $theValue, $getOld );		// ==>
-	
-	} // manageCollection.
+	} // ResolveCollection.
 
 		
 
@@ -546,12 +436,17 @@ trait Persistence
 	 *
 	 * This method should return <tt>TRUE</tt> if the object is ready to be committed.
 	 *
-	 * In this trait we ensure the object is initialised.
+	 * In this trait we ensure the object is initialised and that it holds the dictionary.
 	 *
 	 * @access protected
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 */
-	protected function isReady()						{	return ( $this->isInited() );	}
+	protected function isReady()
+	{
+		return ( $this->isInited()
+			  && ($this->mDictionary !== NULL) );									// ==>
+	
+	} // isReady.
 
 		
 
@@ -581,9 +476,8 @@ trait Persistence
 	 *
 	 * @throws Exception
 	 *
-	 * @see self::$sInternalTags
-	 *
 	 * @uses isCommitted()
+	 * @uses InternalOffsets()
 	 */
 	protected function preOffsetSet( &$theOffset, &$theValue )
 	{
@@ -601,8 +495,7 @@ trait Persistence
 				//
 				// Check immutable tags.
 				//
-				if( in_array( $theOffset, static::$sInternalTags )
-				 || ($theOffset == kTAG_ID_PERSISTENT) )
+				if( in_array( $theOffset, $this->lockedOffsets() ) )
 					throw new \Exception(
 						"Cannot set the [$theOffset] offset: "
 					   ."the object is committed." );							// !@! ==>
@@ -665,9 +558,8 @@ trait Persistence
 	 *
 	 * @throws Exception
 	 *
-	 * @see self::$sInternalTags
-	 *
 	 * @uses isCommitted()
+	 * @uses lockedOffsets()
 	 */
 	protected function preOffsetUnset( &$theOffset )
 	{
@@ -750,121 +642,14 @@ trait Persistence
 	 * This method should return the list of locked offsets, that is, the offsets which
 	 * cannot be modified once the object has been committed.
 	 *
-	 * In this trait we return the list of internal tags, {@link $sInternalTags}.
+	 * In this trait we return the list of internal tags.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_ID_PERSISTENT
-	 * @see self::$sInternalTags
+	 * @uses InternalOffsets()
 	 */
-	protected function lockedOffsets()					{	return static::$sInternalTags;	}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT AGGREGATION INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectObjects																	*
-	 *==================================================================================*/
-
-	/**
-	 * Collect objects
-	 *
-	 * This method will resolve and collect the provided list of object references loading
-	 * them into the provided array reference, objects will be indexed by native identifier
-	 * and existing objects will not be resolved.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: Receives objects.
-	 *	<li><b>$theConnection</b>: Objects collection.
-	 *	<li><b>$theReferences</b>: Either a list of references or a scalar reference.
-	 *	<li><b>$theClass</b>: A string corresponding to the container offset that will
-	 *		receive the list of objects.
-	 *	<li><b>$doObject</b>: If <tt>TRUE</tt>, the data will be loaded as objects, if
-	 *		<tt>FALSE</tt>, as arrays.
-	 * </ul>
-	 *
-	 * @param reference				$theContainer		Receives objects.
-	 * @param CollectionObject		$theCollection		Objects collection.
-	 * @param array					$theReferences		Object references.
-	 * @param string				$theClass			Sub-container index.
-	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 */
-	protected function collectObjects( &$theContainer,
-										$theCollection,
-										$theReferences,
-										$theClass,
-										$doObject = TRUE )
-	{
-		//
-		// Check collection.
-		//
-		if( ! ($theCollection instanceof \OntologyWrapper\CollectionObject) )
-			throw new \Exception(
-				"Invalid or unsupported collection type." );					// !@! ==>
-			
-		//
-		// Init array.
-		//
-		if( ! is_array( $theContainer ) )
-			$theContainer = Array();
-		
-		//
-		// Init objects list.
-		//
-		if( ! array_key_exists( $theClass, $theContainer ) )
-			$theContainer[ $theClass ] = Array();
-		
-		//
-		// Normalise references.
-		//
-		if( ! is_array( $theReferences ) )
-			$theReferences = array( $theReferences );
-		
-		//
-		// Iterate references.
-		//
-		$ref = & $theContainer[ $theClass ];
-		foreach( $theReferences as $reference )
-		{
-			//
-			// Check if there.
-			//
-			if( ! array_key_exists( $reference, $ref ) )
-			{
-				//
-				// Resolve object.
-				//
-				$tmp = $theCollection->resolve( $reference );
-				if( $tmp === NULL )
-					throw new \Exception(
-						"Unable to resolve [$reference] object." );				// !@! ==>
-			
-				//
-				// Load result.
-				//
-				$ref[ $reference ] = ( $doObject )
-								   ? $tmp
-								   : $tmp->getArrayCopy();
-			
-			} // New object.
-		
-		} // Iterating references.
-	
-	} // collectObjects.
+	protected function lockedOffsets()				{	return $this->InternalOffsets();	}
 
 	 
 

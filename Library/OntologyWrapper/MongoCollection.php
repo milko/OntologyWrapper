@@ -133,7 +133,7 @@ class MongoCollection extends CollectionObject
 			//
 			// Resolve offset.
 			//
-			$theOffset = (string) OntologyObject::ResolveOffset( $theOffset, TRUE );
+			$theOffset = (string) OntologyObject::resolveOffset( $theOffset, TRUE );
 			
 			//
 			// Match object.
@@ -193,6 +193,35 @@ class MongoCollection extends CollectionObject
 		   ."connection is not open." );										// !@! ==>
 	
 	} // resolve.
+
+	 
+	/*===================================================================================
+	 *	getAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return all objects
+	 *
+	 * In this class we return a { @link MongoCursor} object.
+	 *
+	 * @access public
+	 * @return Iterator				Selection of all objects of the collection.
+	 *
+	 * @throws Exception
+	 */
+	public function getAll()
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+			return $this->mConnection->find();										// ==>
+			
+		throw new \Exception(
+			"Unable to get all object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // getAll.
 
 		
 
@@ -295,13 +324,30 @@ class MongoCollection extends CollectionObject
 	 * We implement the method to return a {@link MongoServer} instance.
 	 *
 	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
 	 * @access protected
 	 * @return DatabaseObject		Database instance.
 	 */
-	protected function newDatabase( $theParameter )
+	protected function newDatabase( $theParameter, $doOpen = TRUE)
 	{
-		return new MongoDatabase( $theParameter );									// ==>
+		//
+		// Instantiate database.
+		//
+		$database = new MongoDatabase( $theParameter );
+		
+		//
+		// Set dictionary.
+		//
+		$database->dictionary( $this->dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$database->openConnection();
+		
+		return $database;															// ==>
 	
 	} // newDatabase.
 

@@ -272,310 +272,59 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *							PUBLIC REFERENCE RESOLUTION INTERFACE						*
+ *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadTerms																		*
+	 *	ResolveDatabase																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load term objects list
+	 * Resolve the database
 	 *
-	 * This method can be used to resolve the list of terms into a list of objects, list of
-	 * arrays or list of counts.
+	 * In this class we return the metadata database.
 	 *
-	 * The method will return an array, indexed by term native identifier, containing the
-	 * results of the operation.
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
 	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the matched elements as objects; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>TRUE</tt>: Return the matched elements as arrays; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>NULL</tt>: Return the matched elements as counts (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the terms list, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				List of term objects, arrays, counts or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_TERMS Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadTerms( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_TERMS, Term::kSEQ_NAME, $asObject );						// ==>
-	
-	} // loadTerms.
-
-	 
-	/*===================================================================================
-	 *	loadDataTypes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Load data type objects list
-	 *
-	 * This method can be used to resolve the list of data types into a list of objects,
-	 * list of arrays or list of counts.
-	 *
-	 * The method will return an array, indexed by term native identifier, containing the
-	 * results of the operation.
-	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the matched elements as objects; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>TRUE</tt>: Return the matched elements as arrays; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>NULL</tt>: Return the matched elements as counts (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the data types, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Data type objects, arrays, counts or <tt>NULL</tt>.
+	 * @static
+	 * @return DatabaseObject		Database or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
-	 *
-	 * @see kTAG_DATA_TYPE Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
 	 */
-	public function loadDataTypes( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_DATA_TYPE, Term::kSEQ_NAME, $asObject );					// ==>
-	
-	} // loadDataTypes.
-
-	 
-	/*===================================================================================
-	 *	loadDataKinds																	*
-	 *==================================================================================*/
-
-	/**
-	 * Load data type objects list
-	 *
-	 * This method can be used to resolve the list of data kinds into a list of objects,
-	 * list of arrays or list of counts.
-	 *
-	 * The method will return an array, indexed by term native identifier, containing the
-	 * results of the operation.
-	 *
-	 * The method expects a single parameter that determines what the method should return:
-	 *
-	 * <ul>
-	 *	<li><tt>TRUE</tt>: Return the matched elements as objects; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>TRUE</tt>: Return the matched elements as arrays; the mathod will raise an
-	 *		exception if any term was not resolved.
-	 *	<li><tt>NULL</tt>: Return the matched elements as counts (1 or 0).
-	 * </ul>
-	 *
-	 * If the current object is not committed, if it doesn't have a collection, or if it
-	 * doesn't have the data kinds, the method will return <tt>NULL</tt>.
-	 *
-	 * @param mixed					$asObject			Return object, array or count.
-	 *
-	 * @access protected
-	 * @return mixed				Data kind objects, arrays, counts or <tt>NULL</tt>.
-	 *
-	 * @see kTAG_DATA_KIND Term::kSEQ_NAME
-	 *
-	 * @uses loadOffsetReference()
-	 */
-	public function loadDataKinds( $asObject = TRUE )
-	{
-		return $this->loadOffsetReference(
-					kTAG_DATA_KIND, Term::kSEQ_NAME, $asObject );					// ==>
-	
-	} // loadDataKinds.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT AGGREGATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectReferences																*
-	 *==================================================================================*/
-
-	/**
-	 * Collect references
-	 *
-	 * In this class we collect the terms list, the data types and the data kinds.
-	 *
-	 * @param reference				$theContainer		Receives objects.
-	 * @param boolean				$doObject			<tt>TRUE</tt> load objects.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_TERMS kTAG_DATA_TYPE kTAG_DATA_KIND
-	 *
-	 * @uses collectObjects()
-	 */
-	public function collectReferences( &$theContainer, $doObject = TRUE )
+	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
 		//
-		// Call parent method.
+		// Get metadata database.
 		//
-		parent::collectReferences( $theContainer, $doObject );
-		
-		//
-		// Get terms collection.
-		//
-		$collection
-			= $this->mCollection
-				->Parent()
-				->Collection( Term::kSEQ_NAME );
-		$collection->openConnection();
-
-		//
-		// Check terms.
-		//
-		if( \ArrayObject::offsetExists( kTAG_TERMS ) )
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_TERMS ),
-				Term::kSEQ_NAME,
-				$doObject );
-
-		//
-		// Check data types.
-		//
-		if( \ArrayObject::offsetExists( kTAG_DATA_TYPE ) )
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_DATA_TYPE ),
-				Term::kSEQ_NAME,
-				$doObject );
-
-		//
-		// Check data kinds.
-		//
-		if( \ArrayObject::offsetExists( kTAG_DATA_KIND ) )
-			$this->collectObjects(
-				$theContainer,
-				$collection,
-				\ArrayObject::offsetGet( kTAG_DATA_KIND ),
-				Term::kSEQ_NAME,
-				$doObject );
-	
-	} // collectReferences.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC INSTANTIATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	ResolveObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve object
-	 *
-	 * This method can be used to statically instantiate an object from the provided data
-	 * store, it will attempt to select the object matching the provided native identifier
-	 * and return an instance of the originally committed class.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theContainer</b>: The database or collection from which the object is to be
-	 *		retrieved.
-	 *	<li><b>$theIdentifier</b>: The objet native identifier or sequence number.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt>, if the object is not matched, the method
-	 *		will raise an exception; if <tt>FALSE</tT>, the method will return
-	 *		<tt>NULL</tt>.
-	 * </ul>
-	 *
-	 * We implement this method to match objects in the tags collection by matching string
-	 * identifiers with the native identifier and integer identifiers with the sequence
-	 * number.
-	 *
-	 * @param ConnectionObject		$theConnection		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param boolean				$doAssert			Assert object.
-	 *
-	 * @access public
-	 * @return OntologyObject		Object or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTAG_NID
-	 */
-	static function ResolveObject( ConnectionObject $theConnection,
-													$theIdentifier,
-													$doAssert = TRUE )
-	{
-		//
-		// Resolve collection.
-		//
-		if( $theConnection instanceof DatabaseObject )
+		$database = $theWrapper->Metadata();
+		if( $database instanceof DatabaseObject )
 		{
 			//
-			// Get collection.
+			// Open connection.
 			//
-			$theConnection = $theConnection->Collection( self::kSEQ_NAME );
+			if( $doOpen )
+				$database->openConnection();
 			
-			//
-			// Connect it.
-			//
-			$theConnection->openConnection();
+			return $database;														// ==>
 		
-		} // Database connection.
+		} // Retrieved metadata database.
 		
 		//
-		// Find object.
-		//
-		$object = ( is_int( $theIdentifier ) )
-				? $theConnection->resolve( $theIdentifier, kTAG_ID_SEQUENCE, TRUE )
-				: $theConnection->resolve( (string) $theIdentifier, kTAG_NID, TRUE );
-		if( $object !== NULL )
-			return $object;															// ==>
-		
-		//
-		// Assert.
+		// Raise exception.
 		//
 		if( $doAssert )
 			throw new \Exception(
-				"Unable to locate object." );									// !@! ==>
+				"Unable to resolve database: "
+			   ."missing metadata reference in wrapper." );						// !@! ==>
 		
 		return NULL;																// ==>
 	
-	} // ResolveObject.
+	} // ResolveDatabase.
 
 		
 
@@ -629,6 +378,13 @@ class Tag extends PersistentObject
 		if( $theOperation & 0x01 )
 		{
 			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->dictionary(), TRUE ) );
+			
+			//
 			// Set native identifier.
 			//
 			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
@@ -640,7 +396,7 @@ class Tag extends PersistentObject
 			if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
 				$this->offsetSet(
 					kTAG_ID_SEQUENCE,
-					$this->mCollection->getSequenceNumber(
+					$collection->getSequenceNumber(
 						static::kSEQ_NAME ) );
 		
 		} // Saving.
@@ -686,37 +442,13 @@ class Tag extends PersistentObject
 		// Set cache.
 		//
 		if( $theOperation & 0x01 )
-		{
-			//
-			// Set tag identifier.
-			//
-			$_SESSION[ kSESSION_DDICT ]->setTagId( $nid, $seq );
-		
-			//
-			// Set tag object.
-			//
-			$_SESSION[ kSESSION_DDICT ]->setTagObject( $seq, $this->getArrayCopy() );
-		
-		} // Saving.
+			$this->mDictionary->setTag( $this, 0 );
 		
 		//
 		// Delete cache.
 		//
 		else
-		{
-			//
-			// Delete tag identifier.
-			//
-			$_SESSION[ kSESSION_DDICT ]->delTagId( $this->offsetGet( kTAG_NID ) );
-		
-			//
-			// Set tag object.
-			//
-			$_SESSION[ kSESSION_DDICT ]
-				->delTagObject(
-					(int) $this->offsetGet( kTAG_ID_SEQUENCE ) );
-		
-		} // Saving.
+			$this->mDictionary->delTag( $this->offsetGet( kTAG_NID ) );
 	
 	} // postCommit.
 
