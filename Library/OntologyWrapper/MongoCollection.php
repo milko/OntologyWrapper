@@ -368,9 +368,9 @@ class MongoCollection extends CollectionObject
 	/**
 	 * Insert provided data
 	 *
-	 * In this class we insert the provided array and return its {@link kTAG_NID} value.
+	 * In this class we commit the provided array and return its {@link kTAG_NID} value.
 	 *
-	 * @param reference				$theData			Data to insert.
+	 * @param reference				$theData			Data to commit.
 	 * @param array					$theOptions			Insert options.
 	 *
 	 * @access protected

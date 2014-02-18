@@ -127,7 +127,7 @@ When setting the connection string, \hyperlink{class_ontology_wrapper_1_1_connec
 
 When the connection is \hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{open}, any attempt to modify the object offsets will raise an exception\-: this is to prevent changing the connection properties while connected.
 
-In this class we make use of the \hyperlink{}{Status\-Trait} trait, here we set the \hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} flag whenever we modify an object offset, and we reset it whenever we open the connection; we reset the status bitfield data member after calling the parent constructor.
+In this class we make use of the \hyperlink{}{Status} trait, here we set the \hyperlink{}{is\-Dirty()} flag whenever we modify an object offset, and we reset it whenever we open the connection; we reset the status bitfield data member after calling the parent constructor.
 
 This object represents the building block for all concrete instances that represent servers, databases, data collections and caches.
 \begin{DoxyItemize}
@@ -182,7 +182,7 @@ public
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_connection_object_a9a013bdb9589e847926d196de62e87e3}{D\-S\-N()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_aa9e833d63b5ba46bb694292e3cd7e957}{parse\-Offsets()}  \hyperlink{namespace_ontology_wrapper_a280161e55061a555db16bced32d874f4}{status\-Reset()} \\
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_connection_object_a9a013bdb9589e847926d196de62e87e3}{D\-S\-N()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_aa9e833d63b5ba46bb694292e3cd7e957}{parse\-Offsets()}  status\-Reset() \\
 \hline
 \end{DoxyExceptions}
 \hypertarget{class_ontology_wrapper_1_1_connection_object_a129e5d78f1d2e4b1d0e866a604d6e34c}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!\-\_\-\-\_\-destruct@{\-\_\-\-\_\-destruct}}
@@ -362,7 +362,7 @@ mixed {\itshape New} or {\itshape old} data source name.
 \begin{DoxySeeAlso}{See Also}
 \$m\-D\-S\-N
 \end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  \hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_a3b5e9ba7510b52d1f3f3cb1971491c53}{parse\-D\-S\-N()}  \hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} \hypertarget{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!is\-Connected@{is\-Connected}}
+\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  manage\-Property()  \hyperlink{class_ontology_wrapper_1_1_connection_object_a3b5e9ba7510b52d1f3f3cb1971491c53}{parse\-D\-S\-N()}  is\-Dirty() \hypertarget{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!is\-Connected@{is\-Connected}}
 \index{is\-Connected@{is\-Connected}!OntologyWrapper::ConnectionObject@{Ontology\-Wrapper\-::\-Connection\-Object}}
 \subsubsection[{is\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Connection\-Object\-::is\-Connected (
 \begin{DoxyParamCaption}
@@ -437,7 +437,7 @@ The method will return the connection resource.
 public \begin{DoxyReturn}{Returns}
 mixed Depends on implementation.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  \hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_a9a013bdb9589e847926d196de62e87e3}{D\-S\-N()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_aa9e833d63b5ba46bb694292e3cd7e957}{parse\-Offsets()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_a8533629374db92c93b6500c5cd7b89fa}{connection\-Open()} \hypertarget{class_ontology_wrapper_1_1_connection_object_aebe90e0304d983af0f695b706120e62c}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!Parent@{Parent}}
+\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  is\-Dirty()  \hyperlink{class_ontology_wrapper_1_1_connection_object_a9a013bdb9589e847926d196de62e87e3}{D\-S\-N()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_aa9e833d63b5ba46bb694292e3cd7e957}{parse\-Offsets()}  \hyperlink{class_ontology_wrapper_1_1_connection_object_a8533629374db92c93b6500c5cd7b89fa}{connection\-Open()} \hypertarget{class_ontology_wrapper_1_1_connection_object_aebe90e0304d983af0f695b706120e62c}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!Parent@{Parent}}
 \index{Parent@{Parent}!OntologyWrapper::ConnectionObject@{Ontology\-Wrapper\-::\-Connection\-Object}}
 \subsubsection[{Parent}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Connection\-Object\-::\-Parent (
 \begin{DoxyParamCaption}
@@ -467,7 +467,7 @@ Parse data source name
 
 This method will parse the provided data source name, extract the connection parameters and set them in the current object.
 
-The method will make use of the \hyperlink{}{parse\-\_\-url()} function and pass each key/value pair to the protected \hyperlink{class_ontology_wrapper_1_1_connection_object_ac0e6ea1c27ccfbf1366f8c6ab8c830c7}{load\-D\-S\-N\-Parameter()} method which has the responsibility of matching the \hyperlink{}{parse\-\_\-url()} keys to \hyperlink{class_ontology_wrapper_1_1_tag_object}{Tag\-Object} instances.
+The method will make use of the \hyperlink{}{parse\-\_\-url()} function and pass each key/value pair to the protected \hyperlink{class_ontology_wrapper_1_1_connection_object_ac0e6ea1c27ccfbf1366f8c6ab8c830c7}{load\-D\-S\-N\-Parameter()} method which has the responsibility of matching the \hyperlink{}{parse\-\_\-url()} keys to \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} instances.
 
 If the \hyperlink{}{parse\-\_\-url()} function fails to parse the D\-S\-N, the method will raise an exception.
 
@@ -600,7 +600,7 @@ protected \hypertarget{class_ontology_wrapper_1_1_connection_object_aed704c5a7f4
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_connection_object_aed704c5a7f4abb5eaa96123b4c889409}
 Handle offset and value after setting it
 
-We set the \hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} status.
+We set the \hyperlink{}{is\-Dirty()} status.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -611,7 +611,7 @@ reference & {\em \$the\-Value} & Offset value reference.\\
 \end{DoxyParams}
 protected
 
-\hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} \hypertarget{class_ontology_wrapper_1_1_connection_object_a10e24985e878fe6a15c40dcaf266e3c2}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!post\-Offset\-Unset@{post\-Offset\-Unset}}
+is\-Dirty() \hypertarget{class_ontology_wrapper_1_1_connection_object_a10e24985e878fe6a15c40dcaf266e3c2}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!post\-Offset\-Unset@{post\-Offset\-Unset}}
 \index{post\-Offset\-Unset@{post\-Offset\-Unset}!OntologyWrapper::ConnectionObject@{Ontology\-Wrapper\-::\-Connection\-Object}}
 \subsubsection[{post\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Connection\-Object\-::post\-Offset\-Unset (
 \begin{DoxyParamCaption}
@@ -620,7 +620,7 @@ protected
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_connection_object_a10e24985e878fe6a15c40dcaf266e3c2}
 Handle offset and value after deleting it
 
-We set the \hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} status.
+We set the \hyperlink{}{is\-Dirty()} status.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -631,7 +631,7 @@ reference & {\em \$the\-Value} & Offset value reference.\\
 \end{DoxyParams}
 protected
 
-\hyperlink{namespace_ontology_wrapper_ad6a1ce4470a565eb806bf842a2b38aaf}{is\-Dirty()} \hypertarget{class_ontology_wrapper_1_1_connection_object_a4cd98d80db32b7bddfe1e46c0239b9e0}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+is\-Dirty() \hypertarget{class_ontology_wrapper_1_1_connection_object_a4cd98d80db32b7bddfe1e46c0239b9e0}{\index{Ontology\-Wrapper\-::\-Connection\-Object@{Ontology\-Wrapper\-::\-Connection\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
 \index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::ConnectionObject@{Ontology\-Wrapper\-::\-Connection\-Object}}
 \subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Connection\-Object\-::pre\-Offset\-Set (
 \begin{DoxyParamCaption}

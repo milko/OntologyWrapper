@@ -28,6 +28,8 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Collection\-:\
 \item 
 \hyperlink{class_ontology_wrapper_1_1_mongo_collection_a60a5da13657f31f20ca01561d21404f4}{resolve} (\$the\-Identifier, \$the\-Offset=k\-T\-A\-G\-\_\-\-N\-I\-D, \$as\-Object=T\-R\-U\-E)
 \item 
+\hyperlink{class_ontology_wrapper_1_1_mongo_collection_a230bf677670eb7f19cd8a01d15f96d15}{get\-All} ()
+\item 
 \hyperlink{class_ontology_wrapper_1_1_mongo_collection_aea1c5282361f10158efbb23319e53d03}{insert\-Data} (\&\$the\-Data, \&\$the\-Options)
 \end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
@@ -37,7 +39,7 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Collection\-:\
 \item 
 \hyperlink{class_ontology_wrapper_1_1_mongo_collection_a7e9e367c57fc693f2ee83bb4ccfd7c27}{connection\-Close} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_mongo_collection_a350f2957a5780f09fdab15c50b747e50}{new\-Database} (\$the\-Parameter)
+\hyperlink{class_ontology_wrapper_1_1_mongo_collection_a930abfb62b02f4dee7fad461f8edbbc3}{new\-Database} (\$the\-Parameter, \$do\-Open=T\-R\-U\-E)
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
@@ -88,6 +90,25 @@ public
 {\em Exception} & \\
 \hline
 \end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_mongo_collection_a230bf677670eb7f19cd8a01d15f96d15}{\index{Ontology\-Wrapper\-::\-Mongo\-Collection@{Ontology\-Wrapper\-::\-Mongo\-Collection}!get\-All@{get\-All}}
+\index{get\-All@{get\-All}!OntologyWrapper::MongoCollection@{Ontology\-Wrapper\-::\-Mongo\-Collection}}
+\subsubsection[{get\-All}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Collection\-::get\-All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_mongo_collection_a230bf677670eb7f19cd8a01d15f96d15}
+Return all objects
+
+In this class we return a \hyperlink{}{Mongo\-Cursor} object.
+
+public \begin{DoxyReturn}{Returns}
+Iterator Selection of all objects of the collection.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
 \hypertarget{class_ontology_wrapper_1_1_mongo_collection_aea1c5282361f10158efbb23319e53d03}{\index{Ontology\-Wrapper\-::\-Mongo\-Collection@{Ontology\-Wrapper\-::\-Mongo\-Collection}!insert\-Data@{insert\-Data}}
 \index{insert\-Data@{insert\-Data}!OntologyWrapper::MongoCollection@{Ontology\-Wrapper\-::\-Mongo\-Collection}}
 \subsubsection[{insert\-Data}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Collection\-::insert\-Data (
@@ -98,11 +119,11 @@ public
 )}}\label{class_ontology_wrapper_1_1_mongo_collection_aea1c5282361f10158efbb23319e53d03}
 Insert provided data
 
-In this class we insert the provided array and return its \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} value.
+In this class we commit the provided array and return its \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} value.
 
 
 \begin{DoxyParams}[1]{Parameters}
-reference & {\em \$the\-Data} & Data to insert. \\
+reference & {\em \$the\-Data} & Data to commit. \\
 \hline
 array & {\em \$the\-Options} & Insert options.\\
 \hline
@@ -124,20 +145,23 @@ We overload this method to assume the object is connected if the resource is a \
 public \begin{DoxyReturn}{Returns}
 boolean {\ttfamily T\-R\-U\-E} is open. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_mongo_collection_a350f2957a5780f09fdab15c50b747e50}{\index{Ontology\-Wrapper\-::\-Mongo\-Collection@{Ontology\-Wrapper\-::\-Mongo\-Collection}!new\-Database@{new\-Database}}
+\hypertarget{class_ontology_wrapper_1_1_mongo_collection_a930abfb62b02f4dee7fad461f8edbbc3}{\index{Ontology\-Wrapper\-::\-Mongo\-Collection@{Ontology\-Wrapper\-::\-Mongo\-Collection}!new\-Database@{new\-Database}}
 \index{new\-Database@{new\-Database}!OntologyWrapper::MongoCollection@{Ontology\-Wrapper\-::\-Mongo\-Collection}}
 \subsubsection[{new\-Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Collection\-::new\-Database (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Parameter}
+\item[{}]{\$the\-Parameter, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_collection_a350f2957a5780f09fdab15c50b747e50}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_collection_a930abfb62b02f4dee7fad461f8edbbc3}
 Return a new database instance
 
 We implement the method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_server}{Mongo\-Server} instance.
 
 
 \begin{DoxyParams}[1]{Parameters}
-mixed & {\em \$the\-Parameter} & Server parameters.\\
+mixed & {\em \$the\-Parameter} & Server parameters. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 protected \begin{DoxyReturn}{Returns}
@@ -162,11 +186,11 @@ mixed & {\em \$the\-Identifier} & Object identifier. \\
 \hline
 mixed & {\em \$the\-Offset} & Offset. \\
 \hline
-boolean & {\em \$as\-Object} & Return object if {\ttfamily T\-R\-U\-E}.\\
+mixed & {\em \$as\-Object} & Return object if {\ttfamily T\-R\-U\-E}.\\
 \hline
 \end{DoxyParams}
 public \begin{DoxyReturn}{Returns}
-mixed Found object, array, or {\ttfamily N\-U\-L\-L}.
+mixed Found object, array, objects count or {\ttfamily N\-U\-L\-L}.
 \end{DoxyReturn}
 
 \begin{DoxyExceptions}{Exceptions}

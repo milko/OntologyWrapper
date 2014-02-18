@@ -48,9 +48,9 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Database\-:\no
 \item 
 \hyperlink{class_ontology_wrapper_1_1_mongo_database_a0960889565708ebe8759388284043d6d}{connection\-Close} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}{new\-Server} (\$the\-Parameter)
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_ac3a49cd81d3ac17aa707258b6758b07c}{new\-Server} (\$the\-Parameter, \$do\-Open=T\-R\-U\-E)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}{new\-Collection} (\$the\-Offsets)
+\hyperlink{class_ontology_wrapper_1_1_mongo_database_a8e68fc8ae64675dffa862fcff79dea4b}{new\-Collection} (\$the\-Offsets, \$do\-Open=T\-R\-U\-E)
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
@@ -162,39 +162,45 @@ We overload this method to assume the object is connected if the resource is a \
 public \begin{DoxyReturn}{Returns}
 boolean {\ttfamily T\-R\-U\-E} is open. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Collection@{new\-Collection}}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_a8e68fc8ae64675dffa862fcff79dea4b}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Collection@{new\-Collection}}
 \index{new\-Collection@{new\-Collection}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
 \subsubsection[{new\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::new\-Collection (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Offsets}
+\item[{}]{\$the\-Offsets, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_ae0188af7b35915c9672b8106f4194bd9}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_a8e68fc8ae64675dffa862fcff79dea4b}
 Return a new collection instance
 
 We implement this method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_collection}{Mongo\-Collection} instance.
 
 
 \begin{DoxyParams}[1]{Parameters}
-array & {\em \$the\-Offsets} & Full collection offsets.\\
+array & {\em \$the\-Offsets} & Full collection offsets. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 protected \begin{DoxyReturn}{Returns}
 \hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} Collection instance. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Server@{new\-Server}}
+\hypertarget{class_ontology_wrapper_1_1_mongo_database_ac3a49cd81d3ac17aa707258b6758b07c}{\index{Ontology\-Wrapper\-::\-Mongo\-Database@{Ontology\-Wrapper\-::\-Mongo\-Database}!new\-Server@{new\-Server}}
 \index{new\-Server@{new\-Server}!OntologyWrapper::MongoDatabase@{Ontology\-Wrapper\-::\-Mongo\-Database}}
 \subsubsection[{new\-Server}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Database\-::new\-Server (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Parameter}
+\item[{}]{\$the\-Parameter, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_a770925083b5bad55cd035e8ffba79160}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_database_ac3a49cd81d3ac17aa707258b6758b07c}
 Return a new server instance
 
-We implement the method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_server}{Mongo\-Server} instance.
+We implement the method to return a \hyperlink{class_ontology_wrapper_1_1_mongo_server}{Mongo\-Server} instance and set the current object dictionary in it.
 
 
 \begin{DoxyParams}[1]{Parameters}
-mixed & {\em \$the\-Parameter} & Server parameters.\\
+mixed & {\em \$the\-Parameter} & Server parameters. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 protected \begin{DoxyReturn}{Returns}

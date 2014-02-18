@@ -1,0 +1,8 @@
+<map id="OntologyWrapper\PersistentObject" name="OntologyWrapper\PersistentObject">
+<area shape="rect" id="node5" href="$class_ontology_wrapper_1_1_edge.html" title="OntologyWrapper\\Edge" alt="" coords="5,345,165,370"/>
+<area shape="rect" id="node6" href="$class_ontology_wrapper_1_1_node.html" title="OntologyWrapper\\Node" alt="" coords="190,345,351,370"/>
+<area shape="rect" id="node7" href="$class_ontology_wrapper_1_1_tag.html" title="OntologyWrapper\\Tag" alt="" coords="375,345,525,370"/>
+<area shape="rect" id="node8" href="$class_ontology_wrapper_1_1_term.html" title="OntologyWrapper\\Term" alt="" coords="550,345,708,370"/>
+<area shape="rect" id="node2" href="$class_ontology_wrapper_1_1_ontology_object.html" title="OntologyWrapper\\Ontology\lObject" alt="" coords="269,169,451,207"/>
+<area shape="rect" id="node3" href="$class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="266,81,453,119"/>
+</map>

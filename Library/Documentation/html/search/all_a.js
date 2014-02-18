@@ -8,5 +8,6 @@ var searchData=
   ['ontologyobject',['OntologyObject',['../class_ontology_wrapper_1_1_ontology_object.html',1,'OntologyWrapper']]],
   ['ontologywrapper',['OntologyWrapper',['../namespace_ontology_wrapper.html',1,'']]],
   ['openconnection',['openConnection',['../class_ontology_wrapper_1_1_connection_object.html#aa65904a3e38f1b04cdea1d88dd80793b',1,'OntologyWrapper::ConnectionObject']]],
-  ['openconnections',['openConnections',['../class_ontology_wrapper_1_1_wrapper.html#ae402cf57a8c037c3fe580baa252e99ac',1,'OntologyWrapper::Wrapper']]]
+  ['openconnections',['openConnections',['../class_ontology_wrapper_1_1_wrapper.html#ae402cf57a8c037c3fe580baa252e99ac',1,'OntologyWrapper::Wrapper']]],
+  ['traits',['traits',['../namespace_ontology_wrapper_1_1traits.html',1,'OntologyWrapper']]]
 ];

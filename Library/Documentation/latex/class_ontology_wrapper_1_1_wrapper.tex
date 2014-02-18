@@ -3,7 +3,8 @@
 }
 
 
-Inheritance diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:\nopagebreak
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -12,7 +13,8 @@ Inheritance diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:\nopagebreak
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -22,11 +24,11 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:\nopagebrea
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ontology_wrapper_1_1_wrapper_a58530473d4c2b9847a72b4568c7c52bb}{Metadata} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\hyperlink{class_ontology_wrapper_1_1_wrapper_ae309b4ad4ee20651f343d1b66220f171}{Metadata} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E, \$do\-Open=T\-R\-U\-E)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_wrapper_aa3446362c7c65332a05e53546dbc7ea2}{Entities} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\hyperlink{class_ontology_wrapper_1_1_wrapper_ad8e8437b95fb0bf93d1b0b724752311e}{Entities} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E, \$do\-Open=T\-R\-U\-E)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_wrapper_a04c8c36bebf40208956e797b5dc64fec}{Units} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\hyperlink{class_ontology_wrapper_1_1_wrapper_a659ceda6be0d6bcba666eda463596e48}{Units} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E, \$do\-Open=T\-R\-U\-E)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_wrapper_a94bab4d3e13b169479d5a0f9d16ea3fc}{is\-Connected} ()
 \item 
@@ -51,9 +53,9 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Wrapper\-:\nopagebrea
 \item 
 \hyperlink{class_ontology_wrapper_1_1_wrapper_a3500af2ce8421aed6b1f6dcfb5112546}{load\-X\-M\-L\-Metadata\-Block} (\textbackslash{}Simple\-X\-M\-L\-Element \$the\-X\-M\-L)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_wrapper_a14c77bdeec16286c776ebe375efdd284}{load\-X\-M\-L\-Term} (\textbackslash{}Simple\-X\-M\-L\-Element \$the\-X\-M\-L)
+\hyperlink{class_ontology_wrapper_1_1_wrapper_a8ccba167a921ff4661910c0b9f1d0a7c}{load\-X\-M\-L\-Term} (\textbackslash{}Simple\-X\-M\-L\-Element \$the\-X\-M\-L, \&\$the\-Cache)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_wrapper_ae15fd84eb510838a278ccd24c7bcc4a5}{load\-X\-M\-L\-Tag} (\textbackslash{}Simple\-X\-M\-L\-Element \$the\-X\-M\-L)
+\hyperlink{class_ontology_wrapper_1_1_wrapper_a68e6a836e7e1d9d6f6da7bc191582a6c}{load\-X\-M\-L\-Tag} (\textbackslash{}Simple\-X\-M\-L\-Element \$the\-X\-M\-L, \&\$the\-Cache)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_wrapper_ae5261a315a52ff325df36f277f6aba93}{load\-X\-M\-L\-Element} (\&\$the\-Tag, \&\$the\-Key, \&\$the\-Value,\textbackslash{}Simple\-X\-M\-L\-Element \$the\-Element)
 \item 
@@ -83,13 +85,11 @@ This file contains the default tag definitions. Types.
 
 This file contains the default data type definitions. Tokens.
 
-This file contains the default token definitions. Session.
+This file contains the default token definitions. \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper}
 
-This file contains the default session offset definitions. \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper}
+This class extends its ancestor to wrap an interface around the various components of the system; the metadata, entities and the units.
 
-This class wraps an interface around the various components of the system; the metadata, entities and the units.
-
-The object is considered \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()} when the metadata, entities and units databases are set. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+The object is considered \hyperlink{}{is\-Inited()} when the metadata, entities and units databases are set. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
  @version   1.00 10/02/2014\end{DoxyVerb}
  
 
@@ -120,7 +120,7 @@ integer & {\em \$the\-Tag} & \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} ref
 protected \begin{DoxyReturn}{Returns}
 mixed Cast value.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_aa05e64fb4bbc9b30d15a8e2d1cfe9874}{Ontology\-Object\-::\-Cast\-Offset\-Value()} \hypertarget{class_ontology_wrapper_1_1_wrapper_a41ab06d375f9baae6349b4955ab8384e}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!close\-Connections@{close\-Connections}}
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a46279a5fe37004d92c98383d3edf16f9}{Ontology\-Object\-::cast\-Offset\-Value()} \hypertarget{class_ontology_wrapper_1_1_wrapper_a41ab06d375f9baae6349b4955ab8384e}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!close\-Connections@{close\-Connections}}
 \index{close\-Connections@{close\-Connections}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{close\-Connections}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::close\-Connections (
 \begin{DoxyParamCaption}
@@ -138,14 +138,15 @@ public
 \begin{DoxySeeAlso}{See Also}
 \$m\-Metadata \$m\-Entities \$m\-Units 
 \end{DoxySeeAlso}
-\hypertarget{class_ontology_wrapper_1_1_wrapper_aa3446362c7c65332a05e53546dbc7ea2}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Entities@{Entities}}
+\hypertarget{class_ontology_wrapper_1_1_wrapper_ad8e8437b95fb0bf93d1b0b724752311e}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Entities@{Entities}}
 \index{Entities@{Entities}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{Entities}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::\-Entities (
 \begin{DoxyParamCaption}
 \item[{}]{\$the\-Value = {\ttfamily NULL}, }
-\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\item[{}]{\$get\-Old = {\ttfamily FALSE}, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_wrapper_aa3446362c7c65332a05e53546dbc7ea2}
+)}}\label{class_ontology_wrapper_1_1_wrapper_ad8e8437b95fb0bf93d1b0b724752311e}
 Manage entities database
 
 This method can be used to manage the {\itshape entities database}, it accepts a parameter which represents either the entities database instance or the requested operation, depending on its value\-:
@@ -163,7 +164,9 @@ The second parameter is a boolean which if {\ttfamily T\-R\-U\-E} will return th
 \begin{DoxyParams}[1]{Parameters}
 mixed & {\em \$the\-Value} & Entities database or operation. \\
 \hline
-boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value.\\
+boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 public \begin{DoxyReturn}{Returns}
@@ -177,7 +180,7 @@ mixed {\itshape New} or {\itshape old} entities database.
 \begin{DoxySeeAlso}{See Also}
 \$m\-Entities
 \end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property()}  \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} \hypertarget{class_ontology_wrapper_1_1_wrapper_a94bab4d3e13b169479d5a0f9d16ea3fc}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!is\-Connected@{is\-Connected}}
+manage\-Property()  is\-Inited()  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} \hypertarget{class_ontology_wrapper_1_1_wrapper_a94bab4d3e13b169479d5a0f9d16ea3fc}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!is\-Connected@{is\-Connected}}
 \index{is\-Connected@{is\-Connected}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{is\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::is\-Connected (
 \begin{DoxyParamCaption}
@@ -191,7 +194,7 @@ This method returns a boolean flag indicating whether the object is connected or
 public \begin{DoxyReturn}{Returns}
 boolean {\ttfamily T\-R\-U\-E} is open.
 \end{DoxyReturn}
-\hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}
+is\-Inited()
 
 \begin{DoxySeeAlso}{See Also}
 \$m\-Metadata \$m\-Entities \$m\-Units 
@@ -223,6 +226,10 @@ boolean {\ttfamily T\-R\-U\-E} is ready.
 Reload tag cache
 
 This method can be used to reset the tag cache.
+
+The method will return {\ttfamily T\-R\-U\-E} if the object is connected and the operation was executes and {\ttfamily F\-A\-L\-S\-E} if the object is not connected, or if the metadata is missing.
+
+Note that although the operation might have been executed, this doesn't mean that the dictionary was loaded\-: this depends on the contents of the metadata database.
 
 public
 
@@ -340,20 +347,23 @@ This method will parse and load the provided metadata transaction block.
 Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & Metadata transaction block.\\
 \hline
 \end{DoxyParams}
-protected \hypertarget{class_ontology_wrapper_1_1_wrapper_ae15fd84eb510838a278ccd24c7bcc4a5}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!load\-X\-M\-L\-Tag@{load\-X\-M\-L\-Tag}}
+protected \hypertarget{class_ontology_wrapper_1_1_wrapper_a68e6a836e7e1d9d6f6da7bc191582a6c}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!load\-X\-M\-L\-Tag@{load\-X\-M\-L\-Tag}}
 \index{load\-X\-M\-L\-Tag@{load\-X\-M\-L\-Tag}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{load\-X\-M\-L\-Tag}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::load\-X\-M\-L\-Tag (
 \begin{DoxyParamCaption}
-\item[{\textbackslash{}Simple\-X\-M\-L\-Element}]{\$the\-X\-M\-L}
+\item[{\textbackslash{}Simple\-X\-M\-L\-Element}]{\$the\-X\-M\-L, }
+\item[{\&}]{\$the\-Cache}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_wrapper_ae15fd84eb510838a278ccd24c7bcc4a5}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_wrapper_a68e6a836e7e1d9d6f6da7bc191582a6c}
 Parse and load X\-M\-L tag
 
 This method will parse and load the provided tag X\-M\-L structure.
 
 
 \begin{DoxyParams}[1]{Parameters}
-Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} X\-M\-L structure.\\
+Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} X\-M\-L structure. \\
+\hline
+reference & {\em \$the\-Cache} & Objects cache.\\
 \hline
 \end{DoxyParams}
 protected
@@ -363,20 +373,23 @@ protected
 {\em Exception} & \\
 \hline
 \end{DoxyExceptions}
-\hypertarget{class_ontology_wrapper_1_1_wrapper_a14c77bdeec16286c776ebe375efdd284}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!load\-X\-M\-L\-Term@{load\-X\-M\-L\-Term}}
+\hypertarget{class_ontology_wrapper_1_1_wrapper_a8ccba167a921ff4661910c0b9f1d0a7c}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!load\-X\-M\-L\-Term@{load\-X\-M\-L\-Term}}
 \index{load\-X\-M\-L\-Term@{load\-X\-M\-L\-Term}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{load\-X\-M\-L\-Term}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::load\-X\-M\-L\-Term (
 \begin{DoxyParamCaption}
-\item[{\textbackslash{}Simple\-X\-M\-L\-Element}]{\$the\-X\-M\-L}
+\item[{\textbackslash{}Simple\-X\-M\-L\-Element}]{\$the\-X\-M\-L, }
+\item[{\&}]{\$the\-Cache}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_wrapper_a14c77bdeec16286c776ebe375efdd284}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_wrapper_a8ccba167a921ff4661910c0b9f1d0a7c}
 Parse and load X\-M\-L term
 
 This method will parse and load the provided term X\-M\-L structure.
 
 
 \begin{DoxyParams}[1]{Parameters}
-Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & \hyperlink{class_ontology_wrapper_1_1_term}{Term} X\-M\-L structure.\\
+Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & \hyperlink{class_ontology_wrapper_1_1_term}{Term} X\-M\-L structure. \\
+\hline
+reference & {\em \$the\-Cache} & Objects cache.\\
 \hline
 \end{DoxyParams}
 protected
@@ -404,14 +417,15 @@ It is assumed that the object has its comnnections open and that the provided X\
 Simple\-X\-M\-L\-Element & {\em \$the\-X\-M\-L} & Entities X\-M\-L.\\
 \hline
 \end{DoxyParams}
-protected \hypertarget{class_ontology_wrapper_1_1_wrapper_a58530473d4c2b9847a72b4568c7c52bb}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Metadata@{Metadata}}
+protected \hypertarget{class_ontology_wrapper_1_1_wrapper_ae309b4ad4ee20651f343d1b66220f171}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Metadata@{Metadata}}
 \index{Metadata@{Metadata}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{Metadata}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::\-Metadata (
 \begin{DoxyParamCaption}
 \item[{}]{\$the\-Value = {\ttfamily NULL}, }
-\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\item[{}]{\$get\-Old = {\ttfamily FALSE}, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_wrapper_a58530473d4c2b9847a72b4568c7c52bb}
+)}}\label{class_ontology_wrapper_1_1_wrapper_ae309b4ad4ee20651f343d1b66220f171}
 Manage metadata database
 
 This method can be used to manage the {\itshape metadata database}, it accepts a parameter which represents either the metadata database instance or the requested operation, depending on its value\-:
@@ -429,7 +443,9 @@ The second parameter is a boolean which if {\ttfamily T\-R\-U\-E} will return th
 \begin{DoxyParams}[1]{Parameters}
 mixed & {\em \$the\-Value} & Metadata database or operation. \\
 \hline
-boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value.\\
+boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 public \begin{DoxyReturn}{Returns}
@@ -443,7 +459,7 @@ mixed {\itshape New} or {\itshape old} metadata database.
 \begin{DoxySeeAlso}{See Also}
 \$m\-Metadata
 \end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property()}  \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} \hypertarget{class_ontology_wrapper_1_1_wrapper_ae402cf57a8c037c3fe580baa252e99ac}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!open\-Connections@{open\-Connections}}
+manage\-Property()  is\-Inited()  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} \hypertarget{class_ontology_wrapper_1_1_wrapper_ae402cf57a8c037c3fe580baa252e99ac}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!open\-Connections@{open\-Connections}}
 \index{open\-Connections@{open\-Connections}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{open\-Connections}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::open\-Connections (
 \begin{DoxyParamCaption}
@@ -458,7 +474,7 @@ public
 
 
 \begin{DoxyExceptions}{Exceptions}
-{\em Exception} & \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}\\
+{\em Exception} & is\-Inited()\\
 \hline
 \end{DoxyExceptions}
 \begin{DoxySeeAlso}{See Also}
@@ -484,14 +500,15 @@ This method can be used to reset the ontology, it will {\bfseries erase the curr
 {\em Exception} & \\
 \hline
 \end{DoxyExceptions}
-}\hypertarget{class_ontology_wrapper_1_1_wrapper_a04c8c36bebf40208956e797b5dc64fec}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Units@{Units}}
+}\hypertarget{class_ontology_wrapper_1_1_wrapper_a659ceda6be0d6bcba666eda463596e48}{\index{Ontology\-Wrapper\-::\-Wrapper@{Ontology\-Wrapper\-::\-Wrapper}!Units@{Units}}
 \index{Units@{Units}!OntologyWrapper::Wrapper@{Ontology\-Wrapper\-::\-Wrapper}}
 \subsubsection[{Units}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Wrapper\-::\-Units (
 \begin{DoxyParamCaption}
 \item[{}]{\$the\-Value = {\ttfamily NULL}, }
-\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\item[{}]{\$get\-Old = {\ttfamily FALSE}, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_wrapper_a04c8c36bebf40208956e797b5dc64fec}
+)}}\label{class_ontology_wrapper_1_1_wrapper_a659ceda6be0d6bcba666eda463596e48}
 Manage units database
 
 This method can be used to manage the {\itshape units database}, it accepts a parameter which represents either the units database instance or the requested operation, depending on its value\-:
@@ -509,7 +526,9 @@ The second parameter is a boolean which if {\ttfamily T\-R\-U\-E} will return th
 \begin{DoxyParams}[1]{Parameters}
 mixed & {\em \$the\-Value} & Units database or operation. \\
 \hline
-boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value.\\
+boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 public \begin{DoxyReturn}{Returns}
@@ -523,7 +542,7 @@ mixed {\itshape New} or {\itshape old} units database.
 \begin{DoxySeeAlso}{See Also}
 \$m\-Units
 \end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_container_object_afab5ff7dc87cde93bc899be69ffc7d21}{manage\-Property()}  \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} 
+manage\-Property()  is\-Inited()  \hyperlink{class_ontology_wrapper_1_1_wrapper_a7ae448c40693559ee0bd7898fe041fc1}{is\-Ready()} 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 

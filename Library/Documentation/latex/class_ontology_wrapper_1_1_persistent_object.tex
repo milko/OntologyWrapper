@@ -1,0 +1,478 @@
+\hypertarget{class_ontology_wrapper_1_1_persistent_object}{\section{Ontology\-Wrapper\textbackslash{}Persistent\-Object Class Reference}
+\label{class_ontology_wrapper_1_1_persistent_object}\index{Ontology\-Wrapper\textbackslash{}\-Persistent\-Object@{Ontology\-Wrapper\textbackslash{}\-Persistent\-Object}}
+}
+
+
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Persistent\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_ontology_wrapper_1_1_persistent_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Persistent\-Object\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_persistent_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_ac2375a2d3f51282a7d27bf62a3d3debc}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_ab9d702bee596c400b9403ea97583974e}{commit} (\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} \$the\-Wrapper)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_ontology_wrapper_1_1_persistent_object_a4103fc3005a33abe253a0a7250659da3}{Resolve\-Database} (\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} \$the\-Wrapper, \$do\-Assert=T\-R\-U\-E, \$do\-Open=T\-R\-U\-E)
+\item 
+static \hyperlink{class_ontology_wrapper_1_1_persistent_object_a82580c299e95eda7cd28fa5bba1f8190}{Resolve\-Collection} (\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} \$the\-Database, \$do\-Open=T\-R\-U\-E)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_ae621d7c6ec2b645d65ae86e6c183c7ef}{pre\-Commit} (\$the\-Operation=0x00)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_a912920d6f5503319d971c6ec723d70fd}{pre\-Commit\-Validate} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_ae6d939c963067e6553d31b02ee9c1e83}{pre\-Commit\-Identify} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_a3eb6889a4ef15c0271561b45497b6a9d}{pre\-Commit\-Related} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_a52d445c7c34fd2b28c48c4c47d02b1db}{post\-Commit} (\$the\-Operation=0x00)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}{is\-Ready} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_a20d852f3b8e527cab2e38f4ab54b6dad}{pre\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_af8ba5fa19459b094716006cad82bda7b}{post\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_a3a2f90f5bb97e7ebc1002f3ac77deab3}{pre\-Offset\-Unset} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_abb77ffc2aa042528dc3129925f4b7764}{post\-Offset\-Unset} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_persistent_object_ab539a5204bd58394d0a88353db957023}{locked\-Offsets} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Persistent object
+
+This {\itshape abstract} class is the ancestor of all classes representing objects that can persist in a container and that are constituted by ontology offsets.
+
+The main purpose of this class is to add the status and persistence traits providing the prototypes needed to implement concrete persistent objects.
+
+The class makes use of the \hyperlink{}{Status} and \hyperlink{}{Persistence} traits\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{}{Status}}\-: This class handles a bitfirld data member that keeps track of the object's status\-: 
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{}{is\-Dirty()}}\-: This flag is set whenever any offset is modified, this status can be tested whenever the object should be stored in a persistent container\-: if set, it means the object has been modified, if not set, it means that the object is identical to the persistent copy. 
+\item {\ttfamily \hyperlink{}{is\-Committed()}}\-: This flag is set whenever the object has been loaded or stored into a persistent container. This status can be useful to lock properties that cannot change once the object is stored. 
+\end{DoxyItemize}
+\item {\ttfamily \hyperlink{}{Persistence}}\-: This class handles the object persistence. 
+\end{DoxyItemize}
+
+Objects derived from this class {\itshape must} define a constant called {\itshape k\-S\-E\-Q\-\_\-\-N\-A\-M\-E} which provides a $<$em$<$string representing the {\itshape default collection name} for the current object\-: methods that commit or read objects of a specific class can then resolve the collection given a database. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 14/02/2014\end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_ac2375a2d3f51282a7d27bf62a3d3debc}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container = {\ttfamily NULL}, }
+\item[{}]{\$the\-Identifier = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_persistent_object_ac2375a2d3f51282a7d27bf62a3d3debc}
+Instantiate class.
+
+Objects derived from this class share the same constructor prototype, they should not overload this method. The method accepts two parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Container}\-: This may either be an array containing the object's persistent attributes, or a reference to a \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} object. If this parameter is {\ttfamily N\-U\-L\-L}, the next parameter will be ignored. 
+\item {\bfseries \$the\-Identifier}\-: This parameter represents the object identifier or the object persistent attributes\-: in the first case it will used to select the object from the provided container, in the second case, it is assumed that the provided array holds the persistent attributes of an object committed in the provided container. 
+\end{DoxyItemize}
+
+The workflow is as follows\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape Empty object}\-: Both parameters are omitted. 
+\item {\itshape Filled non committed object}\-: The first parameter is an array. 
+\item {\itshape Load object from container}\-: The first parameter is a \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} object and the second parameter is a scalar identifier. 
+\item {\itshape Filled committed object}\-: The first parameter is \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} object and the second parameter is an array holding the object's persistent data. 
+\end{DoxyItemize}
+
+Any other combination will raise an exception.
+
+This constructor sets the committed flag, derived classes should first call the parent constructor, then they should set the inited flag.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} & {\em \$the\-Container} & Persistent store. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_persistent_object_a4103fc3005a33abe253a0a7250659da3}{Resolve\-Database()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_a82580c299e95eda7cd28fa5bba1f8190}{Resolve\-Collection()}  is\-Committed() \\
+\hline
+\end{DoxyExceptions}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_ab9d702bee596c400b9403ea97583974e}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!commit@{commit}}
+\index{commit@{commit}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::commit (
+\begin{DoxyParamCaption}
+\item[{{\bf Wrapper}}]{\$the\-Wrapper}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_persistent_object_ab9d702bee596c400b9403ea97583974e}
+Insert the object
+
+This method should commit the current object into the provided persistent store.
+
+In this method we perform the following steps\-:
+
+
+\begin{DoxyItemize}
+\item We resolve the eventually provided persistent store into a collection object, or we use the current object's collection; if this is not set, or if the collection canot be resolved, the method will raise an exception. 
+\item We call the {\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_ae621d7c6ec2b645d65ae86e6c183c7ef}{pre\-Commit()}} method that is responsible for preparing the object for being committed. 
+\item If the object is not ready, \hyperlink{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}{is\-Ready()}, we raise an exception. 
+\item We pass the current object to the collection's commit method and recuperate the identifier. 
+\item We call the {\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_a52d445c7c34fd2b28c48c4c47d02b1db}{post\-Commit()}} method that is responsible of cleaning up the objecxt after the commit. 
+\item We return the object's identifier. 
+\end{DoxyItemize}
+
+If any of the above steps fail the method must raise an exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} & {\em \$the\-Wrapper} & Persistent store.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed The object's native identifier.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & is\-Dirty()  is\-Committed()  \hyperlink{class_ontology_wrapper_1_1_ontology_object_a35bc67b94336aa801f20e495f3b0c3c2}{dictionary()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_a4103fc3005a33abe253a0a7250659da3}{Resolve\-Database()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_a82580c299e95eda7cd28fa5bba1f8190}{Resolve\-Collection()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_ae621d7c6ec2b645d65ae86e6c183c7ef}{pre\-Commit()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}{is\-Ready()}  \hyperlink{class_ontology_wrapper_1_1_persistent_object_a52d445c7c34fd2b28c48c4c47d02b1db}{post\-Commit()} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!is\-Ready@{is\-Ready}}
+\index{is\-Ready@{is\-Ready}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{is\-Ready}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::is\-Ready (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}
+Check if object is ready
+
+This method should return {\ttfamily T\-R\-U\-E} if the object is ready to be committed.
+
+In this class we ensure the object is initialised and that it holds the dictionary.
+
+protected \begin{DoxyReturn}{Returns}
+Boolean {\ttfamily T\-R\-U\-E} means ready. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_ab539a5204bd58394d0a88353db957023}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!locked\-Offsets@{locked\-Offsets}}
+\index{locked\-Offsets@{locked\-Offsets}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{locked\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::locked\-Offsets (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_ab539a5204bd58394d0a88353db957023}
+Return list of locked offsets
+
+This method should return the list of locked offsets, that is, the offsets which cannot be modified once the object has been committed.
+
+In this class we return the list of internal tags.
+
+protected \begin{DoxyReturn}{Returns}
+array List of locked offsets.
+\end{DoxyReturn}
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets()} \hypertarget{class_ontology_wrapper_1_1_persistent_object_a52d445c7c34fd2b28c48c4c47d02b1db}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!post\-Commit@{post\-Commit}}
+\index{post\-Commit@{post\-Commit}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{post\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::post\-Commit (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation = {\ttfamily 0x00}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_a52d445c7c34fd2b28c48c4c47d02b1db}
+Cleanup object after commit
+
+This method should cleanup the object after it was committed, it should perform eventual identifiers and commit the eventual related objects.
+
+The method accepts a single bitfield parameter that indicates the current operation\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily 0x01}\-: Insert. 
+\item {\ttfamily 0x11}\-: Update. 
+\item {\ttfamily 0x10}\-: Delete. 
+\end{DoxyItemize}
+
+The first bit is set if the object is committed and the second bit is set if we are storing the object.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+bitfield & {\em \$the\-Operation} & Operation code.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_ontology_wrapper_1_1_persistent_object_af8ba5fa19459b094716006cad82bda7b}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!post\-Offset\-Set@{post\-Offset\-Set}}
+\index{post\-Offset\-Set@{post\-Offset\-Set}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{post\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::post\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_af8ba5fa19459b094716006cad82bda7b}
+Handle offset and value after setting it
+
+We overload the parent method to set the \hyperlink{}{is\-Dirty()} status.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected
+
+is\-Dirty() \hypertarget{class_ontology_wrapper_1_1_persistent_object_abb77ffc2aa042528dc3129925f4b7764}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!post\-Offset\-Unset@{post\-Offset\-Unset}}
+\index{post\-Offset\-Unset@{post\-Offset\-Unset}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{post\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::post\-Offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_abb77ffc2aa042528dc3129925f4b7764}
+Handle offset after deleting it
+
+This method can be used to manage the object after calling the \hyperlink{}{Array\-Object\-::\-Offset\-Unset()} method.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected
+
+is\-Dirty() \hypertarget{class_ontology_wrapper_1_1_persistent_object_ae621d7c6ec2b645d65ae86e6c183c7ef}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Commit@{pre\-Commit}}
+\index{pre\-Commit@{pre\-Commit}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Commit (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation = {\ttfamily 0x00}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_ae621d7c6ec2b645d65ae86e6c183c7ef}
+Prepare object for commit
+
+This method should prepare the object for being committed, it should compute the eventual identifiers and commit the eventual related objects.
+
+The method accepts a single bitfield parameter that indicates the current operation\-: the first bit is set if the object is committed and the second bit is set if we are storing the object.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily 0x01}\-: {\itshape Insert} 
+\begin{DoxyItemize}
+\item Check if the object is \hyperlink{}{is\-Inited()}. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_a912920d6f5503319d971c6ec723d70fd}{\-: Validate object. }{\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_ae6d939c963067e6553d31b02ee9c1e83}{\-: Set object identifiers. }{\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_abd1574b220543be97cb221fa2caded7a}{\-: Check if object is ready. }{\ttfamily \hyperlink{class_ontology_wrapper_1_1_persistent_object_a3eb6889a4ef15c0271561b45497b6a9d}{\-: Commit related objects. } }}}}
+\item {\ttfamily {\ttfamily {\ttfamily {\ttfamily {\ttfamily 0x11}\-: {\itshape Update} 
+\begin{DoxyItemize}
+\item Nothing yet (this operation should not be implemented). 
+\end{DoxyItemize}}}}}
+\item {\ttfamily {\ttfamily {\ttfamily {\ttfamily {\ttfamily 0x10}\-: {\itshape Delete} 
+\begin{DoxyItemize}
+\item Check if the object has its native identifier, \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}. 
+\end{DoxyItemize}}}}}
+\end{DoxyItemize}
+
+{\ttfamily {\ttfamily {\ttfamily {\ttfamily Derived classes should not overload this method, they should, instead, overload the called methods.}}}}
+
+{\ttfamily {\ttfamily {\ttfamily {\ttfamily 
+\begin{DoxyParams}[1]{Parameters}
+bitfield & {\em \$the\-Operation} & Operation code.\\
+\hline
+\end{DoxyParams}
+protected}}}}
+
+{\ttfamily {\ttfamily {\ttfamily {\ttfamily 
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-N\-I\-D
+\end{DoxySeeAlso}
+is\-Inited() }}}}
+\end{DoxyItemize}\hypertarget{class_ontology_wrapper_1_1_persistent_object_ae6d939c963067e6553d31b02ee9c1e83}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Commit\-Identify@{pre\-Commit\-Identify}}
+\index{pre\-Commit\-Identify@{pre\-Commit\-Identify}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Commit\-Identify}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Commit\-Identify (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_ae6d939c963067e6553d31b02ee9c1e83}
+Set object identifiers before commit
+
+This method should set the object identifiers.
+
+Derived classes must implement this method and should not overload the caller.
+
+protected \hypertarget{class_ontology_wrapper_1_1_persistent_object_a3eb6889a4ef15c0271561b45497b6a9d}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Commit\-Related@{pre\-Commit\-Related}}
+\index{pre\-Commit\-Related@{pre\-Commit\-Related}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Commit\-Related}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Commit\-Related (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_a3eb6889a4ef15c0271561b45497b6a9d}
+Commit related objects
+
+This method should commit related objects before the current object is committed.
+
+Derived classes must implement this method and should not overload the caller.
+
+protected \hypertarget{class_ontology_wrapper_1_1_persistent_object_a912920d6f5503319d971c6ec723d70fd}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Commit\-Validate@{pre\-Commit\-Validate}}
+\index{pre\-Commit\-Validate@{pre\-Commit\-Validate}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Commit\-Validate}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Commit\-Validate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_a912920d6f5503319d971c6ec723d70fd}
+Validate object before commit
+
+This method should validate the object before being committed.
+
+Derived classes must implement this method and should not overload the caller.
+
+protected \hypertarget{class_ontology_wrapper_1_1_persistent_object_a20d852f3b8e527cab2e38f4ab54b6dad}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+\index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_a20d852f3b8e527cab2e38f4ab54b6dad}
+Handle offset and value before setting it
+
+We overload this method to prevent modifying the global and native identifiers if the object is committed, \hyperlink{}{is\-Committed()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} set offset value, other, return.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & is\-Committed()  \hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets()} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_a3a2f90f5bb97e7ebc1002f3ac77deab3}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!pre\-Offset\-Unset@{pre\-Offset\-Unset}}
+\index{pre\-Offset\-Unset@{pre\-Offset\-Unset}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{pre\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::pre\-Offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_persistent_object_a3a2f90f5bb97e7ebc1002f3ac77deab3}
+Handle offset and value before deleting it
+
+We overload this method to prevent modifying the global and native identifiers if the object is committed, \hyperlink{}{is\-Committed()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} delete offset value, other, return.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & is\-Committed()  \hyperlink{class_ontology_wrapper_1_1_persistent_object_ab539a5204bd58394d0a88353db957023}{locked\-Offsets()} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_a82580c299e95eda7cd28fa5bba1f8190}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!Resolve\-Collection@{Resolve\-Collection}}
+\index{Resolve\-Collection@{Resolve\-Collection}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{Resolve\-Collection}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::\-Resolve\-Collection (
+\begin{DoxyParamCaption}
+\item[{{\bf Database\-Object}}]{\$the\-Database, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_persistent_object_a82580c299e95eda7cd28fa5bba1f8190}
+Resolve the collection
+
+This method should return a \hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} instance corresponding to the persistent store in which the current object was either read or will be inserted.
+
+The method expects the object to feature a constant, \hyperlink{}{k\-S\-E\-Q\-\_\-\-N\-A\-M\-E}, which serves the double purpose of providing the default collection name and the eventual sequence number index\-: the method will use this constant and the provided database reference to return the default \hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} instance.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} & {\em \$the\-Database} & Database reference. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_collection_object}{Collection\-Object} Collection or {\ttfamily N\-U\-L\-L}. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_persistent_object_a4103fc3005a33abe253a0a7250659da3}{\index{Ontology\-Wrapper\-::\-Persistent\-Object@{Ontology\-Wrapper\-::\-Persistent\-Object}!Resolve\-Database@{Resolve\-Database}}
+\index{Resolve\-Database@{Resolve\-Database}!OntologyWrapper::PersistentObject@{Ontology\-Wrapper\-::\-Persistent\-Object}}
+\subsubsection[{Resolve\-Database}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Persistent\-Object\-::\-Resolve\-Database (
+\begin{DoxyParamCaption}
+\item[{{\bf Wrapper}}]{\$the\-Wrapper, }
+\item[{}]{\$do\-Assert = {\ttfamily TRUE}, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_persistent_object_a4103fc3005a33abe253a0a7250659da3}
+Resolve the database
+
+This method should return a \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} instance corresponding to the default database of the current class extracted from the provided \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} instance.
+
+Since we cannot declare this method abstract, we raise an exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} & {\em \$the\-Wrapper} & \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper}. \\
+\hline
+boolean & {\em \$do\-Assert} & Raise exception if unable. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} Database or {\ttfamily N\-U\-L\-L}.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/\-Ontology\-Wrapper/\-Library/\-Ontology\-Wrapper/Persistent\-Object.\-php\end{DoxyCompactItemize}

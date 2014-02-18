@@ -470,8 +470,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $object );'.kSTYLE_HEAD_POS );
-	$id = $test->insert( $object );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $object );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $object );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

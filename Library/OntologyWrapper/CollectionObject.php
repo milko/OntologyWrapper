@@ -119,7 +119,7 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	insert																			*
+	 *	commit																			*
 	 *==================================================================================*/
 
 	/**
@@ -129,13 +129,13 @@ abstract class CollectionObject extends ConnectionObject
 	 * {@link ArrayObject} instance.
 	 *
 	 * The method will call the virtual {@link insertData()} method, passing the received
-	 * object to it, which will perform the actual insert.
+	 * object to it, which will perform the actual commit.
 	 *
 	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
 	 *
 	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
 	 *
-	 * @param reference				$theObject			Object to insert.
+	 * @param reference				$theObject			Object to commit.
 	 * @param array					$theOptions			Insert options.
 	 *
 	 * @access public
@@ -148,7 +148,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @uses isConnected()
 	 * @uses insertData()
 	 */
-	public function insert( &$theObject, $theOptions = Array() )
+	public function commit( &$theObject, $theOptions = Array() )
 	{
 		//
 		// Check if connected.
@@ -173,16 +173,16 @@ abstract class CollectionObject extends ConnectionObject
 			 } // Correct type.
 			
 			throw new \Exception(
-				"Unable to insert object: "
+				"Unable to commit object: "
 			   ."provided invalid or unsupported data type." );					// !@! ==>
 		
 		} // Connected.
 			
 		throw new \Exception(
-			"Unable to insert object: "
+			"Unable to commit object: "
 		   ."connection is not open." );										// !@! ==>
 	
-	} // insert.
+	} // commit.
 
 	 
 	/*===================================================================================
@@ -415,13 +415,13 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Insert provided data
 	 *
-	 * This method should be implemented by concrete derived classes, it should insert a
+	 * This method should be implemented by concrete derived classes, it should commit a
 	 * new record in the current collection featuring the provided data and return the
 	 * record identifier.
 	 *
 	 * Derived classes must implement this method.
 	 *
-	 * @param reference				$theData			Data to insert.
+	 * @param reference				$theData			Data to commit.
 	 * @param array					$theOptions			Insert options.
 	 *
 	 * @access protected

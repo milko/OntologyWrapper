@@ -3,916 +3,321 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>     &raquo; \OntologyWrapper
-</title>
+    <title>Ontology Wrapper</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-            <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
     
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
-    </head>
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
 <body>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">Ontology Wrapper</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/OntologyWrapper.html">OntologyWrapper</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-242784090"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-242784090" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2095226576"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-2095226576" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1551608577"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1551608577" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Accessors.html">Accessors</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                                    </ul>
                 </div>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
     </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
-            </div>
-        </noscript>
 
-        
-            
-    <div class="row">
-
-        <div class="span4">
-            <div class="btn-group view pull-right" data-toggle="buttons-radio">
-                <button class="btn details" title="Show descriptions and method names">
-                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
-                    <i class="icon-align-justify"></i>
-                </button>
-            </div>
-            <ul class="side-nav nav nav-list">
-                <li class="nav-header">
-                    <i class="icon-map-marker"></i> Namespaces
-                </li>
                     
-        <li>
-        <a href="../namespaces/OntologyWrapper.traits.html" title="traits">
-            <i class="icon-th"></i> traits
-        </a>
-        <ul class="nav nav-list nav-namespaces">
-                
-    
-        </ul>
-    </li>
-    
-            </ul>
-        </div>
-
-        <div class="span8 namespace-contents">
-                
-    
-        <ul class="breadcrumb">
-            <li><a href="../index.html"><i class="icon-th"></i></a></li>
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/OntologyWrapper.html">OntologyWrapper</a>
-    </li>
-
-        </ul>
-
-        
-        
-                    <div class="namespace-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                
-                                        <div id="class_DatabaseObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DatabaseObject .collapse">
-        <h1>DatabaseObject<a href="../classes/OntologyWrapper.DatabaseObject.html">¶</a></h1>
-        <p class="short_description">Database object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing database
-connection instances, this class extends the {@link ConnectionObject} class to implement
-database specific functionality prototypes.</p></div>
-        <a href="../classes/OntologyWrapper.DatabaseObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_MongoServer" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoServer .collapse">
-        <h1>MongoServer<a href="../classes/OntologyWrapper.MongoServer.html">¶</a></h1>
-        <p class="short_description">Mongo server</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link ServerObject} wrapping a
-{@link MongoClient} class.</p></div>
-        <a href="../classes/OntologyWrapper.MongoServer.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Wrapper" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Wrapper .collapse">
-        <h1>Wrapper<a href="../classes/OntologyWrapper.Wrapper.html">¶</a></h1>
-        <p class="short_description">Wrapper</p>
-        <div class="details collapse"><p>This class wraps an interface around the various components of the system; the metadata,
-entities and the units.</p>
-<p>The object is considered {@link isInited()} when the metadata, entities and units
-databases are set.</p></div>
-        <a href="../classes/OntologyWrapper.Wrapper.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Tag" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Tag .collapse">
-        <h1>Tag<a href="../classes/OntologyWrapper.Tag.html">¶</a></h1>
-        <p class="short_description">Tag</p>
-        <div class="details collapse"><p>A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a data
-property, it represents the <i>metadata</i> of a data property, or its <i>definition</i>
-in an ontology.</p>
-<p>This class features a {@link kTAG_TERMS} offset which is an array of {@link Term}
-references representing a path of vertex and predicate terms of the ontology graph, this
-chain of elements represents a lexical construct, like a phrase, that provides the
-explanation or definition of the current object.</p>
-<p>Using a chain of terms, rather than a single term, to provide metadata for a data element
-gives much more flexibility and reusability when defining a data dictionary. This
-sequence is divided in three main sections:</p>
-<ul>
-<li><i>Feature</i>: The first vertex represents the data element feature or trait, this
-    term defines <em>what the data element is</em>.
-<li><i>Method</i>: The vertices between the first and the last ones represent the
-    <em>methodology</em> or <em>method</em> by which the described data was obtained.
-<li><i>Scale</i>: The last vertex of the path represents the <em>unit</em> or
-    <em>scale</em> in which the described value is expressed in.
-</ul>
-<p>The concatenation of these term references, separated by the
-{@link kTOKEN_INDEX_SEPARATOR} becomes the object global identifier which is stored in
-the object's native identifier offset.</p>
-<p>Tags have another offset, {@link kTAG_ID_SEQUENCE}, which is an integer sequence number:
-this value must be unique within the tags domain of the current ontology. Unlike global
-identifiers, this value may change across implementations, but this is the value used to
-uniquely identify tags among the other elements of the ontology and database.</p>
-<em>All offsets in all classes, including this one, are tag sequence numbers, which makes
-the Tag class key in the structure and behaviour of all the elements implemented in this
-library</em>.
-
-The class features the following default offsets:
-
-<ul>
-<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
-    a string value which represents the global identifier of the current object. This
-    identifier is immutable and represents the unique key. This string is constituted by
-    the concatenation of all term references stored in the current object's branch,
-    {@link kTAG_TERMS}. This attribute must be managed with its offset; in derived
-    classes it will be automatically assigned end only available as read-only.
-<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: <em>Sequence</em>. This required attribute holds
-    an integer value which represents the current object's sequence number, as with the
-    global identifier, this value must be unique, except that it may change across
-    implementations. All offset keys in all objects derived from this class ancestor are
-    references to this sequence number. This attribute must be managed with its offset;
-    in derived classes it will be automatically assigned end only available as
-    read-only.
-<li><tt>{@link kTAG_TERMS}</tt>: <em>Branch</em>. This required attribute holds
-    the list of terms comprising the current tag: this is an array of term references
-    provided as an odd sequence of vertices and predicates forming a path of the
-    ontology graph in which the first vertex defines the feature, the middle ones
-    define the methodology and the last element indicates the scale or unit. To populate
-    the elements of this path, use the {@link TermPush()} amd {@link TermPop()}
-    offset accessor methods which respectively add and remove elements of the branch as
-    if it was a stack.
-<li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
-    set of values listing all the <em>data types</em> that the value of the property
-    defined by the current tag may take. To populate and handle individual data types
-    use the {@link DataType()} offset accessor method. This property is
-    <em>required</em> by all tag objects.
-<li><tt>{@link kTAG_DATA_KIND}</tt>: <em>Data kind</em>. This attribute is an enumerated
-    set of values providing the <em>data attributes</em> of the property defined by the
-    current tag. This may be whether the property is a list of values, or if the
-    property is required or not. To populate and handle individual data kinds use the
-    {@link DataKind()} offset accessor method.
-<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
-    short description</i> of the data property that the current object defines. All tags
-    <em>should</em> have a label, since this is how human users will be able to identify
-    and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
-    which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
-    holdsthe label language code and the {@link kTAG_TEXT} holds the label text. To
-    populate and handle labels by language, use the {@link Label()} offset accessor
-    method.
-<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
-    represents the <i>description or extended definition</i> of the property that the
-    current tag defines. The description is similar to the <em>definition</em>, except
-    that while the definition provides a description of the object it defines unrelated
-    to context, the description adds to the definition the elements added by the current
-    context. All tags <em>should</em> have a description, if the tag label is not enough
-    to provide a sufficient description or definition. Descriptions have the
-    {@link kTYPE_LANGUAGE_STRINGS} data type, which is constituted by a list of elements
-    in which the {@link kTAG_LANGUAGE} item holds the description language code and the
-    {@link kTAG_TEXT} holds the description text. To populate and handle
-    descriptions by language, use the {@link Description()} offset accessor method.
-</ul>
-
-The {@link __toString()} method will return the value stored in the global identifier,
-if set, or the computed global identifier which is the concatenation of all term
-references stored in the {@link kTAG_TERMS} offset, separated by the
-{@link kTOKEN_INDEX_SEPARATOR}.
-
-The class also features a pair of methods, {@link Feature()} and {@link Scale()}, which
-respectively return the first and last vertex of the ontology branch this object
-represents: the feature is a term that represents the main feature or trait that the
-current tag defines, the scale is a term that represents the scale or unit in which
-values defined by the current tag are expressed in.
-
-Objects of this class can hold any additional attribute that is considered necessary or
-useful to define and share the current tag. In this class we define only those
-attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate and eventually
-restrict the functionality of other offsets to provide referential integrity.
-
-The object is considered initialised, {@link isInited()}, if it has at least the terms
-path, {@link kTAG_TERMS}, with an odd number of elements, the data type,
-{@link kTAG_DATA_TYPE}, and the label, {@link kTAG_LABEL}.
-
-In this class we set the sequence number, {@link kTAG_ID_SEQUENCE}, by retrieving a</div>
-        <a href="../classes/OntologyWrapper.Tag.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Term" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Term .collapse">
-        <h1>Term<a href="../classes/OntologyWrapper.Term.html">¶</a></h1>
-        <p class="short_description">Term</p>
-        <div class="details collapse"><p>A term object holds the necessary information to <i>uniquely identify</i>,</p>
-<i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related
-to a specific context</i>.
-
-For instance, a <tt>name</tt> is defined as a string or text that identifies something,
-this is true for both a person name or an object name, however, the term <tt>name</tt>
-will bare a different meaning depending on what context it is used in: the term object
-holds the definition of that will not change with its context.
-
-The class features the following default offsets:
-
-<ul>
-<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
-    the term global identifier. By convention this value is the combination of the
-    namespace, {@link kTAG_NAMESPACE}, and the local identifier, {@link kTAG_ID_LOCAL},
-    separated by the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global
-    identifier may be manually set. This attribute must be managed with its offset.
-<li><tt>{@link kTAG_NAMESPACE}</tt>: <em>Namespace</em>. This optional attribute is a
-    reference to another term object that represents the namespace of the current term.
-    It is by definition the global identifier of the namespace term. This attribute must
-    be managed with its offset.
-<li><tt>{@link kTAG_ID_LOCAL}</tt>: <em>Local identifier</em>. This required attribute
-    is a string that represents the current term unique identifier within its namespace.
-    The combination of the current term's namespace and this attribute form the term's
-    global identifier. This attribute must be managed with its offset.
-<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
-    short description</i> of the term that the current object defines. All terms
-    <em>should</em> have a label, since this is how human users will be able to identify
-    and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
-    which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
-    holds the label language code and the {@link kTAG_TEXT} holds the label text. To
-    populate and handle labels by language, use the {@link Label()} offset accessor
-    method. Some terms may not have a language element, for instance the number
-    <tt>2</tt> may not need to be expressed in other ways.
-<li><tt>{@link kTAG_DEFINITION}</tt>: <em>Definition</em>. The definition represents the
-    <i>description or extended definition</i> of the term that the current object object
-    defines. The definition is similar to the <em>description</em>, except that while
-    the description provides context specific information, the definition should not.
-    All terms <em>should</em> have a definition, if the object label is not enough to
-    provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRINGS}
-    data type in which the {@link kTAG_LANGUAGE} element holds the definition language
-    code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
-    definitions by language, use the {@link Definition()} offset accessor method.
-</ul>
-
-The {@link __toString()} method will return the value stored in the native identifier,
-if set, or the computed global identifier if at least the local identifier is set; if the
-latter is not set, the method will fail.
-
-Objects of this class can hold any additional attribute that is considered necessary or
-useful to define and share the current term. In this class we define only those
-attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate.
-
-The object is considered initialised, {@link isInited()}, if it has at least the local
-identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL}.</div>
-        <a href="../classes/OntologyWrapper.Term.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_ContainerObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ContainerObject .collapse">
-        <h1>ContainerObject<a href="../classes/OntologyWrapper.ContainerObject.html">¶</a></h1>
-        <p class="short_description">Container object</p>
-        <div class="details collapse"><p>This class is the ancestor of classes that define objects that handle structured data and
-that are persistent.</p>
-<p>The class extends <code>{@link ArrayObject}</code> by treating the inherited array as the
-persistent store and all other data members as run-time data. The convention is that
-items stored in the array part of the object are called <em>offsets</em> and are
-considered <em>persistent</em>, while all other data members are called <em>members</em>
-and are considered <em>run-time</em> data.</p>
-<p>This class implements a framework that governs tha management of the object's persistent
-data. No offset may hold the <tt>NULL</tt> value, setting an offset with <tt>NULL</tt>
-value is equivalent to <em>deleting the offset</em>.</p>
-<p>Retrieving non-existant offsets will <em>not</em> generate a warning, but only return</p>
-<tt>NULL</tt>.
-
-The class features a series of methods that derived classes may use to customise the
-behaviour of the offset management methods:
-
-<ul>
-<li><tt>{@link preOffsetExists()}</tt>: This method is called <i>before</i> the
-    {@link offsetExists()} method with the offset passed as a reference parameter, the
-    method can be used to change the value of the offset or to provide a custom result:
-    if the method returns <tt>NULL</tt>, {@link offsetExists()} will be called; if the
-    method returns any other type of value, this will be returned and
-    {@link offsetExists()} will be skipped.
-<li><tt>{@link preOffsetGet()}</tt>: This is called <i>before</i> the
-    {@link offsetGet()} method with the offset passed as a reference parameter, the
-    method can be used to change the value of the offset or to provide a custom result:
-    if the method returns <tt>NULL</tt>, {@link offsetGet()} will be called; if the
-    method returns any other type of value, this will be returned and
-    {@link offsetGet()} will be skipped.
-<li><tt>{@link preOffsetSet()}</tt>: This is called <i>before</i> the
-    {@link offsetSet()} method with the offset and value passed as reference parameters,
-    the method can be used to change the offset or the value: if the method returns
-    <tt>NULL</tt>, {@link offsetSet()} will be called; if the method returns any other
-    type of value, the {@link offsetSet()} will be skipped.
-<li><tt>{@link postOffsetSet()}</tt>: This is called <i>after</i> the
-    {@link offsetSet()} method with the offset and value passed as reference parameters,
-    the method can be used to set status or statistical variables, it will only be
-    called if the {@link offsetSet()} method was called.
-<li><tt>{@link preOffsetUnset()}</tt>: This is called <i>before</i> the
-    {@link offsetUnset()} method with the offset passed as a reference parameter, the
-    method can be used to change the offset: if the method returns <tt>NULL</tt>,
-    {@link offsetUnset()} will be called; if the method returns any other type of value,
-    the {@link offsetUnset()} will be skipped.
-<li><tt>{@link postOffsetUnset()}</tt>: This is called <i>after</i> the
-    {@link offsetUnset()} method with the offset passed as a reference parameter, the
-    method can be used to set status or statistical variables, it will only be called if
-    the {@link offsetUnset()} method was called.
-</ul>
-
-The class features a series of methods that are useful for handling the persistent data
-as a whole:
-
-<ul>
-<li><em>{@link arrayKeys()}</em>: This method is the equivalent of the
-    {@link array_keys()} function.
-<li><em>{@link arrayValues()}</em>: This method is the equivalent of the
-    {@link array_values()} function.
-</ul>
-
-The class features a static method, {@link Object2Array}, that can be used to
-convert a structure of nested {@link ArrayObject} instances into a nested array, this
-will be useful when normalising objects before persisting.
-
-This class uses the {@link Accessors} trait to provide a common framework to methods that
-manage data properties and offsets.</div>
-        <a href="../classes/OntologyWrapper.ContainerObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_MongoDatabase" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoDatabase .collapse">
-        <h1>MongoDatabase<a href="../classes/OntologyWrapper.MongoDatabase.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link DatabaseObject} wrapping a
-{@link MongoDB} class.</p></div>
-        <a href="../classes/OntologyWrapper.MongoDatabase.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_ConnectionObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConnectionObject .collapse">
-        <h1>ConnectionObject<a href="../classes/OntologyWrapper.ConnectionObject.html">¶</a></h1>
-        <p class="short_description">Connection object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing connection
-instances, such as servers, databases and collections.</p>
-<p>The main purpose of this class is to wrap a common interface around concrete instances of
-specific server, database or collection or engines.</p>
-<p>The class features the following properties:</p>
-<ul>
-<li><tt>{@link $mDSN}</tt>: The <i>data source name</i>, it is an URL that represents
-    the connection string.
-<li><tt>{@link $mConnection}</tt>: The <i>connection resource</i>, it represents the
-    native connection.
-<li><tt>{@link $mParent}</tt>: The <i>parent connection</i>, it represents the instance
-    derived from this class that instantiated the current object.
-</ul>
-<p>The object is instantiated by providing a parameter that may either be a connection URL,
-such as a string that may be parsed by the {@link parse_url()} function, or an array
-containing the connection parameters.</p>
-<p>The public interface of this class, as well as for many other abstract classes, is
-implemented as templates in which protected methods do the actual work, so derived
-concrete classes should only need to implement the protected interface.</p>
-<p>This class declares three methods for managing the connection:</p>
-<ul>
-<li><tt>{@link isConnected()}</tt>: Returns <tt>TRUE</tt> if the connection is open.
-<li><tt>{@link openConnection()}</tt>: Create and open the connection.
-<li><tt>{@link closeConnection()}</tt>: Close and reset the connection.
-</ul>
-<p>When the object goes out of context it will close the connection, if open, and re-open it
-once it gets back into context:</p>
-<ul>
-<li><tt>{@link __sleep()}</tt>: This method will close the connection, if open, and
-    set the {@link $mConnection connection} property to <tt>TRUE</tt> as an indication
-    that the connection must be opened once the object gets back into scope.
-<li><tt>{@link __wakeup()}</tt>: This method will open the connection, if the object
-    went out of scope while the connection was open.
-</ul>
-<p>The class provides accessor methods for the object properties: the {@link $mDSN} data
-member can be managed with the {@link DSN()} method, the {@link $mConnection} data
-member can be retrieved with the {@link Connection()} method and the {@link $mParent}
-data member can be retrieved with the {@link Parent()} method.</p>
-<p>When setting the connection string, {@link DSN()}, the object's connection parameters
-will be synchronised. When setting offsets, the data source name will not be changed.
-When the connection is opened, {@link openConnection()}, the data source name will be
-re-constituted using the object's offsets. This means that the object offsets represent
-the actual connection parameters, although setting the DSN will reset these parameters to
-match the connection URL.</p>
-<p>When the connection is {@link isConnected() open}, any attempt to modify the object
-offsets will raise an exception: this is to prevent changing the connection properties
-while connected.</p>
-<p>In this class we make use of the {@link Status} trait, here we set the
-{@link isDirty()} flag whenever we modify an object offset, and we reset it whenever we
-open the connection; we reset the status bitfield data member after calling the parent
-constructor.</p>
-<p>This object represents the building block for all concrete instances that represent
-servers, databases, data collections and caches.
-+</p>
-<ul>
-<li>When parsing the data source name, using the {@link parse_url()} function,, this class
-will perform the following associations:</li>
-</ul>
-<ul>
-<li><tt>scheme</tt>: <tt>{@link kTAG_CONN_PROTOCOL}</tt>. This corresponds to the server
-    and database protocols, which must be the same.
-<li><tt>host</tt>: <tt>{@link kTAG_CONN_HOST}</tt>. This corresponds to the server
-    object connection host.
-<li><tt>port</tt>: <tt>{@link kTAG_CONN_PORT}</tt>. This corresponds to the server
-    object connection port.
-<li><tt>user</tt>: <tt>{@link kTAG_CONN_USER}</tt>. This corresponds to the server
-    object connection user code.
-<li><tt>pass</tt>: <tt>{@link kTAG_CONN_PASS}</tt>. This corresponds to the server
-    object connection user password.
-<li><tt>path</tt>: <tt>{@link kTAG_CONN_BASE}</tt>. This corresponds to the database
-    object name.
-<li><tt>fragment</tt>: <tt>{@link kTAG_CONN_COLL}</tt>. This corresponds to the
-    collection object name.
-</ul>
-<p>The above associations are stored in the object's offsets, which means that a collection
-will hold its database name and all the parameters of the server connection.</p></div>
-        <a href="../classes/OntologyWrapper.ConnectionObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_PersistentObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PersistentObject .collapse">
-        <h1>PersistentObject<a href="../classes/OntologyWrapper.PersistentObject.html">¶</a></h1>
-        <p class="short_description">Persistent object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing objects that can
-persist in a container and that are constituted by ontology offsets.</p>
-<p>The main purpose of this class is to add the status and persistence traits providing the
-prototypes needed to implement concrete persistent objects.</p>
-<p>The class makes use of the {@link Status} and {@link Persistence} traits:</p>
-<ul>
-<li><tt>{@link Status}</tt>: This trait handles a bitfirld data member that keeps
-    track of the object's status:
- <ul>
-    <li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified,
-        this status can be tested whenever the object should be stored in a persistent
-        container: if set, it means the object has been modified, if not set, it means
-        that the object is identical to the persistent copy.
-    <li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been
-        loaded or stored into a persistent container. This status can be useful to lock
-        properties that cannot change once the object is stored.
- </ul>
-<li><tt>{@link Persistence}</tt>: This trait handles the object persistence.
-</ul>
-<p>Objects derived from this class <em>must</em> define a constant called <em>kSEQ_NAME</em>
-which provides a <em<string</em> representing the <em>default collection name</em> for
-the current object: methods that commit or read objects of a specific class can then
-resolve the collection given a database.</p></div>
-        <a href="../classes/OntologyWrapper.PersistentObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_TagCacheObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCacheObject .collapse">
-        <h1>TagCacheObject<a href="../classes/OntologyWrapper.TagCacheObject.html">¶</a></h1>
-        <p class="short_description">Tag cache object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the prototype of classes that implement a tag cache.</p>
-<p>The main purpose of a tag cache is to hold in a fast retrieval cache all the current
-ontology {@link Tag} objects and information, this cache is actively used by all
-classes derived from {@link OntologyObject} for resolving offsets into {@link Tag}
-references and to cast offset values according to the {@link Tag} declared data
-type.</p>
-<p>Concrete derived classes should implement a constructor that will instantiate the cache
-and load all current tag identifiers and objects.</p>
-<p>The class features the following specific virtual methods:</p>
-<ul>
-<li><tt>{@link init()}</tt>: This method should <i>initialise</i> the cache.
-<li><tt>{@link setTagId()}</tt>: This method should <i>set a key/value pair</i> in which
-    the key represents the tag <i>global identifier</i> and the value the tag <i>native
-    identifier</i>.
-<li><tt>{@link getTagId()}</tt>: This method should <i>return a tag native identifier
-    given a tag global identifier</i>.
-<li><tt>{@link delTagId()}</tt>: This method should <i>delete a key/value pair</i> in
-    which the key represents the tag <i>global identifier</i>.
-<li><tt>{@link setTagObject()}</tt>: This method should <i>set a key/value pair</i> in
-    which the key represents the tag <i>native identifier</i> and the value the tag
-    <i>object or array of contents</i>.
-<li><tt>{@link getTagObject()}</tt>: This method should <i>return a tag object or array
-    of contents given a tag native identifier</i>.
-<li><tt>{@link delTagObject()}</tt>: This method should <i>delete a key/value pair</i>
-    in which the key represents the tag <i>native identifier</i>.
-<li><tt>{@link getTagGID()}</tt>: This method should <i>return a tag global identifier
-    given a tag native identifier</i>.
-</ul></div>
-        <a href="../classes/OntologyWrapper.TagCacheObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Node" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Node .collapse">
-        <h1>Node<a href="../classes/OntologyWrapper.Node.html">¶</a></h1>
-        <p class="short_description">Node</p>
-        <div class="details collapse"><p>A node is a <em>vertex in a graph structure</em>, nodes reference</p>
-<em>{@link Term}</em> and <em>{@link Tag</em> instances, when referencing a
-term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and
-<em>controlloed vocabularies</em>; when referencing tags they are used to build <em>data
-structures</em>, <em>input and output templates</em> and <em>search forms</em>.
-
-Node objects, along with edge objects, represent the presentation layer of the ontology,
-users compose and consult network structures through these objects.
-
-The class features the following default offsets:
-
-<ul>
-<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
-    an <em>integer serial number</em>, nodes do not have a unique persistent identifier,
-    since they act as references and because you may have more than one node referencing
-    the same term or property. The native identifier is assigned automatically.
-<li><tt>{@link kTAG_TERM}</tt>: <em>Term</em>. This attribute is a <em>string</em> that
-    holds a reference to the <em>term object</em> that the current node <em>represents
-    in a graph structure</em>. If this offset is set, the {@link kTAG_TAG} offset must
-    be omitted. This attribute must be managed with its offset.
-<li><tt>{@link kTAG_TAG}</tt>: <em>Tag</em>. This attribute is a <em>string</em> that
-    holds a reference to the <em>tag object</em> that the current node <em>represents
-    in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
-    be omitted. This attribute must be managed with its offset.
-</ul>
-
-The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
-the {@link kTAG_TAG} offset. This value represents the node persistent identifier, which
-is not, however, unique.
-
-Nodes cannot be uniquely identified via a persistent identifier, because more than one
-node may share the same term or tag, this means that when searching for nodes you should
-rely more on traversing a graph path, rather than selecting an object from a list.
-
-Objects of this class can hold any additional attribute that is considered necessary or
-useful to define and share the current node. In this class we define only those
-attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate.
-
-The object is considered initialised, {@link isInited()}, if it has at least the term
-reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.</div>
-        <a href="../classes/OntologyWrapper.Node.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_ServerObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ServerObject .collapse">
-        <h1>ServerObject<a href="../classes/OntologyWrapper.ServerObject.html">¶</a></h1>
-        <p class="short_description">Server object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing server connection
-instances, this class extends the {@link ConnectionObject} class to implement server
-specific functionality prototypes.</p></div>
-        <a href="../classes/OntologyWrapper.ServerObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_CollectionObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CollectionObject .collapse">
-        <h1>CollectionObject<a href="../classes/OntologyWrapper.CollectionObject.html">¶</a></h1>
-        <p class="short_description">Collection object</p>
-        <div class="details collapse"><p>This <i>abstract</i> class is the ancestor of all classes representing database
-collection instances, this class extends the {@link ConnectionObject} class to implement
-collection specific functionality prototypes.</p></div>
-        <a href="../classes/OntologyWrapper.CollectionObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_MongoCollection" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MongoCollection .collapse">
-        <h1>MongoCollection<a href="../classes/OntologyWrapper.MongoCollection.html">¶</a></h1>
-        <p class="short_description">Mongo database</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> implementation of the {@link CollectionObject} wrapping a
-{@link MongoDB} class.</p></div>
-        <a href="../classes/OntologyWrapper.MongoCollection.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_Edge" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Edge .collapse">
-        <h1>Edge<a href="../classes/OntologyWrapper.Edge.html">¶</a></h1>
-        <p class="short_description">Edge</p>
-        <div class="details collapse"><p>This class implements a <em>directed graph</em> by <em>relating a subject vertex</em>
-with an <em>object vertex</em> through a <em>predicate</em>, the direction of the
-relationship is <em>from the subject to the object</em>.</p>
-<p>The vertices of this relatonship, the subject and object, are {@link Node} instance
-references, while the relationship predicate is represented by a {@link Term}
-instance reference.</p>
-<p>The class features the following default offsets:</p>
-<ul>
-<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
-    a <em>string</em> which represents the <em>combination of the subject, predicate and
-    object</em> of the relationship. This attribute must be managed with its offset,
-    although in derived classes it will be set automatically.
-<li><tt>{@link kTAG_SUBJECT}</tt>: <em>Subject</em>. This attribute represents the
-    <em>origin of the relationship</em>, it is an <em>integer</em> value representing
-    the <em>reference to a {@link Node} instance</em>. This attribute must be
-    managed with its offset.
-<li><tt>{@link kTAG_PREDICATE}</tt>: <em>Predicate</em>. This attribute represents the
-    <em>type of relationship</em>, it is a <em>string</em> value representing the
-    <em>reference to a {@link Term} instance</em>. This attribute must be managed
-    with its offset.
-<li><tt>{@link kTAG_OBJECT}</tt>: <em>Object</em>. This attribute represents the
-    <em>destination of the relationship</em>, it is an <em>integer</em> value
-    representing the <em>reference to a {@link Node} instance</em>. This attribute
-    must be managed with its offset.
-</ul>
-<p>The {@link __toString()} method will return the value stored in the native identifier,
-if set, or the computed native identifier, which is the concatenation of the subject,
-predicate and object references separated by the {@link kTOKEN_INDEX_SEPARATOR} token.</p>
-<p>Objects of this class feature a primary key which is not persistent: the vertices
-referenced in the native identifier are integer sequences which depend on the order these
-objects were inserted: this means that both {@link Node} and {@link Edge}
-instances must be re-created when exported.</p>
-<p>Objects of this class can hold any additional attribute that is considered necessary or
-useful to define and share the current node. In this class we define only those
-attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate.</p>
-<p>The object is considered initialised, {@link isInited()}, if it has at least the subject,
-predicate and object references.</p></div>
-        <a href="../classes/OntologyWrapper.Edge.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_OntologyObject" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OntologyObject .collapse">
-        <h1>OntologyObject<a href="../classes/OntologyWrapper.OntologyObject.html">¶</a></h1>
-        <p class="short_description">Ontology object</p>
-        <div class="details collapse"><p>Objects derived from this <i>abstract</i> class hold two types of data:</p>
-<i>run-time data</i>, which is stored in the object member properties and
-<i>persistent data</i>, which is stored in the inherited array part of the object.
-
-The main purpose of this class is to ensure that all persistent data elements are
-<i>referenced</i>, <i>annotated</i> and <i>documented</i> in an ontology.
-
-Persistent data is stored as <i>key/value</i> pair elements of the inherited array, the
-key part of the elements we call by convention <em>offset</em>, these offsets, in this
-class, represent a reference to an object of the ontology that holds all the necessary
-information to <i>identify</i>, <i>describe</i> and <i>validate</i> the value part of the
-array element pairs.
-
-This class implements the bridge between object persistent data and the ontology,
-ensuring that all data holds a reference to the ontology, which, itself, is implemented
-by objects derived from this same class: this means that the whole system is self
-sufficient and self documenting.
-
-Offsets can be uniquely identified in two ways: by native identifier, which is an integer
-value which may change across implementations, and a global identifier, which is a sring
-that will not change across implementations. This class provides a transparent interface
-that allows referring to offsets both by their <i>native</i> identifier or by their
-<i>global</i> identifier. Offsets, however, <em>will only hold the native
-identifier</em>, which means that all persistent data offsets must be integers. This is
-because global identifiers may become large strings, which poses a problem if these are
-used as field names for data stored in a persistent container.
-
-Whenever the object is provided an offset, if this is a string, it will be fed to a
-static method, {@link ResolveOffset()}, which will check if the string represents the
-global identifier of an ontology Tag object, in that case, the method will return the
-Tag's native integer identifier which will be used as the data offset. The class
-features a static data member, {@link $sInternalTags}, that holds the list of exceptions.
-
-This means that to ensure referential integrity it is advisable to use integer constants
-as offsets when available, or string offsets if the integer constant is not known or
-available.
-
-The resolution of these offsets is provided by a {@link TagCache} object which records
-all the <em>Tag</em> objects of the ontology which are the entities that all offsets
-reference: persistent data offsets represent these Tag native identifiers, while these
-Tag object global identifiers are decoded by the {@link TagCache} object to retrieve the
-corresponding integer native identifier.
-
-The class declares the {@link __toString()} method as virtual, it is essential that all
-derived classes implement this method which should return the current object's <em>global
-identifier string</em>. The global identifier of an object can be considered its
-signature or unique identifier, although a global identifier not need to be unique; all
-objects derived from this class, just as the Tag object described above, must feature a
-global identifier, which may or may not coincide with their native identifier.
-
-Finally, the class declares a method, {@link Reference()}, which returns the current
-object's <i>reference</i>, this will generally be the value of the {@link kTAG_NID}
-offset. If the offset is not set, the method will raise an exception. This method will be
-put to use by derived classes: when providing an object to an offset expecting an object
-reference, by using this method one can be assured the provided object does have a
-reference.</div>
-        <a href="../classes/OntologyWrapper.OntologyObject.html" class="more">« More »</a>    </div>
-
-                                        <div id="class_TagCache" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TagCache .collapse">
-        <h1>TagCache<a href="../classes/OntologyWrapper.TagCache.html">¶</a></h1>
-        <p class="short_description">Tag cache</p>
-        <div class="details collapse"><p>This class is a <i>concrete</i> derived instance of the {@link TagCacheObject} which
-implements a tag cache that uses the {@link Memcached} class.</p>
-<p>The class implements the following additional methods:</p>
-<ul>
-<li><tt>{@link init()}</tt>: The method will flush the current cache and reload all
-    tags.
-<li><tt>{@link Pid()}</tt>: The method will return the connection persistent identifier.
-<li><tt>{@link Connection()}</tt>: The method will return the connection resource, which
-    is, in this case, a {@link Memcached} instance.
-<li><tt>{@link stats()}</tt>: The method will return the connection statistics.
-</ul>
-<p>This class may be used as a template to implement tag caches that use other cache engines
-if the {@link Memcached} class is not available.</p></div>
-        <a href="../classes/OntologyWrapper.TagCache.html" class="more">« More »</a>    </div>
-
-                            </div>
-            
-                
-    
-        <ul class="breadcrumb">
-            <li><a href="../index.html"><i class="icon-th"></i></a></li>
-                
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/OntologyWrapper.html">OntologyWrapper</a>
-    </li>
-
-    
-    <li>
-        <span class="divider">\</span><a href="../namespaces/OntologyWrapper.traits.html">traits</a>
-    </li>
-
-        </ul>
-
-        
-        
-                    <div class="namespace-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                                        <div id="trait_Label" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Label .collapse">
-        <h1>Label<a href="../classes/OntologyWrapper.traits.Label.html">¶</a></h1>
-        <p class="short_description">Label trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the label offset, {@link kTAG_LABEL}. The
-method manages the individual labels by language.</p></div>
-        <a href="../classes/OntologyWrapper.traits.Label.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Persistence" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Persistence .collapse">
-        <h1>Persistence<a href="../classes/OntologyWrapper.traits.Persistence.html">¶</a></h1>
-        <p class="short_description">Persistence trait</p>
-        <div class="details collapse"><p>The main purpose of this trait is to add the ability for classes to store and retrieve
-objects in and from persistent stores.</p>
-<p>This trait defines the common methods for managing the object in a persistent store:</p>
-<ul>
-</ul>
-<p>This trait makes also use of the {@link Status} trait in the following way:</p>
-<ul>
-<li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified, this
-    status can be tested whenever the object should be stored in a persistent container:
-    if set, it means the object has been modified, if not set, it means that the object
-    is identical to the persistent copy.
-<li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been loaded
-    or stored into a persistent container. This status can be useful to lock properties
-    that cannot change once the object is stored.
-</ul></div>
-        <a href="../classes/OntologyWrapper.traits.Persistence.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Terms" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Terms .collapse">
-        <h1>Terms<a href="../classes/OntologyWrapper.traits.Terms.html">¶</a></h1>
-        <p class="short_description">Terms trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the terms list offset,
-{@link kTAG_TERMS}. The method allows the management of the elements of the list.</p></div>
-        <a href="../classes/OntologyWrapper.traits.Terms.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Definition" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Definition .collapse">
-        <h1>Definition<a href="../classes/OntologyWrapper.traits.Definition.html">¶</a></h1>
-        <p class="short_description">Definition trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the definition offset,
-{@link kTAG_DEFINITION}. The method manages the individual definitions by language.</p></div>
-        <a href="../classes/OntologyWrapper.traits.Definition.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Description" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Description .collapse">
-        <h1>Description<a href="../classes/OntologyWrapper.traits.Description.html">¶</a></h1>
-        <p class="short_description">Description trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the description offset,
-{@link kTAG_DESCRIPTION}. The method manages the individual descriptions by language.</p></div>
-        <a href="../classes/OntologyWrapper.traits.Description.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Accessors" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Accessors .collapse">
-        <h1>Accessors<a href="../classes/OntologyWrapper.traits.Accessors.html">¶</a></h1>
-        <p class="short_description">Accessors trait</p>
-        <div class="details collapse"><p>The main purpose of this trait is to provide a series of templates for managing object
-properties, offsets and structure components. The idea is to provide a common framework
-to member accessor methods by sharing standards.</p>
-<p>This trait implements the following protected methods:</p>
-<ul>
-<li><em>{@link manageOffset()}</em>: This method provides a standard interface to set,
-    retrieve and delete offset values.
-<li><em>{@link manageSetOffset()}</em>: This method provides a standard interface to
-    set, retrieve and delete elements of an array set, this method provides access to
-    elements of the offset, rather than to the offset, which must be an array or
-    {@link ArrayObject}.
-<li><em>{@link manageArrayOffset()}</em>: This method provides a standard interface to
-    set, retrieve and delete key/value pair elements based on their key.
-<li><em>{@link manageElementMatchOffset()}</em>: This method provides a standard
-    interface to set, retrieve and delete elements of an array or {@link ArrayObject},
-    these elements are an array of two items in which the first one is the discriminator
-    and the second is the value.
-<li><em>{@link manageProperty()}</em>: This method provides a standard interface to set,
-    retrieve and reset data members.
-</ul></div>
-        <a href="../classes/OntologyWrapper.traits.Accessors.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_DataType" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_DataType .collapse">
-        <h1>DataType<a href="../classes/OntologyWrapper.traits.DataType.html">¶</a></h1>
-        <p class="short_description">DataType trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the data type offset,
-{@link kTAG_DATA_TYPE}. The method allows the management of the individual elements of
-the enumerated set.</p></div>
-        <a href="../classes/OntologyWrapper.traits.DataType.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_Status" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_Status .collapse">
-        <h1>Status<a href="../classes/OntologyWrapper.traits.Status.html">¶</a></h1>
-        <p class="short_description">Status trait</p>
-        <div class="details collapse"><p>The main purpose of this trait is to add status management to classes, this is done by
-adding a bitfield {@link $mStatus} data member and a set of methods that handle this
-bitfield.</p>
-<p>This trait defines the common methods for managing the bitfield data member and handles
-the following flags:</p>
-<ul>
-<li><tt>{@link kFLAG_STATE_INITED}</tt>: This flag indicates that the object is ready
-    to be used and is set by the {@link isInited()} method; if the flag is not set,
-    it means that the object is not functional.
-<li><tt>{@link kFLAG_STATE_DIRTY}</tt>: This flag is set whenever the object's offsets
-    are modified and it can be managed by the {@link isDirty()} method. For persistent
-    objects it is an indication that the object should be updated; if the flag is not
-    set, it means that the object persistent properties are in the same state as when it
-    was loaded from a persistent store.
-<li><tt>{@link kFLAG_STATE_COMMITTED}</tt>: This flag is set whenever the object is
-    either loaded from or stored in a persistent store and can be managed by the
-    {@link isCommitted()} method. It is an indication that the object is persistent; if
-    the flag is not set, it means that the object was not loaded from or stored in a
-    persistent store.
-<li><tt>{@link kFLAG_STATE_ENCODED}</tt>: This flag indicates an encoded state and can
-    be managed by the {@link isEncoded()} method, which means that some object offsets
-    have been encoded and need to be decoded before the object is saved in a persistent
-    store or effectively used. This state is often associated to the network
-    transmission of objects: some data types must be converted prior to be sent over the
-    network; if the flag is not set, it means that the object can be saved in a
-    persistent store or serialised for being transmitted on the network.
-</ul>
-<p>All the flag accessor methods are protected, since they provide access to the internal
-workings of the object, if you need to provide status information you should do so by
-using these methods in a public interface.</p></div>
-        <a href="../classes/OntologyWrapper.traits.Status.html" class="more">« More »</a>    </div>
-
-                                        <div id="trait_DataKind" class="element ajax clickable trait" data-toggle="collapse" data-target="#trait_DataKind .collapse">
-        <h1>DataKind<a href="../classes/OntologyWrapper.traits.DataKind.html">¶</a></h1>
-        <p class="short_description">DataKind trait</p>
-        <div class="details collapse"><p>This trait implements a method for managing the data kind offset,
-{@link kTAG_DATA_KIND}. The method allows the management of the individual elements of
-the enumerated set.</p></div>
-        <a href="../classes/OntologyWrapper.traits.DataKind.html" class="more">« More »</a>    </div>
-
-                
-                
-                            </div>
-            
-    
-    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                            </ul>
+                </div>
+            </div>
         </div>
     </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
-        <footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sat, 15 Feb 2014 15:56:24 +0100.<br/>
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a>
+                                            </nav>
+                    <h1><small>\</small>OntologyWrapper</h1>
+
+                                        <h2>Namespaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td><a href="../namespaces/OntologyWrapper.traits.html">traits</a></td>
+                            </tr>
+                                            </table>
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></td>
+                            <td><em>Database object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></td>
+                            <td><em>Mongo server</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></td>
+                            <td><em>Wrapper</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Tag.html">Tag</a></td>
+                            <td><em>Tag</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Term.html">Term</a></td>
+                            <td><em>Term</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></td>
+                            <td><em>Container object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></td>
+                            <td><em>Mongo database</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></td>
+                            <td><em>Connection object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></td>
+                            <td><em>Persistent object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Node.html">Node</a></td>
+                            <td><em>Node</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></td>
+                            <td><em>Server object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></td>
+                            <td><em>Collection object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></td>
+                            <td><em>Mongo database</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Edge.html">Edge</a></td>
+                            <td><em>Edge</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></td>
+                            <td><em>Ontology object</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></td>
+                            <td><em>Dictionary</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></td>
+                            <td><em>Dictionary object</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                                                        <div class="namespace-wrapper">\OntologyWrapper</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 18th, 2014 at 12:25.
+                </section>
+            </section>
+        </section>
     </footer>
-    </body>
+</div>
+
+</body>
 </html>

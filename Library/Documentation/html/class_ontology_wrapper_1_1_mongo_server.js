@@ -4,5 +4,5 @@ var class_ontology_wrapper_1_1_mongo_server =
     [ "connectionOpen", "class_ontology_wrapper_1_1_mongo_server.html#abd478e3c641bbe1f40f7edf41e986558", null ],
     [ "getStatistics", "class_ontology_wrapper_1_1_mongo_server.html#ad0339362ebaba5c344a179ef11d4e102", null ],
     [ "isConnected", "class_ontology_wrapper_1_1_mongo_server.html#a2bde1d3f28624801cbb42bf8b94673d4", null ],
-    [ "newDatabase", "class_ontology_wrapper_1_1_mongo_server.html#a511427a098b640515401bbb6baba7515", null ]
+    [ "newDatabase", "class_ontology_wrapper_1_1_mongo_server.html#a111d5b677ba1a32f220cd21715ff04b8", null ]
 ];

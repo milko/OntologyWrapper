@@ -1,18 +1,15 @@
 <map id="OntologyWrapper\OntologyObject" name="OntologyWrapper\OntologyObject">
-<area shape="rect" id="node4" href="$class_ontology_wrapper_1_1_connection_object.html" title="OntologyWrapper\\Connection\lObject" alt="" coords="615,93,812,131"/>
-<area shape="rect" id="node11" href="$class_ontology_wrapper_1_1_edge_object.html" title="OntologyWrapper\\EdgeObject" alt="" coords="614,179,813,205"/>
-<area shape="rect" id="node13" href="$class_ontology_wrapper_1_1_node_object.html" title="OntologyWrapper\\NodeObject" alt="" coords="613,229,813,254"/>
-<area shape="rect" id="node15" href="$class_ontology_wrapper_1_1_tag_object.html" title="OntologyWrapper\\TagObject" alt="" coords="619,278,808,303"/>
-<area shape="rect" id="node17" href="$class_ontology_wrapper_1_1_term_object.html" title="OntologyWrapper\\TermObject" alt="" coords="615,327,812,353"/>
-<area shape="rect" id="node2" href="$class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="146,222,334,261"/>
-<area shape="rect" id="node5" href="$class_ontology_wrapper_1_1_collection_object.html" title="OntologyWrapper\\Collection\lObject" alt="" coords="871,5,1059,43"/>
-<area shape="rect" id="node7" href="$class_ontology_wrapper_1_1_database_object.html" title="OntologyWrapper\\Database\lObject" alt="" coords="872,67,1059,106"/>
-<area shape="rect" id="node9" href="$class_ontology_wrapper_1_1_server_object.html" title="OntologyWrapper\\ServerObject" alt="" coords="862,130,1069,155"/>
-<area shape="rect" id="node6" href="$class_ontology_wrapper_1_1_mongo_collection.html" title="OntologyWrapper\\MongoCollection" alt="" coords="1118,11,1346,37"/>
-<area shape="rect" id="node8" href="$class_ontology_wrapper_1_1_mongo_database.html" title="OntologyWrapper\\MongoDatabase" alt="" coords="1118,74,1346,99"/>
-<area shape="rect" id="node10" href="$class_ontology_wrapper_1_1_mongo_server.html" title="OntologyWrapper\\MongoServer" alt="" coords="1127,130,1337,155"/>
-<area shape="rect" id="node12" href="$class_ontology_wrapper_1_1_edge.html" title="OntologyWrapper\\Edge" alt="" coords="885,179,1046,205"/>
-<area shape="rect" id="node14" href="$class_ontology_wrapper_1_1_node.html" title="OntologyWrapper\\Node" alt="" coords="885,229,1046,254"/>
-<area shape="rect" id="node16" href="$class_ontology_wrapper_1_1_tag.html" title="OntologyWrapper\\Tag" alt="" coords="890,278,1041,303"/>
-<area shape="rect" id="node18" href="$class_ontology_wrapper_1_1_term.html" title="OntologyWrapper\\Term" alt="" coords="886,327,1045,353"/>
+<area shape="rect" id="node4" href="$class_ontology_wrapper_1_1_connection_object.html" title="OntologyWrapper\\Connection\lObject" alt="" coords="614,97,810,135"/>
+<area shape="rect" id="node11" href="$class_ontology_wrapper_1_1_persistent_object.html" title="OntologyWrapper\\Persistent\lObject" alt="" coords="618,223,806,262"/>
+<area shape="rect" id="node2" href="$class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="146,174,334,213"/>
+<area shape="rect" id="node5" href="$class_ontology_wrapper_1_1_collection_object.html" title="OntologyWrapper\\Collection\lObject" alt="" coords="869,6,1057,45"/>
+<area shape="rect" id="node7" href="$class_ontology_wrapper_1_1_database_object.html" title="OntologyWrapper\\Database\lObject" alt="" coords="869,69,1056,107"/>
+<area shape="rect" id="node9" href="$class_ontology_wrapper_1_1_server_object.html" title="OntologyWrapper\\ServerObject" alt="" coords="859,131,1066,157"/>
+<area shape="rect" id="node6" href="$class_ontology_wrapper_1_1_mongo_collection.html" title="OntologyWrapper\\MongoCollection" alt="" coords="1115,13,1344,38"/>
+<area shape="rect" id="node8" href="$class_ontology_wrapper_1_1_mongo_database.html" title="OntologyWrapper\\MongoDatabase" alt="" coords="1116,75,1343,101"/>
+<area shape="rect" id="node10" href="$class_ontology_wrapper_1_1_mongo_server.html" title="OntologyWrapper\\MongoServer" alt="" coords="1125,131,1334,157"/>
+<area shape="rect" id="node12" href="$class_ontology_wrapper_1_1_edge.html" title="OntologyWrapper\\Edge" alt="" coords="882,181,1043,206"/>
+<area shape="rect" id="node13" href="$class_ontology_wrapper_1_1_node.html" title="OntologyWrapper\\Node" alt="" coords="882,230,1043,255"/>
+<area shape="rect" id="node14" href="$class_ontology_wrapper_1_1_tag.html" title="OntologyWrapper\\Tag" alt="" coords="887,279,1038,305"/>
+<area shape="rect" id="node15" href="$class_ontology_wrapper_1_1_term.html" title="OntologyWrapper\\Term" alt="" coords="883,329,1042,354"/>
 </map>

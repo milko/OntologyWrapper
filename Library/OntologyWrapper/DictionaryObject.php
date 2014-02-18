@@ -102,7 +102,7 @@ abstract class DictionaryObject extends ContainerObject
 	/**
 	 * Set tag
 	 *
-	 * This method should either insert the provided tag object, if it doesn't yet exist, or
+	 * This method should either commit the provided tag object, if it doesn't yet exist, or
 	 * replace an existing tag object.
 	 *
 	 * The method expects the following parameters:
@@ -374,38 +374,31 @@ abstract class DictionaryObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	dictionaryStats																	*
+	 *	dictionaryFilled																*
 	 *==================================================================================*/
 
 	/**
-	 * Return dictionary cache statistics
+	 * Check if dictionary is filled
 	 *
-	 * This method should return statistics for the dictionary, the result depends on the
-	 * specific engine used by the dictionary.
+	 * This method will return <tt>TRUE</tt> if the current dictionary can resolve the
+	 * <tt>kTAG_DOMAIN</tt> identifier.
 	 *
-	 * In this class we return <tt>NULL</tt>.
-	 *
-	 * @access public
-	 * @return mixed				Dictionary statistics.
-	 */
-	public function dictionaryStats()									{	return NULL;	}
-
-	 
-	/*===================================================================================
-	 *	dictionaryCount																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return dictionary elements count
-	 *
-	 * This method should return the number of elements stored in the dictionary.
-	 *
-	 * The method must be implemented in derived classes.
+	 * We assume that if the dictionary can resolve this identifier, it means it must be
+	 * filled.
 	 *
 	 * @access public
-	 * @return integer				Number of cached elements.
+	 * @return boolean				<tt>TRUE</tt> means filled.
 	 */
-	abstract public function dictionaryCount();
+	public function dictionaryFilled()
+	{
+		//
+		// Get domain tag object.
+		//
+		$domain = $this->getObject( kTAG_DOMAIN, FALSE );
+		
+		return ( $domain !== NULL );												// ==>
+	
+	} // dictionaryFilled.
 
 	 
 	/*===================================================================================
@@ -443,7 +436,7 @@ abstract class DictionaryObject extends ContainerObject
 	/**
 	 * Set a dictionary entry
 	 *
-	 * This method should insert a new entry in the dictionary, if it doesn't exist yet, or
+	 * This method should commit a new entry in the dictionary, if it doesn't exist yet, or
 	 * replace the matching entry if it already exists.
 	 *
 	 * The method expects the following parameters:

@@ -26,24 +26,25 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Collection\-Object\-:
 \item 
 \hyperlink{class_ontology_wrapper_1_1_collection_object_aee9026b21f08ac0fcfb16f093a9f3235}{drop} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_collection_object_adc0a8dd83621a9d68d005b2858112c74}{insert} (\&\$the\-Object, \$the\-Options=Array())
+\hyperlink{class_ontology_wrapper_1_1_collection_object_a5cfdfec26ddd9919c1dbabeb2c103a43}{commit} (\&\$the\-Object, \$the\-Options=Array())
 \item 
 \hyperlink{class_ontology_wrapper_1_1_collection_object_a2e6eea553a4b562445ca2959df8d170c}{resolve} (\$the\-Identifier, \$the\-Offset=k\-T\-A\-G\-\_\-\-N\-I\-D, \$as\-Object=T\-R\-U\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_collection_object_af663744439023bf993774bdca09b3faa}{get\-All} ()
 \item 
 \hyperlink{class_ontology_wrapper_1_1_collection_object_a0868032610dd81c923f4a887ec46104d}{set\-Sequence\-Number} (\$the\-Sequence, \$the\-Number=1)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_collection_object_a17487ff9e82b493434a074c787262df0}{get\-Sequence\-Number} (\$the\-Sequence)
 \end{DoxyCompactItemize}
-\subsection*{Static Public Attributes}
+\subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_ontology_wrapper_1_1_collection_object_a27abf14ffa8185f0fb69b6166869ffd9}{static {\bfseries \$s\-Offsets} = array( k\-T\-A\-G\-\_\-\-C\-O\-N\-N\-\_\-\-C\-O\-L\-L )}\label{class_ontology_wrapper_1_1_collection_object_a27abf14ffa8185f0fb69b6166869ffd9}
-
+static \hyperlink{class_ontology_wrapper_1_1_collection_object_abae405620e85cc435942cd3b49e689b5}{Default\-Offsets} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ontology_wrapper_1_1_collection_object_a32ad8e11098caeae5498b5bc5ec74b80}{new\-Database} (\$the\-Parameter)
+\hyperlink{class_ontology_wrapper_1_1_collection_object_a613793e54e0ff92c4e595bb34d539e70}{new\-Database} (\$the\-Parameter, \$do\-Open=T\-R\-U\-E)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{insert\-Data} (\&\$the\-Data, \&\$the\-Options)
 \end{DoxyCompactItemize}
@@ -79,12 +80,61 @@ mixed & {\em \$the\-Parameter} & Data source name or parameters. \\
 \end{DoxyParams}
 public
 
-\begin{DoxySeeAlso}{See Also}
-Server\-Object\-::\$s\-Offsets Database\-Object\-::\$s\-Offsets
-\end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_collection_object_a32ad8e11098caeae5498b5bc5ec74b80}{new\-Database()} 
+\hyperlink{class_ontology_wrapper_1_1_server_object_a6c7ca6d64f94b7b9b6c3bac5f5ea4751}{Server\-Object\-::\-Default\-Offsets()}  \hyperlink{class_ontology_wrapper_1_1_database_object_acb6b501dfa770b9e1530f6c6d93190d4}{Database\-Object\-::\-Default\-Offsets()}
+
+\hyperlink{class_ontology_wrapper_1_1_collection_object_a613793e54e0ff92c4e595bb34d539e70}{new\-Database()} 
 
 \subsection{Member Function Documentation}
+\hypertarget{class_ontology_wrapper_1_1_collection_object_a5cfdfec26ddd9919c1dbabeb2c103a43}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!commit@{commit}}
+\index{commit@{commit}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
+\subsubsection[{commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Object, }
+\item[{}]{\$the\-Options = {\ttfamily Array()}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_collection_object_a5cfdfec26ddd9919c1dbabeb2c103a43}
+Insert an object
+
+The method expects the provided parameter to be either an array or an \hyperlink{}{Array\-Object} instance.
+
+The method will call the virtual \hyperlink{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{insert\-Data()} method, passing the received object to it, which will perform the actual commit.
+
+The method will return the inserted object's identifier, \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}.
+
+This method will also take care of setting the \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S} offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Object} & Object to commit. \\
+\hline
+array & {\em \$the\-Options} & Insert options.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed Inserted object identifier.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S
+\end{DoxySeeAlso}
+\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  \hyperlink{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{insert\-Data()} \hypertarget{class_ontology_wrapper_1_1_collection_object_abae405620e85cc435942cd3b49e689b5}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!Default\-Offsets@{Default\-Offsets}}
+\index{Default\-Offsets@{Default\-Offsets}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
+\subsubsection[{Default\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::\-Default\-Offsets (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_collection_object_abae405620e85cc435942cd3b49e689b5}
+Return default offsets
+
+In this class we return the \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-O\-N\-N\-\_\-\-C\-O\-L\-L} offset.
+
+\begin{DoxyReturn}{Returns}
+array List of default offsets. 
+\end{DoxyReturn}
 \hypertarget{class_ontology_wrapper_1_1_collection_object_aee9026b21f08ac0fcfb16f093a9f3235}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!drop@{drop}}
 \index{drop@{drop}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
 \subsubsection[{drop}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::drop (
@@ -96,7 +146,23 @@ Drop the collection
 
 This method should drop the current collection.
 
-public \hypertarget{class_ontology_wrapper_1_1_collection_object_a17487ff9e82b493434a074c787262df0}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!get\-Sequence\-Number@{get\-Sequence\-Number}}
+public \hypertarget{class_ontology_wrapper_1_1_collection_object_af663744439023bf993774bdca09b3faa}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!get\-All@{get\-All}}
+\index{get\-All@{get\-All}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
+\subsubsection[{get\-All}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::get\-All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [abstract]}}}\label{class_ontology_wrapper_1_1_collection_object_af663744439023bf993774bdca09b3faa}
+Return all objects
+
+This method should select all the objects of the collection and return an iterator.
+
+Concrete derived classes should implement this method.
+
+public \begin{DoxyReturn}{Returns}
+Iterator Selection of all objects of the collection. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_collection_object_a17487ff9e82b493434a074c787262df0}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!get\-Sequence\-Number@{get\-Sequence\-Number}}
 \index{get\-Sequence\-Number@{get\-Sequence\-Number}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
 \subsubsection[{get\-Sequence\-Number}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::get\-Sequence\-Number (
 \begin{DoxyParamCaption}
@@ -123,43 +189,7 @@ string & {\em \$the\-Sequence} & Sequence selector.\\
 public \begin{DoxyReturn}{Returns}
 integer Sequence number. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_collection_object_adc0a8dd83621a9d68d005b2858112c74}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!insert@{insert}}
-\index{insert@{insert}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
-\subsubsection[{insert}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::insert (
-\begin{DoxyParamCaption}
-\item[{\&}]{\$the\-Object, }
-\item[{}]{\$the\-Options = {\ttfamily Array()}}
-\end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_collection_object_adc0a8dd83621a9d68d005b2858112c74}
-Insert an object
-
-The method expects the provided parameter to be either an array or an \hyperlink{}{Array\-Object} instance.
-
-The method will call the virtual \hyperlink{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{insert\-Data()} method, passing the received object to it, which will perform the actual insert.
-
-The method will return the inserted object's identifier, \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}.
-
-This method will also take care of setting the \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S} offset.
-
-
-\begin{DoxyParams}[1]{Parameters}
-reference & {\em \$the\-Object} & Object to insert. \\
-\hline
-array & {\em \$the\-Options} & Insert options.\\
-\hline
-\end{DoxyParams}
-public \begin{DoxyReturn}{Returns}
-mixed Inserted object identifier.
-\end{DoxyReturn}
-
-\begin{DoxyExceptions}{Exceptions}
-{\em Exception} & \\
-\hline
-\end{DoxyExceptions}
-\begin{DoxySeeAlso}{See Also}
-k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S
-\end{DoxySeeAlso}
-\hyperlink{class_ontology_wrapper_1_1_connection_object_abfd8e3b96ce288b2d1b1e586e8e7172a}{is\-Connected()}  \hyperlink{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{insert\-Data()} \hypertarget{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!insert\-Data@{insert\-Data}}
+\hypertarget{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!insert\-Data@{insert\-Data}}
 \index{insert\-Data@{insert\-Data}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
 \subsubsection[{insert\-Data}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::insert\-Data (
 \begin{DoxyParamCaption}
@@ -169,13 +199,13 @@ k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S
 )\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_collection_object_adc48ee44a9d36d23a9db87a8ab4e4eff}
 Insert provided data
 
-This method should be implemented by concrete derived classes, it should insert a new record in the current collection featuring the provided data and return the record identifier.
+This method should be implemented by concrete derived classes, it should commit a new record in the current collection featuring the provided data and return the record identifier.
 
 Derived classes must implement this method.
 
 
 \begin{DoxyParams}[1]{Parameters}
-reference & {\em \$the\-Data} & Data to insert. \\
+reference & {\em \$the\-Data} & Data to commit. \\
 \hline
 array & {\em \$the\-Options} & Insert options.\\
 \hline
@@ -183,13 +213,14 @@ array & {\em \$the\-Options} & Insert options.\\
 protected \begin{DoxyReturn}{Returns}
 mixed Object identifier. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_collection_object_a32ad8e11098caeae5498b5bc5ec74b80}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!new\-Database@{new\-Database}}
+\hypertarget{class_ontology_wrapper_1_1_collection_object_a613793e54e0ff92c4e595bb34d539e70}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!new\-Database@{new\-Database}}
 \index{new\-Database@{new\-Database}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}
 \subsubsection[{new\-Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Collection\-Object\-::new\-Database (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Parameter}
+\item[{}]{\$the\-Parameter, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_collection_object_a32ad8e11098caeae5498b5bc5ec74b80}
+)\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_collection_object_a613793e54e0ff92c4e595bb34d539e70}
 Return a new database instance
 
 This method should be implemented by concrete derived classes, it expects a list of offsets or a data source name containing the necessary elements to instantiate a \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} instance which will be considered the current object's parent.
@@ -200,7 +231,9 @@ Derived classes must implement this method.
 
 
 \begin{DoxyParams}[1]{Parameters}
-mixed & {\em \$the\-Parameter} & Database parameters.\\
+mixed & {\em \$the\-Parameter} & Database parameters. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 protected \begin{DoxyReturn}{Returns}
@@ -217,9 +250,21 @@ protected \begin{DoxyReturn}{Returns}
 )\hspace{0.3cm}{\ttfamily [abstract]}}}\label{class_ontology_wrapper_1_1_collection_object_a2e6eea553a4b562445ca2959df8d170c}
 Resolve an object
 
-This method should select an object in the current collection matching the provided native identifier with the provided offset and return either the object, if the second parameter is {\ttfamily T\-R\-U\-E}, or an array if {\ttfamily F\-A\-L\-S\-E}; if the object cannot be resolved, the method should return {\ttfamily N\-U\-L\-L}.
+This method should select an object in the current collection matching the provided identifier with the provided offset.
 
-If there are more than one objects selected, this method should only return the first.
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Identifier}\-: This parameter represents the value to match with the provided offset. 
+\item {\bfseries \$the\-Offset}\-: This parameter represents either the native or persistent identifier of the offset tag. 
+\item {\bfseries \$as\-Object}\-: This parameter determines what the method should return\-: 
+\begin{DoxyItemize}
+\item {\ttfamily T\-R\-U\-E}\-: Return the object; if there are more than one objects selected, this method should only return the first. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Return the object array; if there are more than one objects selected, this method should only return the first. 
+\item {\ttfamily N\-U\-L\-L}\-: Return the objects count. 
+\end{DoxyItemize}
+\end{DoxyItemize}
 
 Concrete derived classes should implement this method.
 
@@ -229,11 +274,11 @@ mixed & {\em \$the\-Identifier} & Object identifier. \\
 \hline
 mixed & {\em \$the\-Offset} & Offset. \\
 \hline
-boolean & {\em \$as\-Object} & Return object if {\ttfamily T\-R\-U\-E}.\\
+mixed & {\em \$as\-Object} & Return object if {\ttfamily T\-R\-U\-E}.\\
 \hline
 \end{DoxyParams}
 public \begin{DoxyReturn}{Returns}
-mixed Found object, array, or {\ttfamily N\-U\-L\-L}. 
+mixed Found object, array, objects count or {\ttfamily N\-U\-L\-L}. 
 \end{DoxyReturn}
 \hypertarget{class_ontology_wrapper_1_1_collection_object_a0868032610dd81c923f4a887ec46104d}{\index{Ontology\-Wrapper\-::\-Collection\-Object@{Ontology\-Wrapper\-::\-Collection\-Object}!set\-Sequence\-Number@{set\-Sequence\-Number}}
 \index{set\-Sequence\-Number@{set\-Sequence\-Number}!OntologyWrapper::CollectionObject@{Ontology\-Wrapper\-::\-Collection\-Object}}

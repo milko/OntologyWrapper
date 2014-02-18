@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['persistenttrait',['PersistentTrait',['../namespace_ontology_wrapper.html#aad152394da45245f97951e27b3e564ca',1,'OntologyWrapper']]]
+  ['status',['Status',['../namespace_ontology_wrapper_1_1traits.html#abc477d51641d17c4e149e2cd0093c771',1,'OntologyWrapper::traits']]]
 ];

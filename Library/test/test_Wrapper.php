@@ -90,12 +90,44 @@ try
 	echo( '<h4>Instantiate object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( kSESSION_DDICT, array( array( "localhost", 11211 ) ) );'.kSTYLE_HEAD_POS );
-	$test = new MyClass( kSESSION_DDICT, array( array( "localhost", 11211 ) ) );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( "test", array( array( "localhost", 11211 ) ) );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( "test", array( array( "localhost", 11211 ) ) );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Flush cache.
+	//
+	echo( '<h4>Flush cache</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $filled );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$filled = $test->dictionaryFlush();<br/>' );
+	$test->dictionaryFlush();
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $filled );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -115,6 +147,17 @@ try
 	echo( '$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );'.'<br />' );
 	$test->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
 	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $filled );
+	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -185,13 +228,56 @@ try
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $test->dictionaryCount() );
-	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $test->cache()->getAllKeys() );
+	var_dump( $filled );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Flush cache.
+	//
+	echo( '<h4>Flush cache</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$filled = $test->dictionaryFlush();<br/>' );
+	$test->dictionaryFlush();
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $filled );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Load tag cache.
+	//
+	echo( '<h4>Load tag cache</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test->loadTagCache();<br/>' );
+	$test->loadTagCache();
+	echo( '$filled = $test->dictionaryFilled();' );
+	$filled = $test->dictionaryFilled();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $filled );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['units',['Units',['../class_ontology_wrapper_1_1_wrapper.html#a04c8c36bebf40208956e797b5dc64fec',1,'OntologyWrapper::Wrapper']]]
+  ['validatenewnamespace',['validateNewNamespace',['../class_ontology_wrapper_1_1_term.html#a84d69a697d82cc5fa8c4e4e0a1096852',1,'OntologyWrapper::Term']]]
 ];

@@ -33,7 +33,7 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Mongo\-Server\-:\nopa
 \item 
 \hyperlink{class_ontology_wrapper_1_1_mongo_server_a0817afd4db82e176e0ebb6c7d5752e6e}{connection\-Close} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}{new\-Database} (\$the\-Offsets)
+\hyperlink{class_ontology_wrapper_1_1_mongo_server_a111d5b677ba1a32f220cd21715ff04b8}{new\-Database} (\$the\-Offsets, \$do\-Open=T\-R\-U\-E)
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
@@ -109,13 +109,14 @@ We overload this method to assume the object is connected if the resource is a \
 public \begin{DoxyReturn}{Returns}
 boolean {\ttfamily T\-R\-U\-E} is open. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!new\-Database@{new\-Database}}
+\hypertarget{class_ontology_wrapper_1_1_mongo_server_a111d5b677ba1a32f220cd21715ff04b8}{\index{Ontology\-Wrapper\-::\-Mongo\-Server@{Ontology\-Wrapper\-::\-Mongo\-Server}!new\-Database@{new\-Database}}
 \index{new\-Database@{new\-Database}!OntologyWrapper::MongoServer@{Ontology\-Wrapper\-::\-Mongo\-Server}}
 \subsubsection[{new\-Database}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Mongo\-Server\-::new\-Database (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Offsets}
+\item[{}]{\$the\-Offsets, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_server_a511427a098b640515401bbb6baba7515}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_mongo_server_a111d5b677ba1a32f220cd21715ff04b8}
 Return a new database instance
 
 This method should implemented by concrete derived classes, it expects a list of offsets which include server information and should use them to instantiate a \hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} instance.
@@ -124,7 +125,9 @@ Derived classes must implement this method.
 
 
 \begin{DoxyParams}[1]{Parameters}
-array & {\em \$the\-Offsets} & Full database offsets.\\
+array & {\em \$the\-Offsets} & Full database offsets. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
 protected \begin{DoxyReturn}{Returns}

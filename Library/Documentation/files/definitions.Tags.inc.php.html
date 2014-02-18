@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-359429603"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-359429603" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2091494830"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-2091494830" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-690184691"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-690184691" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Accessors.html">Accessors</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>definitions</small>Tags.inc.php</h1>
+                    <p><em>Default attribute tags.</em></p>
+                    <p>This file contains the default ontology tag definitions, these offsets represent the
+default tags used in the objects comprising the ontology and the core objects of this
+library.</p>
+<p>Each entry is a definitions that holds the <em>global identifier</em> of the tag.</p>
+
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    version
+                                </th>
+                                <td>
+                                                                            <p>13/01/2014</p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content file">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_NID" name="constant_kTAG_NID" class="anchor"></a>
+            <article id="constant_kTAG_NID" class="constant">
+                <h3 class="">kTAG_NID</h3>
+                <pre class="signature">kTAG_NID</pre>
+                <p><em>Native identifier (&lt;code&gt;_id&lt;/code&gt;)</em></p>
+                <p>This offset is the <em>primary key</em> of all persistent objects, it doesn't have a
+specific data type and all objects must have it. This attribute is internal and it is not
+defined in the ontology.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CLASS" name="constant_kTAG_CLASS" class="anchor"></a>
+            <article id="constant_kTAG_CLASS" class="constant">
+                <h3 class="">kTAG_CLASS</h3>
+                <pre class="signature">kTAG_CLASS</pre>
+                <p><em>Class (&lt;code&gt;_class&lt;/code&gt;)</em></p>
+                <p>This offset represents the <em>object class name</em>, this string is used to
+instantiate the correct object once loaded from a container. This attribute is internal
+and it is not defined in the ontology.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_DOMAIN" name="constant_kTAG_DOMAIN" class="anchor"></a>
+            <article id="constant_kTAG_DOMAIN" class="constant">
+                <h3 class="">kTAG_DOMAIN</h3>
+                <pre class="signature">kTAG_DOMAIN</pre>
+                <p><em>Domain (&lt;code&gt;:domain&lt;/code&gt;)</em></p>
+                <p>This tag represents the <em>domain</em> of an object, it is an <em>enumerated set</em> of</p>
+<em>term object references</em> which represent the <em>kind</em> or <em>nature</em> of
+the object, this type of property is used to <em>disambiguate objects of different
+domains within a single collection.</em>.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_AUTHORITY" name="constant_kTAG_AUTHORITY" class="anchor"></a>
+            <article id="constant_kTAG_AUTHORITY" class="constant">
+                <h3 class="">kTAG_AUTHORITY</h3>
+                <pre class="signature">kTAG_AUTHORITY</pre>
+                <p><em>Authority (&lt;code&gt;:authority&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> representing the <em>native identifier</em> of the</p>
+<em>entity object</em> which is responsible for the <em>identification</em> of an object,
+or which is the <em>author of the information</em> regarding an object.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_COLLECTION" name="constant_kTAG_COLLECTION" class="anchor"></a>
+            <article id="constant_kTAG_COLLECTION" class="constant">
+                <h3 class="">kTAG_COLLECTION</h3>
+                <pre class="signature">kTAG_COLLECTION</pre>
+                <p><em>Collection (&lt;code&gt;:collection&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> representing the <em>name</em> or <em>code</em> of the</p>
+<em>collection</em> to which an object belongs. It has the same function as the
+namespace, except that it is may not be an enumerated set.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_NAMESPACE" name="constant_kTAG_NAMESPACE" class="anchor"></a>
+            <article id="constant_kTAG_NAMESPACE" class="constant">
+                <h3 class="">kTAG_NAMESPACE</h3>
+                <pre class="signature">kTAG_NAMESPACE</pre>
+                <p><em>Namespace (&lt;code&gt;:namespace&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>reference to a term object</em>, it is a <em>string</em> representing
+the <em>native identifier</em> of a term. Namespaces are used to <em>disambiguate
+homonym local identifiers</em> in order to come up with a global unique identifier. This
+identifier is <em>persistent</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_ID_LOCAL" name="constant_kTAG_ID_LOCAL" class="anchor"></a>
+            <article id="constant_kTAG_ID_LOCAL" class="constant">
+                <h3 class="">kTAG_ID_LOCAL</h3>
+                <pre class="signature">kTAG_ID_LOCAL</pre>
+                <p><em>Local identifier (&lt;code&gt;:id-local&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> which represents the <em>local identifier</em> of an
+object. Local identifiers are <em>unique within their namespace</em> and are</p>
+<em>persistent</em>. In general, the namespace is concatenated to the local identifier to
+form the persistent identifier.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_ID_PERSISTENT" name="constant_kTAG_ID_PERSISTENT" class="anchor"></a>
+            <article id="constant_kTAG_ID_PERSISTENT" class="constant">
+                <h3 class="">kTAG_ID_PERSISTENT</h3>
+                <pre class="signature">kTAG_ID_PERSISTENT</pre>
+                <p><em>Persistent identifier (&lt;code&gt;:id-persistent&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> which represents the <em>persistent identifier</em> of an
+object. Persistent identifiers are <em>unique across namespaces</em>, they are</p>
+<em>global</em>, in that they <em>include the namespace</em> and they are
+<em>persistent</em>. In general, this identifier is the concatenation of the namespace
+and the local identifier.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_ID_VALID" name="constant_kTAG_ID_VALID" class="anchor"></a>
+            <article id="constant_kTAG_ID_VALID" class="constant">
+                <h3 class="">kTAG_ID_VALID</h3>
+                <pre class="signature">kTAG_ID_VALID</pre>
+                <p><em>Valid identifier (&lt;code&gt;:id-valid&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> which represents the <em>persistent global identifier</em>
+of the object that is <em>considered the valid choice</em>. This is generally used by</p>
+<em>legacy</em> or <em>obsolete</em> objects for referring to the <em>valid</em>,
+<em>current</em> or <em>official</em> object.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_ID_SEQUENCE" name="constant_kTAG_ID_SEQUENCE" class="anchor"></a>
+            <article id="constant_kTAG_ID_SEQUENCE" class="constant">
+                <h3 class="">kTAG_ID_SEQUENCE</h3>
+                <pre class="signature">kTAG_ID_SEQUENCE</pre>
+                <p><em>Sequence number (&lt;code&gt;:id-sequence&lt;/code&gt;)</em></p>
+                <p>This tag is an <em>integer sequence number</em> which is <em>automatically assigned</em>
+to objects just before they are <em>committed</em>. This represents an <em>identifier
+unique to the collection</em> to which the object belongs. This identifier is <em>not
+persistent</em>, in that it depends on the order in which the object was committed.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_VERSION" name="constant_kTAG_VERSION" class="anchor"></a>
+            <article id="constant_kTAG_VERSION" class="constant">
+                <h3 class="">kTAG_VERSION</h3>
+                <pre class="signature">kTAG_VERSION</pre>
+                <p><em>Version (&lt;code&gt;:version&lt;/code&gt;)</em></p>
+                <p>This tag is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>.
+It is generally used to identify different versions of an object by <em>disambiguating
+duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object
+information it identifies.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_TAG" name="constant_kTAG_TAG" class="anchor"></a>
+            <article id="constant_kTAG_TAG" class="constant">
+                <h3 class="">kTAG_TAG</h3>
+                <pre class="signature">kTAG_TAG</pre>
+                <p><em>Tag (&lt;code&gt;:tag&lt;/code&gt;)</em></p>
+                <p>This tag holds a <em>string</em> representing a <em>tag object reference</em>, it is the</p>
+<em>tag native identifier</em> of the <em>tag object</em> it references.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_TAGS" name="constant_kTAG_TAGS" class="anchor"></a>
+            <article id="constant_kTAG_TAGS" class="constant">
+                <h3 class="">kTAG_TAGS</h3>
+                <pre class="signature">kTAG_TAGS</pre>
+                <p><em>Tags (&lt;code&gt;:tags&lt;/code&gt;)</em></p>
+                <p>This tag holds a <em>list of strings</em> representing <em>tag object references</em>,
+these elements are the <em>native identifiers</em> of the <em>tag objects</em> they
+reference.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_TERM" name="constant_kTAG_TERM" class="anchor"></a>
+            <article id="constant_kTAG_TERM" class="constant">
+                <h3 class="">kTAG_TERM</h3>
+                <pre class="signature">kTAG_TERM</pre>
+                <p><em>Term (&lt;code&gt;:term&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> representing a <em>term object reference</em>, it is the</p>
+<em>native identifier</em> of the <em>term object</em> it references.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_TERMS" name="constant_kTAG_TERMS" class="anchor"></a>
+            <article id="constant_kTAG_TERMS" class="constant">
+                <h3 class="">kTAG_TERMS</h3>
+                <pre class="signature">kTAG_TERMS</pre>
+                <p><em>Terms (&lt;code&gt;:terms&lt;/code)</em></p>
+                <p>This tag holds a <em>list of strings</em> representing <em>term object references</em>,
+these elements are the <em>native identifiers</em> of the <em>term objects</em> they
+reference.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_SUBJECT" name="constant_kTAG_SUBJECT" class="anchor"></a>
+            <article id="constant_kTAG_SUBJECT" class="constant">
+                <h3 class="">kTAG_SUBJECT</h3>
+                <pre class="signature">kTAG_SUBJECT</pre>
+                <p><em>Relationship subject (&lt;code&gt;:relationship:subject&lt;/code)</em></p>
+                <p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
+describes the <em>origin vertex of a directed graph relationship</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_PREDICATE" name="constant_kTAG_PREDICATE" class="anchor"></a>
+            <article id="constant_kTAG_PREDICATE" class="constant">
+                <h3 class="">kTAG_PREDICATE</h3>
+                <pre class="signature">kTAG_PREDICATE</pre>
+                <p><em>Relationship predicate (&lt;code&gt;:relationship:predicate&lt;/code)</em></p>
+                <p>This tag holds a <em>term object reference</em>, it is a <em>string</em> that represents
+the term <em>native identifier</em>. This tag describes the <em>predicate of a directed
+graph relationship</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_OBJECT" name="constant_kTAG_OBJECT" class="anchor"></a>
+            <article id="constant_kTAG_OBJECT" class="constant">
+                <h3 class="">kTAG_OBJECT</h3>
+                <pre class="signature">kTAG_OBJECT</pre>
+                <p><em>Relationship object (&lt;code&gt;:relationship:object&lt;/code)</em></p>
+                <p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
+describes the <em>destination vertex of a directed graph relationship</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_AFFILIATION" name="constant_kTAG_AFFILIATION" class="anchor"></a>
+            <article id="constant_kTAG_AFFILIATION" class="constant">
+                <h3 class="">kTAG_AFFILIATION</h3>
+                <pre class="signature">kTAG_AFFILIATION</pre>
+                <p><em>Affiliation (&lt;code&gt;:affiliation&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
+a <em>reference to the entity object which represents the affiliation of the current
+entity object</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CATEGORY" name="constant_kTAG_CATEGORY" class="anchor"></a>
+            <article id="constant_kTAG_CATEGORY" class="constant">
+                <h3 class="">kTAG_CATEGORY</h3>
+                <pre class="signature">kTAG_CATEGORY</pre>
+                <p><em>Category (&lt;code&gt;:category&lt;/code)</em></p>
+                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+represent the <em>different categories to which an object belongs</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_DATA_TYPE" name="constant_kTAG_DATA_TYPE" class="anchor"></a>
+            <article id="constant_kTAG_DATA_TYPE" class="constant">
+                <h3 class="">kTAG_DATA_TYPE</h3>
+                <pre class="signature">kTAG_DATA_TYPE</pre>
+                <p><em>Data type (&lt;code&gt;:type:data&lt;/code)</em></p>
+                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+indicate the <em>data type</em> of a data property. This type corresponds to the</p>
+<em>primitive data representation and structure of a data property</em>.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_DATA_KIND" name="constant_kTAG_DATA_KIND" class="anchor"></a>
+            <article id="constant_kTAG_DATA_KIND" class="constant">
+                <h3 class="">kTAG_DATA_KIND</h3>
+                <pre class="signature">kTAG_DATA_KIND</pre>
+                <p><em>Data kind (&lt;code&gt;:type:kind&lt;/code)</em></p>
+                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+indicate the <em>cardinality</em> and <em>requirements</em> of a data property. This type
+corresponds to the <em>attributes of a data property</em>, <em>not to its type</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_NAME" name="constant_kTAG_NAME" class="anchor"></a>
+            <article id="constant_kTAG_NAME" class="constant">
+                <h3 class="">kTAG_NAME</h3>
+                <pre class="signature">kTAG_NAME</pre>
+                <p><em>Name (&lt;code&gt;:name&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> representing the <en>name of an object</em>. This is
+generally the way humans refer to the object and it is <em>not related to a specific
+language</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_LABEL" name="constant_kTAG_LABEL" class="anchor"></a>
+            <article id="constant_kTAG_LABEL" class="constant">
+                <h3 class="">kTAG_LABEL</h3>
+                <pre class="signature">kTAG_LABEL</pre>
+                <p><em>Label (&lt;code&gt;:label&lt;/code)</em></p>
+                <p>This tag holds a <em>list of strings<em> representing <en>labels of an object in several
+languages</em>. Each element holds the <em>language</em> in which the label is expressed
+in and the <em>text</em> of the label.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_DEFINITION" name="constant_kTAG_DEFINITION" class="anchor"></a>
+            <article id="constant_kTAG_DEFINITION" class="constant">
+                <h3 class="">kTAG_DEFINITION</h3>
+                <pre class="signature">kTAG_DEFINITION</pre>
+                <p><em>Definition (&lt;code&gt;:definition&lt;/code)</em></p>
+                <p>This tag holds a <em>list of texts<em> representing <en>definitions of an object in
+several languages</em>. Each element holds the <em>language</em> in which the definition
+is expressed in and the <em>text</em> of the definition. <em>A definition should provide
+detailed information on an object without reference to the context</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_DESCRIPTION" name="constant_kTAG_DESCRIPTION" class="anchor"></a>
+            <article id="constant_kTAG_DESCRIPTION" class="constant">
+                <h3 class="">kTAG_DESCRIPTION</h3>
+                <pre class="signature">kTAG_DESCRIPTION</pre>
+                <p><em>Description (&lt;code&gt;:description&lt;/code)</em></p>
+                <p>This tag holds a <em>list of texts<em> representing <en>descriptions of an object in
+several languages</em>. Each element holds the <em>language</em> in which the description
+is expressed in and the <em>text</em> of the description. <em>A description should add
+context related information to the definition of the object</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_NOTES" name="constant_kTAG_NOTES" class="anchor"></a>
+            <article id="constant_kTAG_NOTES" class="constant">
+                <h3 class="">kTAG_NOTES</h3>
+                <pre class="signature">kTAG_NOTES</pre>
+                <p><em>Notes (&lt;code&gt;:notes&lt;/code)</em></p>
+                <p>This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
+to a specific language.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_UNIT_COUNT" name="constant_kTAG_UNIT_COUNT" class="anchor"></a>
+            <article id="constant_kTAG_UNIT_COUNT" class="constant">
+                <h3 class="">kTAG_UNIT_COUNT</h3>
+                <pre class="signature">kTAG_UNIT_COUNT</pre>
+                <p><em>Units count (&lt;code&gt;:unit-count&lt;/code)</em></p>
+                <p>This tag holds an <em>integer</em> value representing the <em>number of unit objects
+featuring a specific property</em>. This is generally used to assess <em>tag usage
+frequency in unit objects</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_ENTITY_COUNT" name="constant_kTAG_ENTITY_COUNT" class="anchor"></a>
+            <article id="constant_kTAG_ENTITY_COUNT" class="constant">
+                <h3 class="">kTAG_ENTITY_COUNT</h3>
+                <pre class="signature">kTAG_ENTITY_COUNT</pre>
+                <p><em>Entity count (&lt;code&gt;:entity-count&lt;/code)</em></p>
+                <p>This tag holds an <em>integer</em> value representing the <em>number of entity objects
+featuring a specific property</em>. This is generally used to assess <em>tag usage
+frequency in entity objects</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_LANGUAGE" name="constant_kTAG_LANGUAGE" class="anchor"></a>
+            <article id="constant_kTAG_LANGUAGE" class="constant">
+                <h3 class="">kTAG_LANGUAGE</h3>
+                <pre class="signature">kTAG_LANGUAGE</pre>
+                <p><em>Language (&lt;code&gt;:language&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which represents a specific <em>language name or
+code</em>, this tag is generally used as an element of a structure for indicating the
+element's language.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_TEXT" name="constant_kTAG_TEXT" class="anchor"></a>
+            <article id="constant_kTAG_TEXT" class="constant">
+                <h3 class="">kTAG_TEXT</h3>
+                <pre class="signature">kTAG_TEXT</pre>
+                <p><em>Text (&lt;code&gt;:text&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
+used as an element of a structure for indicating the element's text.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_PROTOCOL" name="constant_kTAG_CONN_PROTOCOL" class="anchor"></a>
+            <article id="constant_kTAG_CONN_PROTOCOL" class="constant">
+                <h3 class="">kTAG_CONN_PROTOCOL</h3>
+                <pre class="signature">kTAG_CONN_PROTOCOL</pre>
+                <p><em>Connection protocol (&lt;code&gt;:connection:protocol&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific network connection</p>
+<em>protocol</em> or <em>scheme</em>.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_HOST" name="constant_kTAG_CONN_HOST" class="anchor"></a>
+            <article id="constant_kTAG_CONN_HOST" class="constant">
+                <h3 class="">kTAG_CONN_HOST</h3>
+                <pre class="signature">kTAG_CONN_HOST</pre>
+                <p><em>Connection host (&lt;code&gt;:connection:host&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific network connection</p>
+<em>domain name</em> or <em>internet address</em>.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_PORT" name="constant_kTAG_CONN_PORT" class="anchor"></a>
+            <article id="constant_kTAG_CONN_PORT" class="constant">
+                <h3 class="">kTAG_CONN_PORT</h3>
+                <pre class="signature">kTAG_CONN_PORT</pre>
+                <p><em>Connection port (&lt;code&gt;:connection:port&lt;/code)</em></p>
+                <p>This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
+port number</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_USER" name="constant_kTAG_CONN_USER" class="anchor"></a>
+            <article id="constant_kTAG_CONN_USER" class="constant">
+                <h3 class="">kTAG_CONN_USER</h3>
+                <pre class="signature">kTAG_CONN_USER</pre>
+                <p><em>Connection user code (&lt;code&gt;:connection:user&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to</p>
+<em>authenticate with a service</em>.
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_PASS" name="constant_kTAG_CONN_PASS" class="anchor"></a>
+            <article id="constant_kTAG_CONN_PASS" class="constant">
+                <h3 class="">kTAG_CONN_PASS</h3>
+                <pre class="signature">kTAG_CONN_PASS</pre>
+                <p><em>Connection user password (&lt;code&gt;:connection:password&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
+allows to <em>authenticate with a service</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_BASE" name="constant_kTAG_CONN_BASE" class="anchor"></a>
+            <article id="constant_kTAG_CONN_BASE" class="constant">
+                <h3 class="">kTAG_CONN_BASE</h3>
+                <pre class="signature">kTAG_CONN_BASE</pre>
+                <p><em>Database name (&lt;code&gt;:connection:database&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific <em>database</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_COLL" name="constant_kTAG_CONN_COLL" class="anchor"></a>
+            <article id="constant_kTAG_CONN_COLL" class="constant">
+                <h3 class="">kTAG_CONN_COLL</h3>
+                <pre class="signature">kTAG_CONN_COLL</pre>
+                <p><em>Collection name (&lt;code&gt;:connection:collection&lt;/code)</em></p>
+                <p>This tag holds a <em>string</em> which identifies a specific <em>database
+collection</em>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_CONN_OPTS" name="constant_kTAG_CONN_OPTS" class="anchor"></a>
+            <article id="constant_kTAG_CONN_OPTS" class="constant">
+                <h3 class="">kTAG_CONN_OPTS</h3>
+                <pre class="signature">kTAG_CONN_OPTS</pre>
+                <p><em>Connection options (&lt;code&gt;:connection:options&lt;/code)</em></p>
+                <p>This tag holds a <em>list of key/value pairs</em> which represent the <em>options for a
+network connection</em>. The key part identifies the option, the value part provides the
+option value.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAG_SEQUENCE_START" name="constant_kTAG_SEQUENCE_START" class="anchor"></a>
+            <article id="constant_kTAG_SEQUENCE_START" class="constant">
+                <h3 class="">kTAG_SEQUENCE_START</h3>
+                <pre class="signature">kTAG_SEQUENCE_START</pre>
+                <p><em>Dynamic tag sequence origin</em></p>
+                <p>This defines the first dynamically assigned sequence tag number.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Tags.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            subpackage
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/definitions/Tags.inc.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 18th, 2014 at 12:25.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1206,8 +1206,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->insert( $database );'.kSTYLE_HEAD_POS );
-	$id = $test->insert( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $database );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $database );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

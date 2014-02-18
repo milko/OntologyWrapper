@@ -1138,8 +1138,8 @@ try
 	echo( '<h4>Commit object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->Insert( $wrapper );'.kSTYLE_HEAD_POS );
-	$id = $test->Insert( $wrapper );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1213,8 +1213,8 @@ try
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $other->Insert( $wrapper );'.kSTYLE_HEAD_POS );
-	$id = $other->Insert( $wrapper );
+	echo( kSTYLE_HEAD_PRE.'$id = $other->commit( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $other->commit( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1243,8 +1243,8 @@ try
 	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $other->insert( $wrapper );'.kSTYLE_HEAD_POS );
-	$id = $other->insert( $wrapper );
+	echo( kSTYLE_HEAD_PRE.'$id = $other->commit( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $other->commit( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );

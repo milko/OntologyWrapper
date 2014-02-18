@@ -854,16 +854,16 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$subject = new OntologyWrapper\Node();'.'<br \>' );
 	echo( '$subject[ kTAG_TERM ] = ":pid";'.'<br \>' );
-	echo( '$subject->insert( $database );'.'<br \>' );
+	echo( '$subject->commit( $database );'.'<br \>' );
 	$subject = new OntologyWrapper\Node();
 	$subject[ kTAG_TERM ] = ":pid";
-	$subject->insert( $database );
+	$subject->commit( $database );
 	echo( '$object = new OntologyWrapper\Node();'.'<br \>' );
 	echo( '$object[ kTAG_TERM ] = ":lid";'.'<br \>' );
-	echo( '$object->insert( $database );'.'<br \>' );
+	echo( '$object->commit( $database );'.'<br \>' );
 	$object = new OntologyWrapper\Node();
 	$object[ kTAG_TERM ] = ":lid";
-	$object->insert( $database );
+	$object->commit( $database );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -949,8 +949,8 @@ try
 	echo( '<h4>Commit object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->Insert( $database );'.kSTYLE_HEAD_POS );
-	$id = $test->Insert( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $database );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $database );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1008,8 +1008,8 @@ try
 	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->insert();'.kSTYLE_HEAD_POS );
-	$id = $test->insert();
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit();'.kSTYLE_HEAD_POS );
+	$id = $test->commit();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1079,27 +1079,6 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Collect references.
-	//
-	echo( '<h4>Collect references</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$data = NULL;'.'<br \>' );
-	$data = NULL;
-	echo( '$test->collectReferences( $data, FALSE );'.'<br \>' );
-	$test->collectReferences( $data, FALSE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $data ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

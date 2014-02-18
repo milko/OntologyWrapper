@@ -108,8 +108,8 @@ $(document).ready(function(){initNavTree('class_ontology_wrapper_1_1_ontology_ob
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_ontology_wrapper_1_1_ontology_object-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OntologyWrapper\OntologyObject Class Reference</div>  </div>
@@ -120,7 +120,7 @@ Inheritance diagram for OntologyWrapper\OntologyObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_ontology_wrapper_1_1_ontology_object__inherit__graph.png" border="0" usemap="#_ontology_wrapper_0C_ontology_object_inherit__map" alt="Inheritance graph"/></div>
 <map name="_ontology_wrapper_0C_ontology_object_inherit__map" id="_ontology_wrapper_0C_ontology_object_inherit__map">
-<area shape="rect" id="node4" href="class_ontology_wrapper_1_1_connection_object.html" title="OntologyWrapper\\Connection\lObject" alt="" coords="615,93,812,131"/><area shape="rect" id="node11" href="class_ontology_wrapper_1_1_edge_object.html" title="OntologyWrapper\\EdgeObject" alt="" coords="614,179,813,205"/><area shape="rect" id="node13" href="class_ontology_wrapper_1_1_node_object.html" title="OntologyWrapper\\NodeObject" alt="" coords="613,229,813,254"/><area shape="rect" id="node15" href="class_ontology_wrapper_1_1_tag_object.html" title="OntologyWrapper\\TagObject" alt="" coords="619,278,808,303"/><area shape="rect" id="node17" href="class_ontology_wrapper_1_1_term_object.html" title="OntologyWrapper\\TermObject" alt="" coords="615,327,812,353"/><area shape="rect" id="node2" href="class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="146,222,334,261"/><area shape="rect" id="node5" href="class_ontology_wrapper_1_1_collection_object.html" title="OntologyWrapper\\Collection\lObject" alt="" coords="871,5,1059,43"/><area shape="rect" id="node7" href="class_ontology_wrapper_1_1_database_object.html" title="OntologyWrapper\\Database\lObject" alt="" coords="872,67,1059,106"/><area shape="rect" id="node9" href="class_ontology_wrapper_1_1_server_object.html" title="OntologyWrapper\\ServerObject" alt="" coords="862,130,1069,155"/><area shape="rect" id="node6" href="class_ontology_wrapper_1_1_mongo_collection.html" title="OntologyWrapper\\MongoCollection" alt="" coords="1118,11,1346,37"/><area shape="rect" id="node8" href="class_ontology_wrapper_1_1_mongo_database.html" title="OntologyWrapper\\MongoDatabase" alt="" coords="1118,74,1346,99"/><area shape="rect" id="node10" href="class_ontology_wrapper_1_1_mongo_server.html" title="OntologyWrapper\\MongoServer" alt="" coords="1127,130,1337,155"/><area shape="rect" id="node12" href="class_ontology_wrapper_1_1_edge.html" title="OntologyWrapper\\Edge" alt="" coords="885,179,1046,205"/><area shape="rect" id="node14" href="class_ontology_wrapper_1_1_node.html" title="OntologyWrapper\\Node" alt="" coords="885,229,1046,254"/><area shape="rect" id="node16" href="class_ontology_wrapper_1_1_tag.html" title="OntologyWrapper\\Tag" alt="" coords="890,278,1041,303"/><area shape="rect" id="node18" href="class_ontology_wrapper_1_1_term.html" title="OntologyWrapper\\Term" alt="" coords="886,327,1045,353"/></map>
+<area shape="rect" id="node4" href="class_ontology_wrapper_1_1_connection_object.html" title="OntologyWrapper\\Connection\lObject" alt="" coords="614,97,810,135"/><area shape="rect" id="node11" href="class_ontology_wrapper_1_1_persistent_object.html" title="OntologyWrapper\\Persistent\lObject" alt="" coords="618,223,806,262"/><area shape="rect" id="node2" href="class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="146,174,334,213"/><area shape="rect" id="node5" href="class_ontology_wrapper_1_1_collection_object.html" title="OntologyWrapper\\Collection\lObject" alt="" coords="869,6,1057,45"/><area shape="rect" id="node7" href="class_ontology_wrapper_1_1_database_object.html" title="OntologyWrapper\\Database\lObject" alt="" coords="869,69,1056,107"/><area shape="rect" id="node9" href="class_ontology_wrapper_1_1_server_object.html" title="OntologyWrapper\\ServerObject" alt="" coords="859,131,1066,157"/><area shape="rect" id="node6" href="class_ontology_wrapper_1_1_mongo_collection.html" title="OntologyWrapper\\MongoCollection" alt="" coords="1115,13,1344,38"/><area shape="rect" id="node8" href="class_ontology_wrapper_1_1_mongo_database.html" title="OntologyWrapper\\MongoDatabase" alt="" coords="1116,75,1343,101"/><area shape="rect" id="node10" href="class_ontology_wrapper_1_1_mongo_server.html" title="OntologyWrapper\\MongoServer" alt="" coords="1125,131,1334,157"/><area shape="rect" id="node12" href="class_ontology_wrapper_1_1_edge.html" title="OntologyWrapper\\Edge" alt="" coords="882,181,1043,206"/><area shape="rect" id="node13" href="class_ontology_wrapper_1_1_node.html" title="OntologyWrapper\\Node" alt="" coords="882,230,1043,255"/><area shape="rect" id="node14" href="class_ontology_wrapper_1_1_tag.html" title="OntologyWrapper\\Tag" alt="" coords="887,279,1038,305"/><area shape="rect" id="node15" href="class_ontology_wrapper_1_1_term.html" title="OntologyWrapper\\Term" alt="" coords="883,329,1042,354"/></map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for OntologyWrapper\OntologyObject:</div>
@@ -134,8 +134,10 @@ Collaboration diagram for OntologyWrapper\OntologyObject:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3f8d87842ea2c3a50b3e760adb2224f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#aa3f8d87842ea2c3a50b3e760adb2224f">__toString</a> ()</td></tr>
 <tr class="separator:aa3f8d87842ea2c3a50b3e760adb2224f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28e1502b1cc43e05c07d854e79780e9c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a28e1502b1cc43e05c07d854e79780e9c">Reference</a> ()</td></tr>
-<tr class="separator:a28e1502b1cc43e05c07d854e79780e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35bc67b94336aa801f20e495f3b0c3c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a35bc67b94336aa801f20e495f3b0c3c2">dictionary</a> ($theDictionary=NULL, $getOld=FALSE)</td></tr>
+<tr class="separator:a35bc67b94336aa801f20e495f3b0c3c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a638db42a659f1e43a869312d5d85f991"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a638db42a659f1e43a869312d5d85f991">reference</a> ()</td></tr>
+<tr class="separator:a638db42a659f1e43a869312d5d85f991"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ontology_wrapper_1_1_container_object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ontology_wrapper_1_1_container_object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ontology_wrapper_1_1_container_object.html">OntologyWrapper\ContainerObject</a></td></tr>
 <tr class="memitem:aff6fe69abda5124438458b687ab30c4f inherit pub_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#aff6fe69abda5124438458b687ab30c4f">offsetExists</a> ($theOffset)</td></tr>
 <tr class="separator:aff6fe69abda5124438458b687ab30c4f inherit pub_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,19 +154,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a12e1e673943d68230be1807bf6bd63cb"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset</a> ($theOffset, $doAssert=FALSE)</td></tr>
-<tr class="separator:a12e1e673943d68230be1807bf6bd63cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa05e64fb4bbc9b30d15a8e2d1cfe9874"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#aa05e64fb4bbc9b30d15a8e2d1cfe9874">CastOffsetValue</a> (&amp;$theValue, $theOffset, $doAssert=FALSE)</td></tr>
-<tr class="separator:aa05e64fb4bbc9b30d15a8e2d1cfe9874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ec71ca3fd7be57916082804c1a30124"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a1ec71ca3fd7be57916082804c1a30124">InternalOffsets</a> ()</td></tr>
+<tr class="separator:a1ec71ca3fd7be57916082804c1a30124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0f027cfe61e72b63ff5ec104e8b6221"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#ac0f027cfe61e72b63ff5ec104e8b6221">DefaultOffsets</a> ()</td></tr>
+<tr class="separator:ac0f027cfe61e72b63ff5ec104e8b6221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4779563a363ea7d5dcd399f014c23622"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a4779563a363ea7d5dcd399f014c23622">CollectOffsets</a> ($theObject)</td></tr>
+<tr class="separator:a4779563a363ea7d5dcd399f014c23622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_ontology_wrapper_1_1_container_object"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_ontology_wrapper_1_1_container_object')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_ontology_wrapper_1_1_container_object.html">OntologyWrapper\ContainerObject</a></td></tr>
 <tr class="memitem:a0af6d7a3fcaeeb50be636280e95bc2db inherit pub_static_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#a0af6d7a3fcaeeb50be636280e95bc2db">Object2Array</a> (&amp;$theSource, &amp;$theDestination)</td></tr>
 <tr class="separator:a0af6d7a3fcaeeb50be636280e95bc2db inherit pub_static_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a642b14dab22e6fd254de345a0b79f05b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a642b14dab22e6fd254de345a0b79f05b"></a>
-static&#160;</td><td class="memItemRight" valign="bottom"><b>$sInternalTags</b> = array( kTAG_NID, kTAG_CLASS )</td></tr>
-<tr class="separator:a642b14dab22e6fd254de345a0b79f05b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -176,6 +174,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aa7e9b36fdc00584a143e6c920b6d2c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ff5501f4fb4cf9fa88dbf5b3f845a1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a4ff5501f4fb4cf9fa88dbf5b3f845a1c">preOffsetUnset</a> (&amp;$theOffset)</td></tr>
 <tr class="separator:a4ff5501f4fb4cf9fa88dbf5b3f845a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b3dac52af65a0008dc4a026ddaac36b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset</a> ($theOffset, $doAssert=FALSE)</td></tr>
+<tr class="separator:a2b3dac52af65a0008dc4a026ddaac36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46279a5fe37004d92c98383d3edf16f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a46279a5fe37004d92c98383d3edf16f9">castOffsetValue</a> (&amp;$theValue, $theOffset, $doAssert=FALSE)</td></tr>
+<tr class="separator:a46279a5fe37004d92c98383d3edf16f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_ontology_wrapper_1_1_container_object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_ontology_wrapper_1_1_container_object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_ontology_wrapper_1_1_container_object.html">OntologyWrapper\ContainerObject</a></td></tr>
 <tr class="memitem:ae03602f378081e220f8e6280d75bdc3e inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#ae03602f378081e220f8e6280d75bdc3e">preOffsetExists</a> (&amp;$theOffset)</td></tr>
 <tr class="separator:ae03602f378081e220f8e6280d75bdc3e inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,33 +191,28 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ae9f60cec5e7e40aed32c51dd7efa0429 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada715084328ddac15b67491ea7c8e8cb inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#ada715084328ddac15b67491ea7c8e8cb">postOffsetUnset</a> (&amp;$theOffset)</td></tr>
 <tr class="separator:ada715084328ddac15b67491ea7c8e8cb inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9858b2ffc8e2c3474f1cc0f7a01df8d5 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#a9858b2ffc8e2c3474f1cc0f7a01df8d5">manageOffset</a> ($theOffset, $theValue=NULL, $getOld=FALSE)</td></tr>
-<tr class="separator:a9858b2ffc8e2c3474f1cc0f7a01df8d5 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fbfa8a211060c0407db32f31eba101b inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#a3fbfa8a211060c0407db32f31eba101b">manageSetOffset</a> ($theOffset, $theValue, $theOperation=NULL, $getOld=FALSE)</td></tr>
-<tr class="separator:a3fbfa8a211060c0407db32f31eba101b inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0d380cae8b4eef94d7d9ba0098b1454 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#aa0d380cae8b4eef94d7d9ba0098b1454">manageArrayOffset</a> ($theOffset, $theKey, $theValue=NULL, $getOld=FALSE)</td></tr>
-<tr class="separator:aa0d380cae8b4eef94d7d9ba0098b1454 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac54aca8b612d63b316350e8d9d82ebea inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#ac54aca8b612d63b316350e8d9d82ebea">manageElementMatchOffset</a> ($theOffset, $theTypeOffset, $theDataOffset, $theTypeValue, $theDataValue=NULL, $getOld=FALSE)</td></tr>
-<tr class="separator:ac54aca8b612d63b316350e8d9d82ebea inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afab5ff7dc87cde93bc899be69ffc7d21 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ontology_wrapper_1_1_container_object.html#afab5ff7dc87cde93bc899be69ffc7d21">manageProperty</a> (&amp;$theMember, $theValue=NULL, $getOld=FALSE)</td></tr>
-<tr class="separator:afab5ff7dc87cde93bc899be69ffc7d21 inherit pro_methods_class_ontology_wrapper_1_1_container_object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ac57fd33455aec2a7726517d58178cb99"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac57fd33455aec2a7726517d58178cb99"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$mDictionary</b> = NULL</td></tr>
+<tr class="separator:ac57fd33455aec2a7726517d58178cb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tags.</p>
 <p>This file contains the default tag definitions. Types.</p>
 <p>This file contains the default data type definitions. Tokens.</p>
-<p>This file contains the default token definitions. Session.</p>
-<p>This file contains the default session offset definitions. Ontology object</p>
+<p>This file contains the default token definitions. Ontology object</p>
 <p>Objects derived from this <em>abstract</em> class hold two types of data: <em>run-time data</em>, which is stored in the object member properties and <em>persistent data</em>, which is stored in the inherited array part of the object.</p>
 <p>The main purpose of this class is to ensure that all persistent data elements are <em>referenced</em>, <em>annotated</em> and <em>documented</em> in an ontology.</p>
 <p>Persistent data is stored as <em>key/value</em> pair elements of the inherited array, the key part of the elements we call by convention <em>offset</em>, these offsets, in this class, represent a reference to an object of the ontology that holds all the necessary information to <em>identify</em>, <em>describe</em> and <em>validate</em> the value part of the array element pairs.</p>
 <p>This class implements the bridge between object persistent data and the ontology, ensuring that all data holds a reference to the ontology, which, itself, is implemented by objects derived from this same class: this means that the whole system is self sufficient and self documenting.</p>
 <p>Offsets can be uniquely identified in two ways: by native identifier, which is an integer value which may change across implementations, and a global identifier, which is a sring that will not change across implementations. This class provides a transparent interface that allows referring to offsets both by their <em>native</em> identifier or by their <em>global</em> identifier. Offsets, however, <em>will only hold the native identifier</em>, which means that all persistent data offsets must be integers. This is because global identifiers may become large strings, which poses a problem if these are used as field names for data stored in a persistent container.</p>
-<p>Whenever the object is provided an offset, if this is a string, it will be fed to a static method, <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset()</a>, which will check if the string represents the global identifier of an ontology <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> object, in that case, the method will return the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a>'s native integer identifier which will be used as the data offset. The class features a static data member, <a class="el" href="">$sInternalTags</a>, that holds the list of exceptions.</p>
+<p>Whenever the object is provided an offset, if this is a string, it will be fed to a protected method, <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset()</a>, which will check if the string represents the global identifier of an ontology <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> object, in that case, the method will return the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a>'s native integer identifier which will be used as the data offset. The class features a public method, <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a1ec71ca3fd7be57916082804c1a30124">InternalOffsets()</a>, that returns the list of exceptions.</p>
 <p>This means that to ensure referential integrity it is advisable to use integer constants as offsets when available, or string offsets if the integer constant is not known or available.</p>
-<p>The resolution of these offsets is provided by a <a class="el" href="class_ontology_wrapper_1_1_tag_cache.html">TagCache</a> object which records all the <em><a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a></em> objects of the ontology which are the entities that all offsets reference: persistent data offsets represent these <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> native identifiers, while these <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> object global identifiers are decoded by the <a class="el" href="class_ontology_wrapper_1_1_tag_cache.html">TagCache</a> object to retrieve the corresponding integer native identifier.</p>
+<p>The resolution of these offsets is provided by a <a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a> object which records all the <em><a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a></em> objects of the ontology which are the entities that all offsets reference: persistent data offsets represent these <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> native identifiers, while these <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> object global identifiers are decoded by the <a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a> object to retrieve the corresponding integer native identifier.</p>
 <p>The class declares the <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#aa3f8d87842ea2c3a50b3e760adb2224f">__toString()</a> method as virtual, it is essential that all derived classes implement this method which should return the current object's <em>global identifier string</em>. The global identifier of an object can be considered its signature or unique identifier, although a global identifier not need to be unique; all objects derived from this class, just as the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> object described above, must feature a global identifier, which may or may not coincide with their native identifier.</p>
-<p>Finally, the class declares a method, <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a28e1502b1cc43e05c07d854e79780e9c">Reference()</a>, which returns the current object's <em>reference</em>, this will generally be the value of the <a class="el" href="">kTAG_NID</a> offset. If the offset is not set, the method will raise an exception. This method will be put to use by derived classes: when providing an object to an offset expecting an object reference, by using this method one can be assured the provided object does have a reference. </p>
+<p>Finally, the class declares a method, <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a638db42a659f1e43a869312d5d85f991">reference()</a>, which returns the current object's <em>reference</em>, this will generally be the value of the <a class="el" href="">kTAG_NID</a> offset. If the offset is not set, the method will raise an exception. This method will be put to use by derived classes: when providing an object to an offset expecting an object reference, by using this method one can be assured the provided object does have a reference. </p>
 <pre class="fragment"> @author            Milko A. Škofič &lt;m.skofic@cgiar.org&gt;
  @version   1.00 10/01/2014</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="aa3f8d87842ea2c3a50b3e760adb2224f"></a>
@@ -246,7 +243,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa05e64fb4bbc9b30d15a8e2d1cfe9874"></a>
+<a class="anchor" id="a46279a5fe37004d92c98383d3edf16f9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -254,7 +251,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static OntologyWrapper\OntologyObject::CastOffsetValue </td>
+          <td class="memname">OntologyWrapper\OntologyObject::castOffsetValue </td>
           <td>(</td>
           <td class="paramtype">&amp;&#160;</td>
           <td class="paramname"><em>$theValue</em>, </td>
@@ -279,16 +276,16 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>Cast offset</p>
 <p>This method can be used to cast a value to the data type of its referred <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a>.</p>
 <p>The method will first resolve the offset into a <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> and then it will use the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a>'s data type to cast the value.</p>
-<p>The value will be cast only if the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> has <em>one</em> data type, if the provided value is an array, the method will cast each element to the data type.</p>
+<p>The value will be cast only if the <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> has <em>one</em> data type, if the provided value is an array, the method will cast each element to that data type.</p>
 <p>If the method is unable to resolve the offset and the assert flag parameter is set, the method will raise an exception.</p>
-<p>This method will handle in-line the data types of a series of default tags, this is necessary when loading the default ontology for the first time: since there are no tags in the system yet, any attempt to resolve these tags would fail; if you plan on changinf the data type of default tags, you should edit this method accordingly.</p>
+<p>This method will handle in-line the data types of a series of default tags, this is necessary when loading the default ontology for the first time: since there are no tags in the system yet, any attempt to resolve these tags would fail; if you plan on changing the data type of default tags, you should edit this method accordingly.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">reference</td><td class="paramname">$theValue</td><td>Value to cast. </td></tr>
@@ -297,15 +294,158 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<p>protected</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Exception</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>$sInternalTags </dd>
-<dd>
-kSESSION_DDICT </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4779563a363ea7d5dcd399f014c23622"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OntologyWrapper\OntologyObject::CollectOffsets </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$theObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Collect offsets</p>
+<p>This method can be used to retrieve the list of offsets that comprise the provided object. Offsets are recursed if they have the <a class="el" href="">kTYPE_STRUCT</a> data type and they are recorded only once.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mixed</td><td class="paramname">$theObject</td><td>Object or array.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array List of object tags. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac0f027cfe61e72b63ff5ec104e8b6221"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OntologyWrapper\OntologyObject::DefaultOffsets </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return default offsets</p>
+<p>This method will return the current object list of default offsets, these offsets represent the default offsets of the object, which means that all objects derived from this class may feature these offsets. This method is used to exclude these offsets from statistical procedures, such as <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a4779563a363ea7d5dcd399f014c23622">CollectOffsets()</a>, since it is implied that these offsets will be there.</p>
+<p>In this class we return an empty array.</p>
+<dl class="section return"><dt>Returns</dt><dd>array List of default offsets. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a35bc67b94336aa801f20e495f3b0c3c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OntologyWrapper\OntologyObject::dictionary </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$theDictionary</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$getOld</em> = <code>FALSE</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set or return data dictionary</p>
+<p>This method can be used to set or retrieve the object's data dictionary, which is required by all derived objects to resolve offsets.</p>
+<p>You should set this data member as soon as the object has been instantiated, before adding offsets to it.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li>
+<b>$theDictionary</b>: Data dictionary or operation: <ul>
+<li>
+<code>NULL</code>: Return current dictionary. </li>
+<li>
+<code><a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a></code>: Set dictionary with provided value. </li>
+</ul>
+</li>
+<li>
+<b>$getOld</b>: This parameter is a boolean which if <code>TRUE</code> will return the <em>old</em> dictionary when replacing, if <code>FALSE</code>, it will return the current value. </li>
+</ul>
+<p>The method will raise an exception if the dictionary holds any other type except the above.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mixed</td><td class="paramname">$theDictionary</td><td>New dictionary or <code>NULL</code>. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$getOld</td><td><code>TRUE</code> get old value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>public </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a> Object data dictionary.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1ec71ca3fd7be57916082804c1a30124"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static OntologyWrapper\OntologyObject::InternalOffsets </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return internal offsets</p>
+<p>This method will return the current object list of internal offsets, these offsets are not defined in the data dictionary and are private to the object. This method is used to exclude these offsets from the default offset resolution workflow.</p>
+<p>In this class we return <a class="el" href="">kTAG_NID</a> and <a class="el" href="">kTAG_CLASS</a>, which all persistent objects share.</p>
+<dl class="section return"><dt>Returns</dt><dd>array List of internal offsets. </dd></dl>
 
 </div>
 </div>
@@ -340,7 +480,7 @@ kSESSION_DDICT </dd></dl>
 </dl>
 <p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>mixed <code>NULL</code> check offset, other, return.</dd></dl>
-<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset()</a> </p>
+<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset()</a> </p>
 
 </div>
 </div>
@@ -375,7 +515,7 @@ kSESSION_DDICT </dd></dl>
 </dl>
 <p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>mixed <code>NULL</code> get offset value, other, return.</dd></dl>
-<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset()</a> </p>
+<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset()</a> </p>
 
 </div>
 </div>
@@ -421,7 +561,7 @@ kSESSION_DDICT </dd></dl>
 </dl>
 <p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>mixed <code>NULL</code> set offset value, other, return.</dd></dl>
-<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset()</a> </p>
+<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset()</a> </p>
 
 </div>
 </div>
@@ -456,16 +596,16 @@ kSESSION_DDICT </dd></dl>
 </dl>
 <p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>mixed <code>NULL</code> delete offset value, other, return.</dd></dl>
-<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a12e1e673943d68230be1807bf6bd63cb">ResolveOffset()</a> </p>
+<p><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a2b3dac52af65a0008dc4a026ddaac36b">resolveOffset()</a> </p>
 
 </div>
 </div>
-<a class="anchor" id="a28e1502b1cc43e05c07d854e79780e9c"></a>
+<a class="anchor" id="a638db42a659f1e43a869312d5d85f991"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">OntologyWrapper\OntologyObject::Reference </td>
+          <td class="memname">OntologyWrapper\OntologyObject::reference </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -487,7 +627,7 @@ kSESSION_DDICT </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a12e1e673943d68230be1807bf6bd63cb"></a>
+<a class="anchor" id="a2b3dac52af65a0008dc4a026ddaac36b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -495,7 +635,7 @@ kSESSION_DDICT </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static OntologyWrapper\OntologyObject::ResolveOffset </td>
+          <td class="memname">OntologyWrapper\OntologyObject::resolveOffset </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$theOffset</em>, </td>
@@ -514,14 +654,14 @@ kSESSION_DDICT </dd></dl>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>Resolve offset</p>
-<p>This method will resolve the provided offset into a <a class="el" href="class_ontology_wrapper_1_1_tag_object.html">TagObject</a> native identifier, this is done by using a <a class="el" href="class_ontology_wrapper_1_1_tag_cache.html">TagCache</a> object stored in the <a class="el" href="">kSESSION_DDICT</a> entry of the current session.</p>
+<p>This method will resolve the provided offset into a <a class="el" href="class_ontology_wrapper_1_1_tag.html">Tag</a> native identifier, this is done by using a <a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a> object stored in the current object's <a class="el" href="">$mDictionary</a> data member.</p>
 <p>If you provide an integer or a numeric string, the method will simply cast the value to an integer and return it.</p>
-<p>All other types of offsets, except those listed in the ststic <a class="el" href="">$sInternalTags</a> data member, will be used to locate the tag native identifier using a <a class="el" href="class_ontology_wrapper_1_1_tag_cache.html">TagCache</a> object stored in the <a class="el" href="">kSESSION_DDICT</a> offset of the current session; if the provided offset cannot be resolved, the method will raise an exception if the second parameter is <code>TRUE</code>, or <code>NULL</code> if the second parameter is <code>FALSE</code>.</p>
+<p>All other types of offsets, except those returned by the <a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a1ec71ca3fd7be57916082804c1a30124">InternalOffsets()</a> method, will be used to locate the tag native identifier using a <a class="el" href="class_ontology_wrapper_1_1_dictionary.html">Dictionary</a> object stored in the current object's <a class="el" href="">$mDictionary</a> data member; if the provided offset cannot be resolved, the method will raise an exception if the second parameter is <code>TRUE</code>, or <code>NULL</code> if the second parameter is <code>FALSE</code>.</p>
 <p>The method will raise an exception if the tag cache is not set.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -530,16 +670,14 @@ kSESSION_DDICT </dd></dl>
   </table>
   </dd>
 </dl>
+<p>protected </p>
 <dl class="section return"><dt>Returns</dt><dd>mixed Resolved offset.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">Exception</td><td><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html#a1ec71ca3fd7be57916082804c1a30124">InternalOffsets()</a> </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See Also</dt><dd>$sInternalTags </dd>
-<dd>
-kSESSION_DDICT </dd></dl>
 
 </div>
 </div>
@@ -552,7 +690,7 @@ kSESSION_DDICT </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_ontology_wrapper.html">OntologyWrapper</a></li><li class="navelem"><a class="el" href="class_ontology_wrapper_1_1_ontology_object.html">OntologyObject</a></li>
-    <li class="footer">Generated on Wed Feb 12 2014 22:29:43 for OntologyWrapper by
+    <li class="footer">Generated on Tue Feb 18 2014 12:24:33 for OntologyWrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

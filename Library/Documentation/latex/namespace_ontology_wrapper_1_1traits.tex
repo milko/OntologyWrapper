@@ -1,0 +1,300 @@
+\hypertarget{namespace_ontology_wrapper_1_1traits}{\section{Ontology\-Wrapper\textbackslash{}traits Namespace Reference}
+\label{namespace_ontology_wrapper_1_1traits}\index{Ontology\-Wrapper\textbackslash{}traits@{Ontology\-Wrapper\textbackslash{}traits}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_acadfee775efc8ade32f530661bce6a4c}{status\-Reset} ()
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_a43007c8c10e6a39efb3fda133acd66a5}{is\-Inited} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_ab3e0667a6043c3358abbde6f4d961f74}{is\-Dirty} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_a36786d51cf29964961c7adf9ef4217ea}{is\-Committed} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_a089fd27758be34a128040793eab24d17}{is\-Encoded} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{manage\-Bit\-Field} (\&\$the\-Field, \$the\-Mask, \$the\-State=N\-U\-L\-L)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+trait \hyperlink{namespace_ontology_wrapper_1_1traits_abc477d51641d17c4e149e2cd0093c771}{Status}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Accessors.\-php
+
+This file contains the definition of the \hyperlink{}{Accessors} trait.
+
+Data\-Kind.\-php
+
+This file contains the definition of the \hyperlink{}{Data\-Kind} trait.
+
+Data\-Type.\-php
+
+This file contains the definition of the \hyperlink{}{Data\-Type} trait.
+
+Definition.\-php
+
+This file contains the definition of the \hyperlink{}{Definition} trait.
+
+Description.\-php
+
+This file contains the definition of the \hyperlink{}{Description} trait.
+
+Label.\-php
+
+This file contains the definition of the \hyperlink{}{Label} trait.
+
+Memcached\-Dictionary.\-php
+
+This file contains the definition of the \hyperlink{}{Memcached\-Dictionary} trait.
+
+Status.\-php
+
+This file contains the definition of the \hyperlink{namespace_ontology_wrapper_1_1traits_abc477d51641d17c4e149e2cd0093c771}{Status} trait.
+
+Terms.\-php
+
+This file contains the definition of the \hyperlink{}{Terms} trait. 
+
+\subsection{Function Documentation}
+\hypertarget{namespace_ontology_wrapper_1_1traits_a36786d51cf29964961c7adf9ef4217ea}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!is\-Committed@{is\-Committed}}
+\index{is\-Committed@{is\-Committed}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{is\-Committed}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}is\-Committed (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_a36786d51cf29964961c7adf9ef4217ea}
+Manage committed status
+
+This method can be used to get or set the object's committed state.
+
+A committed object is one that has either been loaded from a container or committed to a container, this state can be used in conjunction with the \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-D\-I\-R\-T\-Y} flag to determine whether an object needs to be committed.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The method will return the object's committed state. 
+\item {\ttfamily T\-R\-U\-E}\-: The method will set the object's committed state. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The method will reset the object's committed state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & {\ttfamily T\-R\-U\-E}, {\ttfamily F\-A\-L\-S\-E} or {\ttfamily N\-U\-L\-L}.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} committed, {\ttfamily F\-A\-L\-S\-E} uncommitted.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-C\-O\-M\-M\-I\-T\-T\-E\-D
+\end{DoxySeeAlso}
+\$this-\/$>$\hyperlink{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{manage\-Bit\-Field()} \hypertarget{namespace_ontology_wrapper_1_1traits_ab3e0667a6043c3358abbde6f4d961f74}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!is\-Dirty@{is\-Dirty}}
+\index{is\-Dirty@{is\-Dirty}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{is\-Dirty}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}is\-Dirty (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_ab3e0667a6043c3358abbde6f4d961f74}
+Manage dirty status
+
+This method can be used to get or set the object's dirty state.
+
+A dirty object is one that was modified since the last time this state was probed. In general, this state should be set whenever the persistent properties of the object are modified.
+
+In this class we automatically set this state when setting or unsetting offsets.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The method will return the object's dirty state. 
+\item {\ttfamily T\-R\-U\-E}\-: The method will set the object's dirty state. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The method will reset the object's dirty state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & {\ttfamily T\-R\-U\-E}, {\ttfamily F\-A\-L\-S\-E} or {\ttfamily N\-U\-L\-L}.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} dirty, {\ttfamily F\-A\-L\-S\-E} clean.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-D\-I\-R\-T\-Y
+\end{DoxySeeAlso}
+\$this-\/$>$\hyperlink{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{manage\-Bit\-Field()} \hypertarget{namespace_ontology_wrapper_1_1traits_a089fd27758be34a128040793eab24d17}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!is\-Encoded@{is\-Encoded}}
+\index{is\-Encoded@{is\-Encoded}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{is\-Encoded}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}is\-Encoded (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_a089fd27758be34a128040793eab24d17}
+Manage encoded status
+
+This method can be used to get or set the object's encoded state.
+
+This flag determines whether the object should take care of serialising custom data types before the object is transmitted over the network.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The method will return the object's encoded state. 
+\item {\ttfamily T\-R\-U\-E}\-: The method will set the object's encoded state. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The method will reset the object's encoded state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & {\ttfamily T\-R\-U\-E}, {\ttfamily F\-A\-L\-S\-E} or {\ttfamily N\-U\-L\-L}.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} supports encoding, {\ttfamily F\-A\-L\-S\-E} does not support encoding.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D
+\end{DoxySeeAlso}
+\$this-\/$>$\hyperlink{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{manage\-Bit\-Field()} \hypertarget{namespace_ontology_wrapper_1_1traits_a43007c8c10e6a39efb3fda133acd66a5}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!is\-Inited@{is\-Inited}}
+\index{is\-Inited@{is\-Inited}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{is\-Inited}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}is\-Inited (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_a43007c8c10e6a39efb3fda133acd66a5}
+Manage inited status
+
+This method can be used to get or set the object's inited state.
+
+An object becomes inited when it has all the required elements necessary for it to be correctly used or persistently stored. Such a state indicates that at least the minimum required information was initialised in the object.
+
+The counterpart state indicates that the object still lacks the necessary elements to successfully operate the object.
+
+This method operates by setting or clearing the \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-I\-N\-I\-T\-E\-D} flag.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: The method will return the object's inited state. 
+\item {\ttfamily T\-R\-U\-E}\-: The method will set the object's inited state. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: The method will reset the object's inited state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & {\ttfamily T\-R\-U\-E}, {\ttfamily F\-A\-L\-S\-E} or {\ttfamily N\-U\-L\-L}.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean {\ttfamily T\-R\-U\-E} inited, {\ttfamily F\-A\-L\-S\-E} idle.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-I\-N\-I\-T\-E\-D
+\end{DoxySeeAlso}
+\$this-\/$>$\hyperlink{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{manage\-Bit\-Field()} \hypertarget{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!manage\-Bit\-Field@{manage\-Bit\-Field}}
+\index{manage\-Bit\-Field@{manage\-Bit\-Field}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{manage\-Bit\-Field}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}manage\-Bit\-Field (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Field, }
+\item[{}]{\$the\-Mask, }
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_a938e7554a77c653fd269f4f1e97e21f6}
+Manage a bit-\/field property
+
+This method can be used to manage a bitfield property, it accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \&\$the\-Field}\-: Reference to the bit-\/field property. 
+\item {\ttfamily \$the\-Mask}\-: Bit-\/field mask. 
+\item {\ttfamily \$the\-State}\-: State or operator\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return the masked bitfield. 
+\item {\ttfamily F\-A\-L\-S\-E}\-: Turn {\itshape off} the masked bits. 
+\item {\itshape other}\-: Turn {\itshape on} the masked bits. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+In all cases the method will return the status {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Field} & Bit-\/field reference. \\
+\hline
+bitfield & {\em \$the\-Mask} & Bit-\/field mask. \\
+\hline
+mixed & {\em \$the\-State} & Value or operator.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+bitfield Current masked status.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T\-\_\-\-M\-A\-S\-K 
+\end{DoxySeeAlso}
+\hypertarget{namespace_ontology_wrapper_1_1traits_acadfee775efc8ade32f530661bce6a4c}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!status\-Reset@{status\-Reset}}
+\index{status\-Reset@{status\-Reset}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{status\-Reset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}traits\textbackslash{}status\-Reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{namespace_ontology_wrapper_1_1traits_acadfee775efc8ade32f530661bce6a4c}
+Reset status
+
+This method can be used to reset the status, it will set it to \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T}.
+
+This is generally at the end of the constructor after having modified offsets to set the status to an idle state.
+
+protected
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T 
+\end{DoxySeeAlso}
+
+
+\subsection{Variable Documentation}
+\hypertarget{namespace_ontology_wrapper_1_1traits_abc477d51641d17c4e149e2cd0093c771}{\index{Ontology\-Wrapper\-::traits@{Ontology\-Wrapper\-::traits}!Status@{Status}}
+\index{Status@{Status}!OntologyWrapper::traits@{Ontology\-Wrapper\-::traits}}
+\subsubsection[{Status}]{\setlength{\rightskip}{0pt plus 5cm}trait Ontology\-Wrapper\-::traits\textbackslash{}\-Status}}\label{namespace_ontology_wrapper_1_1traits_abc477d51641d17c4e149e2cd0093c771}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+\{
+        
+        \textcolor{keyword}{private} $mStatus = kFLAG\_DEFAULT
+\end{DoxyCode}
+Flags.
+
+This file contains the default flag definitions. Status trait
+
+The main purpose of this trait is to add status management to classes, this is done by adding a bitfield \hyperlink{}{\$m\-Status} data member and a set of methods that handle this bitfield.
+
+This trait defines the common methods for managing the bitfield data member and handles the following flags\-:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-I\-N\-I\-T\-E\-D}}\-: This flag indicates that the object is ready to be used and is set by the \hyperlink{namespace_ontology_wrapper_1_1traits_a43007c8c10e6a39efb3fda133acd66a5}{is\-Inited()} method; if the flag is not set, it means that the object is not functional. 
+\item {\ttfamily \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-D\-I\-R\-T\-Y}}\-: This flag is set whenever the object's offsets are modified and it can be managed by the \hyperlink{namespace_ontology_wrapper_1_1traits_ab3e0667a6043c3358abbde6f4d961f74}{is\-Dirty()} method. For persistent objects it is an indication that the object should be updated; if the flag is not set, it means that the object persistent properties are in the same state as when it was loaded from a persistent store. 
+\item {\ttfamily \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-C\-O\-M\-M\-I\-T\-T\-E\-D}}\-: This flag is set whenever the object is either loaded from or stored in a persistent store and can be managed by the \hyperlink{namespace_ontology_wrapper_1_1traits_a36786d51cf29964961c7adf9ef4217ea}{is\-Committed()} method. It is an indication that the object is persistent; if the flag is not set, it means that the object was not loaded from or stored in a persistent store. 
+\item {\ttfamily \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D}}\-: This flag indicates an encoded state and can be managed by the \hyperlink{namespace_ontology_wrapper_1_1traits_a089fd27758be34a128040793eab24d17}{is\-Encoded()} method, which means that some object offsets have been encoded and need to be decoded before the object is saved in a persistent store or effectively used. This state is often associated to the network transmission of objects\-: some data types must be converted prior to be sent over the network; if the flag is not set, it means that the object can be saved in a persistent store or serialised for being transmitted on the network. 
+\end{DoxyItemize}
+
+All the flag accessor methods are protected, since they provide access to the internal workings of the object, if you need to provide status information you should do so by using these methods in a public interface. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 23/01/2014\end{DoxyVerb}
+ 

@@ -3,7 +3,8 @@
 }
 
 
-Inheritance diagram for Ontology\-Wrapper\textbackslash{}Ontology\-Object\-:\nopagebreak
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Ontology\-Object\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,20 +25,18 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Ontology\-Object\-:\n
 \item 
 \hyperlink{class_ontology_wrapper_1_1_ontology_object_aa3f8d87842ea2c3a50b3e760adb2224f}{\-\_\-\-\_\-to\-String} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_a28e1502b1cc43e05c07d854e79780e9c}{Reference} ()
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a35bc67b94336aa801f20e495f3b0c3c2}{dictionary} (\$the\-Dictionary=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a638db42a659f1e43a869312d5d85f991}{reference} ()
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset} (\$the\-Offset, \$do\-Assert=F\-A\-L\-S\-E)
+static \hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets} ()
 \item 
-static \hyperlink{class_ontology_wrapper_1_1_ontology_object_aa05e64fb4bbc9b30d15a8e2d1cfe9874}{Cast\-Offset\-Value} (\&\$the\-Value, \$the\-Offset, \$do\-Assert=F\-A\-L\-S\-E)
-\end{DoxyCompactItemize}
-\subsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
+static \hyperlink{class_ontology_wrapper_1_1_ontology_object_ac0f027cfe61e72b63ff5ec104e8b6221}{Default\-Offsets} ()
 \item 
-\hypertarget{class_ontology_wrapper_1_1_ontology_object_a642b14dab22e6fd254de345a0b79f05b}{static {\bfseries \$s\-Internal\-Tags} = array( k\-T\-A\-G\-\_\-\-N\-I\-D, k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S )}\label{class_ontology_wrapper_1_1_ontology_object_a642b14dab22e6fd254de345a0b79f05b}
-
+static \hyperlink{class_ontology_wrapper_1_1_ontology_object_a4779563a363ea7d5dcd399f014c23622}{Collect\-Offsets} (\$the\-Object)
 \end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -49,6 +48,16 @@ static \hyperlink{class_ontology_wrapper_1_1_ontology_object_aa05e64fb4bbc9b30d1
 \hyperlink{class_ontology_wrapper_1_1_ontology_object_aa7e9b36fdc00584a143e6c920b6d2c87}{pre\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_ontology_object_a4ff5501f4fb4cf9fa88dbf5b3f845a1c}{pre\-Offset\-Unset} (\&\$the\-Offset)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset} (\$the\-Offset, \$do\-Assert=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a46279a5fe37004d92c98383d3edf16f9}{cast\-Offset\-Value} (\&\$the\-Value, \$the\-Offset, \$do\-Assert=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_ac57fd33455aec2a7726517d58178cb99}{{\bfseries \$m\-Dictionary} = N\-U\-L\-L}\label{class_ontology_wrapper_1_1_ontology_object_ac57fd33455aec2a7726517d58178cb99}
+
 \end{DoxyCompactItemize}
 
 
@@ -59,9 +68,7 @@ This file contains the default tag definitions. Types.
 
 This file contains the default data type definitions. Tokens.
 
-This file contains the default token definitions. Session.
-
-This file contains the default session offset definitions. Ontology object
+This file contains the default token definitions. Ontology object
 
 Objects derived from this {\itshape abstract} class hold two types of data\-: {\itshape run-\/time data}, which is stored in the object member properties and {\itshape persistent data}, which is stored in the inherited array part of the object.
 
@@ -73,15 +80,15 @@ This class implements the bridge between object persistent data and the ontology
 
 Offsets can be uniquely identified in two ways\-: by native identifier, which is an integer value which may change across implementations, and a global identifier, which is a sring that will not change across implementations. This class provides a transparent interface that allows referring to offsets both by their {\itshape native} identifier or by their {\itshape global} identifier. Offsets, however, {\itshape will only hold the native identifier}, which means that all persistent data offsets must be integers. This is because global identifiers may become large strings, which poses a problem if these are used as field names for data stored in a persistent container.
 
-Whenever the object is provided an offset, if this is a string, it will be fed to a static method, \hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset()}, which will check if the string represents the global identifier of an ontology \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object, in that case, the method will return the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}'s native integer identifier which will be used as the data offset. The class features a static data member, \hyperlink{}{\$s\-Internal\-Tags}, that holds the list of exceptions.
+Whenever the object is provided an offset, if this is a string, it will be fed to a protected method, \hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset()}, which will check if the string represents the global identifier of an ontology \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object, in that case, the method will return the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}'s native integer identifier which will be used as the data offset. The class features a public method, \hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets()}, that returns the list of exceptions.
 
 This means that to ensure referential integrity it is advisable to use integer constants as offsets when available, or string offsets if the integer constant is not known or available.
 
-The resolution of these offsets is provided by a \hyperlink{class_ontology_wrapper_1_1_tag_cache}{Tag\-Cache} object which records all the {\itshape \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}} objects of the ontology which are the entities that all offsets reference\-: persistent data offsets represent these \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} native identifiers, while these \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object global identifiers are decoded by the \hyperlink{class_ontology_wrapper_1_1_tag_cache}{Tag\-Cache} object to retrieve the corresponding integer native identifier.
+The resolution of these offsets is provided by a \hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary} object which records all the {\itshape \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}} objects of the ontology which are the entities that all offsets reference\-: persistent data offsets represent these \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} native identifiers, while these \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object global identifiers are decoded by the \hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary} object to retrieve the corresponding integer native identifier.
 
 The class declares the \hyperlink{class_ontology_wrapper_1_1_ontology_object_aa3f8d87842ea2c3a50b3e760adb2224f}{\-\_\-\-\_\-to\-String()} method as virtual, it is essential that all derived classes implement this method which should return the current object's {\itshape global identifier string}. The global identifier of an object can be considered its signature or unique identifier, although a global identifier not need to be unique; all objects derived from this class, just as the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} object described above, must feature a global identifier, which may or may not coincide with their native identifier.
 
-Finally, the class declares a method, \hyperlink{class_ontology_wrapper_1_1_ontology_object_a28e1502b1cc43e05c07d854e79780e9c}{Reference()}, which returns the current object's {\itshape reference}, this will generally be the value of the \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} offset. If the offset is not set, the method will raise an exception. This method will be put to use by derived classes\-: when providing an object to an offset expecting an object reference, by using this method one can be assured the provided object does have a reference. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+Finally, the class declares a method, \hyperlink{class_ontology_wrapper_1_1_ontology_object_a638db42a659f1e43a869312d5d85f991}{reference()}, which returns the current object's {\itshape reference}, this will generally be the value of the \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} offset. If the offset is not set, the method will raise an exception. This method will be put to use by derived classes\-: when providing an object to an offset expecting an object reference, by using this method one can be assured the provided object does have a reference. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
  @version   1.00 10/01/2014\end{DoxyVerb}
  
 
@@ -102,26 +109,26 @@ All derived concrete classes must implement this method.
 public \begin{DoxyReturn}{Returns}
 string The global identifier. 
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_ontology_object_aa05e64fb4bbc9b30d15a8e2d1cfe9874}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Cast\-Offset\-Value@{Cast\-Offset\-Value}}
-\index{Cast\-Offset\-Value@{Cast\-Offset\-Value}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
-\subsubsection[{Cast\-Offset\-Value}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Cast\-Offset\-Value (
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_a46279a5fe37004d92c98383d3edf16f9}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!cast\-Offset\-Value@{cast\-Offset\-Value}}
+\index{cast\-Offset\-Value@{cast\-Offset\-Value}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{cast\-Offset\-Value}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::cast\-Offset\-Value (
 \begin{DoxyParamCaption}
 \item[{\&}]{\$the\-Value, }
 \item[{}]{\$the\-Offset, }
 \item[{}]{\$do\-Assert = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_ontology_object_aa05e64fb4bbc9b30d15a8e2d1cfe9874}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_ontology_object_a46279a5fe37004d92c98383d3edf16f9}
 Cast offset
 
 This method can be used to cast a value to the data type of its referred \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}.
 
 The method will first resolve the offset into a \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} and then it will use the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}'s data type to cast the value.
 
-The value will be cast only if the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} has {\itshape one} data type, if the provided value is an array, the method will cast each element to the data type.
+The value will be cast only if the \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} has {\itshape one} data type, if the provided value is an array, the method will cast each element to that data type.
 
 If the method is unable to resolve the offset and the assert flag parameter is set, the method will raise an exception.
 
-This method will handle in-\/line the data types of a series of default tags, this is necessary when loading the default ontology for the first time\-: since there are no tags in the system yet, any attempt to resolve these tags would fail; if you plan on changinf the data type of default tags, you should edit this method accordingly.
+This method will handle in-\/line the data types of a series of default tags, this is necessary when loading the default ontology for the first time\-: since there are no tags in the system yet, any attempt to resolve these tags would fail; if you plan on changing the data type of default tags, you should edit this method accordingly.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -132,16 +139,107 @@ mixed & {\em \$the\-Offset} & Data offset. \\
 boolean & {\em \$do\-Assert} & Assert offset tag reference.\\
 \hline
 \end{DoxyParams}
+protected
+
 
 \begin{DoxyExceptions}{Exceptions}
 {\em Exception} & \\
 \hline
 \end{DoxyExceptions}
-\begin{DoxySeeAlso}{See Also}
-\$s\-Internal\-Tags 
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_a4779563a363ea7d5dcd399f014c23622}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Collect\-Offsets@{Collect\-Offsets}}
+\index{Collect\-Offsets@{Collect\-Offsets}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{Collect\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Collect\-Offsets (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_ontology_object_a4779563a363ea7d5dcd399f014c23622}
+Collect offsets
 
-k\-S\-E\-S\-S\-I\-O\-N\-\_\-\-D\-D\-I\-C\-T 
-\end{DoxySeeAlso}
+This method can be used to retrieve the list of offsets that comprise the provided object. Offsets are recursed if they have the \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-S\-T\-R\-U\-C\-T} data type and they are recorded only once.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Object} & Object or array.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array List of object tags. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_ac0f027cfe61e72b63ff5ec104e8b6221}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Default\-Offsets@{Default\-Offsets}}
+\index{Default\-Offsets@{Default\-Offsets}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{Default\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Default\-Offsets (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_ontology_object_ac0f027cfe61e72b63ff5ec104e8b6221}
+Return default offsets
+
+This method will return the current object list of default offsets, these offsets represent the default offsets of the object, which means that all objects derived from this class may feature these offsets. This method is used to exclude these offsets from statistical procedures, such as \hyperlink{class_ontology_wrapper_1_1_ontology_object_a4779563a363ea7d5dcd399f014c23622}{Collect\-Offsets()}, since it is implied that these offsets will be there.
+
+In this class we return an empty array.
+
+\begin{DoxyReturn}{Returns}
+array List of default offsets. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_a35bc67b94336aa801f20e495f3b0c3c2}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!dictionary@{dictionary}}
+\index{dictionary@{dictionary}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{dictionary}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::dictionary (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Dictionary = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_ontology_wrapper_1_1_ontology_object_a35bc67b94336aa801f20e495f3b0c3c2}
+Set or return data dictionary
+
+This method can be used to set or retrieve the object's data dictionary, which is required by all derived objects to resolve offsets.
+
+You should set this data member as soon as the object has been instantiated, before adding offsets to it.
+
+The method expects the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Dictionary}\-: Data dictionary or operation\-: 
+\begin{DoxyItemize}
+\item {\ttfamily N\-U\-L\-L}\-: Return current dictionary. 
+\item {\ttfamily \hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary}}\-: Set dictionary with provided value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: This parameter is a boolean which if {\ttfamily T\-R\-U\-E} will return the {\itshape old} dictionary when replacing, if {\ttfamily F\-A\-L\-S\-E}, it will return the current value. 
+\end{DoxyItemize}
+
+The method will raise an exception if the dictionary holds any other type except the above.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Dictionary} & New dictionary or {\ttfamily N\-U\-L\-L}. \\
+\hline
+boolean & {\em \$get\-Old} & {\ttfamily T\-R\-U\-E} get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary} Object data dictionary.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Internal\-Offsets@{Internal\-Offsets}}
+\index{Internal\-Offsets@{Internal\-Offsets}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{Internal\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Internal\-Offsets (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}
+Return internal offsets
+
+This method will return the current object list of internal offsets, these offsets are not defined in the data dictionary and are private to the object. This method is used to exclude these offsets from the default offset resolution workflow.
+
+In this class we return \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D} and \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-L\-A\-S\-S}, which all persistent objects share.
+
+\begin{DoxyReturn}{Returns}
+array List of internal offsets. 
+\end{DoxyReturn}
 \hypertarget{class_ontology_wrapper_1_1_ontology_object_aa8827d96f0f76ffdebde8346e331699c}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Exists@{pre\-Offset\-Exists}}
 \index{pre\-Offset\-Exists@{pre\-Offset\-Exists}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
 \subsubsection[{pre\-Offset\-Exists}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::pre\-Offset\-Exists (
@@ -161,7 +259,7 @@ reference & {\em \$the\-Offset} & Offset reference.\\
 protected \begin{DoxyReturn}{Returns}
 mixed {\ttfamily N\-U\-L\-L} check offset, other, return.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_ab00c85a26561bf83f4721fa0edab5764}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Get@{pre\-Offset\-Get}}
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_ab00c85a26561bf83f4721fa0edab5764}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Get@{pre\-Offset\-Get}}
 \index{pre\-Offset\-Get@{pre\-Offset\-Get}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
 \subsubsection[{pre\-Offset\-Get}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::pre\-Offset\-Get (
 \begin{DoxyParamCaption}
@@ -180,7 +278,7 @@ reference & {\em \$the\-Offset} & Offset reference.\\
 protected \begin{DoxyReturn}{Returns}
 mixed {\ttfamily N\-U\-L\-L} get offset value, other, return.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_aa7e9b36fdc00584a143e6c920b6d2c87}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_aa7e9b36fdc00584a143e6c920b6d2c87}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Set@{pre\-Offset\-Set}}
 \index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
 \subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::pre\-Offset\-Set (
 \begin{DoxyParamCaption}
@@ -202,7 +300,7 @@ reference & {\em \$the\-Value} & Offset value reference.\\
 protected \begin{DoxyReturn}{Returns}
 mixed {\ttfamily N\-U\-L\-L} set offset value, other, return.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_a4ff5501f4fb4cf9fa88dbf5b3f845a1c}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Unset@{pre\-Offset\-Unset}}
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_a4ff5501f4fb4cf9fa88dbf5b3f845a1c}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!pre\-Offset\-Unset@{pre\-Offset\-Unset}}
 \index{pre\-Offset\-Unset@{pre\-Offset\-Unset}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
 \subsubsection[{pre\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::pre\-Offset\-Unset (
 \begin{DoxyParamCaption}
@@ -221,13 +319,13 @@ reference & {\em \$the\-Offset} & Offset reference.\\
 protected \begin{DoxyReturn}{Returns}
 mixed {\ttfamily N\-U\-L\-L} delete offset value, other, return.
 \end{DoxyReturn}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{Resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_a28e1502b1cc43e05c07d854e79780e9c}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Reference@{Reference}}
-\index{Reference@{Reference}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
-\subsubsection[{Reference}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Reference (
+\hyperlink{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{resolve\-Offset()} \hypertarget{class_ontology_wrapper_1_1_ontology_object_a638db42a659f1e43a869312d5d85f991}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!reference@{reference}}
+\index{reference@{reference}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{reference}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::reference (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_ontology_object_a28e1502b1cc43e05c07d854e79780e9c}
+)}}\label{class_ontology_wrapper_1_1_ontology_object_a638db42a659f1e43a869312d5d85f991}
 Return object reference
 
 This method will return the current object's reference. This value should uniquely identify the referenced object, making it easy to retrieve the object given this reference.
@@ -244,21 +342,21 @@ mixed Object reference.
 {\em Exception} & \\
 \hline
 \end{DoxyExceptions}
-\hypertarget{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!Resolve\-Offset@{Resolve\-Offset}}
-\index{Resolve\-Offset@{Resolve\-Offset}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
-\subsubsection[{Resolve\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::\-Resolve\-Offset (
+\hypertarget{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}{\index{Ontology\-Wrapper\-::\-Ontology\-Object@{Ontology\-Wrapper\-::\-Ontology\-Object}!resolve\-Offset@{resolve\-Offset}}
+\index{resolve\-Offset@{resolve\-Offset}!OntologyWrapper::OntologyObject@{Ontology\-Wrapper\-::\-Ontology\-Object}}
+\subsubsection[{resolve\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Ontology\-Object\-::resolve\-Offset (
 \begin{DoxyParamCaption}
 \item[{}]{\$the\-Offset, }
 \item[{}]{\$do\-Assert = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_ontology_object_a12e1e673943d68230be1807bf6bd63cb}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_ontology_object_a2b3dac52af65a0008dc4a026ddaac36b}
 Resolve offset
 
-This method will resolve the provided offset into a \hyperlink{class_ontology_wrapper_1_1_tag_object}{Tag\-Object} native identifier, this is done by using a \hyperlink{class_ontology_wrapper_1_1_tag_cache}{Tag\-Cache} object stored in the \hyperlink{}{k\-S\-E\-S\-S\-I\-O\-N\-\_\-\-D\-D\-I\-C\-T} entry of the current session.
+This method will resolve the provided offset into a \hyperlink{class_ontology_wrapper_1_1_tag}{Tag} native identifier, this is done by using a \hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary} object stored in the current object's \hyperlink{}{\$m\-Dictionary} data member.
 
 If you provide an integer or a numeric string, the method will simply cast the value to an integer and return it.
 
-All other types of offsets, except those listed in the ststic \hyperlink{}{\$s\-Internal\-Tags} data member, will be used to locate the tag native identifier using a \hyperlink{class_ontology_wrapper_1_1_tag_cache}{Tag\-Cache} object stored in the \hyperlink{}{k\-S\-E\-S\-S\-I\-O\-N\-\_\-\-D\-D\-I\-C\-T} offset of the current session; if the provided offset cannot be resolved, the method will raise an exception if the second parameter is {\ttfamily T\-R\-U\-E}, or {\ttfamily N\-U\-L\-L} if the second parameter is {\ttfamily F\-A\-L\-S\-E}.
+All other types of offsets, except those returned by the \hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets()} method, will be used to locate the tag native identifier using a \hyperlink{class_ontology_wrapper_1_1_dictionary}{Dictionary} object stored in the current object's \hyperlink{}{\$m\-Dictionary} data member; if the provided offset cannot be resolved, the method will raise an exception if the second parameter is {\ttfamily T\-R\-U\-E}, or {\ttfamily N\-U\-L\-L} if the second parameter is {\ttfamily F\-A\-L\-S\-E}.
 
 The method will raise an exception if the tag cache is not set.
 
@@ -269,19 +367,14 @@ mixed & {\em \$the\-Offset} & Data offset. \\
 boolean & {\em \$do\-Assert} & Assert offset tag reference.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
+protected \begin{DoxyReturn}{Returns}
 mixed Resolved offset.
 \end{DoxyReturn}
 
 \begin{DoxyExceptions}{Exceptions}
-{\em Exception} & \\
+{\em Exception} & \hyperlink{class_ontology_wrapper_1_1_ontology_object_a1ec71ca3fd7be57916082804c1a30124}{Internal\-Offsets()} \\
 \hline
 \end{DoxyExceptions}
-\begin{DoxySeeAlso}{See Also}
-\$s\-Internal\-Tags 
-
-k\-S\-E\-S\-S\-I\-O\-N\-\_\-\-D\-D\-I\-C\-T 
-\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}

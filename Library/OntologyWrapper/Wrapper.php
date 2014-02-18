@@ -172,6 +172,14 @@ class Wrapper extends Dictionary
 		$save = $this->manageProperty( $this->mMetadata, $theValue, $getOld );
 		
 		//
+		// Load dictionary.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! $this->dictionaryFilled()) )
+			$this->loadTagCache();
+		
+		//
 		// Set inited status.
 		//
 		$this->isInited( $this->isReady() );
@@ -519,7 +527,7 @@ class Wrapper extends Dictionary
 		//
 		// Reset the tag cache.
 		//
-		$this->dictionaryFlush();
+		$this->dictionaryFlush( 0 );
 		
 		//
 		// Drop the ontology database.
@@ -545,6 +553,13 @@ class Wrapper extends Dictionary
 	 *
 	 * This method can be used to reset the tag cache.
 	 *
+	 * The method will return <tt>TRUE</tt> if the object is connected and the operation was
+	 * executes and <tt>FALSE</tt> if the object is not connected, or if the metadata is
+	 * missing.
+	 *
+	 * Note that although the operation might have been executed, this doesn't mean that the
+	 * dictionary was loaded: this depends on the contents of the metadata database.
+	 *
 	 * @access public
 	 *
 	 * @throws Exception
@@ -554,27 +569,36 @@ class Wrapper extends Dictionary
 		//
 		// Check if object is connected.
 		//
-		if( ! $this->isConnected() )
-			throw new \Exception(
-				"Unable to load tag cache: "
-			   ."object is not connected." );									// !@! ==>
+		if( $this->isConnected()
+		 && ($this->mMetadata !== NULL) )
+		{
+			//
+			// Open metadata conection.
+			//
+			$this->mMetadata->openConnection();
 		
-		//
-		// Reset the tag cache.
-		//
-		$this->dictionaryFlush();
+			//
+			// Reset the tag cache.
+			//
+			$this->dictionaryFlush( 0 );
 		
-		//
-		// Get tags collection.
-		//
-		$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME );
+			//
+			// Get tags collection.
+			//
+			$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME );
 		
-		//
-		// Load all tags.
-		//
-		$tags = $collection->getAll();
-		foreach( $tags as $tag )
-			$this->setTag( $tag, 0 );
+			//
+			// Load all tags.
+			//
+			$tags = $collection->getAll();
+			foreach( $tags as $tag )
+				$this->setTag( $tag, 0 );
+			
+			return TRUE;															// ==>
+		
+		} // Connected with metadata.
+		
+		return FALSE;																// ==>
 	
 	} // resetOntology.
 
@@ -867,7 +891,7 @@ class Wrapper extends Dictionary
 		//
 		// Commit object.
 		//
-		$object->insert( $this );
+		$object->commit( $this );
 		
 		//
 		// Load cache.
@@ -933,7 +957,7 @@ class Wrapper extends Dictionary
 		//
 		// Commit object.
 		//
-		$object->insert( $this );
+		$object->commit( $this );
 		
 		//
 		// Load cache.

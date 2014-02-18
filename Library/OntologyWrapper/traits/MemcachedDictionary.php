@@ -209,45 +209,10 @@ trait MemcachedDictionary
 
 /*=======================================================================================
  *																						*
- *								PUBLIC STATISTICS INTERFACE								*
+ *						PUBLIC DICTIONARY MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	dictionaryStats																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return cache statistics
-	 *
-	 * In this trait we use the {@link Memcached::getStats()} method.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function dictionaryStats()				{	return $this->mCache->getStats();	}
-
-	 
-	/*===================================================================================
-	 *	dictionaryCount																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return elements count
-	 *
-	 * In this trait we use the {@link Memcached::getStats()} method and return the
-	 * <tt>curr_items</tt> option.
-	 *
-	 * @access public
-	 * @return integer				Number of cached elements.
-	 */
-	public function dictionaryCount()
-	{
-		return current( $this->mCache->getStats() )[ 'curr_items' ];				// ==>
-	
-	} // dictionaryCount.
 
 	 
 	/*===================================================================================

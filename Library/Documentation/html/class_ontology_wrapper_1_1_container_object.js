@@ -2,11 +2,6 @@ var class_ontology_wrapper_1_1_container_object =
 [
     [ "arrayKeys", "class_ontology_wrapper_1_1_container_object.html#ae27d07c2dcb4b4e95a167ef9fa6a419a", null ],
     [ "arrayValues", "class_ontology_wrapper_1_1_container_object.html#a65780ec62aa8b6e5f699be556f9e316f", null ],
-    [ "manageArrayOffset", "class_ontology_wrapper_1_1_container_object.html#aa0d380cae8b4eef94d7d9ba0098b1454", null ],
-    [ "manageElementMatchOffset", "class_ontology_wrapper_1_1_container_object.html#ac54aca8b612d63b316350e8d9d82ebea", null ],
-    [ "manageOffset", "class_ontology_wrapper_1_1_container_object.html#a9858b2ffc8e2c3474f1cc0f7a01df8d5", null ],
-    [ "manageProperty", "class_ontology_wrapper_1_1_container_object.html#afab5ff7dc87cde93bc899be69ffc7d21", null ],
-    [ "manageSetOffset", "class_ontology_wrapper_1_1_container_object.html#a3fbfa8a211060c0407db32f31eba101b", null ],
     [ "Object2Array", "class_ontology_wrapper_1_1_container_object.html#a0af6d7a3fcaeeb50be636280e95bc2db", null ],
     [ "offsetExists", "class_ontology_wrapper_1_1_container_object.html#aff6fe69abda5124438458b687ab30c4f", null ],
     [ "offsetGet", "class_ontology_wrapper_1_1_container_object.html#a1fcd9bbec807c35973f634eb0a98ae13", null ],

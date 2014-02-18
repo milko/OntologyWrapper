@@ -3,20 +3,22 @@
 }
 
 
-Inheritance diagram for Ontology\-Wrapper\textbackslash{}Node\-:\nopagebreak
+Inheritance diagram for Ontology\-Wrapper\textbackslash{}Node\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{class_ontology_wrapper_1_1_node__inherit__graph}
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_node__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for Ontology\-Wrapper\textbackslash{}Node\-:\nopagebreak
+Collaboration diagram for Ontology\-Wrapper\textbackslash{}Node\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{class_ontology_wrapper_1_1_node__coll__graph}
+\includegraphics[width=220pt]{class_ontology_wrapper_1_1_node__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
@@ -24,16 +26,12 @@ Collaboration diagram for Ontology\-Wrapper\textbackslash{}Node\-:\nopagebreak
 \item 
 \hyperlink{class_ontology_wrapper_1_1_node_aa17f2c63c36277160e883deeb0b96134}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L)
 \item 
-\hyperlink{class_ontology_wrapper_1_1_node_ab1a39673329171326b6595d0c4cb782a}{load\-Tag} ()
-\item 
-\hyperlink{class_ontology_wrapper_1_1_node_a672ee5306bf9cb8c8c200f51a72e23e3}{load\-Term} ()
-\item 
-\hyperlink{class_ontology_wrapper_1_1_node_a01c318740fadbbb79d21513495e2b16a}{collect\-References} (\&\$the\-Container, \$do\-Object=T\-R\-U\-E)
+\hyperlink{class_ontology_wrapper_1_1_node_a69d608a44e2c93d58f328f235be1f01a}{\-\_\-\-\_\-to\-String} ()
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_ontology_wrapper_1_1_node_acd916b0222274569525e2a150a71b7dc}{Resolve\-Object} (\hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} \$the\-Connection, \$the\-Identifier, \$do\-Assert=T\-R\-U\-E)
+static \hyperlink{class_ontology_wrapper_1_1_node_af8ad265b863a59718d1878d398417006}{Resolve\-Database} (\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} \$the\-Wrapper, \$do\-Assert=T\-R\-U\-E, \$do\-Open=T\-R\-U\-E)
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -44,11 +42,15 @@ static \hyperlink{class_ontology_wrapper_1_1_node_acd916b0222274569525e2a150a71b
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ontology_wrapper_1_1_node_a631f706a3a7f62fc5f1f75f42e5889e8}{pre\-Commit} (\$the\-Operation=0x00)
+\hyperlink{class_ontology_wrapper_1_1_node_a44855a38ead2b1df4cc1c403556ef4cf}{pre\-Commit\-Validate} ()
 \item 
-\hyperlink{class_ontology_wrapper_1_1_node_af777a6809d020b9ef64582373776a778}{post\-Commit} (\$the\-Operation=0x00)
+\hyperlink{class_ontology_wrapper_1_1_node_a640fb49bbcbaddcbef2da20e21b63c15}{pre\-Commit\-Identify} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_node_ad4e2344332f46e77895af1b7695a7653}{pre\-Commit\-Related} ()
 \item 
 \hyperlink{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265b315e}{is\-Ready} ()
+\item 
+\hyperlink{class_ontology_wrapper_1_1_node_ab4a822309bead01e44c8e6d21cbbbc9b}{pre\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
 \item 
 \hyperlink{class_ontology_wrapper_1_1_node_ab8bf8f281ec784217a001a55b265ddfc}{post\-Offset\-Set} (\&\$the\-Offset, \&\$the\-Value)
 \item 
@@ -62,11 +64,17 @@ static \hyperlink{class_ontology_wrapper_1_1_node_acd916b0222274569525e2a150a71b
 \subsection{Detailed Description}
 \hyperlink{class_ontology_wrapper_1_1_node}{Node}
 
-This class implements a persistent \hyperlink{class_ontology_wrapper_1_1_node_object}{Node\-Object} instance, the class concentrates on implementing all the necessary elements to ensure persistence to instances of this class and referential integrity.
+A node is a {\itshape vertex in a graph structure}, nodes reference {\itshape \hyperlink{class_ontology_wrapper_1_1_term}{Term}} and {\itshape \hyperlink{class_ontology_wrapper_1_1_tag}{instances, when referencing a term, nodes are used to build {\itshape ontologies}, {\itshape type definitions} and {\itshape controlloed vocabularies}; when referencing tags they are used to build {\itshape data structures}, {\itshape input and output templates} and {\itshape search forms}. Node objects, along with edge objects, represent the presentation layer of the ontology, users compose and consult network structures through these objects. The class features the following default offsets\-: } {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}}\-: {\itshape Native identifier}. This required attribute holds an {\itshape integer serial number}, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or property. The native identifier is assigned automatically. {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M}}\-: {\itshape \hyperlink{class_ontology_wrapper_1_1_term}{Term}}. This attribute is a {\itshape string} that holds a reference to the {\itshape term object} that the current node {\itshape represents in a graph structure}. If this offset is set, the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G} offset must be omitted. This attribute must be managed with its offset. {\ttfamily \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G}}\-: {\itshape \hyperlink{class_ontology_wrapper_1_1_tag}{Tag}}. This attribute is a {\itshape string} that holds a reference to the {\itshape tag object} that the current node {\itshape represents in a graph structure}. If this offset is set, the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M} offset must be omitted. This attribute must be managed with its offset. }
 
-The object is considered initialised, \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}, if it has at least the term reference, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M}, or the tag reference, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G}. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
+{\itshape The \hyperlink{class_ontology_wrapper_1_1_node_a69d608a44e2c93d58f328f235be1f01a}{\-\_\-\-\_\-to\-String()} method will return the value stored in the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M} or the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G} offset. This value represents the node persistent identifier, which is not, however, unique.}
+
+{\itshape Nodes cannot be uniquely identified via a persistent identifier, because more than one node may share the same term or tag, this means that when searching for nodes you should rely more on traversing a graph path, rather than selecting an object from a list.}
+
+{\itshape Objects of this class can hold any additional attribute that is considered necessary or useful to define and share the current node. In this class we define only those attributes that constitute the core functionality of the object, derived classes will add attributes specific to the domain in which the object will operate.}
+
+{\itshape The object is considered initialised, \hyperlink{}{is\-Inited()}, if it has at least the term reference, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M}, or the tag reference, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G}. \begin{DoxyVerb} @author            Milko A. Škofič <m.skofic@cgiar.org>
  @version   1.00 07/02/2014\end{DoxyVerb}
- 
+ }
 
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{class_ontology_wrapper_1_1_node_aa17f2c63c36277160e883deeb0b96134}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
@@ -79,7 +87,7 @@ The object is considered initialised, \hyperlink{namespace_ontology_wrapper_a7c0
 )}}\label{class_ontology_wrapper_1_1_node_aa17f2c63c36277160e883deeb0b96134}
 Instantiate class.
 
-This constructor is standard for all persistent classes, we do nothing special here.
+In this class we link the inited status with the presence of the tag or the term.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -90,34 +98,27 @@ mixed & {\em \$the\-Identifier} & Object identifier.\\
 \end{DoxyParams}
 public
 
-\hyperlink{namespace_ontology_wrapper_ae6754181b2df357062755fcfe794a8b4}{instantiate\-Object()}
-
 \begin{DoxySeeAlso}{See Also}
-k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M 
+k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M
 \end{DoxySeeAlso}
-
+is\-Inited() 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ontology_wrapper_1_1_node_a01c318740fadbbb79d21513495e2b16a}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!collect\-References@{collect\-References}}
-\index{collect\-References@{collect\-References}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{collect\-References}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::collect\-References (
+\hypertarget{class_ontology_wrapper_1_1_node_a69d608a44e2c93d58f328f235be1f01a}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}}
+\index{\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{\-\_\-\-\_\-to\-String}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::\-\_\-\-\_\-to\-String (
 \begin{DoxyParamCaption}
-\item[{\&}]{\$the\-Container, }
-\item[{}]{\$do\-Object = {\ttfamily TRUE}}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_node_a01c318740fadbbb79d21513495e2b16a}
-Collect references
+)}}\label{class_ontology_wrapper_1_1_node_a69d608a44e2c93d58f328f235be1f01a}
+\subparagraph*{Return global identifier}
 
-In this class we collect the tag or term.
+If the object holds the term reference, this will be returned; if it holds the tag reference, it will be returned; if none of these are set, the method will return an empty string.
 
-
-\begin{DoxyParams}[1]{Parameters}
-reference & {\em \$the\-Container} & Receives objects. \\
-\hline
-boolean & {\em \$do\-Object} & {\ttfamily T\-R\-U\-E} load objects.\\
-\hline
-\end{DoxyParams}
-public \hypertarget{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265b315e}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!is\-Ready@{is\-Ready}}
+public \begin{DoxyReturn}{Returns}
+string The persistent identifier. 
+\end{DoxyReturn}
+\hypertarget{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265b315e}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!is\-Ready@{is\-Ready}}
 \index{is\-Ready@{is\-Ready}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
 \subsubsection[{is\-Ready}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::is\-Ready (
 \begin{DoxyParamCaption}
@@ -126,48 +127,12 @@ public \hypertarget{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265b315e}
 Check if object is ready
 
-In this class we ensure the object has the native identifier, \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}, the global identifier,  k\-T\-A\-G\-\_\-\-P\-I\-D\}, the data type, \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-\_\-\-T\-Y\-P\-E}, and the label, \hyperlink{}{k\-T\-A\-G\-\_\-\-L\-A\-B\-E\-L}.
+In this class we ensure the object has the native identifier, \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-I\-D}.
 
 protected \begin{DoxyReturn}{Returns}
-Boolean {\ttfamily T\-R\-U\-E} means ready. 
+Boolean {\ttfamily T\-R\-U\-E} means ready.
 \end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_node_ab1a39673329171326b6595d0c4cb782a}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!load\-Tag@{load\-Tag}}
-\index{load\-Tag@{load\-Tag}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{load\-Tag}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::load\-Tag (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_node_ab1a39673329171326b6595d0c4cb782a}
-Load tag object
-
-This method can be used to resolve the tag into an object.
-
-The method will return the tag object if the operation succeeded and {\ttfamily N\-U\-L\-L} if the object is not committed, if the object does not hold a collection reference, or if the object has no tag.
-
-If the tag cannot be resolved, the method will raise an exception.
-
-protected \begin{DoxyReturn}{Returns}
-\hyperlink{class_ontology_wrapper_1_1_tag}{Tag} Resolved reference or {\ttfamily N\-U\-L\-L}. 
-\end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_node_a672ee5306bf9cb8c8c200f51a72e23e3}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!load\-Term@{load\-Term}}
-\index{load\-Term@{load\-Term}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{load\-Term}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::load\-Term (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{class_ontology_wrapper_1_1_node_a672ee5306bf9cb8c8c200f51a72e23e3}
-Load term object
-
-This method can be used to resolve the term into an object.
-
-The method will return the term object if the operation succeeded and {\ttfamily N\-U\-L\-L} if the object is not committed, if the object does not hold a collection reference, or if the object has no term.
-
-If the term cannot be resolved, the method will raise an exception.
-
-protected \begin{DoxyReturn}{Returns}
-\hyperlink{class_ontology_wrapper_1_1_term}{Term} Resolved reference or {\ttfamily N\-U\-L\-L}. 
-\end{DoxyReturn}
-\hypertarget{class_ontology_wrapper_1_1_node_aea89165149368db575c3da6fd4279785}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!locked\-Offsets@{locked\-Offsets}}
+\hyperlink{class_ontology_wrapper_1_1_node_af513e1e79f8c7dd360a3adb4265b315e}{is\-Ready()}  is\-Inited() \hypertarget{class_ontology_wrapper_1_1_node_aea89165149368db575c3da6fd4279785}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!locked\-Offsets@{locked\-Offsets}}
 \index{locked\-Offsets@{locked\-Offsets}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
 \subsubsection[{locked\-Offsets}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::locked\-Offsets (
 \begin{DoxyParamCaption}
@@ -176,7 +141,7 @@ protected \begin{DoxyReturn}{Returns}
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_aea89165149368db575c3da6fd4279785}
 Return list of locked offsets
 
-In this class we return the static \hyperlink{}{\$s\-Internal\-Tags} list, the \hyperlink{}{k\-T\-A\-G\-\_\-\-P\-I\-D}, \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G} and the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M} offsets.
+In this class we return the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G} and the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-E\-R\-M} offsets.
 
 protected \begin{DoxyReturn}{Returns}
 array List of locked offsets.
@@ -184,23 +149,7 @@ array List of locked offsets.
 \begin{DoxySeeAlso}{See Also}
 k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M 
 \end{DoxySeeAlso}
-\hypertarget{class_ontology_wrapper_1_1_node_af777a6809d020b9ef64582373776a778}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!post\-Commit@{post\-Commit}}
-\index{post\-Commit@{post\-Commit}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{post\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::post\-Commit (
-\begin{DoxyParamCaption}
-\item[{}]{\$the\-Operation = {\ttfamily 0x00}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_af777a6809d020b9ef64582373776a778}
-Cleanup object after commit
-
-In this class we do nothing... yet.
-
-
-\begin{DoxyParams}[1]{Parameters}
-bitfield & {\em \$the\-Operation} & Operation code.\\
-\hline
-\end{DoxyParams}
-protected \hypertarget{class_ontology_wrapper_1_1_node_ab8bf8f281ec784217a001a55b265ddfc}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!post\-Offset\-Set@{post\-Offset\-Set}}
+\hypertarget{class_ontology_wrapper_1_1_node_ab8bf8f281ec784217a001a55b265ddfc}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!post\-Offset\-Set@{post\-Offset\-Set}}
 \index{post\-Offset\-Set@{post\-Offset\-Set}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
 \subsubsection[{post\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::post\-Offset\-Set (
 \begin{DoxyParamCaption}
@@ -210,7 +159,7 @@ protected \hypertarget{class_ontology_wrapper_1_1_node_ab8bf8f281ec784217a001a55
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_ab8bf8f281ec784217a001a55b265ddfc}
 Handle offset and value after setting it
 
-In this class we set the \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()} status.
+In this class we delete the tag when we set the term and vice-\/versa.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -222,9 +171,9 @@ reference & {\em \$the\-Value} & Offset value reference.\\
 protected
 
 \begin{DoxySeeAlso}{See Also}
-k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M 
+k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M
 \end{DoxySeeAlso}
-\hypertarget{class_ontology_wrapper_1_1_node_ae5c0530b5499cdb995278fd63184a38a}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!post\-Offset\-Unset@{post\-Offset\-Unset}}
+is\-Inited() \hypertarget{class_ontology_wrapper_1_1_node_ae5c0530b5499cdb995278fd63184a38a}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!post\-Offset\-Unset@{post\-Offset\-Unset}}
 \index{post\-Offset\-Unset@{post\-Offset\-Unset}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
 \subsubsection[{post\-Offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::post\-Offset\-Unset (
 \begin{DoxyParamCaption}
@@ -233,7 +182,7 @@ k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_ae5c0530b5499cdb995278fd63184a38a}
 Handle offset after deleting it
 
-In this class we set the \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()} status.
+In this class we set the \hyperlink{}{is\-Inited()} status.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -243,66 +192,105 @@ reference & {\em \$the\-Offset} & Offset reference.\\
 protected
 
 \begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M
+\end{DoxySeeAlso}
+is\-Inited() \hypertarget{class_ontology_wrapper_1_1_node_a640fb49bbcbaddcbef2da20e21b63c15}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!pre\-Commit\-Identify@{pre\-Commit\-Identify}}
+\index{pre\-Commit\-Identify@{pre\-Commit\-Identify}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{pre\-Commit\-Identify}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::pre\-Commit\-Identify (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_a640fb49bbcbaddcbef2da20e21b63c15}
+Set object identifiers before commit
+
+In this class we set the native identifier with the sequence number.
+
+protected \hypertarget{class_ontology_wrapper_1_1_node_ad4e2344332f46e77895af1b7695a7653}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!pre\-Commit\-Related@{pre\-Commit\-Related}}
+\index{pre\-Commit\-Related@{pre\-Commit\-Related}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{pre\-Commit\-Related}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::pre\-Commit\-Related (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_ad4e2344332f46e77895af1b7695a7653}
+Commit related objects
+
+This method should commit related objects before the current object is committed.
+
+In this class we do nothing, derived classes should overload this method and not the caller.
+
+protected \hypertarget{class_ontology_wrapper_1_1_node_a44855a38ead2b1df4cc1c403556ef4cf}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!pre\-Commit\-Validate@{pre\-Commit\-Validate}}
+\index{pre\-Commit\-Validate@{pre\-Commit\-Validate}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{pre\-Commit\-Validate}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::pre\-Commit\-Validate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_a44855a38ead2b1df4cc1c403556ef4cf}
+Validate object before commit
+
+This method should validate the object before being committed.
+
+In this class we do nothing, derived classes should overload this method and not the caller.
+
+protected \hypertarget{class_ontology_wrapper_1_1_node_ab4a822309bead01e44c8e6d21cbbbc9b}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!pre\-Offset\-Set@{pre\-Offset\-Set}}
+\index{pre\-Offset\-Set@{pre\-Offset\-Set}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{pre\-Offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::pre\-Offset\-Set (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Offset, }
+\item[{\&}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_ab4a822309bead01e44c8e6d21cbbbc9b}
+Handle offset and value before setting it
+
+In this class we cast the value of the term into a term reference, or the value of a tag in a tag reference; we also ensure that provided objects are of the correct class.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \$the\-Offset} & Offset reference. \\
+\hline
+reference & {\em \$the\-Value} & Offset value reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed {\ttfamily N\-U\-L\-L} set offset value, other, return.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
 k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-E\-R\-M 
 \end{DoxySeeAlso}
-\hypertarget{class_ontology_wrapper_1_1_node_a631f706a3a7f62fc5f1f75f42e5889e8}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!pre\-Commit@{pre\-Commit}}
-\index{pre\-Commit@{pre\-Commit}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{pre\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}Ontology\-Wrapper\textbackslash{}\-Node\-::pre\-Commit (
+\hypertarget{class_ontology_wrapper_1_1_node_af8ad265b863a59718d1878d398417006}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!Resolve\-Database@{Resolve\-Database}}
+\index{Resolve\-Database@{Resolve\-Database}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
+\subsubsection[{Resolve\-Database}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Node\-::\-Resolve\-Database (
 \begin{DoxyParamCaption}
-\item[{}]{\$the\-Operation = {\ttfamily 0x00}}
+\item[{{\bf Wrapper}}]{\$the\-Wrapper, }
+\item[{}]{\$do\-Assert = {\ttfamily TRUE}, }
+\item[{}]{\$do\-Open = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ontology_wrapper_1_1_node_a631f706a3a7f62fc5f1f75f42e5889e8}
-Prepare object for commit
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_node_af8ad265b863a59718d1878d398417006}
+Resolve the database
 
-In this class we first check if the object is \hyperlink{namespace_ontology_wrapper_a7c06300cb0043d3bab108f92cb9be3db}{is\-Inited()}, if that is not the case, we raise an exception, since the object cannot be committed if not initialised.
-
-We then set the native identifier with a sequence number, if not yet set.
-
-When deleting we check whether the object has its native identifier.
+In this class we return the metadata database.
 
 
 \begin{DoxyParams}[1]{Parameters}
-bitfield & {\em \$the\-Operation} & Operation code.\\
+\hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper} & {\em \$the\-Wrapper} & \hyperlink{class_ontology_wrapper_1_1_wrapper}{Wrapper}. \\
+\hline
+boolean & {\em \$do\-Assert} & Raise exception if unable. \\
+\hline
+boolean & {\em \$do\-Open} & {\ttfamily T\-R\-U\-E} open connection.\\
 \hline
 \end{DoxyParams}
-protected
-
-Exception \hypertarget{class_ontology_wrapper_1_1_node_acd916b0222274569525e2a150a71b7dc}{\index{Ontology\-Wrapper\-::\-Node@{Ontology\-Wrapper\-::\-Node}!Resolve\-Object@{Resolve\-Object}}
-\index{Resolve\-Object@{Resolve\-Object}!OntologyWrapper::Node@{Ontology\-Wrapper\-::\-Node}}
-\subsubsection[{Resolve\-Object}]{\setlength{\rightskip}{0pt plus 5cm}static Ontology\-Wrapper\textbackslash{}\-Node\-::\-Resolve\-Object (
-\begin{DoxyParamCaption}
-\item[{{\bf Connection\-Object}}]{\$the\-Connection, }
-\item[{}]{\$the\-Identifier, }
-\item[{}]{\$do\-Assert = {\ttfamily TRUE}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ontology_wrapper_1_1_node_acd916b0222274569525e2a150a71b7dc}
-Resolve object
-
-This method can be used to statically instantiate an object from the provided data store, it will attempt to select the object matching the provided native identifier and return an instance of the originally committed class.
-
-The method accepts the following parameters\-:
-
-
-\begin{DoxyItemize}
-\item {\bfseries \$the\-Container}\-: The database or collection from which the object is to be retrieved. 
-\item {\bfseries \$the\-Identifier}\-: The objet native identifier. 
-\item {\bfseries \$do\-Assert}\-: If {\ttfamily T\-R\-U\-E}, if the object is not matched, the method will raise an exception; if {\ttfamily F\-A\-L\-S\-E}, the method will return {\ttfamily N\-U\-L\-L}. 
-\end{DoxyItemize}
-
-We implement this method to match objects in the nodes collection.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\hyperlink{class_ontology_wrapper_1_1_connection_object}{Connection\-Object} & {\em \$the\-Connection} & Persistent store. \\
-\hline
-mixed & {\em \$the\-Identifier} & Object identifier. \\
-\hline
-boolean & {\em \$do\-Assert} & Assert object.\\
-\hline
-\end{DoxyParams}
-public \begin{DoxyReturn}{Returns}
-\hyperlink{class_ontology_wrapper_1_1_ontology_object}{Ontology\-Object} Object or {\ttfamily N\-U\-L\-L}. 
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_ontology_wrapper_1_1_database_object}{Database\-Object} Database or {\ttfamily N\-U\-L\-L}.
 \end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}

@@ -185,7 +185,7 @@ class Node extends PersistentObject
 	 *
 	 * @throws Exception
 	 */
-	static function ResolveDatabase( $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
+	static function ResolveDatabase( Wrapper $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
 	{
 		//
 		// Get metadata database.
@@ -226,67 +226,69 @@ class Node extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommit																		*
+	 *	preCommitValidate																*
 	 *==================================================================================*/
 
 	/**
-	 * Prepare object for commit
+	 * Validate object before commit
 	 *
-	 * In this class we first check if the object is {@link isInited()}, if that is not the
-	 * case, we raise an exception, since the object cannot be committed if not initialised.
+	 * This method should validate the object before being committed.
 	 *
-	 * We then set the native identifier with a sequence number, if not yet set.
-	 *
-	 * When deleting we check whether the object has its native identifier.
-	 *
-	 * @param bitfield				$theOperation		Operation code.
+	 * In this class we do nothing, derived classes should overload this method and not the
+	 * caller.
 	 *
 	 * @access protected
-	 *
-	 * @throws Exception
 	 */
-	protected function preCommit( $theOperation = 0x00 )
+	protected function preCommitValidate()												   {}
+
+	 
+	/*===================================================================================
+	 *	preCommitIdentify																*
+	 *==================================================================================*/
+
+	/**
+	 * Set object identifiers before commit
+	 *
+	 * In this class we set the native identifier with the sequence number.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitIdentify()
 	{
 		//
-		// Handle insert and update.
+		// Resolve collection.
 		//
-		if( $theOperation & 0x01 )
-		{
-			//
-			// Check if initialised.
-			//
-			if( ! $this->isInited() )
-				throw new \Exception(
-					"Unable to commit: "
-				   ."the object is not initialised." );							// !@! ==>
-		
-			//
-			// Set sequence number.
-			//
-			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-				$this->offsetSet(
-					kTAG_NID,
-					$this->mCollection->getSequenceNumber(
-						static::kSEQ_NAME ) );
-		
-		} // Saving.
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) );
 		
 		//
-		// Handle delete.
+		// Set sequence number.
 		//
-		else
-		{
-			//
-			// Ensure the object has its native identifier.
-			//
-			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-				throw new \Exception(
-					"Unable to delete: "
-				   ."the object is missing its native identifier." );			// !@! ==>
-		
-		} // Deleting.
+		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+			$this->offsetSet(
+				kTAG_NID,
+				$collection->getSequenceNumber(
+					static::kSEQ_NAME ) );
 	
-	} // preCommit.
+	} // preCommitIdentify.
+
+	 
+	/*===================================================================================
+	 *	preCommitRelated																*
+	 *==================================================================================*/
+
+	/**
+	 * Commit related objects
+	 *
+	 * This method should commit related objects before the current object is committed.
+	 *
+	 * In this class we do nothing, derived classes should overload this method and not the
+	 * caller.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitRelated()												   {}
 
 		
 

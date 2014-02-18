@@ -1,24 +1,14 @@
 var searchData=
 [
-  ['label',['Label',['../class_ontology_wrapper_1_1_tag_object.html#aff2f456246175999477d30308ba46f5d',1,'OntologyWrapper\TagObject\Label()'],['../class_ontology_wrapper_1_1_term_object.html#a05ed3e9fdc652aec61870fa60a2d84aa',1,'OntologyWrapper\TermObject\Label()']]],
-  ['loaddatakinds',['loadDataKinds',['../class_ontology_wrapper_1_1_tag.html#aaf0f041294cc04e07c0e92640e7544e7',1,'OntologyWrapper::Tag']]],
-  ['loaddatatypes',['loadDataTypes',['../class_ontology_wrapper_1_1_tag.html#a8fafe8f4c5ac0208e0428a857d291103',1,'OntologyWrapper::Tag']]],
   ['loaddsnparameter',['loadDSNParameter',['../class_ontology_wrapper_1_1_connection_object.html#ac0e6ea1c27ccfbf1366f8c6ab8c830c7',1,'OntologyWrapper::ConnectionObject']]],
-  ['loadnamespace',['loadNamespace',['../class_ontology_wrapper_1_1_term.html#aff4bc870850271310f116c433999a3c5',1,'OntologyWrapper::Term']]],
-  ['loadobject',['loadObject',['../class_ontology_wrapper_1_1_edge.html#ac0176e2db533a781fb59c60368e3f5e4',1,'OntologyWrapper::Edge']]],
-  ['loadpredicate',['loadPredicate',['../class_ontology_wrapper_1_1_edge.html#ab4ec3c0a5b1b89632c20c5d807e13da9',1,'OntologyWrapper::Edge']]],
-  ['loadsubject',['loadSubject',['../class_ontology_wrapper_1_1_edge.html#acd4c7e465ef4a809580d6ad8d19dd7ab',1,'OntologyWrapper::Edge']]],
-  ['loadtag',['loadTag',['../class_ontology_wrapper_1_1_node.html#ab1a39673329171326b6595d0c4cb782a',1,'OntologyWrapper::Node']]],
   ['loadtagcache',['loadTagCache',['../class_ontology_wrapper_1_1_wrapper.html#ae03422dc6a2e5f5e03726b85f62a1f12',1,'OntologyWrapper::Wrapper']]],
-  ['loadterm',['loadTerm',['../class_ontology_wrapper_1_1_node.html#a672ee5306bf9cb8c8c200f51a72e23e3',1,'OntologyWrapper::Node']]],
-  ['loadterms',['loadTerms',['../class_ontology_wrapper_1_1_tag.html#aa2e64f9c1b9f4cd55e5f31db154057b7',1,'OntologyWrapper::Tag']]],
   ['loadxmlelement',['loadXMLElement',['../class_ontology_wrapper_1_1_wrapper.html#ae5261a315a52ff325df36f277f6aba93',1,'OntologyWrapper::Wrapper']]],
   ['loadxmlentities',['loadXMLEntities',['../class_ontology_wrapper_1_1_wrapper.html#adbb3bf1090ccdf7ed89ffd494a0b101c',1,'OntologyWrapper::Wrapper']]],
   ['loadxmlfile',['loadXMLFile',['../class_ontology_wrapper_1_1_wrapper.html#a2ee823f34e78d0a1f2361d6da3f58532',1,'OntologyWrapper::Wrapper']]],
   ['loadxmlmetadata',['loadXMLMetadata',['../class_ontology_wrapper_1_1_wrapper.html#aa8b5ac231784ffcda74ea463c6e92cc1',1,'OntologyWrapper::Wrapper']]],
   ['loadxmlmetadatablock',['loadXMLMetadataBlock',['../class_ontology_wrapper_1_1_wrapper.html#a3500af2ce8421aed6b1f6dcfb5112546',1,'OntologyWrapper::Wrapper']]],
-  ['loadxmltag',['loadXMLTag',['../class_ontology_wrapper_1_1_wrapper.html#ae15fd84eb510838a278ccd24c7bcc4a5',1,'OntologyWrapper::Wrapper']]],
-  ['loadxmlterm',['loadXMLTerm',['../class_ontology_wrapper_1_1_wrapper.html#a14c77bdeec16286c776ebe375efdd284',1,'OntologyWrapper::Wrapper']]],
+  ['loadxmltag',['loadXMLTag',['../class_ontology_wrapper_1_1_wrapper.html#a68e6a836e7e1d9d6f6da7bc191582a6c',1,'OntologyWrapper::Wrapper']]],
+  ['loadxmlterm',['loadXMLTerm',['../class_ontology_wrapper_1_1_wrapper.html#a8ccba167a921ff4661910c0b9f1d0a7c',1,'OntologyWrapper::Wrapper']]],
   ['loadxmlunits',['loadXMLUnits',['../class_ontology_wrapper_1_1_wrapper.html#aaad33b2f3f398545a234f7650f126321',1,'OntologyWrapper::Wrapper']]],
-  ['lockedoffsets',['lockedOffsets',['../class_ontology_wrapper_1_1_edge.html#a4ebc54fd09b9565562da5dcbd2012edb',1,'OntologyWrapper\Edge\lockedOffsets()'],['../class_ontology_wrapper_1_1_node.html#aea89165149368db575c3da6fd4279785',1,'OntologyWrapper\Node\lockedOffsets()'],['../class_ontology_wrapper_1_1_tag.html#a191b408968b0d9bc9e8e2e8fadd24060',1,'OntologyWrapper\Tag\lockedOffsets()'],['../class_ontology_wrapper_1_1_term.html#a174e341c129088cdc8b845e0176d6eb4',1,'OntologyWrapper\Term\lockedOffsets()'],['../namespace_ontology_wrapper.html#accb23ff544361b7ae4c9c3fc3422e875',1,'OntologyWrapper\lockedOffsets()']]]
+  ['lockedoffsets',['lockedOffsets',['../class_ontology_wrapper_1_1_edge.html#a4ebc54fd09b9565562da5dcbd2012edb',1,'OntologyWrapper\Edge\lockedOffsets()'],['../class_ontology_wrapper_1_1_node.html#aea89165149368db575c3da6fd4279785',1,'OntologyWrapper\Node\lockedOffsets()'],['../class_ontology_wrapper_1_1_persistent_object.html#ab539a5204bd58394d0a88353db957023',1,'OntologyWrapper\PersistentObject\lockedOffsets()'],['../class_ontology_wrapper_1_1_tag.html#a191b408968b0d9bc9e8e2e8fadd24060',1,'OntologyWrapper\Tag\lockedOffsets()'],['../class_ontology_wrapper_1_1_term.html#a174e341c129088cdc8b845e0176d6eb4',1,'OntologyWrapper\Term\lockedOffsets()']]]
 ];
