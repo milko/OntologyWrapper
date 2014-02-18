@@ -1,0 +1,53 @@
+	//
+	// Test iterators.
+	//
+	function multX10( &$theValue, $theKey )
+	{
+		if( ((int) $theKey) % 2 )
+			$theValue = $theValue * 10;
+	}
+
+	$array = new ArrayObject( array( 1, 2, array( 6, 7, array( 8, 9 ) ) ) );
+	var_dump( $array );
+	
+	array_walk_recursive( $array, 'multX10' );
+	var_dump( $array );
+
+exit;
+	
+	//
+	// Test iterators.
+	//
+	function print_caps(Iterator $iterator)
+	{
+		$iterator->offsetSet( $iterator->key(), strtoupper($iterator->current()) );
+		return TRUE;
+	}
+
+	$array = array( "Apples", "Bananas", "Cherries" );
+	var_dump( $array );
+	
+	$it = new ArrayIterator($array);
+	iterator_apply($it, "print_caps", array($it));
+	var_dump( $array );
+
+$iterator = new RecursiveArrayIterator($games); 
+iterator_apply($iterator, 'navigateArray', array($iterator)); 
+
+exit;
+	
+function navigateArray($iterator) { 
+    
+  while ($iterator->valid()) { 
+
+    if ($iterator->hasChildren()) { 
+      navigateArray($iterator->getChildren()); 
+    } 
+    else { 
+      printf("%s: %s", $iterator->key(), $iterator->current());
+    } 
+
+    $iterator->next(); 
+  } 
+} 
+

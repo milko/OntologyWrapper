@@ -228,23 +228,6 @@ class Edge extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitValidate																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate object before commit
-	 *
-	 * This method should validate the object before being committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitValidate()												   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitIdentify																*
 	 *==================================================================================*/
 
@@ -259,29 +242,17 @@ class Edge extends PersistentObject
 	protected function preCommitIdentify()
 	{
 		//
+		// Call parent method.
+		//
+		parent::preCommitIdentify();
+		
+		//
 		// Set native identifier.
 		//
 		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
 			\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
 	
 	} // preCommitIdentify.
-
-	 
-	/*===================================================================================
-	 *	preCommitRelated																*
-	 *==================================================================================*/
-
-	/**
-	 * Commit related objects
-	 *
-	 * This method should commit related objects before the current object is committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitRelated()												   {}
 
 	 
 	/*===================================================================================

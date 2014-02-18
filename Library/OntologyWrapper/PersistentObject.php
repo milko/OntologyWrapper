@@ -464,14 +464,6 @@ abstract class PersistentObject extends OntologyObject
 		if( $theOperation & 0x01 )
 		{
 			//
-			// Check if initialised.
-			//
-			if( ! $this->isInited() )
-				throw new \Exception(
-					"Unable to commit: "
-				   ."the object is not initialised." );							// !@! ==>
-			
-			//
 			// Validate object.
 			//
 			$this->preCommitValidate();
@@ -521,13 +513,25 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Validate object before commit
 	 *
-	 * This method should validate the object before being committed.
+	 * This method should validate the object before being committed, if the object is not
+	 * valid, the method should raise an exception. Derived classes should call the parent
+	 * method and do the specific checks.
 	 *
-	 * Derived classes must implement this method and should not overload the caller.
+	 * In this class we check whether the object is initialised.
 	 *
 	 * @access protected
 	 */
-	abstract protected function preCommitValidate();
+	protected function preCommitValidate()
+	{
+		//
+		// Check if initialised.
+		//
+		if( ! $this->isInited() )
+			throw new \Exception(
+				"Unable to commit: "
+			   ."the object is not initialised." );								// !@! ==>
+	
+	} // preCommitValidate.
 
 	 
 	/*===================================================================================
@@ -539,11 +543,11 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * This method should set the object identifiers.
 	 *
-	 * Derived classes must implement this method and should not overload the caller.
+	 * In this class we do nothing.
 	 *
 	 * @access protected
 	 */
-	abstract protected function preCommitIdentify();
+	protected function preCommitIdentify()												   {}
 
 	 
 	/*===================================================================================
@@ -555,11 +559,11 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * This method should commit related objects before the current object is committed.
 	 *
-	 * Derived classes must implement this method and should not overload the caller.
+	 * In this class we do nothing.
 	 *
 	 * @access protected
 	 */
-	abstract protected function preCommitRelated();
+	protected function preCommitRelated()												   {}
 
 	 
 	/*===================================================================================

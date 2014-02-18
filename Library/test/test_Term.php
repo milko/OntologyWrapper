@@ -1267,6 +1267,12 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+@@@MILKO
+$iterator = new \RecursiveIteratorIterator(
+				new \RecursiveArrayIterator( $test ),
+				\RecursiveIteratorIterator::SELF_FIRST );
+iterator_apply( $iterator, array( $test, 'test' ), array($iterator, $wrapper) );
+
 }
 
 //
