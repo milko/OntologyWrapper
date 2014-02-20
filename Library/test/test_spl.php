@@ -3,6 +3,61 @@
 	//
 	// Test iterators.
 	//
+	
+	//
+	// Set test array.
+	//
+	$array = array
+	(
+		"01" => 1,
+		"02" => 2,
+		"A1" => array
+		(
+			"04" => 40,
+			"05" => 50
+		),
+		"A2" => array
+		(
+			"05" => 500,
+			"A3" => array
+			(
+				"A4" => array
+				(
+					"01" => 10,
+					"02" => 20,
+					"A5" => array
+					(
+						"01" => 100,
+						"02" => 200,
+						"03" => 300
+					)
+				)
+			),
+			"A6" => array
+			(
+				"01" => 1000,
+				"02" => 2000,
+				"03" => 3000
+			)
+		)
+	);
+var_dump( $array );
+$test = new ArrayObject( $array );
+echo( '<hr>' );
+	
+	function test_1( Iterator $theIterator )
+	{
+		echo( $theIterator->key().': '.gettype( $theIterator->current() ).'<br />' );
+		return TRUE;
+	}
+	
+$iterator = new \RecursiveIteratorIterator(
+				new \RecursiveArrayIterator( $test->getIterator() ),
+				\RecursiveIteratorIterator::SELF_FIRST );
+iterator_apply( $iterator, 'test_1', array($iterator) );
+
+exit;
+	
 	function multX10( &$theValue, $theKey )
 	{
 		if( ((int) $theKey) % 2 )

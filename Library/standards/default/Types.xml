@@ -138,7 +138,37 @@
                 <item lang="en">Node reference</item>
             </item>
             <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <i>node reference</i> is an <em>integer</em> that must correspond to the <em>sequence number of a Node object</em>.]]></item>
+                <item lang="en"><![CDATA[A <i>node reference</i> is an <em>integer</em> that must correspond to the <em>netive identifier of a Node object</em>.]]></item>
+            </item>
+        </TERM>
+        
+        <!-- Edge reference -->
+        <TERM ns=":type:ref" lid="edge">
+            <item const="kTAG_LABEL">
+                <item lang="en">Edge reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[An <i>edge reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Edge object</em>.]]></item>
+            </item>
+        </TERM>
+        
+        <!-- Entity reference -->
+        <TERM ns=":type:ref" lid="entity">
+            <item const="kTAG_LABEL">
+                <item lang="en">Entity reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[An <i>entity reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Entity object</em>.]]></item>
+            </item>
+        </TERM>
+        
+        <!-- Unit reference -->
+        <TERM ns=":type:ref" lid="unit">
+            <item const="kTAG_LABEL">
+                <item lang="en">Unit reference</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[A <i>unit reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Unit object</em>.]]></item>
             </item>
         </TERM>
     </META>

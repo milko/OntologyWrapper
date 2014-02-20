@@ -84,6 +84,8 @@ class MyClass extends OntologyWrapper\OntologyObject
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
 	
 	public function __toString()						{	return "hello!";	}
+	
+	public function TraverseObject()			{	return $this->traverse();	}
 }
 
 
@@ -102,9 +104,28 @@ try
 	// Instantiate data dictionary.
 	//
 	$dictionary
-		= new OntologyWrapper\Dictionary(
+		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
+	
+	//
+	// Set databases.
+	//
+	$meta = $dictionary->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$meta->drop();
+	$dictionary->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$dictionary->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	
+	//
+	// Reset ontology.
+	//
+	$dictionary->resetOntology();
 	
 	//
 	// Test parent class.
@@ -1134,6 +1155,69 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $ref );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Create test object.
+	//
+	echo( '<h4>Create test object</h4>' );
+	$array = array
+	(
+		kTAG_NID => "ID",
+		kTAG_CLASS => "OntologyObject",
+		kTAG_DOMAIN => "Object",
+		kTAG_NAME => 123,
+		kTAG_LABEL => array
+		(
+			array( kTAG_LANGUAGE => "en",
+				   kTAG_TEXT => "Connection" ),
+			array( kTAG_LANGUAGE => "it",
+				   kTAG_TEXT => "Connessione" ),
+			array( kTAG_LANGUAGE => 1,
+				   kTAG_TEXT => 2 )
+		),
+		kTAG_CONN_PORT => "80"
+	);
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $array );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $array );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->dictionary( $dictionary );'.kSTYLE_HEAD_POS );
+	$test->dictionary( $dictionary );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Traverse object.
+	//
+	echo( '<h4>Traverse object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$offsets = $test->TraverseObject();' );
+	$offsets = $test->TraverseObject();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offsets );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

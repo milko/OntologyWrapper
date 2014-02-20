@@ -298,23 +298,6 @@ class Term extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitValidate																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate object before commit
-	 *
-	 * This method should validate the object before being committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitValidate()												   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitIdentify																*
 	 *==================================================================================*/
 
@@ -329,29 +312,17 @@ class Term extends PersistentObject
 	protected function preCommitIdentify()
 	{
 		//
+		// Call parent method.
+		//
+		parent::preCommitIdentify();
+		
+		//
 		// Set native identifier.
 		//
 		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
 			\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
 	
 	} // preCommitIdentify.
-
-	 
-	/*===================================================================================
-	 *	preCommitRelated																*
-	 *==================================================================================*/
-
-	/**
-	 * Commit related objects
-	 *
-	 * This method should commit related objects before the current object is committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitRelated()												   {}
 
 		
 
@@ -609,6 +580,45 @@ class Term extends PersistentObject
 			$theValue = (string) $theValue;
 	
 	} // validateNewNamespace.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	test															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate new namespace
+	 *
+	 * This method is called by the {@link preOffsetSet()} method when provided a new
+	 * namespace, {@link kTAG_NAMESPACE}: its duty is to:
+	 *
+	 * <ul>
+	 *	<li>If provided an object, check whether it is a term.
+	 *	<li>If provided an object and the object is committed, get its native identifier.
+	 * </ul>
+	 *
+	 * @param reference				$theValue			Namespace reference.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
+	 */
+	public function test( \Iterator $theIterator, Wrapper $theWrapper )
+	{
+		echo( $theIterator->key().': '.gettype( $theIterator->current() ).'<br />' );
+		return TRUE;
+	
+	} // test.
 
 	 
 

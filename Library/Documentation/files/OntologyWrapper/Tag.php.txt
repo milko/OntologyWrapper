@@ -337,23 +337,6 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitValidate																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate object before commit
-	 *
-	 * This method should validate the object before being committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitValidate()												   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitIdentify																*
 	 *==================================================================================*/
 
@@ -369,6 +352,11 @@ class Tag extends PersistentObject
 	 */
 	protected function preCommitIdentify()
 	{
+		//
+		// Call parent method.
+		//
+		parent::preCommitIdentify();
+		
 		//
 		// Resolve collection.
 		//
@@ -392,23 +380,6 @@ class Tag extends PersistentObject
 					static::kSEQ_NAME ) );
 	
 	} // preCommitIdentify.
-
-	 
-	/*===================================================================================
-	 *	preCommitRelated																*
-	 *==================================================================================*/
-
-	/**
-	 * Commit related objects
-	 *
-	 * This method should commit related objects before the current object is committed.
-	 *
-	 * In this class we do nothing, derived classes should overload this method and not the
-	 * caller.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitRelated()												   {}
 
 	 
 	/*===================================================================================

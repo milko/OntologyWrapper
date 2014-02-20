@@ -31,10 +31,10 @@ exit;
 	iterator_apply($it, "print_caps", array($it));
 	var_dump( $array );
 
+exit;
+
 $iterator = new RecursiveArrayIterator($games); 
 iterator_apply($iterator, 'navigateArray', array($iterator)); 
-
-exit;
 	
 function navigateArray($iterator) { 
     
@@ -51,3 +51,93 @@ function navigateArray($iterator) {
   } 
 } 
 
+exit;
+
+/*
+ * PHP SPL - How to implement the RecursiveIterator interface
+ */
+
+//beeing an interface it must be implemented in order to be used
+class MyRecursiveIterator implements RecursiveIterator
+{
+    private $_data;
+    private $_position = 0;
+   
+    public function __construct(array $data) {
+        $this->_data = $data;
+    }
+   
+    //Checks if current position is valid
+    public function valid() {
+        return isset($this->_data[$this->_position]);
+    }
+   
+    //Returns if an iterator can be created fot the current entry.
+    public function hasChildren() {
+        return is_array($this->_data[$this->_position]);
+    }
+   
+    //Move forward to next element
+    public function next() {
+        $this->_position++;
+    }
+   
+    //Returns the current element
+    public function current() {
+        return $this->_data[$this->_position];
+    }
+   
+    //Returns an iterator for the current entry.
+    public function getChildren() {
+        echo '<pre>';
+        print_r($this->_data[$this->_position]);
+        echo '</pre>';
+    }
+   
+    //Rewind the iterator to the first element
+    public function rewind() {
+        $this->_position = 0;
+    }
+   
+    //Return the key of the current element
+    public function key() {
+        return $this->_position;
+    }
+}
+
+$arr = array(0, 1, 2, 3, 4, 5 => array(10, 20, 30), 6, 7, 8, 9 => array(1, 2, 3));
+$mri = new MyRecursiveIterator($arr);
+
+foreach ($mri as $c => $v) {
+    if ($mri->hasChildren()) {
+        echo "$c has children: <br />";
+        $mri->getChildren();
+    } else {
+        echo "$v <br />";
+    }
+
+}
+
+exit;
+
+<?php
+ 
+$hey = array(
+'Web',
+array(
+'Search Engines',
+array('Google', 'Bing', 'Yahoo')
+),
+array(
+'Social Coding',
+array('GitHub', 'Forrst')
+)
+);
+ 
+$awesome = new RecursiveTreeIterator(
+new RecursiveArrayIterator($hey),
+null, null, RecursiveIteratorIterator::LEAVES_ONLY
+);
+ 
+foreach ($awesome as $line)
+echo $line.PHP_EOL;

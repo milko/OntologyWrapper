@@ -132,10 +132,34 @@ define( "kTYPE_REF_TAG",						':type:ref:tag' );
 /**
  * Node reference.
  *
- * A <i>node reference</i> is a <em>string</em> that must correspond to the native
+ * A <i>node reference</i> is an <em>integer</em> that must correspond to the native
  * identifier of a {@link Node} object.
  */
 define( "kTYPE_REF_NODE",						':type:ref:node' );
+
+/**
+ * Edge reference.
+ *
+ * An <i>edge reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of an {@link Edge} object.
+ */
+define( "kTYPE_REF_EDGE",						':type:ref:edge' );
+
+/**
+ * Entity reference.
+ *
+ * An <i>entity reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of an {@link Entity} object.
+ */
+define( "kTYPE_REF_ENTITY",						':type:ref:entity' );
+
+/**
+ * Unit reference.
+ *
+ * A <i>unit reference</i> is a <em>string</em> that must correspond to the native
+ * identifier of a {@link Unit} object.
+ */
+define( "kTYPE_REF_UNIT",						':type:ref:unit' );
 
 /*=======================================================================================
  *	CARDINALITY TYPES																	*
