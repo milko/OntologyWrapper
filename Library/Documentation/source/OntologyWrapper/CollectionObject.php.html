@@ -1,0 +1,482 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * CollectionObject.php
+ *
+ * This file contains the definition of the {@link CollectionObject} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\ConnectionObject;
+use OntologyWrapper\DatabaseObject;
+
+/*=======================================================================================
+ *																						*
+ *								CollectionObject.php									*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Collection object
+ *
+ * This &lt;i&gt;abstract&lt;/i&gt; class is the ancestor of all classes representing database
+ * collection instances, this class extends the {@link ConnectionObject} class to implement
+ * collection specific functionality prototypes.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 06/02/2014
+ */
+abstract class CollectionObject extends ConnectionObject
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *										MAGIC											*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We overload the constructor to instantiate a database from the provided parameter if
+	 * the parent object was not provided.
+	 *
+	 * @param mixed					$theParameter		Data source name or parameters.
+	 * @param ConnectionObject		$theParent			Connection parent.
+	 *
+	 * @access public
+	 *
+	 * @uses ServerObject::DefaultOffsets()
+	 * @uses DatabaseObject::DefaultOffsets()
+	 *
+	 * @uses newDatabase()
+	 */
+	public function __construct( $theParameter = NULL, $theParent = NULL )
+	{
+		//
+		// Call parent constructor.
+		//
+		parent::__construct( $theParameter, $theParent );
+
+		//
+		// Create parent.
+		//
+		if( ($theParameter !== NULL)
+		 &amp;&amp; (! ($theParent instanceof ConnectionObject)) )
+		{
+			//
+			// Get server and database parameters.
+			//
+			$params = Array();
+			foreach( array_merge( ServerObject::DefaultOffsets(),
+								  DatabaseObject::DefaultOffsets() )
+						as $offset )
+			{
+				if( $this-&gt;offsetExists( $offset ) )
+					$params[ $offset ] = $this-&gt;offsetGet( $offset );
+			
+			} // Extracting server parameters.
+			
+			//
+			// Instantiate server.
+			//
+			$this-&gt;mParent = $this-&gt;newDatabase( $params );
+		
+		} // Mising parent.
+		
+	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the collection
+	 *
+	 * This method should drop the current collection.
+	 *
+	 * @access public
+	 */
+	abstract public function drop();
+
+	 
+	/*===================================================================================
+	 *	commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert an object
+	 *
+	 * The method expects the provided parameter to be either an array or an
+	 * {@link ArrayObject} instance.
+	 *
+	 * The method will call the virtual {@link insertData()} method, passing the received
+	 * object to it, which will perform the actual commit.
+	 *
+	 * The method will return the inserted object's identifier, {@link kTAG_NID}.
+	 *
+	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
+	 *
+	 * @param reference				$theObject			Object to commit.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return mixed				Inserted object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_CLASS
+	 *
+	 * @uses isConnected()
+	 * @uses insertData()
+	 */
+	public function commit( &amp;$theObject, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this-&gt;isConnected() )
+		{
+			//
+			// Check object type.
+			//
+			if( is_array( $theObject )
+			 || ($theObject instanceof \ArrayObject) )
+			{
+			 	//
+			 	// Set class.
+			 	//
+			 	if( is_object( $theObject ) )
+				 	$theObject[ kTAG_CLASS ]
+				 		= get_class( $theObject );
+			 	
+				return $this-&gt;insertData( $theObject, $theOptions );				// ==&gt;
+			 
+			 } // Correct type.
+			
+			throw new \Exception(
+				&quot;Unable to commit object: &quot;
+			   .&quot;provided invalid or unsupported data type.&quot; );					// !@! ==&gt;
+		
+		} // Connected.
+			
+		throw new \Exception(
+			&quot;Unable to commit object: &quot;
+		   .&quot;connection is not open.&quot; );										// !@! ==&gt;
+	
+	} // commit.
+
+	 
+	/*===================================================================================
+	 *	resolve																			*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve an object
+	 *
+	 * This method should select an object in the current collection matching the provided
+	 * identifier with the provided offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theIdentifier&lt;/b&gt;: This parameter represents the value to match with the
+	 *		provided offset.
+	 *	&lt;li&gt;&lt;b&gt;$theOffset&lt;/b&gt;: This parameter represents either the native or persistent
+	 *		identifier of the offset tag.
+	 *	&lt;li&gt;&lt;b&gt;$asObject&lt;/b&gt;: This parameter determines what the method should return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the object; if there are more than one objects
+	 *			selected, this method should only return the first.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the object array; if there are more than one objects
+	 *			selected, this method should only return the first.
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the objects count.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theOffset			Offset.
+	 * @param mixed					$asObject			Return object if &lt;tt&gt;TRUE&lt;/tt&gt;.
+	 *
+	 * @access public
+	 * @return mixed				Found object, array, objects count or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 */
+	abstract public function resolve( $theIdentifier, $theOffset = kTAG_NID,
+													  $asObject = TRUE );
+
+	 
+	/*===================================================================================
+	 *	getAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return all objects
+	 *
+	 * This method should select all the objects of the collection and return an iterator.
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @access public
+	 * @return Iterator				Selection of all objects of the collection.
+	 */
+	abstract public function getAll();
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Set sequence number
+	 *
+	 * This method should initialise a sequence number associated to the provided parameter.
+	 * This operation is equivalent to resetting an auto-number for a database.
+	 *
+	 * Once the sequence is set, the next requested sequence number will hold the value set
+	 * by this method, so to start counting from &lt;tt&gt;1&lt;/tt&gt; you should provide this value to
+	 * this method.
+	 *
+	 * This method is intended to be handled by database objects, in this class we simply
+	 * let the object's parent, a database, perform the action.
+	 *
+	 * Derived classes should never need to overload this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 * @param integer				$theNumber			Sequence number.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+	{
+		//
+		// Check parent.
+		//
+		if( ! ($this-&gt;mParent instanceof DatabaseObject) )
+			throw new \Exception(
+				&quot;Unable to set sequence number: &quot;
+			   .&quot;the collection is missing its database.&quot; );					// !@! ==&gt;
+		
+		//
+		// Let papa do it.
+		//
+		$this-&gt;mParent-&gt;setSequenceNumber( $theSequence, $theNumber );
+	
+	} // setSequenceNumber.
+
+	 
+	/*===================================================================================
+	 *	getSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Return sequence number
+	 *
+	 * This method should return a sequence number associated to the provided parameter.
+	 * This operation is equivalent to requesting an auto-number for a database.
+	 *
+	 * Each time a sequence number is requested, the sequence seed is updated, so use this
+	 * method only when the sequence is required.
+	 *
+	 * If the sequence selector is not found, a new one will be created starting with the
+	 * number &lt;tt&gt;1&lt;/tt&gt;, so, if you need to start with another number, use the
+	 * {@link setSequenceNumber()} before.
+	 *
+	 * This method is intended to be handled by database objects, in this class we simply
+	 * let the object's parent, a database, perform the action.
+	 *
+	 * Derived classes should never need to overload this method.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 *
+	 * @access public
+	 * @return integer				Sequence number.
+	 */
+	public function getSequenceNumber( $theSequence )
+	{
+		//
+		// Check parent.
+		//
+		if( ! ($this-&gt;mParent instanceof DatabaseObject) )
+			throw new \Exception(
+				&quot;Unable to get sequence number: &quot;
+			   .&quot;the collection is missing its database.&quot; );					// !@! ==&gt;
+		
+		return $this-&gt;mParent-&gt;getSequenceNumber( $theSequence );				 // ==&gt;
+	
+	} // setSequenceNumber.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return the {@link kTAG_CONN_COLL} offset.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_CONN_COLL ) );								// ==&gt;
+	
+	} // DefaultOffsets;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONNECTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	newDatabase																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new database instance
+	 *
+	 * This method should be implemented by concrete derived classes, it expects a list of
+	 * offsets or a data source name containing the necessary elements to instantiate a
+	 * {@link DatabaseObject} instance which will be considered the current object's parent.
+	 *
+	 * Note that these parameters must also include the {@link ServerObject} parameters.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theParameter		Database parameters.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access protected
+	 * @return DatabaseObject		Database instance.
+	 */
+	abstract protected function newDatabase( $theParameter, $doOpen = TRUE );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	insertData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Insert provided data
+	 *
+	 * This method should be implemented by concrete derived classes, it should commit a
+	 * new record in the current collection featuring the provided data and return the
+	 * record identifier.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param reference				$theData			Data to commit.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	abstract protected function insertData( &amp;$theData, &amp;$theOptions );
+
+	 
+
+} // class CollectionObject.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

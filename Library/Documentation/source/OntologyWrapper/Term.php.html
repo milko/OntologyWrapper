@@ -1,0 +1,673 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * Term.php
+ *
+ * This file contains the definition of the {@link Term} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\PersistentObject;
+use OntologyWrapper\ServerObject;
+use OntologyWrapper\DatabaseObject;
+use OntologyWrapper\CollectionObject;
+
+/*=======================================================================================
+ *																						*
+ *										Term.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Term
+ *
+ * A term object holds the necessary information to &lt;i&gt;uniquely identify&lt;/i&gt;,
+ * &lt;i&gt;document&lt;/i&gt; and &lt;i&gt;share&lt;/i&gt; a &lt;i&gt;generic term or concept&lt;/i&gt; which is &lt;i&gt;not related
+ * to a specific context&lt;/i&gt;.
+ *
+ * For instance, a &lt;tt&gt;name&lt;/tt&gt; is defined as a string or text that identifies something,
+ * this is true for both a person name or an object name, however, the term &lt;tt&gt;name&lt;/tt&gt;
+ * will bare a different meaning depending on what context it is used in: the term object
+ * holds the definition of that will not change with its context.
+ *
+ * The class features the following default offsets:
+ *
+ * &lt;ul&gt;
+ *	&lt;li&gt;&lt;tt&gt;{@link kTAG_NID}&lt;/tt&gt;: &lt;em&gt;Native identifier&lt;/em&gt;. This required attribute holds
+ *		the term global identifier. By convention this value is the combination of the
+ *		namespace, {@link kTAG_NAMESPACE}, and the local identifier, {@link kTAG_ID_LOCAL},
+ *		separated by the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global
+ *		identifier may be manually set. This attribute must be managed with its offset.
+ *	&lt;li&gt;&lt;tt&gt;{@link kTAG_NAMESPACE}&lt;/tt&gt;: &lt;em&gt;Namespace&lt;/em&gt;. This optional attribute is a
+ *		reference to another term object that represents the namespace of the current term.
+ *		It is by definition the global identifier of the namespace term. This attribute must
+ *		be managed with its offset.
+ *	&lt;li&gt;&lt;tt&gt;{@link kTAG_ID_LOCAL}&lt;/tt&gt;: &lt;em&gt;Local identifier&lt;/em&gt;. This required attribute
+ *		is a string that represents the current term unique identifier within its namespace.
+ *		The combination of the current term's namespace and this attribute form the term's
+ *		global identifier. This attribute must be managed with its offset.
+ *	&lt;li&gt;&lt;tt&gt;{@link kTAG_LABEL}&lt;/tt&gt;: &lt;em&gt;Label&lt;/em&gt;. The label represents the &lt;i&gt;name or
+ *		short description&lt;/i&gt; of the term that the current object defines. All terms
+ *		&lt;em&gt;should&lt;/em&gt; have a label, since this is how human users will be able to identify
+ *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
+ *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
+ *		holds the label language code and the {@link kTAG_TEXT} holds the label text. To
+ *		populate and handle labels by language, use the {@link Label()} offset accessor
+ *		method. Some terms may not have a language element, for instance the number
+ *		&lt;tt&gt;2&lt;/tt&gt; may not need to be expressed in other ways.
+ *	&lt;li&gt;&lt;tt&gt;{@link kTAG_DEFINITION}&lt;/tt&gt;: &lt;em&gt;Definition&lt;/em&gt;. The definition represents the
+ *		&lt;i&gt;description or extended definition&lt;/i&gt; of the term that the current object object
+ *		defines. The definition is similar to the &lt;em&gt;description&lt;/em&gt;, except that while
+ *		the description provides context specific information, the definition should not.
+ *		All terms &lt;em&gt;should&lt;/em&gt; have a definition, if the object label is not enough to
+ *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRINGS}
+ *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
+ *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
+ *		definitions by language, use the {@link Definition()} offset accessor method.
+ * &lt;/ul&gt;
+ *
+ * The {@link __toString()} method will return the value stored in the native identifier,
+ * if set, or the computed global identifier if at least the local identifier is set; if the
+ * latter is not set, the method will fail.
+ *
+ * Objects of this class can hold any additional attribute that is considered necessary or
+ * useful to define and share the current term. In this class we define only those
+ * attributes that constitute the core functionality of the object, derived classes will add
+ * attributes specific to the domain in which the object will operate.
+ *
+ * The object is considered initialised, {@link isInited()}, if it has at least the local
+ * identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL}.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 07/02/2014
+ */
+class Term extends PersistentObject
+{
+	/**
+	 * Label trait.
+	 *
+	 * We use this trait to handle labels.
+	 */
+	use	traits\Label;
+
+	/**
+	 * Definition trait.
+	 *
+	 * We use this trait to handle definitions.
+	 */
+	use	traits\Definition;
+
+	/**
+	 * Default collection name.
+	 *
+	 * This constant provides the &lt;i&gt;default collection name&lt;/i&gt; in which objects of this
+	 * class are stored.
+	 *
+	 * @var string
+	 */
+	const kSEQ_NAME = '_terms';
+
+		
+
+/*=======================================================================================
+ *																						*
+ *										MAGIC											*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * In this class we link the inited status with the presence of the local identifier and
+	 * the label.
+	 *
+	 * @param ConnectionObject		$theContainer		Persistent store.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access public
+	 *
+	 * @uses isInited()
+	 *
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
+	 */
+	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	{
+		//
+		// Load object with contents.
+		//
+		parent::__construct( $theContainer, $theIdentifier );
+		
+		//
+		// Set initialised status.
+		//
+		$this-&gt;isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &amp;&amp;
+						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+
+	} // Constructor.
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Return global identifier&lt;/h4&gt;
+	 *
+	 * If the native identifier, {@link kTAG_NID}, is set, this method will return its
+	 * value. If that offset is not yet set, the method will compute the global identifier
+	 * by concatenating the object's namespace, {@link kTAG_NAMESPACE}, with the object's
+	 * local identifier, {@link kTAG_ID_LOCAL}, separated by the
+	 * {@link kTOKEN_NAMESPACE_SEPARATOR} token. This will only occur if the object has the
+	 * local identifier, if that is not the case, the method will return an empty string to
+	 * prevent the method from causing an error.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	public function __toString()
+	{
+		//
+		// Get native identifier.
+		//
+		if( \ArrayObject::offsetExists( kTAG_NID ) )
+			return \ArrayObject::offsetGet( kTAG_NID );								// ==&gt;
+		
+		//
+		// Compute global identifier.
+		//
+		if( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) )
+			return ( \ArrayObject::offsetExists( kTAG_NAMESPACE ) )
+				 ? (\ArrayObject::offsetGet( kTAG_NAMESPACE )
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .\ArrayObject::offsetGet( kTAG_ID_LOCAL ))						// ==&gt;
+				 : \ArrayObject::offsetGet( kTAG_ID_LOCAL );						// ==&gt;
+		
+		return '';																	// ==&gt;
+	
+	} // __toString.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *								STATIC CONNECTION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveDatabase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve the database
+	 *
+	 * In this class we return the metadata database.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if unable.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @static
+	 * @return DatabaseObject		Database or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveDatabase( Wrapper $theWrapper, $doAssert = TRUE, $doOpen = TRUE )
+	{
+		//
+		// Get metadata database.
+		//
+		$database = $theWrapper-&gt;Metadata();
+		if( $database instanceof DatabaseObject )
+		{
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$database-&gt;openConnection();
+			
+			return $database;														// ==&gt;
+		
+		} // Retrieved metadata database.
+		
+		//
+		// Raise exception.
+		//
+		if( $doAssert )
+			throw new \Exception(
+				&quot;Unable to resolve database: &quot;
+			   .&quot;missing metadata reference in wrapper.&quot; );						// !@! ==&gt;
+		
+		return NULL;																// ==&gt;
+	
+	} // ResolveDatabase.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * This method will return the current object list of default offsets, these offsets
+	 * represent the default offsets of the object, which means that all objects derived
+	 * from this class may feature these offsets. This method is used to exclude these
+	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
+	 * implied that these offsets will be there.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_NAMESPACE, kTAG_ID_LOCAL,
+								   kTAG_LABEL, kTAG_DEFINITION ) );					// ==&gt;
+	
+	} // DefaultOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitIdentify																*
+	 *==================================================================================*/
+
+	/**
+	 * Set object identifiers before commit
+	 *
+	 * In this class we set the native identifier, if not yet filled, with the global
+	 * identifier generated by the {@link __toString()} method.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitIdentify()
+	{
+		//
+		// Call parent method.
+		//
+		parent::preCommitIdentify();
+		
+		//
+		// Set native identifier.
+		//
+		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+			\ArrayObject::offsetSet( kTAG_NID, $this-&gt;__toString() );
+	
+	} // preCommitIdentify.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * In this class we ensure the object is initialised, {@link isInited()} and has the
+	 * native identifier.
+	 *
+	 * @access protected
+	 * @return Boolean				&lt;tt&gt;TRUE&lt;/tt&gt; means ready.
+	 *
+	 * @see kTAG_NID
+	 *
+	 * @uses isInited()
+	 */
+	protected function isReady()
+	{
+		return ( parent::isReady()
+			  &amp;&amp; \ArrayObject::offsetExists( kTAG_NID ) );							// ==&gt;
+	
+	} // isReady.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we cast the value of the namespace into a term reference, ensuring
+	 * that if an object is provided this is a term.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;NULL&lt;/tt&gt; set offset value, other, return.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_NAMESPACE
+	 */
+	protected function preOffsetSet( &amp;$theOffset, &amp;$theValue )
+	{
+		//
+		// Call parent method to resolve offset.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+		{
+			//
+			// Validate offsets.
+			//
+			switch( $theOffset )
+			{
+				case kTAG_NAMESPACE:
+					$this-&gt;validateNewNamespace( $theValue );
+					break;
+			}
+			
+		} // Passed preflight.
+		
+		return $ok;																	// ==&gt;
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	postOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value after setting it
+	 *
+	 * In this class we set the {@link isInited()} status if the object has the local
+	 * identifier and the label.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
+	 *
+	 * @uses isInited()
+	 */
+	protected function postOffsetSet( &amp;$theOffset, &amp;$theValue )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postOffsetSet( $theOffset, $theValue );
+		
+		//
+		// Set initialised status.
+		//
+		$this-&gt;isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &amp;&amp;
+						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+	
+	} // postOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	postOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset after deleting it
+	 *
+	 * In this class we reset the {@link isInited()} status if the object is missing the
+	 * local identifier or the label.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_ID_LOCAL kTAG_LABEL
+	 *
+	 * @uses isInited()
+	 */
+	protected function postOffsetUnset( &amp;$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postOffsetUnset( $theOffset );
+		
+		//
+		// Set initialised status.
+		//
+		$this-&gt;isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &amp;&amp;
+						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+	
+	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET STATUS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	lockedOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return list of locked offsets
+	 *
+	 * In this class we return the {@link kTAG_NAMESPACE} and the {@link kTAG_ID_LOCAL}
+	 * offsets.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
+	 */
+	protected function lockedOffsets()
+	{
+		return array_merge( parent::lockedOffsets(),
+							array( kTAG_NAMESPACE,
+								   kTAG_ID_LOCAL ) );								// ==&gt;
+	
+	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	validateNewNamespace															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate new namespace
+	 *
+	 * This method is called by the {@link preOffsetSet()} method when provided a new
+	 * namespace, {@link kTAG_NAMESPACE}: its duty is to:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;If provided an object, check whether it is a term.
+	 *	&lt;li&gt;If provided an object and the object is committed, get its native identifier.
+	 * &lt;/ul&gt;
+	 *
+	 * @param reference				$theValue			Namespace reference.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
+	 */
+	protected function validateNewNamespace( &amp;$theValue )
+	{
+		//
+		// Handle namespace object.
+		//
+		if( is_object( $theValue ) )
+		{
+			//
+			// Handle terms.
+			//
+			if( $theValue instanceof self )
+			{
+				//
+				// Get object reference.
+				//
+				if( $theValue-&gt;isCommitted() )
+					$theValue = $theValue-&gt;reference();
+			
+			} // Is a term.
+			
+			else
+				throw new \Exception(
+					&quot;Unable to set namespace: &quot;
+				   .&quot;provided an object other than term.&quot; );					// !@! ==&gt;
+		
+		} // Namespace object.
+		
+		//
+		// Handle reference.
+		//
+		else
+			$theValue = (string) $theValue;
+	
+	} // validateNewNamespace.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	test															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate new namespace
+	 *
+	 * This method is called by the {@link preOffsetSet()} method when provided a new
+	 * namespace, {@link kTAG_NAMESPACE}: its duty is to:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;If provided an object, check whether it is a term.
+	 *	&lt;li&gt;If provided an object and the object is committed, get its native identifier.
+	 * &lt;/ul&gt;
+	 *
+	 * @param reference				$theValue			Namespace reference.
+	 *
+	 * @access protected
+	 * @return array				List of locked offsets.
+	 *
+	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
+	 */
+	public function test( \Iterator $theIterator, Wrapper $theWrapper )
+	{
+		echo( $theIterator-&gt;key().': '.gettype( $theIterator-&gt;current() ).'&lt;br /&gt;' );
+		return TRUE;
+	
+	} // test.
+
+	 
+
+} // class Term.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

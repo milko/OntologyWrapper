@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ontology Wrapper</title><link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"></link><link rel="stylesheet" href="../css/template.css" type="text/css"></link><script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script><script type="text/javascript" src="../js/bootstrap.min.js"></script><script type="text/javascript" src="../js/template.js"></script></head><body><div id="content"><h1 class="file">OntologyWrapper/ContainerObject.php<a href="../source/OntologyWrapper/ContainerObject.php.html" role="button" class="pull-right btn btn-default"><i class="fa fa-2x fa-code"></i></a></h1><div id="file-nav-box"><div id="file-nav-options">
+              Show:
+              <img src="../images/icons/visibility_public.png" alt="Public" id="show-public"></img><img src="../images/icons/visibility_protected.png" alt="Protected" id="show-protected"></img><img src="../images/icons/visibility_private.png" alt="Private" id="show-private"></img><span class="attribute" id="show-inherited">inherited</span></div><div id="file-nav-container"><ul id="file-nav"><li><a href="#classes"><img src="../images/icons/class.png" alt="Class" height="14"></img>
+                          Classes
+                      </a><ul><li><a href="#\OntologyWrapper\ContainerObject">\OntologyWrapper\ContainerObject</a></li></ul></li></ul><div style="clear: left;"></div></div><div id="file-nav-tab">
+              Table of Contents
+          </div></div><a name="top" class="anchor"></a><div id="file-description"><div class="short-description">ContainerObject.php</div><div class="long-description">This file contains the definition of the {@link ContainerObject} class.</div></div><a name="classes" class="anchor"></a><a id="\OntologyWrapper\ContainerObject" class="anchor"></a><h2 class="class">\OntologyWrapper\ContainerObject<div class="to-top"><a href="#top">jump to top</a></div></h2><div class="class"><small class="package"><b>Package: </b>Default</small><div class="short-description">Container object</div><div class="long-description">This class is the ancestor of classes that define objects that handle structured data and
+that are persistent.
+
+The class extends <code>{@link ArrayObject}</code> by treating the inherited array as the
+persistent store and all other data members as run-time data. The convention is that
+items stored in the array part of the object are called <em>offsets</em> and are
+considered <em>persistent</em>, while all other data members are called <em>members</em>
+and are considered <em>run-time</em> data.
+
+This class implements a framework that governs tha management of the object's persistent
+data. No offset may hold the <tt>NULL</tt> value, setting an offset with <tt>NULL</tt>
+value is equivalent to <em>deleting the offset</em>.
+
+Retrieving non-existant offsets will <em>not</em> generate a warning, but only return
+<tt>NULL</tt>.
+
+The class features a series of methods that derived classes may use to customise the
+behaviour of the offset management methods:
+
+<ul>
+<li><tt>{@link preOffsetExists()}</tt>: This method is called <i>before</i> the
+	{@link offsetExists()} method with the offset passed as a reference parameter, the
+	method can be used to change the value of the offset or to provide a custom result:
+	if the method returns <tt>NULL</tt>, {@link offsetExists()} will be called; if the
+	method returns any other type of value, this will be returned and
+	{@link offsetExists()} will be skipped.
+<li><tt>{@link preOffsetGet()}</tt>: This is called <i>before</i> the
+	{@link offsetGet()} method with the offset passed as a reference parameter, the
+	method can be used to change the value of the offset or to provide a custom result:
+	if the method returns <tt>NULL</tt>, {@link offsetGet()} will be called; if the
+	method returns any other type of value, this will be returned and
+	{@link offsetGet()} will be skipped.
+<li><tt>{@link preOffsetSet()}</tt>: This is called <i>before</i> the
+	{@link offsetSet()} method with the offset and value passed as reference parameters,
+	the method can be used to change the offset or the value: if the method returns
+	<tt>NULL</tt>, {@link offsetSet()} will be called; if the method returns any other
+	type of value, the {@link offsetSet()} will be skipped.
+<li><tt>{@link postOffsetSet()}</tt>: This is called <i>after</i> the
+	{@link offsetSet()} method with the offset and value passed as reference parameters,
+	the method can be used to set status or statistical variables, it will only be
+	called if the {@link offsetSet()} method was called.
+<li><tt>{@link preOffsetUnset()}</tt>: This is called <i>before</i> the
+	{@link offsetUnset()} method with the offset passed as a reference parameter, the
+	method can be used to change the offset: if the method returns <tt>NULL</tt>,
+	{@link offsetUnset()} will be called; if the method returns any other type of value,
+	the {@link offsetUnset()} will be skipped.
+<li><tt>{@link postOffsetUnset()}</tt>: This is called <i>after</i> the
+	{@link offsetUnset()} method with the offset passed as a reference parameter, the
+	method can be used to set status or statistical variables, it will only be called if
+	the {@link offsetUnset()} method was called.
+</ul>
+
+The class features a series of methods that are useful for handling the persistent data
+as a whole:
+
+<ul>
+<li><em>{@link arrayKeys()}</em>: This method is the equivalent of the
+	{@link array_keys()} function.
+<li><em>{@link arrayValues()}</em>: This method is the equivalent of the
+	{@link array_values()} function.
+</ul>
+
+The class features a static method, {@link Object2Array}, that can be used to
+convert a structure of nested {@link ArrayObject} instances into a nested array, this
+will be useful when normalising objects before persisting.
+
+This class uses the {@link Accessors} trait to provide a common framework to methods that
+manage data properties and offsets.</div><dl class="class-info"><dt>Parent(s)</dt><dd>\ArrayObject</dd><dt>Children</dt><dd><a href="../files/OntologyWrapper.DictionaryObject.html#\OntologyWrapper\DictionaryObject">\OntologyWrapper\DictionaryObject</a></dd><dd><a href="../files/OntologyWrapper.OntologyObject.html#\OntologyWrapper\OntologyObject">\OntologyWrapper\OntologyObject</a></dd><dt>Author</dt><dd><a href="mailto:m.skofic@cgiar.org">Milko A. Škofič</a>
+         
+    </dd><dt>Version</dt><dd>1.00 10/01/2014
+         
+    </dd></dl><h3>Methods</h3><div><a id="\OntologyWrapper\ContainerObject::Object2Array()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">Object2Array</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theSource, <a href="../files/reference.html">\OntologyWrapper\reference</a> $theDestination)</span> : void</code><div class="description"><span class="attribute">static</span><p class="short_description"><h4>Convert object to array</h4></p></div><div class="code-tabs"><div class="long-description">This method can be used to obtain an array of arrays from a nested structure.
+
+The method expects as the first parameter a reference to an {@link ArrayObject} or to
+an array, it will convert the provided parameter to an array and traverse it,
+converting recursively any {@link ArrayObject} instance into an array.
+
+The method accepts the following parameters:
+
+<ul>
+<li><tt>$theSource</tt>: Source structure reference (<em>read-only</em>).
+<li><tt>$theDestination</tt>: Destination array reference.
+</ul></div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theSource</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Reference to the source structure.</p></em></td></tr><tr><th>$theDestination</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Reference to the destination array.</p></em></td></tr></table><strong>Throws</strong><table class="argument-info"><thead><tr><th>Exception</th><th>Description</th></tr></thead><tr><td><a href="../files/Exception.html">\OntologyWrapper\Exception</a></td><td><em></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Static</dt><dd>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::arrayKeys()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">arrayKeys</span><span class="nb-faded-text">()</span> : array</code><div class="description"><p class="short_description">Return object's offsets</p></div><div class="code-tabs"><div class="long-description">This method has the same function as the PHP function {@link array_keys()}, it will
+return all the object's offset keys as an array.</div><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>array</td><td>List of object offsets.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         getArrayCopy()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::arrayValues()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">arrayValues</span><span class="nb-faded-text">()</span> : array</code><div class="description"><p class="short_description">Return object's offset values</p></div><div class="code-tabs"><div class="long-description">This method has the same function as the PHP function {@link array_values()}, it
+will return all the object's offset values as an array.</div><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>array</td><td>List of object offset values.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         getArrayCopy()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::offsetExists()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">offsetExists</span><span class="nb-faded-text">(mixed $theOffset)</span> : boolean</code><div class="description"><p class="short_description">Check if an offset exists</p></div><div class="code-tabs"><div class="long-description">We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td>mixed</td><td><em><p>Offset.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>boolean</td><td>&lt;tt&gt;TRUE&lt;/tt&gt; the offset exists.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         preOffsetExists()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::offsetGet()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">offsetGet</span><span class="nb-faded-text">(mixed $theOffset)</span> : mixed</code><div class="description"><p class="short_description">Return a value at a given offset</p></div><div class="code-tabs"><div class="long-description">We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.
+
+We also overload this method to handle unmatched offsets: we prevent warnings from
+being issued and return <tt>NULL</tt>.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td>mixed</td><td><em><p>Offset.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>Offset value or &lt;tt&gt;NULL&lt;/tt&gt;.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         preOffsetGet()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::offsetSet()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">offsetSet</span><span class="nb-faded-text">(string $theOffset, mixed $theValue)</span> : void</code><div class="description"><p class="short_description">Set a value at a given offset</p></div><div class="code-tabs"><div class="long-description">We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.
+
+We also overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
+delete the offset.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td>string</td><td><em><p>Offset.</p></em></td></tr><tr><th>$theValue</th><td>mixed</td><td><em><p>Value to set at offset.</p></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         preOffsetSet()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         postOffsetSet()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         offsetUnset()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::offsetUnset()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">offsetUnset</span><span class="nb-faded-text">(string $theOffset)</span> : void</code><div class="description"><p class="short_description">Reset a value at a given offset</p></div><div class="code-tabs"><div class="long-description">We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.
+
+We also overload this method to prevent warnings on unmatched offsets.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td>string</td><td><em><p>Offset.</p></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         preOffsetUnset()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         postOffsetUnset()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::postOffsetSet()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">postOffsetSet</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset, <a href="../files/reference.html">\OntologyWrapper\reference</a> $theValue)</span> : void</code><div class="description"><p class="short_description">Handle offset and value after setting it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetSet()} method.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr><tr><th>$theValue</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset value reference.</p></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::postOffsetUnset()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">postOffsetUnset</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset)</span> : void</code><div class="description"><p class="short_description">Handle offset after deleting it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetUnset()} method.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::preOffsetExists()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">preOffsetExists</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset)</span> : mixed</code><div class="description"><p class="short_description">Handle offset before checking it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetExists()} method.
+
+The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetExists()}; if the method returns any other value, this will
+be returned and the inherited {@link ArrayObject::OffsetExists()} will be skipped.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>&lt;tt&gt;NULL&lt;/tt&gt; check offset, other, return.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::preOffsetGet()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">preOffsetGet</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset)</span> : mixed</code><div class="description"><p class="short_description">Handle offset before getting it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetGet()} method.
+
+The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetGet()}; if the method returns any other value, this must be
+returned and the inherited {@link ArrayObject::OffsetGet()} skipped.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>&lt;tt&gt;NULL&lt;/tt&gt; get offset value, other, return.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::preOffsetSet()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">preOffsetSet</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset, <a href="../files/reference.html">\OntologyWrapper\reference</a> $theValue)</span> : mixed</code><div class="description"><p class="short_description">Handle offset and value before setting it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetSet()} method.
+
+The method provides the offset and value as references, if the method returns
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr><tr><th>$theValue</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset value reference.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>&lt;tt&gt;NULL&lt;/tt&gt; set offset value, other, return.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\ContainerObject::preOffsetUnset()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">preOffsetUnset</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theOffset)</span> : mixed</code><div class="description"><p class="short_description">Handle offset and value before deleting it</p></div><div class="code-tabs"><div class="long-description">This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetUnset()} method.
+
+The method provides the offset as reference, if the method returns <tt>NULL</tt> it
+means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetUnset()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.
+
+In this class we do nothing.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theOffset</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Offset reference.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>&lt;tt&gt;NULL&lt;/tt&gt; delete offset value, other, return.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div></div></div></div><small class="footer">
+            Documentation was generated by
+            <a href="http://phpdoc.org">phpDocumentor
+                2.2.0
+</a>.
+        </small></body></html>

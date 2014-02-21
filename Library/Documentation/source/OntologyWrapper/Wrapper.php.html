@@ -1,0 +1,1264 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * Wrapper.php
+ *
+ * This file contains the definition of the {@link Wrapper} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\Tag;
+use OntologyWrapper\Term;
+use OntologyWrapper\Node;
+use OntologyWrapper\Edge;
+use OntologyWrapper\Dictionary;
+use OntologyWrapper\ServerObject;
+use OntologyWrapper\DatabaseObject;
+use OntologyWrapper\CollectionObject;
+
+/*=======================================================================================
+ *																						*
+ *										Wrapper.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Tags.
+ *
+ * This file contains the default tag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Tags.inc.php&quot; );
+
+/**
+ * Types.
+ *
+ * This file contains the default data type definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Types.inc.php&quot; );
+
+/**
+ * Tokens.
+ *
+ * This file contains the default token definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Tokens.inc.php&quot; );
+
+/**
+ * Wrapper
+ *
+ * This class extends its ancestor to wrap an interface around the various components of the
+ * system; the metadata, entities and the units.
+ *
+ * The object is considered {@link isInited()} when the metadata, entities and units
+ * databases are set.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 10/02/2014
+ */
+class Wrapper extends Dictionary
+{
+	/**
+	 * Status trait.
+	 *
+	 * In this class we handle the {@link isDirtyFlag()}
+	 */
+	use	traits\Status;
+
+	/**
+	 * Metadata.
+	 *
+	 * This data member holds the metadata {@link DatabaseObject} derived instance.
+	 *
+	 * @var DatabaseObject
+	 */
+	protected $mMetadata = NULL;
+
+	/**
+	 * Entities.
+	 *
+	 * This data member holds the entities {@link DatabaseObject} derived instance.
+	 *
+	 * @var DatabaseObject
+	 */
+	protected $mEntities = NULL;
+
+	/**
+	 * Units.
+	 *
+	 * This data member holds the units {@link DatabaseObject} derived instance.
+	 *
+	 * @var DatabaseObject
+	 */
+	protected $mUnits = NULL;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC CONNECTION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Metadata																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage metadata database
+	 *
+	 * This method can be used to manage the &lt;i&gt;metadata database&lt;/i&gt;, it accepts a
+	 * parameter which represents either the metadata database instance or the requested
+	 * operation, depending on its value:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the current value.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the current value.
+	 *	&lt;li&gt;&lt;tt&gt;{@link DatabaseObject}&lt;/tt&gt;: Set the value with the provided parameter.
+	 * &lt;/ul&gt;
+	 *
+	 * The second parameter is a boolean which if &lt;tt&gt;TRUE&lt;/tt&gt; will return the &lt;i&gt;old&lt;/i&gt;
+	 * value when replacing or resetting; if &lt;tt&gt;FALSE&lt;/tt&gt;, it will return the current
+	 * value.
+	 *
+	 * @param mixed					$theValue			Metadata database or operation.
+	 * @param boolean				$getOld				&lt;tt&gt;TRUE&lt;/tt&gt; get old value.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access public
+	 * @return mixed				&lt;i&gt;New&lt;/i&gt; or &lt;i&gt;old&lt;/i&gt; metadata database.
+	 *
+	 * @throws Exception
+	 *
+	 * @see $mMetadata
+	 *
+	 * @uses manageProperty()
+	 * @uses isInited()
+	 * @uses isReady()
+	 */
+	public function Metadata( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	{
+		//
+		// Check metadata type.
+		//
+		if( ($theValue !== NULL)
+		 &amp;&amp; ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					&quot;Invalid metadata database type.&quot; );						// !@! ==&gt;
+			
+			//
+			// Set dictionary.
+			//
+			$theValue-&gt;dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue-&gt;openConnection();
+		
+		} // Setting new value.
+		
+		//
+		// Manage member.
+		//
+		$save = $this-&gt;manageProperty( $this-&gt;mMetadata, $theValue, $getOld );
+		
+		//
+		// Load dictionary.
+		//
+		if( ($theValue !== NULL)
+		 &amp;&amp; ($theValue !== FALSE)
+		 &amp;&amp; (! $this-&gt;dictionaryFilled()) )
+			$this-&gt;loadTagCache();
+		
+		//
+		// Set inited status.
+		//
+		$this-&gt;isInited( $this-&gt;isReady() );
+		
+		return $save;																// ==&gt;
+	
+	} // Metadata.
+
+	 
+	/*===================================================================================
+	 *	Entities																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entities database
+	 *
+	 * This method can be used to manage the &lt;i&gt;entities database&lt;/i&gt;, it accepts a
+	 * parameter which represents either the entities database instance or the requested
+	 * operation, depending on its value:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the current value.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the current value.
+	 *	&lt;li&gt;&lt;tt&gt;{@link DatabaseObject}&lt;/tt&gt;: Set the value with the provided parameter.
+	 * &lt;/ul&gt;
+	 *
+	 * The second parameter is a boolean which if &lt;tt&gt;TRUE&lt;/tt&gt; will return the &lt;i&gt;old&lt;/i&gt;
+	 * value when replacing or resetting; if &lt;tt&gt;FALSE&lt;/tt&gt;, it will return the current
+	 * value.
+	 *
+	 * @param mixed					$theValue			Entities database or operation.
+	 * @param boolean				$getOld				&lt;tt&gt;TRUE&lt;/tt&gt; get old value.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access public
+	 * @return mixed				&lt;i&gt;New&lt;/i&gt; or &lt;i&gt;old&lt;/i&gt; entities database.
+	 *
+	 * @throws Exception
+	 *
+	 * @see $mEntities
+	 *
+	 * @uses manageProperty()
+	 * @uses isInited()
+	 * @uses isReady()
+	 */
+	public function Entities( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	{
+		//
+		// Check entities type.
+		//
+		if( ($theValue !== NULL)
+		 &amp;&amp; ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					&quot;Invalid entities database type.&quot; );						// !@! ==&gt;
+			
+			//
+			// Set dictionary.
+			//
+			$theValue-&gt;dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue-&gt;openConnection();
+		
+		} // Setting new value.
+		
+		//
+		// Manage member.
+		//
+		$save = $this-&gt;manageProperty( $this-&gt;mEntities, $theValue, $getOld );
+		
+		//
+		// Set inited status.
+		//
+		$this-&gt;isInited( $this-&gt;isReady() );
+		
+		return $save;																// ==&gt;
+	
+	} // Entities.
+
+	 
+	/*===================================================================================
+	 *	Units																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage units database
+	 *
+	 * This method can be used to manage the &lt;i&gt;units database&lt;/i&gt;, it accepts a
+	 * parameter which represents either the units database instance or the requested
+	 * operation, depending on its value:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the current value.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the current value.
+	 *	&lt;li&gt;&lt;tt&gt;{@link DatabaseObject}&lt;/tt&gt;: Set the value with the provided parameter.
+	 * &lt;/ul&gt;
+	 *
+	 * The second parameter is a boolean which if &lt;tt&gt;TRUE&lt;/tt&gt; will return the &lt;i&gt;old&lt;/i&gt;
+	 * value when replacing or resetting; if &lt;tt&gt;FALSE&lt;/tt&gt;, it will return the current
+	 * value.
+	 *
+	 * @param mixed					$theValue			Units database or operation.
+	 * @param boolean				$getOld				&lt;tt&gt;TRUE&lt;/tt&gt; get old value.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access public
+	 * @return mixed				&lt;i&gt;New&lt;/i&gt; or &lt;i&gt;old&lt;/i&gt; units database.
+	 *
+	 * @throws Exception
+	 *
+	 * @see $mUnits
+	 *
+	 * @uses manageProperty()
+	 * @uses isInited()
+	 * @uses isReady()
+	 */
+	public function Units( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	{
+		//
+		// Check units type.
+		//
+		if( ($theValue !== NULL)
+		 &amp;&amp; ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseObject) )
+				throw new \Exception(
+					&quot;Invalid units database type.&quot; );						// !@! ==&gt;
+			
+			//
+			// Set dictionary.
+			//
+			$theValue-&gt;dictionary( $this );
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue-&gt;openConnection();
+		
+		} // Setting new value.
+		
+		//
+		// Manage member.
+		//
+		$save = $this-&gt;manageProperty( $this-&gt;mUnits, $theValue, $getOld );
+		
+		//
+		// Set inited status.
+		//
+		$this-&gt;isInited( $this-&gt;isReady() );
+		
+		return $save;																// ==&gt;
+	
+	} // Units.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isConnected																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is connected
+	 *
+	 * This method returns a boolean flag indicating whether the object is connected or not.
+	 * In practice this is true if the metadata, entities and units connections are open.
+	 *
+	 * @access public
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; is open.
+	 *
+	 * @uses isInited()
+	 *
+	 * @see $mMetadata $mEntities $mUnits
+	 */
+	public function isConnected()
+	{
+		return ( $this-&gt;isInited()
+			  &amp;&amp; $this-&gt;mMetadata-&gt;isConnected()
+			  &amp;&amp; $this-&gt;mEntities-&gt;isConnected()
+			  &amp;&amp; $this-&gt;mUnits-&gt;isConnected() );									// ==&gt;
+	
+	} // isConnected.
+
+		
+	/*===================================================================================
+	 *	openConnections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Open connection
+	 *
+	 * This method can be used to connect the object's databases.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isInited()
+	 *
+	 * @see $mMetadata $mEntities $mUnits
+	 */
+	public function openConnections()
+	{
+		//
+		// Check if connected.
+		//
+		if( ! $this-&gt;isConnected() )
+		{
+			//
+			// Check connections.
+			//
+			if( ! $this-&gt;isInited() )
+				throw new \Exception(
+					&quot;Unable to open connections: &quot;
+				   .&quot;missing required connections.&quot; );							// !@! ==&gt;
+		
+			//
+			// Open metadata.
+			//
+			$this-&gt;mMetadata-&gt;openConnection();
+		
+			//
+			// Open entities.
+			//
+			$this-&gt;mEntities-&gt;openConnection();
+		
+			//
+			// Open units.
+			//
+			$this-&gt;mUnits-&gt;openConnection();
+		
+			//
+			// Set clean status.
+			//
+			$this-&gt;isDirty( FALSE );
+		
+		} // Not connected yet.
+	
+	} // openConnections.
+
+	 
+	/*===================================================================================
+	 *	closeConnections																*
+	 *==================================================================================*/
+
+	/**
+	 * Close connection
+	 *
+	 * This method can be used to close the object's database connections.
+	 *
+	 * @access public
+	 *
+	 * @uses isConnected()
+	 *
+	 * @see $mMetadata $mEntities $mUnits
+	 */
+	public function closeConnections()
+	{
+		//
+		// Check connection.
+		//
+		if( $this-&gt;isConnected() )
+		{
+			//
+			// Open metadata.
+			//
+			$this-&gt;mMetadata-&gt;closeConnection();
+		
+			//
+			// Open entities.
+			//
+			$this-&gt;mEntities-&gt;closeConnection();
+		
+			//
+			// Open units.
+			//
+			$this-&gt;mUnits-&gt;closeConnection();
+		
+			//
+			// Set clean status.
+			//
+			$this-&gt;isDirty( FALSE );
+		
+		} // Was open.
+	
+	} // closeConnections.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC INITIALISATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resetOntology																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset databases
+	 *
+	 * This method can be used to reset the ontology, it will &lt;b&gt;erase the current
+	 * ontology&lt;/em&gt;, and re-load it from the files in the standards directory.
+	 *
+	 * &lt;b&gt;&lt;em&gt;When you erase the ontology, you might lose tags and terms which are necessary
+	 * for the entities and the data databases: be aware that by doing so you might render
+	 * these databases useless&lt;/em&gt;&lt;/b&gt;.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function resetOntology()
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to reset ontology: &quot;
+			   .&quot;object is not connected.&quot; );									// !@! ==&gt;
+		
+		//
+		// Reset the tag cache.
+		//
+		$this-&gt;dictionaryFlush( 0 );
+		
+		//
+		// Drop the ontology database.
+		//
+		$this-&gt;mMetadata-&gt;drop();
+		
+		//
+		// Load XML files.
+		//
+		$this-&gt;loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
+		$this-&gt;loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Types.xml' );
+		$this-&gt;loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
+	
+	} // resetOntology.
+
+	 
+	/*===================================================================================
+	 *	loadTagCache																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reload tag cache
+	 *
+	 * This method can be used to reset the tag cache.
+	 *
+	 * The method will return &lt;tt&gt;TRUE&lt;/tt&gt; if the object is connected and the operation was
+	 * executes and &lt;tt&gt;FALSE&lt;/tt&gt; if the object is not connected, or if the metadata is
+	 * missing.
+	 *
+	 * Note that although the operation might have been executed, this doesn't mean that the
+	 * dictionary was loaded: this depends on the contents of the metadata database.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadTagCache()
+	{
+		//
+		// Check if object is connected.
+		//
+		if( $this-&gt;isConnected()
+		 &amp;&amp; ($this-&gt;mMetadata !== NULL) )
+		{
+			//
+			// Open metadata conection.
+			//
+			$this-&gt;mMetadata-&gt;openConnection();
+		
+			//
+			// Reset the tag cache.
+			//
+			$this-&gt;dictionaryFlush( 0 );
+		
+			//
+			// Get tags collection.
+			//
+			$collection = $this-&gt;mMetadata-&gt;Collection( Tag::kSEQ_NAME );
+		
+			//
+			// Load all tags.
+			//
+			$tags = $collection-&gt;getAll();
+			foreach( $tags as $tag )
+				$this-&gt;setTag( $tag, 0 );
+			
+			return TRUE;															// ==&gt;
+		
+		} // Connected with metadata.
+		
+		return FALSE;																// ==&gt;
+	
+	} // resetOntology.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PARSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadXMLFile																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load an XML file
+	 *
+	 * This method can be used to load an XML file containing metadata, entities or units.
+	 * The method expects an XML file as the paraneter, any error during the load process
+	 * will raise an exception.
+	 *
+	 * @param string				$theFile			XML file path.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadXMLFile( $theFile )
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to parse file: &quot;
+			   .&quot;object is not connected.&quot; );									// !@! ==&gt;
+		
+		//
+		// Check file.
+		//
+		$file = new \SplFileInfo( $theFile );
+		if( ! $file-&gt;isFile() )
+			throw new \Exception(
+				&quot;Unable to parse file [$theFile]: &quot;
+			   .&quot;the provided file is not a file.&quot; );							// !@! ==&gt;
+		if( ! $file-&gt;isReadable() )
+			throw new \Exception(
+				&quot;Unable to parse file [$theFile]: &quot;
+			   .&quot;the provided file is not readable.&quot; );							// !@! ==&gt;
+		$theFile = $file-&gt;getRealPath();
+		
+		//
+		// Load xml.
+		//
+		$xml = new \SimpleXMLElement( $theFile, NULL, TRUE );
+		switch( $root = $xml-&gt;getName() )
+		{
+			case 'METADATA':
+				$this-&gt;loadXMLMetadata( $xml );
+				break;
+		
+			case 'ENTITIES':
+				$this-&gt;loadXMLEntities( $xml );
+				break;
+		
+			case 'UNITS':
+				$this-&gt;loadXMLUnits( $xml );
+				break;
+			
+			default:
+				throw new \Exception(
+					&quot;Unable to parse file [$theFile]: &quot;
+				   .&quot;invalid or unsupported root element [$root].&quot; );			// !@! ==&gt;
+		
+		} // Parsed root node.
+	
+	} // loadXMLFile.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PARSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadXMLMetadata																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load metadata
+	 *
+	 * This method will parse and load the provided metadata XML structure.
+	 *
+	 * It is assumed that the object has its comnnections open and that the provided XML
+	 * structure has the correct root element.
+	 *
+	 * @param SimpleXMLElement		$theXML				Metadata XML.
+	 *
+	 * @access protected
+	 */
+	protected function loadXMLMetadata( \SimpleXMLElement $theXML )
+	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML-&gt;{'META'} as $block )
+			$this-&gt;loadXMLMetadataBlock( $block );
+	
+	} // loadXMLMetadata.
+
+	 
+	/*===================================================================================
+	 *	loadXMLEntities																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load entities
+	 *
+	 * This method will parse and load the provided entities XML structure.
+	 *
+	 * It is assumed that the object has its comnnections open and that the provided XML
+	 * structure has the correct root element.
+	 *
+	 * @param SimpleXMLElement		$theXML				Entities XML.
+	 *
+	 * @access protected
+	 */
+	protected function loadXMLEntities( \SimpleXMLElement $theXML )
+	{
+	
+	} // loadXMLEntities.
+
+	 
+	/*===================================================================================
+	 *	loadXMLUnits																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load entities
+	 *
+	 * This method will parse and load the provided entities XML structure.
+	 *
+	 * It is assumed that the object has its comnnections open and that the provided XML
+	 * structure has the correct root element.
+	 *
+	 * @param SimpleXMLElement		$theXML				Entities XML.
+	 *
+	 * @access protected
+	 */
+	protected function loadXMLUnits( \SimpleXMLElement $theXML )
+	{
+	
+	} // loadXMLUnits.
+
+	 
+	/*===================================================================================
+	 *	loadXMLMetadataBlock															*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load metadata block
+	 *
+	 * This method will parse and load the provided metadata transaction block.
+	 *
+	 * @param SimpleXMLElement		$theXML				Metadata transaction block.
+	 *
+	 * @access protected
+	 */
+	protected function loadXMLMetadataBlock( \SimpleXMLElement $theXML )
+	{
+		//
+		// Iterate terms.
+		//
+		foreach( $theXML-&gt;{'TERM'} as $item )
+			$this-&gt;loadXMLTerm( $item, $cache );
+	
+		//
+		// Iterate tags.
+		//
+		foreach( $theXML-&gt;{'TAG'} as $item )
+			$this-&gt;loadXMLTag( $item, $cache );
+	
+		//
+		// Iterate nodes.
+		//
+		foreach( $theXML-&gt;{'NODE'} as $item )
+			$this-&gt;loadXMLNode( $item, $cache );
+	
+		//
+		// Iterate edges.
+		//
+		foreach( $theXML-&gt;{'EDGE'} as $item )
+			$this-&gt;loadXMLEdge( $item, $cache );
+	
+	} // loadXMLMetadataBlock.
+
+	 
+	/*===================================================================================
+	 *	loadXMLTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML term
+	 *
+	 * This method will parse and load the provided term XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Term XML structure.
+	 * @param reference				$theCache			Objects cache.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLTerm( \SimpleXMLElement $theXML, &amp;$theCache )
+	{
+		//
+		// Init cache.
+		//
+		if( ! is_array( $theCache ) )
+			$theCache = Array();
+		
+		//
+		// Check if updating.
+		//
+		$mod = isset( $theXML[ 'modify' ] );
+		if( $mod )
+			$id = $attributes[ 'modify' ];
+		
+		//
+		// Instantiate term.
+		//
+		$object = ( $mod )
+			  ? new Term( $this-&gt;Metadata(), $theXML[ 'modify' ] )
+			  : new Term();
+		
+		//
+		// Assert modifications.
+		//
+		if( $mod
+		 &amp;&amp; (! $object-&gt;isCommitted()) )
+			throw new \Exception(
+				&quot;Unable to update term [$id]: &quot;
+			   .&quot;the term does not exist.&quot; );									// !@! ==&gt;
+		
+		//
+		// Load attributes.
+		//
+		if( ! $mod )
+		{
+			$tmp = array( 'ns' =&gt; kTAG_NAMESPACE,
+						  'lid' =&gt; kTAG_ID_LOCAL,
+						  'pid' =&gt; kTAG_NID );
+			foreach( $tmp as $key =&gt; $tag )
+			{
+				if( isset( $theXML[ $key ] ) )
+					$object[ $tag ] = (string) $theXML[ $key ];
+			}
+		
+		} // Not modifying.
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML-&gt;{'item'} as $element )
+		{
+			//
+			// Load property.
+			//
+			$this-&gt;loadXMLElement( $tag, $key, $value, $element );
+			
+			//
+			// Set property.
+			//
+			if( $tag !== NULL )
+				$object[ $tag ] = $value;
+			else
+				throw new \Exception(
+					&quot;Unable to set term property: &quot;
+				   .&quot;the the property is missing its offset.&quot; );				// !@! ==&gt;
+		
+		} // Iterating properties.
+		
+		//
+		// Commit object.
+		//
+		$object-&gt;commit( $this );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
+			$theCache[ Term::kSEQ_NAME ] = Array();
+		$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+	
+	} // loadXMLTerm.
+
+	 
+	/*===================================================================================
+	 *	loadXMLTag																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML tag
+	 *
+	 * This method will parse and load the provided tag XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Tag XML structure.
+	 * @param reference				$theCache			Objects cache.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLTag( \SimpleXMLElement $theXML, &amp;$theCache )
+	{
+		//
+		// Init cache.
+		//
+		if( ! is_array( $theCache ) )
+			$theCache = Array();
+		
+		//
+		// Instantiate tag.
+		//
+		$object = new Tag();
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML-&gt;{'item'} as $element )
+		{
+			//
+			// Load property.
+			//
+			$this-&gt;loadXMLElement( $tag, $key, $value, $element );
+			
+			//
+			// Set property.
+			//
+			if( $tag !== NULL )
+				$object[ $tag ] = $value;
+			else
+				throw new \Exception(
+					&quot;Unable to set tag property: &quot;
+				   .&quot;the the property is missing its offset.&quot; );				// !@! ==&gt;
+		
+		} // Iterating properties.
+		
+		//
+		// Commit object.
+		//
+		$object-&gt;commit( $this );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+			$theCache[ Tag::kSEQ_NAME ] = Array();
+		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+	
+	} // loadXMLTag.
+
+	 
+	/*===================================================================================
+	 *	loadXMLElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML element
+	 *
+	 * This method will parse and load the provided XML element and return the tag, the
+	 * eventual array element key and the value in the provided references.
+	 *
+	 * This method is called recursively, it will first parse the attributes of the element
+	 * determining the current tag, then it will traverse eventual embedded structures until
+	 * a scalar value is found which will be fed to the {@link castXMLScalarValue()} method
+	 * that will cast the value according to the most recent tag's data type.
+	 *
+	 * @param reference				$theTag				Receives tag identifier.
+	 * @param reference				$theKey				Receives key identifier.
+	 * @param reference				$theValue			Receives tag value.
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @uses castXMLScalarValue()
+	 */
+	protected function loadXMLElement( &amp;$theTag, &amp;$theKey, &amp;$theValue,
+									   \SimpleXMLElement $theElement )
+	{
+		//
+		// Reset key.
+		//
+		$theKey = NULL;
+		
+		//
+		// Handle language string.
+		//
+		if( isset( $theElement[ 'lang' ] ) )
+		{
+			//
+			// Init value.
+			//
+			$theValue = Array();
+			
+			//
+			// Set language.
+			//
+			if( strlen( (string) $theElement[ 'lang' ] ) )
+				$theValue[ kTAG_LANGUAGE ] = (string) $theElement[ 'lang' ];
+			
+			//
+			// Set text.
+			//
+			$theValue[ kTAG_TEXT ] = (string) $theElement;
+		
+		} // Language string property.
+		
+		//
+		// Handle other properties.
+		//
+		else
+		{
+			//
+			// Parse tag constant.
+			//
+			if( isset( $theElement[ 'const' ] ) )
+				$theTag = $theKey = constant( (string) $theElement[ 'const' ] );
+
+			//
+			// Parse persistent identifier.
+			//
+			elseif( isset( $theElement[ 'pid' ] ) )
+				$theTag = $theKey = (string) $theElement[ 'pid' ];
+
+			//
+			// Parse sequence number.
+			//
+			elseif( isset( $theElement[ 'tag' ] ) )
+				$theTag = $theKey = (int) $theElement[ 'tag' ];
+
+			//
+			// Parse array element key.
+			//
+			elseif( isset( $theElement[ 'key' ] ) )
+				$theKey = (string) $theElement[ 'key' ];
+		
+			//
+			// Handle array.
+			//
+			if( count( $theElement-&gt;{'item'} ) )
+			{
+				//
+				// Reset value.
+				//
+				$theValue = Array();
+			
+				//
+				// Load elements.
+				//
+				foreach( $theElement-&gt;{'item'} as $element )
+				{
+					//
+					// Load property.
+					//
+					$this-&gt;loadXMLElement( $theTag, $key, $value, $element );
+			
+					//
+					// Set property.
+					//
+					if( $key === NULL )
+						$theValue[] = $value;
+					else
+						$theValue[ (string) $key ] = $value;
+		
+				} // Iterating properties.
+		
+			} // Array property.
+		
+			//
+			// Handle scalar.
+			//
+			else
+				$theValue = $this-&gt;castXMLScalarValue( $theElement, $theTag );
+		
+		} // Not a language string.
+	
+	} // loadXMLElement.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CASTING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	castXMLScalarValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Cast an XML scalar value
+	 *
+	 * This method will cast the provided XML scalar value according to the current offset.
+	 * The method accepts the tag reference and the XML element, it will return the cast
+	 * value.
+	 *
+	 * Note that this method expects a scalar value, although the provided tag reference
+	 * may refer to a list of values.
+	 *
+	 * This method will handle directly a series of default tags, this is necessary when
+	 * loading the ontology for the first time, because tags cannot be resolved.
+	 *
+	 * @param SimpleXMLElement		$theElement			Element XML.
+	 * @param integer				$theTag				Tag reference.
+	 *
+	 * @access protected
+	 * @return mixed				Cast value.
+	 *
+	 * @uses OntologyObject::castOffsetValue()
+	 */
+	protected function castXMLScalarValue( \SimpleXMLElement $theElement, $theTag )
+	{
+		//
+		// Get string value.
+		//
+		$value = (string) $theElement;
+		
+		//
+		// Handle default tags.
+		//
+		switch( $theTag )
+		{
+			case kTAG_NID:
+				return $value;														// ==&gt;
+			
+			case kTAG_NAMESPACE:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
+			case kTAG_CLASS:
+			case kTAG_CONN_PROTOCOL:
+			case kTAG_CONN_HOST:
+			case kTAG_CONN_USER:
+			case kTAG_CONN_PASS:
+			case kTAG_CONN_BASE:
+			case kTAG_CONN_COLL:
+				return (string) $value;												// ==&gt;
+		
+			case kTAG_ID_SEQUENCE:
+			case kTAG_CONN_PORT:
+				return (int) $value;												// ==&gt;
+			
+			case kTAG_TERMS:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+				return (string) $value;												// ==&gt;
+			
+			default:
+				OntologyObject::castOffsetValue( $value, $theTag, TRUE );
+				break;
+		}
+		
+		return $value;																// ==&gt;
+	
+	} // loadXMLMetadata.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * This method returns a boolean flag indicating whether the object is ready to be
+	 * connected, in practice, this is true if the object has the metadata, entities and
+	 * units connections.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; is ready.
+	 *
+	 * @see $mMetadata $mEntities $mUnits
+	 */
+	protected function isReady()
+	{
+		return ( ($this-&gt;mMetadata !== NULL)
+			  &amp;&amp; ($this-&gt;mEntities !== NULL)
+			  &amp;&amp; ($this-&gt;mUnits !== NULL) );										// ==&gt;
+	
+	} // isReady.
+
+	 
+
+} // class Wrapper.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

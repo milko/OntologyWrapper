@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * DataKind.php
+ *
+ * This file contains the definition of the {@link DataKind} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									DataKind.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * DataKind trait
+ *
+ * This trait implements a method for managing the data kind offset,
+ * {@link kTAG_DATA_KIND}. The method allows the management of the individual elements of
+ * the enumerated set.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 14/02/2014
+ */
+trait DataKind
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DataKind																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data kind
+	 *
+	 * This method can be used to add, retrieve and delete individual data kind enumerated
+	 * values; to manage the enumerated set as a whole, use the {@link kTAG_DATA_KIND}
+	 * offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theValue&lt;/b&gt;: This parameter represents the enumerated value we want to
+	 *		manage.
+	 *	&lt;li&gt;&lt;b&gt;$theOperation&lt;/b&gt;: This parameter identifies the operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the enumerated value, if it exists, or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the enumerated value, if it exists.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other value means that we want to set the enumerated value
+	 *			provided in the previous parameter.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value &lt;i&gt;before&lt;/i&gt; it was eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value &lt;i&gt;after&lt;/i&gt; it was eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * The method will return either the enumerated value, or &lt;tt&gt;NULL&lt;/tt&gt; if the value was
+	 * not matched.
+	 *
+	 * @param string				$theValue			Data type.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed				Old or new value.
+	 *
+	 * @see kTAG_DATA_KIND
+	 *
+	 * @uses manageSetOffset()
+	 */
+	public function DataKind( $theValue, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this-&gt;manageSetOffset(
+				kTAG_DATA_KIND,
+				(string) $theValue, $theOperation, $getOld );						// ==&gt;
+	
+	} // DataKind.
+
+	 
+
+} // trait DataKind.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

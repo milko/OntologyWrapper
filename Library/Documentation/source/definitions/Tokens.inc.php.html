@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/*=======================================================================================
+ *																						*
+ *										Tokens.inc.php									*
+ *																						*
+ *======================================================================================*/
+ 
+/**
+ * Tokens.
+ *
+ * This file contains the common tokens used in this library.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 07/02/2014
+ */
+
+/*=======================================================================================
+ *	TOKENS																				*
+ *======================================================================================*/
+
+/**
+ * Domain separator token.
+ *
+ * This value defines the token that separates the object domain from other elements.
+ */
+define( &quot;kTOKEN_DOMAIN_SEPARATOR&quot;,		'://' );			// Domain separator token.
+
+/**
+ * Class separator token.
+ *
+ * This value defines the token that separates the object class from other elements.
+ */
+define( &quot;kTOKEN_CLASS_SEPARATOR&quot;,		'::' );				// Class separator token.
+
+/**
+ * Namespace separator token.
+ *
+ * This value defines the token used to separate namespaces from codes.
+ */
+define( &quot;kTOKEN_NAMESPACE_SEPARATOR&quot;,	':' );				// Namespace separator token.
+
+/**
+ * Sub-offset separator token.
+ *
+ * This value defines the token used to indicate sub-offsets.
+ */
+define( &quot;kTOKEN_OFFSET_SEPARATOR&quot;,		'.' );				// Offset separator token.
+
+/**
+ * Index separator token.
+ *
+ * This value defines the token used to separate index elements.
+ */
+define( &quot;kTOKEN_INDEX_SEPARATOR&quot;,		'/' );				// Index separator token.
+
+/**
+ * Namespace opening token.
+ *
+ * This token is used to enclose namespaces or parent identification when merged with other
+ * identification sections, this value is used as a prefix.
+ */
+define( &quot;kTOKEN_INDEX_OPEN_TAG&quot;,		'{' );				// Namespace start tag.
+
+/**
+ * Namespace closing token.
+ *
+ * This token is used to enclose namespaces or parent identification when merged with other
+ * identification sections, this value is used as a postfix.
+ */
+define( &quot;kTOKEN_INDEX_CLOSE_TAG&quot;,		'}' );				// Namespace end tag.
+
+/**
+ * Identification end token.
+ *
+ * This token should close all identification strings.
+ */
+define( &quot;kTOKEN_END_TAG&quot;,				';' );				// Identification end tag.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

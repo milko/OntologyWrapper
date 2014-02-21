@@ -1,0 +1,455 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * MongoCollection.php
+ *
+ * This file contains the definition of the {@link MongoCollection} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\CollectionObject;
+use OntologyWrapper\MongoDatabase;
+
+/*=======================================================================================
+ *																						*
+ *									MongoCollection.php									*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Mongo database
+ *
+ * This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link CollectionObject} wrapping a
+ * {@link MongoDB} class.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 07/02/2014
+ */
+class MongoCollection extends CollectionObject
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the database
+	 *
+	 * This method will drop the current collection.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function drop()
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to drop collection: &quot;
+			   .&quot;collection is not connected.&quot; );								// !@! ==&gt;
+		
+		$this-&gt;mConnection-&gt;drop();
+	
+	} // drop.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isConnected																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if connection is open
+	 *
+	 * We overload this method to assume the object is connected if the resource is a
+	 * {@link MongoDB}.
+	 *
+	 * @access public
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; is open.
+	 */
+	public function isConnected()
+	{
+		return ( $this-&gt;mConnection instanceof \MongoCollection );					// ==&gt;
+	
+	} // isConnected.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolve																			*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve an identifier
+	 *
+	 * We first check if the current collection is connected, if that is not the case, we
+	 * raise an exception.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theOffset			Offset.
+	 * @param mixed					$asObject			Return object if &lt;tt&gt;TRUE&lt;/tt&gt;.
+	 *
+	 * @access public
+	 * @return mixed				Found object, array, objects count or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @throws Exception
+	 */
+	public function resolve( $theIdentifier, $theOffset = kTAG_NID, $asObject = TRUE )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this-&gt;isConnected() )
+		{
+			//
+			// Resolve offset.
+			//
+			$theOffset = (string) OntologyObject::resolveOffset( $theOffset, TRUE );
+			
+			//
+			// Match object.
+			//
+			if( $asObject !== NULL )
+			{
+				//
+				// Find first.
+				//
+				$object
+					= $this-&gt;
+						mConnection-&gt;
+							findOne( array( $theOffset =&gt; $theIdentifier ) );
+				if( $object !== NULL )
+				{
+					//
+					// Return array.
+					//
+					if( ! $asObject )
+						return $object;												// ==&gt;
+				
+					//
+					// Check class.
+					//
+					if( array_key_exists( kTAG_CLASS, $object ) )
+					{
+						//
+						// Save class.
+						//
+						$class = $object[ kTAG_CLASS ];
+					
+						return new $class( $this, $object );						// ==&gt;
+				
+					} // Has class.
+			
+					throw new \Exception(
+						&quot;Unable to resolve object: &quot;
+					   .&quot;missing object class.&quot; );								// !@! ==&gt;
+			
+				} // Found.
+			
+				return NULL;														// ==&gt;
+			
+			} // Return object or array.
+			
+			//
+			// Find objects.
+			//
+			$rs = $this-&gt; mConnection-&gt; find( array( $theOffset =&gt; $theIdentifier ) );
+			
+			return $rs-&gt;count();													// ==&gt;
+		
+		} // Connected.
+			
+		throw new \Exception(
+			&quot;Unable to resolve object: &quot;
+		   .&quot;connection is not open.&quot; );										// !@! ==&gt;
+	
+	} // resolve.
+
+	 
+	/*===================================================================================
+	 *	getAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return all objects
+	 *
+	 * In this class we return a { @link MongoCursor} object.
+	 *
+	 * @access public
+	 * @return Iterator				Selection of all objects of the collection.
+	 *
+	 * @throws Exception
+	 */
+	public function getAll()
+	{
+		//
+		// Check if connected.
+		//
+		if( $this-&gt;isConnected() )
+			return $this-&gt;mConnection-&gt;find();										// ==&gt;
+			
+		throw new \Exception(
+			&quot;Unable to get all object: &quot;
+		   .&quot;connection is not open.&quot; );										// !@! ==&gt;
+	
+	} // getAll.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONNECTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	connectionOpen																	*
+	 *==================================================================================*/
+
+	/**
+	 * Open connection
+	 *
+	 * This method will instantiate a {@link \MongoCollection} object and set it in the
+	 * {@link Connection()} data member.
+	 *
+	 * This method expects the caller to have checked whether the connection is already
+	 * open.
+	 *
+	 * If the operation fails, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return mixed				The native connection.
+	 *
+	 * @throws Exception
+	 */
+	protected function connectionOpen()
+	{
+		//
+		// Check parent.
+		//
+		if( $this-&gt;mParent instanceof MongoDatabase )
+		{
+			//
+			// Connect server.
+			//
+			if( ! $this-&gt;mParent-&gt;isConnected() )
+				$this-&gt;mParent-&gt;openConnection();
+			
+			//
+			// Check collection name.
+			//
+			if( $this-&gt;offsetExists( kTAG_CONN_COLL ) )
+				$this-&gt;mConnection
+					= $this-&gt;mParent
+						-&gt;Connection()-&gt;selectCollection(
+							$this-&gt;offsetGet( kTAG_CONN_COLL ) );
+			
+			else
+				throw new \Exception(
+					&quot;Unable to open connection: &quot;
+				   .&quot;Missing collection name.&quot; );								// !@! ==&gt;
+			
+			return $this-&gt;mConnection;												// ==&gt;
+		
+		} // Server set.
+			
+		throw new \Exception(
+			&quot;Unable to open connection: &quot;
+		   .&quot;Missing database.&quot; );												// !@! ==&gt;
+	
+	} // connectionOpen.
+
+	 
+	/*===================================================================================
+	 *	connectionClose																	*
+	 *==================================================================================*/
+
+	/**
+	 * Close connection
+	 *
+	 * We overload this method to reset the connection resource.
+	 *
+	 * @access protected
+	 */
+	protected function connectionClose()					{	$this-&gt;mConnection = NULL;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONNECTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	newDatabase																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new database instance
+	 *
+	 * We implement the method to return a {@link MongoServer} instance.
+	 *
+	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access protected
+	 * @return DatabaseObject		Database instance.
+	 */
+	protected function newDatabase( $theParameter, $doOpen = TRUE)
+	{
+		//
+		// Instantiate database.
+		//
+		$database = new MongoDatabase( $theParameter );
+		
+		//
+		// Set dictionary.
+		//
+		$database-&gt;dictionary( $this-&gt;dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$database-&gt;openConnection();
+		
+		return $database;															// ==&gt;
+	
+	} // newDatabase.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	insertData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Insert provided data
+	 *
+	 * In this class we commit the provided array and return its {@link kTAG_NID} value.
+	 *
+	 * @param reference				$theData			Data to commit.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	function insertData( &amp;$theData, &amp;$theOptions )
+	{
+		//
+		// Serialise object.
+		//
+		ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Insert.
+		//
+		$ok = $this-&gt;mConnection-&gt;insert( $data, $theOptions );
+		
+		//
+		// Get identifier.
+		//
+		$id = $data[ kTAG_NID ];
+		
+		//
+		// Set identifier.
+		//
+		$theData[ kTAG_NID ] = $id;
+		
+		return $id;																	// ==&gt;
+	
+	} // insertData.
+
+	 
+
+} // class MongoCollection.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

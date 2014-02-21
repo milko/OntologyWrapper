@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ontology Wrapper</title><link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"></link><link rel="stylesheet" href="../css/template.css" type="text/css"></link><script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script><script type="text/javascript" src="../js/bootstrap.min.js"></script><script type="text/javascript" src="../js/template.js"></script></head><body><div id="content"><h1 class="file">OntologyWrapper/CollectionObject.php<a href="../source/OntologyWrapper/CollectionObject.php.html" role="button" class="pull-right btn btn-default"><i class="fa fa-2x fa-code"></i></a></h1><div id="file-nav-box"><div id="file-nav-options">
+              Show:
+              <img src="../images/icons/visibility_public.png" alt="Public" id="show-public"></img><img src="../images/icons/visibility_protected.png" alt="Protected" id="show-protected"></img><img src="../images/icons/visibility_private.png" alt="Private" id="show-private"></img><span class="attribute" id="show-inherited">inherited</span></div><div id="file-nav-container"><ul id="file-nav"><li><a href="#classes"><img src="../images/icons/class.png" alt="Class" height="14"></img>
+                          Classes
+                      </a><ul><li><a href="#\OntologyWrapper\CollectionObject">\OntologyWrapper\CollectionObject</a></li></ul></li></ul><div style="clear: left;"></div></div><div id="file-nav-tab">
+              Table of Contents
+          </div></div><a name="top" class="anchor"></a><div id="file-description"><div class="short-description">CollectionObject.php</div><div class="long-description">This file contains the definition of the {@link CollectionObject} class.</div></div><a name="classes" class="anchor"></a><a id="\OntologyWrapper\CollectionObject" class="anchor"></a><h2 class="class">\OntologyWrapper\CollectionObject<div class="to-top"><a href="#top">jump to top</a></div></h2><div class="class"><small class="package"><b>Package: </b>Default</small><div class="short-description">Collection object</div><div class="long-description">This <i>abstract</i> class is the ancestor of all classes representing database
+collection instances, this class extends the {@link ConnectionObject} class to implement
+collection specific functionality prototypes.</div><dl class="class-info"><dt>Parent(s)</dt><dd><a href="../files/OntologyWrapper.ConnectionObject.html#\OntologyWrapper\ConnectionObject">\OntologyWrapper\ConnectionObject</a>
+            &lt;
+            <a href="../files/OntologyWrapper.OntologyObject.html#\OntologyWrapper\OntologyObject" style="color: gray; font-size: 0.8em
+                ">\OntologyWrapper\OntologyObject</a>
+            &lt;
+            <a href="../files/OntologyWrapper.ContainerObject.html#\OntologyWrapper\ContainerObject" style="color: gray; font-size: 0.8em
+                ">\OntologyWrapper\ContainerObject</a>
+            &lt;
+            \ArrayObject</dd><dt>Children</dt><dd><a href="../files/OntologyWrapper.MongoCollection.html#\OntologyWrapper\MongoCollection">\OntologyWrapper\MongoCollection</a></dd><dt>Author</dt><dd><a href="mailto:m.skofic@cgiar.org">Milko A. Škofič</a>
+         
+    </dd><dt>Version</dt><dd>1.00 06/02/2014
+         
+    </dd></dl><h3>Methods</h3><div><a id="\OntologyWrapper\CollectionObject::DefaultOffsets()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">DefaultOffsets</span><span class="nb-faded-text">()</span> : array</code><div class="description"><span class="attribute">static</span><p class="short_description">Return default offsets</p></div><div class="code-tabs"><div class="long-description">In this class we return the {@link kTAG_CONN_COLL} offset.</div><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>array</td><td>List of default offsets.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Static</dt><dd>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::__construct()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">__construct</span><span class="nb-faded-text">(mixed $theParameter = NULL, <a href="../files/ConnectionObject.html">\OntologyWrapper\ConnectionObject</a> $theParent = NULL)</span> : void</code><div class="description"><p class="short_description">Instantiate class.</p></div><div class="code-tabs"><div class="long-description">We overload the constructor to instantiate a database from the provided parameter if
+the parent object was not provided.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theParameter</th><td>mixed</td><td><em><p>Data source name or parameters.</p></em></td></tr><tr><th>$theParent</th><td><a href="../files/ConnectionObject.html">\OntologyWrapper\ConnectionObject</a></td><td><em><p>Connection parent.</p></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         ServerObject::DefaultOffsets()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         DatabaseObject::DefaultOffsets()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         newDatabase()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::commit()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">commit</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theObject, array $theOptions = array())</span> : mixed</code><div class="description"><p class="short_description">Insert an object</p></div><div class="code-tabs"><div class="long-description">The method expects the provided parameter to be either an array or an
+{@link ArrayObject} instance.
+
+The method will call the virtual {@link insertData()} method, passing the received
+object to it, which will perform the actual commit.
+
+The method will return the inserted object's identifier, {@link kTAG_NID}.
+
+This method will also take care of setting the {@link kTAG_CLASS} offset.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theObject</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Object to commit.</p></em></td></tr><tr><th>$theOptions</th><td>array</td><td><em><p>Insert options.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>Inserted object identifier.</td></tr></table><strong>Throws</strong><table class="argument-info"><thead><tr><th>Exception</th><th>Description</th></tr></thead><tr><td><a href="../files/Exception.html">\OntologyWrapper\Exception</a></td><td><em></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd><dt>See</dt><dd><a href="../files/
+                         \OntologyWrapper\kTAG_CLASS"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         isConnected()"></a>
+         
+    </dd><dt>Uses</dt><dd><a href="../files/
+                         insertData()"></a>
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::drop()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">drop</span><span class="nb-faded-text">()</span> : void</code><div class="description"><span class="attribute">abstract</span><p class="short_description">Drop the collection</p></div><div class="code-tabs"><div class="long-description">This method should drop the current collection.</div><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::getAll()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">getAll</span><span class="nb-faded-text">()</span> : <a href="../files/Iterator.html">\OntologyWrapper\Iterator</a></code><div class="description"><span class="attribute">abstract</span><p class="short_description">Return all objects</p></div><div class="code-tabs"><div class="long-description">This method should select all the objects of the collection and return an iterator.
+
+Concrete derived classes should implement this method.</div><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td><a href="../files/Iterator.html">\OntologyWrapper\Iterator</a></td><td>Selection of all objects of the collection.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::getSequenceNumber()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">getSequenceNumber</span><span class="nb-faded-text">(string $theSequence)</span> : integer</code><div class="description"><p class="short_description">Return sequence number</p></div><div class="code-tabs"><div class="long-description">This method should return a sequence number associated to the provided parameter.
+This operation is equivalent to requesting an auto-number for a database.
+
+Each time a sequence number is requested, the sequence seed is updated, so use this
+method only when the sequence is required.
+
+If the sequence selector is not found, a new one will be created starting with the
+number <tt>1</tt>, so, if you need to start with another number, use the
+{@link setSequenceNumber()} before.
+
+This method is intended to be handled by database objects, in this class we simply
+let the object's parent, a database, perform the action.
+
+Derived classes should never need to overload this method.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theSequence</th><td>string</td><td><em><p>Sequence selector.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>integer</td><td>Sequence number.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::insertData()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">insertData</span><span class="nb-faded-text">(<a href="../files/reference.html">\OntologyWrapper\reference</a> $theData, array $theOptions)</span> : mixed</code><div class="description"><span class="attribute">abstract</span><p class="short_description">Insert provided data</p></div><div class="code-tabs"><div class="long-description">This method should be implemented by concrete derived classes, it should commit a
+new record in the current collection featuring the provided data and return the
+record identifier.
+
+Derived classes must implement this method.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theData</th><td><a href="../files/reference.html">\OntologyWrapper\reference</a></td><td><em><p>Data to commit.</p></em></td></tr><tr><th>$theOptions</th><td>array</td><td><em><p>Insert options.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>Object identifier.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::newDatabase()" class="anchor"></a><div class="method protected"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"></img><span class="highlight">newDatabase</span><span class="nb-faded-text">(mixed $theParameter, boolean $doOpen = TRUE)</span> : <a href="../files/DatabaseObject.html">\OntologyWrapper\DatabaseObject</a></code><div class="description"><span class="attribute">abstract</span><p class="short_description">Return a new database instance</p></div><div class="code-tabs"><div class="long-description">This method should be implemented by concrete derived classes, it expects a list of
+offsets or a data source name containing the necessary elements to instantiate a
+{@link DatabaseObject} instance which will be considered the current object's parent.
+
+Note that these parameters must also include the {@link ServerObject} parameters.
+
+Derived classes must implement this method.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theParameter</th><td>mixed</td><td><em><p>Database parameters.</p></em></td></tr><tr><th>$doOpen</th><td>boolean</td><td><em><tt>TRUE</tt> open connection.</em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td><a href="../files/DatabaseObject.html">\OntologyWrapper\DatabaseObject</a></td><td>Database instance.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>protected
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::resolve()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">resolve</span><span class="nb-faded-text">(mixed $theIdentifier, mixed $theOffset = kTAG_NID, mixed $asObject = TRUE)</span> : mixed</code><div class="description"><span class="attribute">abstract</span><p class="short_description">Resolve an object</p></div><div class="code-tabs"><div class="long-description">This method should select an object in the current collection matching the provided
+identifier with the provided offset.
+
+The method expects the following parameters:
+
+<ul>
+<li><b>$theIdentifier</b>: This parameter represents the value to match with the
+	provided offset.
+<li><b>$theOffset</b>: This parameter represents either the native or persistent
+	identifier of the offset tag.
+<li><b>$asObject</b>: This parameter determines what the method should return:
+ <ul>
+	<li><tt>TRUE</tt>: Return the object; if there are more than one objects
+		selected, this method should only return the first.
+	<li><tt>FALSE</tt>: Return the object array; if there are more than one objects
+		selected, this method should only return the first.
+	<li><tt>NULL</tt>: Return the objects count.
+ </ul>
+</ul>
+
+Concrete derived classes should implement this method.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theIdentifier</th><td>mixed</td><td><em><p>Object identifier.</p></em></td></tr><tr><th>$theOffset</th><td>mixed</td><td><em><p>Offset.</p></em></td></tr><tr><th>$asObject</th><td>mixed</td><td><em><p>Return object if <tt>TRUE</tt>.</p></em></td></tr></table><strong>Returns</strong><table class="argument-info"><thead><tr><th>Type</th><th>Description</th></tr></thead><tr><td>mixed</td><td>Found object, array, objects count or &lt;tt&gt;NULL&lt;/tt&gt;.</td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd></dl></div><div class="clear"></div></div><a id="\OntologyWrapper\CollectionObject::setSequenceNumber()" class="anchor"></a><div class="method public"><a href="#" class="gripper"><img src="../images/icons/arrow_right.png"></img><img src="../images/icons/arrow_down.png" style="display: none;"></img></a><code class="title"><img src="../images/icons/method.png" alt="method" title="method"></img><img src="../images/icons/visibility_public.png" style="margin-right: 5px" alt="public"></img><span class="highlight">setSequenceNumber</span><span class="nb-faded-text">(string $theSequence, integer $theNumber = 1)</span> : void</code><div class="description"><p class="short_description">Set sequence number</p></div><div class="code-tabs"><div class="long-description">This method should initialise a sequence number associated to the provided parameter.
+This operation is equivalent to resetting an auto-number for a database.
+
+Once the sequence is set, the next requested sequence number will hold the value set
+by this method, so to start counting from <tt>1</tt> you should provide this value to
+this method.
+
+This method is intended to be handled by database objects, in this class we simply
+let the object's parent, a database, perform the action.
+
+Derived classes should never need to overload this method.</div><strong>Parameters</strong><table class="argument-info"><thead><tr><th>Name</th><th>Type</th><th>Description</th></tr></thead><tr><th>$theSequence</th><td>string</td><td><em><p>Sequence selector.</p></em></td></tr><tr><th>$theNumber</th><td>integer</td><td><em><p>Sequence number.</p></em></td></tr></table><strong>Throws</strong><table class="argument-info"><thead><tr><th>Exception</th><th>Description</th></tr></thead><tr><td><a href="../files/Exception.html">\OntologyWrapper\Exception</a></td><td><em></em></td></tr></table><strong>Details</strong><dl class="function-info"><dt>Access</dt><dd>public
+         
+    </dd></dl></div><div class="clear"></div></div></div></div></div><small class="footer">
+            Documentation was generated by
+            <a href="http://phpdoc.org">phpDocumentor
+                2.2.0
+</a>.
+        </small></body></html>

@@ -86,6 +86,30 @@ class MyClass extends OntologyWrapper\OntologyObject
 	public function __toString()						{	return "hello!";	}
 	
 	public function TraverseObject()			{	return $this->traverse();	}
+	
+	protected function traverseResolveOffset( Iterator $theIterator, &$theType, &$theKind )
+	{
+		switch( $theIterator->key() )
+		{
+			case -1:
+				$theType = array( kTYPE_FLOAT );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;
+			
+			case -2:
+				$theType = array( kTYPE_STRUCT );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;
+			
+			case -3:
+				$theType = array( kTYPE_STRUCT );
+				$theKind = Array();
+				return TRUE;
+			
+			default:
+				return parent::traverseResolveOffset( $theIterator, $theType, $theKind );
+		}
+	}
 }
 
 
@@ -1171,6 +1195,20 @@ try
 		kTAG_CLASS => "OntologyObject",
 		kTAG_DOMAIN => "Object",
 		kTAG_NAME => 123,
+		-1 => array( "12.47", "35.22", 5.01263, 12 ),
+		-3 => array
+		(
+			kTAG_NAME => 321,
+			kTAG_DESCRIPTION => array
+			(
+				array( kTAG_LANGUAGE => "en",
+					   kTAG_TEXT => "Description" ),
+				array( kTAG_LANGUAGE => "it",
+					   kTAG_TEXT => "Descrizione" ),
+				array( kTAG_LANGUAGE => 3,
+					   kTAG_TEXT => 4 )
+			),
+		),
 		kTAG_LABEL => array
 		(
 			array( kTAG_LANGUAGE => "en",
@@ -1180,7 +1218,8 @@ try
 			array( kTAG_LANGUAGE => 1,
 				   kTAG_TEXT => 2 )
 		),
-		kTAG_CONN_PORT => "80"
+		kTAG_CONN_PORT => "80",
+		kTAG_DATA_TYPE => array( 3, 4 )
 	);
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
@@ -1212,7 +1251,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $offsets );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

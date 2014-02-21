@@ -1,0 +1,223 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/*=======================================================================================
+ *																						*
+ *									Types.inc.php										*
+ *																						*
+ *======================================================================================*/
+ 
+/**
+ * Type definitions.
+ *
+ * This file contains the default data and cardinality types.
+ *
+ * Each entry defines the &lt;i&gt;global identifier&lt;/i&gt; of a term.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 25/11/2012
+ */
+
+/*=======================================================================================
+ *	PRIMITIVE DATA TYPES																*
+ *======================================================================================*/
+
+/**
+ * Mixed.
+ *
+ * A &lt;i&gt;mixed&lt;/i&gt; data type indicates that the referred property may take any data type.
+ */
+define( &quot;kTYPE_MIXED&quot;,							':type:mixed' );
+
+/**
+ * String.
+ *
+ * A &lt;i&gt;string&lt;/i&gt; data type indicates that the referred property may hold &lt;i&gt;UNICODE&lt;/i&gt;
+ * characters, this type &lt;i&gt;does not include binary data&lt;/i&gt;
+ */
+define( &quot;kTYPE_STRING&quot;,							':type:string' );
+
+/**
+ * Integer.
+ *
+ * An &lt;i&gt;integer&lt;/i&gt; data type indicates that the referred property may hold a &lt;i&gt;32 or 64
+ * bit integral numeric value&lt;/i&gt;
+ */
+define( &quot;kTYPE_INT&quot;,							':type:int' );
+
+/**
+ * Float.
+ *
+ * A &lt;i&gt;float&lt;/i&gt; data type indicates that the referred property may hold a &lt;i&gt;floating
+ * point number&lt;/i&gt;, also known as &lt;i&gt;double&lt;/i&gt; or &lt;i&gt;real&lt;/i&gt;. The precision of such value
+ * is not inferred, in general it will be a &lt;i&gt;32 or 64 bit real&lt;/i&gt;
+ */
+define( &quot;kTYPE_FLOAT&quot;,							':type:float' );
+
+/*=======================================================================================
+ *	STRUCTURED DATA TYPES																*
+ *======================================================================================*/
+
+/**
+ * Array.
+ *
+ * This data type defines a &lt;em&gt;list of key/value pairs&lt;/em&gt;, the key will be in general a
+ * string, while the value type is not inferred. This data type usually applies to arrays in
+ * which the key part is the discriminant and determines the type of the value, while
+ * traditional arrays are better defined by a fixed data type and a list data kind.
+ */
+define( &quot;kTYPE_ARRAY&quot;,							':type:array' );
+
+/**
+ * Struct.
+ *
+ * This data type defines a &lt;em&gt;structure&lt;/em&gt;, this means that the value will be an
+ * &lt;em&gt;object&lt;/em&gt; or an array of objects if the data kind is a list.
+ */
+define( &quot;kTYPE_STRUCT&quot;,							':type:struct' );
+
+/**
+ * Language string elements list.
+ *
+ * This data type defines a &lt;em&gt;list of strings expressed in different languages&lt;/em&gt;. The
+ * list elements are composed by &lt;em&gt;two key/value pairs&lt;/em&gt;. The first pair has the
+ * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
+ * second pair has the {@link kTAG_TEXT} as its key and the value represents the text
+ * expressed in the language defined by the first pair. No two elements may share the same
+ * language and only one element may omit the language pair.
+ */
+define( &quot;kTYPE_LANGUAGE_STRINGS&quot;,				':type:language-strings' );
+
+/*=======================================================================================
+ *	ENUMERATED DATA TYPES																*
+ *======================================================================================*/
+
+/**
+ * Enumeration.
+ *
+ * An &lt;i&gt;enumerated&lt;/i&gt; data type indicates that the referred property may only hold &lt;i&gt;a
+ * term reference&lt;/i&gt;, that is, the &lt;i&gt;global identifier of a term object&lt;/i&gt;. Enumerated
+ * values are by default strings and must reference a term object.
+ */
+define( &quot;kTYPE_ENUM&quot;,							':type:enum' );
+
+/**
+ * Enumerated set.
+ *
+ * An &lt;i&gt;enumerated set&lt;/i&gt; data type indicates that the referred property may only hold
+ * &lt;i&gt;a list of term reference&lt;/i&gt;, that is, an array of &lt;i&gt;term native identifiers&lt;/i&gt;. All
+ * the elements of this list must be unique.
+ */
+define( &quot;kTYPE_SET&quot;,							':type:enum-set' );
+
+/*=======================================================================================
+ *	REFERENCE DATA TYPES																*
+ *======================================================================================*/
+
+/**
+ * Term reference.
+ *
+ * A &lt;i&gt;term reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must correspond to the identifier of a
+ * {@link Term} object.
+ */
+define( &quot;kTYPE_REF_TERM&quot;,						':type:ref:term' );
+
+/**
+ * Tag reference.
+ *
+ * A &lt;i&gt;tag reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must correspond to the native identifier
+ * of a {@link Tag} object.
+ */
+define( &quot;kTYPE_REF_TAG&quot;,						':type:ref:tag' );
+
+/**
+ * Node reference.
+ *
+ * A &lt;i&gt;node reference&lt;/i&gt; is an &lt;em&gt;integer&lt;/em&gt; that must correspond to the native
+ * identifier of a {@link Node} object.
+ */
+define( &quot;kTYPE_REF_NODE&quot;,						':type:ref:node' );
+
+/**
+ * Edge reference.
+ *
+ * An &lt;i&gt;edge reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must correspond to the native
+ * identifier of an {@link Edge} object.
+ */
+define( &quot;kTYPE_REF_EDGE&quot;,						':type:ref:edge' );
+
+/**
+ * Entity reference.
+ *
+ * An &lt;i&gt;entity reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must correspond to the native
+ * identifier of an {@link Entity} object.
+ */
+define( &quot;kTYPE_REF_ENTITY&quot;,						':type:ref:entity' );
+
+/**
+ * Unit reference.
+ *
+ * A &lt;i&gt;unit reference&lt;/i&gt; is a &lt;em&gt;string&lt;/em&gt; that must correspond to the native
+ * identifier of a {@link Unit} object.
+ */
+define( &quot;kTYPE_REF_UNIT&quot;,						':type:ref:unit' );
+
+/*=======================================================================================
+ *	CARDINALITY TYPES																	*
+ *======================================================================================*/
+
+/**
+ * List.
+ *
+ * A &lt;i&gt;list&lt;/i&gt; cardinality type indicates that the referred property will hold a &lt;i&gt;list
+ * of values&lt;/i&gt; whose elements will have the data type defined by the &lt;i&gt;data type&lt;/i&gt;
+ * property.
+ */
+define( &quot;kTYPE_LIST&quot;,							':type:list' );
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

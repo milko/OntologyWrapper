@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * Definition.php
+ *
+ * This file contains the definition of the {@link Definition} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									Definition.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Definition trait
+ *
+ * This trait implements a method for managing the definition offset,
+ * {@link kTAG_DEFINITION}. The method manages the individual definitions by language.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 14/02/2014
+ */
+trait Definition
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Definition																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term description
+	 *
+	 * This method can be used to add, retrieve and delete individual definitions by
+	 * language, while managing all the definitions as a whole can be done using the
+	 * {@link kTAG_DEFINITION} offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theLanguage&lt;/b&gt;: This parameter holds the language code of the text we
+	 *		want to manage. The &lt;tt&gt;NULL&lt;/tt&gt; value should only be used if the label is not
+	 *		related to a specific language.
+	 *	&lt;li&gt;&lt;b&gt;$theValue&lt;/b&gt;: This parameter identifies the definition text or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the definition of the provided language.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the definition of the provided language.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other value is cast to string and interpreted as the text
+	 *			of the definition in the provided language which will be inserted, or that
+	 *			will replace an existing entry.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value &lt;i&gt;before&lt;/i&gt; it was eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value &lt;i&gt;after&lt;/i&gt; it was eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * The method will return either the definition text, or &lt;tt&gt;NULL&lt;/tt&gt; if the language
+	 * was not matched.
+	 *
+	 * @param string				$theLanguage		Definition language.
+	 * @param mixed					$theValue			Definition text or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed				Old or new value.
+	 *
+	 * @see kTAG_DEFINITION kTAG_LANGUAGE kTAG_TEXT
+	 *
+	 * @uses manageElementMatchOffset()
+	 */
+	public function Definition( $theLanguage, $theValue = NULL, $getOld = FALSE )
+	{
+		return $this-&gt;manageElementMatchOffset(
+				kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_TEXT,
+				$theLanguage, $theValue, $getOld );									// ==&gt;
+	
+	} // Definition.
+
+	 
+
+} // trait Definition.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

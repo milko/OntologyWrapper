@@ -1,0 +1,490 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * MongoDatabase.php
+ *
+ * This file contains the definition of the {@link MongoDatabase} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\DatabaseObject;
+use OntologyWrapper\MongoServer;
+
+/*=======================================================================================
+ *																						*
+ *									MongoDatabase.php									*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Mongo database
+ *
+ * This class is a &lt;i&gt;concrete&lt;/i&gt; implementation of the {@link DatabaseObject} wrapping a
+ * {@link MongoDB} class.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 06/02/2014
+ */
+class MongoDatabase extends DatabaseObject
+{
+	/**
+	 * Sequences collection name.
+	 *
+	 * This constant holds the &lt;i&gt;sequences&lt;/i&gt; collection name.
+	 *
+	 * @var string
+	 */
+	const kSEQ_COLLECTION = '_sequence';
+
+	/**
+	 * Sequences offset name.
+	 *
+	 * This constant holds the &lt;i&gt;sequences&lt;/i&gt; offset name.
+	 *
+	 * @var string
+	 */
+	const kSEQ_OFFSET = '_seq';
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * Drop the database
+	 *
+	 * This method will drop the current database.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function drop()
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to drop database: &quot;
+			   .&quot;database is not connected.&quot; );									// !@! ==&gt;
+		
+		$this-&gt;mConnection-&gt;drop();
+	
+	} // drop.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isConnected																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if connection is open
+	 *
+	 * We overload this method to assume the object is connected if the resource is a
+	 * {@link MongoDB}.
+	 *
+	 * @access public
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; is open.
+	 */
+	public function isConnected()
+	{
+		return ( $this-&gt;mConnection instanceof \MongoDB );							// ==&gt;
+	
+	} // isConnected.
+
+	 
+	/*===================================================================================
+	 *	getCollections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return collection names
+	 *
+	 * In this class we use the {@link \MongoDB::listCollections()} method, we extract only
+	 * the name to conform with the method prototype: one should always instantiate an
+	 * object derived from {@link CollectionObject} when dealing wit collections.
+	 *
+	 * This method will return the following retults:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: The database is not connected.
+	 *	&lt;li&gt;&lt;tt&gt;array&lt;/tt&gt;: The database collection names.
+	 * &lt;/ul&gt;
+	 *
+	 * @access public
+	 * @return array				List of collection names.
+	 */
+	public function getCollections()
+	{
+		//
+		// Check if connected.
+		//
+		if( $this-&gt;isConnected() )
+		{
+			//
+			// Extract collection names.
+			//
+			$names = Array();
+			$collections = $this-&gt;mConnection-&gt;listCollections();
+			foreach( $collections as $collection )
+				$names[] = $collection-&gt;getName();
+			
+			return $names;															// ==&gt;
+		
+		} // Connected.
+		
+		return FALSE;																// ==&gt;
+	
+	} // getCollections.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Set sequence number
+	 *
+	 * In this class we match the provided parameter string with an entry in the
+	 * {@link kSEQ_COLLECTION} collection in the database, the native identifier of the
+	 * record is the sequence selector, while the sequence number will be found at the
+	 * {@link kSEQ_OFFSET} offset.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 * @param integer				$theNumber			Sequence number.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function setSequenceNumber( $theSequence, $theNumber = 1 )
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to set sequence: &quot;
+			   .&quot;database is not connected.&quot; );									// !@! ==&gt;
+		
+		//
+		// Init local storage.
+		//
+		$collection = $this-&gt;mConnection-&gt;selectCollection( self::kSEQ_COLLECTION );
+		
+		//
+		// Set sequence.
+		//
+		$collection-&gt;update(
+			array( kTAG_NID =&gt; (string) $theSequence ),
+			array( '$set' =&gt; array( self::kSEQ_OFFSET =&gt; (int) $theNumber ) ),
+			array( 'upsert' =&gt; TRUE ) );
+	
+	} // setSequenceNumber.
+
+	 
+	/*===================================================================================
+	 *	getSequenceNumber																*
+	 *==================================================================================*/
+
+	/**
+	 * Return sequence number
+	 *
+	 * In this class we match the provided parameter string with an entry in the
+	 * {@link kSEQ_COLLECTION} collection in the database, the native identifier of the
+	 * record is the sequence selector, while the sequence number will be found at the
+	 * {@link kSEQ_OFFSET} offset.
+	 *
+	 * @param string				$theSequence		Sequence selector.
+	 *
+	 * @access public
+	 * @return integer				Sequence number.
+	 *
+	 * @throws Exception
+	 */
+	public function getSequenceNumber( $theSequence )
+	{
+		//
+		// Check connection.
+		//
+		if( ! $this-&gt;isConnected() )
+			throw new \Exception(
+				&quot;Unable to get sequence: &quot;
+			   .&quot;database is not connected.&quot; );									// !@! ==&gt;
+		
+		//
+		// Init local storage.
+		//
+		$criteria = array( kTAG_NID =&gt; (string) $theSequence );
+		$collection = $this-&gt;mConnection-&gt;selectCollection( self::kSEQ_COLLECTION );
+		
+		//
+		// Locate sequence.
+		//
+		$seq = $collection-&gt;findOne( $criteria );
+		
+		//
+		// Increment sequence.
+		//
+		if( $seq !== NULL )
+			$collection-&gt;update( $criteria,
+								 array( '$inc' =&gt; array( self::kSEQ_OFFSET =&gt; 1 ) ),
+								 array( 'upsert' =&gt; FALSE ) );
+		else
+			$collection-&gt;update( $criteria,
+								 array( '$set' =&gt; array( self::kSEQ_OFFSET =&gt; 2 ) ),
+								 array( 'upsert' =&gt; TRUE ) );
+		
+		return ( $seq !== NULL )
+			 ? $seq[ self::kSEQ_OFFSET ]											// ==&gt;
+			 : 1;																	// ==&gt;
+	
+	} // getSequenceNumber.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONNECTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	connectionOpen																	*
+	 *==================================================================================*/
+
+	/**
+	 * Open connection
+	 *
+	 * This method will instantiate a {@link MongoDB} object and set it in the
+	 * {@link Connection()} data member.
+	 *
+	 * This method expects the caller to have checked whether the connection is already
+	 * open.
+	 *
+	 * If the operation fails, the method will raise an exception.
+	 *
+	 * @access protected
+	 * @return mixed				The native connection.
+	 *
+	 * @throws Exception
+	 */
+	protected function connectionOpen()
+	{
+		//
+		// Check parent.
+		//
+		if( $this-&gt;mParent instanceof MongoServer )
+		{
+			//
+			// Connect server.
+			//
+			if( ! $this-&gt;mParent-&gt;isConnected() )
+				$this-&gt;mParent-&gt;openConnection();
+			
+			//
+			// Check database name.
+			//
+			if( $this-&gt;offsetExists( kTAG_CONN_BASE ) )
+				$this-&gt;mConnection
+					= $this-&gt;mParent
+						-&gt;Connection()-&gt;selectDB(
+							$this-&gt;offsetGet( kTAG_CONN_BASE ) );
+			
+			else
+				throw new \Exception(
+					&quot;Unable to open connection: &quot;
+				   .&quot;Missing database name.&quot; );									// !@! ==&gt;
+			
+			return $this-&gt;mConnection;												// ==&gt;
+		
+		} // Server set.
+			
+		throw new \Exception(
+			&quot;Unable to open connection: &quot;
+		   .&quot;Missing server.&quot; );												// !@! ==&gt;
+	
+	} // connectionOpen.
+
+	 
+	/*===================================================================================
+	 *	connectionClose																	*
+	 *==================================================================================*/
+
+	/**
+	 * Close connection
+	 *
+	 * We overload this method to reset the connection resource.
+	 *
+	 * @access protected
+	 */
+	protected function connectionClose()					{	$this-&gt;mConnection = NULL;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONNECTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	newServer																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new server instance
+	 *
+	 * We implement the method to return a {@link MongoServer} instance and set the current
+	 * object dictionary in it.
+	 *
+	 * @param mixed					$theParameter		Server parameters.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access protected
+	 * @return MongoServer			Server instance.
+	 */
+	protected function newServer( $theParameter, $doOpen = TRUE )
+	{
+		//
+		// Instantiate server.
+		//
+		$server = new MongoServer( $theParameter );
+		
+		//
+		// Set dictionary.
+		//
+		$server-&gt;dictionary( $this-&gt;dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$server-&gt;openConnection();
+		
+		return $server;																// ==&gt;
+	
+	} // newServer.
+
+	 
+	/*===================================================================================
+	 *	newCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return a new collection instance
+	 *
+	 * We implement this method to return a {@link MongoCollection} instance.
+	 *
+	 * @param array					$theOffsets			Full collection offsets.
+	 * @param boolean				$doOpen				&lt;tt&gt;TRUE&lt;/tt&gt; open connection.
+	 *
+	 * @access protected
+	 * @return CollectionObject		Collection instance.
+	 */
+	protected function newCollection( $theOffsets, $doOpen = TRUE )
+	{
+		//
+		// Instantiate collection.
+		//
+		$collection = new MongoCollection( $theOffsets );
+		
+		//
+		// Copy dictionary.
+		//
+		$collection-&gt;dictionary( $this-&gt;dictionary() );
+		
+		//
+		// Open connection.
+		//
+		if( $doOpen )
+			$collection-&gt;openConnection();
+		
+		return $collection;															// ==&gt;
+	
+	} // newCollection.
+
+	 
+
+} // class MongoDatabase.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

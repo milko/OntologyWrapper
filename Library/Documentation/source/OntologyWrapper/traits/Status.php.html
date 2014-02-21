@@ -1,0 +1,413 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * Status.php
+ *
+ * This file contains the definition of the {@link Status} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *										Status.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Flags.
+ *
+ * This file contains the default flag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Flags.inc.php&quot; );
+
+/**
+ * Status trait
+ *
+ * The main purpose of this trait is to add status management to classes, this is done by
+ * adding a bitfield {@link $mStatus} data member and a set of methods that handle this
+ * bitfield.
+ *
+ * This trait defines the common methods for managing the bitfield data member and handles
+ * the following flags:
+ *
+ * &lt;ul&gt;
+ *	&lt;li&gt;&lt;tt&gt;{@link kFLAG_STATE_INITED}&lt;/tt&gt;: This flag indicates that the object is ready
+ *		to be used and is set by the {@link isInited()} method; if the flag is not set,
+ *		it means that the object is not functional.
+ *	&lt;li&gt;&lt;tt&gt;{@link kFLAG_STATE_DIRTY}&lt;/tt&gt;: This flag is set whenever the object's offsets
+ *		are modified and it can be managed by the {@link isDirty()} method. For persistent
+ *		objects it is an indication that the object should be updated; if the flag is not
+ *		set, it means that the object persistent properties are in the same state as when it
+ *		was loaded from a persistent store.
+ *	&lt;li&gt;&lt;tt&gt;{@link kFLAG_STATE_COMMITTED}&lt;/tt&gt;: This flag is set whenever the object is
+ *		either loaded from or stored in a persistent store and can be managed by the
+ *		{@link isCommitted()} method. It is an indication that the object is persistent; if
+ *		the flag is not set, it means that the object was not loaded from or stored in a
+ *		persistent store.
+ *	&lt;li&gt;&lt;tt&gt;{@link kFLAG_STATE_ENCODED}&lt;/tt&gt;: This flag indicates an encoded state and can
+ *		be managed by the {@link isEncoded()} method, which means that some object offsets
+ *		have been encoded and need to be decoded before the object is saved in a persistent
+ *		store or effectively used. This state is often associated to the network
+ *		transmission of objects: some data types must be converted prior to be sent over the
+ *		network; if the flag is not set, it means that the object can be saved in a
+ *		persistent store or serialised for being transmitted on the network.
+ * &lt;/ul&gt;
+ *
+ * All the flag accessor methods are protected, since they provide access to the internal
+ * workings of the object, if you need to provide status information you should do so by
+ * using these methods in a public interface.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 23/01/2014
+ */
+trait Status
+{
+	/**
+	 * Status flags.
+	 *
+	 * This data member holds the &lt;i&gt;status flags&lt;/i&gt; in a bitfield value 
+	 *
+	 * @var int
+	 */
+	private $mStatus = kFLAG_DEFAULT;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	statusReset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset status
+	 *
+	 * This method can be used to reset the status, it will set it to {@link kFLAG_DEFAULT}.
+	 *
+	 * This is generally at the end of the constructor after having modified offsets to
+	 * set the status to an idle state.
+	 *
+	 * @access protected
+	 *
+	 * @see kFLAG_DEFAULT
+	 */
+	protected function statusReset()					{	$this-&gt;mStatus = kFLAG_DEFAULT;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED STATUS MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isInited																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage inited status
+	 *
+	 * This method can be used to get or set the object's inited state.
+	 *
+	 * An object becomes inited when it has all the required elements necessary for it to be
+	 * correctly used or persistently stored. Such a state indicates that at least the
+	 * minimum required information was initialised in the object.
+	 *
+	 * The counterpart state indicates that the object still lacks the necessary elements to
+	 * successfully operate the object.
+	 *
+	 * This method operates by setting or clearing the {@link kFLAG_STATE_INITED} flag.
+	 *
+	 * The method features a single parameter:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: The method will return the object's inited state.
+	 *	&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: The method will set the object's inited state.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: The method will reset the object's inited state.
+	 * &lt;/ul&gt;
+	 *
+	 * In all cases the method will return the state &lt;i&gt;after&lt;/i&gt; it was eventually
+	 * modified.
+	 *
+	 * @param mixed					$theState			&lt;tt&gt;TRUE&lt;/tt&gt;, &lt;tt&gt;FALSE&lt;/tt&gt; or
+	 *													&lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; inited, &lt;tt&gt;FALSE&lt;/tt&gt; idle.
+	 *
+	 * @see kFLAG_STATE_INITED
+	 *
+	 * @uses $this-&gt;manageBitField()
+	 */
+	protected function isInited( $theState = NULL )
+	{
+		return $this-&gt;manageBitField( $this-&gt;mStatus,
+									  kFLAG_STATE_INITED,
+									  $theState );									// ==&gt;
+	
+	} // isInited.
+
+	 
+	/*===================================================================================
+	 *	isDirty																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage dirty status
+	 *
+	 * This method can be used to get or set the object's dirty state.
+	 *
+	 * A dirty object is one that was modified since the last time this state was probed. In
+	 * general, this state should be set whenever the persistent properties of the object
+	 * are modified.
+	 *
+	 * In this class we automatically set this state when setting or unsetting offsets.
+	 *
+	 * The method features a single parameter:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: The method will return the object's dirty state.
+	 *	&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: The method will set the object's dirty state.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: The method will reset the object's dirty state.
+	 * &lt;/ul&gt;
+	 *
+	 * In all cases the method will return the state &lt;i&gt;after&lt;/i&gt; it was eventually
+	 * modified.
+	 *
+	 * @param mixed					$theState			&lt;tt&gt;TRUE&lt;/tt&gt;, &lt;tt&gt;FALSE&lt;/tt&gt; or
+	 *													&lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; dirty, &lt;tt&gt;FALSE&lt;/tt&gt; clean.
+	 *
+	 * @see kFLAG_STATE_DIRTY
+	 *
+	 * @uses $this-&gt;manageBitField()
+	 */
+	protected function isDirty( $theState = NULL )
+	{
+		return $this-&gt;manageBitField( $this-&gt;mStatus,
+									  kFLAG_STATE_DIRTY,
+									  $theState );									// ==&gt;
+	
+	} // isDirty.
+
+	 
+	/*===================================================================================
+	 *	isCommitted																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage committed status
+	 *
+	 * This method can be used to get or set the object's committed state.
+	 *
+	 * A committed object is one that has either been loaded from a container or committed
+	 * to a container, this state can be used in conjunction with the
+	 * {@link kFLAG_STATE_DIRTY} flag to determine whether an object needs to be committed.
+	 *
+	 * The method features a single parameter:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: The method will return the object's committed state.
+	 *	&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: The method will set the object's committed state.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: The method will reset the object's committed state.
+	 * &lt;/ul&gt;
+	 *
+	 * In all cases the method will return the state &lt;i&gt;after&lt;/i&gt; it was eventually
+	 * modified.
+	 *
+	 * @param mixed					$theState			&lt;tt&gt;TRUE&lt;/tt&gt;, &lt;tt&gt;FALSE&lt;/tt&gt; or
+	 *													&lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; committed, &lt;tt&gt;FALSE&lt;/tt&gt; uncommitted.
+	 *
+	 * @see kFLAG_STATE_COMMITTED
+	 *
+	 * @uses $this-&gt;manageBitField()
+	 */
+	protected function isCommitted( $theState = NULL )
+	{
+		return $this-&gt;manageBitField( $this-&gt;mStatus,
+									  kFLAG_STATE_COMMITTED,
+									  $theState );									// ==&gt;
+	
+	} // isCommitted.
+
+	 
+	/*===================================================================================
+	 *	isEncoded																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage encoded status
+	 *
+	 * This method can be used to get or set the object's encoded state.
+	 *
+	 * This flag determines whether the object should take care of serialising custom data
+	 * types before the object is transmitted over the network.
+	 *
+	 * The method features a single parameter:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: The method will return the object's encoded state.
+	 *	&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: The method will set the object's encoded state.
+	 *	&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: The method will reset the object's encoded state.
+	 * &lt;/ul&gt;
+	 *
+	 * In all cases the method will return the state &lt;i&gt;after&lt;/i&gt; it was eventually
+	 * modified.
+	 *
+	 * @param mixed					$theState			&lt;tt&gt;TRUE&lt;/tt&gt;, &lt;tt&gt;FALSE&lt;/tt&gt; or
+	 *													&lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; supports encoding, &lt;tt&gt;FALSE&lt;/tt&gt; does not
+	 *								support encoding.
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 *
+	 * @uses $this-&gt;manageBitField()
+	 */
+	protected function isEncoded( $theState = NULL )
+	{
+		return $this-&gt;manageBitField( $this-&gt;mStatus,
+									  kFLAG_STATE_ENCODED,
+									  $theState );									// ==&gt;
+	
+	} // isEncoded.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED BITFIELD MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	manageBitField																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a bit-field property
+	 *
+	 * This method can be used to manage a bitfield property, it accepts the following
+	 * parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;&amp;$theField&lt;/tt&gt;: Reference to the bit-field property.
+	 *	&lt;li&gt;&lt;tt&gt;$theMask&lt;/tt&gt;: Bit-field mask.
+	 *	&lt;li&gt;&lt;tt&gt;$theState&lt;/tt&gt;: State or operator:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the masked bitfield.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Turn &lt;i&gt;off&lt;/i&gt; the masked bits.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Turn &lt;i&gt;on&lt;/i&gt; the masked bits.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * In all cases the method will return the status &lt;i&gt;after&lt;/i&gt; it was eventually
+	 * modified.
+	 *
+	 * @param reference				$theField			Bit-field reference.
+	 * @param bitfield				$theMask			Bit-field mask.
+	 * @param mixed					$theState			Value or operator.
+	 *
+	 * @access protected
+	 * @return bitfield				Current masked status.
+	 *
+	 * @see kFLAG_DEFAULT_MASK
+	 */
+	protected function manageBitField( &amp;$theField, $theMask, $theState = NULL )
+	{
+		//
+		// Normalise mask (mask sign bit).
+		//
+		$theMask &amp;= kFLAG_DEFAULT_MASK;
+		
+		//
+		// Modify status.
+		//
+		if( $theState !== NULL )
+		{
+			//
+			// Set mask.
+			//
+			if( (boolean) $theState )
+				$theField |= $theMask;
+			
+			//
+			// Reset mask.
+			//
+			else
+				$theField &amp;= (~ $theMask);
+		}
+		
+		return $theField &amp; $theMask;												// ==&gt;
+	
+	} // manageBitField.
+
+	 
+
+} // trait Status.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

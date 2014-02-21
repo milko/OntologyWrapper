@@ -1,0 +1,287 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * MemcachedDictionary.php
+ *
+ * This file contains the definition of the {@link MemcachedDictionary} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *								MemcachedDictionary.php									*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Memcached dictionary cache
+ *
+ * This trait implements the virtual interface of the {@link DictionaryObject} using the
+ * {@link Memcached} class.
+ *
+ * This trait requires the constructor, in the class that will be using it, to load the two
+ * declared data members and to handle the servers.
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 06/02/2014
+ */
+trait MemcachedDictionary
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setEntry																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a dictionary entry
+	 *
+	 * In this trait we use the {@link Memcached::set()} method to add entries to the
+	 * dictionary. This method will receive two kinds of objects:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Identifiers&lt;/em&gt;: In this case the &lt;em&gt;key is a string&lt;/em&gt; representing the
+	 *		persistent identifier of a tag, and the &lt;em&gt;value is an integer&lt;/em&gt;
+	 *		representing the native identifier of the tag.
+	 *	&lt;li&gt;&lt;em&gt;Tags&lt;/em&gt;: In this case the &lt;em&gt;key is an integer&lt;/em&gt; representing the
+	 *		native identifier of the tag and the &lt;em&gt;value is an object or array&lt;/em&gt;,
+	 *		representing the tag object.
+	 * &lt;/ul&gt;
+	 *
+	 * The method expects the parameters to be correctly casted.
+	 *
+	 * @param mixed					$theKey				Entry key.
+	 * @param mixed					$theValue			Entry value.
+	 * @param integer				$theLife			Entry lifetime.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function setEntry( $theKey, $theValue, $theLife )
+	{
+		//
+		// Load element.
+		//
+		if( ! $this-&gt;mCache-&gt;set( $theKey, $theValue, $theLife ) )
+		{
+			$code = $this-&gt;mCache-&gt;getResultCode();
+			$message = $this-&gt;mCache-&gt;getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==&gt;
+		
+		} // Failed.
+	
+	} // setEntry.
+
+	 
+	/*===================================================================================
+	 *	getEntry																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get a dictionary entry
+	 *
+	 * In this trait we use the {@link Memcached::get()} method to retrieve entries from the
+	 * dictionary. This method will select two kinds of objects:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Identifiers&lt;/em&gt;: In this case the &lt;em&gt;key is a string&lt;/em&gt; representing the
+	 *		persistent identifier of a tag.
+	 *	&lt;li&gt;&lt;em&gt;Tags&lt;/em&gt;: In this case the &lt;em&gt;key is an integer&lt;/em&gt; representing the
+	 *		native identifier of the tag.
+	 * &lt;/ul&gt;
+	 *
+	 * The method expects the parameter to be correctly casted.
+	 *
+	 * @param mixed					$theKey				Entry key.
+	 *
+	 * @access protected
+	 * @return mixed				Entry value or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @throws Exception
+	 */
+	protected function getEntry( $theKey )
+	{
+		//
+		// get dictionary entry.
+		//
+		$value = $this-&gt;mCache-&gt;get( $theKey );
+		
+		//
+		// Get status code.
+		//
+		$code = $this-&gt;mCache-&gt;getResultCode();
+		
+		//
+		// Handle found.
+		//
+		if( $code == \Memcached::RES_SUCCESS )
+			return $value;															// ==&gt;
+		
+		//
+		// Handle not found.
+		//
+		if( $code == \Memcached::RES_NOTFOUND )
+			return NULL;															// ==&gt;
+		
+		//
+		// Failed.
+		//
+		$message = $this-&gt;mCache-&gt;getResultMessage();
+		throw new \Exception( $message, $code );								// !@! ==&gt;
+	
+	} // getEntry.
+
+	 
+	/*===================================================================================
+	 *	delEntry																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get a dictionary entry
+	 *
+	 * In this trait we use the {@link Memcached::delete()} method to delete entries from
+	 * the dictionary. This method will select two kinds of objects:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Identifiers&lt;/em&gt;: In this case the &lt;em&gt;key is a string&lt;/em&gt; representing the
+	 *		persistent identifier of a tag.
+	 *	&lt;li&gt;&lt;em&gt;Tags&lt;/em&gt;: In this case the &lt;em&gt;key is an integer&lt;/em&gt; representing the
+	 *		native identifier of the tag.
+	 * &lt;/ul&gt;
+	 *
+	 * The method will return &lt;tT&gt;TRUE&lt;/tt&gt; if the entry was deleted, &lt;tt&gt;FALSE&lt;/tt&gt; if the
+	 * entry was not found and raise an exception on any other error.
+	 *
+	 * The method expects the parameter to be correctly casted.
+	 *
+	 * @param mixed					$theKey				Entry key.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; deleted, &lt;tt&gt;FALSE&lt;/tt&gt; not matched.
+	 *
+	 * @throws Exception
+	 */
+	public function delEntry( $theKey )
+	{
+		//
+		// Delete key.
+		//
+		if( ! $this-&gt;mCache-&gt;delete( $theKey ) )
+		{
+			//
+			// Get status.
+			//
+			$code = $this-&gt;mCache-&gt;getResultCode();
+			
+			//
+			// Handle not found.
+			//
+			if( $code == \Memcached::RES_NOTFOUND )
+				return FALSE;													// ==&gt;
+			{
+				$message = $this-&gt;mCache-&gt;getResultMessage();
+				throw new \Exception( $message, $code );						// !@! ==&gt;
+			
+			} // Failed.
+			
+			//
+			// Assert not found.
+			//
+			if( $doAssert )
+				throw new \Exception(
+					&quot;Unmatched global identifier [$theKey].&quot; );					// !@! ==&gt;
+		
+		} // Not deleted.
+	
+	} // delEntry.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *						PUBLIC DICTIONARY MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	dictionaryFlush																	*
+	 *==================================================================================*/
+
+	/**
+	 * Flush dictionary
+	 *
+	 * In this trait we use the {@link Memcached::flush()} method.
+	 *
+	 * @param integer				$theDelay			Delay before flush.
+	 *
+	 * @access public
+	 */
+	public function dictionaryFlush( $theDelay = 0 )
+	{
+		$this-&gt;mCache-&gt;flush( $theDelay );
+	
+	} // dictionaryFlush.
+
+	 
+
+} // class MemcachedDictionary.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1650 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * OntologyObject.php
+ *
+ * This file contains the definition of the {@link OntologyObject} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\ContainerObject;
+use OntologyWrapper\Dictionary;
+
+/*=======================================================================================
+ *																						*
+ *									OntologyObject.php									*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Tags.
+ *
+ * This file contains the default tag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Tags.inc.php&quot; );
+
+/**
+ * Types.
+ *
+ * This file contains the default data type definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Types.inc.php&quot; );
+
+/**
+ * Tokens.
+ *
+ * This file contains the default token definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT.&quot;/Tokens.inc.php&quot; );
+
+/**
+ * Ontology object
+ *
+ * Objects derived from this &lt;i&gt;abstract&lt;/i&gt; class hold two types of data:
+ *
+ * &lt;ul&gt;
+ *	&lt;li&gt;&lt;em&gt;Run-time data&lt;/em&gt;, which is stored in the object member properties.
+ *	&lt;li&gt;&lt;em&gt;Persistent data&lt;/em&gt;, which is stored in the inherited array part of the object.
+ * &lt;/ul&gt;
+ *
+ * The main purpose of this class is to ensure that all persistent data elements are
+ * &lt;i&gt;referenced&lt;/i&gt;, &lt;i&gt;annotated&lt;/i&gt; and &lt;i&gt;documented&lt;/i&gt; in an ontology.
+ *
+ * Persistent data is stored as &lt;i&gt;key/value&lt;/i&gt; pair elements of the inherited array, the
+ * key part of the elements we call by convention &lt;em&gt;offset&lt;/em&gt;, these offsets, in this
+ * class, represent a reference to an object of the ontology that holds all the necessary
+ * information to &lt;i&gt;identify&lt;/i&gt;, &lt;i&gt;describe&lt;/i&gt; and &lt;i&gt;validate&lt;/i&gt; the value part of the
+ * array element pairs.
+ *
+ * This class implements the bridge between object persistent data and the ontology,
+ * ensuring that all data holds a reference to the ontology, which, itself, is implemented
+ * by objects derived from this same class: this means that the whole system is self
+ * sufficient and self documenting.
+ *
+ * Offsets can be uniquely identified in two ways: by native identifier, which is an integer
+ * value which may change across implementations, and a global identifier, which is a sring
+ * that will not change across implementations. This class provides a transparent interface
+ * that allows referring to offsets both by their &lt;i&gt;native&lt;/i&gt; identifier or by their
+ * &lt;i&gt;global&lt;/i&gt; identifier. Offsets, however, &lt;em&gt;will only hold the native
+ * identifier&lt;/em&gt;, which means that all persistent data offsets must be integers. This is
+ * because global identifiers may become large strings, which poses a problem if these are
+ * used as field names for data stored in a persistent container.
+ *
+ * Whenever the object is provided an offset, if this is a string, it will be fed to a
+ * protected method, {@link resolveOffset()}, which will check if the string represents the
+ * global identifier of an ontology Tag object, in that case, the method will return the
+ * Tag's native integer identifier which will be used as the data offset. The class
+ * features a public method, {@link InternalOffsets()}, that returns the list of exceptions.
+ *
+ * This means that to ensure referential integrity it is advisable to use integer constants
+ * as offsets when available, or string offsets if the integer constant is not known or
+ * available.
+ *
+ * The resolution of these offsets is provided by a {@link Dictionary} object which records
+ * all the &lt;em&gt;Tag&lt;/em&gt; objects of the ontology which are the entities that all offsets
+ * reference: persistent data offsets represent these Tag native identifiers, while these
+ * Tag object global identifiers are decoded by the {@link Dictionary} object to retrieve
+ * the corresponding integer native identifier.
+ *
+ * The class declares the {@link __toString()} method as virtual, it is essential that all
+ * derived classes implement this method which should return the current object's &lt;em&gt;global
+ * identifier string&lt;/em&gt;. The global identifier of an object can be considered its
+ * signature or unique identifier, although a global identifier not need to be unique; all
+ * objects derived from this class, just as the Tag object described above, must feature a
+ * global identifier, which may or may not coincide with their native identifier.
+ *
+ * The class declares a method, {@link reference()}, which returns the current object's
+ * &lt;i&gt;reference&lt;/i&gt;, this will generally be the value of the {@link kTAG_NID} offset. If the
+ * offset is not set, the method will raise an exception. This method will be put to use by
+ * derived classes: when providing an object to an offset expecting an object reference, by
+ * using this method one can be assured the provided object does have a reference.
+ *
+ * Finally, the 
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 10/01/2014
+ */
+abstract class OntologyObject extends ContainerObject
+{
+	/**
+	 * Dictionary.
+	 *
+	 * This protected data member holds the data dictionary reference.
+	 *
+	 * @var Dictionary
+	 */
+	protected $mDictionary = NULL;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Return global identifier&lt;/h4&gt;
+	 *
+	 * This method should return the current object's global identifier.
+	 *
+	 * All derived concrete classes must implement this method.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	abstract public function __toString();
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	dictionary																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set or return data dictionary
+	 *
+	 * This method can be used to set or retrieve the object's data dictionary, which is
+	 * required by all derived objects to resolve offsets.
+	 *
+	 * You should set this data member as soon as the object has been instantiated, before
+	 * adding offsets to it.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theDictionary&lt;/b&gt;: Data dictionary or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return current dictionary.
+	 *		&lt;li&gt;&lt;tt&gt;{@link Dictionary}&lt;/tt&gt;: Set dictionary with provided value.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$getOld&lt;/b&gt;: This parameter is a boolean which if &lt;tt&gt;TRUE&lt;/tt&gt; will return
+	 *		the &lt;i&gt;old&lt;/i&gt; dictionary when replacing, if &lt;tt&gt;FALSE&lt;/tt&gt;, it will return the
+	 *		current value.
+	 * &lt;/ul&gt;
+	 *
+	 * The method will raise an exception if the dictionary holds any other type except the
+	 * above.
+	 *
+	 * @param mixed					$theDictionary		New dictionary or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 * @param boolean				$getOld				&lt;tt&gt;TRUE&lt;/tt&gt; get old value.
+	 *
+	 * @access public
+	 * @return Dictionary			Object data dictionary.
+	 *
+	 * @throws Exception
+	 */
+	public function dictionary( $theDictionary = NULL, $getOld = FALSE )
+	{
+		//
+		// Return dictionary
+		//
+		if( $theDictionary === NULL )
+			return $this-&gt;mDictionary;												// ==&gt;
+		
+		//
+		// Save old value.
+		//
+		$save = $this-&gt;mDictionary;
+		
+		//
+		// Set dictionary.
+		//
+		if( $theDictionary instanceof Dictionary )
+		{
+			//
+			// Replace dictionary.
+			//
+			$this-&gt;mDictionary = $theDictionary;
+			
+			if( $getOld )
+				return $save;														// ==&gt;
+			
+			return $theDictionary;													// ==&gt;
+		
+		} // provided a dictionary.
+		
+		throw new \Exception(
+			&quot;Unable to set dictionary: &quot;
+		   .&quot;invalid or unsupported value.&quot; );									// !@! ==&gt;
+	
+	} // dictionary.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	reference																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object reference
+	 *
+	 * This method will return the current object's reference. This value should uniquely
+	 * identify the referenced object, making it easy to retrieve the object given this
+	 * reference.
+	 *
+	 * In this class, and generally in all classes, the reference of an object is its native
+	 * identifier, {@link kTAG_NID}.
+	 *
+	 * The method must raise an exception if the reference cannot be provided.
+	 *
+	 * @access public
+	 * @return mixed				Object reference.
+	 *
+	 * @throws Exception
+	 */
+	public function reference()
+	{
+		//
+		// Check native identifier.
+		//
+		if( $this-&gt;offsetExists( kTAG_NID ) )
+			return $this-&gt;offsetGet( kTAG_NID );									// ==&gt;
+			
+		throw new \Exception(
+			&quot;Unable to get object reference.&quot; );								// !@! ==&gt;
+	
+	} // reference.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	InternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return internal offsets
+	 *
+	 * This method will return the current object list of internal offsets, these offsets
+	 * are not defined in the data dictionary and are private to the object. This method
+	 * is used to exclude these offsets from the default offset resolution workflow.
+	 *
+	 * In this class we return {@link kTAG_NID} and {@link kTAG_CLASS}, which all persistent
+	 * objects share.
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function InternalOffsets()			{	return array( kTAG_NID, kTAG_CLASS );	}
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * This method will return the current object list of default offsets, these offsets
+	 * represent the default offsets of the object, which means that all objects derived
+	 * from this class may feature these offsets. This method is used to exclude these
+	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
+	 * implied that these offsets will be there.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()									{	return Array();	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preOffsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before checking it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;NULL&lt;/tt&gt; check offset, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetExists( &amp;$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetExists( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this-&gt;resolveOffset( $theOffset );
+		
+		return $ok;																	// ==&gt;
+	
+	} // preOffsetExists.
+
+	 
+	/*===================================================================================
+	 *	preOffsetGet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset before getting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;NULL&lt;/tt&gt; get offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetGet( &amp;$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetGet( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this-&gt;resolveOffset( $theOffset );
+		
+		return $ok;																	// ==&gt;
+	
+	} // preOffsetGet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before setting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 * @param reference				$theValue			Offset value reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;NULL&lt;/tt&gt; set offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetSet( &amp;$theOffset, &amp;$theValue )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetSet( $theOffset, $theValue );
+		if( $ok === NULL )
+			$theOffset = (string) $this-&gt;resolveOffset( $theOffset, TRUE );
+		
+		return $ok;																	// ==&gt;
+	
+	} // preOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	preOffsetUnset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset and value before deleting it
+	 *
+	 * In this class we resolve the offset.
+	 *
+	 * @param reference				$theOffset			Offset reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;NULL&lt;/tt&gt; delete offset value, other, return.
+	 *
+	 * @uses resolveOffset()
+	 */
+	protected function preOffsetUnset( &amp;$theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::preOffsetUnset( $theOffset );
+		if( $ok === NULL )
+			$theOffset = (string) $this-&gt;resolveOffset( $theOffset );
+		
+		return $ok;																	// ==&gt;
+	
+	} // preOffsetUnset.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OFFSET RESOLUTION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolveOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset
+	 *
+	 * This method will resolve the provided offset into a {@link Tag} native
+	 * identifier, this is done by using a {@link Dictionary} object stored in the current
+	 * object's {@link $mDictionary} data member.
+	 *
+	 * If you provide an integer or a numeric string, the method will simply cast the value
+	 * to an integer and return it.
+	 *
+	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
+	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
+	 * object stored in the current object's {@link $mDictionary} data member; if the
+	 * provided offset cannot be resolved, the method will raise an exception if the second
+	 * parameter is &lt;tt&gt;TRUE&lt;/tt&gt;, or &lt;tt&gt;NULL&lt;/tt&gt; if the second parameter is
+	 * &lt;tt&gt;FALSE&lt;/tt&gt;.
+	 *
+	 * The method will raise an exception if the tag cache is not set.
+	 *
+	 * @param mixed					$theOffset			Data offset.
+	 * @param boolean				$doAssert			Assert offset tag reference.
+	 *
+	 * @access protected
+	 * @return mixed				Resolved offset.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses InternalOffsets()
+	 */
+	protected function resolveOffset( $theOffset, $doAssert = FALSE )
+	{
+		//
+		// Handle numeric offsets.
+		//
+		if( is_int( $theOffset )
+		 || ctype_digit( $theOffset ) )
+			return (int) $theOffset;												// ==&gt;
+		
+		//
+		// Handle internal offsets.
+		//
+		if( in_array( $theOffset, $this-&gt;InternalOffsets() ) )
+			return $theOffset;														// ==&gt;
+		
+		//
+		// Check cache.
+		//
+		if( ! ($this-&gt;mDictionary instanceof Dictionary) )
+			throw new \Exception(
+				&quot;Missing data dictionary.&quot; );									// !@! ==&gt;
+		
+		return $this-&gt;mDictionary-&gt;getIdentifier( $theOffset, $doAssert );			// ==&gt;
+	
+	} // resolveOffset.
+
+	 
+	/*===================================================================================
+	 *	resolveOffsetType																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve type
+	 *
+	 * This method will resolve the provided offset into a {@link Tag} object and return in
+	 * the provided reference parameters the data type and kind corresaponding to the
+	 * provided offset; this is done by using a {@link Dictionary} object stored in the
+	 * current object's {@link $mDictionary} data member.
+	 *
+	 * This method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theOffset&lt;/b&gt;: This is the data property offset, it should represent the
+	 *		tag sequence number; if it holds an internal offset, the method will return
+	 *		&lt;tt&gt;NULL&lt;/tt&gt;, regardless of the last parameter.
+	 *	&lt;li&gt;&lt;b&gt;$theType&lt;/b&gt;: This parameter will receive the data type of the referenced
+	 *		tag, if the tag could not be resolved, the parameter will hold an empty array.
+	 *	&lt;li&gt;&lt;b&gt;$theKind&lt;/b&gt;: This parameter will receive the data kind of the referenced
+	 *		tag, if the tag could not be resolved, or if the tag has no data kind, the
+	 *		parameter will hold an empty array.
+	 *	&lt;li&gt;&lt;b&gt;$doAssert&lt;/b&gt;: If &lt;tt&gt;TRUE&lt;/tt&gt; and the tag could not be resolved, the method
+	 *		will raise an exception; if the offset is an internal offset this setting has
+	 *		no effect: the method will return &lt;tt&gt;NULL&lt;/tt&gt; and it will not set any type or
+	 *		kind.
+	 * &lt;/ul&gt;
+	 *
+	 * The method will raise an exception if the provided offset is not an integer, a
+	 * numeric string or part of the internal offsets.
+	 *
+	 * The method will return &lt;tt&gt;TRUE&lt;/tt&gt; if the tag was resolved; &lt;tt&gt;FALSE&lt;/tt&gt; if the
+	 * tag was not resolved and &lt;tt&gt;NULL&lt;/tt&gt; if the offset is internal.
+	 *
+	 * @param int					$theOffset			Tag sequence number.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 * @param boolean				$doAssert			Assert offset tag reference.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;TRUE&lt;/tt&gt;, &lt;tt&gt;FALSE&lt;/tt&gt; or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses InternalOffsets()
+	 */
+	protected function resolveOffsetType( $theOffset,
+										 &amp;$theType, &amp;$theKind,
+										  $doAssert = FALSE )
+	{
+		//
+		// Init parameters.
+		//
+		$theType = $theKind = Array();
+		
+		//
+		// Skip internal tags.
+		//
+		if( ! in_array( (string) $theOffset, static::InternalOffsets() ) )
+		{
+			//
+			// Check cache.
+			//
+			if( ! ($this-&gt;mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					&quot;Missing data dictionary.&quot; );								// !@! ==&gt;
+	
+			//
+			// Handle numeric offsets.
+			//
+			if( is_int( $theOffset )
+			 || ctype_digit( $theOffset ) )
+			{
+				//
+				// Cast offset.
+				//
+				$theOffset = (int) $theOffset;
+				
+				//
+				// Resolve tag.
+				//
+				$tag = $this-&gt;mDictionary-&gt;getObject( $theOffset, $doAssert );
+				if( $tag !== NULL )
+				{
+					//
+					// Get data type.
+					//
+					$theType = $tag[ kTAG_DATA_TYPE ];
+					
+					//
+					// Get data kind.
+					//
+					if( array_key_exists( kTAG_DATA_KIND, $tag ) )
+						$theKind = $tag[ kTAG_KIND ];
+					
+					return TRUE;													// ==&gt;
+				
+				} // Found tag.
+				
+				return FALSE;														// ==&gt;
+		
+			} // Numeric offset.
+			
+			throw new \Exception(
+				&quot;Invalid tag reference [$theOffset].&quot; );						// !@! ==&gt;
+		
+		} // Not an internal offset.
+		
+		return NULL;																// ==&gt;
+	
+	} // resolveOffsetType.
+
+	 
+	/*===================================================================================
+	 *	castOffsetValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Cast offset
+	 *
+	 * This method can be used to cast a value to the data type of its referred Tag.
+	 *
+	 * The method will first resolve the offset into a Tag and then it will use the Tag's
+	 * data type to cast the value.
+	 *
+	 * The value will be cast only if the Tag has &lt;em&gt;one&lt;/em&gt; data type, if the provided
+	 * value is an array, the method will cast each element to that data type.
+	 *
+	 * If the method is unable to resolve the offset and the assert flag parameter is set,
+	 * the method will raise an exception.
+	 *
+	 * This method will handle in-line the data types of a series of default tags, this is
+	 * necessary when loading the default ontology for the first time: since there are no
+	 * tags in the system yet, any attempt to resolve these tags would fail; if you plan on
+	 * changing the data type of default tags, you should edit this method accordingly.
+	 *
+	 * @param reference				$theValue			Value to cast.
+	 * @param mixed					$theOffset			Data offset.
+	 * @param boolean				$doAssert			Assert offset tag reference.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function castOffsetValue( &amp;$theValue, $theOffset, $doAssert = FALSE )
+	{
+		//
+		// Resolve offset.
+		//
+		$offset_save = $theOffset;
+		$theOffset = $this-&gt;resolveOffset( $theOffset, $doAssert );
+		
+		//
+		// Handle default tags.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_NID:
+				return;																// ==&gt;
+			
+			case kTAG_NAMESPACE:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
+			case kTAG_CLASS:
+			case kTAG_CONN_PROTOCOL:
+			case kTAG_CONN_HOST:
+			case kTAG_CONN_USER:
+			case kTAG_CONN_PASS:
+			case kTAG_CONN_BASE:
+			case kTAG_CONN_COLL:
+				$theValue = (string) $theValue;
+				return;																// ==&gt;
+		
+			case kTAG_ID_SEQUENCE:
+			case kTAG_CONN_PORT:
+				$theValue = (int) $theValue;
+				return;																// ==&gt;
+			
+			case kTAG_TERMS:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+				break;
+		}
+		
+		//
+		// Resolve tag.
+		//
+		$tag = $this-&gt;mDictionary-&gt;getObject( $theOffset, $doAssert );
+		
+		//
+		// Skip multiple types.
+		//
+		if( count( $tag[ kTAG_DATA_TYPE ] ) == 1 )
+		{
+			//
+			// Get list indicator.
+			//
+			$is_list = ( ($tag[ kTAG_DATA_KIND ] !== NULL)
+					  &amp;&amp; in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) );
+		
+			//
+			// Assert lists.
+			//
+			if( $is_list
+			 &amp;&amp; (! is_array( $theValue )) )
+				throw new \Exception(
+					&quot;Unable to cast [$offset_save]: &quot;
+				   .&quot;the list is not an array.&quot; );								// !@! ==&gt;
+		
+			//
+			// Parse by type.
+			//
+			$type = current( $tag[ kTAG_DATA_TYPE ] );
+			switch( $type )
+			{
+				//
+				// Structures.
+				//
+				case kTYPE_STRUCT:
+				
+					//
+					// Handle struct list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									&quot;Unable to cast [$offset_save]: &quot;
+								   .&quot;the value is not an array.&quot; );				// !@! ==&gt;
+					
+							//
+							// Iterate structure.
+							//
+							$ref = &amp; $theValue[ $key ];
+							$offsets = array_keys( $ref );
+							foreach( $offsets as $offset )
+								$this-&gt;castOffsetValue(
+									$ref[ $offset ], $offset, $doAssert );
+						
+						} // Iterating list.
+					
+					} // Struct list.
+					
+					//
+					// Handle scalar struct.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								&quot;Unable to cast [$offset_save]: &quot;
+							   .&quot;the value is not an array.&quot; );					// !@! ==&gt;
+				
+						//
+						// Iterate structure.
+						//
+						$offsets = array_keys( $theValue );
+						foreach( $offsets as $offset )
+							$this-&gt;castOffsetValue(
+								$theValue[ $offset ], $offset, $doAssert );
+					
+					} // Scalar struct.
+					
+					break;
+			
+				//
+				// Category lists.
+				//
+				case kTYPE_LANGUAGE_STRINGS:
+					
+					//
+					// Handle categories list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue[ $index ] ) )
+								throw new \Exception(
+									&quot;Unable to cast [$offset_save]: &quot;
+								   .&quot;the value is not an array.&quot; );				// !@! ==&gt;
+					
+							//
+							// Iterate category.
+							//
+							$list = &amp; $theValue[ $index ];
+							$keys = array_keys( $list );
+							foreach( $keys as $key )
+							{
+								//
+								// Assert array.
+								//
+								if( ! is_array( $list[ $key ] ) )
+									throw new \Exception(
+										&quot;Unable to cast [$offset_save]: &quot;
+									   .&quot;the element is not an array.&quot; );		// !@! ==&gt;
+				
+								//
+								// Iterate category elements.
+								//
+								$ref = $list[ $key ];
+								$offsets = array_keys( $ref );
+								foreach( $offsets as $offset )
+									$this-&gt;castOffsetValue(
+										$ref[ $offset ], $offset, $doAssert );
+							
+							} // Iterating category elements.
+						
+						} // Iterating list.
+					
+					} // Category list.
+					
+					//
+					// Handle category.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								&quot;Unable to cast [$offset_save]: &quot;
+							   .&quot;the value is not an array.&quot; );					// !@! ==&gt;
+				
+						//
+						// Iterate category.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									&quot;Unable to cast [$offset_save]: &quot;
+								   .&quot;the element is not an array.&quot; );			// !@! ==&gt;
+				
+							//
+							// Iterate category elements.
+							//
+							$ref = $theValue[ $key ];
+							$offsets = array_keys( $ref );
+							foreach( $offsets as $offset )
+								$this-&gt;castOffsetValue(
+									$ref[ $offset ], $offset, $doAssert );
+						
+						} // Iterating category elements.
+					
+					} // Scalar category.
+					
+					break;
+			
+				//
+				// Enumerated sets.
+				//
+				case kTYPE_SET:
+				
+					//
+					// Handle sets list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+						{
+							//
+							// Assert array.
+							//
+							if( ! is_array( $theValue ) )
+								throw new \Exception(
+									&quot;Unable to cast [$offset_save]: &quot;
+								   .&quot;the set is not an array.&quot; );				// !@! ==&gt;
+					
+							//
+							// Iterate set.
+							//
+							$ref = &amp; $theValue[ $index ];
+							$keys = array_keys( $ref );
+							foreach( $keys as $key )
+								$ref[ $key ] = (string) $ref[ $key ];
+						
+						} // Iterating list.
+					
+					} // Sets list.
+					
+					//
+					// Handle set.
+					//
+					else
+					{
+						//
+						// Assert array.
+						//
+						if( ! is_array( $theValue ) )
+							throw new \Exception(
+								&quot;Unable to cast [$offset_save]: &quot;
+							   .&quot;the set is not an array.&quot; );					// !@! ==&gt;
+				
+						//
+						// Iterate set.
+						//
+						$keys = array_keys( $theValue );
+						foreach( $keys as $key )
+							$theValue[ $key ] = (string) $theValue[ $key ];
+					
+					} // Set.
+					
+					break;
+				
+				//
+				// String scalars.
+				//
+				case kTYPE_STRING:
+				case kTYPE_ENUM:
+				case kTYPE_REF_TERM:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (string) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (string) $theValue;
+					
+					break;
+				
+				//
+				// Integer scalars.
+				//
+				case kTYPE_INT:
+				case kTYPE_REF_TAG:
+				case kTYPE_REF_NODE:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (int) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (int) $theValue;
+					
+					break;
+				
+				//
+				// Float scalars.
+				//
+				case kTYPE_FLOAT:
+					
+					//
+					// Handle list.
+					//
+					if( $is_list )
+					{
+						//
+						// Iterate list.
+						//
+						$indexes = array_keys( $theValue );
+						foreach( $indexes as $index )
+							$theValue[ $index ] = (double) $theValue[ $index ];
+					
+					} // List.
+					
+					//
+					// handle scalar.
+					//
+					else
+						$theValue = (double) $theValue;
+					
+					break;
+			
+				//
+				// Skip these types.
+				//
+				case kTYPE_MIXED:
+				case kTYPE_ARRAY:
+
+					break;
+				
+				//
+				// Unknown types.
+				//
+				default:
+					throw new \Exception(
+						&quot;Unable to cast [$offset_save]: &quot;
+					   .&quot;Unknown or unsupported type [$type].&quot; );				// !@! ==&gt;
+			
+			} // Parsed type.
+		
+		} // One data type.
+	
+	} // castOffsetValue.
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	traverse																		*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse object
+	 *
+	 * This method will traverse the object's offsets and perform a series of actions:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Collect offsets&lt;/em&gt;: The method will collect all the offsets used in the
+	 *		object returning their enumerated set. The returned array will have the tag
+	 *		sequence number as key and the list of offsets using that tag as value.
+	 *	&lt;li&gt;&lt;em&gt;Verify offsets&lt;/em&gt;: The method will verify all the traversed elements.
+	 *	&lt;li&gt;&lt;em&gt;Cast offsets&lt;/em&gt;: The method will cast the value of all offsets which have
+	 *		a single data type.
+	 * &lt;/ul&gt;
+	 *
+	 * Derived classes can overload the two methods that respectively verify and cast the
+	 * offsets, {@link traverseVerifyStructure()} and {@link traverseCastValue()}.
+	 *
+	 * @access protected
+	 * @return array				Object offsets.
+	 */
+	protected function traverse()
+	{
+		//
+		// Init local storage.
+		//
+		$path = Array();
+		$offsets = Array();
+		$iterator = $this-&gt;getIterator();
+
+		//
+		// Traverse object.
+		//
+		iterator_apply( $iterator,
+						array( $this, 'traverseOffsets' ),
+						array( $iterator, &amp; $offsets, &amp; $path ) );
+		
+		return $offsets;															// ==&gt;
+	
+	} // traverse.
+
+		
+	/*===================================================================================
+	 *	traverseOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle offset value
+	 *
+	 * This method will be called for each offset of the current object structure, its duty
+	 * is to:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Collect offset paths&lt;/em&gt;. The method will fill the &lt;em&gt;$theOffsets&lt;/em&gt;
+	 *		parameter with the list of tags and offsets used in the object, this array will
+	 *		be structured as follows:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;key&lt;/tt&gt;: The tag serial number.
+	 *		&lt;li&gt;&lt;tt&gt;value&lt;/tt&gt;: The list of object offsets in which the tag is used.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;em&gt;Verify offset values&lt;/em&gt;. The method will verify if the offset value
+	 *		contains the correct structure and will cast the value to the correct type.
+	 * &lt;/ul&gt;
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theIterator&lt;/b&gt;: This parameter is the iterator pointing to the current
+	 *		traversal element.
+	 *	&lt;li&gt;&lt;b&gt;$theOffsets&lt;/b&gt;: This reference parameter will receive the offsets list.
+	 *	&lt;li&gt;&lt;b&gt;$thePath&lt;/b&gt;: This reference parameter will receive the current offset path.
+	 * &lt;/ul&gt;
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theOffsets			Receives the offsets list.
+	 * @param reference				$thePath			Receives the current path.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt;, or &lt;tt&gt;FALSE&lt;/tt&gt; to stop the traversal.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseOffsets( \Iterator $theIterator, &amp;$theOffsets, &amp;$thePath )
+	{
+		//
+		// Collect offset and types.
+		//
+		$offset
+			= $this-&gt;traverseCollectOffset(
+				$theIterator, $theOffsets, $thePath, $type, $kind );
+		
+		//
+		// Verify structure.
+		//
+		$is_list = $this-&gt;traverseVerifyStructure( $theIterator, $type, $kind, $offset );
+		
+		//
+		// Handle scalar offsets.
+		//
+		if( ! $is_list )
+		{
+			//
+			// Verify value.
+			//
+			$this-&gt;traverseVerifyValue( $theIterator, $type, $kind, $offset );
+			
+			//
+			// Cast value.
+			//
+			$this-&gt;traverseCastValue( $theIterator, $type, $kind, $offset );
+		
+		} // Not a structure or list.
+		
+		//
+		// Handle structure offsets.
+		//
+		else
+		{
+			//
+			// Handle structure.
+			//
+			if( in_array( kTYPE_STRUCT, $type ) )
+			{
+				//
+				// Save list or structure.
+				//
+				$list = $theIterator-&gt;current();
+			
+				//
+				// Handle structure lists.
+				//
+				if( in_array( kTYPE_LIST, $kind ) )
+				{
+					//
+					// Iterate list.
+					//
+					foreach( $list as $key =&gt; $value )
+					{
+						//
+						// Traverse structure.
+						//
+						$iterator = newArrayIterator( $value );
+						iterator_apply( $iterator,
+										array( $this, 'traverseOffsets' ),
+										array( $iterator,
+											   $theOffsets, $thePath,
+											   $theOperation ) );
+		
+						//
+						// Update structure.
+						//
+						if( count( $value ) )
+							$list[ $key ] = $value;
+				
+					} // Iterating list.
+	
+					//
+					// Update list.
+					//
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(), array_values( $list ) );
+			
+				} // List of structures.
+			
+				//
+				// Handle scalar structure.
+				//
+				else
+				{
+					//
+					// Traverse structure.
+					//
+					$iterator = newArrayIterator( $list );
+					iterator_apply( $iterator,
+									array( $this, 'traverseOffsets' ),
+									array( $iterator,
+										   $theOffsets, $thePath,
+										   $theOperation ) );
+		
+					//
+					// Update list.
+					//
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(), $list );
+			
+				} // Scalar structure.
+		
+			} // Structure.
+		
+		} // Structured offset.
+		
+		//
+		// Pop path.
+		//
+		array_shift( $thePath );
+		
+		return TRUE;																// ==&gt;
+	
+	} // traverseOffsets.
+
+		
+	/*===================================================================================
+	 *	traverseCollectOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offsets
+	 *
+	 * This method will be called for each offset of the current object structure, its duty
+	 * is to collect the list of offsets and tag references.
+	 *
+	 * The method expects the following parameters: 
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$theIterator&lt;/b&gt;: This parameter is the iterator pointing to the current
+	 *		traversal element, this element must be an offset and not an offset sub-element.
+	 *	&lt;li&gt;&lt;b&gt;$theOffsets&lt;/b&gt;: This reference parameter will receive the offsets list, it
+	 *		is an array of elements structured as follows:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;key&lt;/tt&gt;: The tag serial number.
+	 *		&lt;li&gt;&lt;tt&gt;value&lt;/tt&gt;: The list of object offsets in which the tag is used.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;b&gt;$thePath&lt;/b&gt;: This reference parameter will receive the current offset path.
+	 *	&lt;li&gt;&lt;b&gt;$theType&lt;/b&gt;: This parameter will receive the data type of the referenced
+	 *		tag, if the tag could not be resolved, the parameter will hold an empty array.
+	 *	&lt;li&gt;&lt;b&gt;$theKind&lt;/b&gt;: This parameter will receive the data kind of the referenced
+	 *		tag, if the tag could not be resolved, or if the tag has no data kind, the
+	 *		parameter will hold an empty array.
+	 * &lt;/ul&gt;
+	 *
+	 * The method will return the current offset.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theOffsets			Receives the offsets list.
+	 * @param reference				$thePath			Receives the current path.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 *
+	 * @access protected
+	 * @return string				Current offset.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseCollectOffset( \Iterator $theIterator,
+													   &amp;$theOffsets,
+													   &amp;$thePath,
+													   &amp;$theType,
+													   &amp;$theKind )
+	{
+		//
+		// Get data type and kind.
+		//
+		$resolved
+			= $this-&gt;resolveOffsetType(
+				$theIterator-&gt;key(), $theType, $theKind, TRUE );
+		
+		//
+		// Set path tag.
+		//
+		$thePath[] = $theIterator-&gt;key();
+		
+		//
+		// Create offset.
+		//
+		$offset = implode( '.', $thePath );
+		
+		//
+		// Add offset.
+		//
+		if( array_key_exists( $theIterator-&gt;key(), $theOffsets ) )
+		{
+			if( ! in_array( $offset, $theOffsets[ $theIterator-&gt;key() ] ) )
+				$theOffsets[ $theIterator-&gt;key() ][] = $offset;
+		}
+		else
+			$theOffsets[ $theIterator-&gt;key() ] = array( $offset );
+			
+			return $offset;															// ==&gt;
+	
+	} // traverseCollectOffset.
+
+	 
+	/*===================================================================================
+	 *	traverseVerifyStructure																	*
+	 *==================================================================================*/
+
+	/**
+	 * Verify offset
+	 *
+	 * This method should verify that the current element of the provided iterator has the
+	 * correct structure and content.
+	 *
+	 * In this class we verify whether lists, structures and structured types are indeed
+	 * arrays and raise an exception if that is not the case. Note that we only check
+	 * structured data types if the offset has a single data type.
+	 *
+	 * The method will return &lt;tt&gt;TRUE&lt;/tt&gt; if the offset value is either a structure or a
+	 * list, and &lt;tt&gt;FALSE&lt;/tt&gt; if the offset value is a scalar data type; in derived
+	 * classes you can call the parent method and perform custom checks if the parent method
+	 * returned &lt;tt&gt;FALSE&lt;/tt&gt;.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;TRUE&lt;/tt&gt; if structure or list.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseVerifyStructure( \Iterator $theIterator,
+														 &amp;$theType,
+														 &amp;$theKind,
+														  $theOffset )
+	{
+		//
+		// Assert lists.
+		//
+		if( in_array( kTYPE_LIST, $theKind ) )
+		{
+			//
+			// Verify list.
+			//
+			if( ! is_array( $theIterator-&gt;current() ) )
+				throw new \Exception(
+					&quot;Invalid offset list value in [$theOffset]: &quot;
+				   .&quot;the value is not an array.&quot; );								// !@! ==&gt;
+			
+			return TRUE;															// ==&gt;
+		
+		} // List.
+		
+		//
+		// Assert structure.
+		// Note that if it is a structure,
+		// it cannot have any other data type.
+		//
+		if( in_array( kTYPE_STRUCT, $theType ) )
+		{
+			//
+			// Verify structure.
+			//
+			if( ! is_array( $theIterator-&gt;current() ) )
+				throw new \Exception(
+					&quot;Invalid offset structure value in [$theOffset]: &quot;
+				   .&quot;the value is not an array.&quot; );								// !@! ==&gt;
+			
+			return TRUE;															// ==&gt;
+		
+		} // Is a structure.
+		
+		return FALSE;																// ==&gt;
+	
+	} // traverseVerifyStructure.
+
+	 
+	/*===================================================================================
+	 *	traverseVerifyValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Verify offset value
+	 *
+	 * This method should verify the current offset value, this method is called by the
+	 * {@link traverseVerifyStructure()} method if the current offset is not a structure or a list.
+	 *
+	 * In this class we assert that structured types are arrays if there is only one offset
+	 * type.
+	 *
+	 * The method will return &lt;tt&gt;NULL&lt;/tt&gt; if the offset has more than one type,
+	 * &lt;tt&gt;TRUE&lt;/tt&gt; if the value type was verified and &lt;tt&gt;FALSE&lt;/tt&gt; if it was not
+	 * verified.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return boolean				&lt;tt&gt;NULL&lt;/tt&gt;, &lt;tt&gt;TRUE&lt;/tt&gt; or &lt;tt&gt;FALSE&lt;/tt&gt;.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseVerifyValue( \Iterator $theIterator,
+													 &amp;$theType,
+													 &amp;$theKind,
+													  $theOffset )
+	{
+		//
+		// Verify single data types.
+		//
+		if( count( $theType ) == 1 )
+		{
+			//
+			// Assert array values.
+			//
+			switch( $tmp = current( $theType ) )
+			{
+				case kTYPE_ARRAY:
+				case kTYPE_SET:
+				case kTYPE_LANGUAGE_STRINGS:
+					if( ! is_array( $theIterator-&gt;current() ) )
+						throw new \Exception(
+							&quot;Invalid offset value in [$theOffset]: &quot;
+						   .&quot;the value is not an array.&quot; );						// !@! ==&gt;
+					
+					return TRUE;													// ==&gt;
+			
+			} // Parsed data type.
+			
+			return FALSE;															// ==&gt;
+		
+		} // Single data type.
+		
+		return NULL;																// ==&gt;
+	
+	} // traverseVerifyValue.
+
+	 
+	/*===================================================================================
+	 *	traverseCastValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Cast offset
+	 *
+	 * This method should cast the current element of the provided iterator to the correct
+	 * data type. This method can also be used to verify structured type elements.
+	 *
+	 * The method will return &lt;tt&gt;TRUE&lt;/tt&gt; if the value was cast, &lt;tt&gt;FALSE&lt;/tt&gt; if not and
+	 * &lt;tt&gt;NULL&lt;/tt&gt; if the offset has more than one data type.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return mixed				&lt;tt&gt;TRUE&lt;/tt&gt; value was cast.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseCastValue( \Iterator $theIterator,
+												   &amp;$theType,
+												   &amp;$theKind,
+													$theOffset )
+	{
+		//
+		// Cast only single types.
+		//
+		if( count( $theType ) == 1 )
+		{
+			//
+			// Parse by type.
+			//
+			switch( current( $theType ) )
+			{
+				case kTYPE_STRING:
+				case kTYPE_ENUM:
+				case kTYPE_REF_TERM:
+				case kTYPE_REF_TAG:
+				case kTYPE_REF_EDGE:
+				case kTYPE_REF_ENTITY:
+				case kTYPE_REF_UNIT:
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(),
+											 (string) $theIterator-&gt;current() );
+					return TRUE;													// ==&gt;
+		
+				case kTYPE_INT:
+				case kTYPE_REF_NODE:
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(),
+											 (int) $theIterator-&gt;current() );
+					return TRUE;													// ==&gt;
+		
+				case kTYPE_FLOAT:
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(),
+											 (double) $theIterator-&gt;current() );
+					return TRUE;													// ==&gt;
+		
+				case kTYPE_LANGUAGE_STRINGS:
+					$value = $theIterator-&gt;current();
+					$keys = array_keys( $value );
+					foreach( $keys as $key )
+					{
+						if( is_array( $value[ $key ] ) )
+						{
+							if( array_key_exists( kTAG_TEXT, $value[ $key ] ) )
+								$value[ $key ][ kTAG_TEXT ]
+									= (string) $value[ $key ][ kTAG_TEXT ];
+							else
+								throw new \Exception(
+									&quot;Invalid offset value element in [$theOffset]: &quot;
+								   .&quot;missing text item.&quot; );						// !@! ==&gt;
+							
+							if( array_key_exists( kTAG_LANGUAGE, $value[ $key ] ) )
+								$value[ $key ][ kTAG_LANGUAGE ]
+									= (string) $value[ $key ][ kTAG_LANGUAGE ];
+						}
+						else
+							throw new \Exception(
+								&quot;Invalid offset value element in [$theOffset]: &quot;
+							   .&quot;the value is not an array.&quot; );					// !@! ==&gt;
+					}
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(), $value );
+					return TRUE;													// ==&gt;
+		
+				case kTYPE_SET:
+					$value = $theIterator-&gt;current();
+					$iterator = new ArrayIterator( $value );
+					iterator_apply( $iterator,
+									array( $this, 'traverseCastValue' ),
+									array( $iterator, array( kTYPE_ENUM ) ) );
+					$theIterator-&gt;offsetSet( $theIterator-&gt;key(), $value );
+					return TRUE;													// ==&gt;
+		
+			} // Parsed type.
+			
+			return FALSE;															// ==&gt;
+		
+		} // Single data type.
+		
+		return NULL;																// ==&gt;
+	
+	} // traverseCastValue.
+
+	 
+
+} // class OntologyObject.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

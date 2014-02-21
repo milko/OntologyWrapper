@@ -1,0 +1,941 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * Accessors.php
+ *
+ * This file contains the definition of the {@link Accessors} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									Accessors.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Accessors trait
+ *
+ * The main purpose of this trait is to provide a series of templates for managing object
+ * properties, offsets and structure components. The idea is to provide a common framework
+ * to member accessor methods by sharing standards.
+ *
+ * This trait implements the following protected methods:
+ *
+ * &lt;ul&gt;
+ *	&lt;li&gt;&lt;em&gt;{@link manageOffset()}&lt;/em&gt;: This method provides a standard interface to set,
+ *		retrieve and delete offset values.
+ *	&lt;li&gt;&lt;em&gt;{@link manageSetOffset()}&lt;/em&gt;: This method provides a standard interface to
+ *		set, retrieve and delete elements of an array set, this method provides access to
+ *		elements of the offset, rather than to the offset, which must be an array or
+ *		{@link ArrayObject}.
+ *	&lt;li&gt;&lt;em&gt;{@link manageArrayOffset()}&lt;/em&gt;: This method provides a standard interface to
+ *		set, retrieve and delete key/value pair elements based on their key.
+ *	&lt;li&gt;&lt;em&gt;{@link manageElementMatchOffset()}&lt;/em&gt;: This method provides a standard
+ *		interface to set, retrieve and delete elements of an array or {@link ArrayObject},
+ *		these elements are an array of two items in which the first one is the discriminator
+ *		and the second is the value. 
+ *	&lt;li&gt;&lt;em&gt;{@link manageProperty()}&lt;/em&gt;: This method provides a standard interface to set,
+ *		retrieve and reset data members.
+ * &lt;/ul&gt;
+ *
+ *	@author		Milko A. &Scaron;kofič &lt;m.skofic@cgiar.org&gt;
+ *	@version	1.00 14/02/2014
+ */
+trait Accessors
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	manageOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Manage a scalar offset&lt;/h4&gt;
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage a scalar offset, its options
+	 * involve setting, retrieving and deleting an offset of the provided array or ArrayObject.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$theOffset&lt;/tt&gt;: The offset to the attribute contained in the previous
+	 *		parameter that is to be managed.
+	 *	&lt;li&gt;&lt;tt&gt;$theValue&lt;/tt&gt;: The value or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the offset's current value.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the offset.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other type represents the offset's new value.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value of the offset &lt;i&gt;before&lt;/i&gt; it was eventually
+	 *			modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value of the offset &lt;i&gt;after&lt;/i&gt; it was eventually
+	 *			modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param mixed					$theValue			New value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise offset.
+		//
+		$theOffset = (string) $theOffset;
+		
+		//
+		// Save current offset value.
+		//
+		$save = $this-&gt;offsetGet( $theOffset );
+		
+		//
+		// Return current value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==&gt;
+		
+		//
+		// Delete offset.
+		//
+		if( $theValue === FALSE )
+			$this-&gt;offsetUnset( $theOffset );
+		
+		//
+		// Set offset.
+		//
+		else
+			$this-&gt;offsetSet( $theOffset, $theValue );
+		
+		if( $getOld )
+			return $save;															// ==&gt;
+		
+		return ( $theValue === FALSE )
+			 ? NULL																	// ==&gt;
+			 : $theValue;															// ==&gt;
+	
+	} // manageOffset.
+
+	 
+	/*===================================================================================
+	 *	manageSetOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Manage value set offset&lt;/h4&gt;
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage the elements of a set of
+	 * non repeting values, its options involve setting, retrieving and deleting elements of
+	 * the set. This method generally applies to data of the {@link kTYPE_SET} data type.
+	 *
+	 * It is assumed that the value at the provided offset is either an array or an
+	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
+	 *
+	 * If you want to manage the set itself, you have to use the offset management methods.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$theOffset&lt;/tt&gt;: The offset to the array attribute that is to be managed.
+	 *	&lt;li&gt;&lt;tt&gt;$theValue&lt;/tt&gt;: The value of the array element.
+	 *	&lt;li&gt;&lt;tt&gt;$theOperation&lt;/tt&gt;: The operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the value if it exists or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the value if it exists.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other type represents a new value.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value &lt;i&gt;before&lt;/i&gt; it was eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value &lt;i&gt;after&lt;/i&gt; it was eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * When setting new values, if the current offset is empty, the method will set the new
+	 * value in an aray; when deleting values, if the existing value is the last one, the
+	 * method will delete the offset itself.
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param mixed					$theValue			Array value.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageSetOffset( $theOffset, $theValue, $theOperation = NULL,
+															   $getOld = FALSE )
+	{
+		//
+		// Normalise offset.
+		//
+		$theOffset = (string) $theOffset;
+		
+		//
+		// Save current offset value.
+		//
+		$save = $this-&gt;offsetGet( $theOffset );
+		
+		//
+		// Handle empty offset.
+		//
+		if( $save === NULL )
+		{
+			//
+			// Handle retrieve and delete.
+			//
+			if( ($theOperation === NULL)
+			 || ($theOperation === FALSE) )
+				return NULL;														// ==&gt;
+			
+			//
+			// Handle new value.
+			//
+			$this-&gt;offsetSet( $theOffset, array( $theValue ) );
+			
+			return ( $getOld )
+				 ? NULL																// ==&gt;
+				 : $theValue;														// ==&gt;
+		
+		} // Empty offset.
+		
+		//
+		// Check offset type.
+		//
+		if( is_array( $save )
+		 || ($save instanceof \ArrayObject) )
+		{
+			//
+			// Convert to array.
+			//
+			if( $save instanceof \ArrayObject )
+				$array = $save-&gt;getArrayCopy();
+			else
+				$array = &amp; $save;
+			
+			//
+			// Return value.
+			//
+			if( $theOperation === NULL )
+				return ( in_array( $theValue, $array ) )
+					 ? $theValue													// ==&gt;
+					 : NULL;														// ==&gt;
+			
+			//
+			// Delete value.
+			//
+			if( $theOperation === FALSE )
+			{
+				//
+				// Handle found.
+				//
+				if( in_array( $theValue, $array ) )
+				{
+					//
+					// Delete value.
+					//
+					unset( $array[ array_search( $theValue, $array ) ] );
+					
+					//
+					// Handle empty array.
+					//
+					if( ! count( $array ) )
+						$this-&gt;offsetUnset( $theOffset );
+					
+					//
+					// Update set.
+					//
+					else
+					{
+						//
+						// Restore array.
+						//
+						$array = array_values( $array );
+					
+						//
+						// Replace array.
+						//
+						if( is_array( $save ) )
+							$this-&gt;offsetSet( $theOffset, $array );
+						else
+							$save-&gt;exchangeArray( $array );
+					
+					} // Non empty set.
+				
+					if( $getOld )
+						return $theValue;											// ==&gt;
+					
+				} // Found value.
+				
+				return NULL;														// ==&gt;
+				
+			} // Delete value.
+			
+			//
+			// Add value.
+			//
+			if( ! in_array( $theValue, $array ) )
+			{
+				//
+				// Append value.
+				//
+				$save[] = $theValue;
+				
+				//
+				// Update array.
+				//
+				if( is_array( $save ) )
+					$this-&gt;offsetSet( $theOffset, $save );
+				
+				if( $getOld )
+					return NULL;													// ==&gt;
+			
+			} // New value.
+			
+			return $theValue;														// ==&gt;
+		
+		} // Offset is array or ArrayObject.
+
+		throw new Exception
+				( &quot;Expecting array or ArrayObject at offset [$theOffset]&quot;,
+				  kERROR_PARAMETER );											// !@! ==&gt;
+	
+	} // manageSetOffset.
+
+	 
+	/*===================================================================================
+	 *	manageArrayOffset																*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Manage value set offset&lt;/h4&gt;
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage the elements of a key/value
+	 * array, its options involve setting, retrieving and deleting elements of the list by
+	 * key. This method generally applies to data of the {@link kTYPE_ARRAY} data type.
+	 *
+	 * It is assumed that the value at the provided offset is either an array or an
+	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
+	 *
+	 * If you want to manage the array itself, you have to use the offset management
+	 + methods.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$theOffset&lt;/tt&gt;: The offset to the array attribute that is to be managed.
+	 *	&lt;li&gt;&lt;tt&gt;$theKey&lt;/tt&gt;: The element key.
+	 *	&lt;li&gt;&lt;tt&gt;$theValue&lt;/tt&gt;: The element value or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the value at the provided key, or &lt;tt&gt;NULL&lt;/tt&gt;.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the value at the provided key.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other type represents a new or a replacement value.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value &lt;i&gt;before&lt;/i&gt; it was eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value &lt;i&gt;after&lt;/i&gt; it was eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * When setting new values, if the current offset is empty, the method will set the new
+	 * value in an aray; when deleting values, if the existing value is the last one, the
+	 * method will delete the offset itself.
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param mixed					$theKey				Element key.
+	 * @param mixed					$theValue			Element value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageArrayOffset( $theOffset, $theKey, $theValue = NULL,
+															   $getOld = FALSE )
+	{
+		//
+		// Normalise offset.
+		//
+		$theOffset = (string) $theOffset;
+		
+		//
+		// Save current offset value.
+		//
+		$save = $this-&gt;offsetGet( $theOffset );
+		
+		//
+		// Handle empty offset.
+		//
+		if( $save === NULL )
+		{
+			//
+			// Handle retrieve and delete.
+			//
+			if( ($theValue === NULL)
+			 || ($theValue === FALSE) )
+				return NULL;														// ==&gt;
+			
+			//
+			// Handle new value.
+			//
+			$this-&gt;offsetSet( $theOffset, array( $theKey =&gt; $theValue ) );
+			
+			return ( $getOld )
+				 ? NULL																// ==&gt;
+				 : $theValue;														// ==&gt;
+		
+		} // Empty offset.
+		
+		//
+		// Check offset type.
+		//
+		if( is_array( $save )
+		 || ($save instanceof \ArrayObject) )
+		{
+			//
+			// Convert to array.
+			//
+			if( $save instanceof \ArrayObject )
+				$array = $save-&gt;getArrayCopy();
+			else
+				$array = &amp; $save;
+			
+			//
+			// Check current element.
+			//
+			$found = array_key_exists( $theKey, $array );
+			
+			//
+			// Return value.
+			//
+			if( $theValue === NULL )
+				return ( $found  )
+					 ? $array[ $theKey ]											// ==&gt;
+					 : NULL;														// ==&gt;
+			
+			//
+			// Save old value.
+			//
+			$old = ( $found )
+				 ? $array[ $theKey ]
+				 : NULL;
+			
+			//
+			// Delete value.
+			//
+			if( $theValue === FALSE )
+			{
+				//
+				// Handle found.
+				//
+				if( $found )
+				{
+					//
+					// Delete value.
+					//
+					unset( $array[ $theKey ] );
+					
+					//
+					// Handle empty array.
+					//
+					if( ! count( $array ) )
+						$this-&gt;offsetUnset( $theOffset );
+					
+					//
+					// Update set.
+					//
+					else
+					{
+						//
+						// Replace array.
+						//
+						if( is_array( $save ) )
+							$this-&gt;offsetSet( $theOffset, $array );
+						else
+							$save-&gt;exchangeArray( $array );
+					
+					} // Non empty set.
+				
+					if( $getOld )
+						return $old;												// ==&gt;
+					
+				} // Found value.
+				
+				return NULL;														// ==&gt;
+				
+			} // Delete value.
+			
+			//
+			// Set value.
+			//
+			$array[ $theKey ] = $theValue;
+			
+			//
+			// Replace array.
+			//
+			if( is_array( $save ) )
+				$this-&gt;offsetSet( $theOffset, $array );
+			else
+				$save-&gt;exchangeArray( $array );
+		
+			if( $getOld )
+				return $old;														// ==&gt;
+			
+			return $theValue;														// ==&gt;
+		
+		} // Offset is array or ArrayObject.
+
+		throw new Exception
+				( &quot;Expecting array or ArrayObject at offset [$theOffset]&quot;,
+				  kERROR_PARAMETER );											// !@! ==&gt;
+	
+	} // manageArrayOffset.
+
+	 
+	/*===================================================================================
+	 *	manageElementMatchOffset														*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Manage element match offset&lt;/h4&gt;
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage the elements of an array of
+	 * array elements in which one item's value represents the discriminant.
+	 *
+	 * Offsets of this kind are arrays or {@link ArrayObject} instances that represent a list
+	 * of elements, each of which is constituted by an array of two elements, where the value
+	 * matching the &lt;tt&gt;$theTypeOffset&lt;/tt&gt; key represents the element key and the value
+	 * matching the &lt;tt&gt;$theDataOffset&lt;/tt&gt; key represents the element's value.
+	 *
+	 * This method allows retrieving the element value and deleting or setting an element.
+	 *
+	 * It is assumed that the value at the provided offset is either an array or an
+	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
+	 *
+	 * If you want to manage the set itself, you have to use the offset management methods.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$theOffset&lt;/tt&gt;: The offset to the attribute containing the match list.
+	 *	&lt;li&gt;&lt;tt&gt;$theTypeOffset&lt;/tt&gt;: The offset to the type within the element.
+	 *	&lt;li&gt;&lt;tt&gt;$theDataOffset&lt;/tt&gt;: The offset to the data within the element.
+	 *	&lt;li&gt;&lt;tt&gt;$theTypeValue&lt;/tt&gt;: The value of the element's type to match, it represents
+	 *		the key to the element; we assume the value to be a string. A &lt;tt&gt;NULL&lt;/tt&gt;
+	 *		value is used to select the element missing the &lt;tt&gt;$theTypeOffset&lt;/tt&gt; offset.
+	 *	&lt;li&gt;&lt;tt&gt;$theDataValue&lt;/tt&gt;: The value or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the offset's &lt;tt&gt;$theDataOffset&lt;/tt&gt; value.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the element matchhing the &lt;tt&gt;$theTypeOffset&lt;/tt&gt;.
+	 *		&lt;li&gt;&lt;i&gt;other&lt;/i&gt;: Any other type represents the element's new value.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value of the offset &lt;i&gt;before&lt;/i&gt; it was
+	 *			eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value of the offset &lt;i&gt;after&lt;/i&gt; it was
+	 *			eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * The method expects each element to be a structure containing at least an element
+	 * indexed by the &lt;tt&gt;$theDataOffset&lt;/tt&gt; offset, if that is not the case, the method
+	 * will raise an exception. All elements are supposed to be arrays.
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param string				$theTypeOffset		Offset of type item.
+	 * @param string				$theDataOffset		Offset of data item.
+	 * @param string				$theTypeValue		Type value.
+	 * @param mixed					$theDataValue		New value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageElementMatchOffset( $theOffset,
+												 $theTypeOffset, $theDataOffset,
+												 $theTypeValue, $theDataValue = NULL,
+												 $getOld = FALSE )
+	{
+		//
+		// Init local storage.
+		//
+		$list = $this-&gt;offsetGet( $theOffset );
+		
+		//
+		// Handle empty offset.
+		//
+		if( $list === NULL )
+		{
+			//
+			// Handle retrieve and delete.
+			//
+			if( ($theDataValue === NULL)
+			 || ($theDataValue === FALSE) )
+				return NULL;														// ==&gt;
+			
+			//
+			// Handle new element.
+			//
+			if( $theTypeValue !== NULL )
+				$this-&gt;offsetSet( $theOffset,
+								  array( array( $theTypeOffset =&gt; $theTypeValue,
+												$theDataOffset =&gt; $theDataValue ) ) );
+			else
+				$this-&gt;offsetSet( $theOffset,
+								  array( array( $theDataOffset =&gt; $theDataValue ) ) );
+			
+			if( $getOld )
+				return NULL;														// ==&gt;
+			
+			return $theDataValue;													// ==&gt;
+		
+		} // Empty offset.
+		
+		//
+		// Check offset type.
+		//
+		if( is_array( $list )
+		 || ($list instanceof \ArrayObject) )
+		{
+			//
+			// Init local storage.
+			//
+			$index = NULL;
+			
+			//
+			// Convert to array.
+			//
+			if( $list instanceof \ArrayObject )
+				$array = $list-&gt;getArrayCopy();
+			else
+				$array = &amp; $list;
+	
+			//
+			// Iterate list.
+			//
+			foreach( $array as $key =&gt; $element )
+			{
+				//
+				// Check element data type.
+				//
+				if( ! is_array( $element ) )
+					throw new \Exception
+							( &quot;Expecting a list of arrays at offset [$theOffset]&quot;,
+							  kERROR_PARAMETER );								// !@! ==&gt;
+				
+				//
+				// Check data element.
+				//
+				if( ! array_key_exists( $theDataOffset, $element ) )
+					throw new \Exception
+							( &quot;Expecting an element featuring the [$theDataOffset] offset&quot;,
+							  kERROR_PARAMETER );								// !@! ==&gt;
+				
+				//
+				// Match element.
+				//
+				if( ( ($theTypeValue === NULL)
+				   &amp;&amp; (! array_key_exists( $theTypeOffset, $element )) )
+				 || ( ($theTypeValue !== NULL)
+				   &amp;&amp; array_key_exists( $theTypeOffset, $element )
+				   &amp;&amp; ($element[ $theTypeOffset ] == $theTypeValue) ) )
+				{
+					//
+					// Save index.
+					//
+					$index = $key;
+					
+					break;													// =&gt;
+				
+				} // Matched.
+			
+			} // Iterating elements.
+		
+			//
+			// Return value.
+			//
+			if( $theDataValue === NULL )
+				return ( $index !== NULL )
+					 ? $element[ $theDataOffset ]									// ==&gt;
+					 : NULL;														// ==&gt;
+			
+			//
+			// Delete element.
+			//
+			if( $theDataValue === FALSE )
+			{
+				//
+				// Handle matched element.
+				//
+				if( $index !== NULL )
+				{
+					//
+					// Delete element.
+					//
+					unset( $array[ $key ] );
+					
+					//
+					// Handle empty array.
+					//
+					if( ! count( $array ) )
+						$this-&gt;offsetUnset( $theOffset );
+					
+					//
+					// Update array.
+					//
+					else
+					{
+						//
+						// Restore array.
+						//
+						$array = array_values( $array );
+					
+						//
+						// Replace array.
+						//
+						if( is_array( $list ) )
+							$this-&gt;offsetSet( $theOffset, $array );
+						else
+							$list-&gt;exchangeArray( $array );
+					
+					} // Non empty set.
+				
+					if( $getOld )
+						return $element[ $theDataOffset ];							// ==&gt;
+				
+				} // Matched element.
+				
+				return NULL;														// ==&gt;
+			
+			} // Delete element.
+			
+			//
+			// Add element.
+			//
+			if( $index === NULL )
+			{
+				//
+				// Build element.
+				//
+				$element = ( $theTypeValue !== NULL )
+						 ? array( $theTypeOffset =&gt; $theTypeValue,
+						 		  $theDataOffset =&gt; $theDataValue )
+						 : array( $theDataOffset =&gt; $theDataValue );
+				
+				//
+				// Add element.
+				//
+				$list[] = $element;
+				
+				//
+				// Handle arrays.
+				//
+				if( is_array( $list ) )
+					$this-&gt;offsetSet( $theOffset, $list );
+				
+				if( $getOld )
+					return NULL;													// ==&gt;
+			
+			} // Element not matched.
+			
+			//
+			// Update element.
+			//
+			else
+			{
+				//
+				// Save value.
+				//
+				$save = $element[ $theDataOffset ];
+				
+				//
+				// Update element.
+				//
+				$element[ $theDataOffset ] = $theDataValue;
+				
+				//
+				// Update list.
+				//
+				$list[ $key ] = $element;
+				
+				//
+				// Update array.
+				//
+				if( is_array( $list ) )
+					$this-&gt;offsetSet( $theOffset, $list );
+				
+				if( $getOld )
+					return $save;													// ==&gt;
+			
+			} // Element matched.
+			
+			return $theDataValue;													// ==&gt;
+		
+		} // Correct offset data type.
+
+		throw new Exception
+				( &quot;Expecting array or ArrayObject at offset [$theOffset]&quot;,
+				  kERROR_PARAMETER );											// !@! ==&gt;
+	
+	} // manageElementMatchOffset.
+
+		
+	/*===================================================================================
+	 *	manageProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * &lt;h4&gt;Manage a property&lt;/h4&gt;
+	 *
+	 * This library implements a standard interface for managing object properties using
+	 * accessor methods, this method implements this interface:
+	 *
+	 * &lt;ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;&amp;$theMember&lt;/tt&gt;: Reference to the property being managed.
+	 *	&lt;li&gt;&lt;tt&gt;$theValue&lt;/tt&gt;: The property value or operation:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;NULL&lt;/tt&gt;: Return the current property value.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Reset the property to &lt;tt&gt;NULL&lt;/tt&gt;, the default value.
+	 *		&lt;li&gt;&lt;em&gt;other&lt;/em&gt;: Any other type represents the new value of the property.
+	 *	 &lt;/ul&gt;
+	 *	&lt;li&gt;&lt;tt&gt;$getOld&lt;/tt&gt;: Determines what the method will return:
+	 *	 &lt;ul&gt;
+	 *		&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Return the value of the property &lt;em&gt;before&lt;/em&gt; it was
+	 *			eventually modified.
+	 *		&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Return the value of the property &lt;em&gt;after&lt;/em&gt; it was
+	 *			eventually modified.
+	 *	 &lt;/ul&gt;
+	 * &lt;/ul&gt;
+	 *
+	 * @param reference				$theMember			Reference to the data member.
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				&lt;tt&gt;TRUE&lt;/tt&gt; get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new property value.
+	 */
+	protected function manageProperty( &amp;$theMember, $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Return current value.
+		//
+		if( $theValue === NULL )
+			return $theMember;														// ==&gt;
+
+		//
+		// Save current value.
+		//
+		$save = $theMember;
+		
+		//
+		// Set new value.
+		//
+		if( $theValue !== FALSE )
+			$theMember = $theValue;
+		
+		//
+		// Reset value.
+		//
+		else
+			$theMember = NULL;
+		
+		if( $getOld )
+			return $save;															// ==&gt;
+		
+		return $theMember;															// ==&gt;
+	
+	} // manageProperty.
+
+	 
+
+} // trait Accessors.
+
+
+?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -42,8 +42,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
  * Ontology object
  *
  * Objects derived from this <i>abstract</i> class hold two types of data:
- * <i>run-time data</i>, which is stored in the object member properties and
- * <i>persistent data</i>, which is stored in the inherited array part of the object.
+ *
+ * <ul>
+ *	<li><em>Run-time data</em>, which is stored in the object member properties.
+ *	<li><em>Persistent data</em>, which is stored in the inherited array part of the object.
+ * </ul>
  *
  * The main purpose of this class is to ensure that all persistent data elements are
  * <i>referenced</i>, <i>annotated</i> and <i>documented</i> in an ontology.
@@ -91,12 +94,14 @@ require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
  * objects derived from this class, just as the Tag object described above, must feature a
  * global identifier, which may or may not coincide with their native identifier.
  *
- * Finally, the class declares a method, {@link reference()}, which returns the current
- * object's <i>reference</i>, this will generally be the value of the {@link kTAG_NID}
- * offset. If the offset is not set, the method will raise an exception. This method will be
- * put to use by derived classes: when providing an object to an offset expecting an object
- * reference, by using this method one can be assured the provided object does have a
- * reference.
+ * The class declares a method, {@link reference()}, which returns the current object's
+ * <i>reference</i>, this will generally be the value of the {@link kTAG_NID} offset. If the
+ * offset is not set, the method will raise an exception. This method will be put to use by
+ * derived classes: when providing an object to an offset expecting an object reference, by
+ * using this method one can be assured the provided object does have a reference.
+ *
+ * Finally, the class features an object tracersal interface that can be used to verify and
+ * cast the object's persistent data.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 10/01/2014
@@ -513,116 +518,6 @@ abstract class OntologyObject extends ContainerObject
 		return $this->mDictionary->getIdentifier( $theOffset, $doAssert );			// ==>
 	
 	} // resolveOffset.
-
-	 
-	/*===================================================================================
-	 *	resolveOffsetType																*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve type
-	 *
-	 * This method will resolve the provided offset into a {@link Tag} object and return in
-	 * the provided reference parameters the data type and kind corresaponding to the
-	 * provided offset; this is done by using a {@link Dictionary} object stored in the
-	 * current object's {@link $mDictionary} data member.
-	 *
-	 * This method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: This is the data property offset, it should represent the
-	 *		tag sequence number; if it holds an internal offset, the method will return
-	 *		<tt>NULL</tt>, regardless of the last parameter.
-	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
-	 *		tag, if the tag could not be resolved, the parameter will hold an empty array.
-	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
-	 *		tag, if the tag could not be resolved, or if the tag has no data kind, the
-	 *		parameter will hold an empty array.
-	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt> and the tag could not be resolved, the method
-	 *		will raise an exception; the only exception is if the offset is an internal
-	 *		offset.
-	 * </ul>
-	 *
-	 * The method will return <tt>TRUE</tt> if the tag was resolved; <tt>FALSE</tt> if the
-	 * tag was not resolved and <tt>NULL</tt> if the offset is internal.
-	 *
-	 * @param int					$theOffset			Tag sequence number.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
-	 * @param boolean				$doAssert			Assert offset tag reference.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses InternalOffsets()
-	 */
-	protected function resolveOffsetType( $theOffset,
-										 &$theType, &$theKind,
-										  $doAssert = FALSE )
-	{
-		//
-		// Init parameters.
-		//
-		$theType = $theKind = Array();
-		
-		//
-		// Skip internal tags.
-		//
-		if( ! in_array( (string) $theOffset, static::InternalOffsets() ) )
-		{
-			//
-			// Check cache.
-			//
-			if( ! ($this->mDictionary instanceof Dictionary) )
-				throw new \Exception(
-					"Missing data dictionary." );								// !@! ==>
-	
-			//
-			// Handle numeric offsets.
-			//
-			if( is_int( $theOffset )
-			 || ctype_digit( $theOffset ) )
-			{
-				//
-				// Cast offset.
-				//
-				$theOffset = (int) $theOffset;
-				
-				//
-				// Resolve tag.
-				//
-				$tag = $this->mDictionary->getObject( $theOffset, $doAssert );
-				if( $tag !== NULL )
-				{
-					//
-					// Get data type.
-					//
-					$theType = $tag[ kTAG_DATA_TYPE ];
-					
-					//
-					// Get data kind.
-					//
-					if( array_key_exists( kTAG_DATA_KIND, $tag ) )
-						$theKind = $tag[ kTAG_KIND ];
-					
-					return TRUE;													// ==>
-				
-				} // Found tag.
-				
-				return FALSE;														// ==>
-		
-			} // Numeric offset.
-			
-			throw new \Exception(
-				"Invalid tag reference [$theOffset]." );						// !@! ==>
-		
-		} // Not an internal offset.
-		
-		return NULL;																// ==>
-	
-	} // resolveOffsetType.
 
 	 
 	/*===================================================================================
@@ -1069,22 +964,20 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Traverse object
 	 *
-	 * This method will traverse the object's offsets and perform a series of actions:
+	 * This method will traverse the object's offsets and apply the
+	 * {@link traverseOffsets()} method to each traversed element.
 	 *
-	 * <ul>
-	 *	<li><em>Collect offsets</em>: The method will collect all the offsets used in the
-	 *		object returning their enumerated set. The returned array will have the tag
-	 *		sequence number as key and the list of offsets using that tag as value.
-	 *	<li><em>Verify offsets</em>: The method will verify all the traversed elements.
-	 *	<li><em>Cast offsets</em>: The method will cast the value of all offsets which have
-	 *		a single data type.
-	 * </ul>
+	 * The method will return an array which collects all tag references used by the
+	 * object's offsets, this will be an array in which the key represents the tag reference
+	 * and the value will be the list of offsets in which the tag was used.
 	 *
-	 * Derived classes can overload the two methods that respectively verify and cast the
-	 * offsets, {@link traverseVerify()} and {@link traverseCast()}.
+	 * For more information on what actions are performed during the traversal, please
+	 * consult the reference of the {@link traverseOffsets()} method.
 	 *
 	 * @access protected
 	 * @return array				Object offsets.
+	 *
+	 * @uses traverseOffsets()
 	 */
 	protected function traverse()
 	{
@@ -1114,29 +1007,47 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Handle offset value
 	 *
-	 * This method will be called for each offset of the current object structure, its duty
-	 * is to:
+	 * This method will be called for each offset of the current object, its duty is to
+	 * perform a series of operations on all the elements of the object by using a set of
+	 * protected method that derived classes can overload to implement custom actions. These
+	 * methods are:
 	 *
 	 * <ul>
-	 *	<li><em>Collect offset paths</em>. The method will fill the <em>$theOffsets</em>
-	 *		parameter with the list of tags and offsets used in the object, this array will
-	 *		be structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The tag serial number.
-	 *		<li><tt>value</tt>: The list of object offsets in which the tag is used.
-	 *	 </ul>
-	 *	<li><em>Verify offset values</em>. The method will verify if the offset value
-	 *		contains the correct structure and will cast the value to the correct type.
+	 *	<li><tt>{@link traverseResolveOffset()</tt>. This method will resolve the current
+	 *		offset and return in the reference parameters the current offset's data type and
+	 *		kind.
+	 *	<li><tt>{@link traverseCollectOffset()</tt>. This method will populate the
+	 *		<tt>$theOffsets</tt> parameter, this is an array in which the keys represent
+	 *		the object offset tag references and the value represents the list of offsets
+	 *		in which that tag was used..
+	 *	<li><tt>{@link traverseVerifyStructure()</tt>. This method will check whether the
+	 *		structure of the current offset is correct.
+	 *	<li><tt>{@link traverseVerifyValue()</tt>. This method will be called if the current
+	 *		offset is neither a list nor a structure, its duty is to verify the value of the
+	 *		current offset, if this is neither a list nor a structure.
+	 *	<li><tt>{@link traverseCastValue()</tt>. This method will be called if the current
+	 *		offset is neither a list nor a structure, its duty is to cast the value of the
+	 *		current offset to the data type indicated by the tag referenced by the offset.
 	 * </ul>
+	 *
+	 * Derived classes should overload the above methods and not the current one.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
 	 *		traversal element.
-	 *	<li><b>$theOffsets</b>: This reference parameter will receive the offsets list.
-	 *	<li><b>$thePath</b>: This reference parameter will receive the current offset path.
+	 *	<li><b>$theOffsets</b>: This reference parameter will receive the offsets list,
+	 *		which is an array indexed by the offset tag reference with as value the list of
+	 *		offsets in which the tag was used.
+	 *	<li><b>$thePath</b>: This reference parameter will receive the current offset path
+	 *		in the form of an array; only offsets will be set, array element indexes will
+	 *		not be included.
 	 * </ul>
+	 *
+	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
+	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+	 * stop it.
 	 *
 	 * @param Iterator				$theIterator		Iterator.
 	 * @param reference				$theOffsets			Receives the offsets list.
@@ -1145,62 +1056,61 @@ abstract class OntologyObject extends ContainerObject
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
 	 *
-	 * @throws Exception
+	 * @uses traverseResolveOffset()
+	 * @uses traverseCollectOffset()
+	 * @uses traverseVerifyStructure()
+	 * @uses traverseHandleValue()
 	 */
 	protected function traverseOffsets( \Iterator $theIterator, &$theOffsets, &$thePath )
 	{
 		//
-		// Get data type and kind.
+		// Init local storage.
 		//
-		$resolved = $this->resolveOffsetType( $theIterator->key(), $type, $kind, TRUE );
+		$key = $theIterator->key();
+		$value = $theIterator->current();
 		
 		//
-		// Set path tag.
+		// Collect offset and types.
 		//
-		$thePath[] = $theIterator->key();
+		$this->traverseResolveOffset( $theIterator, $type, $kind );
 		
 		//
-		// Create offset.
+		// Collect offset.
 		//
-		$offset = implode( '.', $thePath );
+		$offset = $this->traverseCollectOffset( $theIterator, $thePath );
 		
 		//
 		// Add offset.
 		//
-		if( array_key_exists( $theIterator->key(), $theOffsets ) )
-		{
-			if( ! in_array( $offset, $theOffsets[ $theIterator->key() ] ) )
-				$theOffsets[ $theIterator->key() ][] = $offset;
-		}
+		if( ! in_array( kTYPE_STRUCT, $type ) )
+			$this->traverseAddOffset( $theIterator, $theOffsets, $offset );
+		
+		//
+		// Verify structure.
+		//
+		$is_list = $this->traverseVerifyStructure( $theIterator, $type, $kind, $offset );
+		
+		//
+		// Handle scalar offsets.
+		//
+		if( ! $is_list )
+			$this->traverseHandleValue( $theIterator, $type, $kind, $offset );
+		
+		//
+		// Handle structure offsets.
+		//
 		else
-			$theOffsets[ $theIterator->key() ] = array( $offset );
-		
-		//
-		// Verify offset.
-		//
-		$is_struct = $this->traverseVerify( $theIterator, $type, $kind, $offset );
-		
-		//
-		// Cast offset.
-		//
-		if( ! $is_struct )
-			$this->traverseCast( $theIterator, $type, $offset );
-		
-		//
-		// Traverse offset.
-		//
-		if( $is_struct )
 		{
+			//
+			// Save list or structure.
+			//
+			$list = new \ArrayObject( $value );
+		
 			//
 			// Handle structure.
 			//
 			if( in_array( kTYPE_STRUCT, $type ) )
 			{
-				//
-				// Save list or structure.
-				//
-				$list = $theIterator->current();
-			
 				//
 				// Handle structure lists.
 				//
@@ -1209,30 +1119,24 @@ abstract class OntologyObject extends ContainerObject
 					//
 					// Iterate list.
 					//
-					foreach( $list as $key => $value )
+					foreach( $list as $idx => $struct )
 					{
 						//
 						// Traverse structure.
 						//
-						$iterator = newArrayIterator( $value );
+						$struct = new \ArrayObject( $struct );
+						$iterator = $struct->getIterator();
 						iterator_apply( $iterator,
 										array( $this, 'traverseOffsets' ),
-										array( $iterator,
-											   $theOffsets, $thePath,
-											   $theOperation ) );
+										array( $iterator, & $theOffsets, & $thePath ) );
 		
 						//
 						// Update structure.
 						//
-						if( count( $value ) )
-							$list[ $key ] = $value;
+						if( $struct->count() )
+							$list[ $idx ] = $struct->getArrayCopy();
 				
 					} // Iterating list.
-	
-					//
-					// Update list.
-					//
-					$theIterator->offsetSet( $theIterator->key(), array_values( $list ) );
 			
 				} // List of structures.
 			
@@ -1244,36 +1148,253 @@ abstract class OntologyObject extends ContainerObject
 					//
 					// Traverse structure.
 					//
-					$iterator = newArrayIterator( $list );
+					$iterator = $list->getIterator();
 					iterator_apply( $iterator,
 									array( $this, 'traverseOffsets' ),
-									array( $iterator,
-										   $theOffsets, $thePath,
-										   $theOperation ) );
-		
-					//
-					// Update list.
-					//
-					$theIterator->offsetSet( $theIterator->key(), $list );
+									array( $iterator, & $theOffsets, & $thePath ) );
 			
 				} // Scalar structure.
 		
 			} // Structure.
+			
+			//
+			// Handle list of scalars.
+			//
+			else
+			{
+				//
+				// Iterate scalar list.
+				//
+				$iterator = $list->getIterator();
+				iterator_apply( $iterator,
+								array( $this, 'traverseHandleValue' ),
+								array( $iterator,
+									   & $type, & $kind,
+									   $offset ) );
+			
+			} // List of scalars.
+
+			//
+			// Update current iterator.
+			//
+			$theIterator->offsetSet( $key, $list->getArrayCopy() );
 		
 		} // Structured offset.
 		
 		//
 		// Pop path.
 		//
-		array_shift( $thePath );
+		array_pop( $thePath );
 		
 		return TRUE;																// ==>
 	
 	} // traverseOffsets.
 
+		
+	/*===================================================================================
+	 *	traverseResolveOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset type
+	 *
+	 * This method will resolve the current offset into a {@link Tag} object and return in
+	 * the provided reference parameters the data type and kind; this is done by using the
+	 * {@link Dictionary} object stored in the current object's {@link $mDictionary} data
+	 * member.
+	 *
+	 * The method expects the following parameters: 
+	 *
+	 * <ul>
+	 *	<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
+	 *		traversal element, this element must be an offset and not an offset sub-element.
+	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
+	 *		tag, if the tag could not be resolved, the parameter will hold an empty array.
+	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
+	 *		tag, if the tag could not be resolved, or if the tag has no data kind, the
+	 *		parameter will hold an empty array.
+	 * </ul>
+	 *
+	 * The method will raise an exception if the current offset is not an integer, a numeric
+	 * string or part of the internal offsets.
+	 *
+	 * The method will return <tt>TRUE</tt> if the tag was resolved; <tt>FALSE</tt> if the
+	 * tag was not resolved and <tt>NULL</tt> if the offset is internal.
+	 *
+	 * Derived classes should overload this method 
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseResolveOffset( \Iterator $theIterator,
+													   &$theType,
+													   &$theKind )
+	{
+		//
+		// Init parameters.
+		//
+		$key = $theIterator->key();
+		$theType = Array();
+		$theKind = Array();
+		
+		//
+		// Skip internal tags.
+		//
+		if( ! in_array( (string) $theIterator->key(), static::InternalOffsets() ) )
+		{
+			//
+			// Check cache.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Missing data dictionary." );								// !@! ==>
+	
+			//
+			// Handle numeric offsets.
+			//
+			if( is_int( $key )
+			 || ctype_digit( $key ) )
+			{
+				//
+				// Resolve tag.
+				//
+				$tag = $this->mDictionary->getObject( (int) $key, TRUE );
+				if( $tag !== NULL )
+				{
+					//
+					// Get data type.
+					//
+					$theType = $tag[ kTAG_DATA_TYPE ];
+					
+					//
+					// Get data kind.
+					//
+					if( array_key_exists( kTAG_DATA_KIND, $tag ) )
+						$theKind = $tag[ kTAG_KIND ];
+					
+					return TRUE;													// ==>
+				
+				} // Found tag.
+				
+				return FALSE;														// ==>
+		
+			} // Numeric offset.
+			
+			throw new \Exception(
+				"Invalid tag reference [$key]." );								// !@! ==>
+		
+		} // Not an internal offset.
+		
+		return NULL;																// ==>
+	
+	} // traverseResolveOffset.
+
+
+	/*===================================================================================
+	 *	traverseCollectOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offset
+	 *
+	 * This method will be called for each offset of the current object structure, its duty
+	 * is to collect the offsets in the path and return the offset string.
+	 *
+	 * The method expects the following parameters: 
+	 *
+	 * <ul>
+	 *	<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
+	 *		traversal element, this element must be an offset and not an offset sub-element.
+	 *	<li><b>$thePath</b>: This reference parameter will receive the current offset path.
+	 * </ul>
+	 *
+	 * The method will return the current offset string, which is composed of the
+	 * concatenation of all offsets at different levels separated by a point.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$thePath			Receives the current path.
+	 *
+	 * @access protected
+	 * @return string				Current offset.
+	 */
+	protected function traverseCollectOffset( \Iterator $theIterator,
+													   &$thePath )
+	{
+		//
+		// Init parameters.
+		//
+		$key = $theIterator->key();
+		
+		//
+		// Set path tag.
+		//
+		$thePath[] = $key;
+		
+		return implode( '.', $thePath );											// ==>
+	
+	} // traverseCollectOffset.
+
+
+	/*===================================================================================
+	 *	traverseAddOffset																*
+	 *==================================================================================*/
+
+	/**
+	 * Add offset
+	 *
+	 * This method will be called for each offset of the current object structure, its duty
+	 * is to add the current offset string to the list of tag offsets.
+	 *
+	 * The method expects the following parameters: 
+	 *
+	 * <ul>
+	 *	<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
+	 *		traversal element, this element must be an offset and not an offset sub-element.
+	 *	<li><b>$theOffsets</b>: This reference parameter will receive the offsets list,
+	 *		which is an array indexed by the offset tag reference with as value the list of
+	 *		offsets in which the tag was used.
+	 *	<li><b>$theOffset</b>: This parameter holds the offset string.
+	 * </ul>
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theOffsets			Receives the offsets list.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return string				Current offset.
+	 */
+	protected function traverseAddOffset( \Iterator $theIterator,
+												   &$theOffsets,
+												    $theOffset )
+	{
+		//
+		// Init local storage.
+		//
+		$key = $theIterator->key();
+
+		//
+		// Add offset to offsets.
+		//
+		if( array_key_exists( $key, $theOffsets ) )
+		{
+			$ref = & $theOffsets[ $key ];
+			if( ! in_array( $theOffset, $ref ) )
+				$ref[] = $theOffset;
+		}
+		else
+			$theOffsets[ $key ] = array( $theOffset );
+	
+	} // traverseAddOffset.
+
 	 
 	/*===================================================================================
-	 *	traverseVerify																	*
+	 *	traverseVerifyStructure															*
 	 *==================================================================================*/
 
 	/**
@@ -1292,8 +1413,8 @@ abstract class OntologyObject extends ContainerObject
 	 * returned <tt>FALSE</tt>.
 	 *
 	 * @param Iterator				$theIterator		Iterator.
-	 * @param array					$theType			Data type.
-	 * @param array					$theKind			Data kind.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
 	 * @param string				$theOffset			Current offset.
 	 *
 	 * @access protected
@@ -1301,9 +1422,10 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * @throws Exception
 	 */
-	protected function traverseVerify( \Iterator $theIterator,
-												 $theType, $theKind,
-												 $theOffset )
+	protected function traverseVerifyStructure( \Iterator $theIterator,
+														 &$theType,
+														 &$theKind,
+														  $theOffset )
 	{
 		//
 		// Assert lists.
@@ -1341,6 +1463,86 @@ abstract class OntologyObject extends ContainerObject
 		
 		} // Is a structure.
 		
+		return FALSE;																// ==>
+	
+	} // traverseVerifyStructure.
+
+	 
+	/*===================================================================================
+	 *	traverseHandleValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle value
+	 *
+	 * This method should handle the current offset value, it should verify if the value
+	 * is correct and cast the value to the provided data type.
+	 *
+	 * This method should only be called for scalar offset values, list scalars should call
+	 * this method for each element.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 *
+	 * @uses traverseVerifyValue()
+	 * @uses traverseCastValue()
+	 */
+	protected function traverseHandleValue( \Iterator $theIterator,
+													 &$theType,
+													 &$theKind,
+													  $theOffset )
+	{
+		//
+		// Verify value.
+		//
+		$this->traverseVerifyValue( $theIterator, $theType, $theKind, $theOffset );
+		
+		//
+		// Cast value.
+		//
+		$this->traverseCastValue( $theIterator, $theType, $theKind, $theOffset );
+		
+		return TRUE;																// ==>
+	
+	} // traverseHandleValue.
+
+	 
+	/*===================================================================================
+	 *	traverseVerifyValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Verify offset value
+	 *
+	 * This method should verify the current offset value, this method is called by the
+	 * {@link traverseVerifyStructure()} method if the current offset is not a structure or a list.
+	 *
+	 * In this class we assert that structured types are arrays if there is only one offset
+	 * type.
+	 *
+	 * The method will return <tt>NULL</tt> if the offset has more than one type,
+	 * <tt>TRUE</tt> if the value type was verified and <tt>FALSE</tt> if it was not
+	 * verified.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseVerifyValue( \Iterator $theIterator,
+													 &$theType,
+													 &$theKind,
+													  $theOffset )
+	{
 		//
 		// Verify single data types.
 		//
@@ -1358,19 +1560,22 @@ abstract class OntologyObject extends ContainerObject
 						throw new \Exception(
 							"Invalid offset value in [$theOffset]: "
 						   ."the value is not an array." );						// !@! ==>
-					break;
+					
+					return TRUE;													// ==>
 			
 			} // Parsed data type.
+			
+			return FALSE;															// ==>
 		
 		} // Single data type.
 		
-		return FALSE;																// ==>
+		return NULL;																// ==>
 	
-	} // traverseVerify.
+	} // traverseVerifyValue.
 
 	 
 	/*===================================================================================
-	 *	traverseCast																	*
+	 *	traverseCastValue																	*
 	 *==================================================================================*/
 
 	/**
@@ -1383,15 +1588,19 @@ abstract class OntologyObject extends ContainerObject
 	 * <tt>NULL</tt> if the offset has more than one data type.
 	 *
 	 * @param Iterator				$theIterator		Iterator.
-	 * @param string				$theType			Data type.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
 	 * @param string				$theOffset			Current offset.
 	 *
 	 * @access protected
-	 * @return mixed				<tt>TRUE</tt> value was cast.
+	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
 	 *
 	 * @throws Exception
 	 */
-	protected function traverseCast( \Iterator $theIterator, $theType, $theOffset )
+	protected function traverseCastValue( \Iterator $theIterator,
+												   &$theType,
+												   &$theKind,
+													$theOffset )
 	{
 		//
 		// Cast only single types.
@@ -1399,10 +1608,19 @@ abstract class OntologyObject extends ContainerObject
 		if( count( $theType ) == 1 )
 		{
 			//
+			// Init local storage.
+			//
+			$key = $theIterator->key();
+			$value = $theIterator->current();
+			
+			//
 			// Parse by type.
 			//
 			switch( current( $theType ) )
 			{
+				//
+				// Strings.
+				//
 				case kTYPE_STRING:
 				case kTYPE_ENUM:
 				case kTYPE_REF_TERM:
@@ -1410,55 +1628,66 @@ abstract class OntologyObject extends ContainerObject
 				case kTYPE_REF_EDGE:
 				case kTYPE_REF_ENTITY:
 				case kTYPE_REF_UNIT:
-					$theIterator->offsetSet( $theIterator->key(),
-											 (string) $theIterator->current() );
+					$theIterator->offsetSet( $key, (string) $value );
 					return TRUE;													// ==>
-		
+				
+				//
+				// Integers.
+				//
 				case kTYPE_INT:
 				case kTYPE_REF_NODE:
-					$theIterator->offsetSet( $theIterator->key(),
-											 (int) $theIterator->current() );
+					$theIterator->offsetSet( $key, (int) $value );
 					return TRUE;													// ==>
 		
+				//
+				// Floats.
+				//
 				case kTYPE_FLOAT:
-					$theIterator->offsetSet( $theIterator->key(),
-											 (double) $theIterator->current() );
+					$theIterator->offsetSet( $key, (double) $value );
+					return TRUE;													// ==>
+		
+				//
+				// Enumerated sets.
+				//
+				case kTYPE_SET:
+					// Iterate set.
+					$idxs = array_keys( $value );
+					foreach( $idxs as $idx )
+						$value[ $idx ] = (string) $value[ $idx ];
+					// Set value.
+					$theIterator->offsetSet( $key, $value );
 					return TRUE;													// ==>
 		
 				case kTYPE_LANGUAGE_STRINGS:
-					$value = $theIterator->current();
-					$keys = array_keys( $value );
-					foreach( $keys as $key )
+					// Iterate language strings.
+					$idxs = array_keys( $value );
+					foreach( $idxs as $idx )
 					{
-						if( is_array( $value[ $key ] ) )
+						// Check if array.
+						if( is_array( $value[ $idx ] ) )
 						{
-							if( array_key_exists( kTAG_TEXT, $value[ $key ] ) )
-								$value[ $key ][ kTAG_TEXT ]
-									= (string) $value[ $key ][ kTAG_TEXT ];
+							// Check text element.
+							if( array_key_exists( kTAG_TEXT, $value[ $idx ] ) )
+								$value[ $idx ][ kTAG_TEXT ]
+									= (string) $value[ $idx ][ kTAG_TEXT ];
+							// Missing text element.
 							else
 								throw new \Exception(
 									"Invalid offset value element in [$theOffset]: "
 								   ."missing text item." );						// !@! ==>
-							
-							if( array_key_exists( kTAG_LANGUAGE, $value[ $key ] ) )
-								$value[ $key ][ kTAG_LANGUAGE ]
-									= (string) $value[ $key ][ kTAG_LANGUAGE ];
+							// Cast language.
+							if( array_key_exists( kTAG_LANGUAGE, $value[ $idx ] ) )
+								$value[ $idx ][ kTAG_LANGUAGE ]
+									= (string) $value[ $idx ][ kTAG_LANGUAGE ];
 						}
+						// Invalid format.
 						else
 							throw new \Exception(
 								"Invalid offset value element in [$theOffset]: "
 							   ."the value is not an array." );					// !@! ==>
 					}
-					$theIterator->offsetSet( $theIterator->key(), $value );
-					return TRUE;													// ==>
-		
-				case kTYPE_SET:
-					$value = $theIterator->current();
-					$iterator = new ArrayIterator( $value );
-					iterator_apply( $iterator,
-									array( $this, 'traverseCast' ),
-									array( $iterator, array( kTYPE_ENUM ) ) );
-					$theIterator->offsetSet( $theIterator->key(), $value );
+					// Set value.
+					$theIterator->offsetSet( $key, $value );
 					return TRUE;													// ==>
 		
 			} // Parsed type.
@@ -1469,7 +1698,7 @@ abstract class OntologyObject extends ContainerObject
 		
 		return NULL;																// ==>
 	
-	} // traverseCast.
+	} // traverseCastValue.
 
 	 
 
