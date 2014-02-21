@@ -114,16 +114,16 @@ class MongoCollection extends CollectionObject
 	 * We first check if the current collection is connected, if that is not the case, we
 	 * raise an exception.
 	 *
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theValue			Offset value.
 	 * @param mixed					$theOffset			Offset.
-	 * @param mixed					$asObject			Return object if <tt>TRUE</tt>.
+	 * @param mixed					$asObject			What to return.
 	 *
 	 * @access public
 	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
-	public function resolve( $theIdentifier, $theOffset = kTAG_NID, $asObject = TRUE )
+	public function resolve( $theValue, $theOffset = kTAG_NID, $asObject = TRUE )
 	{
 		//
 		// Check if connected.
@@ -146,7 +146,7 @@ class MongoCollection extends CollectionObject
 				$object
 					= $this->
 						mConnection->
-							findOne( array( $theOffset => $theIdentifier ) );
+							findOne( array( $theOffset => $theValue ) );
 				if( $object !== NULL )
 				{
 					//
@@ -182,7 +182,7 @@ class MongoCollection extends CollectionObject
 			//
 			// Find objects.
 			//
-			$rs = $this-> mConnection-> find( array( $theOffset => $theIdentifier ) );
+			$rs = $this-> mConnection-> find( array( $theOffset => $theValue ) );
 			
 			return $rs->count();													// ==>
 		

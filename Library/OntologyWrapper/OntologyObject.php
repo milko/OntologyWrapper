@@ -1008,26 +1008,28 @@ abstract class OntologyObject extends ContainerObject
 	 * Handle offset value
 	 *
 	 * This method will be called for each offset of the current object, its duty is to
-	 * perform a series of operations on all the elements of the object by using a set of
-	 * protected method that derived classes can overload to implement custom actions. These
-	 * methods are:
+	 * validate and cast the values of the currently iterated offset and perform the same
+	 * operations on the eventual nested structures.
+	 *
+	 * These operations are performed by a protected interface which is implemented by the
+	 * following methods:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link traverseResolveOffset()</tt>. This method will resolve the current
-	 *		offset and return in the reference parameters the current offset's data type and
-	 *		kind.
-	 *	<li><tt>{@link traverseCollectOffset()</tt>. This method will populate the
-	 *		<tt>$theOffsets</tt> parameter, this is an array in which the keys represent
-	 *		the object offset tag references and the value represents the list of offsets
-	 *		in which that tag was used..
-	 *	<li><tt>{@link traverseVerifyStructure()</tt>. This method will check whether the
-	 *		structure of the current offset is correct.
-	 *	<li><tt>{@link traverseVerifyValue()</tt>. This method will be called if the current
-	 *		offset is neither a list nor a structure, its duty is to verify the value of the
-	 *		current offset, if this is neither a list nor a structure.
-	 *	<li><tt>{@link traverseCastValue()</tt>. This method will be called if the current
-	 *		offset is neither a list nor a structure, its duty is to cast the value of the
-	 *		current offset to the data type indicated by the tag referenced by the offset.
+	 *	<li><tt>{@link traverseResolveOffset()</tt>. This method is called for each offset,
+	 *		its duty is to resolve the current offset and return in the reference parameters
+	 *		the current offset's data type and kind.
+	 *	<li><tt>{@link traverseCollectOffset()</tt>. This method is called for each offset,
+	 *		its duty is to append the provided reference <tt>$thePath</tt> parameter with
+	 *		the current offset, so to form the offsets path to the current data property.
+	 *	<li><tt>{@link traverseAddOffset()</tt>. This method is called for each offset,
+	 *		its duty is to populate the provided reference <tt>$theOffsets</tt> parameter
+	 *		with the current offset's tag reference and to collect the list of offsets in
+	 *		which the tag is used.
+	 *	<li><tt>{@link traverseVerifyStructure()</tt>. This method is called for each
+	 *		offset, its duty is to verify the structure of the data property.
+	 *	<li><tt>{@link traverseHandleValue()</tt>. This method is called for each offset and
+	 *		for each data property list element, its duty is to verify and cast data
+	 *		property values.
 	 * </ul>
 	 *
 	 * Derived classes should overload the above methods and not the current one.
@@ -1058,6 +1060,7 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * @uses traverseResolveOffset()
 	 * @uses traverseCollectOffset()
+	 * @uses traverseAddOffset()
 	 * @uses traverseVerifyStructure()
 	 * @uses traverseHandleValue()
 	 */
@@ -1220,8 +1223,6 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * The method will return <tt>TRUE</tt> if the tag was resolved; <tt>FALSE</tt> if the
 	 * tag was not resolved and <tt>NULL</tt> if the offset is internal.
-	 *
-	 * Derived classes should overload this method 
 	 *
 	 * @param Iterator				$theIterator		Iterator.
 	 * @param reference				$theType			Receives data type.
@@ -1481,12 +1482,16 @@ abstract class OntologyObject extends ContainerObject
 	 * This method should only be called for scalar offset values, list scalars should call
 	 * this method for each element.
 	 *
+	 * The method should return <tt>TRUE</tt> to continue the object traversal or
+	 * <tt>FALSE</tt> to stop it.
+	 *
 	 * @param Iterator				$theIterator		Iterator.
 	 * @param reference				$theType			Data type.
 	 * @param reference				$theKind			Data kind.
 	 * @param string				$theOffset			Current offset.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>FALSE</tt> stops the traversal.
 	 *
 	 * @uses traverseVerifyValue()
 	 * @uses traverseCastValue()
@@ -1519,7 +1524,8 @@ abstract class OntologyObject extends ContainerObject
 	 * Verify offset value
 	 *
 	 * This method should verify the current offset value, this method is called by the
-	 * {@link traverseVerifyStructure()} method if the current offset is not a structure or a list.
+	 * {@link traverseVerifyStructure()} method if the current offset is not a structure or
+	 * a list.
 	 *
 	 * In this class we assert that structured types are arrays if there is only one offset
 	 * type.
@@ -1587,6 +1593,9 @@ abstract class OntologyObject extends ContainerObject
 	 * The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
 	 * <tt>NULL</tt> if the offset has more than one data type.
 	 *
+	 * In this class we sjip all reference data types, since the class has no clue about
+	 * persistence.
+	 *
 	 * @param Iterator				$theIterator		Iterator.
 	 * @param reference				$theType			Data type.
 	 * @param reference				$theKind			Data kind.
@@ -1623,11 +1632,6 @@ abstract class OntologyObject extends ContainerObject
 				//
 				case kTYPE_STRING:
 				case kTYPE_ENUM:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_TAG:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_ENTITY:
-				case kTYPE_REF_UNIT:
 					$theIterator->offsetSet( $key, (string) $value );
 					return TRUE;													// ==>
 				
@@ -1635,7 +1639,6 @@ abstract class OntologyObject extends ContainerObject
 				// Integers.
 				//
 				case kTYPE_INT:
-				case kTYPE_REF_NODE:
 					$theIterator->offsetSet( $key, (int) $value );
 					return TRUE;													// ==>
 		

@@ -581,45 +581,6 @@ class Term extends PersistentObject
 	
 	} // validateNewNamespace.
 
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	test															*
-	 *==================================================================================*/
-
-	/**
-	 * Validate new namespace
-	 *
-	 * This method is called by the {@link preOffsetSet()} method when provided a new
-	 * namespace, {@link kTAG_NAMESPACE}: its duty is to:
-	 *
-	 * <ul>
-	 *	<li>If provided an object, check whether it is a term.
-	 *	<li>If provided an object and the object is committed, get its native identifier.
-	 * </ul>
-	 *
-	 * @param reference				$theValue			Namespace reference.
-	 *
-	 * @access protected
-	 * @return array				List of locked offsets.
-	 *
-	 * @see kTAG_NAMESPACE kTAG_ID_LOCAL
-	 */
-	public function test( \Iterator $theIterator, Wrapper $theWrapper )
-	{
-		echo( $theIterator->key().': '.gettype( $theIterator->current() ).'<br />' );
-		return TRUE;
-	
-	} // test.
-
 	 
 
 } // class Term.

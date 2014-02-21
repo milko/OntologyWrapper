@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-634421786"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-400010904"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-634421786" class="accordion-body collapse in">
+            <div id="namespace-400010904" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1962985280"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-600293333"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1962985280" class="accordion-body collapse ">
+            <div id="namespace-600293333" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-704070222"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1569220223"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-704070222" class="accordion-body collapse ">
+            <div id="namespace-1569220223" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -354,10 +354,12 @@ and it is not defined in the ontology.</p>
                 <h3 class="">kTAG_DOMAIN</h3>
                 <pre class="signature">kTAG_DOMAIN</pre>
                 <p><em>Domain (&lt;code&gt;:domain&lt;/code&gt;)</em></p>
-                <p>This tag represents the <em>domain</em> of an object, it is an <em>enumerated set</em> of</p>
-<em>term object references</em> which represent the <em>kind</em> or <em>nature</em> of
-the object, this type of property is used to <em>disambiguate objects of different
-domains within a single collection.</em>.
+                <ul>
+<li><em>Type</em>: {@link kTYPE_ENUM}
+</ul>
+<p>This tag represents the <em>domain</em> of an object, it is an <em>enumerated value</em>
+which represent the <em>kind</em> or <em>nature</em> of the object, this type of property
+is used to <em>disambiguate objects of different domains within a single collection</em>.</p>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -393,7 +395,10 @@ domains within a single collection.</em>.
                 <h3 class="">kTAG_AUTHORITY</h3>
                 <pre class="signature">kTAG_AUTHORITY</pre>
                 <p><em>Authority (&lt;code&gt;:authority&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> representing the <em>native identifier</em> of the</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_ENTITY}
+</ul>
+<p>This tag is a <em>string</em> representing the <em>native identifier</em> of the</p>
 <em>entity object</em> which is responsible for the <em>identification</em> of an object,
 or which is the <em>author of the information</em> regarding an object.
             </article>
@@ -431,7 +436,10 @@ or which is the <em>author of the information</em> regarding an object.
                 <h3 class="">kTAG_COLLECTION</h3>
                 <pre class="signature">kTAG_COLLECTION</pre>
                 <p><em>Collection (&lt;code&gt;:collection&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> representing the <em>name</em> or <em>code</em> of the</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag is a <em>string</em> representing the <em>name</em> or <em>code</em> of the</p>
 <em>collection</em> to which an object belongs. It has the same function as the
 namespace, except that it is may not be an enumerated set.
             </article>
@@ -469,7 +477,10 @@ namespace, except that it is may not be an enumerated set.
                 <h3 class="">kTAG_NAMESPACE</h3>
                 <pre class="signature">kTAG_NAMESPACE</pre>
                 <p><em>Namespace (&lt;code&gt;:namespace&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>reference to a term object</em>, it is a <em>string</em> representing
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TERM}
+</ul>
+<p>This tag is a <em>reference to a term object</em>, it is a <em>string</em> representing
 the <em>native identifier</em> of a term. Namespaces are used to <em>disambiguate
 homonym local identifiers</em> in order to come up with a global unique identifier. This
 identifier is <em>persistent</em>.</p>
@@ -508,7 +519,10 @@ identifier is <em>persistent</em>.</p>
                 <h3 class="">kTAG_ID_LOCAL</h3>
                 <pre class="signature">kTAG_ID_LOCAL</pre>
                 <p><em>Local identifier (&lt;code&gt;:id-local&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> which represents the <em>local identifier</em> of an
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag is a <em>string</em> which represents the <em>local identifier</em> of an
 object. Local identifiers are <em>unique within their namespace</em> and are</p>
 <em>persistent</em>. In general, the namespace is concatenated to the local identifier to
 form the persistent identifier.
@@ -547,7 +561,10 @@ form the persistent identifier.
                 <h3 class="">kTAG_ID_PERSISTENT</h3>
                 <pre class="signature">kTAG_ID_PERSISTENT</pre>
                 <p><em>Persistent identifier (&lt;code&gt;:id-persistent&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> which represents the <em>persistent identifier</em> of an
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag is a <em>string</em> which represents the <em>persistent identifier</em> of an
 object. Persistent identifiers are <em>unique across namespaces</em>, they are</p>
 <em>global</em>, in that they <em>include the namespace</em> and they are
 <em>persistent</em>. In general, this identifier is the concatenation of the namespace
@@ -587,7 +604,10 @@ and the local identifier.
                 <h3 class="">kTAG_ID_VALID</h3>
                 <pre class="signature">kTAG_ID_VALID</pre>
                 <p><em>Valid identifier (&lt;code&gt;:id-valid&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> which represents the <em>persistent global identifier</em>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag is a <em>string</em> which represents the <em>persistent global identifier</em>
 of the object that is <em>considered the valid choice</em>. This is generally used by</p>
 <em>legacy</em> or <em>obsolete</em> objects for referring to the <em>valid</em>,
 <em>current</em> or <em>official</em> object.
@@ -626,7 +646,10 @@ of the object that is <em>considered the valid choice</em>. This is generally us
                 <h3 class="">kTAG_ID_SEQUENCE</h3>
                 <pre class="signature">kTAG_ID_SEQUENCE</pre>
                 <p><em>Sequence number (&lt;code&gt;:id-sequence&lt;/code&gt;)</em></p>
-                <p>This tag is an <em>integer sequence number</em> which is <em>automatically assigned</em>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_INT}
+</ul>
+<p>This tag is an <em>integer sequence number</em> which is <em>automatically assigned</em>
 to objects just before they are <em>committed</em>. This represents an <em>identifier
 unique to the collection</em> to which the object belongs. This identifier is <em>not
 persistent</em>, in that it depends on the order in which the object was committed.</p>
@@ -665,7 +688,10 @@ persistent</em>, in that it depends on the order in which the object was committ
                 <h3 class="">kTAG_VERSION</h3>
                 <pre class="signature">kTAG_VERSION</pre>
                 <p><em>Version (&lt;code&gt;:version&lt;/code&gt;)</em></p>
-                <p>This tag is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>.
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>.
 It is generally used to identify different versions of an object by <em>disambiguating
 duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object
 information it identifies.</p>
@@ -704,7 +730,10 @@ information it identifies.</p>
                 <h3 class="">kTAG_TAG</h3>
                 <pre class="signature">kTAG_TAG</pre>
                 <p><em>Tag (&lt;code&gt;:tag&lt;/code&gt;)</em></p>
-                <p>This tag holds a <em>string</em> representing a <em>tag object reference</em>, it is the</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TAG}
+</ul>
+<p>This tag holds a <em>string</em> representing a <em>tag object reference</em>, it is the</p>
 <em>tag native identifier</em> of the <em>tag object</em> it references.
             </article>
         </div>
@@ -741,7 +770,11 @@ information it identifies.</p>
                 <h3 class="">kTAG_TAGS</h3>
                 <pre class="signature">kTAG_TAGS</pre>
                 <p><em>Tags (&lt;code&gt;:tags&lt;/code&gt;)</em></p>
-                <p>This tag holds a <em>list of strings</em> representing <em>tag object references</em>,
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TAG}
+<li><em>Kind</em>: {@link kTYPE_LIST}
+</ul>
+<p>This tag holds a <em>list of strings</em> representing <em>tag object references</em>,
 these elements are the <em>native identifiers</em> of the <em>tag objects</em> they
 reference.</p>
             </article>
@@ -779,7 +812,10 @@ reference.</p>
                 <h3 class="">kTAG_TERM</h3>
                 <pre class="signature">kTAG_TERM</pre>
                 <p><em>Term (&lt;code&gt;:term&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> representing a <em>term object reference</em>, it is the</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TERM}
+</ul>
+<p>This tag holds a <em>string</em> representing a <em>term object reference</em>, it is the</p>
 <em>native identifier</em> of the <em>term object</em> it references.
             </article>
         </div>
@@ -816,7 +852,11 @@ reference.</p>
                 <h3 class="">kTAG_TERMS</h3>
                 <pre class="signature">kTAG_TERMS</pre>
                 <p><em>Terms (&lt;code&gt;:terms&lt;/code)</em></p>
-                <p>This tag holds a <em>list of strings</em> representing <em>term object references</em>,
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TERM}
+<li><em>Kind</em>: {@link kTYPE_LIST}
+</ul>
+<p>This tag holds a <em>list of strings</em> representing <em>term object references</em>,
 these elements are the <em>native identifiers</em> of the <em>term objects</em> they
 reference.</p>
             </article>
@@ -854,7 +894,10 @@ reference.</p>
                 <h3 class="">kTAG_SUBJECT</h3>
                 <pre class="signature">kTAG_SUBJECT</pre>
                 <p><em>Relationship subject (&lt;code&gt;:relationship:subject&lt;/code)</em></p>
-                <p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_NODE}
+</ul>
+<p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
 a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
 describes the <em>origin vertex of a directed graph relationship</em>.</p>
             </article>
@@ -892,7 +935,10 @@ describes the <em>origin vertex of a directed graph relationship</em>.</p>
                 <h3 class="">kTAG_PREDICATE</h3>
                 <pre class="signature">kTAG_PREDICATE</pre>
                 <p><em>Relationship predicate (&lt;code&gt;:relationship:predicate&lt;/code)</em></p>
-                <p>This tag holds a <em>term object reference</em>, it is a <em>string</em> that represents
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_TERM}
+</ul>
+<p>This tag holds a <em>term object reference</em>, it is a <em>string</em> that represents
 the term <em>native identifier</em>. This tag describes the <em>predicate of a directed
 graph relationship</em>.</p>
             </article>
@@ -930,7 +976,10 @@ graph relationship</em>.</p>
                 <h3 class="">kTAG_OBJECT</h3>
                 <pre class="signature">kTAG_OBJECT</pre>
                 <p><em>Relationship object (&lt;code&gt;:relationship:object&lt;/code)</em></p>
-                <p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_NODE}
+</ul>
+<p>This tag holds an <em>integer</em> representing a <em>node native identifier</em>, it is
 a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
 describes the <em>destination vertex of a directed graph relationship</em>.</p>
             </article>
@@ -968,7 +1017,10 @@ describes the <em>destination vertex of a directed graph relationship</em>.</p>
                 <h3 class="">kTAG_AFFILIATION</h3>
                 <pre class="signature">kTAG_AFFILIATION</pre>
                 <p><em>Affiliation (&lt;code&gt;:affiliation&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
+                <ul>
+<li><em>Type</em>: {@link kTYPE_REF_ENTITY}
+</ul>
+<p>This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
 a <em>reference to the entity object which represents the affiliation of the current
 entity object</em>.</p>
             </article>
@@ -1006,7 +1058,10 @@ entity object</em>.</p>
                 <h3 class="">kTAG_CATEGORY</h3>
                 <pre class="signature">kTAG_CATEGORY</pre>
                 <p><em>Category (&lt;code&gt;:category&lt;/code)</em></p>
-                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+                <ul>
+<li><em>Type</em>: {@link kTYPE_SET}
+</ul>
+<p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
 represent the <em>different categories to which an object belongs</em>.</p>
             </article>
         </div>
@@ -1043,7 +1098,10 @@ represent the <em>different categories to which an object belongs</em>.</p>
                 <h3 class="">kTAG_DATA_TYPE</h3>
                 <pre class="signature">kTAG_DATA_TYPE</pre>
                 <p><em>Data type (&lt;code&gt;:type:data&lt;/code)</em></p>
-                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+                <ul>
+<li><em>Type</em>: {@link kTYPE_SET}
+</ul>
+<p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
 indicate the <em>data type</em> of a data property. This type corresponds to the</p>
 <em>primitive data representation and structure of a data property</em>.
             </article>
@@ -1081,7 +1139,10 @@ indicate the <em>data type</em> of a data property. This type corresponds to the
                 <h3 class="">kTAG_DATA_KIND</h3>
                 <pre class="signature">kTAG_DATA_KIND</pre>
                 <p><em>Data kind (&lt;code&gt;:type:kind&lt;/code)</em></p>
-                <p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
+                <ul>
+<li><em>Type</em>: {@link kTYPE_SET}
+</ul>
+<p>This tag holds an <em>enumerated set</em> of <em>term object references</em> which
 indicate the <em>cardinality</em> and <em>requirements</em> of a data property. This type
 corresponds to the <em>attributes of a data property</em>, <em>not to its type</em>.</p>
             </article>
@@ -1119,7 +1180,10 @@ corresponds to the <em>attributes of a data property</em>, <em>not to its type</
                 <h3 class="">kTAG_NAME</h3>
                 <pre class="signature">kTAG_NAME</pre>
                 <p><em>Name (&lt;code&gt;:name&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> representing the <en>name of an object</em>. This is
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> representing the <en>name of an object</em>. This is
 generally the way humans refer to the object and it is <em>not related to a specific
 language</em>.</p>
             </article>
@@ -1157,7 +1221,10 @@ language</em>.</p>
                 <h3 class="">kTAG_LABEL</h3>
                 <pre class="signature">kTAG_LABEL</pre>
                 <p><em>Label (&lt;code&gt;:label&lt;/code)</em></p>
-                <p>This tag holds a <em>list of strings<em> representing <en>labels of an object in several
+                <ul>
+<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+</ul>
+<p>This tag holds a <em>list of strings<em> representing <en>labels of an object in several
 languages</em>. Each element holds the <em>language</em> in which the label is expressed
 in and the <em>text</em> of the label.</p>
             </article>
@@ -1195,7 +1262,10 @@ in and the <em>text</em> of the label.</p>
                 <h3 class="">kTAG_DEFINITION</h3>
                 <pre class="signature">kTAG_DEFINITION</pre>
                 <p><em>Definition (&lt;code&gt;:definition&lt;/code)</em></p>
-                <p>This tag holds a <em>list of texts<em> representing <en>definitions of an object in
+                <ul>
+<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+</ul>
+<p>This tag holds a <em>list of texts<em> representing <en>definitions of an object in
 several languages</em>. Each element holds the <em>language</em> in which the definition
 is expressed in and the <em>text</em> of the definition. <em>A definition should provide
 detailed information on an object without reference to the context</em>.</p>
@@ -1234,7 +1304,10 @@ detailed information on an object without reference to the context</em>.</p>
                 <h3 class="">kTAG_DESCRIPTION</h3>
                 <pre class="signature">kTAG_DESCRIPTION</pre>
                 <p><em>Description (&lt;code&gt;:description&lt;/code)</em></p>
-                <p>This tag holds a <em>list of texts<em> representing <en>descriptions of an object in
+                <ul>
+<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+</ul>
+<p>This tag holds a <em>list of texts<em> representing <en>descriptions of an object in
 several languages</em>. Each element holds the <em>language</em> in which the description
 is expressed in and the <em>text</em> of the description. <em>A description should add
 context related information to the definition of the object</em>.</p>
@@ -1273,7 +1346,11 @@ context related information to the definition of the object</em>.</p>
                 <h3 class="">kTAG_NOTES</h3>
                 <pre class="signature">kTAG_NOTES</pre>
                 <p><em>Notes (&lt;code&gt;:notes&lt;/code)</em></p>
-                <p>This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+<li><em>Kind</em>: {@link kTYPE_LIST}
+</ul>
+<p>This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
 to a specific language.</p>
             </article>
         </div>
@@ -1310,7 +1387,11 @@ to a specific language.</p>
                 <h3 class="">kTAG_UNIT_COUNT</h3>
                 <pre class="signature">kTAG_UNIT_COUNT</pre>
                 <p><em>Units count (&lt;code&gt;:unit-count&lt;/code)</em></p>
-                <p>This tag holds an <em>integer</em> value representing the <em>number of unit objects
+                <ul>
+<li><em>Type</em>: {@link kTYPE_INT}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+</ul>
+<p>This tag holds an <em>integer</em> value representing the <em>number of unit objects
 featuring a specific property</em>. This is generally used to assess <em>tag usage
 frequency in unit objects</em>.</p>
             </article>
@@ -1348,7 +1429,11 @@ frequency in unit objects</em>.</p>
                 <h3 class="">kTAG_ENTITY_COUNT</h3>
                 <pre class="signature">kTAG_ENTITY_COUNT</pre>
                 <p><em>Entity count (&lt;code&gt;:entity-count&lt;/code)</em></p>
-                <p>This tag holds an <em>integer</em> value representing the <em>number of entity objects
+                <ul>
+<li><em>Type</em>: {@link kTYPE_INT}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+</ul>
+<p>This tag holds an <em>integer</em> value representing the <em>number of entity objects
 featuring a specific property</em>. This is generally used to assess <em>tag usage
 frequency in entity objects</em>.</p>
             </article>
@@ -1386,7 +1471,10 @@ frequency in entity objects</em>.</p>
                 <h3 class="">kTAG_LANGUAGE</h3>
                 <pre class="signature">kTAG_LANGUAGE</pre>
                 <p><em>Language (&lt;code&gt;:language&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which represents a specific <em>language name or
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which represents a specific <em>language name or
 code</em>, this tag is generally used as an element of a structure for indicating the
 element's language.</p>
             </article>
@@ -1424,7 +1512,10 @@ element's language.</p>
                 <h3 class="">kTAG_TEXT</h3>
                 <pre class="signature">kTAG_TEXT</pre>
                 <p><em>Text (&lt;code&gt;:text&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
 used as an element of a structure for indicating the element's text.</p>
             </article>
         </div>
@@ -1461,7 +1552,10 @@ used as an element of a structure for indicating the element's text.</p>
                 <h3 class="">kTAG_CONN_PROTOCOL</h3>
                 <pre class="signature">kTAG_CONN_PROTOCOL</pre>
                 <p><em>Connection protocol (&lt;code&gt;:connection:protocol&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific network connection</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific network connection</p>
 <em>protocol</em> or <em>scheme</em>.
             </article>
         </div>
@@ -1498,7 +1592,10 @@ used as an element of a structure for indicating the element's text.</p>
                 <h3 class="">kTAG_CONN_HOST</h3>
                 <pre class="signature">kTAG_CONN_HOST</pre>
                 <p><em>Connection host (&lt;code&gt;:connection:host&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific network connection</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific network connection</p>
 <em>domain name</em> or <em>internet address</em>.
             </article>
         </div>
@@ -1535,7 +1632,10 @@ used as an element of a structure for indicating the element's text.</p>
                 <h3 class="">kTAG_CONN_PORT</h3>
                 <pre class="signature">kTAG_CONN_PORT</pre>
                 <p><em>Connection port (&lt;code&gt;:connection:port&lt;/code)</em></p>
-                <p>This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
+                <ul>
+<li><em>Type</em>: {@link kTYPE_INT}
+</ul>
+<p>This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
 port number</em>.</p>
             </article>
         </div>
@@ -1572,7 +1672,10 @@ port number</em>.</p>
                 <h3 class="">kTAG_CONN_USER</h3>
                 <pre class="signature">kTAG_CONN_USER</pre>
                 <p><em>Connection user code (&lt;code&gt;:connection:user&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to</p>
 <em>authenticate with a service</em>.
             </article>
         </div>
@@ -1609,7 +1712,10 @@ port number</em>.</p>
                 <h3 class="">kTAG_CONN_PASS</h3>
                 <pre class="signature">kTAG_CONN_PASS</pre>
                 <p><em>Connection user password (&lt;code&gt;:connection:password&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
 allows to <em>authenticate with a service</em>.</p>
             </article>
         </div>
@@ -1646,7 +1752,10 @@ allows to <em>authenticate with a service</em>.</p>
                 <h3 class="">kTAG_CONN_BASE</h3>
                 <pre class="signature">kTAG_CONN_BASE</pre>
                 <p><em>Database name (&lt;code&gt;:connection:database&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific <em>database</em>.</p>
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific <em>database</em>.</p>
             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1682,7 +1791,10 @@ allows to <em>authenticate with a service</em>.</p>
                 <h3 class="">kTAG_CONN_COLL</h3>
                 <pre class="signature">kTAG_CONN_COLL</pre>
                 <p><em>Collection name (&lt;code&gt;:connection:collection&lt;/code)</em></p>
-                <p>This tag holds a <em>string</em> which identifies a specific <em>database
+                <ul>
+<li><em>Type</em>: {@link kTYPE_STRING}
+</ul>
+<p>This tag holds a <em>string</em> which identifies a specific <em>database
 collection</em>.</p>
             </article>
         </div>
@@ -1719,7 +1831,10 @@ collection</em>.</p>
                 <h3 class="">kTAG_CONN_OPTS</h3>
                 <pre class="signature">kTAG_CONN_OPTS</pre>
                 <p><em>Connection options (&lt;code&gt;:connection:options&lt;/code)</em></p>
-                <p>This tag holds a <em>list of key/value pairs</em> which represent the <em>options for a
+                <ul>
+<li><em>Type</em>: {@link kTYPE_ARRAY}
+</ul>
+<p>This tag holds a <em>list of key/value pairs</em> which represent the <em>options for a
 network connection</em>. The key part identifies the option, the value part provides the
 option value.</p>
             </article>
@@ -1838,7 +1953,7 @@ option value.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 21st, 2014 at 01:58.
+                    on February 21st, 2014 at 19:42.
                 </section>
             </section>
         </section>

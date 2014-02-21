@@ -105,10 +105,9 @@ class MyClass extends OntologyWrapper\OntologyObject
 				$theType = array( kTYPE_STRUCT );
 				$theKind = Array();
 				return TRUE;
-			
-			default:
-				return parent::traverseResolveOffset( $theIterator, $theType, $theKind );
 		}
+
+		return parent::traverseResolveOffset( $theIterator, $theType, $theKind );
 	}
 }
 
@@ -1208,6 +1207,51 @@ try
 				array( kTAG_LANGUAGE => 3,
 					   kTAG_TEXT => 4 )
 			),
+		),
+		-2 => array
+		(
+			array
+			(
+				-3 => array
+				(
+					kTAG_NAME => 444,
+					kTAG_LABEL => array
+					(
+						array( kTAG_LANGUAGE => "en",
+							   kTAG_TEXT => "Test" ),
+						array( kTAG_LANGUAGE => "it",
+							   kTAG_TEXT => "Collaudo" ),
+						array( kTAG_LANGUAGE => 5,
+							   kTAG_TEXT => 6 )
+					)
+				)
+			),
+			array
+			(
+				-2 => array
+				(
+					array
+					(
+						-3 => array
+						(
+							kTAG_NAME => 444,
+							kTAG_LABEL => array
+							(
+								array( kTAG_LANGUAGE => "en",
+									   kTAG_TEXT => "Test" ),
+								array( kTAG_LANGUAGE => "it",
+									   kTAG_TEXT => "Collaudo" ),
+								array( kTAG_LANGUAGE => 5,
+									   kTAG_TEXT => 6 )
+							),
+						),
+					),
+					array
+					(
+						-1 => array( "11.47", "33.47", 88.01263, 92 ),
+					)
+				)
+			)
 		),
 		kTAG_LABEL => array
 		(

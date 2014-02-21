@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-332375663"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1494357414"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-332375663" class="accordion-body collapse in">
+            <div id="namespace-1494357414" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1683985598"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1628510997"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1683985598" class="accordion-body collapse ">
+            <div id="namespace-1628510997" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-732434901"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-590287144"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-732434901" class="accordion-body collapse ">
+            <div id="namespace-590287144" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -1430,25 +1430,26 @@ consult the reference of the {@link traverseOffsets()} method.</p>
                 <pre class="signature" style="margin-right: 54px;">traverseOffsets(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theOffsets</span>, \OntologyWrapper\reference <span class="argument">$thePath</span>) : boolean</pre>
                 <p><em>Handle offset value</em></p>
                 <p>This method will be called for each offset of the current object, its duty is to
-perform a series of operations on all the elements of the object by using a set of
-protected method that derived classes can overload to implement custom actions. These
-methods are:</p>
+validate and cast the values of the currently iterated offset and perform the same
+operations on the eventual nested structures.</p>
+<p>These operations are performed by a protected interface which is implemented by the
+following methods:</p>
 <ul>
-<li><tt>{@link traverseResolveOffset()</tt>. This method will resolve the current
-    offset and return in the reference parameters the current offset's data type and
-    kind.
-<li><tt>{@link traverseCollectOffset()</tt>. This method will populate the
-    <tt>$theOffsets</tt> parameter, this is an array in which the keys represent
-    the object offset tag references and the value represents the list of offsets
-    in which that tag was used..
-<li><tt>{@link traverseVerifyStructure()</tt>. This method will check whether the
-    structure of the current offset is correct.
-<li><tt>{@link traverseVerifyValue()</tt>. This method will be called if the current
-    offset is neither a list nor a structure, its duty is to verify the value of the
-    current offset, if this is neither a list nor a structure.
-<li><tt>{@link traverseCastValue()</tt>. This method will be called if the current
-    offset is neither a list nor a structure, its duty is to cast the value of the
-    current offset to the data type indicated by the tag referenced by the offset.
+<li><tt>{@link traverseResolveOffset()</tt>. This method is called for each offset,
+    its duty is to resolve the current offset and return in the reference parameters
+    the current offset's data type and kind.
+<li><tt>{@link traverseCollectOffset()</tt>. This method is called for each offset,
+    its duty is to append the provided reference <tt>$thePath</tt> parameter with
+    the current offset, so to form the offsets path to the current data property.
+<li><tt>{@link traverseAddOffset()</tt>. This method is called for each offset,
+    its duty is to populate the provided reference <tt>$theOffsets</tt> parameter
+    with the current offset's tag reference and to collect the list of offsets in
+    which the tag is used.
+<li><tt>{@link traverseVerifyStructure()</tt>. This method is called for each
+    offset, its duty is to verify the structure of the data property.
+<li><tt>{@link traverseHandleValue()</tt>. This method is called for each offset and
+    for each data property list element, its duty is to verify and cast data
+    property values.
 </ul>
 <p>Derived classes should overload the above methods and not the current one.</p>
 <p>The method expects the following parameters:</p>
@@ -1497,6 +1498,7 @@ stop it.</p>
                                                                                                             <dt>Uses</dt>
                                                                 <dd>traverseResolveOffset()</dd>
                                             <dd>traverseCollectOffset()</dd>
+                                            <dd>traverseAddOffset()</dd>
                                             <dd>traverseVerifyStructure()</dd>
                                             <dd>traverseHandleValue()</dd>
                                                 </dl>
@@ -1539,7 +1541,6 @@ member.</p>
 string or part of the internal offsets.</p>
 <p>The method will return <tt>TRUE</tt> if the tag was resolved; <tt>FALSE</tt> if the
 tag was not resolved and <tt>NULL</tt> if the offset is internal.</p>
-<p>Derived classes should overload this method</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1782,12 +1783,14 @@ returned <tt>FALSE</tt>.</p>
             <article class="method">
                 <h3 class="protected ">traverseHandleValue()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseHandleValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">traverseHandleValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : boolean</pre>
                 <p><em>Handle value</em></p>
                 <p>This method should handle the current offset value, it should verify if the value
 is correct and cast the value to the provided data type.</p>
 <p>This method should only be called for scalar offset values, list scalars should call
 this method for each element.</p>
+<p>The method should return <tt>TRUE</tt> to continue the object traversal or</p>
+<tt>FALSE</tt> to stop it.
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1814,7 +1817,10 @@ this method for each element.</p>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <tt>FALSE</tt> stops the traversal.
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -1845,7 +1851,8 @@ this method for each element.</p>
                 <pre class="signature" style="margin-right: 54px;">traverseVerifyValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : mixed</pre>
                 <p><em>Verify offset value</em></p>
                 <p>This method should verify the current offset value, this method is called by the
-{@link traverseVerifyStructure()} method if the current offset is not a structure or a list.</p>
+{@link traverseVerifyStructure()} method if the current offset is not a structure or
+a list.</p>
 <p>In this class we assert that structured types are arrays if there is only one offset
 type.</p>
 <p>The method will return <tt>NULL</tt> if the offset has more than one type,</p>
@@ -1916,6 +1923,9 @@ verified.
 data type. This method can also be used to verify structured type elements.</p>
 <p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and</p>
 <tt>NULL</tt> if the offset has more than one data type.
+
+In this class we sjip all reference data types, since the class has no clue about
+persistence.
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2110,7 +2120,7 @@ data type. This method can also be used to verify structured type elements.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 21st, 2014 at 01:58.
+                    on February 21st, 2014 at 19:42.
                 </section>
             </section>
         </section>

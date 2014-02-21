@@ -193,15 +193,14 @@ abstract class CollectionObject extends ConnectionObject
 	 * Resolve an object
 	 *
 	 * This method should select an object in the current collection matching the provided
-	 * identifier with the provided offset.
+	 * identifier with the provided value.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</b>: This parameter represents the value to match with the
-	 *		provided offset.
-	 *	<li><b>$theOffset</b>: This parameter represents either the native or persistent
-	 *		identifier of the offset tag.
+	 *	<li><b>$theValue</b>: This parameter represents the value to match with the provided
+	 *		offset.
+	 *	<li><b>$theOffset</b>: This parameter represents the offset to match.
 	 *	<li><b>$asObject</b>: This parameter determines what the method should return:
 	 *	 <ul>
 	 *		<li><tt>TRUE</tt>: Return the object; if there are more than one objects
@@ -214,15 +213,14 @@ abstract class CollectionObject extends ConnectionObject
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theValue			Offset value.
 	 * @param mixed					$theOffset			Offset.
-	 * @param mixed					$asObject			Return object if <tt>TRUE</tt>.
+	 * @param mixed					$asObject			What to return.
 	 *
 	 * @access public
 	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
 	 */
-	abstract public function resolve( $theIdentifier, $theOffset = kTAG_NID,
-													  $asObject = TRUE );
+	abstract public function resolve( $theValue, $theOffset = kTAG_NID, $asObject = TRUE );
 
 	 
 	/*===================================================================================

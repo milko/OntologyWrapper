@@ -47,7 +47,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 //
 // Debug switches.
 //
-define( 'kDEBUG_PARENT', TRUE );
+define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
@@ -61,7 +61,9 @@ class MyClass extends OntologyWrapper\PersistentObject
 {
 	const kSEQ_NAME = 'test';
 	
-	static function ResolveDatabase( $theWrapper, $doAssert = TRUE )
+	static function ResolveDatabase( OntologyWrapper\Wrapper $theWrapper,
+															 $doAssert = TRUE,
+															 $doOpen = TRUE )
 	{	return $theWrapper->Units();											}
 	
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
@@ -94,6 +96,31 @@ class MyClass extends OntologyWrapper\PersistentObject
 	
 	public function __toString()						{	return "hello!";	}
 	
+	public function TraverseObject()			{	return $this->traverse();	}
+	
+	protected function traverseResolveOffset( Iterator $theIterator, &$theType, &$theKind )
+	{
+		switch( $theIterator->key() )
+		{
+			case -1:
+				$theType = array( kTYPE_FLOAT );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;
+			
+			case -2:
+				$theType = array( kTYPE_STRUCT );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;
+			
+			case -3:
+				$theType = array( kTYPE_STRUCT );
+				$theKind = Array();
+				return TRUE;
+		}
+
+		return parent::traverseResolveOffset( $theIterator, $theType, $theKind );
+	}
+	
 	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
 	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
 	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
@@ -123,15 +150,21 @@ try
 	//
 	// Set databases.
 	//
-	$wrapper->Metadata(
+	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$meta->drop();
 	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
+	
+	//
+	// Reset ontology.
+	//
+	$wrapper->resetOntology();
 	
 	//
 	// Test parent class.
@@ -433,8 +466,8 @@ try
 		echo( '<h4>Test set offset<br /><i>should set the "1" to "value"</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper );'.kSTYLE_HEAD_POS );
+		$test = new MyClass( $wrapper );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test->AccessorOffset( "1", "value" );'.kSTYLE_HEAD_POS );
@@ -1051,8 +1084,8 @@ try
 		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper );'.kSTYLE_HEAD_POS );
+		$test = new MyClass( $wrapper );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
@@ -1166,6 +1199,128 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
+
+		//
+		// Create test object.
+		//
+		echo( '<h4>Create test object</h4>' );
+		$array = array
+		(
+			kTAG_NID => "ID",
+			kTAG_CLASS => "OntologyObject",
+			kTAG_DOMAIN => "Object",
+			kTAG_NAME => 123,
+			-1 => array( "12.47", "35.22", 5.01263, 12 ),
+			-3 => array
+			(
+				kTAG_NAME => 321,
+				kTAG_DESCRIPTION => array
+				(
+					array( kTAG_LANGUAGE => "en",
+						   kTAG_TEXT => "Description" ),
+					array( kTAG_LANGUAGE => "it",
+						   kTAG_TEXT => "Descrizione" ),
+					array( kTAG_LANGUAGE => 3,
+						   kTAG_TEXT => 4 )
+				),
+			),
+			-2 => array
+			(
+				array
+				(
+					-3 => array
+					(
+						kTAG_NAME => 444,
+						kTAG_LABEL => array
+						(
+							array( kTAG_LANGUAGE => "en",
+								   kTAG_TEXT => "Test" ),
+							array( kTAG_LANGUAGE => "it",
+								   kTAG_TEXT => "Collaudo" ),
+							array( kTAG_LANGUAGE => 5,
+								   kTAG_TEXT => 6 )
+						)
+					)
+				),
+				array
+				(
+					-2 => array
+					(
+						array
+						(
+							-3 => array
+							(
+								kTAG_NAME => 444,
+								kTAG_LABEL => array
+								(
+									array( kTAG_LANGUAGE => "en",
+										   kTAG_TEXT => "Test" ),
+									array( kTAG_LANGUAGE => "it",
+										   kTAG_TEXT => "Collaudo" ),
+									array( kTAG_LANGUAGE => 5,
+										   kTAG_TEXT => 6 )
+								),
+							),
+						),
+						array
+						(
+							-1 => array( "11.47", "33.47", 88.01263, 92 ),
+						)
+					)
+				)
+			),
+			kTAG_LABEL => array
+			(
+				array( kTAG_LANGUAGE => "en",
+					   kTAG_TEXT => "Connection" ),
+				array( kTAG_LANGUAGE => "it",
+					   kTAG_TEXT => "Connessione" ),
+				array( kTAG_LANGUAGE => 1,
+					   kTAG_TEXT => 2 )
+			),
+			kTAG_CONN_PORT => "80",
+			kTAG_DATA_TYPE => array( 3, 4 )
+		);
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $array );'.kSTYLE_HEAD_POS );
+		$test = new MyClass( $array );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->dictionary( $wrapper );'.kSTYLE_HEAD_POS );
+		$test->dictionary( $wrapper );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $test->getArrayCopy() );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Traverse object.
+		//
+		echo( '<h4>Traverse object</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$offsets = $test->TraverseObject();' );
+		$offsets = $test->TraverseObject();
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		var_dump( $test->getArrayCopy() );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -1206,8 +1361,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $database );'.kSTYLE_HEAD_POS );
-	$id = $test->commit( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -1228,12 +1383,149 @@ try
 	echo( '<h4>Instantiate from collection by native identifier</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $database, $id );'.kSTYLE_HEAD_POS );
-	$test = new MyClass( $database, $id );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, $id );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $wrapper, $id );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Create test object.
+	//
+	echo( '<h4>Create test object</h4>' );
+	$array = array
+	(
+		kTAG_NID => "ID",
+		kTAG_CLASS => "OntologyObject",
+		kTAG_DOMAIN => "Object",
+		kTAG_NAME => 123,
+		-1 => array( "12.47", "35.22", 5.01263, 12 ),
+		-3 => array
+		(
+			kTAG_NAME => 321,
+			kTAG_DESCRIPTION => array
+			(
+				array( kTAG_LANGUAGE => "en",
+					   kTAG_TEXT => "Description" ),
+				array( kTAG_LANGUAGE => "it",
+					   kTAG_TEXT => "Descrizione" ),
+				array( kTAG_LANGUAGE => 3,
+					   kTAG_TEXT => 4 )
+			),
+		),
+		-2 => array
+		(
+			array
+			(
+				-3 => array
+				(
+					kTAG_NAME => 444,
+					kTAG_LABEL => array
+					(
+						array( kTAG_LANGUAGE => "en",
+							   kTAG_TEXT => "Test" ),
+						array( kTAG_LANGUAGE => "it",
+							   kTAG_TEXT => "Collaudo" ),
+						array( kTAG_LANGUAGE => 5,
+							   kTAG_TEXT => 6 )
+					)
+				)
+			),
+			array
+			(
+				-2 => array
+				(
+					array
+					(
+						-3 => array
+						(
+							kTAG_NAME => 444,
+							kTAG_LABEL => array
+							(
+								array( kTAG_LANGUAGE => "en",
+									   kTAG_TEXT => "Test" ),
+								array( kTAG_LANGUAGE => "it",
+									   kTAG_TEXT => "Collaudo" ),
+								array( kTAG_LANGUAGE => 5,
+									   kTAG_TEXT => 6 )
+							),
+						),
+					),
+					array
+					(
+						-1 => array( "11.47", "33.47", 88.01263, 92 ),
+					)
+				)
+			)
+		),
+		kTAG_LABEL => array
+		(
+			array( kTAG_LANGUAGE => "en",
+				   kTAG_TEXT => "Connection" ),
+			array( kTAG_LANGUAGE => "it",
+				   kTAG_TEXT => "Connessione" ),
+			array( kTAG_LANGUAGE => 1,
+				   kTAG_TEXT => 2 )
+		),
+		kTAG_CONN_PORT => "80",
+		kTAG_DATA_TYPE => array( 3, 4 )
+	);
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $array );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $array );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->dictionary( $wrapper );'.kSTYLE_HEAD_POS );
+	$test->dictionary( $wrapper );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Commit object.
+	//
+	echo( '<h4>Commit object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit();'.kSTYLE_HEAD_POS );
+	$id = $test->commit();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Load object.
+	//
+	echo( '<h4>Load object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, $id );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $wrapper, $id );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

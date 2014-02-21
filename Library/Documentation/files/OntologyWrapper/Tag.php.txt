@@ -393,13 +393,19 @@ class Tag extends PersistentObject
 	 * from the cache if deleting.
 	 *
 	 * @param bitfield				$theOperation		Operation code.
+	 * @param array					$theOffsets			List of tag offsets.
 	 *
 	 * @access protected
 	 *
 	 * @see kTAG_NID kTAG_ID_SEQUENCE
 	 */
-	protected function postCommit( $theOperation = 0x00 )
+	protected function postCommit( $theOperation, $theOffsets )
 	{
+		//
+		// Call parent method.
+		//
+		parent::postCommit( $theOperation, $theOffsets );
+		
 		//
 		// Init local storage.
 		//

@@ -88,20 +88,22 @@ abstract class PersistentObject extends OntologyObject
 	 *		parameter is <tt>NULL</tt>, the next parameter will be ignored.
 	 *	<li><b>$theIdentifier</b>: This parameter represents the object identifier or the
 	 *		object persistent attributes: in the first case it will used to select the
-	 *		object from the provided container, in the second case, it is assumed that the
-	 *		provided array holds the persistent attributes of an object committed in the
-	 *		provided container.
+	 *		object from the wrapper provided in the previous parameter, in the second case,
+	 *		it is assumed that the provided array holds the persistent attributes of an
+	 *		object committed in the provided container.
 	 * </ul>
 	 *
 	 * The workflow is as follows:
 	 *
 	 * <ul>
 	 *	<li><i>Empty object</i>: Both parameters are omitted.
+	 *	<li><i>Empty object with wrapper</i>: The first parameter is a {@link Wrapper}
+	 *		object and the second parameter is omitted.
 	 *	<li><i>Filled non committed object</i>: The first parameter is an array.
-	 *	<li><i>Load object from container</i>: The first parameter is a {@link Wrapper}
-	 *		object and the second parameter is a scalar identifier.
 	 *	<li><i>Filled committed object</i>: The first parameter is {@link Wrapper} object
 	 *		and the second parameter is an array holding the object's persistent data.
+	 *	<li><i>Load object from container</i>: The first parameter is a {@link Wrapper}
+	 *		object and the second parameter is a scalar identifier.
 	 * </ul>
 	 *
 	 * Any other combination will raise an exception.
@@ -138,7 +140,8 @@ abstract class PersistentObject extends OntologyObject
 		// Instantiate from object.
 		//
 		elseif( ($theIdentifier === NULL)
-		 && ($theContainer instanceof \ArrayObject) )
+		 && ($theContainer instanceof \ArrayObject)
+		 && (! ($theContainer instanceof Wrapper)) )
 			parent::__construct( $theContainer->getArrayCopy() );
 		
 		//
@@ -257,6 +260,9 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
+	 * The parameter to this method may be omitted if you instantiated the object by providing
+	 * the wrapper.
+	 *
 	 * @param Wrapper				$theWrapper			Persistent store.
 	 *
 	 * @access public
@@ -273,7 +279,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses isReady()
 	 * @uses postCommit()
 	 */
-	public function commit( Wrapper $theWrapper )
+	public function commit( $theWrapper = NULL )
 	{
 		//
 		// Do it only if the object is dirty or not committed.
@@ -282,9 +288,38 @@ abstract class PersistentObject extends OntologyObject
 		 || (! $this->isCommitted()) )
 		{
 			//
-			// Set dictionary wrapper.
+			// Handle wrapper.
 			//
-			$this->dictionary( $theWrapper );
+			if( $theWrapper !== NULL )
+			{
+				//
+				// Check wrapper.
+				//
+				if( ! ($theWrapper instanceof Wrapper) )
+					throw new \Exception(
+						"Cannot commit object: "
+					   ."invalid wrapper parameter type." );					// !@! ==>
+				
+				//
+				// Set dictionary wrapper.
+				//
+				$this->dictionary( $theWrapper );
+			
+			} // Provided wrapper
+			
+			//
+			// Use existing wrapper.
+			//
+			elseif( ! ($this->mDictionary instanceof Wrapper) )
+				throw new \Exception(
+					"Cannot commit object: "
+				   ."the object is missing its wrapper." );						// !@! ==>
+			
+			//
+			// Set wrapper.
+			//
+			else
+				$theWrapper = $this->dictionary();
 			
 			//
 			// Resolve collection.
@@ -302,7 +337,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Prepare object.
 			//
-			$this->preCommit( $op );
+			$offsets = $this->preCommit( $op );
 		
 			//
 			// Commit.
@@ -310,15 +345,15 @@ abstract class PersistentObject extends OntologyObject
 			$id = $collection->commit( $this );
 	
 			//
-			// Copy identifier if new.
+			// Copy identifier if missing.
 			//
-			if( ! $this->isCommitted() )
+			if( ! $this->offsetExists( kTAG_NID ) )
 				$this->offsetSet( kTAG_NID, $id );
 		
 			//
 			// Cleanup object.
 			//
-			$this->postCommit( $op );
+			$this->postCommit( $op, $offsets );
 	
 			//
 			// Set object status.
@@ -429,6 +464,7 @@ abstract class PersistentObject extends OntologyObject
 	 *	 <ul>
 	 *		<li>Check if the object is {@link isInited()}.
 	 *		<li><tt>{@link preCommitValidate()</tt>: Validate object.
+	 *		<li><tt>{@link traverse()</tt>: Traverse and validate object properties.
 	 *		<li><tt>{@link preCommitIdentify()</tt>: Set object identifiers.
 	 *		<li><tt>{@link isReady()</tt>: Check if object is ready.
 	 *		<li><tt>{@link preCommitRelated()</tt>: Commit related objects.
@@ -443,12 +479,16 @@ abstract class PersistentObject extends OntologyObject
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * The method will return the list of tag offsets which is an array indexed by tag
+	 * reference and holding as value the list of offsets in which the tag is used.
+	 *
 	 * Derived classes should not overload this method, they should, instead, overload the
 	 * called methods.
 	 *
 	 * @param bitfield				$theOperation		Operation code.
 	 *
 	 * @access protected
+	 * @return array				List of tag offsets.
 	 *
 	 * @throws Exception
 	 *
@@ -467,6 +507,11 @@ abstract class PersistentObject extends OntologyObject
 			// Validate object.
 			//
 			$this->preCommitValidate();
+		
+			//
+			// Validate object properties.
+			//
+			$offsets = $this->traverse();
 			
 			//
 			// Identify object.
@@ -502,6 +547,8 @@ abstract class PersistentObject extends OntologyObject
 				   ."the object is missing its native identifier." );			// !@! ==>
 		
 		} // Deleting.
+		
+		return $offsets;															// ==>
 	
 	} // preCommit.
 
@@ -514,10 +561,7 @@ abstract class PersistentObject extends OntologyObject
 	 * Validate object before commit
 	 *
 	 * This method should validate the object before being committed, if the object is not
-	 * valid, the method should raise an exception. Derived classes should call the parent
-	 * method and do the specific checks.
-	 *
-	 * In this class we check whether the object is initialised.
+	 * valid, the method should raise an exception.
 	 *
 	 * @access protected
 	 */
@@ -590,10 +634,11 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we do nothing.
 	 *
 	 * @param bitfield				$theOperation		Operation code.
+	 * @param array					$theOffsets			List of tag offsets.
 	 *
 	 * @access protected
 	 */
-	protected function postCommit( $theOperation = 0x00 )								   {}
+	protected function postCommit( $theOperation, $theOffsets )							   {}
 
 		
 
@@ -828,6 +873,418 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses InternalOffsets()
 	 */
 	protected function lockedOffsets()				{	return $this->InternalOffsets();	}
+
+	
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	traverseResolveOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset type
+	 *
+	 * In this class we hard-code the data types and kinds of the default tags, this is to
+	 * allow loading the data dictionary on a pristine system.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseResolveOffset( \Iterator $theIterator,
+													   &$theType,
+													   &$theKind )
+	{
+		//
+		// Handle default tags.
+		//
+		switch( $theIterator->key() )
+		{
+			//
+			// Scalar strings.
+			//
+			case kTAG_COLLECTION:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
+			case kTAG_ID_VALID:
+			case kTAG_VERSION:
+			case kTAG_NAME:
+			case kTAG_LANGUAGE:
+			case kTAG_TEXT:
+			case kTAG_CONN_PROTOCOL:
+			case kTAG_CONN_HOST:
+			case kTAG_CONN_USER:
+			case kTAG_CONN_PASS:
+			case kTAG_CONN_BASE:
+			case kTAG_CONN_COLL:
+				$theType = array( kTYPE_STRING );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Enumerations.
+			//
+			case kTAG_DOMAIN:
+				$theType = array( kTYPE_ENUM );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Enumerated sets.
+			//
+			case kTAG_CATEGORY:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+				$theType = array( kTYPE_SET );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar integers.
+			//
+			case kTAG_ID_SEQUENCE:
+			case kTAG_CONN_PORT:
+				$theType = array( kTYPE_INT );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar term references.
+			//
+			case kTAG_NAMESPACE:
+			case kTAG_TERM:
+			case kTAG_PREDICATE:
+				$theType = array( kTYPE_REF_TERM );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar tag references.
+			//
+			case kTAG_TAG:
+				$theType = array( kTYPE_REF_TAG );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar node references.
+			//
+			case kTAG_SUBJECT:
+			case kTAG_OBJECT:
+				$theType = array( kTYPE_REF_NODE );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar entity references.
+			//
+			case kTAG_AUTHORITY:
+			case kTAG_AFFILIATION:
+				$theType = array( kTYPE_REF_ENTITY );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar array references.
+			//
+			case kTAG_CONN_OPTS:
+				$theType = array( kTYPE_ARRAY );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar language string references.
+			//
+			case kTAG_LABEL:
+			case kTAG_DEFINITION:
+			case kTAG_DESCRIPTION:
+				$theType = array( kTYPE_LANGUAGE_STRINGS );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Term reference lists.
+			//
+			case kTAG_TERMS:
+				$theType = array( kTYPE_REF_TERM );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// Tag reference lists.
+			//
+			case kTAG_TAGS:
+				$theType = array( kTYPE_REF_TAG );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// String lists.
+			//
+			case kTAG_NOTES:
+				$theType = array( kTYPE_STRING );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// Private integers.
+			//
+			case kTAG_UNIT_COUNT:
+			case kTAG_ENTITY_COUNT:
+				$theType = array( kTYPE_INT );
+				$theKind = array( kTYPE_PRIVATE );
+				return TRUE;														// ==>
+		
+		} // Parsing default tags.
+		
+		return parent::traverseResolveOffset( $theIterator, $theType, $theKind );	// ==>
+	
+	} // traverseResolveOffset.
+
+	 
+	/*===================================================================================
+	 *	traverseCastValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Cast offset
+	 *
+	 * In this class we cast and verify object references:
+	 *
+	 * <ul>
+	 *	<li>If the property is an object:
+	 *	 <ul>
+	 *		<li>if the object is committed, we copy its native identifier and assume it
+	 *			exists.
+	 *		<li>if the object is not committed, we commit it and copy its native identifier.
+	 *	 </ul>
+	 *	<li>If the property is not an object, we assume it is a reference and we check it.
+	 * </ul>
+	 *
+	 * If the object stored in place of the reference is not of the correct class, we raise
+	 * an exception.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theType			Data type.
+	 * @param reference				$theKind			Data kind.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseCastValue( \Iterator $theIterator,
+												   &$theType,
+												   &$theKind,
+													$theOffset )
+	{
+		//
+		// Verify single data types.
+		//
+		if( count( $theType ) == 1 )
+		{
+			//
+			// Call parent method.
+			//
+			$cast
+				= parent::traverseCastValue(
+					$theIterator, $theType, $theKind, $theOffset );
+			
+			//
+			// Handle non cast data types.
+			//
+			if( $cast === FALSE )
+				return $this->traverseCastReference(
+							$theIterator, current( $theType ), $theOffset );		// ==>
+			
+			return $cast;															// ==>
+		
+		} // Single data type.
+		
+		return NULL;																// ==>
+	
+	} // traverseCastValue.
+
+	 
+	/*===================================================================================
+	 *	traverseCastReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Verify object reference
+	 *
+	 * This method will verify the current property object reference, it will perform the
+	 * following actions:
+	 *
+	 * <ul>
+	 *	<li>If the property is an object:
+	 *	 <ul>
+	 *		<li>if the object is committed, we copy its native identifier and assume it
+	 *			exists.
+	 *		<li>if the object is not committed, we commit it and copy its native identifier.
+	 *	 </ul>
+	 *	<li>If the property is not an object, we assume it is a reference and we check it.
+	 * </ul>
+	 *
+	 * The method assumes the data type is an object reference and when committing we force
+	 * the current object's wrapper.
+	 *
+	 * The method will return <tt>TRUE</tt> if the reference was verified and <tt>FALSE</tt>
+	 * if not.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param string				$theType			Data type.
+	 * @param string				$theOffset			Current offset.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if verified.
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseCastReference( \Iterator $theIterator,
+														$theType,
+														$theOffset )
+	{
+		//
+		// Init local storage.
+		//
+		$value = $theIterator->current();
+		$classes = array( kTYPE_REF_TAG => 'OntologyWrapper\Tag',
+						  kTYPE_REF_TERM => 'OntologyWrapper\Term',
+						  kTYPE_REF_NODE => 'OntologyWrapper\Node',
+						  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
+						  kTYPE_REF_ENTITY => 'OntologyWrapper\Enity',
+						  kTYPE_REF_UNIT => 'OntologyWrapper\Unit' );
+		
+		//
+		// Check class.
+		//
+		if( ! array_key_exists( $theType, $classes ) )
+			return FALSE;															// ==>
+		
+		//
+		// Handle objects.
+		//
+		if( is_object( $value ) )
+		{
+			//
+			// Verify class.
+			//
+			if( ! ($value instanceof $classes[ $theType ]) )
+				throw new \Exception(
+					"Invalid object reference in [$theOffset]: "
+				   ."incorrect class object." );								// !@! ==>
+			
+			//
+			// Commit object.
+			//
+			if( ! $value->isCommitted() )
+				$id = $value->commit( $this->dictionary() );
+			
+			//
+			// Get identifier.
+			//
+			elseif( ! $value->offsetExists( kTAG_NID ) )
+				throw new \Exception(
+					"Invalid object in [$theOffset]: "
+				   ."missing native identifier." );								// !@! ==>
+			
+			//
+			// Get identifier.
+			//
+			else
+				$id = $value[ kTAG_NID ];
+			
+			//
+			// Set identifier.
+			//
+			$theIterator->offsetSet( $theIterator->key(), $id );
+			
+			return TRUE;															// ==>
+		
+		} // Property is an object.
+		
+		//
+		// Resolve collection.
+		//
+		switch( $theType )
+		{
+			case kTYPE_REF_TAG:
+				$collection
+					= Tag::ResolveCollection(
+						Tag::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (string) $value;
+				break;
+		
+			case kTYPE_REF_TERM:
+				$collection
+					= Term::ResolveCollection(
+						Term::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (string) $value;
+				break;
+		
+			case kTYPE_REF_NODE:
+				$collection
+					= Node::ResolveCollection(
+						Node::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (int) $value;
+				break;
+		
+			case kTYPE_REF_EDGE:
+				$collection
+					= Edge::ResolveCollection(
+						Edge::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (string) $value;
+				break;
+		
+			case kTYPE_REF_ENTITY:
+				$collection
+					= Entity::ResolveCollection(
+						Entity::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (string) $value;
+				break;
+		
+			case kTYPE_REF_UNIT:
+				$collection
+					= Unit::ResolveCollection(
+						Unit::ResolveDatabase( $this->dictionary(), TRUE ) );
+				$value = (string) $value;
+				break;
+			
+			default:
+				return FALSE;														// ==>
+		
+		} // Parsed type.
+		
+		//
+		// Resolve reference.
+		//
+		if( ! $collection->resolve( $value, kTAG_NID, NULL ) )
+			throw new \Exception(
+				"Unresolved reference in [$theOffset]: "
+			   ."($value)." );													// !@! ==>
+		
+		//
+		// Cast value.
+		//
+		$theIterator->offsetSet( $theIterator->key(), $value );
+		
+		return TRUE;																// ==>
+	
+	} // traverseCastReference.
 
 	 
 

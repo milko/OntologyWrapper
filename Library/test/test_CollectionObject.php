@@ -58,7 +58,8 @@ class MyClass extends OntologyWrapper\CollectionObject
 
 	public function drop()													   {}
 
-	public function resolve( $theIdentifier )		{	return NULL;	}
+	public function resolve( $theValue, $theOffset = kTAG_NID, $asObject = TRUE )
+															{	return NULL;	}
 
 	public function AccessorOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageOffset( $theOffset, $theValue, $getOld );			}

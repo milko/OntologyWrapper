@@ -40,6 +40,16 @@
 			</item>
 		</TERM>
 		
+		<!-- Relationship -->
+		<TERM ns="" lid="relationship">
+			<item const="kTAG_LABEL">
+				<item lang="en">Relationship</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[A <em>relationship</em> represents the <em>term</em> of a <em>directed graph relation</em>.]]></item>
+			</item>
+		</TERM>
+		
 		<!-- Reference -->
 		<TERM ns=":type" lid="ref">
 			<item const="kTAG_LABEL">

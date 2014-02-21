@@ -182,7 +182,17 @@
                 <item lang="en">List</item>
             </item>
             <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This type indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
+                <item lang="en"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
+            </item>
+        </TERM>
+        
+        <!-- Indexed -->
+        <TERM ns=":type" lid="indexed">
+            <item const="kTAG_LABEL">
+                <item lang="en">Indexed</item>
+            </item>
+            <item const="kTAG_DEFINITION">
+                <item lang="en"><![CDATA[This kind indicates that the data property is <em>indexed</em>.]]></item>
             </item>
         </TERM>
     </META>
