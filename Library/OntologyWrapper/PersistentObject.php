@@ -115,6 +115,24 @@ abstract class PersistentObject extends OntologyObject
 	 * @var string
 	 */
 	const kCOMMIT_DATA_OFFSET_OFFSETS = 'offsets';
+	
+	/**
+	 * Reference.
+	 *
+	 * This constant provides the offset for the referenced object identifier.
+	 *
+	 * @var mixed
+	 */
+	const kCOMMIT_DATA_OFFSET_REFERENCED = 'ref';
+	
+	/**
+	 * Reference count.
+	 *
+	 * This constant provides the offset for the reference count.
+	 *
+	 * @var int
+	 */
+	const kCOMMIT_DATA_OFFSET_REF_COUNT = 'ref-count';
 
 		
 
@@ -699,8 +717,9 @@ abstract class PersistentObject extends OntologyObject
 	 *		tags used in the object, the array has as key the tag reference and as value the
 	 *		list of offsets in which the tag is used.
 	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array holding as key the
-	 *		collection name and as value the number of times properties of the current
-	 *		object references objects of the collection set in the key.
+	 *		collection name and as value another array indexed by object native identifier
+	 *		and with value the number of references the current object has towards the
+	 *		object referenced by the identifier.
 	 * </ul>
 	 *
 	 * This parameter will be initialised by the {@link preCommitPrepare()} method.
@@ -781,9 +800,10 @@ abstract class PersistentObject extends OntologyObject
 	 *				path to the current depth level.
 	 *		 </ul>
 	 *	 </ul>
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by collection
-	 *		name, holding as value the number of references the current object has towards 
-	 *		that collection.
+	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by
+	 *		collection name, holding as value an array indexed by native identifier and as
+	 *		value the number of times the current object references the object identified by
+	 *		the native identifier.
 	 * </ul>
 	 *
 	 * Derived classes that wish to add actions to this phase should perform:
@@ -1844,7 +1864,6 @@ abstract class PersistentObject extends OntologyObject
 				case kTYPE_REF_EDGE:
 				case kTYPE_REF_ENTITY:
 				case kTYPE_REF_UNIT:
-					$this->addReferenceCount( $theData, $type, 1 );
 					return $this->castReference(
 								$theIterator, $theData, $type, $theOffset );		// ==>
 		
@@ -1955,6 +1974,11 @@ abstract class PersistentObject extends OntologyObject
 			//
 			$theIterator->offsetSet( $theIterator->key(), $id );
 			
+			//
+			// Add reference count.
+			//
+			$this->addReferenceCount( $theData, $theType, $id, 1 );
+			
 			return TRUE;															// ==>
 		
 		} // Property is an object.
@@ -2025,6 +2049,11 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$theIterator->offsetSet( $theIterator->key(), $value );
 		
+		//
+		// Add reference count.
+		//
+		$this->addReferenceCount( $theData, $theType, $value, 1 );
+		
 		return TRUE;																// ==>
 	
 	} // castReference.
@@ -2039,18 +2068,26 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * This method will add the reference count to the provided traversal data parameter,
 	 * the method is called by the {@link castReference()} method and it will increment the
-	 * reference count for the collection provided as parameter.
+	 * reference count for the collection and object identifier provided as parameter.
 	 *
 	 * @param reference				$theData			Receives traversal data.
 	 * @param string				$theType			Offset data type.
+	 * @param mixed					$theIdentifier		Referenced object identifier.
 	 * @param integer				$theReferences		Reference count.
 	 *
 	 * @access protected
 	 *
 	 * @see kCOMMIT_DATA_OFFSET_REFS
+	 * @see kCOMMIT_DATA_OFFSET_REFERENCED kCOMMIT_DATA_OFFSET_REF_COUNT
 	 */
-	protected function addReferenceCount( &$theData, $theType, $theReferences = 1 )
+	protected function addReferenceCount( &$theData, $theType, $theIdentifier,
+															   $theReferences = 1 )
 	{
+		//
+		// Init local storage.
+		//
+		$refs = & $theData[ static::kCOMMIT_DATA_OFFSET_REFS ];
+		
 		//
 		// Determine collection.
 		//
@@ -2085,17 +2122,53 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Create collection entry.
 		//
-		if( ! array_key_exists( $collection,
-								$theData[ static::kCOMMIT_DATA_OFFSET_REFS ] ) )
-			$theData[ static::kCOMMIT_DATA_OFFSET_REFS ][ $collection ]
-				= $theReferences;
+		if( ! array_key_exists( $collection, $refs ) )
+			$refs[ $collection ]
+				= array( static::kCOMMIT_DATA_OFFSET_REFERENCED => $theIdentifier,
+						 static::kCOMMIT_DATA_OFFSET_REF_COUNT => $theReferences );
 		
 		//
-		// Add reference count.
+		// Handle collection entry.
 		//
 		else
-			$theData[ static::kCOMMIT_DATA_OFFSET_REFS ][ $collection ]
-				+= $theReferences;
+		{
+			//
+			// Reference collection.
+			//
+			$ref = & $refs[ $collection ];
+			
+			//
+			// Find identifier.
+			//
+			$keys = array_keys( $ref );
+			foreach( $keys as $key )
+			{
+				//
+				// Match identifier.
+				//
+				if( $ref[ $key ][ static::kCOMMIT_DATA_OFFSET_REFERENCED ]
+						=== $theIdentifier )
+				{
+					$ref[ $key ][ static::kCOMMIT_DATA_OFFSET_REF_COUNT ]
+						+= $theReferences;
+					
+					return;															// ==>
+				
+				} // Matched.
+			
+			} // Iterating collection references.
+			
+			//
+			// Add identifier.
+			//
+			$ref[ $key ][ static::kCOMMIT_DATA_OFFSET_REFERENCED ] = $theIdentifier;
+			
+			//
+			// Set reference count.
+			//
+			$ref[ $key ][ static::kCOMMIT_DATA_OFFSET_REF_COUNT ] = $theReferences;
+		
+		} // Has collection.
 	
 	} // addReferenceCount.
 
