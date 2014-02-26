@@ -3404,7 +3404,7 @@ storing the object.
 &lt;li&gt;&lt;tt&gt;0x01&lt;/tt&gt;: &lt;em&gt;Insert&lt;/em&gt;
  &lt;ul&gt;
 	&lt;li&gt;Check if the object is {@link isInited()}.
-	&lt;li&gt;&lt;tt&gt;{@link preCommitValidate()&lt;/tt&gt;: Validate object.
+	&lt;li&gt;&lt;tt&gt;{@link preCommitPrepare()&lt;/tt&gt;: Validate object.
 	&lt;li&gt;&lt;tt&gt;{@link preCommitIdentify()&lt;/tt&gt;: Set object identifiers.
 	&lt;li&gt;&lt;tt&gt;{@link isReady()&lt;/tt&gt;: Check if object is ready.
 	&lt;li&gt;&lt;tt&gt;{@link preCommitRelated()&lt;/tt&gt;: Commit related objects.
@@ -3438,8 +3438,8 @@ called methods.</long-description>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="protected" namespace="OntologyWrapper" line="524" package="Default">
-        <name>preCommitValidate</name>
-        <full_name>\OntologyWrapper\PersistentObject::preCommitValidate()</full_name>
+        <name>preCommitPrepare</name>
+        <full_name>\OntologyWrapper\PersistentObject::preCommitPrepare()</full_name>
         <docblock line="524">
           <description>Validate object before commit</description>
           <long-description>This method should validate the object before being committed, if the object is not

@@ -422,6 +422,58 @@ define( "kTAG_UNIT_COUNT",				26 );
  */
 define( "kTAG_ENTITY_COUNT",			27 );
 
+/**
+ * Tag count (<code>:tag-count</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ *	<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of tag objects
+ * that reference the current object</em>.
+ */
+define( "kTAG_TAG_COUNT",				28 );
+
+/**
+ * Term count (<code>:term-count</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ *	<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of term objects
+ * that reference the current object</em>.
+ */
+define( "kTAG_TERM_COUNT",				29 );
+
+/**
+ * Node count (<code>:node-count</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ *	<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of node objects
+ * that reference the current object</em>.
+ */
+define( "kTAG_NODE_COUNT",				30 );
+
+/**
+ * Edge count (<code>:node-count</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ *	<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> value representing the <em>number of edge objects
+ * that reference the current object</em>.
+ */
+define( "kTAG_EDGE_COUNT",				31 );
+
 /*=======================================================================================
  *	GENERIC TAGS																		*
  *======================================================================================*/
@@ -437,7 +489,7 @@ define( "kTAG_ENTITY_COUNT",			27 );
  * code</em>, this tag is generally used as an element of a structure for indicating the
  * element's language.
  */
-define( "kTAG_LANGUAGE",				28 );
+define( "kTAG_LANGUAGE",				32 );
 
 /**
  * Text (<code>:text</code)
@@ -449,7 +501,7 @@ define( "kTAG_LANGUAGE",				28 );
  * This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
  * used as an element of a structure for indicating the element's text.
  */
-define( "kTAG_TEXT",					29 );
+define( "kTAG_TEXT",					33 );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -465,7 +517,7 @@ define( "kTAG_TEXT",					29 );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>protocol</em> or <em>scheme</em>.
  */
-define( "kTAG_CONN_PROTOCOL",			30 );
+define( "kTAG_CONN_PROTOCOL",			34 );
 
 /**
  * Connection host (<code>:connection:host</code)
@@ -477,7 +529,7 @@ define( "kTAG_CONN_PROTOCOL",			30 );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>domain name</em> or <em>internet address</em>.
  */
-define( "kTAG_CONN_HOST",				31 );
+define( "kTAG_CONN_HOST",				35 );
 
 /**
  * Connection port (<code>:connection:port</code)
@@ -489,7 +541,7 @@ define( "kTAG_CONN_HOST",				31 );
  * This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
  * port number</em>.
  */
-define( "kTAG_CONN_PORT",				32 );
+define( "kTAG_CONN_PORT",				36 );
 
 /**
  * Connection user code (<code>:connection:user</code)
@@ -501,7 +553,7 @@ define( "kTAG_CONN_PORT",				32 );
  * This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to
  * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_USER",				33 );
+define( "kTAG_CONN_USER",				37 );
 
 /**
  * Connection user password (<code>:connection:password</code)
@@ -513,7 +565,7 @@ define( "kTAG_CONN_USER",				33 );
  * This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
  * allows to <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_PASS",				34 );
+define( "kTAG_CONN_PASS",				38 );
 
 /**
  * Database name (<code>:connection:database</code)
@@ -524,7 +576,7 @@ define( "kTAG_CONN_PASS",				34 );
  *
  * This tag holds a <em>string</em> which identifies a specific <em>database</em>.
  */
-define( "kTAG_CONN_BASE",				35 );
+define( "kTAG_CONN_BASE",				39 );
 
 /**
  * Collection name (<code>:connection:collection</code)
@@ -536,7 +588,7 @@ define( "kTAG_CONN_BASE",				35 );
  * This tag holds a <em>string</em> which identifies a specific <em>database
  * collection</em>.
  */
-define( "kTAG_CONN_COLL",				36 );
+define( "kTAG_CONN_COLL",				40 );
 
 /**
  * Connection options (<code>:connection:options</code)
@@ -549,7 +601,7 @@ define( "kTAG_CONN_COLL",				36 );
  * network connection</em>. The key part identifies the option, the value part provides the
  * option value.
  */
-define( "kTAG_CONN_OPTS",				37 );
+define( "kTAG_CONN_OPTS",				41 );
 
 /*=======================================================================================
  *	DEFAULT TAGS LIMIT																	*

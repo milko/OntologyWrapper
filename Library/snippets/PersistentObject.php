@@ -781,9 +781,6 @@ abstract class PersistentObject extends OntologyObject
 	 *				path to the current depth level.
 	 *		 </ul>
 	 *	 </ul>
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by collection
-	 *		name, holding as value the number of references the current object has towards 
-	 *		that collection.
 	 * </ul>
 	 *
 	 * Derived classes that wish to add actions to this phase should perform:
@@ -1677,7 +1674,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$type = $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ]
 						[ $theTag ]
-						[ static::kCOMMIT_DATA_OFFSET_TYPE ];
+						[ static::kCOMMIT_DATA_OFFSET_KIND ];
 		
 		//
 		// Verify single data types.
@@ -1747,7 +1744,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$type = $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ]
 						[ $theTag ]
-						[ static::kCOMMIT_DATA_OFFSET_TYPE ];
+						[ static::kCOMMIT_DATA_OFFSET_KIND ];
 		
 		//
 		// Cast only single types.
@@ -1844,7 +1841,6 @@ abstract class PersistentObject extends OntologyObject
 				case kTYPE_REF_EDGE:
 				case kTYPE_REF_ENTITY:
 				case kTYPE_REF_UNIT:
-					$this->addReferenceCount( $theData, $type, 1 );
 					return $this->castReference(
 								$theIterator, $theData, $type, $theOffset );		// ==>
 		
@@ -1986,7 +1982,6 @@ abstract class PersistentObject extends OntologyObject
 				break;
 		
 			case kTYPE_REF_EDGE:
-				$name = Edge::kSEQ_NAME;
 				$collection
 					= Edge::ResolveCollection(
 						Edge::ResolveDatabase( $this->dictionary(), TRUE ) );
@@ -2023,81 +2018,11 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Cast value.
 		//
-		$theIterator->offsetSet( $theIterator->key(), $value );
+		$theIterator->offsetSet( $key, $value );
 		
 		return TRUE;																// ==>
 	
 	} // castReference.
-
-	 
-	/*===================================================================================
-	 *	addReferenceCount																*
-	 *==================================================================================*/
-
-	/**
-	 * Add reference count
-	 *
-	 * This method will add the reference count to the provided traversal data parameter,
-	 * the method is called by the {@link castReference()} method and it will increment the
-	 * reference count for the collection provided as parameter.
-	 *
-	 * @param reference				$theData			Receives traversal data.
-	 * @param string				$theType			Offset data type.
-	 * @param integer				$theReferences		Reference count.
-	 *
-	 * @access protected
-	 *
-	 * @see kCOMMIT_DATA_OFFSET_REFS
-	 */
-	protected function addReferenceCount( &$theData, $theType, $theReferences = 1 )
-	{
-		//
-		// Determine collection.
-		//
-		switch( $theType )
-		{
-			case kTYPE_REF_TAG:
-				$collection = Tag::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_TERM:
-				$collection = Term::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_NODE:
-				$collection = Node::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_EDGE:
-				$collection = Edge::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_ENTITY:
-				$collection = Entity::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_UNIT:
-				$collection = Unit::kSEQ_NAME;
-				break;
-		
-		} // Parsed type.
-		
-		//
-		// Create collection entry.
-		//
-		if( ! array_key_exists( $collection,
-								$theData[ static::kCOMMIT_DATA_OFFSET_REFS ] ) )
-			$theData[ static::kCOMMIT_DATA_OFFSET_REFS ][ $collection ]
-				= $theReferences;
-		
-		//
-		// Add reference count.
-		//
-		else
-			$theData[ static::kCOMMIT_DATA_OFFSET_REFS ][ $collection ]
-				+= $theReferences;
-	
-	} // addReferenceCount.
 
 	 
 

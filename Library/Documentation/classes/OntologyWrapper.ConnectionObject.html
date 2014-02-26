@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-730857117"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-764584011"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-730857117" class="accordion-body collapse in">
+            <div id="namespace-764584011" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2034831788"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1185389208"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-2034831788" class="accordion-body collapse ">
+            <div id="namespace-1185389208" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-337702045"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-292067375"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-337702045" class="accordion-body collapse ">
+            <div id="namespace-292067375" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -365,15 +365,7 @@ will hold its database name and all the parameters of the server connection.</p>
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetGet" class="">preOffsetGet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_castOffsetValue" class="">castOffsetValue()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverse" class="">traverse()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseOffsets" class="">traverseOffsets()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseResolveOffset" class="">traverseResolveOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseCollectOffset" class="">traverseCollectOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseAddOffset" class="">traverseAddOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseVerifyStructure" class="">traverseVerifyStructure()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseHandleValue" class="">traverseHandleValue()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseVerifyValue" class="">traverseVerifyValue()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_traverseCastValue" class="">traverseCastValue()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_getOffsetTypes" class="">getOffsetTypes()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <a href="../classes/OntologyWrapper.ConnectionObject.html#property_mDSN" class="">$mDSN</a><br />
@@ -2443,160 +2435,19 @@ changing the data type of default tags, you should edit this method accordingly.
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_traverse" name="method_traverse" class="anchor"></a>
+            <a id="method_getOffsetTypes" name="method_getOffsetTypes" class="anchor"></a>
             <article class="method">
-                <h3 class="protected ">traverse()</h3>
+                <h3 class="protected ">getOffsetTypes()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverse() : array</pre>
-                <p><em>Traverse object</em></p>
-                <p>This method will traverse the object's offsets and apply the
-{@link traverseOffsets()} method to each traversed element.</p>
-<p>The method will return an array which collects all tag references used by the
-object's offsets, this will be an array in which the key represents the tag reference
-and the value will be the list of offsets in which the tag was used.</p>
-<p>For more information on what actions are performed during the traversal, please
-consult the reference of the {@link traverseOffsets()} method.</p>
-
-                
-                
-                                    <h4>Returns</h4>
-                    array
-                                            &mdash; <p>Object offsets.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>traverseOffsets()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseOffsets" name="method_traverseOffsets" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseOffsets()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseOffsets(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theOffsets</span>, \OntologyWrapper\reference <span class="argument">$thePath</span>) : boolean</pre>
-                <p><em>Handle offset value</em></p>
-                <p>This method will be called for each offset of the current object, its duty is to
-validate and cast the values of the currently iterated offset and perform the same
-operations on the eventual nested structures.</p>
-<p>These operations are performed by a protected interface which is implemented by the
-following methods:</p>
-<ul>
-<li><tt>{@link traverseResolveOffset()</tt>. This method is called for each offset,
-    its duty is to resolve the current offset and return in the reference parameters
-    the current offset's data type and kind.
-<li><tt>{@link traverseCollectOffset()</tt>. This method is called for each offset,
-    its duty is to append the provided reference <tt>$thePath</tt> parameter with
-    the current offset, so to form the offsets path to the current data property.
-<li><tt>{@link traverseAddOffset()</tt>. This method is called for each offset,
-    its duty is to populate the provided reference <tt>$theOffsets</tt> parameter
-    with the current offset's tag reference and to collect the list of offsets in
-    which the tag is used.
-<li><tt>{@link traverseVerifyStructure()</tt>. This method is called for each
-    offset, its duty is to verify the structure of the data property.
-<li><tt>{@link traverseHandleValue()</tt>. This method is called for each offset and
-    for each data property list element, its duty is to verify and cast data
-    property values.
-</ul>
-<p>Derived classes should overload the above methods and not the current one.</p>
-<p>The method expects the following parameters:</p>
-<ul>
-<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
-    traversal element.
-<li><b>$theOffsets</b>: This reference parameter will receive the offsets list,
-    which is an array indexed by the offset tag reference with as value the list of
-    offsets in which the tag was used.
-<li><b>$thePath</b>: This reference parameter will receive the current offset path
-    in the form of an array; only offsets will be set, array element indexes will
-    not be included.
-</ul>
-<p>This method is used by the PHP {@link iterator_apply()} method, which means that it
-should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-stop it.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theOffsets</td>
-                                <td><p>Receives the offsets list.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$thePath</td>
-                                <td><p>Receives the current path.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>traverseResolveOffset()</dd>
-                                            <dd>traverseCollectOffset()</dd>
-                                            <dd>traverseAddOffset()</dd>
-                                            <dd>traverseVerifyStructure()</dd>
-                                            <dd>traverseHandleValue()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseResolveOffset" name="method_traverseResolveOffset" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseResolveOffset()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseResolveOffset(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>) : mixed</pre>
-                <p><em>Resolve offset type</em></p>
+                <pre class="signature" style="margin-right: 54px;">getOffsetTypes(string <span class="argument">$theOffset</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>) : mixed</pre>
+                <p><em>Resolve offset types</em></p>
                 <p>This method will resolve the current offset into a {@link Tag} object and return in
 the provided reference parameters the data type and kind; this is done by using the
 {@link Dictionary} object stored in the current object's {@link $mDictionary} data
 member.</p>
 <p>The method expects the following parameters:</p>
 <ul>
-<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
-    traversal element, this element must be an offset and not an offset sub-element.
+<li><b>$theOffset</b>: This parameter represents the current offset tag reference.
 <li><b>$theType</b>: This parameter will receive the data type of the referenced
     tag, if the tag could not be resolved, the parameter will hold an empty array.
 <li><b>$theKind</b>: This parameter will receive the data kind of the referenced
@@ -2605,15 +2456,15 @@ member.</p>
 </ul>
 <p>The method will raise an exception if the current offset is not an integer, a numeric
 string or part of the internal offsets.</p>
-<p>The method will return <tt>TRUE</tt> if the tag was resolved; <tt>FALSE</tt> if the
-tag was not resolved and <tt>NULL</tt> if the offset is internal.</p>
+<p>The method will return <tt>TRUE</tt> if the tag was resolved and <tt>NULL</tt> if the
+offset is internal.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
+                                <td>string</td>
+                                <td>$theOffset</td>
+                                <td><p>Current offset.</p></td>
                             </tr>
                                                     <tr>
                                 <td>\OntologyWrapper\reference</td>
@@ -2635,409 +2486,7 @@ tag was not resolved and <tt>NULL</tt> if the offset is internal.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>TRUE</tt>, <tt>FALSE</tt> or <tt>NULL</tt>.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseCollectOffset" name="method_traverseCollectOffset" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseCollectOffset()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseCollectOffset(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$thePath</span>) : string</pre>
-                <p><em>Collect offset</em></p>
-                <p>This method will be called for each offset of the current object structure, its duty
-is to collect the offsets in the path and return the offset string.</p>
-<p>The method expects the following parameters:</p>
-<ul>
-<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
-    traversal element, this element must be an offset and not an offset sub-element.
-<li><b>$thePath</b>: This reference parameter will receive the current offset path.
-</ul>
-<p>The method will return the current offset string, which is composed of the
-concatenation of all offsets at different levels separated by a point.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$thePath</td>
-                                <td><p>Receives the current path.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                            &mdash; <p>Current offset.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseAddOffset" name="method_traverseAddOffset" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseAddOffset()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseAddOffset(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theOffsets</span>, string <span class="argument">$theOffset</span>) : string</pre>
-                <p><em>Add offset</em></p>
-                <p>This method will be called for each offset of the current object structure, its duty
-is to add the current offset string to the list of tag offsets.</p>
-<p>The method expects the following parameters:</p>
-<ul>
-<li><b>$theIterator</b>: This parameter is the iterator pointing to the current
-    traversal element, this element must be an offset and not an offset sub-element.
-<li><b>$theOffsets</b>: This reference parameter will receive the offsets list,
-    which is an array indexed by the offset tag reference with as value the list of
-    offsets in which the tag was used.
-<li><b>$theOffset</b>: This parameter holds the offset string.
-</ul>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theOffsets</td>
-                                <td><p>Receives the offsets list.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Current offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                            &mdash; <p>Current offset.</p>
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseVerifyStructure" name="method_traverseVerifyStructure" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseVerifyStructure()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseVerifyStructure(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : boolean</pre>
-                <p><em>Verify offset</em></p>
-                <p>This method should verify that the current element of the provided iterator has the
-correct structure and content.</p>
-<p>In this class we verify whether lists, structures and structured types are indeed
-arrays and raise an exception if that is not the case. Note that we only check
-structured data types if the offset has a single data type.</p>
-<p>The method will return <tt>TRUE</tt> if the offset value is either a structure or a
-list, and <tt>FALSE</tt> if the offset value is a scalar data type; in derived
-classes you can call the parent method and perform custom checks if the parent method
-returned <tt>FALSE</tt>.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theType</td>
-                                <td><p>Data type.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theKind</td>
-                                <td><p>Data kind.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Current offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                            &mdash; <tt>TRUE</tt> if structure or list.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseHandleValue" name="method_traverseHandleValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseHandleValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseHandleValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : boolean</pre>
-                <p><em>Handle value</em></p>
-                <p>This method should handle the current offset value, it should verify if the value
-is correct and cast the value to the provided data type.</p>
-<p>This method should only be called for scalar offset values, list scalars should call
-this method for each element.</p>
-<p>The method should return <tt>TRUE</tt> to continue the object traversal or</p>
-<tt>FALSE</tt> to stop it.
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theType</td>
-                                <td><p>Data type.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theKind</td>
-                                <td><p>Data kind.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Current offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                            &mdash; <tt>FALSE</tt> stops the traversal.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>traverseVerifyValue()</dd>
-                                            <dd>traverseCastValue()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseVerifyValue" name="method_traverseVerifyValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseVerifyValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseVerifyValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : mixed</pre>
-                <p><em>Verify offset value</em></p>
-                <p>This method should verify the current offset value, this method is called by the
-{@link traverseVerifyStructure()} method if the current offset is not a structure or
-a list.</p>
-<p>In this class we assert that structured types are arrays if there is only one offset
-type.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one type,</p>
-<tt>TRUE</tt> if the value type was verified and <tt>FALSE</tt> if it was not
-verified.
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theType</td>
-                                <td><p>Data type.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theKind</td>
-                                <td><p>Data kind.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Current offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
-                                                </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_traverseCastValue" name="method_traverseCastValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">traverseCastValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">traverseCastValue(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theType</span>, \OntologyWrapper\reference <span class="argument">$theKind</span>, string <span class="argument">$theOffset</span>) : mixed</pre>
-                <p><em>Cast offset</em></p>
-                <p>This method should cast the current element of the provided iterator to the correct
-data type. This method can also be used to verify structured type elements.</p>
-<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and</p>
-<tt>NULL</tt> if the offset has more than one data type.
-
-In this class we sjip all reference data types, since the class has no clue about
-persistence.
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\Iterator</td>
-                                <td>$theIterator</td>
-                                <td><p>Iterator.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theType</td>
-                                <td><p>Data type.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theKind</td>
-                                <td><p>Data kind.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$theOffset</td>
-                                <td><p>Current offset.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <tt>TRUE</tt> if the tag was resolved.
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3109,7 +2558,7 @@ persistence.
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 21st, 2014 at 19:42.
+                    on February 26th, 2014 at 18:50.
                 </section>
             </section>
         </section>

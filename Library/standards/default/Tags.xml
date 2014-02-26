@@ -739,7 +739,7 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Units count</item>
+				<item lang="en">Unit references count</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of unit objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in unit objects</em>.]]></item>
@@ -769,17 +769,137 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Entities count</item>
+				<item lang="en">Entity references count</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of entity objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in entity objects</em>.]]></item>
+				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in entity objects</em>.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 28 -->
+	<!-- kTAG_TAG_COUNT -->
+	<META>
+	   <TERM ns="" lid="tag-count">
+			<item const="kTAG_LABEL">
+				<item lang="en">Tags count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents the <em>number of tag references</em>.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:tag-count</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:integer</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Tag references count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects referencing the current object</em>.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 29 -->
+	<!-- kTAG_TERM_COUNT -->
+	<META>
+	   <TERM ns="" lid="term-count">
+			<item const="kTAG_LABEL">
+				<item lang="en">Terms count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents the <em>number of term references</em>.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:term-count</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:integer</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Term references count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of term objects referencing the current object</em>.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 30 -->
+	<!-- kTAG_NODE_COUNT -->
+	<META>
+	   <TERM ns="" lid="node-count">
+			<item const="kTAG_LABEL">
+				<item lang="en">Nodes count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents the <em>number of node references</em>.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:node-count</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:integer</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Node references count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of node objects referencing the current object</em>.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 31 -->
+	<!-- kTAG_EDGE_COUNT -->
+	<META>
+	   <TERM ns="" lid="edge-count">
+			<item const="kTAG_LABEL">
+				<item lang="en">Edges count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents the <em>number of edge references</em>.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:edge-count</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:integer</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Node references count</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of edge objects referencing the current object</em>.]]></item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- Generic or sub-structure attributes -->
 	
-	<!-- 28 -->
+	<!-- 32 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -806,7 +926,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 29 -->
+	<!-- 33 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -835,7 +955,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 30 -->
+	<!-- 34 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -862,7 +982,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 31 -->
+	<!-- 35 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -889,7 +1009,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 32 -->
+	<!-- 36 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -916,7 +1036,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 33 -->
+	<!-- 37 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -943,7 +1063,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 34 -->
+	<!-- 38 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -970,7 +1090,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 35 -->
+	<!-- 39 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -997,7 +1117,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 36 -->
+	<!-- 40 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -1024,7 +1144,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 37 -->
+	<!-- 41 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
