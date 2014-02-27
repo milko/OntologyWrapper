@@ -535,6 +535,56 @@ class Wrapper extends Dictionary
 		$this->mMetadata->drop();
 		
 		//
+		// Create tag collection indexes.
+		//
+		$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME, TRUE );
+		$collection->createIndex( array( kTAG_NID => 'hashed' ),
+								  array( "name" => "_id_" ) );
+		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
+								  array( "name" => "SEQUENCE", "unique" => TRUE ) );
+		$collection->createIndex( array( kTAG_TERMS => 1 ),
+								  array( "name" => "PATH" ) );
+		$collection->createIndex( array( kTAG_LABEL => 1 ),
+								  array( "name" => "LABEL" ) );
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNIT-COUNT", "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITY-COUNT", "sparse" => TRUE ) );
+		
+		//
+		// Create term collection indexes.
+		//
+		$collection = $this->mMetadata->Collection( Term::kSEQ_NAME, TRUE );
+		$collection->createIndex( array( kTAG_NID => 'hashed' ),
+								  array( "name" => "_id_" ) );
+		$collection->createIndex( array( kTAG_NAMESPACE => 1 ),
+								  array( "name" => "NAMESPACE", "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
+								  array( "name" => "LID" ) );
+		$collection->createIndex( array( kTAG_LABEL => 1 ),
+								  array( "name" => "LABEL" ) );
+		
+		//
+		// Create node collection indexes.
+		//
+		$collection = $this->mMetadata->Collection( Node::kSEQ_NAME, TRUE );
+		$collection->createIndex( array( kTAG_TERM => 1 ),
+								  array( "name" => "TERM", "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TAG => 1 ),
+								  array( "name" => "TAG", "sparse" => TRUE ) );
+		
+		//
+		// Create edge collection indexes.
+		//
+		$collection = $this->mMetadata->Collection( Edge::kSEQ_NAME, TRUE );
+		$collection->createIndex( array( kTAG_SUBJECT => 1 ),
+								  array( "name" => "SUBJECT" ) );
+		$collection->createIndex( array( kTAG_PREDICATE => 1 ),
+								  array( "name" => "PREDICATE" ) );
+		$collection->createIndex( array( kTAG_OBJECT => 1 ),
+								  array( "name" => "OBJECT" ) );
+		
+		//
 		// Load XML files.
 		//
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
@@ -777,6 +827,11 @@ class Wrapper extends Dictionary
 	protected function loadXMLMetadataBlock( \SimpleXMLElement $theXML )
 	{
 		//
+		// Init cache.
+		//
+		$cache = Array();
+		
+		//
 		// Iterate terms.
 		//
 		foreach( $theXML->{'TERM'} as $item )
@@ -822,12 +877,6 @@ class Wrapper extends Dictionary
 	protected function loadXMLTerm( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Init cache.
-		//
-		if( ! is_array( $theCache ) )
-			$theCache = Array();
-		
-		//
 		// Check if updating.
 		//
 		$mod = isset( $theXML[ 'modify' ] );
@@ -839,7 +888,7 @@ class Wrapper extends Dictionary
 		//
 		$object = ( $mod )
 			  ? new Term( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Term();
+			  : new Term( $this );
 		
 		//
 		// Assert modifications.
@@ -921,12 +970,6 @@ class Wrapper extends Dictionary
 	 */
 	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
-		//
-		// Init cache.
-		//
-		if( ! is_array( $theCache ) )
-			$theCache = Array();
-		
 		//
 		// Instantiate tag.
 		//
@@ -1147,10 +1190,27 @@ class Wrapper extends Dictionary
 			case kTAG_NID:
 				return $value;														// ==>
 			
+			case kTAG_CLASS:
+			case kTAG_DOMAIN:
+			case kTAG_AUTHORITY:
+			case kTAG_COLLECTION:
 			case kTAG_NAMESPACE:
 			case kTAG_ID_LOCAL:
 			case kTAG_ID_PERSISTENT:
-			case kTAG_CLASS:
+			case kTAG_ID_VALID:
+			case kTAG_VERSION:
+			case kTAG_TAG:
+			case kTAG_TAGS:
+			case kTAG_TERM:
+			case kTAG_TERMS:
+			case kTAG_PREDICATE:
+			case kTAG_AFFILIATION:
+			case kTAG_CATEGORY:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+			case kTAG_NAME:
+			case kTAG_NOTES:
+			case kTAG_OFFSETS:
 			case kTAG_CONN_PROTOCOL:
 			case kTAG_CONN_HOST:
 			case kTAG_CONN_USER:
@@ -1160,6 +1220,15 @@ class Wrapper extends Dictionary
 				return (string) $value;												// ==>
 		
 			case kTAG_ID_SEQUENCE:
+			case kTAG_SUBJECT:
+			case kTAG_OBJECT:
+			case kTAG_UNIT_COUNT:
+			case kTAG_ENTITY_COUNT:
+			case kTAG_TAG_COUNT:
+			case kTAG_TERM_COUNT:
+			case kTAG_NODE_COUNT:
+			case kTAG_EDGE_COUNT:
+			case kTAG_OBJECT_TAGS:
 			case kTAG_CONN_PORT:
 				return (int) $value;												// ==>
 			

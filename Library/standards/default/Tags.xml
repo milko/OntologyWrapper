@@ -875,7 +875,7 @@
 				<item lang="en">Edges count</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of edge references</em>.]]></item>
+				<item lang="en"><![CDATA[This represents a <em>number of edge references</em>.]]></item>
 			</item>
 		</TERM>
 		<TAG>
@@ -897,9 +897,71 @@
 		</TAG>
 	</META>
 	
+	<!-- 32 -->
+	<!-- kTAG_OFFSETS -->
+	<META>
+	   <TERM ns="" lid="offsets">
+			<item const="kTAG_LABEL">
+				<item lang="en">Offsets</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents a <em>list of offsets</em>.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:offsets</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Offsets list</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds a <em>list of strings</em> used as <em>object offsets</em> in which the leaf element is common. The elements of this list represent the <em>path</em> of an offset, that is, the different offsets at different depth levels, separated by a period: such a string can be used to refer to a specific property at any depth level in the object.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 33 -->
+	<!-- kTAG_OBJECT_TAGS -->
+	<META>
+	   <TERM ns="" lid="object-tags">
+			<item const="kTAG_LABEL">
+				<item lang="en">Object tags</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This represents a <em>list of tag sequence numbers</em> referring to the set of tag objects referenced by an object's offsets.]]></item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:object-tags</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:int</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+				<item>:type:private</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item lang="en">Object tags</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item lang="en"><![CDATA[This attribute holds a <em>list of integers</em> which represent <em>tag sequence numbers</em>, this list provides the set of tags referenced by the current object's offsets at any level in the structure.]]></item>
+			</item>
+		</TAG>
+	</META>
+	
 	<!-- Generic or sub-structure attributes -->
 	
-	<!-- 32 -->
+	<!-- 34 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -926,7 +988,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 33 -->
+	<!-- 35 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -955,7 +1017,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 34 -->
+	<!-- 36 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -982,7 +1044,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 35 -->
+	<!-- 37 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -1009,7 +1071,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 36 -->
+	<!-- 38 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -1036,7 +1098,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 37 -->
+	<!-- 39 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -1063,7 +1125,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 38 -->
+	<!-- 40 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -1090,7 +1152,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 39 -->
+	<!-- 41 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -1117,7 +1179,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 40 -->
+	<!-- 42 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -1144,7 +1206,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 41 -->
+	<!-- 43 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">

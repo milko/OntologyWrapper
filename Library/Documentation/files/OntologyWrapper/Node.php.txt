@@ -219,30 +219,27 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED COMMIT INTERFACE								*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	preCommitIdentify																*
+	 *	preCommitLoadObjectIdentifiers													*
 	 *==================================================================================*/
 
 	/**
-	 * Set object identifiers before commit
+	 * Load object identifiers
 	 *
 	 * In this class we set the native identifier with the sequence number.
 	 *
+	 * @param reference				$theData			Commit data.
+	 *
 	 * @access protected
 	 */
-	protected function preCommitIdentify()
+	protected function preCommitLoadObjectIdentifiers( &$theData )
 	{
-		//
-		// Call parent method.
-		//
-		parent::preCommitIdentify();
-		
 		//
 		// Resolve collection.
 		//
@@ -259,7 +256,32 @@ class Node extends PersistentObject
 				$collection->getSequenceNumber(
 					static::kSEQ_NAME ) );
 	
-	} // preCommitIdentify.
+	} // preCommitLoadObjectIdentifiers.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postCommitTagOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * In this class we skip this method since we do not keep track of tag offsets.
+	 *
+	 * @param reference				$theOffsets			Tag offsets.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitTagOffsets( &$theOffsets )								   {}
 
 		
 

@@ -435,6 +435,51 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC OBJECT STRUCTURE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect object properties
+	 *
+	 * This method will traverse the object and return the set of all leaf offset tag
+	 * sequence numbers.
+	 *
+	 * The returned array will contain all tag sequence numbers which contain data,
+	 * structure and internal offsets will be excluded.
+	 *
+	 * @access public
+	 * @return array				List of property tag references.
+	 */
+	public function collectProperties()
+	{
+		//
+		// Init local storage.
+		//
+		$data = Array();
+		
+		//
+		// Traverse object.
+		//
+		$iterator = $this->getIterator();
+		iterator_apply( $iterator,
+						array( $this, 'traverseProperties' ),
+						array( $iterator, & $data ) );
+		
+		return $data;																// ==>
+	
+	} // collectProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -913,13 +958,80 @@ abstract class PersistentObject extends OntologyObject
 	 * In general, this method can be overloaded to set the object's identifiers and any
 	 * other property which depends on data collected during the object's traversal.
 	 *
-	 * In this class we do nothing.
+	 * In this class we set the object tags offset, {@link kTAG_OBJECT_TAGS}.
 	 *
 	 * @param reference				$theData			Commit data.
 	 *
 	 * @access protected
 	 */
-	protected function preCommitFinalise( &$theData )									   {}
+	protected function preCommitFinalise( &$theData )
+	{
+		//
+		// Load object tags.
+		//
+		$this->preCommitLoadObjectTags( $theData );
+	
+		//
+		// Load object identifiers.
+		//
+		$this->preCommitLoadObjectIdentifiers( $theData );
+	
+	} // preCommitFinalise.
+
+	 
+	/*===================================================================================
+	 *	preCommitLoadObjectTags															*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * This method will collect the tags from the commit data and populate the
+	 * {@link kTAG_OBJECT_TAGS} offset.
+	 *
+	 * @param reference				$theData			Commit data.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitLoadObjectTags( &$theData )
+	{
+		//
+		// Init local storage.
+		//
+		$tags = Array();
+		
+		//
+		// Iterate tags.
+		//
+		foreach( $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] as $tag => $info )
+			$this->loadObjectTags( $tag, $info, $tags );
+		
+		//
+		// Set offset.
+		//
+		if( count( $tags ) )
+			$this->offsetSet( kTAG_OBJECT_TAGS, $tags );
+	
+	} // preCommitLoadObjectTags.
+
+	 
+	/*===================================================================================
+	 *	preCommitLoadObjectIdentifiers													*
+	 *==================================================================================*/
+
+	/**
+	 * Load object identifiers
+	 *
+	 * This method should load the object identifiers.
+	 *
+	 * In this class we do nothing, in derived classes you can overload this method if you
+	 * need to compute identifiers.
+	 *
+	 * @param reference				$theData			Commit data.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitLoadObjectIdentifiers( &$theData )						   {}
 
 		
 
@@ -944,13 +1056,92 @@ abstract class PersistentObject extends OntologyObject
 	 * The method accepts a single reference parameter which is the same provided and
 	 * populated by the pre-commit methods.
 	 *
-	 * In this class we do nothing.
+	 * In this class we do the following:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link postCommitRefCount()}</tt>: We update the reference counts of all
+	 *		objects referenced by the current object.
+	 *	<li><tt>{@link postCommitTagOffsets()}</tt>: We update the offsets of all tags used in
+	 *		the current object.
+	 * </ul>
 	 *
 	 * @param reference				$theData			Commit data.
 	 *
 	 * @access protected
 	 */
-	protected function postCommit( &$theData )											   {}
+	protected function postCommit( &$theData )
+	{
+		//
+		// Update reference counts.
+		//
+		$this->postCommitRefCount( $theData[ static::kCOMMIT_DATA_OFFSET_REFS ] );
+	
+		//
+		// Update tag offsets.
+		//
+		$this->postCommitTagOffsets( $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] );
+	
+	} // postCommit.
+
+	 
+	/*===================================================================================
+	 *	postCommitRefCount																*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference counts
+	 *
+	 * This method will update the reference counts of all objects referenced by the current
+	 * one.
+	 *
+	 * @param reference				$theReferences		Object references.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitRefCount( &$theReferences )
+	{
+		//
+		// Iterate by collection.
+		//
+		foreach( $theReferences as $collection => $references )
+		{
+			//
+			// Iterate references.
+			//
+			foreach( $references as $reference )
+				$this->updateReferenceCount(
+					$collection,
+					$reference[ static::kCOMMIT_DATA_OFFSET_REFERENCED ],
+					$reference[ static::kCOMMIT_DATA_OFFSET_REF_COUNT ] );
+		
+		} // Iterating collections.
+	
+	} // postCommitRefCount.
+
+	 
+	/*===================================================================================
+	 *	postCommitTagOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * This method will update the offsets list of all tags used in the current object.
+	 *
+	 * @param reference				$theOffsets			Tag offsets.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitTagOffsets( &$theOffsets )
+	{
+		//
+		// Iterate by tag.
+		//
+		$tags = array_keys( $theOffsets );
+		foreach( $tags as $tag )
+			$this->updateTagOffsets( (int) $tag, $theOffsets[ $tag ] );
+	
+	} // postCommitTagOffsets.
 
 	
 
@@ -1075,19 +1266,19 @@ abstract class PersistentObject extends OntologyObject
 		$offset = implode( '.', $theData[ static::kCOMMIT_DATA_OFFSET_PATH ] );
 		
 		//
+		// Handle new tag.
+		//
+		if( ! array_key_exists( $key, $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] ) )
+			$theData[ static::kCOMMIT_DATA_OFFSET_TAGS ][ $key ]
+				= array( static::kCOMMIT_DATA_OFFSET_TYPE => $type,
+						 static::kCOMMIT_DATA_OFFSET_KIND => $kind,
+						 static::kCOMMIT_DATA_OFFSET_OFFSETS => Array() );
+		
+		//
 		// Handle scalar property.
 		//
 		if( ! in_array( kTYPE_STRUCT, $type ) )
 		{
-			//
-			// Handle new tag.
-			//
-			if( ! array_key_exists( $key, $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] ) )
-				$theData[ static::kCOMMIT_DATA_OFFSET_TAGS ][ $key ]
-					= array( static::kCOMMIT_DATA_OFFSET_TYPE => $type,
-							 static::kCOMMIT_DATA_OFFSET_KIND => $kind,
-							 static::kCOMMIT_DATA_OFFSET_OFFSETS => Array() );
-			
 			//
 			// Handle offset string.
 			//
@@ -1198,6 +1389,121 @@ abstract class PersistentObject extends OntologyObject
 		return TRUE;																// ==>
 	
 	} // traverseStructure.
+
+	 
+	/*===================================================================================
+	 *	traverseProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse properties
+	 *
+	 * This method will be called for each element of the object structure, either the
+	 * root object structure or a sub-structure, this means that the iterator's current
+	 * element handed to this method must have the offset as the key and the offset value as
+	 * the value.
+	 *
+	 * The method will collect all offsets which are not structures.
+	 *
+	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
+	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+	 * stop it.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theData			Receives traversal data.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+	 *
+	 * @uses getOffsetTypes()
+	 * @uses verifyStructure()
+	 * @uses traverseHandleValue()
+	 */
+	protected function traverseProperties( \Iterator $theIterator, &$theData )
+	{
+		//
+		// Init local storage.
+		//
+		$key = $theIterator->key();
+		
+		//
+		// Collect offset types.
+		//
+		$this->getOffsetTypes( $key, $type, $kind );
+		
+		//
+		// Handle leaf offset.
+		//
+		if( ! in_array( kTYPE_STRUCT, $type ) )
+		{
+			//
+			// Exclude internal offsets.
+			//
+			if( ! in_array( $key, static::InternalOffsets() ) )
+			{
+				//
+				// Add to set.
+				//
+				if( ! in_array( (int) $key, $theData ) )
+					$theData[] = (int) $key;
+			
+			} // Not an internal offset.
+		
+		} // Not a structure.
+		
+		//
+		// Handle structure offsets.
+		//
+		else
+		{
+			//
+			// Save list or structure.
+			//
+			$list = new \ArrayObject( $theIterator->current() );
+		
+			//
+			// Handle structure lists.
+			//
+			if( in_array( kTYPE_LIST, $kind ) )
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $list as $idx => $struct )
+				{
+					//
+					// Traverse structure.
+					//
+					$struct = new \ArrayObject( $struct );
+					$iterator = $struct->getIterator();
+					iterator_apply( $iterator,
+									array( $this, 'traverseProperties' ),
+									array( $iterator, & $theData ) );
+			
+				} // Iterating list.
+		
+			} // List of structures.
+		
+			//
+			// Handle scalar structure.
+			//
+			else
+			{
+				//
+				// Traverse structure.
+				//
+				$iterator = $list->getIterator();
+				iterator_apply( $iterator,
+								array( $this, 'traverseProperties' ),
+								array( $iterator, & $theData ) );
+		
+			} // Scalar structure.
+		
+		} // Structured offset.
+		
+		return TRUE;																// ==>
+	
+	} // traverseProperties.
 
 	 
 	/*===================================================================================
@@ -2124,8 +2430,9 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( ! array_key_exists( $collection, $refs ) )
 			$refs[ $collection ]
-				= array( static::kCOMMIT_DATA_OFFSET_REFERENCED => $theIdentifier,
-						 static::kCOMMIT_DATA_OFFSET_REF_COUNT => $theReferences );
+				= array(
+					array( static::kCOMMIT_DATA_OFFSET_REFERENCED => $theIdentifier,
+						   static::kCOMMIT_DATA_OFFSET_REF_COUNT => $theReferences ) );
 		
 		//
 		// Handle collection entry.
@@ -2171,6 +2478,212 @@ abstract class PersistentObject extends OntologyObject
 		} // Has collection.
 	
 	} // addReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * This method will update the references count of the object identified by the provided
+	 * parameter.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param integer				$theReferences		Reference count.
+	 *
+	 * @access protected
+	 */
+	protected function updateReferenceCount( $theCollection,
+											 $theIdentifier,
+											 $theReferences )
+	{
+		//
+		// Init local storage.
+		//
+		$dictionary = $this->dictionary();
+		if( $dictionary === NULL )
+			throw new \Exception(
+				"Unable to update reference count: "
+			   ."missing data dictionary." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		switch( $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				$collection
+					= Tag::ResolveCollection(
+						Tag::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			case Term::kSEQ_NAME:
+				$collection
+					= Term::ResolveCollection(
+						Term::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			case Node::kSEQ_NAME:
+				$collection
+					= Term::ResolveCollection(
+						Term::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			case Edge::kSEQ_NAME:
+				$collection
+					= Edge::ResolveCollection(
+						Edge::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			case Entity::kSEQ_NAME:
+				$collection
+					= Entity::ResolveCollection(
+						Entity::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			case Unit::kSEQ_NAME:
+				$collection
+					= Unit::ResolveCollection(
+						Unit::ResolveDatabase( $dictionary, TRUE ) );
+				break;
+		
+			default:
+				throw new \Exception(
+					"Unable to update reference count in collection [$theCollection]: "
+				   ."unknown collection." );									// !@! ==>
+		
+		} // Parsed collection.
+		
+		//
+		// Resolve tag.
+		//
+		switch( static::kSEQ_NAME )
+		{
+			case Tag::kSEQ_NAME:
+				$tag = kTAG_TAG_COUNT;
+				break;
+		
+			case Term::kSEQ_NAME:
+				$tag = kTAG_TERM_COUNT;
+				break;
+		
+			case Node::kSEQ_NAME:
+				$tag = kTAG_NODE_COUNT;
+				break;
+		
+			case Edge::kSEQ_NAME:
+				$tag = kTAG_EDGE_COUNT;
+				break;
+		
+			case Entity::kSEQ_NAME:
+				$tag = kTAG_ENTITY_COUNT;
+				break;
+		
+			case Unit::kSEQ_NAME:
+				$tag = kTAG_UNIT_COUNT;
+				break;
+		
+			default:
+				throw new \Exception(
+					"Unable to update reference count: "
+				   ."unknown current object reference count tag." );			// !@! ==>
+		
+		} // Parsed collection.
+		
+		//
+		// Update reference count.
+		//
+		$collection->updateReferenceCount( $theIdentifier, $tag, $theReferences );
+	
+	} // updateReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	updateTagOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * This method will update the references count of the object identified by the provided
+	 * parameter.
+	 *
+	 * @param integer				$theTag				Tag sequence number.
+	 * @param reference				$theOffsets			Tag offsets.
+	 *
+	 * @access protected
+	 */
+	protected function updateTagOffsets( $theTag, &$theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$dictionary = $this->dictionary();
+		if( $dictionary === NULL )
+			throw new \Exception(
+				"Unable to update reference count: "
+			   ."missing data dictionary." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= Tag::ResolveCollection(
+				Tag::ResolveDatabase( $dictionary, TRUE ) );
+		
+		//
+		// Update reference count.
+		//
+		$collection->updateTagOffsets( $theTag,
+									   $theOffsets[ static::kCOMMIT_DATA_OFFSET_OFFSETS ] );
+	
+	} // updateTagOffsets.
+
+	 
+	/*===================================================================================
+	 *	loadObjectTags																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * This method will load the provided parameter with the tag references used by offsets
+	 * of the current object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTag</b>: Tag sequence number.
+	 *	<li><b>$theInfo</b>: Tag information.
+	 *	<li><b>$theTags</b>: Receives tag list.
+	 * </ul>
+	 *
+	 * In this class we simply add the provided tag, derived classes can overload this
+	 * method to exclude certain tags from the list.
+	 *
+	 * @param integer				$theTag				Tag sequence number.
+	 * @param reference				$theInfo			Tag information.
+	 * @param reference				$theTags			Receives tags list.
+	 *
+	 * @access protected
+	 */
+	protected function loadObjectTags( $theTag, &$theInfo, &$theTags )
+	{
+		//
+		// Cast tag.
+		//
+		$theTag = (int) $theTag;
+	
+		//
+		// Add to set.
+		//
+		if( ! in_array( $theTag, $theTags ) )
+			$theTags[] = $theTag;
+	
+	} // loadObjectTags.
 
 	 
 

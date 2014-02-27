@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-759545100"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1817710372"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-759545100" class="accordion-body collapse in">
+            <div id="namespace-1817710372" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-108295487"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1282670289"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-108295487" class="accordion-body collapse ">
+            <div id="namespace-1282670289" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1781394711"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-993987472"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-1781394711" class="accordion-body collapse ">
+            <div id="namespace-993987472" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -226,17 +226,14 @@
 
                     <h1><small>\OntologyWrapper</small>Node</h1>
                     <p><em>Node</em></p>
-                    <p>A node is a <em>vertex in a graph structure</em>, nodes reference</p>
+                    <p>A node is a <em>vertex in a graph structure</em>, nodes reference
 <em>{@link Term}</em> and <em>{@link Tag</em> instances, when referencing a
 term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and
 <em>controlloed vocabularies</em>; when referencing tags they are used to build <em>data
-structures</em>, <em>input and output templates</em> and <em>search forms</em>.
-
-Node objects, along with edge objects, represent the presentation layer of the ontology,
-users compose and consult network structures through these objects.
-
-The class features the following default offsets:
-
+structures</em>, <em>input and output templates</em> and <em>search forms</em>.</p>
+<p>Node objects, along with edge objects, represent the presentation layer of the ontology,
+users compose and consult network structures through these objects.</p>
+<p>The class features the following default offsets:</p>
 <ul>
 <li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
     an <em>integer serial number</em>, nodes do not have a unique persistent identifier,
@@ -251,22 +248,18 @@ The class features the following default offsets:
     in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
     be omitted. This attribute must be managed with its offset.
 </ul>
-
-The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
+<p>The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
 the {@link kTAG_TAG} offset. This value represents the node persistent identifier, which
-is not, however, unique.
-
-Nodes cannot be uniquely identified via a persistent identifier, because more than one
+is not, however, unique.</p>
+<p>Nodes cannot be uniquely identified via a persistent identifier, because more than one
 node may share the same term or tag, this means that when searching for nodes you should
-rely more on traversing a graph path, rather than selecting an object from a list.
-
-Objects of this class can hold any additional attribute that is considered necessary or
+rely more on traversing a graph path, rather than selecting an object from a list.</p>
+<p>Objects of this class can hold any additional attribute that is considered necessary or
 useful to define and share the current node. In this class we define only those
 attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate.
-
-The object is considered initialised, {@link isInited()}, if it has at least the term
-reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
+attributes specific to the domain in which the object will operate.</p>
+<p>The object is considered initialised, {@link isInited()}, if it has at least the term
+reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -287,6 +280,7 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method___toString" class="">__toString()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_ResolveDatabase" class="">ResolveDatabase()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_commit" class="">commit()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_collectProperties" class="">collectProperties()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_ResolveCollection" class="">ResolveCollection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_dictionary" class="">dictionary()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_reference" class="">reference()</a><br />
@@ -311,11 +305,14 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#constant_kCOMMIT_DATA_OFFSET_TYPE" class="">kCOMMIT_DATA_OFFSET_TYPE</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#constant_kCOMMIT_DATA_OFFSET_KIND" class="">kCOMMIT_DATA_OFFSET_KIND</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#constant_kCOMMIT_DATA_OFFSET_OFFSETS" class="">kCOMMIT_DATA_OFFSET_OFFSETS</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#constant_kCOMMIT_DATA_OFFSET_REFERENCED" class="">kCOMMIT_DATA_OFFSET_REFERENCED</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#constant_kCOMMIT_DATA_OFFSET_REF_COUNT" class="">kCOMMIT_DATA_OFFSET_REF_COUNT</a><br />
                                                             </section>
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
-                                                                    <a href="../classes/OntologyWrapper.Node.html#method_preCommitIdentify" class="">preCommitIdentify()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitLoadObjectIdentifiers" class="">preCommitLoadObjectIdentifiers()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_postCommitTagOffsets" class="">postCommitTagOffsets()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_isReady" class="">isReady()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetSet" class="">preOffsetSet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_postOffsetSet" class="">postOffsetSet()</a><br />
@@ -326,8 +323,11 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitPrepare" class="">preCommitPrepare()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitTraverse" class="">preCommitTraverse()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitFinalise" class="">preCommitFinalise()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitLoadObjectTags" class="">preCommitLoadObjectTags()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_postCommit" class="">postCommit()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_postCommitRefCount" class="">postCommitRefCount()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseStructure" class="">traverseStructure()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseProperties" class="">traverseProperties()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseHandleValue" class="">traverseHandleValue()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_validateReference" class="">validateReference()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_getOffsetTypes" class="">getOffsetTypes()</a><br />
@@ -336,10 +336,12 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_castValue" class="">castValue()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_castReference" class="">castReference()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_addReferenceCount" class="">addReferenceCount()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_updateReferenceCount" class="">updateReferenceCount()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_updateTagOffsets" class="">updateTagOffsets()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_loadObjectTags" class="">loadObjectTags()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetExists" class="">preOffsetExists()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetGet" class="">preOffsetGet()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method_resolveOffset" class="">resolveOffset()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.OntologyObject.html#method_castOffsetValue" class="">castOffsetValue()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#property_mDictionary" class="">$mDictionary</a><br />
@@ -367,8 +369,6 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                     <dl>
                         <dt>File</dt>
                             <dd><a href="../files/OntologyWrapper.Node.php.html"><div class="path-wrapper">OntologyWrapper/Node.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -394,7 +394,7 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.
                                 author
                             </th>
                             <td>
-                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -626,6 +626,64 @@ class are stored.</p>
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kCOMMIT_DATA_OFFSET_REFERENCED" name="constant_kCOMMIT_DATA_OFFSET_REFERENCED" class="anchor"></a>
+            <article id="constant_kCOMMIT_DATA_OFFSET_REFERENCED" class="constant">
+                <h3 class="">kCOMMIT_DATA_OFFSET_REFERENCED</h3>
+                <pre class="signature">kCOMMIT_DATA_OFFSET_REFERENCED</pre>
+                <p><em>Reference.</em></p>
+                <p>This constant provides the offset for the referenced object identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kCOMMIT_DATA_OFFSET_REF_COUNT" name="constant_kCOMMIT_DATA_OFFSET_REF_COUNT" class="anchor"></a>
+            <article id="constant_kCOMMIT_DATA_OFFSET_REF_COUNT" class="constant">
+                <h3 class="">kCOMMIT_DATA_OFFSET_REF_COUNT</h3>
+                <pre class="signature">kCOMMIT_DATA_OFFSET_REF_COUNT</pre>
+                <p><em>Reference count.</em></p>
+                <p>This constant provides the offset for the reference count.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
                             
                                     <a id="properties" name="properties"></a>
             <div class="row-fluid">
@@ -820,7 +878,7 @@ instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -939,6 +997,45 @@ providing the wrapper.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_collectProperties" name="method_collectProperties" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">collectProperties()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">collectProperties() : array</pre>
+                <p><em>Collect object properties</em></p>
+                <p>This method will traverse the object and return the set of all leaf offset tag
+sequence numbers.</p>
+<p>The returned array will contain all tag sequence numbers which contain data,
+structure and internal offsets will be excluded.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>List of property tag references.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_ResolveCollection" name="method_ResolveCollection" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">ResolveCollection()</h3>
@@ -962,7 +1059,7 @@ to return the default {@link CollectionObject} instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -1036,7 +1133,7 @@ above.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
+                                <td><p><tt>TRUE</tt> get old value.</p></td>
                             </tr>
                                             </table>
                 
@@ -1238,7 +1335,7 @@ call the parent method; if not, we return the received value.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the offset exists.
+                                            &mdash; <p><tt>TRUE</tt> the offset exists.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1558,14 +1655,24 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
 
                                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_preCommitIdentify" name="method_preCommitIdentify" class="anchor"></a>
+            <a id="method_preCommitLoadObjectIdentifiers" name="method_preCommitLoadObjectIdentifiers" class="anchor"></a>
             <article class="method">
-                <h3 class="protected ">preCommitIdentify()</h3>
+                <h3 class="protected ">preCommitLoadObjectIdentifiers()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">preCommitIdentify()</pre>
-                <p><em>Set object identifiers before commit</em></p>
-                <p>In this class we set the native identifier with the sequence number.</p>
+                <pre class="signature" style="margin-right: 54px;">preCommitLoadObjectIdentifiers(\OntologyWrapper\reference <span class="argument">$theData</span>)</pre>
+                <p><em>Load object identifiers</em></p>
+                <p>This method should load the object identifiers.</p>
+<p>In this class we do nothing, in derived classes you can overload this method if you
+need to compute identifiers.</p>
 
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theData</td>
+                                <td><p>Commit data.</p></td>
+                            </tr>
+                                            </table>
                 
                 
                             </article>
@@ -1573,7 +1680,50 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_postCommitTagOffsets" name="method_postCommitTagOffsets" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">postCommitTagOffsets()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">postCommitTagOffsets(\OntologyWrapper\reference <span class="argument">$theOffsets</span>)</pre>
+                <p><em>Update tag offsets</em></p>
+                <p>This method will update the offsets list of all tags used in the current object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffsets</td>
+                                <td><p>Tag offsets.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -1602,7 +1752,7 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                 
                                     <h4>Returns</h4>
                     Boolean
-                                            &mdash; <tt>TRUE</tt> means ready.
+                                            &mdash; <p><tt>TRUE</tt> means ready.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1634,12 +1784,11 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                 <p><em>Handle offset and value before setting it</em></p>
                 <p>This method can be used to manage the offset before passing it to the inherited
 {@link ArrayObject::OffsetSet()} method.</p>
-<p>The method provides the offset and value as references, if the method returns</p>
+<p>The method provides the offset and value as references, if the method returns
 <tt>NULL</tt> it means that the offset and value must be passed to the inherited
 {@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
-that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
-
-In this class we do nothing.
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.</p>
+<p>In this class we do nothing.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1658,7 +1807,7 @@ In this class we do nothing.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> set offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> set offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1839,7 +1988,7 @@ that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> delete offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> delete offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1893,8 +2042,9 @@ object is traversed, this array contains the following elements:</p>
     tags used in the object, the array has as key the tag reference and as value the
     list of offsets in which the tag is used.
 <li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array holding as key the
-    collection name and as value the number of times properties of the current
-    object references objects of the collection set in the key.
+    collection name and as value another array indexed by object native identifier
+    and with value the number of references the current object has towards the
+    object referenced by the identifier.
 </ul>
 <p>This parameter will be initialised by the {@link preCommitPrepare()} method.</p>
 <p>Derived classes should not overload this method, they should, instead, overload the
@@ -1974,9 +2124,10 @@ follows:</p>
             path to the current depth level.
      </ul>
  </ul>
-<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by collection
-    name, holding as value the number of references the current object has towards
-    that collection.
+<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by
+    collection name, holding as value an array indexed by native identifier and as
+    value the number of times the current object references the object identified by
+    the native identifier.
 </ul>
 <p>Derived classes that wish to add actions to this phase should perform:</p>
 <ul>
@@ -2086,7 +2237,49 @@ validation or casting.</p>
 its duty is to make the last preparations before the object is to be committed.</p>
 <p>In general, this method can be overloaded to set the object's identifiers and any
 other property which depends on data collected during the object's traversal.</p>
-<p>In this class we do nothing.</p>
+<p>In this class we set the object tags offset, {@link kTAG_OBJECT_TAGS}.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theData</td>
+                                <td><p>Commit data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_preCommitLoadObjectTags" name="method_preCommitLoadObjectTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">preCommitLoadObjectTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">preCommitLoadObjectTags(\OntologyWrapper\reference <span class="argument">$theData</span>)</pre>
+                <p><em>Load object tags</em></p>
+                <p>This method will collect the tags from the commit data and populate the
+{@link kTAG_OBJECT_TAGS} offset.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2131,7 +2324,13 @@ other property which depends on data collected during the object's traversal.</p
 cleanup eventual run-time data and update eventual related objects.</p>
 <p>The method accepts a single reference parameter which is the same provided and
 populated by the pre-commit methods.</p>
-<p>In this class we do nothing.</p>
+<p>In this class we do the following:</p>
+<ul>
+<li><tt>{@link postCommitRefCount()}</tt>: We update the reference counts of all
+    objects referenced by the current object.
+<li><tt>{@link postCommitTagOffsets()}</tt>: We update the offsets of all tags used in
+    the current object.
+</ul>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2139,6 +2338,48 @@ populated by the pre-commit methods.</p>
                                 <td>\OntologyWrapper\reference</td>
                                 <td>$theData</td>
                                 <td><p>Commit data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_postCommitRefCount" name="method_postCommitRefCount" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">postCommitRefCount()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">postCommitRefCount(\OntologyWrapper\reference <span class="argument">$theReferences</span>)</pre>
+                <p><em>Update reference counts</em></p>
+                <p>This method will update the reference counts of all objects referenced by the current
+one.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theReferences</td>
+                                <td><p>Object references.</p></td>
                             </tr>
                                             </table>
                 
@@ -2251,7 +2492,7 @@ stop it.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+                                            &mdash; <p><tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2264,6 +2505,66 @@ stop it.</p>
                                                                 <dd><a href=""><span class="namespace-wrapper">kCOMMIT_DATA_OFFSET_TAGS kCOMMIT_DATA_OFFSET_REFS</span></a></dd>
                                             <dd><a href=""><span class="namespace-wrapper">kCOMMIT_DATA_OFFSET_KIND kCOMMIT_DATA_OFFSET_OFFSETS</span></a></dd>
                                                                                                 <dt>Uses</dt>
+                                                                <dd>getOffsetTypes()</dd>
+                                            <dd>verifyStructure()</dd>
+                                            <dd>traverseHandleValue()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_traverseProperties" name="method_traverseProperties" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">traverseProperties()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">traverseProperties(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\reference <span class="argument">$theData</span>) : boolean</pre>
+                <p><em>Traverse properties</em></p>
+                <p>This method will be called for each element of the object structure, either the
+root object structure or a sub-structure, this means that the iterator's current
+element handed to this method must have the offset as the key and the offset value as
+the value.</p>
+<p>The method will collect all offsets which are not structures.</p>
+<p>This method is used by the PHP {@link iterator_apply()} method, which means that it
+should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+stop it.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\Iterator</td>
+                                <td>$theIterator</td>
+                                <td><p>Iterator.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theData</td>
+                                <td><p>Receives traversal data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p><tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
                                                                 <dd>getOffsetTypes()</dd>
                                             <dd>verifyStructure()</dd>
                                             <dd>traverseHandleValue()</dd>
@@ -2333,7 +2634,7 @@ this method for each element.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> continues the traversal.
+                                            &mdash; <p><tt>TRUE</tt> continues the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2473,7 +2774,7 @@ offset is internal.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>TRUE</tt> if the tag was resolved.
+                                            &mdash; <p><tt>TRUE</tt> if the tag was resolved.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2540,7 +2841,7 @@ returned <tt>FALSE</tt>.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> if structure or list.
+                                            &mdash; <p><tt>TRUE</tt> if structure or list.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2575,9 +2876,9 @@ returned <tt>FALSE</tt>.</p>
 a list.</p>
 <p>In this class we assert that structured types are arrays if there is only one offset
 type.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one type,</p>
+<p>The method will return <tt>NULL</tt> if the offset has more than one type,
 <tt>TRUE</tt> if the value type was verified and <tt>FALSE</tt> if it was not
-verified.
+verified.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2611,7 +2912,7 @@ verified.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2648,8 +2949,8 @@ overload this method in derived classes only if you plan to handle offsets that 
 have more than one data type.</p>
 <p>This method makes use of the {@link castReference()} method that handles specifically
 object references.</p>
-<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and</p>
-<tt>NULL</tt> if the offset has more than one data type.
+<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
+<tt>NULL</tt> if the offset has more than one data type.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2683,7 +2984,7 @@ object references.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2761,7 +3062,7 @@ if not.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> if verified.
+                                            &mdash; <p><tt>TRUE</tt> if verified.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2789,11 +3090,11 @@ if not.</p>
             <article class="method">
                 <h3 class="protected ">addReferenceCount()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">addReferenceCount(\OntologyWrapper\reference <span class="argument">$theData</span>, string <span class="argument">$theType</span>, integer <span class="argument">$theReferences</span>)</pre>
+                <pre class="signature" style="margin-right: 54px;">addReferenceCount(\OntologyWrapper\reference <span class="argument">$theData</span>, string <span class="argument">$theType</span>, mixed <span class="argument">$theIdentifier</span>, integer <span class="argument">$theReferences</span>)</pre>
                 <p><em>Add reference count</em></p>
                 <p>This method will add the reference count to the provided traversal data parameter,
 the method is called by the {@link castReference()} method and it will increment the
-reference count for the collection provided as parameter.</p>
+reference count for the collection and object identifier provided as parameter.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2806,6 +3107,11 @@ reference count for the collection provided as parameter.</p>
                                 <td>string</td>
                                 <td>$theType</td>
                                 <td><p>Offset data type.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theIdentifier</td>
+                                <td><p>Referenced object identifier.</p></td>
                             </tr>
                                                     <tr>
                                 <td>integer</td>
@@ -2824,7 +3130,167 @@ reference count for the collection provided as parameter.</p>
                     <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
                                                                             <dt>See also</dt>
                                                                 <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">kCOMMIT_DATA_OFFSET_REF_COUNT</span></a></dd>
                                                                 </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateReferenceCount" name="method_updateReferenceCount" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">updateReferenceCount()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateReferenceCount(string <span class="argument">$theCollection</span>, mixed <span class="argument">$theIdentifier</span>, integer <span class="argument">$theReferences</span>)</pre>
+                <p><em>Update reference count</em></p>
+                <p>This method will update the references count of the object identified by the provided
+parameter.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theCollection</td>
+                                <td><p>Collection name.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theIdentifier</td>
+                                <td><p>Object native identifier.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$theReferences</td>
+                                <td><p>Reference count.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateTagOffsets" name="method_updateTagOffsets" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">updateTagOffsets()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateTagOffsets(integer <span class="argument">$theTag</span>, \OntologyWrapper\reference <span class="argument">$theOffsets</span>)</pre>
+                <p><em>Update reference count</em></p>
+                <p>This method will update the references count of the object identified by the provided
+parameter.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$theTag</td>
+                                <td><p>Tag sequence number.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffsets</td>
+                                <td><p>Tag offsets.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadObjectTags" name="method_loadObjectTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadObjectTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadObjectTags(integer <span class="argument">$theTag</span>, \OntologyWrapper\reference <span class="argument">$theInfo</span>, \OntologyWrapper\reference <span class="argument">$theTags</span>)</pre>
+                <p><em>Load object tags</em></p>
+                <p>This method will load the provided parameter with the tag references used by offsets
+of the current object.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theTag</b>: Tag sequence number.
+<li><b>$theInfo</b>: Tag information.
+<li><b>$theTags</b>: Receives tag list.
+</ul>
+<p>In this class we simply add the provided tag, derived classes can overload this
+method to exclude certain tags from the list.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$theTag</td>
+                                <td><p>Tag sequence number.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theInfo</td>
+                                <td><p>Tag information.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theTags</td>
+                                <td><p>Receives tags list.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -2866,7 +3332,7 @@ be returned and the inherited {@link ArrayObject::OffsetExists()} will be skippe
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> check offset, other, return.
+                                            &mdash; <p><tt>NULL</tt> check offset, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2916,7 +3382,7 @@ returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> get offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> get offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2955,10 +3421,9 @@ to an integer and return it.</p>
 method, will be used to locate the tag native identifier using a {@link Dictionary}
 object stored in the current object's {@link $mDictionary} data member; if the
 provided offset cannot be resolved, the method will raise an exception if the second
-parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is</p>
-<tt>FALSE</tt>.
-
-The method will raise an exception if the tag cache is not set.
+parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
+<tt>FALSE</tt>.</p>
+<p>The method will raise an exception if the tag cache is not set.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2993,72 +3458,6 @@ The method will raise an exception if the tag cache is not set.
                                                                                             <dt>Uses</dt>
                                                                 <dd>InternalOffsets()</dd>
                                                 </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_castOffsetValue" name="method_castOffsetValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">castOffsetValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">castOffsetValue(\OntologyWrapper\reference <span class="argument">$theValue</span>, mixed <span class="argument">$theOffset</span>, boolean <span class="argument">$doAssert</span>)</pre>
-                <p><em>Cast offset</em></p>
-                <p>This method can be used to cast a value to the data type of its referred Tag.</p>
-<p>The method will first resolve the offset into a Tag and then it will use the Tag's
-data type to cast the value.</p>
-<p>The value will be cast only if the Tag has <em>one</em> data type, if the provided
-value is an array, the method will cast each element to that data type.</p>
-<p>If the method is unable to resolve the offset and the assert flag parameter is set,
-the method will raise an exception.</p>
-<p>This method will handle in-line the data types of a series of default tags, this is
-necessary when loading the default ontology for the first time: since there are no
-tags in the system yet, any attempt to resolve these tags would fail; if you plan on
-changing the data type of default tags, you should edit this method accordingly.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theValue</td>
-                                <td><p>Value to cast.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>mixed</td>
-                                <td>$theOffset</td>
-                                <td><p>Data offset.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>boolean</td>
-                                <td>$doAssert</td>
-                                <td><p>Assert offset tag reference.</p></td>
-                            </tr>
-                                            </table>
-                
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\OntologyWrapper\Exception</dt>
-                            <dd></dd>
-                                                                    </dl>
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.OntologyObject.html"><div class="path-wrapper">\OntologyWrapper\OntologyObject</div></a></dd>
-                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -3122,7 +3521,7 @@ changing the data type of default tags, you should edit this method accordingly.
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 26th, 2014 at 18:50.
+                    on February 27th, 2014 at 19:44.
                 </section>
             </section>
         </section>

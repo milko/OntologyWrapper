@@ -338,6 +338,129 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC INDEX MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create index
+	 *
+	 * This method should create an index in the current collection related to the provided
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIndex</b>: This is an array indexed by offset with value the index type.
+	 *		The index type is specific to the database engine, the parameter is an array in
+	 *		order to provide multi-offset indexes.
+	 *	<li><b>$theOptions</b>: This array contains the index options, the key represents
+	 *		the option and the value the option value. Concrete collection instances will
+	 *		have to handle these.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param array					$theIndex			Offset to index and index types.
+	 * @param array					$theOptions			Index options.
+	 *
+	 * @access public
+	 */
+	abstract public function createIndex( $theIndex, $theOptions );
+
+	 
+	/*===================================================================================
+	 *	deleteIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Delete index
+	 *
+	 * This method should delete the index or indexes provided in the parameter. If you omit
+	 * the parameter the method should delete all indexes.
+	 *
+	 * @param mixed					$theIndex			Offset or offsets.
+	 *
+	 * @access public
+	 */
+	abstract public function deleteIndex( $theIndex = NULL );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * This method should update the reference count for the object identified by the
+	 * provided parameters.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theReferenceOffset</b>: The offset of the object holding the reference
+	 *		count.
+	 *	<li><b>$theReferenceCount</b>: The number by which the count must be incremented.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param string				$theReferenceOffset	Reference count offset.
+	 * @param integer				$theReferenceCount	Reference count value.
+	 *
+	 * @access public
+	 */
+	abstract public function updateReferenceCount( $theIdentifier,
+												   $theReferenceOffset,
+												   $theReferenceCount );
+
+	 
+	/*===================================================================================
+	 *	updateTagOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * This method should add the provided offsets to the tag referenced by the provided
+	 * parameter.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTag</b>: The native identifier of the tag.
+	 *	<li><b>$theOffsets</b>: The list of offsets for that tag.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param int					$theTag				Tag native identifier.
+	 * @param array					$theOffsets			List of tag offsets.
+	 *
+	 * @access public
+	 */
+	abstract public function updateTagOffsets( $theTag, $theOffsets );
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC OFFSET INTERFACE									*
  *																						*
  *======================================================================================*/

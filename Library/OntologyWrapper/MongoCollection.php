@@ -227,6 +227,193 @@ class MongoCollection extends CollectionObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC INDEX MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set index
+	 *
+	 * In this class the two parameters are the same as those received by the
+	 * {@link MongoCollection::ensureIndex()} method.
+	 *
+	 * @param array					$theIndex			Offset to index and index types.
+	 * @param array					$theOptions			Index options.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function createIndex( $theIndex, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+			$this->Connection()->ensureIndex( $theIndex, $theOptions );
+		
+		else
+			throw new \Exception(
+				"Unable to create index: "
+			   ."connection is not open." );									// !@! ==>
+	
+	} // createIndex.
+
+	 
+	/*===================================================================================
+	 *	deleteIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Delete index
+	 *
+	 * In this class we use {@link MongoCollection::deleteIndexes()} to delete all indexes
+	 * and {@link MongoCollection::deleteIndex()} to delete specific indexes.
+	 *
+	 * @param mixed					$theIndex			Offset or offsets.
+	 *
+	 * @access public
+	 */
+	public function deleteIndex( $theIndex = NULL )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Delete all indexes.
+			//
+			if( $theIndex === NULL )
+				$this->Connection()->deleteIndexes();
+			
+			//
+			// Delete specific indexes.
+			//
+			else
+				$this->Connection()->deleteIndex( $theIndex );
+		
+		} // Connected.
+		
+		else
+			throw new \Exception(
+				"Unable to delete index: "
+			   ."connection is not open." );									// !@! ==>
+	
+	} // deleteIndex.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * In this class we use the <tt>$inc</tt> operator.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param string				$theReferenceOffset	Reference count offset.
+	 * @param integer				$theReferenceCount	Reference count value.
+	 *
+	 * @access public
+	 */
+	public function updateReferenceCount( $theIdentifier,
+										  $theReferenceOffset,
+										  $theReferenceCount )
+	{
+		//
+		// Set criteria.
+		//
+		$criteria = array( (string) kTAG_NID => $theIdentifier );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = array( '$inc' => array( (string) $theReferenceOffset
+											  => (int) $theReferenceCount ) );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // updateReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	updateTagOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * In this class we use the <tt>$addToSet</tt> operator.
+	 *
+	 * @param int					$theTag				Tag native identifier.
+	 * @param mixed					$theOffsets			List of tag offsets or offset.
+	 *
+	 * @access public
+	 */
+	public function updateTagOffsets( $theTag, $theOffsets )
+	{
+		//
+		// Set criteria.
+		//
+		$criteria = array( (string) kTAG_ID_SEQUENCE => (int) $theTag );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = ( is_array( $theOffsets ) )
+					   ? array(
+							'$addToSet' => array(
+								(string) kTAG_OFFSETS => array(
+									'$each' => $theOffsets ) ) )
+					   : array(
+					   		'$addToSet' => array(
+					   			(string) kTAG_OFFSETS => (string) $theOffsets ) );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // updateTagOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/

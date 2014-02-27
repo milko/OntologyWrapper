@@ -1208,12 +1208,14 @@ try
 	echo( kSTYLE_HEAD_PRE.'$new = new MyClass( $wrapper, "new" );'.kSTYLE_HEAD_POS );
 	$new = new MyClass( $wrapper, "new" );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$new->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$new->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$new->Committed().'>&nbsp;' );
 	echo( 'Encoded: <input type="checkbox" disabled="true" '.$new->Encoded().'>' );
 	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( $new->getArrayCopy() ); echo( '</pre>' );
