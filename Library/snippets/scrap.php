@@ -102,7 +102,7 @@
 			$id = $collection->commit( $this );
 	
 			//
-			// Copy identifier if missing.
+			// Copy identifier if generated.
 			//
 			if( ! $this->offsetExists( kTAG_NID ) )
 				$this->offsetSet( kTAG_NID, $id );
@@ -148,23 +148,45 @@
 	 *		whether the object is ready to be committed.
 	 * </ul>
 	 *
-	 * The method accepts a single array reference parameter that will be populated as the
-	 * object is traversed, this array contains the following elements:
+	 * The method accepts two reference parameters which will be initialised by the
+	 * {@link preCommitPrepare()} method, will be filled by the {@link preCommitTraverse()}
+	 * method and will be passed to the {@link preCommitFinalise()} method:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_PATH}</tt>: This is an array holding the list of
-	 *		offsets found at the different levels corresponding to the current level, it is
-	 *		used to compute the current offset string.
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_TAGS}</tt>: This is an array holding the list of
-	 *		tags used in the object, the array has as key the tag reference and as value the
-	 *		list of offsets in which the tag is used.
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array holding as key the
-	 *		collection name and as value another array indexed by object native identifier
-	 *		and with value the number of references the current object has towards the
-	 *		object referenced by the identifier.
+	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
+	 *		is a set of tags, their data type and kind, and their relative offsets. The
+	 *		array is a list of elements structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The tag sequence number (or current offset).
+	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
+	 *			tag, each element of the array is structured as follows:
+	 *		 <ul>
+	 *			<li><tt>type</tt>: The item indexed by this key will contain the list of
+	 *				data types of the tag.
+	 *			<li><tt>kind</tt>: The item indexed by this key will contain the list of
+	 *				data kinds of the tag.
+	 *			<li><tt>offset</tt>: The item indexed by this key will contain the list of
+	 *				all the offsets (obtained from the path at the current level) where the
+	 *				current tag is featured as leaf node.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
+	 *		the current object. It is an array of elements structured as folloes:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The referenced object's collection name.
+	 *		<li><tt>value</tt>: An array collecting all the object identifiers and reference
+	 *			counts for the collection indicated in the key, each element is an array
+	 *			structured as follows:
+	 *		 <ul>
+	 *			<li><tt>id</tt>. The item indexed by this key contains the object native
+	 *				identifier.
+	 *			<li><tt>count</tt>. The item indexed by this key contains the number of
+	 *				times the target object was referenced by the current object.
+	 *		 </ul>
+	 *	 </ul>
 	 * </ul>
 	 *
-	 * This parameter will be initialised by the {@link preCommitPrepare()} method.
+	 * These parameter will be initialised by the {@link preCommitPrepare()} method.
 	 *
 	 * Derived classes should not overload this method, they should, instead, overload the
 	 * called methods.
@@ -186,17 +208,17 @@
 		//
 		// Prepare object.
 		//
-		$this->preCommitPrepare( $theData );
+		$this->preCommitPrepare( $theTags, $theRefs );
 	
 		//
 		// Traverse object.
 		//
-		$this->preCommitTraverse( $theData );
+		$this->preCommitTraverse( $theTags, $theRefs );
 		
 		//
 		// Finalise object.
 		//
-		$this->preCommitFinalise( $theData );
+		$this->preCommitFinalise( $theTags, $theRefs );
 	
 		//
 		// Check if object is ready.
@@ -220,34 +242,9 @@
 	 * for the pre-commit phase, if this is not the case, the method will raise an
 	 * exception. In the current class we check if the object is {@link isInited()}.
 	 *
-	 * The second task of this method is to initialise the parameter that will be passed to
-	 * the other methods involved in committing the object, this array is structured as
-	 * follows:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_PATH}</tt>: This array contains the list of
-	 *		offset tag references encountered at each depth level corresponding to the
-	 *		current property. This information is used to compute the offset string.
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_TAGS}</tt>: This array contains the list of tag
-	 *		references used as offsets. The array is structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The array element key represents the tag reference.
-	 *		<li><tt>value</tt>: The array element value is an array structured as follows:
-	 *		 <ul>
-	 *			<li><tt>{@link kCOMMIT_DATA_OFFSET_TYPE}</tt>: Will receive the tag data
-	 *				type.
-	 *			<li><tt>{@link kCOMMIT_DATA_OFFSET_KIND}</tt>: Will receive the tag data
-	 *				kind.
-	 *			<li><tt>{@link kCOMMIT_DATA_OFFSET_OFFSETS}</tt>: Will receive the list of
-	 *				offset strings which is the concatenation of all tags comprising the
-	 *				path to the current depth level.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><tt>{@link kCOMMIT_DATA_OFFSET_REFS}</tt>: This is an array indexed by
-	 *		collection name, holding as value an array indexed by native identifier and as
-	 *		value the number of times the current object references the object identified by
-	 *		the native identifier.
-	 * </ul>
+	 * The second task of this method is to initialise the parameters that will be passed to
+	 * the other methods involved in committing the object, both parameters will be set as
+	 * empty arrays.
 	 *
 	 * Derived classes that wish to add actions to this phase should perform:
 	 *
@@ -264,15 +261,14 @@
 	 * In this class we check whether the object is initialised and initialise the data
 	 * parameter passed to the method.
 	 *
-	 * @param reference				$theData			Commit data.
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 *
-	 * @see kCOMMIT_DATA_OFFSET_PATH kCOMMIT_DATA_OFFSET_TAGS kCOMMIT_DATA_OFFSET_REFS
-	 *
 	 * @uses isInited()
 	 */
-	protected function preCommitPrepare( &$theData )
+	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
 		// Check if initialised.
@@ -283,28 +279,16 @@
 			   ."the object is not initialised." );								// !@! ==>
 		
 		//
-		// Initialise commit data.
+		// Initialise tags set.
 		//
-		if( ! is_array( $theData ) )
-			$theData = Array();
+		if( ! is_array( $theTags ) )
+			$theTags = Array();
 		
 		//
-		// Init offsets path.
+		// Initialise object references.
 		//
-		if( ! array_key_exists( static::kCOMMIT_DATA_OFFSET_PATH, $theData ) )
-			$theData[ static::kCOMMIT_DATA_OFFSET_PATH ] = Array();
-		
-		//
-		// Init offset strings.
-		//
-		if( ! array_key_exists( static::kCOMMIT_DATA_OFFSET_TAGS, $theData ) )
-			$theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] = Array();
-		
-		//
-		// Init object references.
-		//
-		if( ! array_key_exists( static::kCOMMIT_DATA_OFFSET_REFS, $theData ) )
-			$theData[ static::kCOMMIT_DATA_OFFSET_REFS ] = Array();
+		if( ! is_array( $theRefs ) )
+			$theRefs = Array();
 	
 	} // preCommitPrepare.
 
@@ -323,9 +307,6 @@
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$thePath</b>: This run-time parameter contains the list of tags featured by
-	 *		the object at the current depth level, the list starts at the root and finishes
-	 *		with the leaf offset.
 	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
 	 *		is a set of tags and their relative offsets. The array is a list of elements
 	 *		structured as follows:
@@ -359,13 +340,12 @@
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method will take care of initialising the provided parameters.
+	 * The method expects all parameters, to have been initialised.
 	 *
 	 * This method should not be overloaded by derived classes, rather, the methods called
 	 * by the {@link traverseStructure()} method can be extended to provided custom
 	 * validation or casting.
 	 *
-	 * @param reference				$thePath			Offsets path.
 	 * @param reference				$theTags			Property tags and offsets.
 	 * @param reference				$theRefs			Object references.
 	 *
@@ -373,17 +353,12 @@
 	 *
 	 * @uses traverseStructure()
 	 */
-	protected function preCommitTraverse( &$thePath, &$theTags, &$theRefs )
+	protected function preCommitTraverse( &$theTags, &$theRefs )
 	{
 		//
-		// Init parameters.
+		// Init path.
 		//
-		if( ! is_array( $thePath ) )
-			$thePath = Array();
-		if( ! is_array( $theTags ) )
-			$theTags = Array();
-		if( ! is_array( $theRefs ) )
-			$theRefs = Array();
+		$path = Array();
 		
 		//
 		// Traverse object.
@@ -391,7 +366,7 @@
 		$iterator = $this->getIterator();
 		iterator_apply( $iterator,
 						array( $this, 'traverseStructure' ),
-						array( $iterator, & $thePath, & $theTags, & $theRefs ) );
+						array( $iterator, & $path, & $theTags, & $theRefs ) );
 	
 	} // preCommitTraverse.
 
@@ -406,45 +381,61 @@
 	 * This method will be called before checking if the object is ready, {@link isReady()},
 	 * its duty is to make the last preparations before the object is to be committed.
 	 *
-	 * In general, this method can be overloaded to set the object's identifiers and any
-	 * other property which depends on data collected during the object's traversal.
+	 * The method calls two other methods:
 	 *
-	 * In this class we set the object tags offset, {@link kTAG_OBJECT_TAGS}.
+	 * <ul>
+	 *	<li><tt>{@link preCommitObjectTags()}</tt>: This method will iterate through all the
+	 *		elements of the tags parameter and feed each one to the {@link loadObjectTag()}
+	 *		method which will populate the {@link kTAG_OBJECT_TAGS} object property.
+	 *	<li><tt>{@link preCommitObjectIdentifiers()}</tt>: This method is responsible for
+	 *		setting the object's identifiers.
+	 * </ul>
 	 *
-	 * @param reference				$theData			Commit data.
+	 * Derived classes should only overload this method if there is the need to perform
+	 * another main operation.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 *
+	 * @uses preCommitObjectTags()
+	 * @uses preCommitObjectIdentifiers()
 	 */
-	protected function preCommitFinalise( &$theData )
+	protected function preCommitFinalise( &$theTags, &$theRefs )
 	{
 		//
 		// Load object tags.
 		//
-		$this->preCommitLoadObjectTags( $theData );
+		$this->preCommitObjectTags( $theTags );
 	
 		//
 		// Load object identifiers.
 		//
-		$this->preCommitLoadObjectIdentifiers( $theData );
+		$this->preCommitObjectIdentifiers();
 	
 	} // preCommitFinalise.
 
 	 
 	/*===================================================================================
-	 *	preCommitLoadObjectTags															*
+	 *	preCommitObjectTags																*
 	 *==================================================================================*/
 
 	/**
 	 * Load object tags
 	 *
-	 * This method will collect the tags from the commit data and populate the
+	 * This method will collect the offset tags set from the tags parameter and populate the
 	 * {@link kTAG_OBJECT_TAGS} offset.
 	 *
-	 * @param reference				$theData			Commit data.
+	 * Derived classes should only overload this method if that offset should not be set,
+	 * if not, they should overload the {@link loadObjectTag()} method which is called for
+	 * each collected tag to filter which elements will be set in the offset.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
 	 *
 	 * @access protected
 	 */
-	protected function preCommitLoadObjectTags( &$theData )
+	protected function preCommitObjectTags( &$theTags )
 	{
 		//
 		// Init local storage.
@@ -454,8 +445,8 @@
 		//
 		// Iterate tags.
 		//
-		foreach( $theData[ static::kCOMMIT_DATA_OFFSET_TAGS ] as $tag => $info )
-			$this->loadObjectTags( $tag, $info, $tags );
+		foreach( $theTags as $tag => $info )
+			$this->loadObjectTag( $tag, $info, $tags );
 		
 		//
 		// Set offset.
@@ -463,11 +454,11 @@
 		if( count( $tags ) )
 			$this->offsetSet( kTAG_OBJECT_TAGS, $tags );
 	
-	} // preCommitLoadObjectTags.
+	} // preCommitObjectTags.
 
 	 
 	/*===================================================================================
-	 *	preCommitLoadObjectIdentifiers													*
+	 *	preCommitObjectIdentifiers														*
 	 *==================================================================================*/
 
 	/**
@@ -478,11 +469,129 @@
 	 * In this class we do nothing, in derived classes you can overload this method if you
 	 * need to compute identifiers.
 	 *
-	 * @param reference				$theData			Commit data.
+	 * @access protected
+	 */
+	protected function preCommitObjectIdentifiers()										   {}
+
+	 
+	/*===================================================================================
+	 *	postCommit																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after commit
+	 *
+	 * This method is called immediately after the object is committed, its duty is to
+	 * handle the object after it was committed and to handle related objects.
+	 *
+	 * In this class we do the following:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link postCommitRefCount()}</tt>: We update the reference counts of all
+	 *		objects referenced by the current object.
+	 *	<li><tt>{@link postCommitTagOffsets()}</tt>: We update the offsets of all tags used in
+	 *		the current object.
+	 * </ul>
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 */
-	protected function preCommitLoadObjectIdentifiers( &$theData )						   {}
+	protected function postCommit( &$theTags, &$theRefs )
+	{
+		//
+		// Update reference counts.
+		//
+		$this->postCommitRefCount( $theRefs );
+	
+		//
+		// Update tag offsets.
+		//
+		$this->postCommitTagOffsets( $theTags );
+	
+	} // postCommit.
+
+	 
+	/*===================================================================================
+	 *	postCommitRefCount																*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference counts
+	 *
+	 * This method will update the reference counts of all objects referenced by the current
+	 * one.
+	 *
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitRefCount( &$theRefs )
+	{
+		//
+		// Iterate by collection.
+		//
+		foreach( $theRefs as $collection => $references )
+		{
+			//
+			// Iterate references.
+			//
+			foreach( $references as $reference )
+				$this->updateReferenceCount(
+					$collection, $reference[ 'id' ], $reference[ 'count' ] );
+		
+		} // Iterating collections.
+	
+	} // postCommitRefCount.
+
+	 
+	/*===================================================================================
+	 *	postCommitTagOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * This method will update the offsets list of all tags used in the current object.
+	 *
+	 * Note that this method expects the {@link dictionary()} to be there.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitTagOffsets( &$theTags )
+	{
+		//
+		// Resolve collection.
+		//
+		$collection
+			= Tag::ResolveCollection(
+				Tag::ResolveDatabase( $this->dictionary(), TRUE ) );
+		
+		//
+		// Get tag identifiers.
+		//
+		$tags = array_keys( $theTags );
+		
+		//
+		// Iterate tag elements.
+		//
+		foreach( $tags as $tag )
+		{
+			//
+			// Reference info.
+			//
+			$ref = & $theTags[ $tag ];
+			
+			//
+			// Update tag offsets.
+			//
+			$collection->updateTagOffsets( (int) $theTag, $ref[ 'offset' ] );
+		}
+	
+	} // postCommitTagOffsets.
 
 	 
 	/*===================================================================================
@@ -761,6 +870,10 @@
 	 *
 	 * The above methods will check whether the current offset has <em>a single data
 	 * type</em>: only in that case will they operate on the value.
+	 *
+	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
+	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+	 * stop it.
 	 *
 	 * This method is final, derived classes should not overload this method, but rather the
 	 * methods it calls.
@@ -1520,3 +1633,46 @@
 		} // Has collection.
 	
 	} // addReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	loadObjectTag																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * This method will load the provided parameter with the tag references used by offsets
+	 * of the current object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTag</b>: Tag sequence number.
+	 *	<li><b>$theInfo</b>: Tag information.
+	 *	<li><b>$theTags</b>: Receives tag list.
+	 * </ul>
+	 *
+	 * In this class we simply add the provided tag, derived classes can overload this
+	 * method to exclude certain tags from the list.
+	 *
+	 * @param integer				$theTag				Tag sequence number.
+	 * @param reference				$theInfo			Tag information.
+	 * @param reference				$theTags			Receives tags list.
+	 *
+	 * @access protected
+	 */
+	protected function loadObjectTag( $theTag, &$theInfo, &$theTags )
+	{
+		//
+		// Cast tag.
+		//
+		$theTag = (int) $theTag;
+	
+		//
+		// Add to set.
+		//
+		if( ! in_array( $theTag, $theTags ) )
+			$theTags[] = $theTag;
+	
+	} // loadObjectTag.
