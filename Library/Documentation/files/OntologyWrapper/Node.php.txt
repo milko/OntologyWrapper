@@ -219,106 +219,6 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED PRE-COMMIT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preCommitLoadObjectIdentifiers													*
-	 *==================================================================================*/
-
-	/**
-	 * Load object identifiers
-	 *
-	 * In this class we set the native identifier with the sequence number.
-	 *
-	 * @param reference				$theData			Commit data.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitLoadObjectIdentifiers( &$theData )
-	{
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $this->mDictionary, TRUE ) );
-		
-		//
-		// Set sequence number.
-		//
-		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-			$this->offsetSet(
-				kTAG_NID,
-				$collection->getSequenceNumber(
-					static::kSEQ_NAME ) );
-	
-	} // preCommitLoadObjectIdentifiers.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-COMMIT INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postCommitTagOffsets															*
-	 *==================================================================================*/
-
-	/**
-	 * Update tag offsets
-	 *
-	 * In this class we skip this method since we do not keep track of tag offsets.
-	 *
-	 * @param reference				$theOffsets			Tag offsets.
-	 *
-	 * @access protected
-	 */
-	protected function postCommitTagOffsets( &$theOffsets )								   {}
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED STATUS INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	isReady																			*
-	 *==================================================================================*/
-
-	/**
-	 * Check if object is ready
-	 *
-	 * In this class we ensure the object has the native identifier, {@link kTAG_NID}.
-	 *
-	 * @access protected
-	 * @return Boolean				<tt>TRUE</tt> means ready.
-	 *
-	 * @uses isReady()
-	 * @uses isInited()
-	 */
-	protected function isReady()
-	{
-		return ( parent::isReady()
-			  && $this->offsetExists( kTAG_NID ) );									// ==>
-	
-	} // isReady.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -501,6 +401,120 @@ class Node extends PersistentObject
 						 \ArrayObject::offsetExists( kTAG_TERM ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitObjectTags																*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * In this class we shadow this method since we do not keep track of object tags.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitObjectTags( &$theTags )									   {}
+
+	 
+	/*===================================================================================
+	 *	preCommitObjectIdentifiers														*
+	 *==================================================================================*/
+
+	/**
+	 * Load object identifiers
+	 *
+	 * In this class we set the native identifier with the sequence number.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitObjectIdentifiers()
+	{
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->dictionary(), TRUE ) );
+		
+		//
+		// Set sequence number.
+		//
+		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+			$this->offsetSet(
+				kTAG_NID,
+				$collection->getSequenceNumber(
+					static::kSEQ_NAME ) );
+	
+	} // preCommitObjectIdentifiers.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postCommitTagOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * In this class we shadow this method since we do not keep track of tag offsets.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 *
+	 * @access protected
+	 */
+	protected function postCommitTagOffsets( &$theTags )								   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	isReady																			*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is ready
+	 *
+	 * In this class we ensure the object has the native identifier, {@link kTAG_NID}.
+	 *
+	 * @access protected
+	 * @return Boolean				<tt>TRUE</tt> means ready.
+	 *
+	 * @uses isReady()
+	 * @uses isInited()
+	 */
+	protected function isReady()
+	{
+		return ( parent::isReady()
+			  && $this->offsetExists( kTAG_NID ) );									// ==>
+	
+	} // isReady.
 
 		
 

@@ -114,20 +114,20 @@ define( "kTYPE_SET",							':type:enum-set' );
  *======================================================================================*/
 
 /**
- * Term reference.
- *
- * A <i>term reference</i> is a <em>string</em> that must correspond to the identifier of a
- * {@link Term} object.
- */
-define( "kTYPE_REF_TERM",						':type:ref:term' );
-
-/**
  * Tag reference.
  *
  * A <i>tag reference</i> is a <em>string</em> that must correspond to the native identifier
  * of a {@link Tag} object.
  */
 define( "kTYPE_REF_TAG",						':type:ref:tag' );
+
+/**
+ * Term reference.
+ *
+ * A <i>term reference</i> is a <em>string</em> that must correspond to the identifier of a
+ * {@link Term} object.
+ */
+define( "kTYPE_REF_TERM",						':type:ref:term' );
 
 /**
  * Node reference.

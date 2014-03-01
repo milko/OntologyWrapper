@@ -299,6 +299,50 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC OBJECT STRUCTURE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Collect object properties
+	 *
+	 * This method will traverse the object and return the set of all tag sequence numbers
+	 * referenced by offsets in the current object and the list of all referenced objects.
+	 *
+	 * @param reference				$theTags			Receives tags set.
+	 * @param reference				$theRefs			Receives object references.
+	 * @param boolean				$doSubOffsets		Include sub-offsets.
+	 *
+	 * @access public
+	 * @return array				List of property tag references.
+	 */
+	public function collectProperties( &$theTags, &$theRefs, $doSubOffsets = FALSE )
+	{
+		//
+		// Init local storage.
+		//
+		$theTags = $theRefs = Array();
+		
+		//
+		// Traverse object.
+		//
+		$iterator = $this->getIterator();
+		iterator_apply( $iterator,
+						array( $this, 'traverseProperty' ),
+						array( $iterator, & $theTags, & $theRefs, $doSubOffsets ) );
+	
+	} // collectProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -1414,6 +1458,152 @@ abstract class PersistentObject extends OntologyObject
 		return TRUE;																// ==>
 	
 	} // traverseStructure.
+
+	 
+	/*===================================================================================
+	 *	traverseProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse properties
+	 *
+	 * This method will be called for each element of the object structure, it will add to
+	 * the provided parameter the set of all tags used by the object as offsets.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTags</b>: This parameter will collect all the tags referenced by offsets
+	 *		in the object. This is an array containing the set of tag sequence numbers.
+	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
+	 *		the current object. It is an array of elements structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The referenced object's collection name.
+	 *		<li><tt>value</tt>: An array collecting all the referenced object's native
+	 *			identifiers for the collection indicated in the key.
+	 *	 </ul>
+	 *	<li><b>$doSubOffsets</b>: This flag indicates whether to add sub-structure tags to
+	 *		the tags list.
+	 * </ul>
+	 *
+	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
+	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+	 * stop it.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theTags			Receives tags set.
+	 * @param reference				$theRefs			Receives object references.
+	 * @param boolean				$doSubOffsets		Include sub-offsets.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+	 *
+	 * @uses getOffsetTypes()
+	 */
+	protected function traverseProperty( \Iterator $theIterator,
+													&$theTags,
+													&$theRefs,
+													$doSubOffsets = TRUE )
+	{
+		//
+		// Init local storage.
+		//
+		$key = $theIterator->key();
+		
+		//
+		// Skip internal offsets.
+		//
+		if( ! in_array( $key, static::InternalOffsets() ) )
+		{
+			//
+			// Add to set.
+			//
+			if( ! in_array( (int) $key, $theTags ) )
+				$theTags[] = (int) $key;
+		
+			//
+			// Collect offset types.
+			//
+			$this->getOffsetTypes( $key, $type, $kind );
+		
+			//
+			// Save list or structure.
+			//
+			$list = $theIterator->current();
+	
+			//
+			// Handle structure offsets.
+			//
+			if( in_array( kTYPE_STRUCT, $type ) )
+			{
+				//
+				// Handle structure lists.
+				//
+				if( in_array( kTYPE_LIST, $kind ) )
+				{
+					//
+					// Iterate list.
+					//
+					foreach( $list as $idx => $struct )
+					{
+						//
+						// Traverse structure.
+						//
+						$iterator = new \ArrayIterator( $struct );
+						iterator_apply( $iterator,
+										array( $this, 'traverseProperty' ),
+										array( $iterator, & $theTags,
+														  & $theRefs,
+															$doSubOffsets ) );
+			
+					} // Iterating list.
+		
+				} // List of structures.
+		
+				//
+				// Handle scalar structure.
+				//
+				else
+				{
+					//
+					// Traverse structure.
+					//
+					$iterator = new \ArrayIterator( $list );
+					iterator_apply( $iterator,
+									array( $this, 'traverseProperty' ),
+									array( $iterator, & $theTags,
+													  & $theRefs,
+														$doSubOffsets ) );
+		
+				} // Scalar structure.
+		
+			} // Structured offset.
+			
+			//
+			// Handle scalar offsets.
+			//
+			else
+			{
+				//
+				// Load references.
+				//
+				$this->loadPropertyReferences(
+					$theIterator->current(), $theRefs, $type, $kind );
+				
+				//
+				// Handle sub-structure properties.
+				//
+				if( $doSubOffsets )
+					$this->loadSubProperties(
+						$theIterator->current(), $theTags, $type, $kind );
+			
+			} // Scalar offset.
+		
+		} // Not an internal offset.
+		
+		return TRUE;																// ==>
+	
+	} // traverseProperty.
 
 	 
 	/*===================================================================================
@@ -2708,6 +2898,253 @@ abstract class PersistentObject extends OntologyObject
 			$theTags[] = $theTag;
 	
 	} // loadObjectTag.
+
+	 
+	/*===================================================================================
+	 *	loadPropertyReferences															*
+	 *==================================================================================*/
+
+	/**
+	 * Load property references
+	 *
+	 * This method will load in the provided parameter the object references contained in
+	 * the provided iterator element.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: Property value.
+	 *	<li><b>$theRefs</b>: This parameter will receive the object references, it is an
+	 *		array structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The referenced object's collection name.
+	 *		<li><tt>value</tt>: An array collecting all the referenced object's native
+	 *			identifiers for the collection indicated in the key.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: Property data types.
+	 *	<li><b>$theKind</b>: Property data kinds.
+	 * </ul>
+	 *
+	 * The method will only consider properties which represent object references and will
+	 * handle list properties.
+	 *
+	 * @param mixed					$theValue			Property value.
+	 * @param reference				$theRefs			Receives object references.
+	 * @param reference				$theType			Property data types.
+	 * @param reference				$theKind			Property data kind.
+	 *
+	 * @access protected
+	 */
+	protected function loadPropertyReferences( $theValue, &$theRefs,
+														  &$theType,
+														  &$theKind )
+	{
+		//
+		// Init local storage.
+		//
+		$types = array( kTYPE_ENUM, kTYPE_SET,
+						kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
+						kTYPE_REF_ENTITY, kTYPE_REF_UNIT );
+		$tags  = array( kTYPE_REF_TAG );
+		$terms = array( kTYPE_ENUM, kTYPE_SET, kTYPE_REF_TERM );
+		$nodes = array( kTYPE_REF_NODE );
+		$edges = array( kTYPE_REF_EDGE );
+		$units = array( kTYPE_REF_UNIT );
+		$entities = array( kTYPE_REF_ENTITY );
+		
+		//
+		// Skip non-references.
+		//
+		if( count( array_intersect( $theType, $types ) ) )
+		{
+			//
+			// Handle lists.
+			//
+			if( in_array( kTYPE_LIST, $theKind ) )
+			{
+				//
+				// Remove list from kind.
+				//
+				$kind = array_diff( $theKind, array( kTYPE_LIST ) );
+				
+				//
+				// Recurse list elements.
+				//
+				foreach( $theValue as $value )
+					$this->loadPropertyReferences(
+						$value, $theRefs, $theType, $kind );
+			
+			} // List.
+			
+			//
+			// Handle scalars.
+			//
+			else
+			{
+				//
+				// Get tag collection name.
+				//
+				if( count( array_intersect( $theType, $tags ) ) )
+					$collection = Tag::kSEQ_NAME;
+			
+				//
+				// Get term collection name.
+				//
+				elseif( count( array_intersect( $theType, $terms ) ) )
+					$collection = Term::kSEQ_NAME;
+			
+				//
+				// Get node collection name.
+				//
+				elseif( count( array_intersect( $theType, $nodes ) ) )
+					$collection = Node::kSEQ_NAME;
+			
+				//
+				// Get edge collection name.
+				//
+				elseif( count( array_intersect( $theType, $edges ) ) )
+					$collection = Edge::kSEQ_NAME;
+			
+				//
+				// Get unit collection name.
+				//
+				elseif( count( array_intersect( $theType, $units ) ) )
+					$collection = Unit::kSEQ_NAME;
+			
+				//
+				// Get entity collection name.
+				//
+				elseif( count( array_intersect( $theType, $entities ) ) )
+					$collection = Entity::kSEQ_NAME;
+				
+				//
+				// Allocate collection.
+				//
+				if( ! array_key_exists( $collection, $theRefs ) )
+					$theRefs[ $collection ]
+						= Array();
+				
+				//
+				// Reference collection.
+				//
+				$ref = & $theRefs[ $collection ];
+				
+				//
+				// Handle array values.
+				//
+				if( is_array( $theValue ) )
+				{
+					foreach( $theValue as $value )
+					{
+						if( ! in_array( $value, $ref ) )
+							$ref[] = $value;
+					}
+				
+				} // List of references.
+				
+				//
+				// Handle scalar values.
+				//
+				elseif( ! in_array( $theValue, $ref ) )
+					$ref[] = $theValue;
+			
+			} // Scalar.
+		
+		} // Is a reference.
+	
+	} // loadPropertyReferences.
+
+	 
+	/*===================================================================================
+	 *	loadSubProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Load sub-properties
+	 *
+	 * This method will load in the provided parameter the provided iterator element's
+	 * sub-properties.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: Property value.
+	 *	<li><b>$theTags</b>: This parameter will receive the list of sub-properties of the
+	 *		provided property.
+	 *	<li><b>$theType</b>: Property data types.
+	 *	<li><b>$theKind</b>: Property data kinds.
+	 * </ul>
+	 *
+	 * The method will only consider properties which are structured scalar.
+	 *
+	 * @param mixed					$theValue			Property value.
+	 * @param reference				$theTags			Receives sub-property tags.
+	 * @param reference				$theType			Property data types.
+	 * @param reference				$theKind			Property data kind.
+	 *
+	 * @access protected
+	 */
+	protected function loadSubProperties( $theValue, &$theTags,
+													 &$theType,
+													 &$theKind )
+	{
+		//
+		// Init local storage.
+		//
+		$types = array( kTYPE_LANGUAGE_STRINGS );
+		
+		//
+		// Skip non-structured types.
+		//
+		if( count( array_intersect( $theType, $types ) ) )
+		{
+			//
+			// Handle lists.
+			//
+			if( in_array( kTYPE_LIST, $theKind ) )
+			{
+				//
+				// Remove list from kind.
+				//
+				$kind = array_diff( $theKind, array( kTYPE_LIST ) );
+				
+				//
+				// Recurse list elements.
+				//
+				foreach( $theValue as $value )
+					$this->loadSubProperties(
+						$value, $theTags, $theType, $kind );
+			
+			} // List.
+			
+			//
+			// Handle scalars.
+			//
+			else
+			{
+				//
+				// Iterate language strings.
+				//
+				foreach( $theValue as $element )
+				{
+					//
+					// Iterate structure elements.
+					//
+					$offsets = array_keys( $element );
+					foreach( $offsets as $offset )
+					{
+						if( ! in_array( (int) $offset, $theTags ) )
+							$theTags[] = (int) $offset;
+				
+					} // Iterating languafe string offsets.
+			
+				} // Iterating structure elements.
+			
+			} // Scalar.
+		
+		} // Is a reference.
+	
+	} // loadSubProperties.
 
 	 
 

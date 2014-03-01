@@ -469,7 +469,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$iterator = $this->getIterator();
 		iterator_apply( $iterator,
-						array( $this, 'traverseProperties' ),
+						array( $this, 'traverseProperty' ),
 						array( $iterator, & $data ) );
 		
 		return $data;																// ==>
@@ -1392,7 +1392,7 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	traverseProperties																*
+	 *	traverseProperty																*
 	 *==================================================================================*/
 
 	/**
@@ -1419,7 +1419,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses verifyStructure()
 	 * @uses traverseHandleValue()
 	 */
-	protected function traverseProperties( \Iterator $theIterator, &$theData )
+	protected function traverseProperty( \Iterator $theIterator, &$theData )
 	{
 		//
 		// Init local storage.
@@ -1477,7 +1477,7 @@ abstract class PersistentObject extends OntologyObject
 					$struct = new \ArrayObject( $struct );
 					$iterator = $struct->getIterator();
 					iterator_apply( $iterator,
-									array( $this, 'traverseProperties' ),
+									array( $this, 'traverseProperty' ),
 									array( $iterator, & $theData ) );
 			
 				} // Iterating list.
@@ -1494,7 +1494,7 @@ abstract class PersistentObject extends OntologyObject
 				//
 				$iterator = $list->getIterator();
 				iterator_apply( $iterator,
-								array( $this, 'traverseProperties' ),
+								array( $this, 'traverseProperty' ),
 								array( $iterator, & $theData ) );
 		
 			} // Scalar structure.
@@ -1503,7 +1503,7 @@ abstract class PersistentObject extends OntologyObject
 		
 		return TRUE;																// ==>
 	
-	} // traverseProperties.
+	} // traverseProperty.
 
 	 
 	/*===================================================================================

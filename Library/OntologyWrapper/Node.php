@@ -406,10 +406,26 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED PRE-COMMIT INTERFACE							*
+ *								PROTECTED PRE-COMMIT UTILITIES							*
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	preCommitObjectTags																*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * In this class we shadow this method since we do not keep track of object tags.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitObjectTags( &$theTags )									   {}
 
 	 
 	/*===================================================================================
