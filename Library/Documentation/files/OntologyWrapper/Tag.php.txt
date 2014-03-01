@@ -448,6 +448,84 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitPrepare																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare object before commit
+	 *
+	 * In this class we copy the feature term label to the current object if not yet set.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses isInited()
+	 */
+	protected function preCommitPrepare( &$theTags, &$theRefs )
+	{
+		//
+		// Check label.
+		//
+		if( ! $this->offsetExists( kTAG_LABEL ) )
+		{
+			//
+			// Check tags.
+			//
+			if( $this->offsetExists( kTAG_TERMS ) )
+			{
+				//
+				// Get feature term.
+				//
+				$term = $this->offsetGet( kTAG_TERMS )[ 0 ];
+				
+				//
+				// Handle object.
+				//
+				if( $term instanceof Term )
+					$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+				
+				//
+				// Handle reference.
+				//
+				else
+				{
+					//
+					// Instantiate term.
+					//
+					$term = new Term( $this->dictionary(), $term );
+					
+					//
+					// Set label.
+					//
+					if( $term->offsetExists( kTAG_LABEL ) )
+						$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+				
+				} // Term reference.
+			
+			} // Has terms path.
+		
+		} // Missing label.
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+	
+	} // preCommitPrepare.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PRE-COMMIT UTILITIES							*
  *																						*
  *======================================================================================*/

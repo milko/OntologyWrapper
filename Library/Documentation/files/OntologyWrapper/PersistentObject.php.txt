@@ -61,78 +61,6 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we handle the {@link is_committed()} flag.
 	 */
 	use	traits\Status;
-	
-	/**
-	 * Current offset path.
-	 *
-	 * This constant provides the current offset path array offset.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_PATH = 'path';
-	
-	/**
-	 * Offset tags.
-	 *
-	 * This constant provides the offset tags array offset.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_TAGS = 'tags';
-	
-	/**
-	 * Reference counts.
-	 *
-	 * This constant provides the offset for the references count array.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_REFS = 'refs';
-	
-	/**
-	 * Types.
-	 *
-	 * This constant provides the offset for the tag data types.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_TYPE = 'type';
-	
-	/**
-	 * Kinds.
-	 *
-	 * This constant provides the offset for the tag data kinds.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_KIND = 'kind';
-	
-	/**
-	 * Offsets.
-	 *
-	 * This constant provides the offset for the offset strings list.
-	 *
-	 * @var string
-	 */
-	const kCOMMIT_DATA_OFFSET_OFFSETS = 'offsets';
-	
-	/**
-	 * Reference.
-	 *
-	 * This constant provides the offset for the referenced object identifier.
-	 *
-	 * @var mixed
-	 */
-	const kCOMMIT_DATA_OFFSET_REFERENCED = 'ref';
-	
-	/**
-	 * Reference count.
-	 *
-	 * This constant provides the offset for the reference count.
-	 *
-	 * @var int
-	 */
-	const kCOMMIT_DATA_OFFSET_REF_COUNT = 'ref-count';
 
 		
 
@@ -190,6 +118,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 *
+	 * @uses dictionary()
 	 * @uses ResolveDatabase()
 	 * @uses ResolveCollection()
 	 * @uses isCommitted()
@@ -315,19 +244,31 @@ abstract class PersistentObject extends OntologyObject
 	 * This method will traverse the object and return the set of all tag sequence numbers
 	 * referenced by offsets in the current object and the list of all referenced objects.
 	 *
+	 * The two provided reference parameters will be initialised by this method only if they
+	 * are not alreadt an array.
+	 *
 	 * @param reference				$theTags			Receives tags set.
 	 * @param reference				$theRefs			Receives object references.
 	 * @param boolean				$doSubOffsets		Include sub-offsets.
 	 *
 	 * @access public
 	 * @return array				List of property tag references.
+	 *
+	 * @uses traverseProperty()
 	 */
 	public function collectProperties( &$theTags, &$theRefs, $doSubOffsets = FALSE )
 	{
 		//
-		// Init local storage.
+		// Init tags.
 		//
-		$theTags = $theRefs = Array();
+		if( ! is_array( $theTags ) )
+			$theTags = Array();
+		
+		//
+		// Init references.
+		//
+		if( ! is_array( $theRefs ) )
+			$theRefs = Array();
 		
 		//
 		// Traverse object.
@@ -572,7 +513,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @throws Exception
 	 *
 	 * @uses isCommitted()
-	 * @uses InternalOffsets()
+	 * @uses lockedOffsets()
 	 */
 	protected function preOffsetSet( &$theOffset, &$theValue )
 	{
@@ -1045,6 +986,10 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$theTags			Property tags and offsets.
 	 *
 	 * @access protected
+	 *
+	 * @see kTAG_OBJECT_TAGS
+	 *
+	 * @uses loadObjectTag()
 	 */
 	protected function preCommitObjectTags( &$theTags )
 	{
@@ -1117,6 +1062,9 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 *
+	 * @uses postCommitRefCount()
+	 * @uses postCommitTagOffsets()
 	 */
 	protected function postCommit( &$theTags, &$theRefs )
 	{
@@ -1146,6 +1094,8 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 *
+	 * @uses updateReferenceCount()
 	 */
 	protected function postCommitRefCount( &$theRefs )
 	{
@@ -1498,7 +1448,10 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
 	 *
+	 * @uses InternalOffsets()
 	 * @uses getOffsetTypes()
+	 * @uses loadPropertyReferences()
+	 * @uses loadSubProperties()
 	 */
 	protected function traverseProperty( \Iterator $theIterator,
 													&$theTags,
@@ -1721,12 +1674,14 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we ensure the object is initialised and that it holds the dictionary.
 	 *
 	 * @access protected
-	 * @return Boolean				<tt>TRUE</tt> means ready.
+	 * @return boolean				<tt>TRUE</tt> means ready.
+	 *
+	 * @uses isInited()
 	 */
 	protected function isReady()
 	{
 		return ( $this->isInited()
-			  && ($this->dictionary() !== NULL) );									// ==>
+			  && ($this->mDictionary !== NULL) );									// ==>
 	
 	} // isReady.
 
@@ -1995,8 +1950,6 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @access protected
 	 * @return mixed				<tt>TRUE</tt> if the tag was resolved.
-	 *
-	 * @throws Exception
 	 */
 	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
 	{
@@ -2751,6 +2704,10 @@ abstract class PersistentObject extends OntologyObject
 	 * @param integer				$theReferences		Reference count.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @uses dictionary()
 	 */
 	protected function updateReferenceCount( $theCollection,
 											 $theIdentifier,
