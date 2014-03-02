@@ -78,11 +78,9 @@ class MyClass extends OntologyWrapper\Term
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
 	
-	public function TraverseObject()			{	return $this->traverse();	}
-	
-	protected function traverseResolveOffset( Iterator $theIterator, &$theType, &$theKind )
+	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
 	{
-		switch( $theIterator->key() )
+		switch( $theOffset )
 		{
 			case -1:
 				$theType = array( kTYPE_FLOAT );
@@ -100,7 +98,7 @@ class MyClass extends OntologyWrapper\Term
 				return TRUE;
 		}
 
-		return parent::traverseResolveOffset( $theIterator, $theType, $theKind );
+		return parent::getOffsetTypes( $theOffset, $theType, $theKind );
 	}
 	
 	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
@@ -436,8 +434,9 @@ try
 		(
 			kTAG_NID => "ID",
 			kTAG_CLASS => "OntologyObject",
-			kTAG_DOMAIN => "Object",
+			kTAG_DOMAIN => ":type",
 			kTAG_NAME => 123,
+			kTAG_ID_LOCAL => 'id',
 			-1 => array( "12.47", "35.22", 5.01263, 12 ),
 			-3 => array
 			(
@@ -458,7 +457,7 @@ try
 				(
 					-3 => array
 					(
-						kTAG_NAME => 444,
+						kTAG_CONN_USER => 444,
 						kTAG_LABEL => array
 						(
 							array( kTAG_LANGUAGE => "en",
@@ -478,7 +477,7 @@ try
 						(
 							-3 => array
 							(
-								kTAG_NAME => 444,
+								kTAG_CONN_PASS => "secter",
 								kTAG_LABEL => array
 								(
 									array( kTAG_LANGUAGE => "en",
@@ -492,6 +491,7 @@ try
 						),
 						array
 						(
+							kTAG_CONN_BASE => "database",
 							-1 => array( "11.47", "33.47", 88.01263, 92 ),
 						)
 					)
@@ -507,7 +507,7 @@ try
 					   kTAG_TEXT => 2 )
 			),
 			kTAG_CONN_PORT => "80",
-			kTAG_DATA_TYPE => array( 3, 4 )
+			kTAG_DATA_TYPE => array( ':type:ref:term', ':type:int' )
 		);
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
@@ -519,200 +519,16 @@ try
 		$test->dictionary( $wrapper );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		var_dump( $test->getArrayCopy() );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Traverse object.
-		//
-		echo( '<h4>Traverse object</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE );
-		echo( '$offsets = $test->TraverseObject();' );
-		$offsets = $test->TraverseObject();
+		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
 		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
 		var_dump( $test->getArrayCopy() );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Instantiate empty object.
-		//
-		echo( '<h4>Instantiate empty object</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Store and load object.
-		//
-		echo( '<h4>Store and load object</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ kTAG_ID_LOCAL ] = "Local identifier";'.kSTYLE_HEAD_POS );
-		$test[ kTAG_ID_LOCAL ] = "Local identifier";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->Label( "en", "Test label" );'.kSTYLE_HEAD_POS );
-		$test->Label( "en", "Test label" );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $wrapper );'.kSTYLE_HEAD_POS );
-		$id = $test->commit( $wrapper );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		var_dump( $id );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Instantiate from collection by native identifier.
-		//
-		echo( '<h4>Instantiate from collection by native identifier</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, $id );'.kSTYLE_HEAD_POS );
-		$test = new MyClass( $wrapper, $id );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Create test object.
-		//
-		echo( '<h4>Create test object</h4>' );
-		$array = array
-		(
-			kTAG_NID => "ID",
-			kTAG_ID_LOCAL => "LID",
-			kTAG_CLASS => "OntologyObject",
-			kTAG_DOMAIN => "Object",
-			kTAG_NAME => 123,
-			-1 => array( "12.47", "35.22", 5.01263, 12 ),
-			-3 => array
-			(
-				kTAG_NAME => 321,
-				kTAG_DESCRIPTION => array
-				(
-					array( kTAG_LANGUAGE => "en",
-						   kTAG_TEXT => "Description" ),
-					array( kTAG_LANGUAGE => "it",
-						   kTAG_TEXT => "Descrizione" ),
-					array( kTAG_LANGUAGE => 3,
-						   kTAG_TEXT => 4 )
-				),
-			),
-			-2 => array
-			(
-				array
-				(
-					-3 => array
-					(
-						kTAG_NAME => 444,
-						kTAG_LABEL => array
-						(
-							array( kTAG_LANGUAGE => "en",
-								   kTAG_TEXT => "Test" ),
-							array( kTAG_LANGUAGE => "it",
-								   kTAG_TEXT => "Collaudo" ),
-							array( kTAG_LANGUAGE => 5,
-								   kTAG_TEXT => 6 )
-						)
-					)
-				),
-				array
-				(
-					-2 => array
-					(
-						array
-						(
-							-3 => array
-							(
-								kTAG_NAME => 444,
-								kTAG_LABEL => array
-								(
-									array( kTAG_LANGUAGE => "en",
-										   kTAG_TEXT => "Test" ),
-									array( kTAG_LANGUAGE => "it",
-										   kTAG_TEXT => "Collaudo" ),
-									array( kTAG_LANGUAGE => 5,
-										   kTAG_TEXT => 6 )
-								),
-							),
-						),
-						array
-						(
-							-1 => array( "11.47", "33.47", 88.01263, 92 ),
-						)
-					)
-				)
-			),
-			kTAG_LABEL => array
-			(
-				array( kTAG_LANGUAGE => "en",
-					   kTAG_TEXT => "Connection" ),
-				array( kTAG_LANGUAGE => "it",
-					   kTAG_TEXT => "Connessione" ),
-				array( kTAG_LANGUAGE => 1,
-					   kTAG_TEXT => 2 )
-			),
-			kTAG_CONN_PORT => "80",
-			kTAG_DATA_TYPE => array( 3, 4 )
-		);
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $array );'.kSTYLE_HEAD_POS );
-		$test = new MyClass( $array );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->dictionary( $wrapper );'.kSTYLE_HEAD_POS );
-		$test->dictionary( $wrapper );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -726,6 +542,14 @@ try
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$id = $test->commit();'.kSTYLE_HEAD_POS );
 		$id = $test->commit();
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -750,8 +574,60 @@ try
 		$test = new MyClass( $wrapper, $id );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
 		var_dump( $test->getArrayCopy() );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test collect main properties.
+		//
+		echo( '<h4>Test collect main properties</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, FALSE );'.kSTYLE_HEAD_POS );
+		$test->collectProperties( $tags, $refs, FALSE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test collect all properties.
+		//
+		echo( '<h4>Test collect all properties</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, TRUE );'.kSTYLE_HEAD_POS );
+		$test->collectProperties( $tags, $refs, TRUE );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );

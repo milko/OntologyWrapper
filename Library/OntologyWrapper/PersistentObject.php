@@ -1961,6 +1961,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar strings.
 			//
+			case kTAG_AUTHORITY:
 			case kTAG_COLLECTION:
 			case kTAG_ID_LOCAL:
 			case kTAG_ID_PERSISTENT:
@@ -2036,7 +2037,6 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar entity references.
 			//
-			case kTAG_AUTHORITY:
 			case kTAG_AFFILIATION:
 				$theType = array( kTYPE_REF_ENTITY );
 				$theKind = Array();

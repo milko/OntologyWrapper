@@ -68,10 +68,10 @@
 				<item>:authority</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:ref:entity</item>
+				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute references the <em>entity</em> which is responsible for the <em>identification</em> of the object, or which is the <em>author of the information</em> regarding the object.]]></item>
+				<item lang="en"><![CDATA[This attribute indicates the <em>entity</em> which is <em>responsible</em> for the <em>identifier</em> of the object, or which is the <em>author of the information</em> regarding the object.]]></item>
 			</item>
 		</TAG>
 	</META>
