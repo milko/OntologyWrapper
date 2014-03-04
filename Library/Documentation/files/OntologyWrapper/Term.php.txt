@@ -255,6 +255,61 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResetCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset the collection
+	 *
+	 * In this class we first drop the collection by calling the parent method, then we
+	 * create the default indexes.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function ResetCollection( DatabaseObject $theDatabase )
+	{
+		//
+		// Drop and get collection.
+		//
+		$collection = parent::ResetCollection( $theDatabase );
+		
+		//
+		// Set local identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
+								  array( "name" => "LID" ) );
+		
+		//
+		// Set namespace index.
+		//
+		$collection->createIndex( array( kTAG_NAMESPACE => 1 ),
+								  array( "name" => "NAMESPACE",
+										 "sparse" => TRUE ) );
+		
+		//
+		// Set label index.
+		//
+		$collection->createIndex( array( kTAG_LABEL => 1 ),
+								  array( "name" => "LABEL" ) );
+		
+		return $collection;															// ==>
+	
+	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC OFFSET INTERFACE									*
  *																						*
  *======================================================================================*/

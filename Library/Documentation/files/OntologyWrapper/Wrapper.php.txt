@@ -530,59 +530,24 @@ class Wrapper extends Dictionary
 		$this->dictionaryFlush( 0 );
 		
 		//
-		// Drop the ontology database.
+		// Resety tag collection.
 		//
-		$this->mMetadata->drop();
+		Tag::ResetCollection( $this->mMetadata );
 		
 		//
-		// Create tag collection indexes.
+		// Reset term collection.
 		//
-		$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME, TRUE );
-		$collection->createIndex( array( kTAG_NID => 'hashed' ),
-								  array( "name" => "_id_" ) );
-		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
-								  array( "name" => "SEQUENCE", "unique" => TRUE ) );
-		$collection->createIndex( array( kTAG_TERMS => 1 ),
-								  array( "name" => "PATH" ) );
-		$collection->createIndex( array( kTAG_LABEL => 1 ),
-								  array( "name" => "LABEL" ) );
-		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNIT-COUNT", "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITY-COUNT", "sparse" => TRUE ) );
+		Term::ResetCollection( $this->mMetadata );
 		
 		//
-		// Create term collection indexes.
+		// Reset node collection.
 		//
-		$collection = $this->mMetadata->Collection( Term::kSEQ_NAME, TRUE );
-		$collection->createIndex( array( kTAG_NID => 'hashed' ),
-								  array( "name" => "_id_" ) );
-		$collection->createIndex( array( kTAG_NAMESPACE => 1 ),
-								  array( "name" => "NAMESPACE", "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
-								  array( "name" => "LID" ) );
-		$collection->createIndex( array( kTAG_LABEL => 1 ),
-								  array( "name" => "LABEL" ) );
+		Node::ResetCollection( $this->mMetadata );
 		
 		//
-		// Create node collection indexes.
+		// Reset edge collection.
 		//
-		$collection = $this->mMetadata->Collection( Node::kSEQ_NAME, TRUE );
-		$collection->createIndex( array( kTAG_TERM => 1 ),
-								  array( "name" => "TERM", "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TAG => 1 ),
-								  array( "name" => "TAG", "sparse" => TRUE ) );
-		
-		//
-		// Create edge collection indexes.
-		//
-		$collection = $this->mMetadata->Collection( Edge::kSEQ_NAME, TRUE );
-		$collection->createIndex( array( kTAG_SUBJECT => 1 ),
-								  array( "name" => "SUBJECT" ) );
-		$collection->createIndex( array( kTAG_PREDICATE => 1 ),
-								  array( "name" => "PREDICATE" ) );
-		$collection->createIndex( array( kTAG_OBJECT => 1 ),
-								  array( "name" => "OBJECT" ) );
+		Edge::ResetCollection( $this->mMetadata );
 		
 		//
 		// Load XML files.
@@ -590,8 +555,45 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Types.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Domains.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Predicates.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml' );
 	
 	} // resetOntology.
+
+	 
+	/*===================================================================================
+	 *	resetEntities																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset entities
+	 *
+	 * This method can be used to reset the entities database, it will <b>erase the current
+	 * entities collection</em>.
+	 *
+	 * The method will take care of setting the necessary indexes.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function resetEntities()
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset entities: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Create .
+		//
+	
+	} // resetEntities.
 
 	 
 	/*===================================================================================
@@ -919,23 +921,7 @@ class Wrapper extends Dictionary
 		// Load properties.
 		//
 		foreach( $theXML->{'item'} as $element )
-		{
-			//
-			// Load property.
-			//
-			$this->loadXMLElement( $tag, $key, $value, $element );
-			
-			//
-			// Set property.
-			//
-			if( $tag !== NULL )
-				$object[ $tag ] = $value;
-			else
-				throw new \Exception(
-					"Unable to set term property: "
-				   ."the the property is missing its offset." );				// !@! ==>
-		
-		} // Iterating properties.
+			$this->loadXMLElement( $element, $object );
 		
 		//
 		// Commit object.
@@ -979,23 +965,7 @@ class Wrapper extends Dictionary
 		// Load properties.
 		//
 		foreach( $theXML->{'item'} as $element )
-		{
-			//
-			// Load property.
-			//
-			$this->loadXMLElement( $tag, $key, $value, $element );
-			
-			//
-			// Set property.
-			//
-			if( $tag !== NULL )
-				$object[ $tag ] = $value;
-			else
-				throw new \Exception(
-					"Unable to set tag property: "
-				   ."the the property is missing its offset." );				// !@! ==>
-		
-		} // Iterating properties.
+			$this->loadXMLElement( $element, $object );
 		
 		//
 		// Commit object.
@@ -1019,6 +989,59 @@ class Wrapper extends Dictionary
 	/**
 	 * Parse and load XML element
 	 *
+	 * This method will parse and load the provided XML element, the provided element is
+	 * supposed to be a root level offset of the object.
+	 *
+	 * The method expects two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theElement</b>: The XML element.
+	 *	<li><b>$theObject</b>: The object to load.
+	 * </ul>
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param PersistentObject		$theObject			The object to load.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLElement( \SimpleXMLElement $theElement,
+									   PersistentObject  $theObject )
+	{
+		//
+		// Init local storage.
+		//
+		$value = NULL;
+		
+		//
+		// Load property.
+		//
+		$this->parseXMLItem( $value, $theElement, $theObject );
+		
+		//
+		// Check property.
+		//
+		if( ! key( $value ) )
+			throw new \Exception(
+				"Unable to set property tag: "
+			   ."the the property is missing its offset." );					// !@! ==>
+		
+		//
+		// Set property.
+		//
+		$theObject[ key( $value ) ] = current( $value );
+			
+	} // parseXMLItem.
+
+	 
+	/*===================================================================================
+	 *	parseXMLItem																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML element
+	 *
 	 * This method will parse and load the provided XML element and return the tag, the
 	 * eventual array element key and the value in the provided references.
 	 *
@@ -1027,224 +1050,130 @@ class Wrapper extends Dictionary
 	 * a scalar value is found which will be fed to the {@link castXMLScalarValue()} method
 	 * that will cast the value according to the most recent tag's data type.
 	 *
-	 * @param reference				$theTag				Receives tag identifier.
-	 * @param reference				$theKey				Receives key identifier.
-	 * @param reference				$theValue			Receives tag value.
+	 * @param reference				$theValue			Receives value.
 	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param PersistentObject		$theObject			The object to load.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
-	 *
-	 * @uses castXMLScalarValue()
 	 */
-	protected function loadXMLElement( &$theTag, &$theKey, &$theValue,
-									   \SimpleXMLElement $theElement )
+	protected function parseXMLItem( &$theValue, \SimpleXMLElement $theElement,
+												 PersistentObject  $theObject )
 	{
 		//
 		// Reset key.
 		//
-		$theKey = NULL;
+		$key = NULL;
+	
+		//
+		// Parse tag constant.
+		//
+		if( isset( $theElement[ 'const' ] ) )
+			$key = constant( (string) $theElement[ 'const' ] );
+
+		//
+		// Parse persistent identifier.
+		//
+		elseif( isset( $theElement[ 'pid' ] ) )
+			$key = $theObject->resolveOffset( (string) $theElement[ 'pid' ], TRUE );
+
+		//
+		// Parse sequence number.
+		//
+		elseif( isset( $theElement[ 'tag' ] ) )
+			$key = (string) $theElement[ 'tag' ];
+
+		//
+		// Parse array element key.
+		//
+		elseif( isset( $theElement[ 'key' ] ) )
+			$key = (string) $theElement[ 'key' ];
 		
 		//
-		// Handle language string.
+		// Handle scalar.
 		//
-		if( isset( $theElement[ 'lang' ] ) )
+		if( ! count( $theElement->{'item'} ) )
 		{
 			//
-			// Init value.
+			// Handle empty value.
 			//
-			$theValue = Array();
+			if( $theValue === NULL )
+			{
+				//
+				// Handle key.
+				//
+				if( $key !== NULL )
+					$theValue = array( $key => (string) $theElement );
+				else
+					throw new \Exception(
+						"Unable to set property: "
+					   ."the property is missing its offset." );				// !@! ==>
+			
+			} // Empty value.
 			
 			//
-			// Set language.
+			// Existing value.
 			//
-			if( strlen( (string) $theElement[ 'lang' ] ) )
-				$theValue[ kTAG_LANGUAGE ] = (string) $theElement[ 'lang' ];
+			elseif( is_array( $theValue ) )
+			{
+				//
+				// Handle key.
+				//
+				if( $key !== NULL )
+					$theValue[ $key ] = (string) $theElement;
+				
+				//
+				// Handle array element.
+				//
+				else
+					$theValue[] = (string) $theElement;
 			
-			//
-			// Set text.
-			//
-			$theValue[ kTAG_TEXT ] = (string) $theElement;
+			} // Existing value.
 		
-		} // Language string property.
+		} // Scalar value.
 		
 		//
-		// Handle other properties.
+		// Handle array.
 		//
 		else
 		{
 			//
-			// Parse tag constant.
+			// Init value.
 			//
-			if( isset( $theElement[ 'const' ] ) )
-				$theTag = $theKey = constant( (string) $theElement[ 'const' ] );
-
-			//
-			// Parse persistent identifier.
-			//
-			elseif( isset( $theElement[ 'pid' ] ) )
-				$theTag = $theKey = (string) $theElement[ 'pid' ];
-
-			//
-			// Parse sequence number.
-			//
-			elseif( isset( $theElement[ 'tag' ] ) )
-				$theTag = $theKey = (int) $theElement[ 'tag' ];
-
-			//
-			// Parse array element key.
-			//
-			elseif( isset( $theElement[ 'key' ] ) )
-				$theKey = (string) $theElement[ 'key' ];
-		
-			//
-			// Handle array.
-			//
-			if( count( $theElement->{'item'} ) )
-			{
-				//
-				// Reset value.
-				//
+			if( ! is_array( $theValue ) )
 				$theValue = Array();
 			
-				//
-				// Load elements.
-				//
-				foreach( $theElement->{'item'} as $element )
-				{
-					//
-					// Load property.
-					//
-					$this->loadXMLElement( $theTag, $key, $value, $element );
-			
-					//
-					// Set property.
-					//
-					if( $key === NULL )
-						$theValue[] = $value;
-					else
-						$theValue[ (string) $key ] = $value;
-		
-				} // Iterating properties.
-		
-			} // Array property.
-		
 			//
-			// Handle scalar.
+			// Set key.
+			//
+			if( $key !== NULL )
+			{
+				$theValue[ $key ] = Array();
+				$value = & $theValue[ $key ];
+			
+			} // Has key.
+			
+			//
+			// Set array element.
 			//
 			else
-				$theValue = $this->castXMLScalarValue( $theElement, $theTag );
-		
-		} // Not a language string.
+			{
+				$index = count( $theValue );
+				$theValue[ $index ] = Array();
+				$value = & $theValue[ $index ];
+			
+			} // No key.
+			
+			//
+			// Load elements.
+			//
+			foreach( $theElement->{'item'} as $element )
+				$this->parseXMLItem( $value, $element, $theObject );
 	
-	} // loadXMLElement.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED CASTING INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	castXMLScalarValue																*
-	 *==================================================================================*/
-
-	/**
-	 * Cast an XML scalar value
-	 *
-	 * This method will cast the provided XML scalar value according to the current offset.
-	 * The method accepts the tag reference and the XML element, it will return the cast
-	 * value.
-	 *
-	 * Note that this method expects a scalar value, although the provided tag reference
-	 * may refer to a list of values.
-	 *
-	 * This method will handle directly a series of default tags, this is necessary when
-	 * loading the ontology for the first time, because tags cannot be resolved.
-	 *
-	 * @param SimpleXMLElement		$theElement			Element XML.
-	 * @param integer				$theTag				Tag reference.
-	 *
-	 * @access protected
-	 * @return mixed				Cast value.
-	 *
-	 * @uses OntologyObject::castOffsetValue()
-	 */
-	protected function castXMLScalarValue( \SimpleXMLElement $theElement, $theTag )
-	{
-		//
-		// Get string value.
-		//
-		$value = (string) $theElement;
-		
-		//
-		// Handle default tags.
-		//
-		switch( $theTag )
-		{
-			case kTAG_NID:
-				return $value;														// ==>
-			
-			case kTAG_CLASS:
-			case kTAG_DOMAIN:
-			case kTAG_AUTHORITY:
-			case kTAG_COLLECTION:
-			case kTAG_NAMESPACE:
-			case kTAG_ID_LOCAL:
-			case kTAG_ID_PERSISTENT:
-			case kTAG_ID_VALID:
-			case kTAG_VERSION:
-			case kTAG_TAG:
-			case kTAG_TAGS:
-			case kTAG_TERM:
-			case kTAG_TERMS:
-			case kTAG_PREDICATE:
-			case kTAG_AFFILIATION:
-			case kTAG_CATEGORY:
-			case kTAG_DATA_TYPE:
-			case kTAG_DATA_KIND:
-			case kTAG_NAME:
-			case kTAG_NOTES:
-			case kTAG_OFFSETS:
-			case kTAG_CONN_PROTOCOL:
-			case kTAG_CONN_HOST:
-			case kTAG_CONN_USER:
-			case kTAG_CONN_PASS:
-			case kTAG_CONN_BASE:
-			case kTAG_CONN_COLL:
-				return (string) $value;												// ==>
-		
-			case kTAG_ID_SEQUENCE:
-			case kTAG_SUBJECT:
-			case kTAG_OBJECT:
-			case kTAG_UNIT_COUNT:
-			case kTAG_ENTITY_COUNT:
-			case kTAG_TAG_COUNT:
-			case kTAG_TERM_COUNT:
-			case kTAG_NODE_COUNT:
-			case kTAG_EDGE_COUNT:
-			case kTAG_OBJECT_TAGS:
-			case kTAG_CONN_PORT:
-				return (int) $value;												// ==>
-			
-			case kTAG_TERMS:
-			case kTAG_DATA_TYPE:
-			case kTAG_DATA_KIND:
-				return (string) $value;												// ==>
-			
-			default:
-				OntologyObject::castOffsetValue( $value, $theTag, TRUE );
-				break;
-		}
-		
-		return $value;																// ==>
+		} // Array property.
 	
-	} // loadXMLMetadata.
+	} // parseXMLItem.
 
 		
 

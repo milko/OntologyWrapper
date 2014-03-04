@@ -289,19 +289,6 @@
 				</xs:annotation>
 			</xs:attribute>
 			
-			<xs:attribute name="lang" type="xs:string">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						This attribute represents a language code, while the item value
-						represents the text. This attribute can be used to express a list
-						of strings in different languages: when parsed, this list will
-						be converted to a list of elements holring two items, one for the
-						language and the other for the text. Only nested elements should
-						use this attribute.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			
 			<xs:attribute name="key" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">

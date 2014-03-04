@@ -6563,8 +6563,8 @@ describes the <em>destination vertex of a directed graph relationship</em>.</p>]
       </docblock>
     </constant>
     <constant namespace="" line="278" package="Default">
-      <name>kTAG_AFFILIATION</name>
-      <full_name>\kTAG_AFFILIATION</full_name>
+      <name>kTAG_ENTITY_AFFILIATION</name>
+      <full_name>\kTAG_ENTITY_AFFILIATION</full_name>
       <value><![CDATA[17]]></value>
       <docblock line="278">
         <description><![CDATA[Affiliation (<code>:affiliation</code)]]></description>

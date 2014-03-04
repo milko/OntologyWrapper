@@ -330,6 +330,75 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResetCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset the collection
+	 *
+	 * In this class we first drop the collection by calling the parent method, then we
+	 * create the default indexes.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function ResetCollection( DatabaseObject $theDatabase )
+	{
+		//
+		// Drop and get collection.
+		//
+		$collection = parent::ResetCollection( $theDatabase );
+		
+		//
+		// Set sequence identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
+								  array( "name" => "SEQUENCE",
+								  		 "unique" => TRUE ) );
+		
+		//
+		// Set path index.
+		//
+		$collection->createIndex( array( kTAG_TERMS => 1 ),
+								  array( "name" => "PATH" ) );
+		
+		//
+		// Set label index.
+		//
+		$collection->createIndex( array( kTAG_LABEL => 1 ),
+								  array( "name" => "LABEL" ) );
+		
+		//
+		// Set entities count index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITIES",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set units count index.
+		//
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNITS",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

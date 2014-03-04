@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * NodeType.php
+ *
+ * This file contains the definition of the {@link NodeType} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									NodeType.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * NodeType trait
+ *
+ * This trait implements a method for managing the node type offset,
+ * {@link kTAG_NODE_TYPE}. The method allows the management of the individual elements of
+ * the enumerated set.
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 04/03/2014
+ */
+trait NodeType
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	NodeType																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node type
+	 *
+	 * This method can be used to add, retrieve and delete individual node type enumerated
+	 * values; to manage the enumerated set as a whole, use the {@link kTAG_NODE_TYPE}
+	 * offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: This parameter represents the enumerated value we want to
+	 *		manage.
+	 *	<li><b>$theOperation</b>: This parameter identifies the operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the enumerated value, if it exists, or <tt>NULL</tt>.
+	 *		<li><tt>FALSE</tt>: Delete the enumerated value, if it exists.
+	 *		<li><i>other</i>: Any other value means that we want to set the enumerated value
+	 *			provided in the previous parameter.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will return either the enumerated value, or <tt>NULL</tt> if the value was
+	 * not matched.
+	 *
+	 * @param string				$theValue			Node type.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed				Old or new value.
+	 *
+	 * @see kTAG_NODE_TYPE
+	 *
+	 * @uses manageSetOffset()
+	 */
+	public function NodeType( $theValue, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->manageSetOffset(
+				kTAG_NODE_TYPE,
+				(string) $theValue, $theOperation, $getOld );						// ==>
+	
+	} // NodeType.
+
+	 
+
+} // trait NodeType.
+
+
+?>

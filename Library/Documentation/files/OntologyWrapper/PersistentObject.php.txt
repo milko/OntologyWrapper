@@ -488,6 +488,52 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResetCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset the collection
+	 *
+	 * This method will drop the collection in the provided database named after the
+	 * object's {@link kSEQ_NAME} constant.
+	 *
+	 * The database connection will be opened by default in this method.
+	 *
+	 * Derived classes can overload this method by calling the parent method and creating
+	 * the default indexes.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function ResetCollection( DatabaseObject $theDatabase )
+	{
+		//
+		// Get and open collection.
+		//
+		$collection = $theDatabase->Collection( static::kSEQ_NAME, TRUE );
+		
+		//
+		// Drop collection.
+		//
+		$collection->drop();
+		
+		return $collection;															// ==>
+	
+	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -1646,7 +1692,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Cast value.
 		//
-		$this->castValue( $theIterator, $theType, $theKind, $theOffset );
+		$this->castValue( $theIterator, $theRefs, $theType, $theKind, $theOffset );
 		
 		return TRUE;																// ==>
 	
@@ -1968,6 +2014,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_ID_VALID:
 			case kTAG_VERSION:
 			case kTAG_NAME:
+			case kTAG_TYPE:
 			case kTAG_LANGUAGE:
 			case kTAG_TEXT:
 			case kTAG_CONN_PROTOCOL:
@@ -1984,6 +2031,7 @@ abstract class PersistentObject extends OntologyObject
 			// Enumerations.
 			//
 			case kTAG_DOMAIN:
+			case kTAG_ENTITY_COUNTRY:
 				$theType = array( kTYPE_ENUM );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -1994,6 +2042,8 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_CATEGORY:
 			case kTAG_DATA_TYPE:
 			case kTAG_DATA_KIND:
+			case kTAG_ENTITY_TYPE:
+			case kTAG_ENTITY_KIND:
 				$theType = array( kTYPE_SET );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -2033,11 +2083,11 @@ abstract class PersistentObject extends OntologyObject
 				$theType = array( kTYPE_REF_NODE );
 				$theKind = Array();
 				return TRUE;														// ==>
-		
+			
 			//
 			// Scalar entity references.
 			//
-			case kTAG_AFFILIATION:
+			case kTAG_ENTITY_VALID:
 				$theType = array( kTYPE_REF_ENTITY );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -2047,6 +2097,18 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_CONN_OPTS:
 				$theType = array( kTYPE_ARRAY );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar typed lists.
+			//
+			case kTAG_ENTITY_MAIL:
+			case kTAG_ENTITY_EMAIL:
+			case kTAG_ENTITY_PHONE:
+			case kTAG_ENTITY_FAX:
+			case kTAG_ENTITY_AFFILIATION:
+				$theType = array( kTYPE_TYPED_LIST );
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -2210,6 +2272,7 @@ abstract class PersistentObject extends OntologyObject
 			{
 				case kTYPE_ARRAY:
 				case kTYPE_SET:
+				case kTYPE_TYPED_LIST:
 				case kTYPE_LANGUAGE_STRINGS:
 					if( ! is_array( $theIterator->current() ) )
 						throw new \Exception(
@@ -2249,6 +2312,7 @@ abstract class PersistentObject extends OntologyObject
 	 * <tt>NULL</tt> if the offset has more than one data type.
 	 *
 	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theRefs			Receives object references.
 	 * @param reference				$theType			Offset data type.
 	 * @param reference				$theKind			Offset data kind.
 	 * @param reference				$theOffset			Current offset string.
@@ -2257,8 +2321,11 @@ abstract class PersistentObject extends OntologyObject
 	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
 	 *
 	 * @throws Exception
+	 *
+	 * @uses traverseStructure()
 	 */
-	protected function castValue( \Iterator $theIterator, &$theType,
+	protected function castValue( \Iterator $theIterator, &$theRefs,
+														  &$theType,
 														  &$theKind,
 														  &$theOffset )
 	{
@@ -2320,45 +2387,40 @@ abstract class PersistentObject extends OntologyObject
 				//
 				// Language strings.
 				//
+				case kTYPE_TYPED_LIST:
 				case kTYPE_LANGUAGE_STRINGS:
 					//
-					// Iterate language strings.
+					// Init loop storage.
+					//
+					$tags = Array();
+					$path = explode( '.', $theOffset );
+					//
+					// Iterate elements.
 					//
 					$idxs = array_keys( $value );
 					foreach( $idxs as $idx )
 					{
 						//
-						// Check if array.
+						// Check format.
 						//
-						if( is_array( $value[ $idx ] ) )
-						{
-							//
-							// Cast text element.
-							//
-							if( array_key_exists( kTAG_TEXT, $value[ $idx ] ) )
-								$value[ $idx ][ kTAG_TEXT ]
-									= (string) $value[ $idx ][ kTAG_TEXT ];
-							//
-							// Missing text element.
-							//
-							else
-								throw new \Exception(
-									"Invalid offset value element in [$theOffset]: "
-								   ."missing text item." );						// !@! ==>
-							//
-							// Cast language.
-							//
-							if( array_key_exists( kTAG_LANGUAGE, $value[ $idx ] ) )
-								$value[ $idx ][ kTAG_LANGUAGE ]
-									= (string) $value[ $idx ][ kTAG_LANGUAGE ];
-						}
-						//
-						// Invalid format.
-						//
-						else
+						if( ! is_array( $value[ $idx ] ) )
 							throw new \Exception(
 								"Invalid offset value element in [$theOffset]: "
 							   ."the value is not an array." );					// !@! ==>
+						//
+						// Traverse element.
+						//
+						$struct = new \ArrayObject( $value[ $idx ] );
+						$iterator = $struct->getIterator();
+						iterator_apply( $iterator,
+										array( $this, 'traverseStructure' ),
+										array( $iterator, & $path,
+														  & $tags,
+														  & $theRefs ) );
+						//
+						// Set element.
+						//
+						$value[ $idx ] = $struct->getArrayCopy();
 					}
 					//
 					// Set value.
@@ -2445,7 +2507,7 @@ abstract class PersistentObject extends OntologyObject
 							  kTYPE_REF_TERM => 'OntologyWrapper\Term',
 							  kTYPE_REF_NODE => 'OntologyWrapper\Node',
 							  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
-							  kTYPE_REF_ENTITY => 'OntologyWrapper\Entity',
+							  kTYPE_REF_ENTITY => 'OntologyWrapper\EntityObject',
 							  kTYPE_REF_UNIT => 'OntologyWrapper\Unit' );
 		
 			//
@@ -2537,8 +2599,8 @@ abstract class PersistentObject extends OntologyObject
 		
 				case kTYPE_REF_ENTITY:
 					$collection
-						= Entity::ResolveCollection(
-							Entity::ResolveDatabase( $this->dictionary(), TRUE ) );
+						= EntityObject::ResolveCollection(
+							EntityObject::ResolveDatabase( $this->dictionary(), TRUE ) );
 					$value = (string) $value;
 					break;
 		
@@ -2625,7 +2687,7 @@ abstract class PersistentObject extends OntologyObject
 				break;
 		
 			case kTYPE_REF_ENTITY:
-				$collection = Entity::kSEQ_NAME;
+				$collection = EntityObject::kSEQ_NAME;
 				break;
 		
 			case kTYPE_REF_UNIT:
@@ -2751,10 +2813,10 @@ abstract class PersistentObject extends OntologyObject
 						Edge::ResolveDatabase( $dictionary, TRUE ) );
 				break;
 		
-			case Entity::kSEQ_NAME:
+			case EntityObject::kSEQ_NAME:
 				$collection
-					= Entity::ResolveCollection(
-						Entity::ResolveDatabase( $dictionary, TRUE ) );
+					= EntityObject::ResolveCollection(
+						EntityObject::ResolveDatabase( $dictionary, TRUE ) );
 				break;
 		
 			case Unit::kSEQ_NAME:
@@ -2791,7 +2853,7 @@ abstract class PersistentObject extends OntologyObject
 				$tag = kTAG_EDGE_COUNT;
 				break;
 		
-			case Entity::kSEQ_NAME:
+			case EntityObject::kSEQ_NAME:
 				$tag = kTAG_ENTITY_COUNT;
 				break;
 		
@@ -2972,7 +3034,7 @@ abstract class PersistentObject extends OntologyObject
 				// Get entity collection name.
 				//
 				elseif( count( array_intersect( $theType, $entities ) ) )
-					$collection = Entity::kSEQ_NAME;
+					$collection = EntityObject::kSEQ_NAME;
 				
 				//
 				// Allocate collection.

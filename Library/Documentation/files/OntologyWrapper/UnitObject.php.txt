@@ -76,8 +76,7 @@ abstract class UnitObject extends PersistentObject
 	/**
 	 * Default domain.
 	 *
-	 * This constant holds the <i>sequences</i> name for tags; this constant is also used as
-	 * the <i>default collection name</i> in which objects of this class are stored.
+	 * This constant holds the <i>default domain</i> of the object.
 	 *
 	 * @var string
 	 */
@@ -261,6 +260,83 @@ abstract class UnitObject extends PersistentObject
 		return NULL;																// ==>
 	
 	} // ResolveDatabase.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * This method will create the default indexes for the current class, unlike the other
+	 * persistent classes in this library, we do not use the {@link ResetCollection()}
+	 * method to do so, because the class inheritance forks into several distinct classes,
+	 * while the hosting collection is either the entities or the units collection.
+	 *
+	 * To reset the collection, concrete derived classes should first call the inherited
+	 * {@link ResetCollection()} method to clear the collection, then call all the leaf class
+	 * current method to load all the necessary indexes.
+	 *
+	 * In this class we index all the default unit object offsets, in derived classes you
+	 * should call this method for each concrete leaf class.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Get and open collection.
+		//
+		$collection = $theDatabase->Collection( static::kSEQ_NAME, TRUE );
+		
+		//
+		// Set domain index.
+		//
+		$collection->createIndex( array( kTAG_DOMAIN => 1 ),
+								  array( "name" => "DOMAIN" ) );
+		
+		//
+		// Set authority index.
+		//
+		$collection->createIndex( array( kTAG_AUTHORITY => 1 ),
+								  array( "name" => "AUTHORITY" ) );
+		
+		//
+		// Set collection index.
+		//
+		$collection->createIndex( array( kTAG_COLLECTION => 1 ),
+								  array( "name" => "COLLECTION",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
+								  array( "name" => "LID" ) );
+		
+		//
+		// Set version index.
+		//
+		$collection->createIndex( array( kTAG_VERSION => 1 ),
+								  array( "name" => "VERSION",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
 
 		
 

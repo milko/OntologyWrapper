@@ -27,7 +27,7 @@ use OntologyWrapper\CollectionObject;
  * A node is a <em>vertex in a graph structure</em>, nodes reference
  * <em>{@link Term}</em> and <em>{@link Tag</em> instances, when referencing a
  * term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and
- * <em>controlloed vocabularies</em>; when referencing tags they are used to build <em>data
+ * <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data
  * structures</em>, <em>input and output templates</em> and <em>search forms</em>.
  *
  * Node objects, along with edge objects, represent the presentation layer of the ontology,
@@ -40,6 +40,10 @@ use OntologyWrapper\CollectionObject;
  *		an <em>integer serial number</em>, nodes do not have a unique persistent identifier,
  *		since they act as references and because you may have more than one node referencing
  *		the same term or property. The native identifier is assigned automatically.
+ *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: <em>Persistent identifier</em>. This optional
+ *		attribute holds a string which represents a unique persitent identifier, this value
+ *		must be unique among all nodes and is optional. The main duty of this attribute is
+ *		to disambiguate nodes pointing to the same term or tag.
  *	<li><tt>{@link kTAG_TERM}</tt>: <em>Term</em>. This attribute is a <em>string</em> that
  *		holds a reference to the <em>term object</em> that the current node <em>represents
  *		in a graph structure</em>. If this offset is set, the {@link kTAG_TAG} offset must
@@ -48,15 +52,23 @@ use OntologyWrapper\CollectionObject;
  *		holds a reference to the <em>tag object</em> that the current node <em>represents
  *		in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
  *		be omitted. This attribute must be managed with its offset.
+ *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
+ *		set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.
+ *		The individual elements can be managed with the {@link NodeType()} method.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
- * the {@link kTAG_TAG} offset. This value represents the node persistent identifier, which
- * is not, however, unique.
+ * the {@link kTAG_TAG} offset, this value is not used as an identifier.
  *
- * Nodes cannot be uniquely identified via a persistent identifier, because more than one
- * node may share the same term or tag, this means that when searching for nodes you should
- * rely more on traversing a graph path, rather than selecting an object from a list.
+ * Node persistent identifiers are automatically assigned sequence numbers, this is because
+ * you may have more than one node pointing to the same term or tag. The object features a
+ * persistent unique identifier, {@link kTAG_ID_PERSISTENT}, which can be used to match a
+ * specific node, this attribute is optional and it is used to discriminate between
+ * <em>master</em> and <em>alias</em> nodes. There can only be one node which references a
+ * specific term or tag without featuring a persistent identifier, this class of nodes
+ * represent the master reference to the object they are are pointing to. Nodes which
+ * feature the persistent identifier are considered aliases of the master node, they are
+ * used as alternative views of the graph of master nodes.
  *
  * Objects of this class can hold any additional attribute that is considered necessary or
  * useful to define and share the current node. In this class we define only those
@@ -71,6 +83,13 @@ use OntologyWrapper\CollectionObject;
  */
 class Node extends PersistentObject
 {
+	/**
+	 * Type trait.
+	 *
+	 * We use this trait to handle types.
+	 */
+	use	traits\NodeType;
+
 	/**
 	 * Default collection name.
 	 *
@@ -214,6 +233,71 @@ class Node extends PersistentObject
 		return NULL;																// ==>
 	
 	} // ResolveDatabase.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResetCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset the collection
+	 *
+	 * In this class we first drop the collection by calling the parent method, then we
+	 * create the default indexes.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function ResetCollection( DatabaseObject $theDatabase )
+	{
+		//
+		// Drop and get collection.
+		//
+		$collection = parent::ResetCollection( $theDatabase );
+		
+		//
+		// Set persistent identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_PERSISTENT => 1 ),
+								  array( "name" => "PID",
+								  		 "unique" => TRUE,
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set tag index.
+		//
+		$collection->createIndex( array( kTAG_TAG => 1 ),
+								  array( "name" => "TAG",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set term index.
+		//
+		$collection->createIndex( array( kTAG_TERM => 1 ),
+								  array( "name" => "TERM",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set type index.
+		//
+		$collection->createIndex( array( kTAG_NODE_TYPE => 1 ),
+								  array( "name" => "TYPE",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // ResetCollection.
 
 		
 

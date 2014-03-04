@@ -221,6 +221,60 @@ class Edge extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResetCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset the collection
+	 *
+	 * In this class we first drop the collection by calling the parent method, then we
+	 * create the default indexes.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function ResetCollection( DatabaseObject $theDatabase )
+	{
+		//
+		// Drop and get collection.
+		//
+		$collection = parent::ResetCollection( $theDatabase );
+		
+		//
+		// Set subject index.
+		//
+		$collection->createIndex( array( kTAG_SUBJECT => 1 ),
+								  array( "name" => "SUBJECT" ) );
+		
+		//
+		// Set predicate index.
+		//
+		$collection->createIndex( array( kTAG_PREDICATE => 1 ),
+								  array( "name" => "PREDICATE" ) );
+		
+		//
+		// Set object index.
+		//
+		$collection->createIndex( array( kTAG_OBJECT => 1 ),
+								  array( "name" => "OBJECT" ) );
+		
+		return $collection;															// ==>
+	
+	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

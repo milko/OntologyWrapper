@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1404805788"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1404805788" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-802079301"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-802079301" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-94063389"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-94063389" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Accessors.html">Accessors</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Affiliation.html">Affiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Email.html">Email</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Fax.html">Fax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Mail.html">Mail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Phone.html">Phone</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>definitions</small>Predicates.inc.php</h1>
+                    <p><em>Predicate definitions.</em></p>
+                    <p>This file contains the term global identifiers of the default predicates.</p>
+<p>Predicates are represented by a term object and serve as connectors between two vertex
+nodes, these are the default predicates:</p>
+<ul>
+<li><tt>{@link kPREDICATE_SUBCLASS_OF}</tt>: <i>Subclass of</i>. This predicate
++        indicates that the subject of the relationship is a subclass of the object of the
+    relationship, in other words, the subject is derived from the object. This predicate
+    is equivalent to the <tt>IS-A</tt> predicate, it states that the subject is an
+    instance of the object.
+<li><tt>{@link kPREDICATE_SUBSET_OF}</tt>: <i>Subset of</i>. This predicate indicates
+    that the subject of the relationship represents a subset of the object of the
+    relationship, in other words, the subject is a subset of the object, or the subject
+    is contained by the object.
+<li><tt>{@link kPREDICATE_ATTRIBUTE_OF}</tt>: <i>Attribute of</i>. This predicate
+    indicates that the subject of the relationship is an attribute of the object of the
+    relationship, this means that the subject of the relationship should be of the
+    {@link kKIND_FEATURE} kind.
+<li><tt>{@link kPREDICATE_SCALE_OF}</tt>: <i>Scale of</i>. This predicate is used by
+    scale vertices to connect feature or trait vertices, the subject of the relationship
+    represents a scale or unit and the predicate indicates that the object of the
+    relationship uses that scale or unit. This predicate is specifically used to
+    indicate the different scales in which a feature ir trait vertex can be expressed
+    in.
+<li><tt>{@link kPREDICATE_METHOD_OF}</tt>: <i>Method of</i>. This predicate relates
+    method vertices with feature vertices or other methods, it indicates that the
+    subject of the relationship is a method, or workflow variation of the object of the
+    relationship. This predicate is used to connect the pipeline of modifiers applied to
+    a feature vertex.
+<li><tt>{@link kPREDICATE_ENUM_OF}</tt>: <i>Enumeration of</i>. This predicate relates
+    vertex elements of an enumerated set, it indicates that the subject of the
+    relationship is an enumerated set element instance, and if the object of the
+    relationship is also an enumerated set element instance, this means that the subject
+    is a subset of the object.
+<li><tt>{@link kPREDICATE_PREFERRED}</tt>: <i>Preferred choice</i>. This predicate
+    indicates that the object of the relationship is the preferred choice, in other
+    words, if possible, one should use the object of the relationship in place of the
+    subject. This predicate will be used in general by obsolete or deprecated items. The
+    scope of this predicate is similar to the {@link kPREDICATE_VALID} predicate, except
+    that in this case the use of the subject of the relationship is only deprecated,
+    while in the {@link kPREDICATE_VALID} predicate it is not valid.
+<li><tt>{@link kPREDICATE_VALID}</tt>: <i>Valid choice</i>. This predicate indicates
+    that the object of the relationship is the valid choice, in other words, the subject
+    of the relationship is obsolete or not valid, and one should use the object of the
+    relationship in its place. This predicate will be used in general to store obsolete
+    or deprecated versions. The scope of this predicate is similar to the
+    {@link kPREDICATE_PREFERRED} predicate, except that in this case the use of the
+    subject of the relationship is invalid, while in the {@link kPREDICATE_PREFERRED}
+    predicate it is only deprecated.
+<li><tt>{@link kPREDICATE_LEGACY}</tt>: <i>Legacy version</i>. This predicate indicates
+    that the object of the relationship is the former or legacy choice, in other words,
+    the object of the relationship is obsolete or not valid. This predicate will be used
+    in general to record historical information. The scope of this predicate is similar
+    to the {@link kPREDICATE_PREFERRED} and {@link kPREDICATE_VALID} predicates, except
+    that in this case the legacy choice might not be invalid, nor deprecated: it only
+    means that the object of the relationship was used in the past and the subject of
+    the relationship is currently used in its place.
+<li><tt>{@link kPREDICATE_XREF}</tt>: <i>Cross reference</i>. This predicate indicates
+    that the subject of the relationship is related to the object of the relationship.
+    This predicate will be found generally in both directions and does not represent any
+    specific type of relationship, other than what the edge object attributes may
+    indicate. The scope of this predicate is similar to the
+    {@link kPREDICATE_XREF_EXACT} predicate, except that the latter indicates that the
+    object of the relationship can be used in place of the subject, while in this
+    predicate this is not necessarily true.
+<li><tt>{@link kPREDICATE_XREF_EXACT}</tt>: <i>Exact cross reference</i>. This predicate
+    indicates that the object of the relationship can be used in place of the subject of
+    the relationship. If the predicate is found in both directions, one could say that
+    the two vertices are identical, except for their formal representation. The scope of
+    this predicate is similar to the XREF predicate, except that the latter only
+    indicates that both vertices are related, this predicate indicates that they are
+    interchangeable.
+</ul>
+
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    version
+                                </th>
+                                <td>
+                                                                            <p>25/11/2012</p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content file">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_SUBCLASS_OF" name="constant_kPREDICATE_SUBCLASS_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_SUBCLASS_OF" class="constant">
+                <h3 class="">kPREDICATE_SUBCLASS_OF</h3>
+                <pre class="signature">kPREDICATE_SUBCLASS_OF</pre>
+                <p><em>SUBCLASS-OF.</em></p>
+                <p>Subclass of.</p>
+<p>This predicate indicates that the subject of the relationship is a subclass of the
+object of the relationship, in other words, the subject is derived from the object. This
+predicate is equivalent to the IS-A predicate, it states that the subject is an instance
+of the object.</p>
+<p>Version 1: (kPREDICATE_SUBCLASS_OF)[:SUBCLASS-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_SUBRANK_OF" name="constant_kPREDICATE_SUBRANK_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_SUBRANK_OF" class="constant">
+                <h3 class="">kPREDICATE_SUBRANK_OF</h3>
+                <pre class="signature">kPREDICATE_SUBRANK_OF</pre>
+                <p><em>SUBRANK-OF.</em></p>
+                <p>Subrank of.</p>
+<p>This predicate indicates that the subject of the relationship belongs to the next lowest
+rank than the object of the relationship.</p>
+<p>Version 1: (kPREDICATE_SUBCLASS_OF)[:SUBRANK-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_SUBSET_OF" name="constant_kPREDICATE_SUBSET_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_SUBSET_OF" class="constant">
+                <h3 class="">kPREDICATE_SUBSET_OF</h3>
+                <pre class="signature">kPREDICATE_SUBSET_OF</pre>
+                <p><em>SUBSET-OF.</em></p>
+                <p>Subset of.</p>
+<p>This predicate indicates that the subject of the relationship represents a subset of the
+object of the relationship, in other words, the subject is a subset of the object, or the
+subject is contained by the object.</p>
+<p>Version 1: (kPREDICATE_SUBSET_OF)[:SUBSET-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_PART_OF" name="constant_kPREDICATE_PART_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_PART_OF" class="constant">
+                <h3 class="">kPREDICATE_PART_OF</h3>
+                <pre class="signature">kPREDICATE_PART_OF</pre>
+                <p><em>PART-OF.</em></p>
+                <p>Part of.</p>
+<p>This predicate indicates that the subject of the relationship represents a part or
+component of the object of the relationship, in other words, the subject is part of or is
+a component of the object.</p>
+<p>Version 1: (kPREDICATE_PART_OF)[:PART-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_FUNCTION_OF" name="constant_kPREDICATE_FUNCTION_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_FUNCTION_OF" class="constant">
+                <h3 class="">kPREDICATE_FUNCTION_OF</h3>
+                <pre class="signature">kPREDICATE_FUNCTION_OF</pre>
+                <p><em>FUNCTION-OF.</em></p>
+                <p>Function of.</p>
+<p>This predicate indicates that the subject of the relationship represents a function or
+trait group of the object of the relationship, in other words, the subject is a group of
+functions that can be applied to the object.</p>
+<p>Version 1: (kPREDICATE_FUNCTION_OF)[:FUNCTION-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_COLLECTION_OF" name="constant_kPREDICATE_COLLECTION_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_COLLECTION_OF" class="constant">
+                <h3 class="">kPREDICATE_COLLECTION_OF</h3>
+                <pre class="signature">kPREDICATE_COLLECTION_OF</pre>
+                <p><em>COLLECTION-OF.</em></p>
+                <p>Collection of.</p>
+<p>This predicate indicates that the subject of the relationship is a collection belonging
+to the object. This predicate is similar to {@link kPREDICATE_ATTRIBUTE_OF}, except that
+the latter case the subject is a scalar element of the object, while, in this case, the
+subject is a template for the collection of elements that belong to the object.</p>
+<p>Version 1: (kPREDICATE_COLLECTION_OF)[:COLLECTION-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_ATTRIBUTE_OF" name="constant_kPREDICATE_ATTRIBUTE_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_ATTRIBUTE_OF" class="constant">
+                <h3 class="">kPREDICATE_ATTRIBUTE_OF</h3>
+                <pre class="signature">kPREDICATE_ATTRIBUTE_OF</pre>
+                <p><em>ATTRIBUTE-OF.</em></p>
+                <p>Attribute of.</p>
+<p>This predicate indicates that the subject of the relationship is an attribute of the
+object of the relationship, this means that the subject of the relationship should be of
+the {@link kKIND_FEATURE} kind.</p>
+<p>Version 1: (kPREDICATE_ATTRIBUTE_OF)[:ATTRIBUTE-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_TRAIT_OF" name="constant_kPREDICATE_TRAIT_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_TRAIT_OF" class="constant">
+                <h3 class="">kPREDICATE_TRAIT_OF</h3>
+                <pre class="signature">kPREDICATE_TRAIT_OF</pre>
+                <p><em>TRAIT-OF.</em></p>
+                <p>Trait of.</p>
+<p>This predicate relates a trait to its category vertex, it indicates that the subject of
+the relationship is a trait of the relationship object. This predicate is used to connect
+feature vertices to their parent vertex.</p>
+<p>Version 1: (kPREDICATE_TRAIT_OF)[:TRAIT-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_METHOD_OF" name="constant_kPREDICATE_METHOD_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_METHOD_OF" class="constant">
+                <h3 class="">kPREDICATE_METHOD_OF</h3>
+                <pre class="signature">kPREDICATE_METHOD_OF</pre>
+                <p><em>METHOD-OF.</em></p>
+                <p>Method of.</p>
+<p>This predicate relates method vertices with feature vertices or other methods, it
+indicates that the subject of the relationship is a method, or workflow variation of the
+object of the relationship. This predicate is used to connect the pipeline of modifiers
+applied to a feature vertex.</p>
+<p>Version 1: (kPREDICATE_METHOD_OF)[:METHOD-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_SCALE_OF" name="constant_kPREDICATE_SCALE_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_SCALE_OF" class="constant">
+                <h3 class="">kPREDICATE_SCALE_OF</h3>
+                <pre class="signature">kPREDICATE_SCALE_OF</pre>
+                <p><em>SCALE-OF.</em></p>
+                <p>Scale of.</p>
+<p>This predicate is used by scale vertices to connect feature or trait vertices, the
+subject of the relationship represents a scale or unit and the predicate indicates that
+the object of the relationship uses that scale or unit. This predicate is specifically
+used to indicate the different scales in which a feature ir trait vertex can be expressed
+in.</p>
+<p>Version 1: (kPREDICATE_SCALE_OF)[:SCALE-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_ENUM_OF" name="constant_kPREDICATE_ENUM_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_ENUM_OF" class="constant">
+                <h3 class="">kPREDICATE_ENUM_OF</h3>
+                <pre class="signature">kPREDICATE_ENUM_OF</pre>
+                <p><em>ENUM-OF.</em></p>
+                <p>Enumeration of.</p>
+<p>This predicate relates vertex elements of an enumerated set, it indicates that the
+subject of the relationship is an enumerated set element instance, and if the object of
+the relationship is also an enumerated set element instance, this means that the subject
+is a subset of the object.</p>
+<p>Version 1: (kPREDICATE_ENUM_OF)[:ENUM-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_INSTANCE_OF" name="constant_kPREDICATE_INSTANCE_OF" class="anchor"></a>
+            <article id="constant_kPREDICATE_INSTANCE_OF" class="constant">
+                <h3 class="">kPREDICATE_INSTANCE_OF</h3>
+                <pre class="signature">kPREDICATE_INSTANCE_OF</pre>
+                <p><em>INSTANCE-OF.</em></p>
+                <p>Instance of.</p>
+<p>This predicate relates a type to its instance, it indicates that the object of the
+relationship is an instance of the subject of the relationship.</p>
+<p>Version 1: (kPREDICATE_INSTANCE_OF)[:INSTANCE-OF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_AGGREGATE" name="constant_kPREDICATE_AGGREGATE" class="anchor"></a>
+            <article id="constant_kPREDICATE_AGGREGATE" class="constant">
+                <h3 class="">kPREDICATE_AGGREGATE</h3>
+                <pre class="signature">kPREDICATE_AGGREGATE</pre>
+                <p><em>AGGREGATE.</em></p>
+                <p>Aggregate.</p>
+<p>This predicate indicates that the subject of the relationship should be <i>aggregated</i>
+into the object of the relationship, in other words, the subject should be copied into
+the object. This predicate will be used in general to <i>copy</i> a value from a
+descriptor belonging to a set specific to a kind of domain into a descriptor which is
+common to a series of different unit kinds. This is useful for searching among
+heterogeneous kinds of objects.</p>
+<p>Version 1: (kPREDICATE_AGGREGATE)[:AGGREGATE]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_PREFERRED" name="constant_kPREDICATE_PREFERRED" class="anchor"></a>
+            <article id="constant_kPREDICATE_PREFERRED" class="constant">
+                <h3 class="">kPREDICATE_PREFERRED</h3>
+                <pre class="signature">kPREDICATE_PREFERRED</pre>
+                <p><em>PREFERRED.</em></p>
+                <p>Preferred choice.</p>
+<p>This predicate indicates that the object of the relationship is the preferred choice, in
+other words, if possible, one should use the object of the relationship in place of the
+subject. This predicate will be used in general by obsolete or deprecated items.</p>
+<p>The scope of this predicate is similar to the VALID predicate, except that in this case
+the use of the subject of the relationship is only deprecated, while in the VALID
+predicate it is not valid.</p>
+<p>Version 1: (kPREDICATE_PREFERRED)[:PREFERRED]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_VALID" name="constant_kPREDICATE_VALID" class="anchor"></a>
+            <article id="constant_kPREDICATE_VALID" class="constant">
+                <h3 class="">kPREDICATE_VALID</h3>
+                <pre class="signature">kPREDICATE_VALID</pre>
+                <p><em>VALID.</em></p>
+                <p>Valid choice.</p>
+<p>This predicate indicates that the object of the relationship is the valid choice, in
+other words, the subject of the relationship is obsolete or not valid, and one should use
+the object of the relationship in its place. This predicate will be used in general to
+store the obsolete or deprecated versions.</p>
+<p>The scope of this predicate is similar to the PREFERRED predicate, except that in this
+case the use of the subject of the relationship is invalid, while in the PREFERRED
+predicate it is only deprecated.</p>
+<p>Version 1: (kPREDICATE_VALID)[:VALID]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_LEGACY" name="constant_kPREDICATE_LEGACY" class="anchor"></a>
+            <article id="constant_kPREDICATE_LEGACY" class="constant">
+                <h3 class="">kPREDICATE_LEGACY</h3>
+                <pre class="signature">kPREDICATE_LEGACY</pre>
+                <p><em>LEGACY.</em></p>
+                <p>Legacy version.</p>
+<p>This predicate indicates that the object of the relationship is the former or legacy
+choice, in other words, the object of the relationship is obsolete or not valid. This
+predicate will be used in general to record historical information.</p>
+<p>The scope of this predicate is similar to the PREFERRED and VALID predicates, except that
+in this case the legacy choice might not be invalid, nor deprecated: it only means that
+the object of the relationship was used in the past and the subject of the relationship
+is currently used in its place.</p>
+<p>Version 1: (kPREDICATE_LEGACY)[:LEGACY]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_XREF" name="constant_kPREDICATE_XREF" class="anchor"></a>
+            <article id="constant_kPREDICATE_XREF" class="constant">
+                <h3 class="">kPREDICATE_XREF</h3>
+                <pre class="signature">kPREDICATE_XREF</pre>
+                <p><em>XREF.</em></p>
+                <p>Cross reference.</p>
+<p>This predicate indicates that the subject of the relationship is related to the object
+of the relationship. This predicate will be found generally in both directions and does
+not represent any specific type of relationship, other than what the edge object
+attributes may indicate.</p>
+<p>The scope of this predicate is similar to the XREF-EXACT predicate, except that the
+latter indicates that the object of the relationship can be used in place of the subject,
+while in this predicate this is not necessarily true.</p>
+<p>Version 1: (kPREDICATE_XREF)[:XREF]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kPREDICATE_XREF_EXACT" name="constant_kPREDICATE_XREF_EXACT" class="anchor"></a>
+            <article id="constant_kPREDICATE_XREF_EXACT" class="constant">
+                <h3 class="">kPREDICATE_XREF_EXACT</h3>
+                <pre class="signature">kPREDICATE_XREF_EXACT</pre>
+                <p><em>XREF-EXACT.</em></p>
+                <p>Exact cross reference.</p>
+<p>This predicate indicates that the object of the relationship can be used in place of the
+subject of the relationship. If the predicate is found in both directions, one could say
+that the two vertices are identical, except for their formal representation.</p>
+<p>The scope of this predicate is similar to the XREF predicate, except that the latter only
+indicates that both vertices are related, this predicate indicates that they are
+interchangeable.</p>
+<p>Version 1: (kPREDICATE_XREF_EXACT)[:XREF-EXACT]</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Predicates.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/definitions/Predicates.inc.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on March 4th, 2014 at 17:46.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

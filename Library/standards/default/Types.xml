@@ -4,196 +4,314 @@
 	Types.xml
 -->
 <METADATA
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
-    
-    <!-- Primitive data types -->
-    
-    <META>
-        <!-- Mixed -->
-        <TERM ns=":type" lid="mixed">
-            <item const="kTAG_LABEL">
-                <item lang="en">Mixed</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <em>mixed</em> data type indicates that the referred property may take <em>any data type</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- String -->
-        <TERM ns=":type" lid="string">
-            <item const="kTAG_LABEL">
-                <item lang="en">String</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <em>string</em> data type indicates that the referred property may hold <em>UNICODE</em> characters, this type <em>does not include binary data</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Integer -->
-        <TERM ns=":type" lid="int">
-            <item const="kTAG_LABEL">
-                <item lang="en">String</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[An <em>integer</em> data type indicates that the referred property may hold a <em>32 or 64 bit integral numeric value</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Float -->
-        <TERM ns=":type" lid="float">
-            <item const="kTAG_LABEL">
-                <item lang="en">Float</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <em>float</em> data type indicates that the referred property may hold a <em>floating point number</em>, also known as <em>double</em> or <em>real</em>. The precision of such value is not inferred, in general it will be a <em>32 or 64 bit real</em>.]]></item>
-            </item>
-        </TERM>
-    </META>
-    
-    <!-- Structured data types -->
-    
-    <META>
-        <!-- Array -->
-        <TERM ns=":type" lid="array">
-            <item const="kTAG_LABEL">
-                <item lang="en">Array</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This data type defines a <em>list of key/value pairs</em>, the key will be in general a string, while the value type is not inferred. This data type usually applies to arrays in which the key part is the discriminant and determines the type of the value, while traditional arrays are better defined by a fixed sata type and a list data kind.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Struct -->
-        <TERM ns=":type" lid="struct">
-            <item const="kTAG_LABEL">
-                <item lang="en">Structure</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This data type defines a <em>structure</em>, this means that the value will be an <em>object</em> or an array of objects if the data kind is a list.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Language strings -->
-        <TERM ns=":type" lid="language-strings">
-            <item const="kTAG_LABEL">
-                <item lang="en">Language strings</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This data type defines a <em>list of strings expressed in different languages</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:language</tt> persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the <tt>:text</tt> persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element mat omit the language pair.]]></item>
-            </item>
-        </TERM>
-    </META>
-    
-    <!-- Enumerated data types -->
-    
-    <META>
-        <!-- Enumeration -->
-        <TERM ns=":type" lid="enum">
-            <item const="kTAG_LABEL">
-                <item lang="en">Enumeration</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[An <em>enumerated</em> data type indicates that the referred property may only hold <em>a term reference</em>, that is, the <em>global identifier of a term object</em>. Enumerated values are by default strings and must refer to a term.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Enumerated set -->
-        <TERM ns=":type" lid="enum-set">
-            <item const="kTAG_LABEL">
-                <item lang="en">Enumerated set</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[An <em>enumerated set</em> data type indicates that the referred property may only hold <em>a list of term reference</em>, that is, an array of <em>term object global identifiers</em>. All the elements of this list must be unique.]]></item>
-            </item>
-        </TERM>
-    </META>
-    
-    <!-- Object reference data types -->
-    
-    <META>
-        <!-- Term reference -->
-        <TERM ns=":type:ref" lid="term">
-            <item const="kTAG_LABEL">
-                <item lang="en">Term reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <i>term reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Term object</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Tag reference -->
-        <TERM ns=":type:ref" lid="tag">
-            <item const="kTAG_LABEL">
-                <item lang="en">Tag reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <i>tag reference</i> is an <em>integer</em> that must correspond to the <em>sequence number of a Tag object</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Node reference -->
-        <TERM ns=":type:ref" lid="node">
-            <item const="kTAG_LABEL">
-                <item lang="en">Node reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <i>node reference</i> is an <em>integer</em> that must correspond to the <em>netive identifier of a Node object</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Edge reference -->
-        <TERM ns=":type:ref" lid="edge">
-            <item const="kTAG_LABEL">
-                <item lang="en">Edge reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[An <i>edge reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Edge object</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Entity reference -->
-        <TERM ns=":type:ref" lid="entity">
-            <item const="kTAG_LABEL">
-                <item lang="en">Entity reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[An <i>entity reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Entity object</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Unit reference -->
-        <TERM ns=":type:ref" lid="unit">
-            <item const="kTAG_LABEL">
-                <item lang="en">Unit reference</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[A <i>unit reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Unit object</em>.]]></item>
-            </item>
-        </TERM>
-    </META>
-    
-    <!-- Cardinality types -->
-    
-    <META>
-        <!-- List -->
-        <TERM ns=":type" lid="list">
-            <item const="kTAG_LABEL">
-                <item lang="en">List</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
-            </item>
-        </TERM>
-        
-        <!-- Indexed -->
-        <TERM ns=":type" lid="indexed">
-            <item const="kTAG_LABEL">
-                <item lang="en">Indexed</item>
-            </item>
-            <item const="kTAG_DEFINITION">
-                <item lang="en"><![CDATA[This kind indicates that the data property is <em>indexed</em>.]]></item>
-            </item>
-        </TERM>
-    </META>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Primitive data types -->
+	
+	<META>
+		<!-- Mixed -->
+		<TERM ns=":type" lid="mixed">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Mixed</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>mixed</em> data type indicates that the referred property may take <em>any data type</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- String -->
+		<TERM ns=":type" lid="string">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">String</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>string</em> data type indicates that the referred property may hold <em>UNICODE</em> characters, this type <em>does not include binary data</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Integer -->
+		<TERM ns=":type" lid="int">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">String</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>integer</em> data type indicates that the referred property may hold a <em>32 or 64 bit integral numeric value</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Float -->
+		<TERM ns=":type" lid="float">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Float</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>float</em> data type indicates that the referred property may hold a <em>floating point number</em>, also known as <em>double</em> or <em>real</em>. The precision of such value is not inferred, in general it will be a <em>32 or 64 bit real</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Structured data types -->
+	
+	<META>
+		<!-- Array -->
+		<TERM ns=":type" lid="array">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Array</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of key/value pairs</em>, the key will be in general a string, while the value type is not inferred. This data type usually applies to arrays in which the key part is the discriminant and determines the type of the value, while traditional arrays are better defined by a fixed sata type and a list data kind.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Struct -->
+		<TERM ns=":type" lid="struct">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Structure</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>structure</em>, this means that the value will be an <em>object</em> or an array of objects if the data kind is a list.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Language strings -->
+		<TERM ns=":type" lid="language-strings">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Language strings</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of strings expressed in different languages</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:language</tt> persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the <tt>:text</tt> persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element may omit the language pair.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Typed list -->
+		<TERM ns=":type" lid="typed-list">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Typed list</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of elements discriminated by their type</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:type</tt> persistent identifier as its key and the value represents the type of the element. The second pair has an unspecified tag persistent identifier which characterises the value of the element: the value of the first pair represents the type of the second pair value identified by the tag set in its key. No two elements may share the same type and only one element may omit the type pair.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Enumerated data types -->
+	
+	<META>
+		<!-- Enumeration -->
+		<TERM ns=":type" lid="enum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumeration</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>enumerated</em> data type indicates that the referred property may only hold <em>a term reference</em>, that is, the <em>global identifier of a term object</em>. Enumerated values are by default strings and must refer to a term.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Enumerated set -->
+		<TERM ns=":type" lid="enum-set">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumerated set</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>enumerated set</em> data type indicates that the referred property may only hold <em>a list of term reference</em>, that is, an array of <em>term object global identifiers</em>. All the elements of this list must be unique.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Object reference data types -->
+	
+	<META>
+		<!-- Term reference -->
+		<TERM ns=":type:ref" lid="term">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <i>term reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Term object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Tag reference -->
+		<TERM ns=":type:ref" lid="tag">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <i>tag reference</i> is an <em>integer</em> that must correspond to the <em>sequence number of a Tag object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Node reference -->
+		<TERM ns=":type:ref" lid="node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Node reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <i>node reference</i> is an <em>integer</em> that must correspond to the <em>netive identifier of a Node object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Edge reference -->
+		<TERM ns=":type:ref" lid="edge">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edge reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <i>edge reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Edge object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Entity reference -->
+		<TERM ns=":type:ref" lid="entity">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <i>entity reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Entity object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Unit reference -->
+		<TERM ns=":type:ref" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <i>unit reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Unit object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Cardinality types -->
+	
+	<META>
+		<!-- List -->
+		<TERM ns=":type" lid="list">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">List</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Indexed -->
+		<TERM ns=":type" lid="indexed">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Indexed</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>indexed</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 </METADATA>

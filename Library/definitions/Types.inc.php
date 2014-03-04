@@ -87,6 +87,18 @@ define( "kTYPE_STRUCT",							':type:struct' );
  */
 define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
 
+/**
+ * Typed list.
+ *
+ * This data type defines a <em>list of elements categorised by type</em>. The list elements
+ * are composed by <em>two key/value pairs</em>. The first pair has the {@link kTAG_TYPE}
+ * tag as its key and the value represents the type of the element. The second pair has
+ * an unspecified tag as the key and the value represents the element's value qualified by
+ * the previous pair. No two elements may share the same type and only one element may omit
+ * the type pair.
+ */
+define( "kTYPE_TYPED_LIST",						':type:typed-list' );
+
 /*=======================================================================================
  *	ENUMERATED DATA TYPES																*
  *======================================================================================*/

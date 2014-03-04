@@ -13,60 +13,112 @@
 		<!-- Default namespace -->
 		<TERM lid="">
 			<item const="kTAG_LABEL">
-				<item lang="en">Default namespace</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Default namespace</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This <em>namespace</em> groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This <em>namespace</em> groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- Domain -->
 		<TERM ns="" lid="domain">
 			<item const="kTAG_LABEL">
-				<item lang="en">Domain</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>domain</em> represents the <em>kind</em> or <em>class</em>, it indicates <em>what</em> an object is.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>domain</em> represents the <em>kind</em> or <em>class</em>, it indicates <em>what</em> an object is.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- Type -->
 		<TERM ns="" lid="type">
 			<item const="kTAG_LABEL">
-				<item lang="en">Type</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>type</em> describes the <em>nature or composition</em> of a <em>data value</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature or composition</em> of a <em>data value</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- Relationship -->
 		<TERM ns="" lid="relationship">
 			<item const="kTAG_LABEL">
-				<item lang="en">Relationship</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Relationship</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>relationship</em> represents the <em>term</em> of a <em>directed graph relation</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>relationship</em> represents the <em>term</em> of a <em>directed graph relation</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- Reference -->
 		<TERM ns=":type" lid="ref">
 			<item const="kTAG_LABEL">
-				<item lang="en">Reference</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Reference</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>reference</em> represents a <em>link</em> to an object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> represents a <em>link</em> to an object.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- Connection -->
 		<TERM ns="" lid="connection">
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>connection</em> groups <em>network connection related attributes</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>connection</em> groups <em>network connection related attributes</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Entity -->
+		<TERM ns="" lid="entity">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>entity</em> groups <em>organisation, institution or person related attributes</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 	</META>

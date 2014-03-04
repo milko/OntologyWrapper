@@ -13,20 +13,32 @@
 		<!-- kTAG_NID -->
 	   <TERM lid="_id">
 			<item const="kTAG_LABEL">
-				<item lang="en">Native identifier</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Native identifier</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>native identifier</em> represents the <em>primary key</em> of an object, all objects which are persistent must have this property.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>native identifier</em> represents the <em>primary key</em> of an object, all objects which are persistent must have this property.]]></item>
+				</item>
 			</item>
 		</TERM>
 		
 		<!-- kTAG_CLASS -->
 	   <TERM lid="_class">
 			<item const="kTAG_LABEL">
-				<item lang="en">Class</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Class</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>class</em> represents the <em>object class name</em>, this <em>string</em> is used to instantiate the correct object once loaded from a container.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>class</em> represents the <em>object class name</em>, this <em>string</em> is used to instantiate the correct object once loaded from a container.]]></item>
+				</item>
 			</item>
 		</TERM>
 	</META>
@@ -44,10 +56,16 @@
 				<item>:type:ref:term</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Domain</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute represents the <em>domain</em> of the object, it is an <em>enumerated value</em> which represents the <em>kind</em> or <em>nature</em> of the object, this property is used to <em>disambiguate objects of different domains within a single collection.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute represents the <em>domain</em> of the object, it is an <em>enumerated value</em> which represents the <em>kind</em> or <em>nature</em> of the object, this property is used to <em>disambiguate objects of different domains within a single collection.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -57,10 +75,16 @@
 	<META>
 	   <TERM ns="" lid="authority">
 			<item const="kTAG_LABEL">
-				<item lang="en">Authority</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Authority</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>authority</em> identifies the <em>entity</em> which is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>authority</em> identifies the <em>entity</em> which is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -71,7 +95,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute indicates the <em>entity</em> which is <em>responsible</em> for the <em>identifier</em> of the object, or which is the <em>author of the information</em> regarding the object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the <em>entity</em> which is <em>responsible</em> for the <em>identifier</em> of the object, or which is the <em>author of the information</em> regarding the object.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -81,10 +108,16 @@
 	<META>
 	   <TERM ns="" lid="collection">
 			<item const="kTAG_LABEL">
-				<item lang="en">Collection</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -95,7 +128,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>collection</em> is a <em>string</em> that identifies the <em>group</em> of the object and it allows to <em>disambiguate homonym local identifiers</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> is a <em>string</em> that identifies the <em>group</em> of the object and it allows to <em>disambiguate homonym local identifiers</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -105,10 +141,16 @@
 	<META>
 	   <TERM ns="" lid="namespace">
 			<item const="kTAG_LABEL">
-				<item lang="en">Namespace</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Namespace</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>namespace</em> is used to <em>disambiguate homonym identifiers</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>namespace</em> is used to <em>disambiguate homonym identifiers</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -119,7 +161,10 @@
 				<item>:type:ref:term</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The namespace is a <em>term reference</em> which <em>groups related identifiers</em>, prepended to the local identifier it constitutes the object <em>global persistent identifier.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The namespace is a <em>term reference</em> which <em>groups related identifiers</em>, prepended to the local identifier it constitutes the object <em>global persistent identifier.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -129,10 +174,16 @@
 	<META>
 	   <TERM ns="" lid="id-local">
 			<item const="kTAG_LABEL">
-				<item lang="en">Local identifier</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Local identifier</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>local identifier</em> is used to uniquely identify objects <em>within a namespace</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>local identifier</em> is used to uniquely identify objects <em>within a namespace</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -143,7 +194,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>local identifier</em> is a <em>string</em> that <em>uniquely identifies</em> the object within a <em>namespace</em> or <em>collection</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>local identifier</em> is a <em>string</em> that <em>uniquely identifies</em> the object within a <em>namespace</em> or <em>collection</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -153,10 +207,16 @@
 	<META>
 	   <TERM ns="" lid="id-persistent">
 			<item const="kTAG_LABEL">
-				<item lang="en">Persistent identifier</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Persistent identifier</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>persistent identifier</em> is <em>immutable</em> and represents a <em>global identifier</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>persistent identifier</em> is <em>immutable</em> and represents a <em>global identifier</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -167,7 +227,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[<em>Persistent identifiers</em> are <em>unique across namespaces</em>, they are <em>global</em>, in that they <em>include the namespace</em> and they are <em>persistent</em>. In general, this identifier is the concatenation of the namespace and the local identifier.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Persistent identifiers</em> are <em>unique across namespaces</em>, they are <em>global</em>, in that they <em>include the namespace</em> and they are <em>persistent</em>. In general, this identifier is the concatenation of the namespace and the local identifier.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -177,10 +240,16 @@
 	<META>
 	   <TERM ns="" lid="id-valid">
 			<item const="kTAG_LABEL">
-				<item lang="en">Valid identifier</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Valid identifier</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>valid identifier</em> is a <em>persistent identifier</em> which is <em>valid</em> or <em>official</em>, as opposed to a persistent identifier which is invalid or obsolete.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>valid identifier</em> is a <em>persistent identifier</em> which is <em>valid</em> or <em>official</em>, as opposed to a persistent identifier which is invalid or obsolete.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -191,7 +260,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute is a <em>string</em> which represents the <em>persistent global identifier</em> of the object that is <em>considered the valid choice</em>. This is generally used by <em>legacy</em> or <em>obsolete</em> objects for referring to the <em>valid</em>, <em>current</em> or <em>official</em> object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> which represents the <em>persistent global identifier</em> of the object that is <em>considered the valid choice</em>. This is generally used by <em>legacy</em> or <em>obsolete</em> objects for referring to the <em>valid</em>, <em>current</em> or <em>official</em> object.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -201,10 +273,16 @@
 	<META>
 	   <TERM ns="" lid="id-sequence">
 			<item const="kTAG_LABEL">
-				<item lang="en">Sequence number</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Sequence number</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>sequence number</em> is an <em>identifier</em> which is <em>unique across objects belonging to the same collection</em>, this identifier is <em>serial</em>, in that it is <em>assigned at commit time</em> and subsequently <em>incremented</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>sequence number</em> is an <em>identifier</em> which is <em>unique across objects belonging to the same collection</em>, this identifier is <em>serial</em>, in that it is <em>assigned at commit time</em> and subsequently <em>incremented</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -215,7 +293,10 @@
 				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute is an <em>integer sequence number</em> which is <em>automatically assigned</em> just before the object is <em>committed</em>. This represents an <em>identifier unique to the collection</em> to which the object belongs. This identifier is <em>not persistent</em>, in that it depends on the order in which the object was committed.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>integer sequence number</em> which is <em>automatically assigned</em> just before the object is <em>committed</em>. This represents an <em>identifier unique to the collection</em> to which the object belongs. This identifier is <em>not persistent</em>, in that it depends on the order in which the object was committed.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -225,10 +306,16 @@
 	<META>
 	   <TERM ns="" lid="version">
 			<item const="kTAG_LABEL">
-				<item lang="en">Version</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Version</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object</em> or <em>identifier</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object</em> or <em>identifier</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -239,7 +326,10 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>. It is generally used to identify different versions of the object by <em>disambiguating duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object information.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>. It is generally used to identify different versions of the object by <em>disambiguating duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object information.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -251,10 +341,16 @@
 	<META>
 	   <TERM ns="" lid="tag">
 			<item const="kTAG_LABEL">
-				<item lang="en">Tag reference</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag reference</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>reference</em> to a <em>tag</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to a <em>tag</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -265,10 +361,16 @@
 				<item>:type:ref:tag</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Tag</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> representing a <em>tag object reference</em>, it is the <em>tag native identifier</em> of the <em>tag object</em> it references.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> representing a <em>tag object reference</em>, it is the <em>tag native identifier</em> of the <em>tag object</em> it references.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -278,10 +380,16 @@
 	<META>
 	   <TERM ns="" lid="tags">
 			<item const="kTAG_LABEL">
-				<item lang="en">Tag references</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag references</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>list of tag references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>list of tag references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -295,10 +403,16 @@
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Tags</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tags</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of strings</em> representing <em>tag object references</em>, these elements are the <em>native identifiers</em> of the <em>tag objects</em> they reference.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of strings</em> representing <em>tag object references</em>, these elements are the <em>native identifiers</em> of the <em>tag objects</em> they reference.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -308,10 +422,16 @@
 	<META>
 	   <TERM ns="" lid="term">
 			<item const="kTAG_LABEL">
-				<item lang="en">Term reference</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term reference</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>reference</em> to a <em>term</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to a <em>term</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -322,10 +442,16 @@
 				<item>:type:ref:term</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Term</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> representing a <em>term object reference</em>, it is the <em>native identifier</em> of the <em>term object</em> it references.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> representing a <em>term object reference</em>, it is the <em>native identifier</em> of the <em>term object</em> it references.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -335,10 +461,16 @@
 	<META>
 	   <TERM ns="" lid="terms">
 			<item const="kTAG_LABEL">
-				<item lang="en">Term references</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term references</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>list of term references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>list of term references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -352,10 +484,16 @@
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Terms</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Terms</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of strings</em> representing <em>term object references</em>, these elements are the <em>native identifiers</em> of the <em>term objects</em> they reference. The order in which these elements are set is significant: this list generally represents a <em>lexical construct</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of strings</em> representing <em>term object references</em>, these elements are the <em>native identifiers</em> of the <em>term objects</em> they reference. The order in which these elements are set is significant: this list generally represents a <em>lexical construct</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -365,10 +503,16 @@
 	<META>
 		<TERM ns=":relationship" lid="subject">
 			<item const="kTAG_LABEL">
-				<item lang="en">Subject vertex</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subject vertex</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>origin vertex of a directed graph relationship</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>origin vertex of a directed graph relationship</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -379,10 +523,16 @@
 				<item>:type:ref:node</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Subject</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subject</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute describes the <em>subject of a relationship</em>, it holds an <em>integer</em> representing a <em>node native identifier</em> which is a <em>reference to a node object</em> through its <em>sequence number</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute describes the <em>subject of a relationship</em>, it holds an <em>integer</em> representing a <em>node native identifier</em> which is a <em>reference to a node object</em> through its <em>sequence number</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -392,10 +542,16 @@
 	<META>
 		<TERM ns=":relationship" lid="predicate">
 			<item const="kTAG_LABEL">
-				<item lang="en">Relationship predicate</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Relationship predicate</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>predicate of a directed graph relationship</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>predicate of a directed graph relationship</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -406,10 +562,16 @@
 				<item>:type:ref:term</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Predicate</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Predicate</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute describes the <em>predicate of a relationship</em>, it holds a <em>string</em> representing a <em>term native identifier</em> which <em>qualifies the relationship between two vertices</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute describes the <em>predicate of a relationship</em>, it holds a <em>string</em> representing a <em>term native identifier</em> which <em>qualifies the relationship between two vertices</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -419,10 +581,16 @@
 	<META>
 		<TERM ns=":relationship" lid="object">
 			<item const="kTAG_LABEL">
-				<item lang="en">Object vertex</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Object vertex</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>destination vertex of a directed graph relationship</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>destination vertex of a directed graph relationship</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -433,34 +601,41 @@
 				<item>:type:ref:node</item>
 			</item>
 		   <item const="kTAG_LABEL">
-				<item lang="en">Object</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Object</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute describes the <em>object of a relationship</em>, it holds an <em>integer</em> representing a <em>node native identifier</em> which is a <em>reference to a node object</em> through its <em>sequence number</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute describes the <em>object of a relationship</em>, it holds an <em>integer</em> representing a <em>node native identifier</em> which is a <em>reference to a node object</em> through its <em>sequence number</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- 17 -->
-	<!-- kTAG_AFFILIATION -->
+	<!-- kTAG_ENTITY -->
 	<META>
-		<TERM ns="" lid="affiliation">
-			<item const="kTAG_LABEL">
-				<item lang="en">Affiliation</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A reference to the <em>entity</em> to which another entity is <em>affiliated</em>.]]></item>
-			</item>
-		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:affiliation</item>
+				<item>:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:ref:entity</item>
 			</item>
+		   <item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity</item>
+				</item>
+			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> representing an <em>entity native identifier</em>, it is a <em>reference to the entity object</em> to which the <em>current entity object is affiliated</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>reference</em> to an <em>entity object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -472,10 +647,16 @@
 	<META>
 		<TERM ns="" lid="category">
 			<item const="kTAG_LABEL">
-				<item lang="en">Category</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Category</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The <em>category</em> to which an object belongs.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>category</em> to which an object belongs.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -486,7 +667,10 @@
 				<item>:type:enum-set</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which represent the <em>different categories to which the object belongs</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which represent the <em>different categories to which the object belongs</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -496,10 +680,16 @@
 	<META>
 	   <TERM ns=":type" lid="data">
 			<item const="kTAG_LABEL">
-				<item lang="en">Data type</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Data type</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>data type</em>, of a property, it describes the internal representation of a value.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>data type</em>, of a property, it describes the internal representation of a value.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -510,7 +700,10 @@
 				<item>:type:enum-set</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which indicate the <em>data type</em> of the data property. This type corresponds to the <em>primitive data representation and structure of the data property</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which indicate the <em>data type</em> of the data property. This type corresponds to the <em>primitive data representation and structure of the data property</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
@@ -520,10 +713,16 @@
 	<META>
 	   <TERM ns=":type" lid="kind">
 			<item const="kTAG_LABEL">
-				<item lang="en">Data kind</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Data kind</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>data attributes</em> of a property, it describes the structure and cardinality of a data property.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>data attributes</em> of a property, it describes the structure and cardinality of a data property.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -534,22 +733,64 @@
 				<item>:type:enum-set</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which indicate the <em>cardinality</em> and <em>requirements</em> of the data property. This type corresponds to the <em>attributes of the data property</em>, <em>not to its type</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which indicate the <em>cardinality</em> and <em>requirements</em> of the data property. This type corresponds to the <em>attributes of the data property</em>, <em>not to its type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 21 -->
+	<!-- kTAG_NODE_TYPE -->
+	<META>
+	   <TERM ns=":type" lid="node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Node type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This qualifies the <em>type of a node object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:type:node</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> of <em>term object references</em> which qualift the <em>type</em> and <em>context</em> of a <em>node object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- Object description tags -->
 	
-	<!-- 21 -->
+	<!-- 22 -->
 	<!-- kTAG_NAME -->
 	<META>
 	   <TERM ns="" lid="name">
 			<item const="kTAG_LABEL">
-				<item lang="en">Name</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>name</em> of an object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>name</em> of an object.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -560,20 +801,29 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> representing the <en>name of the object</em>. This is generally the way humans refer to the object and it is <em>not related to a specific language</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> representing the <en>name of the object</em>. This is generally the way humans refer to the object and it is <em>not related to a specific language</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 22 -->
+	<!-- 23 -->
 	<!-- kTAG_LABEL -->
 	<META>
 	   <TERM ns="" lid="label">
 			<item const="kTAG_LABEL">
-				<item lang="en">Label</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Label</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents a <em>label</em> or <em>short description</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a <em>label</em> or <em>short description</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -584,20 +834,29 @@
 				<item>:type:language-strings</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of strings<em> representing <en>labels of an object the several languages</em>. Each element holds the <em>language</em> in which the label is expressed in and the <em>text</em> of the label.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of strings<em> representing <en>labels of an object the several languages</em>. Each element holds the <em>language</em> in which the label is expressed in and the <em>text</em> of the label.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 23 -->
+	<!-- 24 -->
 	<!-- kTAG_DEFINITION -->
 	<META>
 	   <TERM ns="" lid="definition">
 			<item const="kTAG_LABEL">
-				<item lang="en">Definition</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Definition</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>definition</em> provides <em>detailed information</em> about an object <em>without reference to a specific context</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>definition</em> provides <em>detailed information</em> about an object <em>without reference to a specific context</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -608,20 +867,29 @@
 				<item>:type:language-strings</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>definitions of an object in several languages</em>. Each element holds the <em>language</em> in which the definition is expressed in and the <em>text</em> of the definition. <em>A definition should provide detailed information on an object without reference to the context</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>definitions of an object in several languages</em>. Each element holds the <em>language</em> in which the definition is expressed in and the <em>text</em> of the definition. <em>A definition should provide detailed information on an object without reference to the context</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 24 -->
+	<!-- 25 -->
 	<!-- kTAG_DESCRIPTION -->
 	<META>
 	   <TERM ns="" lid="description">
 			<item const="kTAG_LABEL">
-				<item lang="en">Description</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Description</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[A <em>description</em> is a <em>descriptive text</em> that provides <em>documentation</em> on an object. A description should provide <em>information related to context</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>description</em> is a <em>descriptive text</em> that provides <em>documentation</em> on an object. A description should provide <em>information related to context</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -632,20 +900,29 @@
 				<item>:type:language-strings</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>descriptions of the object in several languages</em>. Each element holds the <em>language</em> in which the description is expressed in and the <em>text</em> of the description. <em>A description should add context related information to the definition of the object</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>descriptions of the object in several languages</em>. Each element holds the <em>language</em> in which the description is expressed in and the <em>text</em> of the description. <em>A description should add context related information to the definition of the object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 25 -->
+	<!-- 26 -->
 	<!-- kTAG_NOTES -->
 	<META>
 	   <TERM ns="" lid="notes">
 			<item const="kTAG_LABEL">
-				<item lang="en">Notes</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Notes</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents a collection of <em>notes</em> or <em>comments</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a collection of <em>notes</em> or <em>comments</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -659,22 +936,31 @@
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated to a specific language.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated to a specific language.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- Statistical attributes -->
 	
-	<!-- 26 -->
+	<!-- 27 -->
 	<!-- kTAG_UNIT_COUNT -->
 	<META>
 	   <TERM ns="" lid="unit-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Units count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Units count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of unit objects featuring a specific property</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of unit objects featuring a specific property</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -688,23 +974,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Unit references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of unit objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in unit objects</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of unit objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in unit objects</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 27 -->
+	<!-- 28 -->
 	<!-- kTAG_ENTITY_COUNT -->
 	<META>
 	   <TERM ns="" lid="entity-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Entities count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entities count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of entity objects featuring a specific property</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of entity objects featuring a specific property</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -718,23 +1016,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Entity references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in entity objects</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects featuring the current property</em>. This is generally used to assess <em>tag usage frequency in entity objects</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 28 -->
+	<!-- 29 -->
 	<!-- kTAG_TAG_COUNT -->
 	<META>
 	   <TERM ns="" lid="tag-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Tags count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tags count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of tag references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of tag references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -748,23 +1058,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Tag references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tag references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects referencing the current object</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of tag objects referencing the current object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 29 -->
+	<!-- 30 -->
 	<!-- kTAG_TERM_COUNT -->
 	<META>
 	   <TERM ns="" lid="term-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Terms count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Terms count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of term references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of term references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -778,23 +1100,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Term references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of term objects referencing the current object</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of term objects referencing the current object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 30 -->
+	<!-- 31 -->
 	<!-- kTAG_NODE_COUNT -->
 	<META>
 	   <TERM ns="" lid="node-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Nodes count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Nodes count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents the <em>number of node references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of node references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -808,23 +1142,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Node references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Node references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of node objects referencing the current object</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of node objects referencing the current object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 31 -->
+	<!-- 32 -->
 	<!-- kTAG_EDGE_COUNT -->
 	<META>
 	   <TERM ns="" lid="edge-count">
 			<item const="kTAG_LABEL">
-				<item lang="en">Edges count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edges count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents a <em>number of edge references</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a <em>number of edge references</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -838,23 +1184,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Edge references count</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Edge references count</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of edge objects referencing the current object</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> value representing the <em>number of edge objects referencing the current object</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 32 -->
+	<!-- 33 -->
 	<!-- kTAG_OFFSETS -->
 	<META>
 	   <TERM ns="" lid="offsets">
 			<item const="kTAG_LABEL">
-				<item lang="en">Offsets</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Offsets</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents a <em>list of offsets</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a <em>list of offsets</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -869,23 +1227,35 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Offsets list</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Offsets list</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of strings</em> used as <em>object offsets</em> in which the leaf element is common. The elements of this list represent the <em>path</em> of an offset, that is, the different offsets at different depth levels, separated by a period: such a string can be used to refer to a specific property at any depth level in the object.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of strings</em> used as <em>object offsets</em> in which the leaf element is common. The elements of this list represent the <em>path</em> of an offset, that is, the different offsets at different depth levels, separated by a period: such a string can be used to refer to a specific property at any depth level in the object.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 33 -->
+	<!-- 34 -->
 	<!-- kTAG_OBJECT_TAGS -->
 	<META>
 	   <TERM ns="" lid="object-tags">
 			<item const="kTAG_LABEL">
-				<item lang="en">Object tags</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Object tags</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This represents a <em>list of tag sequence numbers</em> referring to the set of tag objects referenced by an object's offsets.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a <em>list of tag sequence numbers</em> referring to the set of tag objects referenced by an object's offsets.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -900,22 +1270,50 @@
 				<item>:type:private</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of integers</em> which represent <em>tag sequence numbers</em>, this list provides the set of tags referenced by the current object's offsets at any level in the structure.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of integers</em> which represent <em>tag sequence numbers</em>, this list provides the set of tags referenced by the current object's offsets at any level in the structure.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- Generic or sub-structure attributes -->
 	
-	<!-- 34 -->
+	<!-- 35 -->
+	<!-- kTAG_TYPE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents the <em>type</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 36 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
 			<item const="kTAG_LABEL">
-				<item lang="en">Language</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Language</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This indicates the <em>language</em> of the current element.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>language</em> of the current element.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -926,20 +1324,29 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which represents the <em>language name or code</em> of the current element.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents the <em>language name or code</em> of the current element.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 35 -->
+	<!-- 37 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
 			<item const="kTAG_LABEL">
-				<item lang="en">Text</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Text</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This indicates the <em>string</em> or <em>text</em> of the current element.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>string</em> or <em>text</em> of the current element.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -950,22 +1357,31 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which represents the <em>text</em> of the current element.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents the <em>text</em> of the current element.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
 	<!-- Connection attributes -->
 	
-	<!-- 36 -->
+	<!-- 38 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
 			<item const="kTAG_LABEL">
-				<item lang="en">Protocol</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Protocol</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[The network connection <em>protocol</em> or <em>scheme</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The network connection <em>protocol</em> or <em>scheme</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -976,23 +1392,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection protocol</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection protocol</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the network connection <em>protocol</em> or <em>scheme</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the network connection <em>protocol</em> or <em>scheme</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 37 -->
+	<!-- 39 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
 			<item const="kTAG_LABEL">
-				<item lang="en">Host</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Host</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[Network <em>host</em> or <em>IP address</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Network <em>host</em> or <em>IP address</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1003,23 +1431,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection host</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection host</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the network connection <em>domain name</em> or <em>internet address</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the network connection <em>domain name</em> or <em>internet address</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 38 -->
+	<!-- 40 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
 			<item const="kTAG_LABEL">
-				<item lang="en">Port</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Port</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[Network TCP or UDP <em>port number</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Network TCP or UDP <em>port number</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1030,23 +1470,35 @@
 				<item>:type:int</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection port number</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection port number</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds an <em>integer</em> which identifies the network TCP or UDP <em>port number</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>integer</em> which identifies the network TCP or UDP <em>port number</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 39 -->
+	<!-- 41 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
 			<item const="kTAG_LABEL">
-				<item lang="en">User code</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User code</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[Authentication credentials <em>user code</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Authentication credentials <em>user code</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1057,23 +1509,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection user</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection user</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>user code</em> used to <em>authenticate with the service</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>user code</em> used to <em>authenticate with the service</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 40 -->
+	<!-- 42 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
 			<item const="kTAG_LABEL">
-				<item lang="en">User password</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">User password</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[Authentication credentials <em>user password</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Authentication credentials <em>user password</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1084,23 +1548,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection password</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection password</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>user password</em> used to <em>authenticate with the service</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>user password</em> used to <em>authenticate with the service</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 41 -->
+	<!-- 43 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
 			<item const="kTAG_LABEL">
-				<item lang="en">Database</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Database</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[<em>Database</em> name.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Database</em> name.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1111,23 +1587,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Database name</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Database name</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>database</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>database</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 42 -->
+	<!-- 44 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
 			<item const="kTAG_LABEL">
-				<item lang="en">Collection</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[<EM>Database collection</em> name.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<EM>Database collection</em> name.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1138,23 +1626,35 @@
 				<item>:type:string</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Collection name</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection name</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>database collection</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which identifies the <em>database collection</em>.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
 	
-	<!-- 43 -->
+	<!-- 45 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
 			<item const="kTAG_LABEL">
-				<item lang="en">Options</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Options</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[Connection <em>list of options</em>.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Connection <em>list of options</em>.]]></item>
+				</item>
 			</item>
 		</TERM>
 		<TAG>
@@ -1165,10 +1665,345 @@
 				<item>:type:array</item>
 			</item>
 			<item const="kTAG_LABEL">
-				<item lang="en">Connection options</item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection options</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
-				<item lang="en"><![CDATA[This attribute holds a <em>list of key/value pairs</em> which represent the <em>network connection options</em>. The key part identifies the option, the value part provides the option value.]]></item>
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of key/value pairs</em> which represent the <em>network connection options</em>. The key part identifies the option, the value part provides the option value.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Entity attributes -->
+	
+	<!-- 46 -->
+	<!-- kTAG_ENTITY_TYPE -->
+	<META>
+	   <TERM ns=":entity" lid="type">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> describing the <em>various types of the holding entity</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 47 -->
+	<!-- kTAG_ENTITY_KIND -->
+	<META>
+	   <TERM ns=":entity" lid="kind">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity kind</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>kind</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:kind</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an <em>enumerated set</em> describing the <em>various kinds of the holding entity</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 48 -->
+	<!-- kTAG_ENTITY_MAIL -->
+	<META>
+	   <TERM ns=":entity" lid="mail">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity mail</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>mailing address</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:mail</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:typed-list</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity mailing addresses</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the entity <em>list of mailing addresses discriminated by type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 49 -->
+	<!-- kTAG_ENTITY_EMAIL -->
+	<META>
+	   <TERM ns=":entity" lid="email">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity e-mail</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>electronic mail address</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:email</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:typed-list</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity electronic mail addresses</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the entity <em>list of e-mail addresses discriminated by type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 50 -->
+	<!-- kTAG_ENTITY_PHONE -->
+	<META>
+	   <TERM ns=":entity" lid="phone">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telephone</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>telephone number</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:phone</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:typed-list</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telephone numbers</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the entity <em>list of telephone numbers discriminated by type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 51 -->
+	<!-- kTAG_ENTITY_FAX -->
+	<META>
+	   <TERM ns=":entity" lid="fax">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telefax</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>telefax number</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:fax</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:typed-list</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telefax numbers</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the entity <em>list of telefax numbers discriminated by type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 52 -->
+	<!-- kTAG_ENTITY_AFFILIATION -->
+	<META>
+	   <TERM ns=":entity" lid="affiliation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Affiliation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A reference to the <em>entity or entities</em> to which the current object is <em>affiliated</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:affiliation</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:typed-list</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>list of entities</em> to which the current object is <em>affiliated, discriminated by type</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 53 -->
+	<!-- kTAG_ENTITY_COUNTRY -->
+	<META>
+	   <TERM ns=":entity" lid="country">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity country</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>country</em> of an <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:country</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity telefax numbers</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>country of the entity</em>, this is expressed as an ISO country code.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 54 -->
+	<!-- kTAG_ENTITY_VALID -->
+	<META>
+	   <TERM ns=":entity" lid="valid">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Valid entity</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:valid</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:entity</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>reference</em> to the <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>. This is used to keep track of historical entity records when these entities become obsolete or defunct.]]></item>
+				</item>
 			</item>
 		</TAG>
 	</META>
