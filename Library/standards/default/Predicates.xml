@@ -90,22 +90,6 @@
 			</item>
 		</TERM>
 		
-		<!-- kPREDICATE_ATTRIBUTE_OF -->
-		<TERM ns=":relationship:predicate" lid="ATTRIBUTE-OF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Attribute of</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship is an attribute of the object of the relationship</i>, this means that the subject of the relationship is a <i>feature</i>.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
 		<!-- kPREDICATE_COLLECTION_OF -->
 		<TERM ns=":relationship:predicate" lid="COLLECTION-OF">
 			<item const="kTAG_LABEL">
@@ -118,6 +102,38 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is a <i>collection belonging to the object of the relationship. This predicate is similar to the <i>attribute of</i> predicate, except that the latter case the subject is a scalar item of the object, while, in this case, the subject is a template for the collection of elements that belong to the object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kPREDICATE_ATTRIBUTE_OF -->
+		<TERM ns=":relationship:predicate" lid="ATTRIBUTE-OF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Attribute of</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <em>subject</em> of the relationship is an <em>attribute of the object</em> of the relationship, this means that the subject of the relationship belongs to the set of attributes of the object of the relationship.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kPREDICATE_PROPERTY_OF -->
+		<TERM ns=":relationship:predicate" lid="PROPERTY-OF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Property of</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship is a property of the object of the relationship</i>, this means that the subject of the relationship is a <i>feature</i>.]]></item>
 				</item>
 			</item>
 		</TERM>

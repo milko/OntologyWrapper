@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT NODE TYPES
+	NodeTypes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Node type enumerations -->
+	
+	<META>
+		<!-- kTYPE_NODE_ROOT -->
+		<TERM ns=":type:node" lid="root">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Root</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>An entry point of a structure</em>. This kind represents a door or entry point of a tree or graph. It can be either the node from which the whole structure originates from, or a node that represents a specific thematic entry point. In general, such objects will have other attributes that will qualify the kind of the structure.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- kTYPE_NODE_ONTOLOGY -->
+		<TERM ns=":type:node" lid="ontology">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Ontology</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>An ontology</em>. This is a graph structure that represents an ontology, the item that bares this attribute is expected to be a root node, structures of this kind usually represent the full set of elements comprising an ontology which will be used by views to create thematic selections.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_TYPE -->
+		<TERM ns=":type:node" lid="type">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type or controlled vocabulary</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A type or controlled vocabulary structure</em>. This is a structure that represents a type or controlled vocabulary, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). The main use of such a kind is to group all elements representing a type or controlled vocabulary that comprises the full set of attributes, views that reference such structures can be used to represent thematic subsets of such types or controlled vocabularies.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_NODE_VIEW -->
+		<TERM ns=":type:node" lid="view">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">View</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A view of one or more structures</em>. This represents a view into an existing structure or structures, the item that bares this attribute is expected to be a root node and the structure is expected to be either a selection or an aggregation of elements from different existing structures. The main goal is to create specific thematic views.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_NODE_TEMPLATE -->
+		<TERM ns=":type:node" lid="template">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Template</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A data template</em>. This is a view that represents a template, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Templates are generally used to import and export data recorded using elements from the ontologies.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_FORM -->
+		<TERM ns=":type:node" lid="form">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Form</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A search form</em>. This is a view that represents a search form, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as search form templates where the branches represent categories and the leaf nodes the attributes to be searched.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_STRUCT -->
+		<TERM ns=":type:node" lid="struct">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Structure</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A data structure</em>. This is a view that represents a data structure, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define the physical structure of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_SCHEMA -->
+		<TERM ns=":type:node" lid="schema">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Schema</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A data schema</em>. This is a view that represents a data <em>schema or sub-structure</em>, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define common schemas that will be used in data structures.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_FEATURE -->
+		<TERM ns=":type:node" lid="feature">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A feature or attribute of an object that can be described or measured</em>. This kind defines a feature, property or attribute of an object that can be described or measured. This kind of node will generally be found as a <em>leaf of the structure</em> describing an object. Plant height is a plant characteristic that belongs to the category of morphological traits: the latter is not a feature, while plant height is.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_METHOD -->
+		<TERM ns=":type:node" lid="method">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Method</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A method or variation of an object's feature measurement</em>. This kind of node is required whenever an object's feature can be <em>measured in different ways</em> or with <em>different workflows</em>, <em>without becoming a different feature</em>. Plant height is an attribute of a plant which can be measured after a month or at flowering time; the attribute is the same, but the method is different.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_SCALE -->
+		<TERM ns=":type:node" lid="scale">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scale</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>The scale or unit in which a measurement is expressed in</em>. This kind of node describes in what unit or scale a measurement is expressed in. Plant height may be measured in centimeters or inches, as well as in intervals or finite categories.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_PROPERTY -->
+		<TERM ns=":type:node" lid="property">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Property</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>data property</em>. The node features a <em>reference to the tag</em> which contains all the information defining and describing a data property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_INSTANCE -->
+		<TERM ns=":type:node" lid="instance">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Instance</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A metadata instance</em>. In general, ontology elements represent metadata, in some cases they may represent actual data: an instance is an ontology item that represents <em>the metadata and data of an object</em>. An ISO 3166 country code can be considered an enumeration that constitutes the metadata for the country it represents, but if you store the country data in that item, this may become also an instance, because it represents the object it defines.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_ENUMERATION -->
+		<TERM ns=":type:node" lid="enumeration">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumeration</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>An item of a controlled vocabulary</em>. This kind describes a controlled vocabulary item. Objects of this kind derive from scale nodes and represent the valid choices of enumeration and enumerated set scale nodes. An ISO 3166 country code could be considered an enumeration node.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

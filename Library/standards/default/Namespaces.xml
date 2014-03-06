@@ -53,7 +53,23 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature or composition</em> of a <em>data value</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature<em> or <em>composition</em> of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Kind -->
+		<TERM ns="" lid="kind">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Kind</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>kind</em> describes the <em>function</em> or <em>context</em> of an object.]]></item>
 				</item>
 			</item>
 		</TERM>

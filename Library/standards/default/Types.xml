@@ -277,6 +277,22 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- Self reference -->
+		<TERM ns=":type:ref" lid="self">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Self reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <i>self reference</i> is a <em>reference to an object of the same class as the object that holds the reference</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Cardinality types -->
@@ -298,18 +314,34 @@
 			</item>
 		</TERM>
 		
-		<!-- Indexed -->
-		<TERM ns=":type" lid="indexed">
+		<!-- Private input -->
+		<TERM ns=":type" lid="private-in">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Indexed</item>
+					<item const="kTAG_TEXT">Private input</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>indexed</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in input</em>, which means that it is automatically managed by the class and should not be explicitly set by clients.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Private output -->
+		<TERM ns=":type" lid="private-out">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Private output</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in output</em>, which means that it is internal and should not be displayed to clients.]]></item>
 				</item>
 			</item>
 		</TERM>

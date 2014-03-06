@@ -104,7 +104,7 @@ class MyClass extends OntologyWrapper\Term
 	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
 	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
 	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
-	public function Encoded()	{	return ( $this->isEncoded() ) ? 'checked="1"' : '';	}
+	public function Alias()		{	return ( $this->isAlias() ) ? 'checked="1"' : '';	}
 }
 
 
@@ -523,7 +523,7 @@ try
 		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+		echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
@@ -548,7 +548,7 @@ try
 		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+		echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
@@ -578,7 +578,7 @@ try
 		echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 		echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 		echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-		echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+		echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
@@ -991,7 +991,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$other->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$other->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$other->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$other->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$other->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1055,7 +1055,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$cont->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$cont->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$cont->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$cont->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$cont->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1089,7 +1089,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$new->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$new->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$new->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$new->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$new->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1124,7 +1124,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1158,7 +1158,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1188,7 +1188,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1222,7 +1222,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$test->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1263,7 +1263,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$other->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$other->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$other->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$other->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$other->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1293,7 +1293,7 @@ try
 	echo( 'Inited: <input type="checkbox" disabled="true" '.$other->Inited().'>&nbsp;' );
 	echo( 'Dirty: <input type="checkbox" disabled="true" '.$other->Dirty().'>&nbsp;' );
 	echo( 'Committed: <input type="checkbox" disabled="true" '.$other->Committed().'>&nbsp;' );
-	echo( 'Encoded: <input type="checkbox" disabled="true" '.$other->Encoded().'>' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$other->Alias().'>' );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );

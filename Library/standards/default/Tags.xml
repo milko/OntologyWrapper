@@ -640,9 +640,51 @@
 		</TAG>
 	</META>
 	
+	<!-- 18 -->
+	<!-- kTAG_MASTER -->
+	<META>
+	   <TERM ns="" lid="master">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Master reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to the <em>master copy of the current object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:master</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:self</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Master</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a value representing a <em>reference</em> to an <em>object of the same class as the holder</em>. Master objects represent either the master copy of the object, or an object that contains information shared by several alias objects, which are those featuring this property.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
 	<!-- Object category tags -->
 	
-	<!-- 18 -->
+	<!-- 19 -->
 	<!-- kTAG_CATEGORY -->
 	<META>
 		<TERM ns="" lid="category">
@@ -675,7 +717,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 19 -->
+	<!-- 20 -->
 	<!-- kTAG_DATA_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="data">
@@ -708,7 +750,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 20 -->
+	<!-- 21 -->
 	<!-- kTAG_DATA_KIND -->
 	<META>
 	   <TERM ns=":type" lid="kind">
@@ -741,7 +783,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 21 -->
+	<!-- 22 -->
 	<!-- kTAG_NODE_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="node">
@@ -776,7 +818,7 @@
 	
 	<!-- Object description tags -->
 	
-	<!-- 22 -->
+	<!-- 23 -->
 	<!-- kTAG_NAME -->
 	<META>
 	   <TERM ns="" lid="name">
@@ -809,7 +851,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 23 -->
+	<!-- 24 -->
 	<!-- kTAG_LABEL -->
 	<META>
 	   <TERM ns="" lid="label">
@@ -842,7 +884,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 24 -->
+	<!-- 25 -->
 	<!-- kTAG_DEFINITION -->
 	<META>
 	   <TERM ns="" lid="definition">
@@ -875,7 +917,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 25 -->
+	<!-- 26 -->
 	<!-- kTAG_DESCRIPTION -->
 	<META>
 	   <TERM ns="" lid="description">
@@ -908,7 +950,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 26 -->
+	<!-- 27 -->
 	<!-- kTAG_NOTES -->
 	<META>
 	   <TERM ns="" lid="notes">
@@ -946,7 +988,7 @@
 	
 	<!-- Statistical attributes -->
 	
-	<!-- 27 -->
+	<!-- 28 -->
 	<!-- kTAG_UNIT_COUNT -->
 	<META>
 	   <TERM ns="" lid="unit-count">
@@ -971,7 +1013,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -988,7 +1030,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 28 -->
+	<!-- 29 -->
 	<!-- kTAG_ENTITY_COUNT -->
 	<META>
 	   <TERM ns="" lid="entity-count">
@@ -1013,7 +1055,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1030,7 +1072,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 29 -->
+	<!-- 30 -->
 	<!-- kTAG_TAG_COUNT -->
 	<META>
 	   <TERM ns="" lid="tag-count">
@@ -1055,7 +1097,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1072,7 +1114,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 30 -->
+	<!-- 31 -->
 	<!-- kTAG_TERM_COUNT -->
 	<META>
 	   <TERM ns="" lid="term-count">
@@ -1097,7 +1139,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1114,7 +1156,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 31 -->
+	<!-- 32 -->
 	<!-- kTAG_NODE_COUNT -->
 	<META>
 	   <TERM ns="" lid="node-count">
@@ -1139,7 +1181,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1156,7 +1198,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 32 -->
+	<!-- 33 -->
 	<!-- kTAG_EDGE_COUNT -->
 	<META>
 	   <TERM ns="" lid="edge-count">
@@ -1181,7 +1223,7 @@
 				<item>:type:integer</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1198,7 +1240,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 33 -->
+	<!-- 34 -->
 	<!-- kTAG_OFFSETS -->
 	<META>
 	   <TERM ns="" lid="offsets">
@@ -1224,7 +1266,7 @@
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
-				<item>:type:private</item>
+				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1241,7 +1283,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 34 -->
+	<!-- 35 -->
 	<!-- kTAG_OBJECT_TAGS -->
 	<META>
 	   <TERM ns="" lid="object-tags">
@@ -1267,7 +1309,8 @@
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
-				<item>:type:private</item>
+				<item>:type:private-in</item>
+				<item>:type:private-out</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1280,7 +1323,7 @@
 	
 	<!-- Generic or sub-structure attributes -->
 	
-	<!-- 35 -->
+	<!-- 36 -->
 	<!-- kTAG_TYPE -->
 	<META>
 		<TAG>
@@ -1299,7 +1342,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 36 -->
+	<!-- 37 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -1332,7 +1375,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 37 -->
+	<!-- 38 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -1367,7 +1410,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 38 -->
+	<!-- 39 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -1406,7 +1449,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 39 -->
+	<!-- 40 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -1445,7 +1488,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 40 -->
+	<!-- 41 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -1484,7 +1527,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 41 -->
+	<!-- 42 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -1523,7 +1566,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 42 -->
+	<!-- 43 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -1562,7 +1605,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 43 -->
+	<!-- 44 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -1601,7 +1644,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 44 -->
+	<!-- 45 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -1640,7 +1683,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 45 -->
+	<!-- 46 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
@@ -1681,10 +1724,10 @@
 	
 	<!-- Entity attributes -->
 	
-	<!-- 46 -->
+	<!-- 47 -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
-	   <TERM ns=":entity" lid="type">
+	   <TERM ns=":type" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1700,7 +1743,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:entity:type</item>
+				<item>:type:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:enum-set</item>
@@ -1714,10 +1757,10 @@
 		</TAG>
 	</META>
 	
-	<!-- 47 -->
+	<!-- 48 -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
-	   <TERM ns=":entity" lid="kind">
+	   <TERM ns=":kind" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1733,7 +1776,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:entity:kind</item>
+				<item>:kind:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:enum-set</item>
@@ -1747,7 +1790,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 48 -->
+	<!-- 49 -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 	   <TERM ns=":entity" lid="mail">
@@ -1786,7 +1829,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 49 -->
+	<!-- 50 -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 	   <TERM ns=":entity" lid="email">
@@ -1825,7 +1868,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 50 -->
+	<!-- 51 -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 	   <TERM ns=":entity" lid="phone">
@@ -1864,7 +1907,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 51 -->
+	<!-- 52 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 	   <TERM ns=":entity" lid="fax">
@@ -1903,7 +1946,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 52 -->
+	<!-- 53 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 	   <TERM ns=":entity" lid="affiliation">
@@ -1936,7 +1979,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 53 -->
+	<!-- 54 -->
 	<!-- kTAG_ENTITY_COUNTRY -->
 	<META>
 	   <TERM ns=":entity" lid="country">
@@ -1975,7 +2018,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 54 -->
+	<!-- 55 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 	   <TERM ns=":entity" lid="valid">

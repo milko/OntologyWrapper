@@ -6706,7 +6706,7 @@ to a specific language.</p>]]></long-description>
         <description><![CDATA[Units count (<code>:unit-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of unit objects
@@ -6722,7 +6722,7 @@ frequency in unit objects</em>.</p>]]></long-description>
         <description><![CDATA[Entity count (<code>:entity-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of entity objects
@@ -6738,7 +6738,7 @@ frequency in entity objects</em>.</p>]]></long-description>
         <description><![CDATA[Tag count (<code>:tag-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of tag objects
@@ -6753,7 +6753,7 @@ that reference the current object</em>.</p>]]></long-description>
         <description><![CDATA[Term count (<code>:term-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of term objects
@@ -6768,7 +6768,7 @@ that reference the current object</em>.</p>]]></long-description>
         <description><![CDATA[Node count (<code>:node-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of node objects
@@ -6783,7 +6783,7 @@ that reference the current object</em>.</p>]]></long-description>
         <description><![CDATA[Edge count (<code>:node-count</code)]]></description>
         <long-description><![CDATA[<ul>
 <li><em>Type</em>: {@link kTYPE_INT}
-<li><em>Kind</em>: {@link kTYPE_PRIVATE}
+<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
 </ul>
 
 <p>This tag holds an <em>integer</em> value representing the <em>number of edge objects
@@ -7199,8 +7199,8 @@ property.</p>]]></long-description>
       </docblock>
     </constant>
     <constant namespace="" line="190" package="Default">
-      <name>kTYPE_PRIVATE</name>
-      <full_name>\kTYPE_PRIVATE</full_name>
+      <name>kTYPE_PRIVATE_IN</name>
+      <full_name>\kTYPE_PRIVATE_IN</full_name>
       <value><![CDATA[':type:private']]></value>
       <docblock line="190">
         <description><![CDATA[Private.]]></description>

@@ -105,25 +105,30 @@ class MongoCollection extends CollectionObject
 
 	 
 	/*===================================================================================
-	 *	resolve																			*
+	 *	matchOne																		*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve an identifier
+	 * Match one object
 	 *
 	 * We first check if the current collection is connected, if that is not the case, we
 	 * raise an exception.
 	 *
-	 * @param mixed					$theValue			Offset value.
-	 * @param mixed					$theOffset			Offset.
-	 * @param mixed					$asObject			What to return.
+	 * In this class we map the method over the {@link MongoCollection::findOne()} method
+	 * when retrieving objects or identifiers and {@link MongoCollection::findOne()} method
+	 * when retrieving counts.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param array					$theFields			Fields selection.
+	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
-	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
+	 * @return mixed				Matched data or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
-	public function resolve( $theValue, $theOffset = kTAG_NID, $asObject = TRUE )
+	public function matchOne( $theCriteria, $theResult = kQUERY_DEFAULT,
+											$theFields = Array() )
 	{
 		//
 		// Check if connected.
@@ -131,60 +136,76 @@ class MongoCollection extends CollectionObject
 		if( $this->isConnected() )
 		{
 			//
-			// Resolve offset.
+			// Get result.
 			//
-			$theOffset = (string) OntologyObject::resolveOffset( $theOffset, TRUE );
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_NID:
+					$theFields = array( kTAG_NID => TRUE );
+				case kQUERY_OBJECT:
+				case kQUERY_ARRAY:
+					$object
+						= $this->
+							mConnection->
+								findOne( $theCriteria, $theFields );
+					break;
+					
+				case kQUERY_COUNT:
+					$rs
+						= $this->
+							mConnection->
+								find( $theCriteria );
+					return $rs->count();											// ==>
+					break;
+			
+			} // Parsed result flags.
 			
 			//
-			// Match object.
+			// Handle no matches.
 			//
-			if( $asObject !== NULL )
+			if( $object === NULL )
 			{
 				//
-				// Find first.
+				// Assert.
 				//
-				$object
-					= $this->
-						mConnection->
-							findOne( array( $theOffset => $theValue ) );
-				if( $object !== NULL )
-				{
-					//
-					// Return array.
-					//
-					if( ! $asObject )
-						return $object;												// ==>
-				
-					//
-					// Check class.
-					//
-					if( array_key_exists( kTAG_CLASS, $object ) )
-					{
-						//
-						// Save class.
-						//
-						$class = $object[ kTAG_CLASS ];
-					
-						return new $class( $this, $object );						// ==>
-				
-					} // Has class.
-			
+				if( $theResult & kQUERY_ASSERT )
 					throw new \Exception(
-						"Unable to resolve object: "
-					   ."missing object class." );								// !@! ==>
-			
-				} // Found.
-			
+						"Unable to match object." );							// !@! ==>
+				
 				return NULL;														// ==>
 			
-			} // Return object or array.
+			} // No matches.
 			
 			//
-			// Find objects.
+			// Handle result.
 			//
-			$rs = $this-> mConnection-> find( array( $theOffset => $theValue ) );
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_ARRAY:
+				
+					return $object;													// ==>
+					
+				case kQUERY_NID:
+				
+					if( ! array_key_exists( kTAG_NID, $object ) )
+						throw new \Exception(
+							"Unable to resolve identifier: "
+						   ."missing object identifier." );						// !@! ==>
+					
+					return $object[ kTAG_NID ];										// ==>
+				
+				case kQUERY_OBJECT:
+				
+					if( ! array_key_exists( kTAG_CLASS, $object ) )
+						throw new \Exception(
+							"Unable to resolve object: "
+						   ."missing object class." );							// !@! ==>
+					
+					$class = $object[ kTAG_CLASS ];
+					
+					return new $class( $this->dictionary(), $object );				// ==>
 			
-			return $rs->count();													// ==>
+			} // Parsed result flags.
 		
 		} // Connected.
 			
@@ -231,6 +252,57 @@ class MongoCollection extends CollectionObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	getIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get index
+	 *
+	 * This method will return the list of indexed offsets, each element of the returned
+	 * array will contain the list of offsets used in the index: an array for multi offset
+	 * indexes and a string for a single index.
+	 *
+	 * @access public
+	 * @return array				The list of indexed offsets.
+	 */
+	public function getIndex()
+	{
+		//
+		// Init local storage.
+		//
+		$index = Array();
+		
+		//
+		// Iterate collection index records.
+		//
+		$list = $this->Connection()->getIndexInfo();
+		foreach( $list as $info )
+		{
+			//
+			// Get index offsets.
+			//
+			$offsets = array_keys( $info );
+			
+			//
+			// Handle multiple offsets.
+			//
+			if( count( $offsets > 0 ) )
+				$index[] = $offsets;
+			
+			//
+			// Handle single offset.
+			//
+			else
+				$index[] = $offsets[ 0 ];
+		
+		} // Iterating index info.
+		
+		return $index;																// ==>
+	
+	} // getIndex.
 
 	 
 	/*===================================================================================

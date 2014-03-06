@@ -151,12 +151,14 @@
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
-
-			<xs:attribute name="term" type="xs:string">
+			
+			<xs:attribute name="class" type="xs:string" use="required">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						Term reference, should refer to the native identifier of the term;
-						this attribute and the tag attribute are mutually exclusive.
+						Node class, this attribute is required to determine whether the current
+						node is a master or alias node, the attribute value can either be
+						OntologyWrapper\NodeMaster, for master nodes, or OntologyWrapper\NodeAlias,
+						for alias nodes..
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -166,6 +168,15 @@
 					<xs:documentation xml:lang="en">
 						Tag reference, should refer to the native identifier of the tag;
 						this attribute and the term attribute are mutually exclusive.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="term" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Term reference, should refer to the native identifier of the term;
+						this attribute and the tag attribute are mutually exclusive.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>

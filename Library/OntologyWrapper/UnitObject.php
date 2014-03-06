@@ -207,6 +207,29 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC MASTER MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setAlias																		*
+	 *==================================================================================*/
+
+	/**
+	 * Signal object as alias
+	 *
+	 * In this class we shadow this method, since there cannot be alias units.
+	 *
+	 * @access public
+	 */
+	public function setAlias( $doSet = TRUE )											   {}
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -570,22 +593,23 @@ abstract class UnitObject extends PersistentObject
 	 * Load object tags
 	 *
 	 * In this class we add the tag if it is not among the {@link DefaultOffsets()} and it
-	 * is not {@link kTYPE_INDEXED}.
+	 * is not indexed.
 	 *
 	 * @param integer				$theTag				Tag sequence number.
 	 * @param reference				$theInfo			Tag information.
 	 * @param reference				$theTags			Receives tags list.
+	 * @param reference				$theIndexes			List of collection indexes.
 	 *
 	 * @access protected
 	 */
-	protected function loadObjectTag( $theTag, &$theInfo, &$theTags )
+	protected function loadObjectTag( $theTag, &$theInfo, &$theTags, &$theIndexes )
 	{
 		//
 		// Check if eligible.
 		//
 		if( (! in_array( $theTag, static::DefaultOffsets() ))
-		 && (! in_array( kTYPE_INDEXED, $theInfo[ 'kind' ] )) )
-			parent::loadObjectTag( $theTag, $theInfo, $theTags );
+		 && (! in_array( (string) $theTag, $theIndexes )) )
+			parent::loadObjectTag( $theTag, $theInfo, $theTags, $theIndexes );
 	
 	} // loadObjectTag.
 

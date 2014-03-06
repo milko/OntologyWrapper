@@ -11,6 +11,7 @@ namespace OntologyWrapper;
 use OntologyWrapper\PersistentObject;
 use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
+use OntologyWrapper\Edge;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -22,7 +23,7 @@ use OntologyWrapper\CollectionObject;
  *======================================================================================*/
 
 /**
- * Node
+ * Node object
  *
  * A node is a <em>vertex in a graph structure</em>, nodes reference
  * <em>{@link Term}</em> and <em>{@link Tag</em> instances, when referencing a
@@ -55,6 +56,9 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
  *		set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.
  *		The individual elements can be managed with the {@link NodeType()} method.
+ *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master node</em>. This property is featured by
+ *		alias nodes, it <em>references</em> the <em>master node</em>. This property is
+ *		handled automatically by the object.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
@@ -64,11 +68,19 @@ use OntologyWrapper\CollectionObject;
  * you may have more than one node pointing to the same term or tag. The object features a
  * persistent unique identifier, {@link kTAG_ID_PERSISTENT}, which can be used to match a
  * specific node, this attribute is optional and it is used to discriminate between
- * <em>master</em> and <em>alias</em> nodes. There can only be one node which references a
- * specific term or tag without featuring a persistent identifier, this class of nodes
- * represent the master reference to the object they are are pointing to. Nodes which
- * feature the persistent identifier are considered aliases of the master node, they are
- * used as alternative views of the graph of master nodes.
+ * <em>master</em> and <em>alias</em> nodes.
+ *
+ * There are two main types of nodes: <em>master</em> and <em>alias</em>. A master node is
+ * considered the main referer of the featured term or tag, there can be only one master
+ * node which points to a specific term or tag. An alias node is, as the word says, an alias
+ * of the term or tag it points to. A node is an alias if it has the {@link kTAG_MASTER}
+ * property, there can be any number of alias nodes pointing to the same term or tag.
+ *
+ * In general, master nodes are used to build the main ontology where all the functional
+ * relationships are described. Alias nodes are used to create views over the master nodes
+ * ontology, these are used to provide templates, forms and output views.
+ *
+ * 
  *
  * Objects of this class can hold any additional attribute that is considered necessary or
  * useful to define and share the current node. In this class we define only those
@@ -140,6 +152,12 @@ class Node extends PersistentObject
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_TAG ) ||
 						 \ArrayObject::offsetExists( kTAG_TERM ) );
+		
+		//
+		// Set alias status.
+		//
+		if( $this->offsetExists( kTAG_MASTER ) )
+			$this->isAlias( TRUE );
 
 	} // Constructor.
 
@@ -175,6 +193,101 @@ class Node extends PersistentObject
 		return '';																	// ==>
 	
 	} // __toString.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getReferenced																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get referenced object
+	 *
+	 * This method will return either the term or tag object if any is set; if none are set,
+	 * the method will return <tt>NULL</tt>, or raise an exception if the second parameter
+	 * is <tt>TRUE</tt>.
+	 *
+	 * The first parameter is the wrapper in which the current object is, or will be,
+	 * stored: if the current object has the {@link dictionary()}, this parameter may be
+	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doAssert			Raise exception if not matched.
+	 *
+	 * @access public
+	 * @return PersistentObject		Master node or <tt>NULL</tt>
+	 *
+	 * @throws Exception
+	 */
+	public function getReferenced( $theWrapper = NULL, $doAssert = TRUE )
+	{
+		//
+		// Check tag and term.
+		//
+		if( $this->offsetExists( kTAG_TAG )
+		 || $this->offsetExists( kTAG_TERM ) )
+		{
+			//
+			// Resolve wrapper.
+			//
+			if( $theWrapper === NULL )
+			{
+				//
+				// Get current object's wrapper.
+				//
+				$theWrapper = $this->dictionary();
+				
+				//
+				// Check wrapper.
+				//
+				if( ! ($theWrapper instanceof Wrapper) )
+					throw new \Exception(
+						"Unable to resolve referenced: "
+					   ."missing wrapper." );									// !@! ==>
+			
+			} // Wrapper not provided.
+		
+			//
+			// Resolve collection.
+			//
+			$collection = ( $this->offsetExists( kTAG_TAG ) )
+						? Tag::ResolveCollection(
+							Tag::ResolveDatabase( $theWrapper, TRUE ) )
+						: Term::ResolveCollection(
+							Term::ResolveDatabase( $theWrapper, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_NID => ( $this->offsetExists( kTAG_TAG ) )
+										   ? $this->offsetGet( kTAG_TAG )
+										   : $this->offsetGet( kTAG_TERM ) );
+			
+			//
+			// Locate object.
+			//
+			$object = $collection->matchOne( $criteria );
+			if( $doAssert
+			 && ($object === NULL) )
+				throw new \Exception(
+					"Unable to resolve referenced: "
+				   ."referenced object not matched." );							// !@! ==>
+			
+			return $object;															// ==>
+		
+		} // Has tag or term.
+		
+		return NULL;																// ==>
+	
+	} // getReferenced.
 
 		
 
@@ -289,6 +402,13 @@ class Node extends PersistentObject
 								  		 "sparse" => TRUE ) );
 		
 		//
+		// Set master index.
+		//
+		$collection->createIndex( array( kTAG_MASTER => 1 ),
+								  array( "name" => "MASTER",
+								  		 "sparse" => TRUE ) );
+		
+		//
 		// Set type index.
 		//
 		$collection->createIndex( array( kTAG_NODE_TYPE => 1 ),
@@ -298,6 +418,172 @@ class Node extends PersistentObject
 		return $collection;															// ==>
 	
 	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							STATIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetTagMaster																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get tag master object
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: This parameter represents the wrapper containing both the
+	 *		nodes and the tags.
+	 *	<li><b>$theIdentifier</b>: This parameter represents the tag identifier:
+	 *	 <ul>
+	 *		<li><tt>integer</tt>: If the value is an integer, the method will match the
+	 *			identifier with the {@link kTAG_ID_SEQUENCE} offset of the tag;
+	 *		<li><tt>string</tt>: Any other type will be cast to a string, the method will
+	 *			match the identifier with the {@link kTAG_NID} offset of the tag.
+	 *	 </ul>
+	 *	<li><b>$theResult</b>: This parameter determines what the method should return, it
+	 *		is a bitfield which accepts two sets of values:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method will raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *			<li><tt>{@link kQUERY_COUNT}</tt>: Return the number of matched objects.
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * By default the result is set to return the native identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param mixed					$theIdentifier		Tag native identifier or sequence.
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @static
+	 * @return Node					Master node or <tt>NULL</tt>
+	 */
+	static function GetTagMaster( Wrapper $theWrapper,
+										  $theIdentifier,
+										  $theResult = kQUERY_NID )
+	{
+		//
+		// Resolve sequence number.
+		//
+		if( is_int( $theIdentifier ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = kQUERY_COUNT | ( $theResult & kQUERY_NID );
+			
+			//
+			// Resolve collection.
+			//
+			$collection
+				= Tag::ResolveCollection(
+					Tag::ResolveDatabase( $theWrapper, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_ID_SEQUENCE => $theIdentifier );
+			
+			//
+			// Locate tag.
+			//
+			$theIdentifier = $collection->matchOne( $criteria, $result );
+		
+		} // Provided sequence number.
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= Node::ResolveCollection(
+				Node::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_TAG => $theIdentifier,
+						   kTAG_MASTER => array( '$exists' => FALSE ) );
+		
+		return $collection->matchOne( $criteria, $theResult );						// ==>
+	
+	} // GetTagMaster.
+
+	 
+	/*===================================================================================
+	 *	GetTermMaster																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get term master object
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: This parameter represents the wrapper containing both the
+	 *		nodes and the tags.
+	 *	<li><b>$theIdentifier</b>: This parameter represents the term native identifier.
+	 *	<li><b>$theResult</b>: This parameter determines what the method should return, it
+	 *		is a bitfield which accepts two sets of values:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method will raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *			<li><tt>{@link kQUERY_COUNT}</tt>: Return the number of matched objects.
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * By default the result is set to return the native identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param mixed					$theIdentifier		Term native identifier.
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @static
+	 * @return Node					Master node or <tt>NULL</tt>
+	 */
+	static function GetTermMaster( Wrapper $theWrapper,
+										   $theIdentifier,
+										   $theResult = kQUERY_NID )
+	{
+		//
+		// Resolve collection.
+		//
+		$collection
+			= Node::ResolveCollection(
+				Node::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_TERM => $theIdentifier,
+						   kTAG_MASTER => array( '$exists' => FALSE ) );
+		
+		return $collection->matchOne( $criteria, $theResult );						// ==>
+	
+	} // GetTermMaster.
 
 		
 
@@ -339,72 +625,89 @@ class Node extends PersistentObject
 		if( $ok === NULL )
 		{
 			//
-			// Intercept tag.
+			// Parse offset.
 			//
-			if( $theOffset == kTAG_TAG )
+			switch( $theOffset )
 			{
 				//
-				// Handle objects.
+				// Intercept tag.
 				//
-				if( is_object( $theValue ) )
-				{
+				case kTAG_TAG:
 					//
-					// If term, get its reference.
+					// Handle objects.
 					//
-					if( $theValue instanceof Tag )
-						$theValue = $theValue->reference();
+					if( is_object( $theValue ) )
+					{
+						//
+						// If term, get its reference.
+						//
+						if( $theValue instanceof Tag )
+							$theValue = $theValue->reference();
 				
+						//
+						// If not a term, complain.
+						//
+						else
+							throw new \Exception(
+								"Unable to set tag reference: "
+							   ."provided an object other than a tag." );		// !@! ==>
+			
+					} // Object.
+			
 					//
-					// If not a term, complain.
+					// Cast to string.
 					//
 					else
-						throw new \Exception(
-							"Unable to set tag reference: "
-						   ."provided an object other than a tag." );			// !@! ==>
-			
-				} // Object.
+						$theValue = (string) $theValue;
+						
+					break;
 			
 				//
-				// Cast to string.
+				// Intercept term.
 				//
-				else
-					$theValue = (string) $theValue;
-			
-			} // Setting tag.
-			
-			//
-			// Intercept term.
-			//
-			if( $theOffset == kTAG_TERM )
-			{
-				//
-				// Handle objects.
-				//
-				if( is_object( $theValue ) )
-				{
+				case kTAG_TERM:
 					//
-					// If term, get its reference.
+					// Handle objects.
 					//
-					if( $theValue instanceof Term )
-						$theValue = $theValue->reference();
+					if( is_object( $theValue ) )
+					{
+						//
+						// If term, get its reference.
+						//
+						if( $theValue instanceof Term )
+							$theValue = $theValue->reference();
 				
+						//
+						// If not a term, complain.
+						//
+						else
+							throw new \Exception(
+								"Unable to set term reference: "
+							   ."provided an object other than a term." );		// !@! ==>
+			
+					} // Object.
+			
 					//
-					// If not a term, complain.
+					// Cast to string.
 					//
 					else
-						throw new \Exception(
-							"Unable to set term reference: "
-						   ."provided an object other than a term." );			// !@! ==>
-			
-				} // Object.
+						$theValue = (string) $theValue;
+						
+					break;
 			
 				//
-				// Cast to string.
+				// Intercept master.
 				//
-				else
-					$theValue = (string) $theValue;
+				case kTAG_MASTER:
+					//
+					// Validate offsets.
+					//
+					$this->validateReference(
+						$theValue, __class__, kTYPE_REF_NODE );
+						
+					break;
 			
-			} // Setting term.
+			} // Parsed offset.
 			
 		} // Passed preflight.
 		
@@ -434,16 +737,18 @@ class Node extends PersistentObject
 	protected function postOffsetSet( &$theOffset, &$theValue )
 	{
 		//
-		// Handle new tag.
+		// Handle offsets.
 		//
-		if( $theOffset == kTAG_TAG )
-			$this->offsetUnset( kTAG_TERM );
-	
-		//
-		// Handle new term.
-		//
-		if( $theOffset == kTAG_TERM )
-			$this->offsetUnset( kTAG_TAG );
+		switch( $theOffset )
+		{
+			case kTAG_TAG:
+				$this->offsetUnset( kTAG_TERM );
+				break;
+			
+			case kTAG_TERM:
+				$this->offsetUnset( kTAG_TAG );
+				break;
+		}
 	
 		//
 		// Set initialised status.
@@ -485,6 +790,80 @@ class Node extends PersistentObject
 						 \ArrayObject::offsetExists( kTAG_TERM ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitPrepare																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare object before commit
+	 *
+	 * If the object is not an alias, we check whether there is another similar master
+	 * object, in that case we set the object as an alias.
+	 *
+	 * We load the master object reference if the {@link isAlias()} status is set. If the
+	 * master cannot be found, we raise an exception.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isInited()
+	 */
+	protected function preCommitPrepare( &$theTags, &$theRefs )
+	{
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+		
+		//
+		// Get referenced object offset.
+		// Note that at this point either the term or the tag is set.
+		//
+		$offset = ( $this->offsetExists( kTAG_TAG ) )
+				? kTAG_TAG
+				: kTAG_TERM;
+	
+		//
+		// Get object reference.
+		//
+		$ref = $this->offsetGet( $offset );
+		
+		//
+		// Get master.
+		//
+		$master = ( $this->offsetExists( kTAG_TAG ) )
+				? static::GetTagMaster( $this->dictionary(), (int) $ref, kQUERY_NID )
+				: static::GetTermMaster( $this->dictionary(), $ref, kQUERY_NID );
+	
+		//
+		// Handle master object.
+		//
+		if( (! $this->isAlias())
+		 && ($master !== NULL) )
+			$this->isAlias( TRUE );
+		
+		//
+		// Handle master reference.
+		//
+		if( $this->isAlias() )
+			$this->offsetSet( kTAG_MASTER, $master );
+		
+	} // preCommitPrepare.
 
 		
 

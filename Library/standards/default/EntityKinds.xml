@@ -10,7 +10,7 @@
 	<!-- Entity kind enumerations -->
 	
 	<META>
-		<TERM ns=":entity:kind" lid="100">
+		<TERM ns=":kind:entity" lid="100">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -25,7 +25,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:kind" lid="200">
+		<TERM ns=":kind:entity" lid="200">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

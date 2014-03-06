@@ -92,18 +92,16 @@ define( "kFLAG_STATE_DIRTY",			0x00000002 );
 define( "kFLAG_STATE_COMMITTED",		0x00000004 );
 
 /**
- * Encoded.
+ * Alias.
  *
- * This bitfield value indicates an encoded state. This status is usually associated to
- * persistent objects that need to be transmitted via the network: an encoded object knows
- * how to serialise properties that cannot be directly represented in formats used to
- * transmit data over the internet, such as JSON.
+ * This bitfield value indicates that the current object is an alias, this means that it
+ * must feature the {@link kTAG_MASTER} property which references the master object.
  *
- * In general, if this flag is set, the object has the knowledge on how to convert its
- * members before being transmitted and on how to convert the serialised values back to
- * native state.
+ * In general, this flag is used to indicate that the current object is an alias, or to
+ * signal that the current non committed object should load its master before being
+ * committed.
  */
-define( "kFLAG_STATE_ENCODED",			0x00000008 );
+define( "kFLAG_STATE_ALIAS",			0x00000008 );
 
 
 ?>

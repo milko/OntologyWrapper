@@ -10,7 +10,7 @@
 	<!-- Entity type enumerations -->
 	
 	<META>
-		<TERM ns=":entity:type" lid="100">
+		<TERM ns=":type:entity" lid="100">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -25,7 +25,7 @@
 			</item>
 		</TERM>
 		
-		<TERM ns=":entity:type" lid="110">
+		<TERM ns=":type:entity" lid="110">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -40,7 +40,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="120">
+		<TERM ns=":type:entity" lid="120">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -55,7 +55,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="121">
+		<TERM ns=":type:entity" lid="121">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -70,7 +70,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="122">
+		<TERM ns=":type:entity" lid="122">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -85,7 +85,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="123">
+		<TERM ns=":type:entity" lid="123">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -100,7 +100,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="124">
+		<TERM ns=":type:entity" lid="124">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -115,7 +115,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="125">
+		<TERM ns=":type:entity" lid="125">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -130,7 +130,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="200">
+		<TERM ns=":type:entity" lid="200">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -145,7 +145,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="210">
+		<TERM ns=":type:entity" lid="210">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -160,7 +160,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="211">
+		<TERM ns=":type:entity" lid="211">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -175,7 +175,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="220">
+		<TERM ns=":type:entity" lid="220">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -190,7 +190,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="230">
+		<TERM ns=":type:entity" lid="230">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -205,7 +205,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="240">
+		<TERM ns=":type:entity" lid="240">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -220,7 +220,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="250">
+		<TERM ns=":type:entity" lid="250">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -235,7 +235,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="251">
+		<TERM ns=":type:entity" lid="251">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -250,7 +250,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="252">
+		<TERM ns=":type:entity" lid="252">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -265,7 +265,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="253">
+		<TERM ns=":type:entity" lid="253">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -280,7 +280,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="254">
+		<TERM ns=":type:entity" lid="254">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -295,7 +295,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="255">
+		<TERM ns=":type:entity" lid="255">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -310,7 +310,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="260">
+		<TERM ns=":type:entity" lid="260">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -325,7 +325,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="270">
+		<TERM ns=":type:entity" lid="270">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -340,7 +340,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="280">
+		<TERM ns=":type:entity" lid="280">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -355,7 +355,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="281">
+		<TERM ns=":type:entity" lid="281">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -370,7 +370,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="300">
+		<TERM ns=":type:entity" lid="300">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -385,7 +385,7 @@
 			</item>
 		</TERM>
 
-		<TERM ns=":entity:type" lid="400">
+		<TERM ns=":type:entity" lid="400">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
