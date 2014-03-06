@@ -38,7 +38,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: The entity collection is used to disambiguate
  *		homonym identifiers belonging to the same domain and authority. This might be used
  *		to identify a division within a larger entity.
- *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: This attribute represents the entity identifier.
+ *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: This attribute represents the entity identifier.
  *	<li><tt>{@link kTAG_VERSION}</tt>: This attribute is used to store time stamp
  *		information regarding the entity record. This attribute <em>will not be used to
  *		compute the object's native identifier</em>.
@@ -232,7 +232,7 @@ abstract class EntityObject extends UnitObject
 	 *		{@link kTOKEN_INDEX_SEPARATOR}.
 	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: The namespace is followed by the
 	 *		{@link kTOKEN_NAMESPACE_SEPARATOR}.
-	 *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: The identifier closes the identifier.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier closes the identifier.
 	 *	<li><tt>{@link kTOKEN_END_TAG}</tt>: This tag closes the whole identifier.
 	 * </ul>
 	 *
@@ -267,8 +267,8 @@ abstract class EntityObject extends UnitObject
 		//
 		// Handle local identifier.
 		//
-		if( $this->offsetExists( kTAG_ID_LOCAL ) )
-			$gid .= $this->offsetGet( kTAG_ID_LOCAL );
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$gid .= $this->offsetGet( kTAG_IDENTIFIER );
 		
 		return $gid.kTOKEN_END_TAG;													// ==>
 	

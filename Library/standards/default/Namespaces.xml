@@ -137,5 +137,21 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- Unit -->
+		<TERM ns="" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>unit</em> is an <em>object</em> that can be considered an <em>independant entity</em> and not a part or component of another object.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

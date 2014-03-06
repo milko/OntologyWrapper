@@ -44,7 +44,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		<em>disambiguation</em> of the object's <em>local identifier</em>, it acta as the
  *		namespace for an identifier, making the combination of local identifier and
  *		collection unique among all units of the same domain and authority.
- *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: The unit local identifier is a code that should
+ *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit local identifier is a code that should
  *		uniquely identify the object within the realm of its authority and collection.
  *	<li><tt>{@link kTAG_VERSION}</tt>: The unit version provides a means to have differnt
  *		versions of the same formal object.
@@ -131,7 +131,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_ID_LOCAL ) );
+						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 
 	} // Constructor.
 
@@ -153,7 +153,7 @@ abstract class UnitObject extends PersistentObject
 	 *		{@link kTOKEN_INDEX_SEPARATOR}.
 	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: The namespace is followed by the
 	 *		{@link kTOKEN_NAMESPACE_SEPARATOR}.
-	 *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: The identifier is followed by the
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is followed by the
 	 *		{@link kTOKEN_INDEX_SEPARATOR}.
 	 *	<li><tt>{@link kTAG_VERSION}</tt>: The version closes the identifier.
 	 *	<li><tt>{@link kTOKEN_END_TAG}</tt>: This tag closes the whole identifier.
@@ -190,8 +190,8 @@ abstract class UnitObject extends PersistentObject
 		//
 		// Handle local identifier.
 		//
-		if( $this->offsetExists( kTAG_ID_LOCAL ) )
-			$gid .= $this->offsetGet( kTAG_ID_LOCAL );
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$gid .= $this->offsetGet( kTAG_IDENTIFIER );
 		
 		//
 		// Handle version.
@@ -347,7 +347,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		// Set identifier index.
 		//
-		$collection->createIndex( array( kTAG_ID_LOCAL => 1 ),
+		$collection->createIndex( array( kTAG_IDENTIFIER => 1 ),
 								  array( "name" => "LID" ) );
 		
 		//
@@ -388,7 +388,7 @@ abstract class UnitObject extends PersistentObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							array( kTAG_DOMAIN, kTAG_AUTHORITY,
-								   kTAG_COLLECTION, kTAG_ID_LOCAL,
+								   kTAG_COLLECTION, kTAG_IDENTIFIER,
 								   kTAG_VERSION ) );								// ==>
 	
 	} // DefaultOffsets.
@@ -434,7 +434,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_ID_LOCAL ) );
+						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetSet.
 
@@ -469,7 +469,7 @@ abstract class UnitObject extends PersistentObject
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
 						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_ID_LOCAL ) );
+						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetUnset.
 
@@ -559,18 +559,19 @@ abstract class UnitObject extends PersistentObject
 	 * Return list of locked offsets
 	 *
 	 * In this class we return the {@link kTAG_DOMAIN}, {@link kTAG_AUTHORITY},
-	 * {@link kTAG_COLLECTION}, {@link kTAG_ID_LOCAL} and the {@link kTAG_VERSION} offsets.
+	 * {@link kTAG_COLLECTION}, {@link kTAG_IDENTIFIER} and the {@link kTAG_VERSION}
+	 * offsets.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
-	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_COLLECTION kTAG_ID_LOCAL kTAG_VERSION
+	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_COLLECTION kTAG_IDENTIFIER kTAG_VERSION
 	 */
 	protected function lockedOffsets()
 	{
 		return array_merge( parent::lockedOffsets(),
 							array( kTAG_DOMAIN, kTAG_AUTHORITY,
-								   kTAG_COLLECTION, kTAG_ID_LOCAL,
+								   kTAG_COLLECTION, kTAG_IDENTIFIER,
 								   kTAG_VERSION ) );								// ==>
 	
 	} // lockedOffsets.

@@ -434,7 +434,7 @@ try
 		(
 			kTAG_AUTHORITY => 'authority',
 			kTAG_COLLECTION => 'collection',
-			kTAG_ID_LOCAL => 'id',
+			kTAG_IDENTIFIER => 'id',
 			kTAG_VERSION => 'version',
 			kTAG_NAME => 123,
 			-1 => array( "12.47", "35.22", 5.01263, 12 ),
@@ -670,8 +670,8 @@ try
 	$test[ kTAG_AUTHORITY ] = "AUTHORITY";
 	echo( '$test[ kTAG_COLLECTION ] = "COLLECTION";<br />' );
 	$test[ kTAG_COLLECTION ] = "COLLECTION";
-	echo( '$test[ kTAG_ID_LOCAL ] = "IDENTIFIER";<br />' );
-	$test[ kTAG_ID_LOCAL ] = "IDENTIFIER";
+	echo( '$test[ kTAG_IDENTIFIER ] = "IDENTIFIER";<br />' );
+	$test[ kTAG_IDENTIFIER ] = "IDENTIFIER";
 	echo( '$test[ kTAG_VERSION ] = "VERSION";<br />' );
 	$test[ kTAG_VERSION ] = "VERSION";
 	echo( kSTYLE_HEAD_POS );

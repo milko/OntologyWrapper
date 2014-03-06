@@ -511,8 +511,8 @@ class Node extends PersistentObject
 		// Resolve collection.
 		//
 		$collection
-			= Node::ResolveCollection(
-				Node::ResolveDatabase( $theWrapper, TRUE ) );
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
 		
 		//
 		// Set criteria.
@@ -572,8 +572,8 @@ class Node extends PersistentObject
 		// Resolve collection.
 		//
 		$collection
-			= Node::ResolveCollection(
-				Node::ResolveDatabase( $theWrapper, TRUE ) );
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
 		
 		//
 		// Set criteria.

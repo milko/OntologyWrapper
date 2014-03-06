@@ -46,97 +46,6 @@
 	<!-- Identification tags -->
 	
 	<!-- 1 -->
-	<!-- kTAG_DOMAIN -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:domain</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:ref:term</item>
-			</item>
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Domain</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute represents the <em>domain</em> of the object, it is an <em>enumerated value</em> which represents the <em>kind</em> or <em>nature</em> of the object, this property is used to <em>disambiguate objects of different domains within a single collection.]]></item>
-				</item>
-			</item>
-		</TAG>
-	</META>
-	
-	<!-- 2 -->
-	<!-- kTAG_AUTHORITY -->
-	<META>
-	   <TERM ns="" lid="authority">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Authority</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>authority</em> identifies the <em>entity</em> which is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:authority</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:string</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the <em>entity</em> which is <em>responsible</em> for the <em>identifier</em> of the object, or which is the <em>author of the information</em> regarding the object.]]></item>
-				</item>
-			</item>
-		</TAG>
-	</META>
-	
-	<!-- 3 -->
-	<!-- kTAG_COLLECTION -->
-	<META>
-	   <TERM ns="" lid="collection">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collection</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:collection</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:string</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> is a <em>string</em> that identifies the <em>group</em> of the object and it allows to <em>disambiguate homonym local identifiers</em>.]]></item>
-				</item>
-			</item>
-		</TAG>
-	</META>
-	
-	<!-- 4 -->
 	<!-- kTAG_NAMESPACE -->
 	<META>
 	   <TERM ns="" lid="namespace">
@@ -169,7 +78,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 5 -->
+	<!-- 2 -->
 	<!-- kTAG_ID_LOCAL -->
 	<META>
 	   <TERM ns="" lid="id-local">
@@ -202,7 +111,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 6 -->
+	<!-- 3 -->
 	<!-- kTAG_ID_PERSISTENT -->
 	<META>
 	   <TERM ns="" lid="id-persistent">
@@ -235,7 +144,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 7 -->
+	<!-- 4 -->
 	<!-- kTAG_ID_VALID -->
 	<META>
 	   <TERM ns="" lid="id-valid">
@@ -268,7 +177,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 8 -->
+	<!-- 5 -->
 	<!-- kTAG_ID_SEQUENCE -->
 	<META>
 	   <TERM ns="" lid="id-sequence">
@@ -301,10 +210,144 @@
 		</TAG>
 	</META>
 	
+	<!-- Unit identification tags -->
+	
+	<!-- 6 -->
+	<!-- kTAG_DOMAIN -->
+	<META>
+	   <TERM ns=":unit" lid="domain">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>domain</em> indicates <em>what</em> an object <em>is</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:domain</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:term</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated value</em> which represents the <em>unit domain</em>, it indicates the <em>type</em> or <em>nature</em> of a unit object. This property is used to <em>disambiguate objects of different domains within a single collection<e/em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 7 -->
+	<!-- kTAG_AUTHORITY -->
+	<META>
+	   <TERM ns=":unit" lid="authority">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>authority</em> identifies <em>who</em> is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:authority</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> which <em>references</em> or <em>identifies</em> the <em>entity</em> which is <em>responsible</em> for the <em>information</em> and <em>identification</em> of a unit object.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 8 -->
+	<!-- kTAG_COLLECTION -->
+	<META>
+	   <TERM ns=":unit" lid="collection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:collection</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> is a <em>string</em> that identifies the <em>group</em> to which a <em>unit object</em> belongs, it allows to <em>disambiguate homonym unit identifiers</em> belonging to the same domain.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
 	<!-- 9 -->
+	<!-- kTAG_IDENTIFIER -->
+	<META>
+	   <TERM ns=":unit" lid="identifier">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>identifier</em> is used to <em>disambiguate</em> objects of the <em>same domain and collection</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:unit:identifier</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>identifier</em> is a <em>string</em> that <em>uniquely identifies</em> a unit object among all those that share the same domain and collection.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 10 -->
 	<!-- kTAG_VERSION -->
 	<META>
-	   <TERM ns="" lid="version">
+	   <TERM ns=":unit" lid="version">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -314,13 +357,13 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object</em> or <em>identifier</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object in time</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
 				</item>
 			</item>
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:version</item>
+				<item>:unit:version</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
@@ -328,7 +371,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em> or an <em>iteration</em>. It is generally used to identify different versions of the object by <em>disambiguating duplicate persistent identifiers</em>, or to provide a <em>time-stamp</em> to the object information.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em> or an <em>iteration</em> of a unit object. It is generally used to identify different versions of the same unit by <em>disambiguating duplicate identifiers</em>, or to provide a <em>time-stamp</em> to the unit's information.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -336,7 +379,7 @@
 	
 	<!-- Object reference tags -->
 	
-	<!-- 10 -->
+	<!-- 11 -->
 	<!-- kTAG_TAG -->
 	<META>
 	   <TERM ns="" lid="tag">
@@ -375,7 +418,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 11 -->
+	<!-- 12 -->
 	<!-- kTAG_TAGS -->
 	<META>
 	   <TERM ns="" lid="tags">
@@ -417,7 +460,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 12 -->
+	<!-- 13 -->
 	<!-- kTAG_TERM -->
 	<META>
 	   <TERM ns="" lid="term">
@@ -456,7 +499,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 13 -->
+	<!-- 14 -->
 	<!-- kTAG_TERMS -->
 	<META>
 	   <TERM ns="" lid="terms">
@@ -498,7 +541,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 14 -->
+	<!-- 15 -->
 	<!-- kTAG_SUBJECT -->
 	<META>
 		<TERM ns=":relationship" lid="subject">
@@ -537,7 +580,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 15 -->
+	<!-- 16 -->
 	<!-- kTAG_PREDICATE -->
 	<META>
 		<TERM ns=":relationship" lid="predicate">
@@ -576,7 +619,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 16 -->
+	<!-- 17 -->
 	<!-- kTAG_OBJECT -->
 	<META>
 		<TERM ns=":relationship" lid="object">
@@ -615,7 +658,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 17 -->
+	<!-- 18 -->
 	<!-- kTAG_ENTITY -->
 	<META>
 		<TAG>
@@ -640,7 +683,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 18 -->
+	<!-- 19 -->
 	<!-- kTAG_MASTER -->
 	<META>
 	   <TERM ns="" lid="master">
@@ -684,7 +727,7 @@
 	
 	<!-- Object category tags -->
 	
-	<!-- 19 -->
+	<!-- 20 -->
 	<!-- kTAG_CATEGORY -->
 	<META>
 		<TERM ns="" lid="category">
@@ -717,7 +760,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 20 -->
+	<!-- 21 -->
 	<!-- kTAG_DATA_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="data">
@@ -750,7 +793,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 21 -->
+	<!-- 22 -->
 	<!-- kTAG_DATA_KIND -->
 	<META>
 	   <TERM ns=":type" lid="kind">
@@ -783,7 +826,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 22 -->
+	<!-- 23 -->
 	<!-- kTAG_NODE_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="node">
@@ -818,7 +861,7 @@
 	
 	<!-- Object description tags -->
 	
-	<!-- 23 -->
+	<!-- 24 -->
 	<!-- kTAG_NAME -->
 	<META>
 	   <TERM ns="" lid="name">
@@ -851,7 +894,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 24 -->
+	<!-- 25 -->
 	<!-- kTAG_LABEL -->
 	<META>
 	   <TERM ns="" lid="label">
@@ -884,7 +927,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 25 -->
+	<!-- 26 -->
 	<!-- kTAG_DEFINITION -->
 	<META>
 	   <TERM ns="" lid="definition">
@@ -917,7 +960,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 26 -->
+	<!-- 27 -->
 	<!-- kTAG_DESCRIPTION -->
 	<META>
 	   <TERM ns="" lid="description">
@@ -950,7 +993,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 27 -->
+	<!-- 28 -->
 	<!-- kTAG_NOTES -->
 	<META>
 	   <TERM ns="" lid="notes">
@@ -988,7 +1031,7 @@
 	
 	<!-- Statistical attributes -->
 	
-	<!-- 28 -->
+	<!-- 29 -->
 	<!-- kTAG_UNIT_COUNT -->
 	<META>
 	   <TERM ns="" lid="unit-count">
@@ -1030,7 +1073,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 29 -->
+	<!-- 30 -->
 	<!-- kTAG_ENTITY_COUNT -->
 	<META>
 	   <TERM ns="" lid="entity-count">
@@ -1072,7 +1115,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 30 -->
+	<!-- 31 -->
 	<!-- kTAG_TAG_COUNT -->
 	<META>
 	   <TERM ns="" lid="tag-count">
@@ -1114,7 +1157,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 31 -->
+	<!-- 32 -->
 	<!-- kTAG_TERM_COUNT -->
 	<META>
 	   <TERM ns="" lid="term-count">
@@ -1156,7 +1199,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 32 -->
+	<!-- 33 -->
 	<!-- kTAG_NODE_COUNT -->
 	<META>
 	   <TERM ns="" lid="node-count">
@@ -1198,7 +1241,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 33 -->
+	<!-- 34 -->
 	<!-- kTAG_EDGE_COUNT -->
 	<META>
 	   <TERM ns="" lid="edge-count">
@@ -1240,7 +1283,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 34 -->
+	<!-- 35 -->
 	<!-- kTAG_OFFSETS -->
 	<META>
 	   <TERM ns="" lid="offsets">
@@ -1283,7 +1326,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 35 -->
+	<!-- 36 -->
 	<!-- kTAG_OBJECT_TAGS -->
 	<META>
 	   <TERM ns="" lid="object-tags">
@@ -1323,7 +1366,7 @@
 	
 	<!-- Generic or sub-structure attributes -->
 	
-	<!-- 36 -->
+	<!-- 37 -->
 	<!-- kTAG_TYPE -->
 	<META>
 		<TAG>
@@ -1342,7 +1385,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 37 -->
+	<!-- 38 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -1375,7 +1418,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 38 -->
+	<!-- 39 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -1410,7 +1453,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 39 -->
+	<!-- 40 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -1449,7 +1492,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 40 -->
+	<!-- 41 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -1488,7 +1531,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 41 -->
+	<!-- 42 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -1527,7 +1570,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 42 -->
+	<!-- 43 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -1566,7 +1609,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 43 -->
+	<!-- 44 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -1605,7 +1648,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 44 -->
+	<!-- 45 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -1644,7 +1687,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 45 -->
+	<!-- 46 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -1683,7 +1726,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 46 -->
+	<!-- 47 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
@@ -1724,7 +1767,7 @@
 	
 	<!-- Entity attributes -->
 	
-	<!-- 47 -->
+	<!-- 48 -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="entity">
@@ -1757,7 +1800,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 48 -->
+	<!-- 49 -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
 	   <TERM ns=":kind" lid="entity">
@@ -1790,7 +1833,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 49 -->
+	<!-- 50 -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 	   <TERM ns=":entity" lid="mail">
@@ -1829,7 +1872,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 50 -->
+	<!-- 51 -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 	   <TERM ns=":entity" lid="email">
@@ -1868,7 +1911,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 51 -->
+	<!-- 52 -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 	   <TERM ns=":entity" lid="phone">
@@ -1907,7 +1950,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 52 -->
+	<!-- 53 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 	   <TERM ns=":entity" lid="fax">
@@ -1946,7 +1989,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 53 -->
+	<!-- 54 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 	   <TERM ns=":entity" lid="affiliation">
@@ -1979,7 +2022,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 54 -->
+	<!-- 55 -->
 	<!-- kTAG_ENTITY_COUNTRY -->
 	<META>
 	   <TERM ns=":entity" lid="country">
@@ -2018,7 +2061,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 55 -->
+	<!-- 56 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 	   <TERM ns=":entity" lid="valid">
