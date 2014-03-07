@@ -287,6 +287,8 @@ class Tag extends PersistentObject
 	 *
 	 * In this class we shadow this method, since there cannot be alias tags.
 	 *
+	 * @param boolean				$doSet				<tt>TRUE</tt> to set.
+	 *
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
@@ -417,6 +419,30 @@ class Tag extends PersistentObject
 		return $collection;															// ==>
 	
 	} // ResetCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							STATIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetReferenceKey																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return reference key
+	 *
+	 * In this class we use {@link kTAG_ID_SEQUENCE}.
+	 *
+	 * @static
+	 * @return string				Key offset.
+	 */
+	static function GetReferenceKey()						{	return kTAG_ID_SEQUENCE;	}
 
 		
 

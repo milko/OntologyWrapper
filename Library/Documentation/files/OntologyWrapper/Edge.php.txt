@@ -178,6 +178,8 @@ class Edge extends PersistentObject
 	 *
 	 * In this class we shadow this method, since there cannot be alias edges.
 	 *
+	 * @param boolean				$doSet				<tt>TRUE</tt> to set.
+	 *
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}

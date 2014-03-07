@@ -645,6 +645,34 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *							STATIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetReferenceKey																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return reference key
+	 *
+	 * The reference key is the offset that will be used when storing a set of objects into
+	 * a multi class matrix. By default we use the native identifier, but in some cases
+	 * other required and unique identifiers may be used for this purpose.
+	 *
+	 * In this class we use {@link kTAG_NID}.
+	 *
+	 * @static
+	 * @return string				Key offset.
+	 */
+	static function GetReferenceKey()								{	return kTAG_NID;	}
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

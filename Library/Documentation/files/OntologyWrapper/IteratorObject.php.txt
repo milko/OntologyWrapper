@@ -306,10 +306,45 @@ abstract class IteratorObject implements \Iterator,
 		$current = $this->cursor()->current();
 		
 		//
+		// Get key offset.
+		//
+		switch( $this->collection()->Connection()->getName() )
+		{
+			case Tag::kSEQ_NAME:
+				$offset = Tag::GetReferenceKey();
+				break;
+		
+			case Term::kSEQ_NAME:
+				$offset = Term::GetReferenceKey();
+				break;
+		
+			case Node::kSEQ_NAME:
+				$offset = Node::GetReferenceKey();
+				break;
+		
+			case Edge::kSEQ_NAME:
+				$offset = Edge::GetReferenceKey();
+				break;
+		
+			case EntityObject::kSEQ_NAME:
+				$offset = EntityObject::GetReferenceKey();
+				break;
+		
+			case Unit::kSEQ_NAME:
+				$offset = Unit::GetReferenceKey();
+				break;
+			
+			default:
+				$offset = kTAG_NID;
+				break;
+		
+		} // Parsed collection name.
+		
+		//
 		// Determine actual key.
 		//
-		if( array_key_exists( kTAG_NID, $current ) )
-			return $current[ kTAG_NID ];											// ==>
+		if( array_key_exists( $offset, $current ) )
+			return $current[ $offset ];												// ==>
 		
 		return $this->cursor()->key();												// ==>
 	
