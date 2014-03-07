@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Phone.php
+ * EntityMail.php
  *
- * This file contains the definition of the {@link Phone} trait.
+ * This file contains the definition of the {@link EntityMail} trait.
  */
 
 namespace OntologyWrapper\traits;
 
 /*=======================================================================================
  *																						*
- *										Phone.php										*
+ *										EntityMail.php									*
  *																						*
  *======================================================================================*/
 
 /**
- * Phone trait
+ * Entity mail trait
  *
- * This trait implements a method for managing the entity telephone number offset,
- * {@link kTAG_ENTITY_PHONE}. The method manages the individual telephone numbers by type.
+ * This trait implements a method for managing the entity mailing address offset,
+ * {@link kTAG_ENTITY_MAIL}. The method manages the individual mailing addresses by type.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 03/03/2014
  */
-trait Phone
+trait EntityMail
 {
 		
 
@@ -36,28 +36,28 @@ trait Phone
 
 	 
 	/*===================================================================================
-	 *	Phone																			*
+	 *	EntityMail																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage telephone number
+	 * Manage mailing address
 	 *
-	 * This method can be used to add, retrieve and delete individual telephone numbers by
-	 * type, while managing all the telephones as a whole can be done using the
-	 * {@link kTAG_ENTITY_PHONE} offset.
+	 * This method can be used to add, retrieve and delete individual mailing addresses by
+	 * type, while managing all the mails as a whole can be done using the
+	 * {@link kTAG_ENTITY_MAIL} offset.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theType</b>: This parameter holds the <em>type</em> of the telephone number
-	 *		we want to manage. If <tt>NULL</tt>, it means that there is a phone without a
-	 *		type; this can occur if the telephone is the default one.
-	 *	<li><b>$theValue</b>: This parameter identifies the telephone number or operation:
+	 *	<li><b>$theType</b>: This parameter holds the <em>type</em> of the mailing address
+	 *		we want to manage. If <tt>NULL</tt>, it means that there is an address without a
+	 *		type; this can occur if the address is the default one.
+	 *	<li><b>$theValue</b>: This parameter identifies the mailing address or operation:
 	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the phone of the provided type.
-	 *		<li><tt>FALSE</tt>: Delete the phone of the provided type.
+	 *		<li><tt>NULL</tt>: Return the address of the provided type.
+	 *		<li><tt>FALSE</tt>: Delete the address of the provided type.
 	 *		<li><i>other</i>: Any other value is cast to string and interpreted as the
-	 *			telephone number of provided type which will be inserted, or that will
+	 *			mailing address of provided type which will be inserted, or that will
 	 *			replace an existing entry.
 	 *	 </ul>
 	 *	<li><tt>$getOld</tt>: Determines what the method will return:
@@ -67,31 +67,31 @@ trait Phone
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method will return either the phone number, or <tt>NULL</tt> if the type was not
+	 * The method will return either the address text, or <tt>NULL</tt> if the type was not
 	 * matched.
 	 *
-	 * @param string				$theType			Telephone number type.
-	 * @param mixed					$theValue			Telephone number or operation.
+	 * @param string				$theType			Mailing address type.
+	 * @param mixed					$theValue			Mailing address or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_PHONE kTAG_TYPE kTAG_TEXT
+	 * @see kTAG_ENTITY_MAIL kTAG_TYPE kTAG_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
-	public function Phone( $theType, $theValue = NULL, $getOld = FALSE )
+	public function EntityMail( $theType, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_PHONE, kTAG_TYPE, kTAG_TEXT,
+				kTAG_ENTITY_MAIL, kTAG_TYPE, kTAG_TEXT,
 				$theType, $theValue, $getOld );										// ==>
 	
-	} // Phone.
+	} // EntityMail.
 
 	 
 
-} // trait Phone.
+} // trait EntityMail.
 
 
 ?>

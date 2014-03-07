@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Fax.php
+ * EntityPhone.php
  *
- * This file contains the definition of the {@link Fax} trait.
+ * This file contains the definition of the {@link EntityPhone} trait.
  */
 
 namespace OntologyWrapper\traits;
 
 /*=======================================================================================
  *																						*
- *										Fax.php											*
+ *									EntityPhone.php										*
  *																						*
  *======================================================================================*/
 
 /**
- * Fax trait
+ * Entity telephone trait
  *
- * This trait implements a method for managing the entity telefax number offset,
- * {@link kTAG_ENTITY_FAX}. The method manages the individual telefax numbers by type.
+ * This trait implements a method for managing the entity telephone number offset,
+ * {@link kTAG_ENTITY_PHONE}. The method manages the individual telephone numbers by type.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 03/03/2014
  */
-trait Fax
+trait EntityPhone
 {
 		
 
@@ -36,28 +36,28 @@ trait Fax
 
 	 
 	/*===================================================================================
-	 *	Fax																				*
+	 *	EntityPhone																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage telefax number
+	 * Manage telephone number
 	 *
-	 * This method can be used to add, retrieve and delete individual telefax numbers by
-	 * type, while managing all the telefaxes as a whole can be done using the
-	 * {@link kTAG_ENTITY_FAX} offset.
+	 * This method can be used to add, retrieve and delete individual telephone numbers by
+	 * type, while managing all the telephones as a whole can be done using the
+	 * {@link kTAG_ENTITY_PHONE} offset.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theType</b>: This parameter holds the <em>type</em> of the telefax number
-	 *		we want to manage. If <tt>NULL</tt>, it means that there is a fax without a
-	 *		type; this can occur if the telefax is the default one.
-	 *	<li><b>$theValue</b>: This parameter identifies the telefax number or operation:
+	 *	<li><b>$theType</b>: This parameter holds the <em>type</em> of the telephone number
+	 *		we want to manage. If <tt>NULL</tt>, it means that there is a phone without a
+	 *		type; this can occur if the telephone is the default one.
+	 *	<li><b>$theValue</b>: This parameter identifies the telephone number or operation:
 	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the fax of the provided type.
-	 *		<li><tt>FALSE</tt>: Delete the fax of the provided type.
+	 *		<li><tt>NULL</tt>: Return the phone of the provided type.
+	 *		<li><tt>FALSE</tt>: Delete the phone of the provided type.
 	 *		<li><i>other</i>: Any other value is cast to string and interpreted as the
-	 *			telefax number of provided type which will be inserted, or that will
+	 *			telephone number of provided type which will be inserted, or that will
 	 *			replace an existing entry.
 	 *	 </ul>
 	 *	<li><tt>$getOld</tt>: Determines what the method will return:
@@ -67,7 +67,7 @@ trait Fax
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method will return either the fax number, or <tt>NULL</tt> if the type was not
+	 * The method will return either the phone number, or <tt>NULL</tt> if the type was not
 	 * matched.
 	 *
 	 * @param string				$theType			Telephone number type.
@@ -77,21 +77,22 @@ trait Fax
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_FAX kTAG_TYPE kTAG_TEXT
+	 * @see kTAG_ENTITY_PHONE kTAG_TYPE kTAG_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
-	public function Fax( $theType, $theValue = NULL, $getOld = FALSE )
+	public function EntityPhone( $theType, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_FAX, kTAG_TYPE, kTAG_TEXT,
+				kTAG_ENTITY_PHONE, kTAG_TYPE, kTAG_TEXT,
 				$theType, $theValue, $getOld );										// ==>
 	
-	} // Fax.
+	} // EntityPhone.
 
 	 
 
-} // trait Fax.
+} // trait EntityPhone.
 
 
 ?>
+

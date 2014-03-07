@@ -1,21 +1,21 @@
 <?php
 
 /**
- * Affiliation.php
+ * EntityAffiliation.php
  *
- * This file contains the definition of the {@link Affiliation} trait.
+ * This file contains the definition of the {@link EntityAffiliation} trait.
  */
 
 namespace OntologyWrapper\traits;
 
 /*=======================================================================================
  *																						*
- *									Affiliation.php										*
+ *									EntityAffiliation.php								*
  *																						*
  *======================================================================================*/
 
 /**
- * Affiliation trait
+ * EntityAffiliation trait
  *
  * This trait implements a method for managing the entity affiliations offset,
  * {@link kTAG_ENTITY_AFFILIATION}. The method manages the individual affiliations by type.
@@ -23,7 +23,7 @@ namespace OntologyWrapper\traits;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 04/03/2014
  */
-trait Affiliation
+trait EntityAffiliation
 {
 		
 
@@ -36,7 +36,7 @@ trait Affiliation
 
 	 
 	/*===================================================================================
-	 *	Affiliation																			*
+	 *	EntityAffiliation																*
 	 *==================================================================================*/
 
 	/**
@@ -85,7 +85,7 @@ trait Affiliation
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
-	public function Affiliation( $theType, $theValue = NULL, $getOld = FALSE )
+	public function EntityAffiliation( $theType, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Validate reference.
@@ -98,11 +98,11 @@ trait Affiliation
 				kTAG_ENTITY_AFFILIATION, kTAG_TYPE, kTAG_ENTITY,
 				$theType, $theValue, $getOld );										// ==>
 	
-	} // Affiliation.
+	} // EntityAffiliation.
 
 	 
 
-} // trait Affiliation.
+} // trait EntityAffiliation.
 
 
 ?>

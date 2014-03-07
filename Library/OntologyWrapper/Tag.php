@@ -111,6 +111,18 @@ use OntologyWrapper\CollectionObject;
  *		in which the {@link kTAG_LANGUAGE} item holds the description language code and the
  *		{@link kTAG_TEXT} holds the description text. To populate and handle
  *		descriptions by language, use the {@link Description()} offset accessor method.
+ *	<li><tt>{@link kTAG_SYNONYM}</tt>: <em>Synonyms</em>. This attribute is a <em>set of
+ *		strings</em> representing <em>alternate identifiers of this tag</em>, not formally
+ *		defined in the current data set.
+ *	<li><tt>{@link kTAG_MIN}</tt>: <em>Range minimum</em>. This attribute is a floating
+ *		point value representing the <em>minimum</em> of the <em>range of values</em>
+ *		identified by this tag.
+ *	<li><tt>{@link kTAG_MAX}</tt>: <em>Range maximum</em>. This attribute is a floating
+ *		point value representing the <em>maximum</em> of the <em>range of values</em>
+ *		identified by this tag.
+ *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
+ *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
+ *		can be used to <em>validate data identified by this tag</em>.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the global identifier,
@@ -154,6 +166,13 @@ class Tag extends PersistentObject
 	 * We use this trait to handle definitions.
 	 */
 	use	traits\Definition;
+
+	/**
+	 * Synonym trait.
+	 *
+	 * We use this trait to handle synonyms.
+	 */
+	use	traits\Synonym;
 
 	/**
 	 * Terms trait.

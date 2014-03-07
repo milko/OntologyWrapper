@@ -65,6 +65,9 @@ use OntologyWrapper\CollectionObject;
  *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
  *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
  *		definitions by language, use the {@link Definition()} offset accessor method.
+ *	<li><tt>{@link kTAG_SYNONYM}</tt>: <em>Synonyms</em>. This attribute is a <em>set of
+ *		strings</em> representing <em>alternate identifiers of this term</em>, not formally
+ *		defined in the current data set.
  *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master term</em>. This property can be used by
  *		<em>synonym terms</em> to <em>reference</em> a single term which represents an
  *		<em>instance</em> of the current term. The current term will hold only the required
@@ -102,6 +105,13 @@ class Term extends PersistentObject
 	 * We use this trait to handle definitions.
 	 */
 	use	traits\Definition;
+
+	/**
+	 * Synonym trait.
+	 *
+	 * We use this trait to handle synonyms.
+	 */
+	use	traits\Synonym;
 
 	/**
 	 * Default collection name.

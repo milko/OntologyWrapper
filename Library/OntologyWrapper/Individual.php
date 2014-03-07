@@ -1,0 +1,131 @@
+<?php
+
+/**
+ * Individual.php
+ *
+ * This file contains the definition of the {@link Individual} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\EntityObject;
+
+/*=======================================================================================
+ *																						*
+ *									Individual.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Individual
+ *
+ * This <em>concrete</em> class is derived from the {@link EntityObject} class, it
+ * implements an <em>individual</em> or <em>person</em>.
+ *
+ * The class features a series of other default attributes which characterise individuals:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_ENTITY_FNAME}</tt>: <em>First name</em>. This optional attribute
+ *		represents the individual's first name.
+ *	<li><tt>{@link kTAG_ENTITY_LNAME}</tt>: <em>Last name</em>. This optional attribute
+ *		represents the individual's surname.
+ * </ul>
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 07/03/2014
+ */
+class Individual extends EntityObject
+{
+	/**
+	 * Default domain.
+	 *
+	 * This constant holds the <i>default domain</i> of the object.
+	 *
+	 * @var string
+	 */
+	const kDEFAULT_DOMAIN = kDOMAIN_INDIVIDUAL;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * In this class we index the first and last name.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Set parent indexes and retrieve collection.
+		//
+		$collection = parent::CreateIndexes( $theDatabase );
+		
+		//
+		// Set first name index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_FNAME => 1 ),
+								  array( "name" => "FIRST_NAME",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set last name index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_LNAME => 1 ),
+								  array( "name" => "LAST_NAME",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return all the default offsets.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ENTITY_FNAME, kTAG_ENTITY_LNAME ) );		// ==>
+	
+	} // DefaultOffsets.
+
+	 
+
+} // class Individual.
+
+
+?>

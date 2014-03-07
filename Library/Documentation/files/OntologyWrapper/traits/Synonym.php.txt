@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * Synonym.php
+ *
+ * This file contains the definition of the {@link Synonym} trait.
+ */
+
+namespace OntologyWrapper\traits;
+
+/*=======================================================================================
+ *																						*
+ *									Synonym.php											*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Synonym trait
+ *
+ * This trait implements a method for managing the categories offset, {@link kTAG_SYNONYM}.
+ * The method allows the management of the individual elements of the enumerated set.
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 03/03/2014
+ */
+trait Synonym
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Synonym																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage synonym
+	 *
+	 * This method can be used to add, retrieve and delete individual synonym stringss; to
+	 * manage the synonym set as a whole, use the {@link kTAG_SYNONYM} offset.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: This parameter represents the synonym we want to manage.
+	 *	<li><b>$theOperation</b>: This parameter identifies the operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the synonym, if it exists, or <tt>NULL</tt>.
+	 *		<li><tt>FALSE</tt>: Delete the synonym, if it exists.
+	 *		<li><i>other</i>: Any other value means that we want to set the synonym provided
+	 *			in the previous parameter.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will return either the synonym, or <tt>NULL</tt> if the value was not
+	 * matched.
+	 *
+	 * @param string				$theValue			Synonym.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed				Old or new value.
+	 *
+	 * @see kTAG_SYNONYM
+	 *
+	 * @uses manageSetOffset()
+	 */
+	public function Synonym( $theValue, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->manageSetOffset(
+				kTAG_SYNONYM,
+				(string) $theValue, $theOperation, $getOld );						// ==>
+	
+	} // Synonym.
+
+	 
+
+} // trait Synonym.
+
+
+?>
+

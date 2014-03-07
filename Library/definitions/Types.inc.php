@@ -58,6 +58,14 @@ define( "kTYPE_FLOAT",							':type:float' );
  *======================================================================================*/
 
 /**
+ * Struct.
+ *
+ * This data type defines a <em>structure</em>, this means that the value will be an
+ * <em>object</em> or an array of objects if the data kind is a list.
+ */
+define( "kTYPE_STRUCT",							':type:struct' );
+
+/**
  * Array.
  *
  * This data type defines a <em>list of key/value pairs</em>, the key will be in general a
@@ -66,14 +74,6 @@ define( "kTYPE_FLOAT",							':type:float' );
  * traditional arrays are better defined by a fixed data type and a list data kind.
  */
 define( "kTYPE_ARRAY",							':type:array' );
-
-/**
- * Struct.
- *
- * This data type defines a <em>structure</em>, this means that the value will be an
- * <em>object</em> or an array of objects if the data kind is a list.
- */
-define( "kTYPE_STRUCT",							':type:struct' );
 
 /**
  * Language string elements list.
@@ -98,6 +98,51 @@ define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
  * the type pair.
  */
 define( "kTYPE_TYPED_LIST",						':type:typed-list' );
+
+/**
+ * Shape.
+ *
+ * This data type defines a <em>shape structure</em>, this type of object represents a
+ * geometric shape and it is expressed as a GeoJSON construct.
+ *
+ * It is an array composed by two key/value pairs:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: The element indexed by this string contains the
+ *		code indicating the type of the shape, these are the supported values:
+ *	 <ul>
+ *		<li><tt>Point</tt>: A point.
+ *		<li><tt>LineString</tt>: A list of non closed points.
+ *		<li><tt>Polygon</tt>: A polygon, including its rings.
+ *	 </ul>
+ *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: The element indexed by this string contains
+ *		the <em>geometry of the shape</em>, which has a structure depending on the shape
+ +		type:
+ *	 <ul>
+ *		<li><tt>Point</tt>: The point is an array of two floating point numbers,
+ *			respectively the <em>longitude</em> and <em>latitude</em>.
+ *		<li><tt>LineString</tt>: A line string is an array of points expressed as the
+ *			<tt>Point</tt> geometry.
+ *		<li><tt>Polygon</tt>: A polygon is a list of rings whose geometry is like the
+ *			<tt>LineString</em> geometry, except that the first and last point must match.
+ *			The first ring represents the outer boundary of the polygon, the other rings are
+ *			optional and represent holes in the polygon.
+ *	 </ul>
+ * </ul>
+ */
+define( "kTYPE_SHAPE",							':type:shape' );
+
+/*=======================================================================================
+ *	STANDARDS DATA TYPES																*
+ *======================================================================================*/
+
+/**
+ * Link.
+ *
+ * A <i>link</i> data type indicates that the referred property is a <em>string</em>
+ * representing an <em>URL</em> which is an internet link or network address.
+ */
+define( "kTYPE_URL",							':type:url' );
 
 /*=======================================================================================
  *	ENUMERATED DATA TYPES																*

@@ -1,0 +1,138 @@
+<?php
+
+/**
+ * Institution.php
+ *
+ * This file contains the definition of the {@link Institution} class.
+ */
+
+namespace OntologyWrapper;
+
+use OntologyWrapper\EntityObject;
+
+/*=======================================================================================
+ *																						*
+ *									Institution.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Institution
+ *
+ * This <em>concrete</em> class is derived from the {@link EntityObject} class, it
+ * implements an <em>institution</em> or <em>organisation</em>.
+ *
+ * The class features a series of other default attributes which characterise institutions:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_ENTITY_ACRONYM}</tt>: <em>Acronym</em>. This optional attribute
+ *		collects the institution's acronyms.
+ *	<li><tt>{@link kTAG_ENTITY_LINK}</tt>: <em>URL</em>. This optional attribute collects
+ *		the institution's internet addresses by type.
+ * </ul>
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 07/03/2014
+ */
+class Institution extends EntityObject
+{
+	/**
+	 * Acronym trait.
+	 *
+	 * We use this trait to handle acronyms.
+	 */
+	use	traits\EntityAcronym;
+
+	/**
+	 * Internet address trait.
+	 *
+	 * We use this trait to handle URLs.
+	 */
+	use	traits\EntityLink;
+
+	/**
+	 * Default domain.
+	 *
+	 * This constant holds the <i>default domain</i> of the object.
+	 *
+	 * @var string
+	 */
+	const kDEFAULT_DOMAIN = kDOMAIN_ORGANISATION;
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * In this class we index the acronym.
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Set parent indexes and retrieve collection.
+		//
+		$collection = parent::CreateIndexes( $theDatabase );
+		
+		//
+		// Set country index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_ACRONYM => 1 ),
+								  array( "name" => "ACRONYM",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return all the default offsets.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ENTITY_ACRONYM, kTAG_ENTITY_LINK ) );		// ==>
+	
+	} // DefaultOffsets.
+
+	 
+
+} // class Institution.
+
+
+?>

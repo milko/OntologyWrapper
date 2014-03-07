@@ -57,20 +57,21 @@ use OntologyWrapper\CollectionObject;
  *		enumerated set that can be managed with the {@link EntityKind()} method.
  *	<li><tt>{@link kTAG_ENTITY_MAIL}</tt>: <em>Mailing address</em>. This optional attribute
  *		represents the mailing addresses of the entity, it is a list of addresses
- *		discriminated by their type. The attribute can be managed with the {@link Mail()}
- *		method.
+ *		discriminated by their type. The attribute can be managed with the
+ *		{@link EntityMail()} method.
  *	<li><tt>{@link kTAG_ENTITY_EMAIL}</tt>: <em>Electronic mail address</em>. This optional
  *		attribute represents the e-mail addresses of the entity, it is a list of e-mails
- *		discriminated by their type. The attribute can be managed with the {@link Email()}
+ *		discriminated by their type. The attribute can be managed with the
+ *		{@link EntityEmail()}
  *		method.
  *	<li><tt>{@link kTAG_ENTITY_PHONE}</tt>: <em>Telephone number</em>. This optional
  *		attribute represents the telephone numbers of the entity, it is a list of phones
- *		discriminated by their type. The attribute can be managed with the {@link Phone()}
- *		method.
+ *		discriminated by their type. The attribute can be managed with the
+ *		{@link EntityPhone()} method.
  *	<li><tt>{@link kTAG_ENTITY_FAX}</tt>: <em>Telefax number</em>. This optional
  *		attribute represents the telefax numbers of the entity, it is a list of faxes
- *		discriminated by their type. The attribute can be managed with the {@link Fax()}
- *		method.
+ *		discriminated by their type. The attribute can be managed with the
+ *		@link EntityFax()} method.
  *	<li><tt>{@link kTAG_ENTITY_COUNTRY}</tt>: <em>Country</em>. This required attribute
  *		indicates which is the nationality or operating country of the entity, it is an
  *		enumerated value that represents the ISO country code.
@@ -78,7 +79,7 @@ use OntologyWrapper\CollectionObject;
  *		attribute contains the list of entities to which the current entity is affiliated.
  *		The attribute is a list of elements in containing two items: the type of affiliation
  *		and the affiliated entity native identifier. The elements of this list can be
- *		managed with the {@link Affiliation()} method.
+ *		managed with the {@link EntityAffiliation()} method.
  *	<li><tt>{@link kTAG_ENTITY_VALID}</tt>: <em>Valid entity</em>. This optional attribute
  *		represents a reference to the entity that is currently in use or that is preferred.
  *		This attribute is featured by obsolete or replaced entities and points to the
@@ -115,35 +116,35 @@ abstract class EntityObject extends UnitObject
 	 *
 	 * We use this trait to handle the entity mailing addresses.
 	 */
-	use	traits\Mail;
+	use	traits\EntityMail;
 
 	/**
-	 * Email trait.
+	 * E-mail trait.
 	 *
 	 * We use this trait to handle the entity e-mail addresses.
 	 */
-	use	traits\Email;
+	use	traits\EntityEmail;
 
 	/**
 	 * Telephone trait.
 	 *
 	 * We use this trait to handle the entity telephone numbers.
 	 */
-	use	traits\Phone;
+	use	traits\EntityPhone;
 
 	/**
 	 * Telefax trait.
 	 *
 	 * We use this trait to handle the entity telefax numbers.
 	 */
-	use	traits\Fax;
+	use	traits\EntityFax;
 
 	/**
 	 * Affiliation trait.
 	 *
 	 * We use this trait to handle affiliations.
 	 */
-	use	traits\Affiliation;
+	use	traits\EntityAffiliation;
 
 	/**
 	 * Sequences selector.

@@ -297,7 +297,11 @@ abstract class OntologyObject extends ContainerObject
 	 * @static
 	 * @return array				List of internal offsets.
 	 */
-	static function InternalOffsets()			{	return array( kTAG_NID, kTAG_CLASS );	}
+	static function InternalOffsets()
+	{
+		return array( kTAG_NID, kTAG_CLASS, kTAG_SHAPE_TYPE, kTAG_SHAPE_GEOMETRY );	// ==>
+	
+	} // InternalOffsets.
 
 	 
 	/*===================================================================================

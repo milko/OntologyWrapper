@@ -68,7 +68,7 @@ trait Category
 	 * The method will return either the enumerated value, or <tt>NULL</tt> if the value was
 	 * not matched.
 	 *
-	 * @param string				$theValue			Data type.
+	 * @param string				$theValue			Category.
 	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
