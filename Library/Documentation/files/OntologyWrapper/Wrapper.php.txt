@@ -159,6 +159,11 @@ class Wrapper extends Dictionary
 			$theValue->dictionary( $this );
 			
 			//
+			// Set server dictionary.
+			//
+			$theValue->Parent()->dictionary( $this );
+			
+			//
 			// Open connection.
 			//
 			if( $doOpen )
@@ -861,6 +866,50 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadXMLTag																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML tag
+	 *
+	 * This method will parse and load the provided tag XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Tag XML structure.
+	 * @param reference				$theCache			Objects cache.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
+	{
+		//
+		// Instantiate tag.
+		//
+		$object = new Tag();
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML->{'item'} as $element )
+			$this->loadXMLElement( $element, $object );
+		
+		//
+		// Commit object.
+		//
+		$object->commit( $this );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+			$theCache[ Tag::kSEQ_NAME ] = Array();
+		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+	
+	} // loadXMLTag.
+
+	 
+	/*===================================================================================
 	 *	loadXMLTerm																		*
 	 *==================================================================================*/
 
@@ -939,27 +988,68 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	loadXMLTag																		*
+	 *	loadXMLNode																		*
 	 *==================================================================================*/
 
 	/**
-	 * Parse and load XML tag
+	 * Parse and load XML node
 	 *
-	 * This method will parse and load the provided tag XML structure.
+	 * This method will parse and load the provided node XML structure.
 	 *
-	 * @param SimpleXMLElement		$theXML				Tag XML structure.
+	 * @param SimpleXMLElement		$theXML				Node XML structure.
 	 * @param reference				$theCache			Objects cache.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
-	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
+	protected function loadXMLNode( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Instantiate tag.
+		// Check if updating.
 		//
-		$object = new Tag();
+		$mod = isset( $theXML[ 'modify' ] );
+		if( $mod )
+			$id = $attributes[ 'modify' ];
+		
+		//
+		// Get node class.
+		//
+		$mod = isset( $theXML[ 'class' ] );
+		if( $mod )
+			$class = $attributes[ 'class' ];
+		
+		//
+		// Instantiate node.
+		//
+		$object = ( $mod )
+			  ? new $class( $this->Metadata(), $theXML[ 'modify' ] )
+			  : new $class( $this );
+		
+		//
+		// Assert modifications.
+		//
+		if( $mod
+		 && (! $object->isCommitted()) )
+			throw new \Exception(
+				"Unable to update node [$id]: "
+			   ."the node does not exist." );									// !@! ==>
+		
+		//
+		// Load attributes.
+		//
+		if( ! $mod )
+		{
+			$tmp = array( 'tag' => kTAG_TAG,
+						  'term' => kTAG_TERM,
+						  'pid' => kTAG_ID_PERSISTENT );
+			foreach( $tmp as $key => $tag )
+			{
+				if( isset( $theXML[ $key ] ) )
+					$object[ $tag ] = (string) $theXML[ $key ];
+			}
+		
+		} // Not modifying.
 		
 		//
 		// Load properties.
@@ -975,11 +1065,73 @@ class Wrapper extends Dictionary
 		//
 		// Load cache.
 		//
-		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
-			$theCache[ Tag::kSEQ_NAME ] = Array();
-		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
+			$theCache[ Node::kSEQ_NAME ] = Array();
+		$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
-	} // loadXMLTag.
+	} // loadXMLNode.
+
+	 
+	/*===================================================================================
+	 *	loadXMLEdge																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML edge
+	 *
+	 * This method will parse and load the provided edge XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Edge XML structure.
+	 * @param reference				$theCache			Objects cache.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLEdge( \SimpleXMLElement $theXML, &$theCache )
+	{
+		//
+		// Check if updating.
+		//
+		$mod = isset( $theXML[ 'modify' ] );
+		if( $mod )
+			$id = $attributes[ 'modify' ];
+		
+		//
+		// Instantiate edge.
+		//
+		$object = ( $mod )
+			  ? new Edge( $this->Metadata(), $theXML[ 'modify' ] )
+			  : new Edge( $this );
+		
+		//
+		// Assert modifications.
+		//
+		if( $mod
+		 && (! $object->isCommitted()) )
+			throw new \Exception(
+				"Unable to update edge [$id]: "
+			   ."the edge does not exist." );									// !@! ==>
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML->{'item'} as $element )
+			$this->loadXMLElement( $element, $object );
+		
+		//
+		// Commit object.
+		//
+		$object->commit( $this );
+		
+		//
+		// Load cache.
+		//
+		if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
+			$theCache[ Edge::kSEQ_NAME ] = Array();
+		$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+	
+	} // loadXMLEdge.
 
 	 
 	/*===================================================================================

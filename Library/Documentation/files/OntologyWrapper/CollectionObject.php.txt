@@ -18,11 +18,22 @@ use OntologyWrapper\DatabaseObject;
  *======================================================================================*/
 
 /**
+ * Query flags.
+ *
+ * This file contains the query flag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
+
+/**
  * Collection object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing database
  * collection instances, this class extends the {@link ConnectionObject} class to implement
  * collection specific functionality prototypes.
+ *
+ * In this library we use the MongoDB query language to express selection criteria, when
+ * deriving classes that handle different database engines you can translate the Mongo query
+ * into the native language of the specific database engine.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 06/02/2014
@@ -186,41 +197,115 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	resolve																			*
+	 *	matchOne																		*
 	 *==================================================================================*/
 
 	/**
-	 * Resolve an object
+	 * Match one object
 	 *
-	 * This method should select an object in the current collection matching the provided
-	 * identifier with the provided value.
+	 * This method should select a single object according to the provided criteria, the
+	 * method should return a value according to the second parameter.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theValue</b>: This parameter represents the value to match with the provided
-	 *		offset.
-	 *	<li><b>$theOffset</b>: This parameter represents the offset to match.
-	 *	<li><b>$asObject</b>: This parameter determines what the method should return:
+	 *	<li><b>$theCriteria</b>: This parameter represents the selection criteria, this
+	 *		value is an array which represents a query expressed in the MongoDB query
+	 *		language.
+	 *	<li><b>$theResult</b>: This parameter determines what the method should return, it
+	 *		is a bitfield which accepts two sets of values:
 	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the object; if there are more than one objects
-	 *			selected, this method should only return the first.
-	 *		<li><tt>FALSE</tt>: Return the object array; if there are more than one objects
-	 *			selected, this method should only return the first.
-	 *		<li><tt>NULL</tt>: Return the objects count.
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method should raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *			<li><tt>{@link kQUERY_COUNT}</tt>: Return the number of matched objects.
+	 *		 </ul>
 	 *	 </ul>
+	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
+	 *		array indexed by offset with a boolean value indicating whether or not to
+	 *		include the field.
 	 * </ul>
+	 *
+	 * If you omit the second parameter, the method should return the matched object.
+	 *
+	 * If there is more than one match for the provided criteria, this method will return
+	 * only the first one, in no particular order.
+	 *
+	 * If there is no match, the method will return <tt>NULL</tt> if the
+	 * {@link kQUERY_ASSERT} flag was <em>not</em> set, or raise an exception.
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
-	 * @param mixed					$theValue			Offset value.
-	 * @param mixed					$theOffset			Offset.
-	 * @param mixed					$asObject			What to return.
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param bitfield				$theResult			Result type.
+	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access public
-	 * @return mixed				Found object, array, objects count or <tt>NULL</tt>.
+	 * @return mixed				Matched data or <tt>NULL</tt>.
 	 */
-	abstract public function resolve( $theValue, $theOffset = kTAG_NID, $asObject = TRUE );
+	abstract public function matchOne( $theCriteria, $theResult = kQUERY_DEFAULT,
+													 $theFields = Array() );
+
+	 
+	/*===================================================================================
+	 *	matchAll																		*
+	 *==================================================================================*/
+
+	/**
+	 * Match all objects
+	 *
+	 * This method should select the set of objects matching the provided criteria, the
+	 * method should return an object implementing the {@link Iterator}, {@link Countable}
+	 * and {iCursor} interfaces.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCriteria</b>: This parameter represents the selection criteria, this
+	 *		value is an array which represents a query expressed in the MongoDB query
+	 *		language.
+	 *	<li><b>$theResult</b>: This parameter will be passed to the iterator returned by the
+	 *		method, it determines what kind of data the iterator will return. This parameter
+	 *		is a bitfield which accepts two sets of values:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method should raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *		 </ul>
+	 *			Any other value will trigger an exception.
+	 *	 </ul>
+	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
+	 *		array indexed by offset with a boolean value indicating whether or not to
+	 *		include the field.
+	 * </ul>
+	 *
+	 * If you omit the second parameter, the the iterator returned by this method will
+	 * objects.
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param bitfield				$theResult			Result type.
+	 * @param array					$theFields			Fields selection.
+	 *
+	 * @access public
+	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 */
+	abstract public function matchAll( $theCriteria = Array(),
+									   $theResult = kQUERY_DEFAULT,
+									   $theFields = Array() );
 
 	 
 	/*===================================================================================
@@ -342,6 +427,23 @@ abstract class CollectionObject extends ConnectionObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	getIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get index
+	 *
+	 * This method should return the list of indexed offsets.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @access public
+	 * @return array				The list of indexed offsets.
+	 */
+	abstract public function getIndex();
 
 	 
 	/*===================================================================================

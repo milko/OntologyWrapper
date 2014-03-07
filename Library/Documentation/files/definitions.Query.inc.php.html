@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-482616720"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-482616720" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-902348100"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-902348100" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1451773125"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1451773125" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Affiliation.html">Affiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Email.html">Email</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Fax.html">Fax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Mail.html">Mail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Accessors.html">Accessors</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Phone.html">Phone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorObject.html">IteratorObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>definitions</small>Query.inc.php</h1>
+                    <p><em>Query flags.</em></p>
+                    <p>This file contains the default query flags used to determine the result type of query
+result.</p>
+<p>These values a bitfield value masked by the {@link kOPERATION_MASK}, in which the lower
+bits, masked by the {@link kRESULT_MASK}, represent the desired result type and the
+upper bit masked by {@link kOPERATION_ASSERT} indicates whether to assert object matches.</p>
+
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    version
+                                </th>
+                                <td>
+                                                                            <p>06/03/2014</p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content file">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_DEFAULT" name="constant_kQUERY_DEFAULT" class="anchor"></a>
+            <article id="constant_kQUERY_DEFAULT" class="constant">
+                <h3 class="">kQUERY_DEFAULT</h3>
+                <pre class="signature">kQUERY_DEFAULT</pre>
+                <p><em>Default query.</em></p>
+                <p>This bitfield value indicates an <em>object</em> result or <tt>NULL</tt> if there is no
+match.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_MASK" name="constant_kQUERY_MASK" class="anchor"></a>
+            <article id="constant_kQUERY_MASK" class="constant">
+                <h3 class="">kQUERY_MASK</h3>
+                <pre class="signature">kQUERY_MASK</pre>
+                <p><em>Operator mask.</em></p>
+                <p>This bitfield value represents the query mask.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kRESULT_MASK" name="constant_kRESULT_MASK" class="anchor"></a>
+            <article id="constant_kRESULT_MASK" class="constant">
+                <h3 class="">kRESULT_MASK</h3>
+                <pre class="signature">kRESULT_MASK</pre>
+                <p><em>Result mask.</em></p>
+                <p>This bitfield value represents the result mask.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_ASSERT" name="constant_kQUERY_ASSERT" class="anchor"></a>
+            <article id="constant_kQUERY_ASSERT" class="constant">
+                <h3 class="">kQUERY_ASSERT</h3>
+                <pre class="signature">kQUERY_ASSERT</pre>
+                <p><em>Assert.</em></p>
+                <p>This bitfield value indicates that if there is no match, an exception should be raised.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_OBJECT" name="constant_kQUERY_OBJECT" class="anchor"></a>
+            <article id="constant_kQUERY_OBJECT" class="constant">
+                <h3 class="">kQUERY_OBJECT</h3>
+                <pre class="signature">kQUERY_OBJECT</pre>
+                <p><em>Object.</em></p>
+                <p>This bitfield value indicates that the result of the operation should be the object.</p>
+<p>This value should be masked with the {@link kRESULT_MASK}.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_ARRAY" name="constant_kQUERY_ARRAY" class="anchor"></a>
+            <article id="constant_kQUERY_ARRAY" class="constant">
+                <h3 class="">kQUERY_ARRAY</h3>
+                <pre class="signature">kQUERY_ARRAY</pre>
+                <p><em>Array.</em></p>
+                <p>This bitfield value indicates that the result of the operation should be the object
+array.</p>
+<p>This value should be masked with the {@link kRESULT_MASK}.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_NID" name="constant_kQUERY_NID" class="anchor"></a>
+            <article id="constant_kQUERY_NID" class="constant">
+                <h3 class="">kQUERY_NID</h3>
+                <pre class="signature">kQUERY_NID</pre>
+                <p><em>Native identifier.</em></p>
+                <p>This bitfield value indicates that the result of the operation should be the object
+native identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kQUERY_COUNT" name="constant_kQUERY_COUNT" class="anchor"></a>
+            <article id="constant_kQUERY_COUNT" class="constant">
+                <h3 class="">kQUERY_COUNT</h3>
+                <pre class="signature">kQUERY_COUNT</pre>
+                <p><em>Objects count.</em></p>
+                <p>This bitfield value indicates that the result of the operation should be the objects
+count.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Query.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/definitions/Query.inc.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on March 7th, 2014 at 15:34.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

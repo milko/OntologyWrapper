@@ -210,10 +210,69 @@ class MongoCollection extends CollectionObject
 		} // Connected.
 			
 		throw new \Exception(
-			"Unable to resolve object: "
+			"Unable to match object: "
 		   ."connection is not open." );										// !@! ==>
 	
-	} // resolve.
+	} // matchOne.
+
+	 
+	/*===================================================================================
+	 *	matchAll																		*
+	 *==================================================================================*/
+
+	/**
+	 * Match all objects
+	 *
+	 * In this class we perform the query using the {@link MongoCollection::find()} method,
+	 * we then return a {@link MongoIterator} instance with the query cursor and collection.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param bitfield				$theResult			Result type.
+	 * @param array					$theFields			Fields selection.
+	 *
+	 * @access public
+	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 */
+	public function matchAll( $theCriteria = Array(),
+							  $theResult = kQUERY_DEFAULT,
+							  $theFields = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Make query.
+			//
+			$cursor
+				= $this->
+					mConnection->
+						find( $theCriteria, $theFields );
+			
+			//
+			// Handle no matches.
+			//
+			if( ! $cursor->count() )
+			{
+				//
+				// Assert.
+				//
+				if( $theResult & kQUERY_ASSERT )
+					throw new \Exception(
+						"No matches." );										// !@! ==>
+			
+			} // No matches.
+			
+			return new MongoIterator( $cursor, $this, $theResult & kRESULT_MASK );	// ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to perform query: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // matchAll.
 
 	 
 	/*===================================================================================

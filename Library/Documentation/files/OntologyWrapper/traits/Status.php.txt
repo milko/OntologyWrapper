@@ -45,8 +45,8 @@ require_once( kPATH_DEFINITIONS_ROOT."/Flags.inc.php" );
  *		{@link isCommitted()} method. It is an indication that the object is persistent; if
  *		the flag is not set, it means that the object was not loaded from or stored in a
  *		persistent store.
- *	<li><tt>{@link kFLAG_STATE_ENCODED}</tt>: This flag indicates an encoded state and can
- *		be managed by the {@link isEncoded()} method, which means that some object offsets
+ *	<li><tt>{@link kFLAG_STATE_ALIAS}</tt>: This flag indicates an encoded state and can
+ *		be managed by the {@link isAlias()} method, which means that some object offsets
  *		have been encoded and need to be decoded before the object is saved in a persistent
  *		store or effectively used. This state is often associated to the network
  *		transmission of objects: some data types must be converted prior to be sent over the
@@ -247,23 +247,23 @@ trait Status
 
 	 
 	/*===================================================================================
-	 *	isEncoded																		*
+	 *	isAlias																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage encoded status
+	 * Manage alias status
 	 *
-	 * This method can be used to get or set the object's encoded state.
+	 * This method can be used to get or set the object's alias state.
 	 *
-	 * This flag determines whether the object should take care of serialising custom data
-	 * types before the object is transmitted over the network.
+	 * This flag determines whether the object is an alias or not, alias objects hold a
+	 * reference to their master object in the {@link kTAG_MASTER} offset.
 	 *
 	 * The method features a single parameter:
 	 *
 	 * <ul>
-	 *	<li><tt>NULL</tt>: The method will return the object's encoded state.
-	 *	<li><tt>TRUE</tt>: The method will set the object's encoded state.
-	 *	<li><tt>FALSE</tt>: The method will reset the object's encoded state.
+	 *	<li><tt>NULL</tt>: The method will return the object's alias state.
+	 *	<li><tt>TRUE</tt>: The method will set the object's alias state.
+	 *	<li><tt>FALSE</tt>: The method will reset the object's alias state.
 	 * </ul>
 	 *
 	 * In all cases the method will return the state <i>after</i> it was eventually
@@ -273,20 +273,19 @@ trait Status
 	 *													<tt>NULL</tt>.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> supports encoding, <tt>FALSE</tt> does not
-	 *								support encoding.
+	 * @return boolean				<tt>TRUE</tt> is an alias, <tt>FALSE</tt> not an alias.
 	 *
-	 * @see kFLAG_STATE_ENCODED
+	 * @see kFLAG_STATE_ALIAS
 	 *
 	 * @uses $this->manageBitField()
 	 */
-	protected function isEncoded( $theState = NULL )
+	protected function isAlias( $theState = NULL )
 	{
 		return $this->manageBitField( $this->mStatus,
-									  kFLAG_STATE_ENCODED,
+									  kFLAG_STATE_ALIAS,
 									  $theState );									// ==>
 	
-	} // isEncoded.
+	} // isAlias.
 
 		
 

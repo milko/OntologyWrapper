@@ -157,7 +157,17 @@ abstract class DatabaseObject extends ConnectionObject
 		//
 		$params[ kTAG_CONN_COLL ] = $theName;
 		
-		return $this->newCollection( $params, $doOpen );							// ==>
+		//
+		// Instantiate collection.
+		//
+		$collection = $this->newCollection( $params, $doOpen );
+		
+		//
+		// Set data dictionary.
+		//
+		$collection->dictionary( $this->dictionary() );
+		
+		return $collection;															// ==>
 	
 	} // Collection.
 

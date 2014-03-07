@@ -192,7 +192,8 @@ abstract class PersistentObject extends OntologyObject
 				//
 				// Find object.
 				//
-				$found = $collection->resolve( $theIdentifier, kTAG_NID, FALSE );
+				$found = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
+												kQUERY_ARRAY );
 				if( $found !== NULL )
 				{
 					//
@@ -420,6 +421,116 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC MASTER MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setAlias																		*
+	 *==================================================================================*/
+
+	/**
+	 * Signal object as alias
+	 *
+	 * This method can be used to set or reset the object {@link isAlias()} flag, this
+	 * signals that the current object is an alias of the object referenced by the
+	 * {@link kTAG_MASTER} offset value: to set the status pass <tt>TRUE</tt> in the
+	 * parameter and <tt>FALSE</tt> to reset it.
+	 *
+	 * This method should only be called on non committed objects, once set, this status is
+	 * immutable, so in that case the method will raise an exception.
+	 *
+	 * When resetting the status, the method will also remove the eventual
+	 * {@link kTAG_MASTER} attribute.
+	 *
+	 * <em>Note that not any object can be set as alias: objects that can take this state
+	 * must feature a method that selects their master object, so you should shadow this
+	 * method in derived classes that do not implement the concept of master and alias.
+	 *
+	 * @param boolean				$doSet				<tt>TRUE</tt> to set.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_MASTER
+	 */
+	public function setAlias( $doSet = TRUE )
+	{
+		//
+		// Normalise flag.
+		//
+		$doSet = (boolean) $doSet;
+		
+		//
+		// Set status.
+		//
+		if( $doSet )
+		{
+			//
+			// Check if needed.
+			//
+			if( ! $this->isAlias() )
+			{
+				//
+				// Check if committed.
+				//
+				if( ! $this->isCommitted() )
+					$this->isAlias( $doSet );
+			
+				else
+					throw new \Exception(
+						"Cannot set alias status: "
+					   ."the object is already committed." );					// !@! ==>
+		
+			} // Not an alias already.
+		
+		} // Set status
+		
+		//
+		// Reset status.
+		//
+		else
+		{
+			//
+			// Check if needed.
+			//
+			if( $this->isAlias() )
+			{
+				//
+				// Check if committed.
+				//
+				if( ! $this->isCommitted() )
+				{
+					//
+					// Set status.
+					//
+					$this->isAlias( $doSet );
+					
+					//
+					// Remove master.
+					//
+					$this->offsetUnset( kTAG_MASTER );
+				
+				} // Not committed.
+			
+				else
+					throw new \Exception(
+						"Cannot reset alias status: "
+					   ."the object is already committed." );					// !@! ==>
+		
+			} // Not an alias already.
+		
+		} // Reset status.
+	
+	} // setAlias.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -618,6 +729,12 @@ abstract class PersistentObject extends OntologyObject
 		if( $ok === NULL )
 			$this->isDirty( TRUE );
 		
+		//
+		// Handle master.
+		//
+		if( $theOffset == kTAG_MASTER )
+			$this->setAlias( TRUE );
+		
 		return $ok;																	// ==>
 		
 	} // postOffsetSet.
@@ -699,6 +816,12 @@ abstract class PersistentObject extends OntologyObject
 		$ok = parent::postOffsetUnset( $theOffset );
 		if( $ok === NULL )
 			$this->isDirty( TRUE );
+		
+		//
+		// Handle master.
+		//
+		if( $theOffset == kTAG_MASTER )
+			$this->setAlias( FALSE );
 		
 		return $ok;																	// ==>
 		
@@ -854,6 +977,8 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
 	 *
 	 * @uses isInited()
 	 */
@@ -1045,10 +1170,18 @@ abstract class PersistentObject extends OntologyObject
 		$tags = Array();
 		
 		//
+		// Get collection indexes.
+		//
+		$indexes
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->dictionary(), TRUE ) )
+					->getIndex();
+		
+		//
 		// Iterate tags.
 		//
 		foreach( $theTags as $tag => $info )
-			$this->loadObjectTag( $tag, $info, $tags );
+			$this->loadObjectTag( $tag, $info, $tags, $indexes );
 		
 		//
 		// Set offset.
@@ -1675,7 +1808,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$ref_types = array( kTYPE_REF_TAG, kTYPE_REF_TERM,
 							kTYPE_REF_NODE, kTYPE_REF_EDGE,
-							kTYPE_REF_ENTITY, kTYPE_REF_UNIT );
+							kTYPE_REF_ENTITY, kTYPE_REF_UNIT,
+							kTYPE_REF_SELF );
 		
 		//
 		// Verify value.
@@ -1751,14 +1885,18 @@ abstract class PersistentObject extends OntologyObject
 	 * This method should return the list of locked offsets, that is, the offsets which
 	 * cannot be modified once the object has been committed.
 	 *
-	 * In this class we return the list of internal tags.
+	 * In this class we return the list of internal tags plus the {@link kTAG_MASTER}.
 	 *
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
 	 * @uses InternalOffsets()
 	 */
-	protected function lockedOffsets()				{	return $this->InternalOffsets();	}
+	protected function lockedOffsets()
+	{
+		return array_merge( $this->InternalOffsets(), (array) kTAG_MASTER );		// ==>
+	
+	} // lockedOffsets.
 
 		
 
@@ -1790,7 +1928,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @throws Exception
 	 *
 	 * @see kTYPE_REF_TERM kTYPE_REF_TAG kTYPE_REF_NODE kTYPE_REF_EDGE
-	 * @see kTYPE_REF_ENTITY kTYPE_REF_UNIT 
+	 * @see kTYPE_REF_ENTITY kTYPE_REF_UNIT kTYPE_REF_SELF
 	 */
 	protected function validateReference( &$theValue, $theClass, $theType )
 	{
@@ -1829,8 +1967,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			switch( $theType )
 			{
-				case kTYPE_REF_TERM:
 				case kTYPE_REF_TAG:
+				case kTYPE_REF_TERM:
 				case kTYPE_REF_EDGE:
 				case kTYPE_REF_ENTITY:
 				case kTYPE_REF_UNIT:
@@ -1839,6 +1977,23 @@ abstract class PersistentObject extends OntologyObject
 				
 				case kTYPE_REF_NODE:
 					$theValue = (int) $theValue;
+					break;
+				
+				case kTYPE_REF_SELF:
+					switch( static::kSEQ_NAME )
+					{
+						case Tag::kSEQ_NAME:
+						case Term::kSEQ_NAME:
+						case Edge::kSEQ_NAME:
+						case EntityObject::kSEQ_NAME:
+						case Unit::kSEQ_NAME:
+							$theValue = (string) $theValue;
+							break;
+				
+						case Node::kSEQ_NAME:
+							$theValue = (int) $theValue;
+							break;
+					}
 					break;
 			}
 		
@@ -2152,7 +2307,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_UNIT_COUNT:
 			case kTAG_ENTITY_COUNT:
 				$theType = array( kTYPE_INT );
-				$theKind = array( kTYPE_PRIVATE );
+				$theKind = array( kTYPE_PRIVATE_IN );
 				return TRUE;														// ==>
 		
 		} // Parsing default tags.
@@ -2610,6 +2765,13 @@ abstract class PersistentObject extends OntologyObject
 							Unit::ResolveDatabase( $this->dictionary(), TRUE ) );
 					$value = (string) $value;
 					break;
+		
+				case kTYPE_REF_SELF:
+					$collection
+						= static::ResolveCollection(
+							static::ResolveDatabase( $this->dictionary(), TRUE ) );
+					$value = (string) $value;
+					break;
 			
 				default:
 					return FALSE;													// ==>
@@ -2619,7 +2781,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Resolve reference.
 			//
-			if( ! $collection->resolve( $value, kTAG_NID, NULL ) )
+			if( ! $collection->matchOne( array( kTAG_NID => $value ), kQUERY_COUNT ) )
 				throw new \Exception(
 					"Unresolved reference in [$theOffset]: "
 				   ."($value)." );												// !@! ==>
@@ -2692,6 +2854,10 @@ abstract class PersistentObject extends OntologyObject
 		
 			case kTYPE_REF_UNIT:
 				$collection = Unit::kSEQ_NAME;
+				break;
+		
+			case kTYPE_REF_SELF:
+				$collection = static::kSEQ_NAME;
 				break;
 		
 		} // Parsed type.
@@ -2900,10 +3066,11 @@ abstract class PersistentObject extends OntologyObject
 	 * @param integer				$theTag				Tag sequence number.
 	 * @param reference				$theInfo			Tag information.
 	 * @param reference				$theTags			Receives tags list.
+	 * @param reference				$theIndexes			List of collection indexes.
 	 *
 	 * @access protected
 	 */
-	protected function loadObjectTag( $theTag, &$theInfo, &$theTags )
+	protected function loadObjectTag( $theTag, &$theInfo, &$theTags, &$theIndexes )
 	{
 		//
 		// Cast tag.
@@ -2963,7 +3130,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$types = array( kTYPE_ENUM, kTYPE_SET,
 						kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
-						kTYPE_REF_ENTITY, kTYPE_REF_UNIT );
+						kTYPE_REF_ENTITY, kTYPE_REF_UNIT, kTYPE_REF_SELF );
 		$tags  = array( kTYPE_REF_TAG );
 		$terms = array( kTYPE_ENUM, kTYPE_SET, kTYPE_REF_TERM );
 		$nodes = array( kTYPE_REF_NODE );
@@ -3035,6 +3202,12 @@ abstract class PersistentObject extends OntologyObject
 				//
 				elseif( count( array_intersect( $theType, $entities ) ) )
 					$collection = EntityObject::kSEQ_NAME;
+			
+				//
+				// Get self collection name.
+				//
+				elseif( in_array( kTYPE_REF_SELF, $theType ) )
+					$collection = static::kSEQ_NAME;
 				
 				//
 				// Allocate collection.

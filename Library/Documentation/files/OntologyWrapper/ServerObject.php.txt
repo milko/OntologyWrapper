@@ -70,7 +70,18 @@ abstract class ServerObject extends ConnectionObject
 		//
 		$params[ kTAG_CONN_BASE ] = $theName;
 		
-		return $this->newDatabase( $params, $doOpen );								// ==>
+		//
+		// Instantiate database.
+		//
+		$database = $this->newDatabase( $params, $doOpen );
+		
+		//
+		// Set data dictionary.
+		//
+		$database->dictionary( $this->dictionary() );
+		
+		return $database;															// ==>
+	
 	
 	} // Database.
 

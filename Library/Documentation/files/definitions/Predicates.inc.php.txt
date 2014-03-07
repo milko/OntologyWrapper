@@ -26,6 +26,10 @@
  *		is contained by the object.
  *	<li><tt>{@link kPREDICATE_ATTRIBUTE_OF}</tt>: <i>Attribute of</i>. This predicate
  *		indicates that the subject of the relationship is an attribute of the object of the
+ *		relationship, this means that the subject of the relationship is part of the set of
+ *		attributes of the object of the relationship.
+ *	<li><tt>{@link kPREDICATE_PROPERTY_OF}</tt>: <i>PROPERTY of</i>. This predicate
+ *		indicates that the subject of the relationship is a property of the object of the
  *		relationship, this means that the subject of the relationship should be of the
  *		{@link kKIND_FEATURE} kind.
  *	<li><tt>{@link kPREDICATE_SCALE_OF}</tt>: <i>Scale of</i>. This predicate is used by
@@ -93,127 +97,98 @@
  *======================================================================================*/
 
 /**
- * SUBCLASS-OF.
- *
  * Subclass of.
  *
  * This predicate indicates that the subject of the relationship is a subclass of the
  * object of the relationship, in other words, the subject is derived from the object. This
  * predicate is equivalent to the IS-A predicate, it states that the subject is an instance
  * of the object.
- *
- * Version 1: (kPREDICATE_SUBCLASS_OF)[:SUBCLASS-OF]
  */
 define( "kPREDICATE_SUBCLASS_OF",				':relationship:predicate:SUBCLASS-OF' );
 
 /**
- * SUBRANK-OF.
- *
  * Subrank of.
  *
  * This predicate indicates that the subject of the relationship belongs to the next lowest
  * rank than the object of the relationship.
- *
- * Version 1: (kPREDICATE_SUBCLASS_OF)[:SUBRANK-OF]
  */
 define( "kPREDICATE_SUBRANK_OF",				':relationship:predicate:SUBRANK-OF' );
 
 /**
- * SUBSET-OF.
- *
  * Subset of.
  *
  * This predicate indicates that the subject of the relationship represents a subset of the
  * object of the relationship, in other words, the subject is a subset of the object, or the
  * subject is contained by the object.
- *
- * Version 1: (kPREDICATE_SUBSET_OF)[:SUBSET-OF]
  */
 define( "kPREDICATE_SUBSET_OF",					':relationship:predicate:SUBSET-OF' );
 
 /**
- * PART-OF.
- *
  * Part of.
  *
  * This predicate indicates that the subject of the relationship represents a part or
  * component of the object of the relationship, in other words, the subject is part of or is
  * a component of the object.
- *
- * Version 1: (kPREDICATE_PART_OF)[:PART-OF]
  */
 define( "kPREDICATE_PART_OF",					':relationship:predicate:PART-OF' );
 
 /**
- * FUNCTION-OF.
- *
  * Function of.
  *
  * This predicate indicates that the subject of the relationship represents a function or
  * trait group of the object of the relationship, in other words, the subject is a group of
  * functions that can be applied to the object.
- *
- * Version 1: (kPREDICATE_FUNCTION_OF)[:FUNCTION-OF]
  */
 define( "kPREDICATE_FUNCTION_OF",				':relationship:predicate:FUNCTION-OF' );
 
 /**
- * COLLECTION-OF.
- *
  * Collection of.
  *
  * This predicate indicates that the subject of the relationship is a collection belonging
- * to the object. This predicate is similar to {@link kPREDICATE_ATTRIBUTE_OF}, except that
+ * to the object. This predicate is similar to {@link kPREDICATE_PROPERTY_OF}, except that
  * the latter case the subject is a scalar element of the object, while, in this case, the
  * subject is a template for the collection of elements that belong to the object.
- *
- * Version 1: (kPREDICATE_COLLECTION_OF)[:COLLECTION-OF]
  */
 define( "kPREDICATE_COLLECTION_OF",				':relationship:predicate:COLLECTION-OF' );
 
 /**
- * ATTRIBUTE-OF.
- *
  * Attribute of.
  *
  * This predicate indicates that the subject of the relationship is an attribute of the
- * object of the relationship, this means that the subject of the relationship should be of
- * the {@link kKIND_FEATURE} kind.
- *
- * Version 1: (kPREDICATE_ATTRIBUTE_OF)[:ATTRIBUTE-OF]
+ * object of the relationship, this means that the subject of the relationship is part of
+ * the set of attributes of the object of the relationship.
  */
 define( "kPREDICATE_ATTRIBUTE_OF",				':relationship:predicate:ATTRIBUTE-OF' );
 
 /**
- * TRAIT-OF.
+ * Property of.
  *
+ * This predicate indicates that the subject of the relationship is a property of the
+ * object of the relationship, this means that the subject of the relationship should be of
+ * the {@link kKIND_FEATURE} kind.
+ */
+define( "kPREDICATE_PROPERTY_OF",				':relationship:predicate:PROPERTY-OF' );
+
+/**
  * Trait of.
  *
  * This predicate relates a trait to its category vertex, it indicates that the subject of
  * the relationship is a trait of the relationship object. This predicate is used to connect
  * feature vertices to their parent vertex.
- *
- * Version 1: (kPREDICATE_TRAIT_OF)[:TRAIT-OF]
  */
 define( "kPREDICATE_TRAIT_OF",					':relationship:predicate:TRAIT-OF' );
 
 /**
- * METHOD-OF.
- *
  * Method of.
  *
  * This predicate relates method vertices with feature vertices or other methods, it
  * indicates that the subject of the relationship is a method, or workflow variation of the
  * object of the relationship. This predicate is used to connect the pipeline of modifiers
  * applied to a feature vertex.
- *
- * Version 1: (kPREDICATE_METHOD_OF)[:METHOD-OF]
  */
 define( "kPREDICATE_METHOD_OF",					':relationship:predicate:METHOD-OF' );
 
 /**
- * SCALE-OF.
- *
  * Scale of.
  *
  * This predicate is used by scale vertices to connect feature or trait vertices, the
@@ -221,40 +196,28 @@ define( "kPREDICATE_METHOD_OF",					':relationship:predicate:METHOD-OF' );
  * the object of the relationship uses that scale or unit. This predicate is specifically
  * used to indicate the different scales in which a feature ir trait vertex can be expressed
  * in.
- *
- * Version 1: (kPREDICATE_SCALE_OF)[:SCALE-OF]
  */
 define( "kPREDICATE_SCALE_OF",					':relationship:predicate:SCALE-OF' );
 
 /**
- * ENUM-OF.
- *
  * Enumeration of.
  *
  * This predicate relates vertex elements of an enumerated set, it indicates that the
  * subject of the relationship is an enumerated set element instance, and if the object of
  * the relationship is also an enumerated set element instance, this means that the subject
  * is a subset of the object.
- *
- * Version 1: (kPREDICATE_ENUM_OF)[:ENUM-OF]
  */
 define( "kPREDICATE_ENUM_OF",					':relationship:predicate:ENUM-OF' );
 
 /**
- * INSTANCE-OF.
- *
  * Instance of.
  *
  * This predicate relates a type to its instance, it indicates that the object of the
  * relationship is an instance of the subject of the relationship.
- *
- * Version 1: (kPREDICATE_INSTANCE_OF)[:INSTANCE-OF]
  */
 define( "kPREDICATE_INSTANCE_OF",				':relationship:predicate:INSTANCE-OF' );
 
 /**
- * AGGREGATE.
- *
  * Aggregate.
  *
  * This predicate indicates that the subject of the relationship should be <i>aggregated</i>
@@ -263,14 +226,10 @@ define( "kPREDICATE_INSTANCE_OF",				':relationship:predicate:INSTANCE-OF' );
  * descriptor belonging to a set specific to a kind of domain into a descriptor which is
  * common to a series of different unit kinds. This is useful for searching among
  * heterogeneous kinds of objects.
- *
- * Version 1: (kPREDICATE_AGGREGATE)[:AGGREGATE]
  */
 define( "kPREDICATE_AGGREGATE",					':relationship:predicate:AGGREGATE' );
 
 /**
- * PREFERRED.
- *
  * Preferred choice.
  *
  * This predicate indicates that the object of the relationship is the preferred choice, in
@@ -280,14 +239,10 @@ define( "kPREDICATE_AGGREGATE",					':relationship:predicate:AGGREGATE' );
  * The scope of this predicate is similar to the VALID predicate, except that in this case
  * the use of the subject of the relationship is only deprecated, while in the VALID
  * predicate it is not valid.
- *
- * Version 1: (kPREDICATE_PREFERRED)[:PREFERRED]
  */
 define( "kPREDICATE_PREFERRED",					':relationship:predicate:PREFERRED' );
 
 /**
- * VALID.
- *
  * Valid choice.
  *
  * This predicate indicates that the object of the relationship is the valid choice, in
@@ -298,14 +253,10 @@ define( "kPREDICATE_PREFERRED",					':relationship:predicate:PREFERRED' );
  * The scope of this predicate is similar to the PREFERRED predicate, except that in this
  * case the use of the subject of the relationship is invalid, while in the PREFERRED
  * predicate it is only deprecated.
- *
- * Version 1: (kPREDICATE_VALID)[:VALID]
  */
 define( "kPREDICATE_VALID",						':relationship:predicate:VALID' );
 
 /**
- * LEGACY.
- *
  * Legacy version.
  *
  * This predicate indicates that the object of the relationship is the former or legacy
@@ -316,14 +267,10 @@ define( "kPREDICATE_VALID",						':relationship:predicate:VALID' );
  * in this case the legacy choice might not be invalid, nor deprecated: it only means that
  * the object of the relationship was used in the past and the subject of the relationship
  * is currently used in its place.
- *
- * Version 1: (kPREDICATE_LEGACY)[:LEGACY]
  */
 define( "kPREDICATE_LEGACY",					':relationship:predicate:LEGACY' );
 
 /**
- * XREF.
- *
  * Cross reference.
  *
  * This predicate indicates that the subject of the relationship is related to the object
@@ -334,14 +281,10 @@ define( "kPREDICATE_LEGACY",					':relationship:predicate:LEGACY' );
  * The scope of this predicate is similar to the XREF-EXACT predicate, except that the
  * latter indicates that the object of the relationship can be used in place of the subject,
  * while in this predicate this is not necessarily true.
- *
- * Version 1: (kPREDICATE_XREF)[:XREF]
  */
 define( "kPREDICATE_XREF",						':relationship:predicate:XREF' );
 
 /**
- * XREF-EXACT.
- *
  * Exact cross reference.
  *
  * This predicate indicates that the object of the relationship can be used in place of the
@@ -351,8 +294,6 @@ define( "kPREDICATE_XREF",						':relationship:predicate:XREF' );
  * The scope of this predicate is similar to the XREF predicate, except that the latter only
  * indicates that both vertices are related, this predicate indicates that they are
  * interchangeable.
- *
- * Version 1: (kPREDICATE_XREF_EXACT)[:XREF-EXACT]
  */
 define( "kPREDICATE_XREF_EXACT",				':relationship:predicate:XREF-EXACT' );
 

@@ -29,6 +29,11 @@ require_once( 'includes.inc.php' );
 //
 require_once( 'styles.inc.php' );
 
+//
+// Session definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -80,17 +85,31 @@ class MyClass extends OntologyWrapper\MongoCollection
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$wrapper
+		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Init cache.
+	// Set databases.
 	//
-	$_SESSION[ kSESSION_DDICT ]->init();
+	$meta = $wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$meta->drop();
+	$wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	
+	//
+	// Reset ontology.
+	//
+	$wrapper->resetOntology();
 	
 	//
 	// Test parent class.
@@ -251,27 +270,6 @@ try
 		echo( '<hr>' );
 
 		//
-		// Set offset by global identifier.
-		//
-		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
-		$test[ ":label" ] = "LABEL";
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
 		// Set offset by native identifier.
 		//
 		echo( '<h4>Set offset by native identifier<br /><i>should replace kTAG_LABEL</i></h4>' );
@@ -344,64 +342,6 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
 		echo( '<hr>' );
-
-		//
-		// Test instantiate with full DSN.
-		//
-		echo( '<h4>Test instantiate with full DSN</h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		$dsn = "protocol://user:pass@host:80/database?opt1=val1&opt2=val2&opt3&opt4#collection";
-		echo( kSTYLE_HEAD_PRE );
-		var_dump( $dsn );
-		echo( kSTYLE_HEAD_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($dsn);'.kSTYLE_HEAD_POS );
-		$test = new MyClass($dsn);
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-
-		//
-		// Test instantiate with full parameters.
-		//
-		echo( '<h4>Test instantiate with full parameters<br /><i>path and fragment are not mapped to parameters in this class</i></h4>' );
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		$params = array( kTAG_CONN_PROTOCOL => "protocol",
-						 kTAG_CONN_USER => "user",
-						 kTAG_CONN_PASS => "pass",
-						 kTAG_CONN_HOST => "host",
-						 kTAG_CONN_PORT => 80,
-						 kTAG_CONN_BASE => 'database',
-						 kTAG_CONN_COLL => 'collection',
-						 kTAG_CONN_OPTS => array( 'opt1' => 'val1',
-												  'opt2' => 'val2',
-												  'opt3' => NULL,
-												  'opt4' => NULL ) );
-		echo( kSTYLE_HEAD_PRE );
-		echo( '<pre>' );
-		print_r( $params );
-		echo( '</pre>' );
-		echo( kSTYLE_HEAD_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass($params);'.kSTYLE_HEAD_POS );
-		$test = new MyClass($params);
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-		echo( kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
 	} echo( '<hr>' );
 	
 	//
@@ -416,7 +356,7 @@ try
 	echo( '<h4>Test instantiate with full DSN</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	$dsn = "mongodb://localhost:27017/test?connect=1#test-collection";
+	$dsn = "mongodb://localhost:27017/TEST?connect=1#test-collection";
 	echo( kSTYLE_HEAD_PRE );
 	var_dump( $dsn );
 	echo( kSTYLE_HEAD_POS );

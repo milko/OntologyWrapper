@@ -254,6 +254,61 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	matchAll																		*
+	 *==================================================================================*/
+
+	/**
+	 * Match all objects
+	 *
+	 * This method should select the set of objects matching the provided criteria, the
+	 * method should return an object implementing the {@link Iterator}, {@link Countable}
+	 * and {iCursor} interfaces.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCriteria</b>: This parameter represents the selection criteria, this
+	 *		value is an array which represents a query expressed in the MongoDB query
+	 *		language.
+	 *	<li><b>$theResult</b>: This parameter will be passed to the iterator returned by the
+	 *		method, it determines what kind of data the iterator will return. This parameter
+	 *		is a bitfield which accepts two sets of values:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method should raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *		 </ul>
+	 *			Any other value will trigger an exception.
+	 *	 </ul>
+	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
+	 *		array indexed by offset with a boolean value indicating whether or not to
+	 *		include the field.
+	 * </ul>
+	 *
+	 * If you omit the second parameter, the the iterator returned by this method will
+	 * objects.
+	 *
+	 * Concrete derived classes should implement this method.
+	 *
+	 * @param array					$theCriteria		Selection criteria.
+	 * @param bitfield				$theResult			Result type.
+	 * @param array					$theFields			Fields selection.
+	 *
+	 * @access public
+	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 */
+	abstract public function matchAll( $theCriteria = Array(),
+									   $theResult = kQUERY_DEFAULT,
+									   $theFields = Array() );
+
+	 
+	/*===================================================================================
 	 *	getAll																			*
 	 *==================================================================================*/
 

@@ -9,8 +9,8 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\PersistentObject;
-use OntologyWrapper\Node;
 use OntologyWrapper\Term;
+use OntologyWrapper\Node;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -158,6 +158,29 @@ class Edge extends PersistentObject
 		return implode( kTOKEN_INDEX_SEPARATOR, $terms );							// ==>
 	
 	} // __toString.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC MASTER MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setAlias																		*
+	 *==================================================================================*/
+
+	/**
+	 * Signal object as alias
+	 *
+	 * In this class we shadow this method, since there cannot be alias edges.
+	 *
+	 * @access public
+	 */
+	public function setAlias( $doSet = TRUE )											   {}
 
 		
 
