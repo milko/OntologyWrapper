@@ -65,6 +65,11 @@ use OntologyWrapper\CollectionObject;
  *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
  *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
  *		definitions by language, use the {@link Definition()} offset accessor method.
+ *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master term</em>. This property can be used by
+ *		<em>synonym terms</em> to <em>reference</em> a single term which represents an
+ *		<em>instance</em> of the current term. The current term will hold only the required
+ *		information, while the referenced term will hold the complete information. This is
+ *		useful when there are several terms which are exact cross references.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the native identifier,
@@ -385,6 +390,7 @@ class Term extends PersistentObject
 			//
 			switch( $theOffset )
 			{
+				case kTAG_MASTER:
 				case kTAG_NAMESPACE:
 					$this->validateReference( $theValue, __class__, kTYPE_REF_TERM );
 					break;

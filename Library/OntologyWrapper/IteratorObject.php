@@ -46,12 +46,11 @@ abstract class IteratorObject implements \Iterator,
 										 \Countable
 {
 	/**
-	 * Accessors trait.
+	 * Property accessors trait.
 	 *
-	 * We use this trait to provide a common framework for methods that manage properties
-	 * and offsets.
+	 * We use this trait to provide a common framework for methods that manage properties.
 	 */
-	use	traits\Accessors;
+	use	traits\AccessorProperty;
 
 	/**
 	 * Cursor.

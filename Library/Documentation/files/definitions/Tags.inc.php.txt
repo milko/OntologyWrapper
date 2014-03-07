@@ -431,7 +431,7 @@ define( "kTAG_DESCRIPTION",				27 );
  * This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
  * to a specific language.
  */
-define( "kTAG_NOTES",					28 );
+define( "kTAG_NOTE",					28 );
 
 /*=======================================================================================
  *	OBJECT STATISTICAL TAGS																*

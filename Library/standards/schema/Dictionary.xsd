@@ -152,17 +152,6 @@
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
 			
-			<xs:attribute name="class" type="xs:string" use="required">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						Node class, this attribute is required to determine whether the current
-						node is a master or alias node, the attribute value can either be
-						OntologyWrapper\NodeMaster, for master nodes, or OntologyWrapper\NodeAlias,
-						for alias nodes..
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			
 			<xs:attribute name="tag" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
@@ -186,10 +175,11 @@
 					<xs:documentation xml:lang="en">
 						This attribute represents the node persistent identifier.
 						Node native identifiers are integer sequence numbers that are assigned
-						sequentially as nodes are instantiated, this persistent identifier can
-						be used to uniquely identify a node across implementations.
-						By default it is filled with either the term or the tag persistent
-						identifier; this attribute will be stored in the node.
+						sequentially as nodes are instantiated, which makes them unusable
+						across implementations. This optional persistent identifier can be used
+						to uniquely identify a node across implementations.
+						This attribute can be used to reference an existing alias node, in that
+						case you should omit both the tag and term and all other items.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -200,10 +190,8 @@
 						Modification reference. This attribute must hold the persistent identifier
 						of a node: if provided, it means that the elements of the current block
 						will replace or be added to the node corresponding to the persistent identifier
-						provided in this attribute. This also implies that all other
-						attributes should be omitted. This implies that this should be the only
-						attribute and all other properties should be provided with the item
-						elements.
+						provided in this attribute. If you provide this attribute you should not
+						provide any other attribute.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>

@@ -6684,8 +6684,8 @@ context related information to the definition of the object</em>.</p>]]></long-d
       </docblock>
     </constant>
     <constant namespace="" line="391" package="Default">
-      <name>kTAG_NOTES</name>
-      <full_name>\kTAG_NOTES</full_name>
+      <name>kTAG_NOTE</name>
+      <full_name>\kTAG_NOTE</full_name>
       <value><![CDATA[25]]></value>
       <docblock line="391">
         <description><![CDATA[Notes (<code>:notes</code)]]></description>

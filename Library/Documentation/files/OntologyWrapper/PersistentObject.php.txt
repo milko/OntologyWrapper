@@ -2296,7 +2296,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// String lists.
 			//
-			case kTAG_NOTES:
+			case kTAG_NOTE:
 				$theType = array( kTYPE_STRING );
 				$theKind = array( kTYPE_LIST );
 				return TRUE;														// ==>
@@ -2664,6 +2664,44 @@ abstract class PersistentObject extends OntologyObject
 							  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
 							  kTYPE_REF_ENTITY => 'OntologyWrapper\EntityObject',
 							  kTYPE_REF_UNIT => 'OntologyWrapper\Unit' );
+			
+			//
+			// Handle self reference.
+			//
+			if( $type == kTYPE_REF_SELF )
+			{
+				//
+				// Parse by sequence name.
+				//
+				switch( static::kSEQ_NAME )
+				{
+					case Tag::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_TAG ];
+						break;
+						
+					case Term::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_TERM ];
+						break;
+						
+					case Node::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_NODE ];
+						break;
+						
+					case Edge::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_EDGE ];
+						break;
+						
+					case EntityObject::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_ENTITY ];
+						break;
+						
+					case Unit::kSEQ_NAME:
+						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_UNIT ];
+						break;
+						
+				} // Parsed by sequence number.
+			
+			} // Self reference.
 		
 			//
 			// Check type.
@@ -2721,56 +2759,26 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Resolve collection.
 			//
+			$class = $classes[ $type ];
+				$collection
+					= $class::ResolveCollection(
+						$class::ResolveDatabase( $this->dictionary(), TRUE ) );
+				
+			//
+			// Cast identifier.
+			//
 			switch( $type )
 			{
 				case kTYPE_REF_TAG:
-					$collection
-						= Tag::ResolveCollection(
-							Tag::ResolveDatabase( $this->dictionary(), TRUE ) );
-					$value = (string) $value;
-					break;
-		
 				case kTYPE_REF_TERM:
-					$collection
-						= Term::ResolveCollection(
-							Term::ResolveDatabase( $this->dictionary(), TRUE ) );
+				case kTYPE_REF_EDGE:
+				case kTYPE_REF_ENTITY:
+				case kTYPE_REF_UNIT:
 					$value = (string) $value;
 					break;
 		
 				case kTYPE_REF_NODE:
-					$collection
-						= Node::ResolveCollection(
-							Node::ResolveDatabase( $this->dictionary(), TRUE ) );
 					$value = (int) $value;
-					break;
-		
-				case kTYPE_REF_EDGE:
-					$name = Edge::kSEQ_NAME;
-					$collection
-						= Edge::ResolveCollection(
-							Edge::ResolveDatabase( $this->dictionary(), TRUE ) );
-					$value = (string) $value;
-					break;
-		
-				case kTYPE_REF_ENTITY:
-					$collection
-						= EntityObject::ResolveCollection(
-							EntityObject::ResolveDatabase( $this->dictionary(), TRUE ) );
-					$value = (string) $value;
-					break;
-		
-				case kTYPE_REF_UNIT:
-					$collection
-						= Unit::ResolveCollection(
-							Unit::ResolveDatabase( $this->dictionary(), TRUE ) );
-					$value = (string) $value;
-					break;
-		
-				case kTYPE_REF_SELF:
-					$collection
-						= static::ResolveCollection(
-							static::ResolveDatabase( $this->dictionary(), TRUE ) );
-					$value = (string) $value;
 					break;
 			
 				default:

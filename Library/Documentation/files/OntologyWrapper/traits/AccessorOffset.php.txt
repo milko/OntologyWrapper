@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Accessors.php
+ * AccessorOffset.php
  *
- * This file contains the definition of the {@link Accessors} trait.
+ * This file contains the definition of the {@link AccessorOffset} trait.
  */
 
 namespace OntologyWrapper\traits;
 
 /*=======================================================================================
  *																						*
- *									Accessors.php										*
+ *									AccessorOffset.php									*
  *																						*
  *======================================================================================*/
 
 /**
- * Accessors trait
+ * Offset accessor trait
  *
  * The main purpose of this trait is to provide a series of templates for managing object
- * properties, offsets and structure components. The idea is to provide a common framework
- * to member accessor methods by sharing standards.
+ * offsets and structure components. The idea is to provide a common framework to member
+ * accessor methods by sharing standards.
  *
  * This trait implements the following protected methods:
  *
@@ -36,14 +36,12 @@ namespace OntologyWrapper\traits;
  *		interface to set, retrieve and delete elements of an array or {@link ArrayObject},
  *		these elements are an array of two items in which the first one is the discriminator
  *		and the second is the value. 
- *	<li><em>{@link manageProperty()}</em>: This method provides a standard interface to set,
- *		retrieve and reset data members.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 14/02/2014
  */
-trait Accessors
+trait AccessorOffset
 {
 		
 
@@ -821,76 +819,10 @@ trait Accessors
 	
 	} // manageElementMatchOffset.
 
-		
-	/*===================================================================================
-	 *	manageProperty																	*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Manage a property</h4>
-	 *
-	 * This library implements a standard interface for managing object properties using
-	 * accessor methods, this method implements this interface:
-	 *
-	 * <ul>
-	 *	<li><tt>&$theMember</tt>: Reference to the property being managed.
-	 *	<li><tt>$theValue</tt>: The property value or operation:
-	 *	 <ul>
-	 *		<li><tt>NULL</tt>: Return the current property value.
-	 *		<li><tt>FALSE</tt>: Reset the property to <tt>NULL</tt>, the default value.
-	 *		<li><em>other</em>: Any other type represents the new value of the property.
-	 *	 </ul>
-	 *	<li><tt>$getOld</tt>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Return the value of the property <em>before</em> it was
-	 *			eventually modified.
-	 *		<li><tt>FALSE</tt>: Return the value of the property <em>after</em> it was
-	 *			eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param reference				$theMember			Reference to the data member.
-	 * @param mixed					$theValue			Value or operation.
-	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
-	 *
-	 * @access protected
-	 * @return mixed				Old or new property value.
-	 */
-	protected function manageProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Return current value.
-		//
-		if( $theValue === NULL )
-			return $theMember;														// ==>
-
-		//
-		// Save current value.
-		//
-		$save = $theMember;
-		
-		//
-		// Set new value.
-		//
-		if( $theValue !== FALSE )
-			$theMember = $theValue;
-		
-		//
-		// Reset value.
-		//
-		else
-			$theMember = NULL;
-		
-		if( $getOld )
-			return $save;															// ==>
-		
-		return $theMember;															// ==>
-	
-	} // manageProperty.
-
 	 
 
-} // trait Accessors.
+} // trait AccessorOffset.
 
 
 ?>
+

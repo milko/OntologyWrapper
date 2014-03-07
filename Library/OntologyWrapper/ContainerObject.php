@@ -92,12 +92,18 @@ namespace OntologyWrapper;
 class ContainerObject extends \ArrayObject
 {
 	/**
-	 * Accessors trait.
+	 * Offset accessors trait.
 	 *
-	 * We use this trait to provide a common framework for methods that manage properties
-	 * and offsets.
+	 * We use this trait to provide a common framework for methods that manage offsets.
 	 */
-	use	traits\Accessors;
+	use	traits\AccessorOffset;
+
+	/**
+	 * Property accessors trait.
+	 *
+	 * We use this trait to provide a common framework for methods that manage properties.
+	 */
+	use	traits\AccessorProperty;
 
 		
 
