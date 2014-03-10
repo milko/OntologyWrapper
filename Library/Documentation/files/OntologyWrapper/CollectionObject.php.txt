@@ -197,6 +197,73 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	save																			*
+	 *==================================================================================*/
+
+	/**
+	 * Save or replace an object
+	 *
+	 * The method expects the provided parameter to be either an array or an
+	 * {@link ArrayObject} instance.
+	 *
+	 * The method will call the virtual {@link replaceData()} method, passing the received
+	 * object to it, which will perform the actual replace.
+	 *
+	 * The method will return the replaced object's identifier, {@link kTAG_NID}.
+	 *
+	 * This method will also take care of setting the {@link kTAG_CLASS} offset.
+	 *
+	 * @param reference				$theObject			Object to commit.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access public
+	 * @return mixed				Replaced object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_CLASS
+	 *
+	 * @uses isConnected()
+	 * @uses insertData()
+	 */
+	public function save( &$theObject, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check object type.
+			//
+			if( is_array( $theObject )
+			 || ($theObject instanceof \ArrayObject) )
+			{
+			 	//
+			 	// Set class.
+			 	//
+			 	if( is_object( $theObject ) )
+				 	$theObject[ kTAG_CLASS ]
+				 		= get_class( $theObject );
+			 	
+				return $this->replaceData( $theObject, $theOptions );				// ==>
+			 
+			 } // Correct type.
+			
+			throw new \Exception(
+				"Unable to save object: "
+			   ."provided invalid or unsupported data type." );					// !@! ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to save object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // save.
+
+	 
+	/*===================================================================================
 	 *	delete																			*
 	 *==================================================================================*/
 
@@ -219,7 +286,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @see kTAG_CLASS
 	 *
 	 * @uses isConnected()
-	 * @uses insertData()
+	 * @uses deleteIdentifier()
 	 */
 	public function delete( &$theObject, $theOptions = Array() )
 	{
@@ -717,6 +784,28 @@ abstract class CollectionObject extends ConnectionObject
 	 * @return mixed				Object identifier.
 	 */
 	abstract protected function insertData( &$theData, &$theOptions );
+
+	 
+	/*===================================================================================
+	 *	replaceData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Save or replace provided data
+	 *
+	 * This method should be implemented by concrete derived classes, it should save or
+	 * replace a record in the current collection featuring the provided data and return the
+	 * record identifier.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param reference				$theData			Data to save.
+	 * @param array					$theOptions			Replace options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	abstract protected function replaceData( &$theData, &$theOptions );
 
 	 
 	/*===================================================================================

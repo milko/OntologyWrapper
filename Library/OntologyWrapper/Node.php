@@ -953,6 +953,33 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PROTECTED POST-DELETE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postDeleteTags																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object tags after commit
+	 *
+	 * In this class we shadow this method since we do not keep track of object tags.
+	 *
+	 * @param reference				$theTags			Property leaf tags.
+	 *
+	 * @access protected
+	 *
+	 * @uses updateReferenceCount()
+	 */
+	protected function postDeleteTags( &$theTags )										   {}
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED STATUS INTERFACE								*
  *																						*
  *======================================================================================*/

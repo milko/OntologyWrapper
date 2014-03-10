@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1069114229"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-612221398"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1069114229" class="accordion-body collapse in">
+            <div id="namespace-612221398" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1280464517"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-380963863"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1280464517" class="accordion-body collapse ">
+            <div id="namespace-380963863" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-822114268"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1445331834"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-822114268" class="accordion-body collapse ">
+            <div id="namespace-1445331834" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -215,10 +215,10 @@
                                                     <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
                                                     <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
-                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
                                             </ul>
                 </div>
             </div>
@@ -337,6 +337,7 @@ predicate and object references.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitObjectTags" class="">preCommitObjectTags()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitObjectIdentifiers" class="">preCommitObjectIdentifiers()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_postCommitTags" class="">postCommitTags()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_postDeleteTags" class="">postDeleteTags()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_isReady" class="">isReady()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_lockedOffsets" class="">lockedOffsets()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetUnset" class="">preOffsetUnset()</a><br />
@@ -354,7 +355,6 @@ predicate and object references.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preDeleteFinalise" class="">preDeleteFinalise()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_postDelete" class="">postDelete()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_postDeleteReferences" class="">postDeleteReferences()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_postDeleteTags" class="">postDeleteTags()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseStructure" class="">traverseStructure()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseProperty" class="">traverseProperty()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_traverseValue" class="">traverseValue()</a><br />
@@ -1999,6 +1999,50 @@ handle the object tags.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_postDeleteTags" name="method_postDeleteTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">postDeleteTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">postDeleteTags(\OntologyWrapper\reference <span class="argument">$theTags</span>)</pre>
+                <p><em>Handle object tags after commit</em></p>
+                <p>This method is called immediately after the object is committed, its duty is to
+handle the object tags.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theTags</td>
+                                <td><p>Property leaf tags.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>updateReferenceCount()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_isReady" name="method_isReady" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">isReady()</h3>
@@ -2957,50 +3001,6 @@ one.</p>
                                 <td>\OntologyWrapper\reference</td>
                                 <td>$theRefs</td>
                                 <td><p>Object references.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>updateReferenceCount()</dd>
-                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_postDeleteTags" name="method_postDeleteTags" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">postDeleteTags()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">postDeleteTags(\OntologyWrapper\reference <span class="argument">$theTags</span>)</pre>
-                <p><em>Handle object tags after commit</em></p>
-                <p>This method is called immediately after the object is committed, its duty is to
-handle the object tags.</p>
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\OntologyWrapper\reference</td>
-                                <td>$theTags</td>
-                                <td><p>Property leaf tags.</p></td>
                             </tr>
                                             </table>
                 
@@ -4469,7 +4469,7 @@ parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 10th, 2014 at 13:48.
+                    on March 10th, 2014 at 17:47.
                 </section>
             </section>
         </section>

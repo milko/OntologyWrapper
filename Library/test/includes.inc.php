@@ -58,6 +58,17 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
 define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
 
 /*=======================================================================================
+ *	DEFAULT LINKS																		*
+ *======================================================================================*/
+
+/**
+ * FAO/WIEWS data link.
+ *
+ * This tag identifies the FAO/WIEWS URL to download the institutes.
+ */
+define( "kFAO_INSTITUTES_URL",	'http://apps3.fao.org/wiews/export.zip' );
+
+/*=======================================================================================
  *	CLASS AUTOLOADER																	*
  *======================================================================================*/
 

@@ -567,19 +567,54 @@ abstract class EntityObject extends UnitObject
 
 	 
 	/*===================================================================================
-	 *	postCommitTagOffsets															*
+	 *	postCommit																		*
 	 *==================================================================================*/
 
 	/**
-	 * Update tag offsets
+	 * Handle object after commit
 	 *
-	 * In this class we shadow this method since we do not keep track of tag offsets.
+	 * In this class we shadow this method since we do not keep track of object tags and
+	 * references.
 	 *
 	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 *
+	 * @uses postCommitReferences()
+	 * @uses postCommitTags()
 	 */
-	protected function postCommitTagOffsets( &$theTags )								   {}
+	protected function postCommit( &$theTags, &$theRefs )								   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-DELETE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postDelete																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after delete
+	 *
+	 * In this class we shadow this method since we do not keep track of object tags and
+	 * references.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses postDeleteReferences()
+	 * @uses postDeleteTags()
+	 */
+	protected function postDelete( &$theTags, &$theRefs )								   {}
 
 	 
 

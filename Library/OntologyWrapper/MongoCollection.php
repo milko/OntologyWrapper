@@ -726,6 +726,50 @@ class MongoCollection extends CollectionObject
 
 	 
 	/*===================================================================================
+	 *	replaceData																		*
+	 *==================================================================================*/
+
+	/**
+	 * Save or replace provided data
+	 *
+	 * In this class we save the provided array and return its {@link kTAG_NID} value.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param reference				$theData			Data to save.
+	 * @param array					$theOptions			Replace options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier.
+	 */
+	protected function replaceData( &$theData, &$theOptions )
+	{
+		//
+		// Serialise object.
+		//
+		ContainerObject::Object2Array( $theData, $data );
+		
+		//
+		// Insert.
+		//
+		$ok = $this->mConnection->save( $data, $theOptions );
+		
+		//
+		// Get identifier.
+		//
+		$id = $data[ kTAG_NID ];
+		
+		//
+		// Set identifier.
+		//
+		$theData[ kTAG_NID ] = $id;
+		
+		return $id;																	// ==>
+	
+	} // replaceData.
+
+	 
+	/*===================================================================================
 	 *	deleteIdentifier																*
 	 *==================================================================================*/
 

@@ -1457,7 +1457,6 @@ abstract class PersistentObject extends OntologyObject
 	 * </ul>
 	 *
 	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 *
@@ -2724,6 +2723,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_CONN_PASS:
 			case kTAG_CONN_BASE:
 			case kTAG_CONN_COLL:
+			case kTAG_ENTITY_COUNTRY:
 				$theType = array( kTYPE_STRING );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -2732,7 +2732,7 @@ abstract class PersistentObject extends OntologyObject
 			// Enumerations.
 			//
 			case kTAG_DOMAIN:
-			case kTAG_ENTITY_COUNTRY:
+//			case kTAG_ENTITY_COUNTRY:
 				$theType = array( kTYPE_ENUM );
 				$theKind = Array();
 				return TRUE;														// ==>

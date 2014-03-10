@@ -78,11 +78,166 @@ class FAOInstitute extends Institution
 	 *
 	 * @var array
 	 */
-	 static $sImportOffsets
-	 	= array( 'INSTCODE', 'ACRONYM', 'ECPACRONYM', 'FULL_NAME', 'TYPE', 'PGR_ACTIVITY',
-				 'MAINTCOLL', 'STREET_POB', 'CITY_STATE', 'ZIP_CODE', 'PHONE', 'FAX',
-				 'EMAIL', 'URL', 'LATITUDE', 'LONGITUDE', 'ALTITUDE',
-				 'UPDATED_ON', 'V_INSTCODE' );
+	 protected $mImportOffsets;
+		
+
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	instituteCode																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set institute code</h4>
+	 *
+	 * This method will set the provided FAO institute code in the appropriate offsets: the
+	 * FAO code will be set in the {@link kTAG_IDENTIFIER}; the authority will be set to
+	 * <tt>http://fao.org</tt> and the {@link kTAG_COLLECTION} offset will be set with the
+	 * <tt>wiews</tt> constant.
+	 *
+	 * @param string				$theIdentifier		WIEWS institute code.
+	 *
+	 * @access public
+	 * @return string				Translated identifier.
+	 */
+	public function instituteCode( $theIdentifier )
+	{
+		//
+		// Set identifier.
+		//
+		$this->offsetSet( kTAG_IDENTIFIER, $theIdentifier );
+		
+		//
+		// Set authority.
+		//
+		$this->offsetSet( kTAG_AUTHORITY, 'http://fao.org' );
+		
+		//
+		// Set collection.
+		//
+		$this->offsetSet( kTAG_COLLECTION, 'wiews' );
+		
+	} // instituteCode.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	save																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert or replace the object
+	 *
+	 * This method should insert or replace the current object into the provided persistent
+	 * store.
+	 *
+	 * This method will follow the same steps as the {@link commit()} method, except that it
+	 * will not check the committed status and it will call the
+	 * {@link CollectionObject::save()} method to persist the object.
+	 *
+	 * @param Wrapper				$theWrapper			Persistent store.
+	 *
+	 * @access public
+	 * @return mixed				The object's native identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isCommitted()
+	 * @uses dictionary()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses preCommit()
+	 * @uses postCommit()
+	 * @uses isDirty()
+	 */
+	public function save( $theWrapper = NULL )
+	{
+		//
+		// Handle wrapper.
+		//
+		if( $theWrapper !== NULL )
+		{
+			//
+			// Check wrapper.
+			//
+			if( ! ($theWrapper instanceof Wrapper) )
+				throw new \Exception(
+					"Cannot commit object: "
+				   ."invalid wrapper parameter type." );						// !@! ==>
+			
+			//
+			// Set dictionary wrapper.
+			//
+			$this->dictionary( $theWrapper );
+		
+		} // Provided wrapper
+		
+		//
+		// Use existing wrapper.
+		//
+		elseif( ! ($this->dictionary() instanceof Wrapper) )
+			throw new \Exception(
+				"Cannot commit object: "
+			   ."the object is missing its wrapper." );							// !@! ==>
+		
+		//
+		// Set wrapper.
+		//
+		else
+			$theWrapper = $this->dictionary();
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+	
+		//
+		// Prepare object.
+		//
+		$this->preCommit( $tags, $references );
+	
+		//
+		// Commit.
+		//
+		$id = $collection->save( $this );
+
+		//
+		// Copy identifier if generated.
+		//
+		if( ! $this->offsetExists( kTAG_NID ) )
+			$this->offsetSet( kTAG_NID, $id );
+	
+		//
+		// Cleanup object.
+		//
+		$this->postCommit( $tags, $references );
+
+		//
+		// Set object status.
+		//
+		$this->isDirty( FALSE );
+		$this->isCommitted( TRUE );
+		
+		return $this->offsetGet( kTAG_NID );										// ==>
+	
+	} // save.
 		
 
 
@@ -95,7 +250,7 @@ class FAOInstitute extends Institution
 
 	 
 	/*===================================================================================
-	 *	InstituteCode																	*
+	 *	FAOIdentifier																	*
 	 *==================================================================================*/
 
 	/**
@@ -109,7 +264,7 @@ class FAOInstitute extends Institution
 	 * @static
 	 * @return string				Translated identifier.
 	 */
-	static function InstituteCode( $theIdentifier )
+	static function FAOIdentifier( $theIdentifier )
 	{
 		//
 		// Init local storage.
@@ -132,7 +287,7 @@ class FAOInstitute extends Institution
 		else
 			return ( $prefix.$theIdentifier.kTOKEN_END_TAG );						// ==>
 		
-	} // InstituteCode.
+	} // FAOIdentifier.
 
 	 
 	/*===================================================================================
@@ -163,7 +318,7 @@ class FAOInstitute extends Institution
 		//
 		// Build identifier.
 		//
-		$identifier = static::InstituteCode( $theIdentifier );
+		$identifier = static::FAOIdentifier( $theIdentifier );
 		
 		//
 		// Set criteria.
@@ -212,9 +367,13 @@ class FAOInstitute extends Institution
 		//
 		// Init local storage.
 		//
+		$cache = Array();
 		$prefix = __class__;
 		$zp = $fp = $name_zip = $ok = $eol = NULL;
 		$stats = array( 'new' => 0, 'updated' => 0, 'processed' => 0 );
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
 		
 		//
 		// TRY BLOCK.
@@ -224,6 +383,7 @@ class FAOInstitute extends Institution
 			//
 			// Init local storage.
 			//
+			$max_exe = ini_set( 'max_execution_time', 0 );
 			$name_zip = tempnam( "/tmp", "$prefix"."ZIP" );
 			
 			//
@@ -273,8 +433,23 @@ class FAOInstitute extends Institution
 								//
 								// Cycle file.
 								//
+								$header = NULL;
 								while( ($data = fgetcsv( $fp, 4096, ',', '"' )) !== FALSE )
 								{
+									//
+									// Load header.
+									//
+									if( $header === NULL )
+									{
+										//
+										// Load header.
+										//
+										$header = $data;
+										
+										continue;							// =>
+									
+									} // First run.
+									
 									//
 									// Increment processed.
 									//
@@ -284,13 +459,75 @@ class FAOInstitute extends Institution
 									// Load new record.
 									//
 									$new = new static( $theWrapper );
-									$new->import( $data );
+									$new->import( $data, $header );
+									
+									//
+									// Save identifier.
+									//
+									$id = static::FAOIdentifier( $data[ 'INSTCODE' ] );
 									
 									//
 									// Try loading existing.
 									//
-									$old = static::Resolve( $theWrapper,
-															$data[ 'INSTCODE' ] );
+									$criteria = array( kTAG_NID => $id );
+									$old = $collection->matchOne(
+												$criteria, kQUERY_OBJECT );
+									
+									//
+									// Skip not changed.
+									//
+									if( $old
+									 && ($old->offsetGet( kTAG_VERSION )
+											== $new->offsetGet( kTAG_VERSION )) )
+										continue;							// =>
+									
+									//
+									// Handle cached.
+									//
+									if( array_key_exists( $id, $cache ) )
+									{
+										//
+										// Save object in cache.
+										//
+										$cache[ $id ] = $new;
+										
+										continue;							// =>
+									
+									} // Cached.
+									
+									//
+									// Handle referenced.
+									//
+									if( $new->offsetExists( kTAG_ENTITY_VALID ) )
+									{
+										//
+										// Init local storage.
+										//
+										$valid = $new->offsetGet( kTAG_ENTITY_VALID );
+										$criteria = array( kTAG_NID => $valid );
+										
+										//
+										// Handle unresolved.
+										//
+										if( ! $collection->matchOne(
+												$criteria, kQUERY_COUNT ) )
+										{
+											//
+											// Cache valid.
+											//
+											if( ! array_key_exists( $valid, $cache ) )
+												$cache[ $valid ] = NULL;
+											
+											//
+											// Cache current.
+											//
+											$cache[ $id ] = $new;
+											
+											continue;						// =>
+										
+										} // Cached valid and current.
+									
+									} // Has valid institute.
 									
 									//
 									// Handle existing.
@@ -298,27 +535,14 @@ class FAOInstitute extends Institution
 									if( $old )
 									{
 										//
-										// Check version.
+										// Replace old.
 										//
-										if( $old->offsetGet( kTAG_VERSION )
-											!= $new->offsetGet( kTAG_VERSION ) )
-										{
-											//
-											// Delete old.
-											//
-											$old->Delete( $theWrapper );
-											
-											//
-											// Insert new.
-											//
-											$new->commit( $theWrapper );
-										
-											//
-											// Increment updated.
-											//
-											$stats[ 'updated' ]++;
-										
-										} // New version.
+										$new->save();
+									
+										//
+										// Increment updated.
+										//
+										$stats[ 'updated' ]++;
 									
 									} // Exists.
 									
@@ -330,7 +554,7 @@ class FAOInstitute extends Institution
 										//
 										// Insert new.
 										//
-										$new->commit( $theWrapper );
+										$new->commit();
 									
 										//
 										// Increment updated.
@@ -340,54 +564,95 @@ class FAOInstitute extends Institution
 									} // New record.
 								
 								} // Iterating file.
+								
+								//
+								// Commit cached elements.
+								//
+								foreach( $cache as $cached )
+								{
+									//
+									// Try loading existing.
+									//
+									$id = static::FAOIdentifier(
+												$cached[ kTAG_IDENTIFIER ] );
+									$criteria = array( kTAG_NID => $id );
+									$old = $collection->matchOne(
+												$criteria, kQUERY_OBJECT );
+									
+									//
+									// Handle existing.
+									//
+									if( $old )
+									{
+										//
+										// Replace old.
+										//
+										$cached->save();
+									
+										//
+										// Increment updated.
+										//
+										$stats[ 'updated' ]++;
+									
+									} // Exists.
+									
+									//
+									// Handle new.
+									//
+									else
+									{
+										//
+										// Insert new.
+										//
+										$cached->commit();
+									
+										//
+										// Increment updated.
+										//
+										$stats[ 'new' ]++;
+									
+									} // New record.
+								
+								} // Iterating cache.
+								
+								//
+								// Reset maximum execution time.
+								//
+								ini_set( 'max_execution_time', $max_exe );
 			
 								return $stats;										// ==>
 							
 							} // Opened unzipped file.
 		
 							else
-								throw new CException(
+								throw new \Exception(
 									"Unable to load FAO institutes: "
-								   ."unable to open unzipped data",
-									kERROR_STATE,
-									kSTATUS_ERROR,
-									array( 'File' => $name_txt ) );				// !@! ==>
+								   ."unable to open unzipped data" );			// !@! ==>
 						
 						} // Saved unzipped data.
 		
 						else
-							throw new CException(
+							throw new \Exception(
 								"Unable to load FAO institutes: "
-							   ."unable to save unzipped data",
-								kERROR_STATE,
-								kSTATUS_ERROR,
-								array( 'File' => $name_txt ) );					// !@! ==>
+							   ."unable to save unzipped data" );				// !@! ==>
 					
 					} // Unzipped data.
 		
 					else
-						throw new CException( "Unable to load FAO institutes: "
-											 ."unable to unzip data",
-											  kERROR_STATE,
-											  kSTATUS_ERROR );					// !@! ==>
+						throw new \Exception( "Unable to load FAO institutes: "
+											 ."unable to unzip data" );			// !@! ==>
 				
 				} // Opened zip file.
 		
 				else
-					throw new CException( "Unable to load FAO institutes: "
-										 ."unable to open zip file",
-										   kERROR_STATE,
-										   kSTATUS_ERROR,
-										   array( 'File' => $name_zip ) );		// !@! ==>
+					throw new \Exception( "Unable to load FAO institutes: "
+										 ."unable to open zip file" );			// !@! ==>
 		
 			} // Loaded institutes from FAO.
 		
 			else
 				throw new CException( "Unable to load FAO institutes: "
-									 ."unable to access URL",
-									  kERROR_STATE,
-									  kSTATUS_ERROR,
-									  array( 'URL' => kFAO_INSTITUTES_URL ) );	// !@! ==>
+									 ."unable to access URL" );					// !@! ==>
 		}
 		
 		//
@@ -409,6 +674,9 @@ class FAOInstitute extends Institution
 			
 			if( $eol !== NULL )
 				ini_set( 'auto_detect_line_endings', $eol );
+			
+			if( isset( $max_exe ) )
+				ini_set( 'max_execution_time', $max_exe );
 		}
 		
 	} // Maintain.
@@ -449,18 +717,24 @@ class FAOInstitute extends Institution
 		//
 		if( ! $this->offsetExists( kTAG_DOMAIN ) )
 			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
-	
+		
 		//
-		// Check suthority.
+		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
 			$this->offsetSet( kTAG_AUTHORITY, 'http://fao.org' );
-	
+		
 		//
 		// Check collection.
 		//
 		if( ! $this->offsetExists( kTAG_COLLECTION ) )
 			$this->offsetSet( kTAG_COLLECTION, 'wiews' );
+		
+		//
+		// Check name.
+		//
+		if( ! $this->offsetExists( kTAG_NAME ) )
+			$this->offsetSet( kTAG_NAME, $this->offsetGet( kTAG_IDENTIFIER ) );
 		
 		//
 		// Call parent method.
@@ -492,11 +766,12 @@ class FAOInstitute extends Institution
 	 * The provided record is expected to be the array of values, the value offsets are set
 	 * by this method.
 	 *
-	 * @param array					$theRecord			FAO/WIEWS record.
+	 * @param reference				$theRecord			FAO/WIEWS record.
+	 * @param array					$theHeader			Record header.
 	 *
 	 * @access protected
 	 */
-	protected function import( $theRecord )
+	protected function import( &$theRecord, $theHeader )
 	{
 		//
 		// Check record.
@@ -527,7 +802,7 @@ class FAOInstitute extends Institution
 		//
 		// Add offsets.
 		//
-		$theRecord = array_combine( static::$sImportOffsets, $theRecord );
+		$theRecord = array_combine( $theHeader, $theRecord );
 		
 		//
 		// Fix valid code.
@@ -556,7 +831,8 @@ class FAOInstitute extends Institution
 		//
 		// Set nationality.
 		//
-		$this->offsetSet( kTAG_ENTITY_COUNTRY, $this->offsetGet( kTAG_COLLECTION ) );
+		$this->offsetSet( kTAG_ENTITY_COUNTRY,
+						  substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 ) );
 		
 		//
 		// Handle address.
@@ -580,7 +856,7 @@ class FAOInstitute extends Institution
 		}
 		if( strlen( $city ) )
 			$address[] = $city;
-		$address[] = $this->Collection();
+		$address[] = substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 );
 		$this->EntityMail( NULL, implode( "\n", $address ) );
 
 	} // import.
@@ -617,8 +893,7 @@ class FAOInstitute extends Institution
 				// Institute code.
 				//
 				case 'INSTCODE':
-					$this->offsetSet( kTAG_IDENTIFIER, substr( $theValue, 3 ) );
-					$this->offsetSet( kTAG_COLLECTION, substr( $theValue, 0, 3 ) );
+					$this->instituteCode( $theValue );
 					break;
 			
 				//
@@ -649,7 +924,7 @@ class FAOInstitute extends Institution
 				//
 				case 'PGR_ACTIVITY':
 					if( $theValue == 'Y' )
-						$this->EntityKind( '100', TRUE );
+						$this->EntityKind( ':kind:entity:100', TRUE );
 					break;
 			
 				//
@@ -657,7 +932,7 @@ class FAOInstitute extends Institution
 				//
 				case 'MAINTCOLL':
 					if( $theValue == 'Y' )
-						$this->EntityKind( '200', TRUE );
+						$this->EntityKind( ':kind:entity:200', TRUE );
 					break;
 			
 				//
@@ -700,7 +975,7 @@ class FAOInstitute extends Institution
 				//
 				case 'V_INSTCODE':
 					$this->offsetSet( kTAG_ENTITY_VALID,
-									  static::InstituteCode( $theValue ) );
+									  static::FAOIdentifier( $theValue ) );
 					break;
 			
 			} // Parsed offset.
@@ -733,6 +1008,7 @@ class FAOInstitute extends Institution
 		// Init local storage.
 		//
 		$type = Array();
+		$prefix = ':type:entity:';
 		
 		//
 		// Parse value.
@@ -746,52 +1022,52 @@ class FAOInstitute extends Institution
 			switch( strtoupper( trim( $element ) ) )
 			{
 				case 'AUT':
-					$type[ '260' ] = '260';
+					$type[ '260' ] = $prefix.'260';
 					break;
 
 				case 'EEC':
-					$type[ '252' ] = '252';
+					$type[ '252' ] = $prefix.'252';
 					break;
 
 				case 'PRI':
 				case 'PRIV':
-					$type[ '280' ] = '280';
+					$type[ '280' ] = $prefix.'280';
 					break;
 
 				case 'REG':
-					$type[ '240' ] = '240';
+					$type[ '240' ] = $prefix.'240';
 					break;
 
 				case 'IND':
-					$type[ '100' ] = '100';
+					$type[ '100' ] = $prefix.'100';
 					break;
 
 				case 'INT':
-					$type[ '250' ] = '250';
+					$type[ '250' ] = $prefix.'250';
 					break;
 
 				case 'NGO':
-					$type[ '220' ] = '220';
+					$type[ '220' ] = $prefix.'220';
 					break;
 
 				case 'PREFECTURAL':
-					$type[ '230' ] = '230';
+					$type[ '230' ] = $prefix.'230';
 					break;
 
 				case 'UN':
-					$type[ '255' ] = '255';
+					$type[ '255' ] = $prefix.'255';
 					break;
 
 				case 'WB':
-					$type[ '254' ] = '254';
+					$type[ '254' ] = $prefix.'254';
 					break;
 
 				case 'WWF':
-					$type[ '253' ] = '253';
+					$type[ '253' ] = $prefix.'253';
 					break;
 
 				case 'CGIAR':
-					$type[ '251' ] = '251';
+					$type[ '251' ] = $prefix.'251';
 					break;
 
 				case 'GOV':
@@ -807,7 +1083,7 @@ class FAOInstitute extends Institution
 				case 'VTU':
 				case 'SWZ':
 				case 'USA':
-					$type[ '210' ] = '210';
+					$type[ '210' ] = $prefix.'210';
 					break;
 			
 			} // Parsed type.
