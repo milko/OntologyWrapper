@@ -197,6 +197,69 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete an object
+	 *
+	 * The method expects the provided parameter to be a {@link PersistentObject} instance.
+	 *
+	 * The method will return the deleted object's identifier, {@link kTAG_NID}, if the
+	 * object was deleted and raise an exception if the operation could not be completed.
+	 *
+	 * @param reference				$theObject			Object to delete.
+	 * @param array					$theOptions			Delete options.
+	 *
+	 * @access public
+	 * @return mixed				Deleted object identifier.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_CLASS
+	 *
+	 * @uses isConnected()
+	 * @uses insertData()
+	 */
+	public function delete( &$theObject, $theOptions = Array() )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check object type.
+			//
+			if( $theObject instanceof PersistentObject )
+			{
+			 	//
+			 	// Check identifier.
+			 	//
+			 	if( $theObject->offsetExists( kTAG_NID ) )
+					return $this->deleteIdentifier(
+						$theObject[ kTAG_NID ], $theOptions );						// ==>
+			
+				throw new \Exception(
+					"Unable to delete object: "
+				   ."missing object identifier." );								// !@! ==>
+			 
+			 } // Correct type.
+			
+			throw new \Exception(
+				"Unable to delete object: "
+			   ."provided invalid or not committed object." );					// !@! ==>
+		
+		} // Connected.
+			
+		throw new \Exception(
+			"Unable to delete object: "
+		   ."connection is not open." );										// !@! ==>
+	
+	} // delete.
+
+	 
+	/*===================================================================================
 	 *	matchOne																		*
 	 *==================================================================================*/
 
@@ -514,23 +577,26 @@ abstract class CollectionObject extends ConnectionObject
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theIdentifier</b>: The object identifier or list of identifiers.
 	 *	<li><b>$theReferenceOffset</b>: The offset of the object holding the reference
 	 *		count.
+	 *	<li><b>$theIdentOffset</b>: The offset of the provided identifier.
 	 *	<li><b>$theReferenceCount</b>: The number by which the count must be incremented.
 	 * </ul>
 	 *
 	 * Derived classes must implement this method.
 	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param mixed					$theIdentifier		Object identifier or identifiers.
 	 * @param string				$theReferenceOffset	Reference count offset.
+	 * @param string				$theIdentOffset		Identifier offset.
 	 * @param integer				$theReferenceCount	Reference count value.
 	 *
 	 * @access public
 	 */
 	abstract public function updateReferenceCount( $theIdentifier,
 												   $theReferenceOffset,
-												   $theReferenceCount );
+												   $theIdentOffset = kTAG_NID,
+												   $theReferenceCount = 1 );
 
 	 
 	/*===================================================================================
@@ -651,6 +717,28 @@ abstract class CollectionObject extends ConnectionObject
 	 * @return mixed				Object identifier.
 	 */
 	abstract protected function insertData( &$theData, &$theOptions );
+
+	 
+	/*===================================================================================
+	 *	deleteIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * Delete provided identifier
+	 *
+	 * This method should be implemented by concrete derived classes, it should delete the
+	 * object matched by the provided identifier, if the object was matched, the method
+	 * should return the identifier, if not, it should return <tt>NULL</tt>.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier or <tt>NULL</tt>.
+	 */
+	abstract protected function deleteIdentifier( $theIdentifier, &$theOptions );
 
 	 
 

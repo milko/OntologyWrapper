@@ -765,19 +765,62 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	postCommitTagOffsets															*
+	 *	postCommitTags																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update tag offsets
+	 * Handle object tags after commit
 	 *
-	 * In this class we shadow this method since we do not keep track of tag offsets.
+	 * In this class we shadow this method since we do not keep track of tag reference
+	 * counts and offsets.
 	 *
 	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 */
-	protected function postCommitTagOffsets( &$theTags )								   {}
+	protected function postCommitTags( &$theTags )										   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-DELETE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postDelete																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after delete
+	 *
+	 * In this class we delete the tag from the data dictionary.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses postDeleteReferences()
+	 * @uses postDeleteTags()
+	 */
+	protected function postDelete( &$theTags, &$theRefs )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postDelete( $theTags, $theRefs );
+		
+		//
+		// Set cache.
+		//
+		$this->dictionary()->delTag( $this, 0 );
+	
+	} // postDelete.
 
 		
 

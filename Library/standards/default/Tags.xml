@@ -266,7 +266,7 @@
 				<item>:unit:domain</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:ref:term</item>
+				<item>:type:enum</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1121,7 +1121,7 @@
 				<item>:unit-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>
@@ -1163,7 +1163,7 @@
 				<item>:entity-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>
@@ -1205,7 +1205,7 @@
 				<item>:tag-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>
@@ -1247,7 +1247,7 @@
 				<item>:term-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>
@@ -1289,7 +1289,7 @@
 				<item>:node-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>
@@ -1331,7 +1331,7 @@
 				<item>:edge-count</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:integer</item>
+				<item>:type:int</item>
 			</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:private-in</item>

@@ -114,6 +114,11 @@ class MyClass extends OntologyWrapper\PersistentObject
 				$theType = array( kTYPE_STRUCT );
 				$theKind = Array();
 				return TRUE;
+			
+			case -4:
+				$theType = array( kTYPE_SHAPE );
+				$theKind = Array();
+				return TRUE;
 		}
 
 		return parent::getOffsetTypes( $theOffset, $theType, $theKind );
@@ -1349,6 +1354,11 @@ try
 				   kTAG_TEXT => 2 )
 		),
 		kTAG_CONN_PORT => "80",
+		-4 => array( kTAG_SHAPE_TYPE => 'LineString',
+					 kTAG_SHAPE_GEOMETRY => array( array( '25', '32' ),
+					 							   array( '37', '42' ),
+					 							   array( '59', '63.26' ),
+					 							   array( '89', '71.12' ) ) ),
 		kTAG_DATA_TYPE => array( ':type:ref:term', ':type:int' )
 	);
 	echo( kSTYLE_TABLE_PRE );
@@ -1432,13 +1442,17 @@ try
 	echo( '<hr>' );
 
 	//
-	// Test collect main properties.
+	// Test collect leaf properties.
 	//
-	echo( '<h4>Test collect main properties</h4>' );
+	echo( '<h4>Test collect leaf properties</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, FALSE );'.kSTYLE_HEAD_POS );
-	$test->collectProperties( $tags, $refs, FALSE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, FALSE, FALSE );' );
+	$test->collectProperties( $tags, $refs, FALSE, FALSE );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -1454,13 +1468,69 @@ try
 	echo( '<hr>' );
 
 	//
-	// Test collect all properties.
+	// Test collect sub properties.
 	//
-	echo( '<h4>Test collect all properties</h4>' );
+	echo( '<h4>Test collect sub properties</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, TRUE );'.kSTYLE_HEAD_POS );
-	$test->collectProperties( $tags, $refs, TRUE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, FALSE, TRUE );' );
+	$test->collectProperties( $tags, $refs, FALSE, TRUE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test collect struct properties.
+	//
+	echo( '<h4>Test collect struct properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, TRUE, FALSE );' );
+	$test->collectProperties( $tags, $refs, TRUE, FALSE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test collect struct and sub properties.
+	//
+	echo( '<h4>Test collect struct and sub properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, TRUE, TRUE );' );
+	$test->collectProperties( $tags, $refs, TRUE, TRUE );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

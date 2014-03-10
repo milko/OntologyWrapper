@@ -32,6 +32,35 @@ trait MemcachedDictionary
 
 /*=======================================================================================
  *																						*
+ *						PUBLIC DICTIONARY MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	dictionaryFlush																	*
+	 *==================================================================================*/
+
+	/**
+	 * Flush dictionary
+	 *
+	 * In this trait we use the {@link Memcached::flush()} method.
+	 *
+	 * @param integer				$theDelay			Delay before flush.
+	 *
+	 * @access public
+	 */
+	public function dictionaryFlush( $theDelay = 0 )
+	{
+		$this->mCache->flush( $theDelay );
+	
+	} // dictionaryFlush.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -171,7 +200,7 @@ trait MemcachedDictionary
 	 *
 	 * @throws Exception
 	 */
-	public function delEntry( $theKey )
+	protected function delEntry( $theKey )
 	{
 		//
 		// Delete key.
@@ -204,35 +233,6 @@ trait MemcachedDictionary
 		} // Not deleted.
 	
 	} // delEntry.
-
-		
-
-/*=======================================================================================
- *																						*
- *						PUBLIC DICTIONARY MANAGEMENT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	dictionaryFlush																	*
-	 *==================================================================================*/
-
-	/**
-	 * Flush dictionary
-	 *
-	 * In this trait we use the {@link Memcached::flush()} method.
-	 *
-	 * @param integer				$theDelay			Delay before flush.
-	 *
-	 * @access public
-	 */
-	public function dictionaryFlush( $theDelay = 0 )
-	{
-		$this->mCache->flush( $theDelay );
-	
-	} // dictionaryFlush.
 
 	 
 

@@ -590,13 +590,17 @@ try
 		echo( '<hr>' );
 
 		//
-		// Test collect main properties.
+		// Test collect leaf properties.
 		//
-		echo( '<h4>Test collect main properties</h4>' );
+		echo( '<h4>Test collect leaf properties</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, FALSE );'.kSTYLE_HEAD_POS );
-		$test->collectProperties( $tags, $refs, FALSE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$tags = $refs = NULL;<br/>' );
+		$tags = $refs = NULL;
+		echo( '$test->collectProperties( $tags, $refs, FALSE, FALSE );' );
+		$test->collectProperties( $tags, $refs, FALSE, FALSE );
+		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -612,13 +616,126 @@ try
 		echo( '<hr>' );
 
 		//
-		// Test collect all properties.
+		// Check object references.
 		//
-		echo( '<h4>Test collect all properties</h4>' );
+		echo( '<h4>Check object references</h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->collectProperties( $tags, $refs, TRUE );'.kSTYLE_HEAD_POS );
-		$test->collectProperties( $tags, $refs, TRUE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'TAGS' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+			foreach( $tags as $tag )
+			{
+				echo( "$tag: " );
+				$tag = $wrapper->getObject( $tag, FALSE );
+				if( is_array( $tag )
+				 && array_key_exists( kTAG_NID, $tag ) )
+				{
+					$tag = new OntologyWrapper\Tag( $wrapper, $tag[ kTAG_NID ] );
+					if( $tag !== NULL )
+						echo( $tag[ kTAG_UNIT_COUNT ] );
+				}
+				echo( '<br />' );
+			}
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Check references count.
+		//
+		echo( '<h4>Check references count</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( 'REFS' );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+			foreach( $refs as $col => $ids )
+			{
+				foreach( $ids as $id )
+				{
+					echo( "$col - $id - " );
+					$term = new OntologyWrapper\Term( $wrapper, $id );
+					echo( $term[ kTAG_UNIT_COUNT ] );
+					echo( '<br />' );
+				}
+			}
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test collect sub properties.
+		//
+		echo( '<h4>Test collect sub properties</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$tags = $refs = NULL;<br/>' );
+		$tags = $refs = NULL;
+		echo( '$test->collectProperties( $tags, $refs, FALSE, TRUE );' );
+		$test->collectProperties( $tags, $refs, FALSE, TRUE );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test collect struct properties.
+		//
+		echo( '<h4>Test collect struct properties</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$tags = $refs = NULL;<br/>' );
+		$tags = $refs = NULL;
+		echo( '$test->collectProperties( $tags, $refs, TRUE, FALSE );' );
+		$test->collectProperties( $tags, $refs, TRUE, FALSE );
+		echo( kSTYLE_HEAD_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_DATA_PRE );
+		echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+		echo( kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_TABLE_POS );
+		echo( '<hr>' );
+
+		//
+		// Test collect struct and sub properties.
+		//
+		echo( '<h4>Test collect struct and sub properties</h4>' );
+		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE );
+		echo( '$tags = $refs = NULL;<br/>' );
+		$tags = $refs = NULL;
+		echo( '$test->collectProperties( $tags, $refs, TRUE, TRUE );' );
+		$test->collectProperties( $tags, $refs, TRUE, TRUE );
+		echo( kSTYLE_HEAD_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
@@ -717,6 +834,226 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete object.
+	//
+	echo( '<h4>Delete object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->delete();'.kSTYLE_HEAD_POS );
+	$id = $test->delete();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test collect leaf properties.
+	//
+	echo( '<h4>Test collect leaf properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, FALSE, FALSE );' );
+	$test->collectProperties( $tags, $refs, FALSE, FALSE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Check object references.
+	//
+	echo( '<h4>Check object references</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TAGS' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+		foreach( $tags as $tag )
+		{
+			echo( "$tag: " );
+			$tag = $wrapper->getObject( $tag, FALSE );
+			if( is_array( $tag )
+			 && array_key_exists( kTAG_NID, $tag ) )
+			{
+				$tag = new OntologyWrapper\Tag( $wrapper, $tag[ kTAG_NID ] );
+				if( $tag !== NULL )
+					echo( $tag[ kTAG_UNIT_COUNT ] );
+			}
+			echo( '<br />' );
+		}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Check references count.
+	//
+	echo( '<h4>Check references count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'REFS' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+		foreach( $refs as $col => $ids )
+		{
+			foreach( $ids as $id )
+			{
+				echo( "$col - $id - " );
+				$term = new OntologyWrapper\Term( $wrapper, $id );
+				echo( $term[ kTAG_UNIT_COUNT ] );
+				echo( '<br />' );
+			}
+		}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete other object.
+	//
+	echo( '<h4>Delete other object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, ":domain:unit://authority/collection:id/version;" );'.kSTYLE_HEAD_POS );
+	$test = new MyClass( $wrapper, ":domain:unit://authority/collection:id/version;" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->delete();'.kSTYLE_HEAD_POS );
+	$id = $test->delete();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test collect leaf properties.
+	//
+	echo( '<h4>Test collect leaf properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$tags = $refs = NULL;<br/>' );
+	$tags = $refs = NULL;
+	echo( '$test->collectProperties( $tags, $refs, FALSE, FALSE );' );
+	$test->collectProperties( $tags, $refs, FALSE, FALSE );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Check object references.
+	//
+	echo( '<h4>Check object references</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TAGS' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+		foreach( $tags as $tag )
+		{
+			echo( "$tag: " );
+			$tag = $wrapper->getObject( $tag, FALSE );
+			if( is_array( $tag )
+			 && array_key_exists( kTAG_NID, $tag ) )
+			{
+				$tag = new OntologyWrapper\Tag( $wrapper, $tag[ kTAG_NID ] );
+				if( $tag !== NULL )
+					echo( $tag[ kTAG_UNIT_COUNT ] );
+			}
+			echo( '<br />' );
+		}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Check references count.
+	//
+	echo( '<h4>Check references count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'REFS' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+		foreach( $refs as $col => $ids )
+		{
+			foreach( $ids as $id )
+			{
+				echo( "$col - $id - " );
+				$term = new OntologyWrapper\Term( $wrapper, $id );
+				echo( $term[ kTAG_UNIT_COUNT ] );
+				echo( '<br />' );
+			}
+		}
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

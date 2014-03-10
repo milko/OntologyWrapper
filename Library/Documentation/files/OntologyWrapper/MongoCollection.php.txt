@@ -458,20 +458,24 @@ class MongoCollection extends CollectionObject
 	 *
 	 * In this class we use the <tt>$inc</tt> operator.
 	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param mixed					$theIdentifier		Object identifier or identifiers.
 	 * @param string				$theReferenceOffset	Reference count offset.
+	 * @param string				$theIdentOffset		Identifier offset.
 	 * @param integer				$theReferenceCount	Reference count value.
 	 *
 	 * @access public
 	 */
 	public function updateReferenceCount( $theIdentifier,
 										  $theReferenceOffset,
-										  $theReferenceCount )
+										  $theIdentOffset = kTAG_NID,
+										  $theReferenceCount = 1 )
 	{
 		//
 		// Set criteria.
 		//
-		$criteria = array( (string) kTAG_NID => $theIdentifier );
+		$criteria = ( is_array( $theIdentifier ) )
+				  ? array( (string) $theIdentOffset => array( '$in' => $theIdentifier ) )
+				  : array( (string) $theIdentOffset => $theIdentifier );
 	
 		//
 		// Set modifications.
@@ -482,7 +486,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Set options.
 		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
 		
 		//
 		// Update.
@@ -719,6 +723,51 @@ class MongoCollection extends CollectionObject
 		return $id;																	// ==>
 	
 	} // insertData.
+
+	 
+	/*===================================================================================
+	 *	deleteIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * Delete provided identifier
+	 *
+	 * This method should be implemented by concrete derived classes, it should delete the
+	 * object matched by the provided identifier, if the object was matched, the method
+	 * should return the identifier, if not, it should return <tt>NULL</tt>.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param array					$theOptions			Insert options.
+	 *
+	 * @access protected
+	 * @return mixed				Object identifier or <tt>NULL</tt>.
+	 */
+	protected function deleteIdentifier( $theIdentifier, &$theOptions )
+	{
+		//
+		// Normalise options.
+		//
+		if( ! is_array( $theOptions ) )
+			$theOptions = Array();
+		
+		//
+		// Set only one option.
+		//
+		$theOptions[ "justOne" ] = TRUE;
+		
+		//
+		// Delete object.
+		//
+		$ok = $this->mConnection->remove( array( kTAG_NID => $theIdentifier ),
+										  $theOptions );
+		
+		return ( $ok[ 'n' ] > 0 )
+			 ? $theIdentifier														// ==>
+			 : NULL;																// ==>
+	
+	} // deleteIdentifier.
 
 	 
 

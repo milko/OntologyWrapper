@@ -374,6 +374,26 @@ abstract class UnitObject extends PersistentObject
 
 	 
 	/*===================================================================================
+	 *	InternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return internal offsets
+	 *
+	 * In this class we add the {@link kTAG_OBJECT_TAGS} offset which is handled internally.
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function InternalOffsets()
+	{
+		return array_merge( parent::InternalOffsets(),
+							array( kTAG_OBJECT_TAGS ) );							// ==>
+	
+	} // InternalOffsets.
+
+	 
+	/*===================================================================================
 	 *	DefaultOffsets																	*
 	 *==================================================================================*/
 

@@ -1490,8 +1490,8 @@
 		
 				case kTYPE_REF_UNIT:
 					$collection
-						= Unit::ResolveCollection(
-							Unit::ResolveDatabase( $this->dictionary(), TRUE ) );
+						= UnitObject::ResolveCollection(
+							UnitObject::ResolveDatabase( $this->dictionary(), TRUE ) );
 					$value = (string) $value;
 					break;
 			
@@ -1575,7 +1575,7 @@
 				break;
 		
 			case kTYPE_REF_UNIT:
-				$collection = Unit::kSEQ_NAME;
+				$collection = UnitObject::kSEQ_NAME;
 				break;
 		
 		} // Parsed type.

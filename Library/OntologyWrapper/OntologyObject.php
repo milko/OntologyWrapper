@@ -519,7 +519,7 @@ abstract class OntologyObject extends ContainerObject
 			throw new \Exception(
 				"Missing data dictionary." );									// !@! ==>
 		
-		return $this->mDictionary->getIdentifier( $theOffset, $doAssert );			// ==>
+		return $this->mDictionary->getSerial( $theOffset, $doAssert );			// ==>
 	
 	} // resolveOffset.
 

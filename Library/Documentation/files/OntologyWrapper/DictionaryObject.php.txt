@@ -169,11 +169,11 @@ abstract class DictionaryObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	getIdentifier																	*
+	 *	getSerial																		*
 	 *==================================================================================*/
 
 	/**
-	 * Get identifier
+	 * Get serial number
 	 *
 	 * This method should return the serial identifier corresponding to the provided
 	 * persistent identifier.
@@ -187,20 +187,20 @@ abstract class DictionaryObject extends ContainerObject
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert match.
 	 *
 	 * @access public
-	 * @return mixed				Native identifier or <tt>NULL</tt>.
+	 * @return integer				Sequence number or <tt>NULL</tt>.
 	 +
 	 + @throws Exception
 	 *
 	 * @uses getEntry()
 	 */
-	public function getIdentifier( $theIdentifier, $doAssert = TRUE )
+	public function getSerial( $theIdentifier, $doAssert = TRUE )
 	{
 		//
 		// Match offset.
 		//
 		$id = $this->getEntry( (string) $theIdentifier, $doAssert );
 		if( $id !== NULL )
-			return $id;																// ==>
+			return (int) $id;														// ==>
 		
 		//
 		// Assert.
@@ -211,7 +211,7 @@ abstract class DictionaryObject extends ContainerObject
 		
 		return NULL;																// ==>
 		
-	} // getIdentifier.
+	} // getSerial.
 
 	 
 	/*===================================================================================
@@ -325,7 +325,7 @@ abstract class DictionaryObject extends ContainerObject
 			//
 			// Get serial identifier.
 			//
-			$id_serial = $this->getIdentifier( $id_persist, $doAssert );
+			$id_serial = $this->getSerial( $id_persist, $doAssert );
 			if( $id_serial === NULL )
 				return FALSE;														// ==>
 			

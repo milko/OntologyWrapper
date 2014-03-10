@@ -330,8 +330,8 @@ abstract class IteratorObject implements \Iterator,
 				$offset = EntityObject::GetReferenceKey();
 				break;
 		
-			case Unit::kSEQ_NAME:
-				$offset = Unit::GetReferenceKey();
+			case UnitObject::kSEQ_NAME:
+				$offset = UnitObject::GetReferenceKey();
 				break;
 			
 			default:

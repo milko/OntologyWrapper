@@ -1070,8 +1070,8 @@ try
 	echo( '<h4>Get identifier<br /><i>should return -1</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->getIdentifier( "test-tag" );'.kSTYLE_HEAD_POS );
-	$id = $test->getIdentifier( "test-tag" );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->getSerial( "test-tag" );'.kSTYLE_HEAD_POS );
+	$id = $test->getSerial( "test-tag" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

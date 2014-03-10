@@ -538,19 +538,21 @@ class Edge extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	postCommitTagOffsets															*
+	 *	postCommitTags																	*
 	 *==================================================================================*/
 
 	/**
-	 * Update tag offsets
+	 * Handle object tags after commit
 	 *
-	 * In this class we shadow this method since we do not keep track of tag offsets.
+	 * In this class we shadow this method since we do not keep track of tag reference
+	 * counts and offsets.
 	 *
 	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 */
-	protected function postCommitTagOffsets( &$theTags )								   {}
+	protected function postCommitTags( &$theTags )										   {}
 
 		
 
