@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ISO 3166 TYPES
+	ISO3166.types.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- TYPES -->
+	
+	<!-- iso:3166:continent -->
+	<META>
+		 <TERM ns="iso:3166" lid="continent">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Continent code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Two character continent codes.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 continent codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:AF -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="AF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Africa</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AF</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:AN -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="AN">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Antarctica</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AN</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:AS -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="AS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Asia</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AS</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:EU -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="EU">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Europe</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>EU</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:NA -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="NA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">North America</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NA</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:SA -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="SA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">South America</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SA</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:continent:OC -->
+	<META>
+		<TERM ns="iso:3166:continent" lid="OC">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Oceania</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>OC</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
+		</EDGE>
+	</META>
+	
+	<!-- iso:3166:1 -->
+	<META>
+		<TERM ns="iso:3166" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Part 1</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country codes, defines codes for the names of countries, dependent territories, and special areas of geographical interest.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 part 1 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:1:alpha-2 -->
+	<META>
+		<TERM ns="iso:3166:1" lid="alpha-2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alpha-2 country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Two-letter country codes which are the most widely used of the three ISO 3166-1 subdivisions, and used most prominently for the Internet's country code top-level domains (with a few exceptions).</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-2 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:1:alpha-3 -->
+	<META>
+		<TERM ns="iso:3166:1" lid="alpha-3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alpha-3 country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Three-letter country codes which allow a better visual association between the codes and the country names than the alpha-2 codes.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-3 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:1:numeric -->
+	<META>
+		<TERM ns="iso:3166:1" lid="numeric">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Numeric country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Three-digit country codes which are identical to those developed and maintained by the United Nations Statistics Division, with the advantage of script (writing system) independence, and hence useful for people or systems using non-Latin scripts.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 numeric codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
+		</EDGE>
+	</META>
+	
+	<!-- iso:3166:2 -->
+	<META>
+		<TERM ns="iso:3166" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country subdivision code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Code definitions for the names of the principal subdivisions (e.g., provinces or states) of all countries coded in ISO 3166-1.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 2 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	
+	<!-- iso:3166:3 -->
+	<META>
+		<TERM ns="iso:3166" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Part 3</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Code for formerly used names of countries, defines codes for country names which have been deleted from ISO 3166-1 since its first publication in 1974.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 former country codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:3:alpha-3 -->
+	<META>
+		<TERM ns="iso:3166:3" lid="alpha-3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former alpha-3 country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former three-letter country code.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-3 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:3:alpha-4 -->
+	<META>
+		<TERM ns="iso:3166:3" lid="alpha-4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former alpha-4 country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Four-letter country code. Each former country name in ISO 3166-3 is assigned a four-letter alphabetic code. The first two letters are the ISO 3166-1 alpha-2 code of the former country, while the last two letters are allocated according to the following rules: 1.) If the country changed its name, the new ISO 3166-1 alpha-2 code is used (e.g., Burma changed its name to Myanmar, whose new alpha-2 code is MM), or the special code AA is used if its alpha-2 code was not changed (e.g., Byelorussian SSR changed its name to Belarus, which has kept the same alpha-2 code). 2.) If the country merged into an existing country, the ISO 3166-1 alpha-2 code of this country is used (e.g., the German Democratic Republic merged into Germany, whose alpha-2 code is DE). 3.) If the country was divided into several parts, the special code HH is used to indicate that there is no single successor country (e.g., Czechoslovakia was divided into the Czech Republic and Slovakia), with the exception of Serbia and Montenegro, for which XX is used to avoid duplicate use of the same ISO 3166-3 code, as the alpha-2 code CS had twice been deleted from ISO 3166-1, the first time due to the split of Czechoslovakia and the second time due to the split of Serbia and Montenegro.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-4 codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:3:numeric -->
+	<META>
+		<TERM ns="iso:3166:3" lid="numeric">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former numeric country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former three-digit country code.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 numeric codes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
+		</EDGE>
+	</META>
+	
+	<!-- iso:3166:alpha-3 -->
+	<META>
+		<TERM ns="iso:3166" lid="alpha-3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">3 character country code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 alpha-3 codes, this set includes all the <i>valid</i> and <i>obsolete</i> country codes by aggregating the <code>iso:3166:1:alpha-3</code> and <code>iso:3166:3:alpha-3</code> enumerated sets.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This set should be used whenever one needs to refer to countries in a historical context.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+</METADATA>

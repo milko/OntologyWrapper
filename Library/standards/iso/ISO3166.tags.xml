@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ISO 3166 ATTRIBUTES
+	ISO3166.tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- ATTRIBUTES -->
+	
+	<!-- iso:3166:common_name -->
+	<META>
+		 <TERM ns="iso:3166" lid="common_name">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Common name</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country common name.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>iso:3166:common_name</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:language-strings</item>
+			</item>
+		</TAG>
+		<NODE tag="iso:3166:common_name">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iso:3166:common_name</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	
+	<!-- iso:3166:2:type -->
+	<META>
+		 <TERM ns="iso:3166:2" lid="type">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subdivision type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type or kind of the subdivision.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>iso:3166:2:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:string</item>
+			</item>
+		</TAG>
+		<NODE tag="iso:3166:2:type">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iso:3166:2:type</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:2</item>
+		</EDGE>
+	</META>
+</METADATA>

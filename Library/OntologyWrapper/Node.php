@@ -434,7 +434,7 @@ class Node extends PersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Get tag master object
+	 * Get tag node master
 	 *
 	 * The method expects the following parameters:
 	 *
@@ -530,7 +530,7 @@ class Node extends PersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Get term master object
+	 * Get term node master
 	 *
 	 * The method expects the following parameters:
 	 *
@@ -584,6 +584,66 @@ class Node extends PersistentObject
 		return $collection->matchOne( $criteria, $theResult );						// ==>
 	
 	} // GetTermMaster.
+
+	 
+	/*===================================================================================
+	 *	GetPidNode																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get node by PID
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: This parameter represents the wrapper containing both the
+	 *		nodes and the tags.
+	 *	<li><b>$theIdentifier</b>: This parameter represents the node persistent identifier.
+	 *	<li><b>$theResult</b>: This parameter determines what the method should return, it
+	 *		is a bitfield which accepts two sets of values:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_ASSERT}</tt>: If this flag is set and the criteria doesn't
+	 *			match any record, the method will raise an exception.
+	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
+	 *			only one of these should be provided:
+	 *		 <ul>
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
+	 *				identifier.
+	 *			<li><tt>{@link kQUERY_COUNT}</tt>: Return the number of matched objects.
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * By default the result is set to return the native identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param string				$theIdentifier		Node persistent identifier.
+	 * @param bitfield				$theResult			Result type.
+	 *
+	 * @static
+	 * @return Node					Node or <tt>NULL</tt>
+	 */
+	static function GetPidNode( Wrapper $theWrapper,
+										$theIdentifier,
+										$theResult = kQUERY_NID )
+	{
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_ID_PERSISTENT => (string) $theIdentifier );
+		
+		return $collection->matchOne( $criteria, $theResult );						// ==>
+	
+	} // GetPidNode.
 
 		
 

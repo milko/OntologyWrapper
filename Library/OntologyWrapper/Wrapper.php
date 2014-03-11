@@ -12,6 +12,7 @@ use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
 use OntologyWrapper\Node;
 use OntologyWrapper\Edge;
+use OntologyWrapper\FAOInstitute;
 use OntologyWrapper\Dictionary;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
@@ -43,6 +44,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
  * This file contains the default token definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
+
+/**
+ * ISO definitions.
+ *
+ * This file contains the default ISO definitions.
+ */
+require_once( kPATH_STANDARDS_ROOT."/iso/iso.inc.php" );
 
 /**
  * Wrapper
@@ -562,8 +570,14 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Domains.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Predicates.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/NodeTypes.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml' );
 		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml' );
+		
+		//
+		// Set sequence number.
+		//
+		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
 	
 	} // resetOntology.
 
@@ -576,11 +590,12 @@ class Wrapper extends Dictionary
 	 * Reset entities
 	 *
 	 * This method can be used to reset the entities database, it will <b>erase the current
-	 * entities collection</em>.
+	 * entities collection</em> and load the FAO insatitutes.
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
 	 * @access public
+	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
@@ -595,8 +610,14 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Create .
+		// Resety entity collection.
 		//
+		FAOInstitute::ResetCollection( $this->mEntities );
+		
+		//
+		// Load FAO institutes.
+		//
+		return FAOInstitute::Maintain( $this );										// ==>
 	
 	} // resetEntities.
 
@@ -658,6 +679,53 @@ class Wrapper extends Dictionary
 		return FALSE;																// ==>
 	
 	} // resetOntology.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC STANDARDS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadISOStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load ISO standards
+	 *
+	 * This method can be used to load the ISO standards.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadISOStandards()
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/Namespaces.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/Tags.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO639.types.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO639.tags.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO3166.types.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO3166.tags.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO4217.types.xml' );
+		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO15924.types.xml' );
+	
+	} // loadISOStandards.
 
 		
 
@@ -737,7 +805,7 @@ class Wrapper extends Dictionary
 	
 	} // loadXMLFile.
 
-		
+	 
 
 /*=======================================================================================
  *																						*
@@ -1016,15 +1084,13 @@ class Wrapper extends Dictionary
 		// Get node class.
 		//
 		$mod = isset( $theXML[ 'class' ] );
-		if( $mod )
-			$class = $attributes[ 'class' ];
 		
 		//
 		// Instantiate node.
 		//
 		$object = ( $mod )
-			  ? new $class( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new $class( $this );
+			  ? new Node( $this->Metadata(), $theXML[ 'modify' ] )
+			  : new Node( $this );
 		
 		//
 		// Assert modifications.
@@ -1040,6 +1106,9 @@ class Wrapper extends Dictionary
 		//
 		if( ! $mod )
 		{
+			//
+			// Get tag or term from attributes.
+			//
 			$tmp = array( 'tag' => kTAG_TAG,
 						  'term' => kTAG_TERM,
 						  'pid' => kTAG_ID_PERSISTENT );
@@ -1048,6 +1117,33 @@ class Wrapper extends Dictionary
 				if( isset( $theXML[ $key ] ) )
 					$object[ $tag ] = (string) $theXML[ $key ];
 			}
+			
+			//
+			// Get tag or term from cache.
+			//
+			if( (! $object->offsetExists( kTAG_TAG ))
+			 && (! $object->offsetExists( kTAG_TERM )) )
+			{
+				//
+				// Check term.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_TERM ] = key( $theCache[ Term::kSEQ_NAME ] );
+			
+				//
+				// Check tag.
+				//
+				elseif( array_key_exists( Tag::kSEQ_NAME, $theCache )
+					 && (count( $theCache[ Tag::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_TAG ] = key( $theCache[ Tag::kSEQ_NAME ] );
+				
+				else
+					throw new \Exception(
+						"Unable to create node: "
+					   ."missing tag and term." );								// !@! ==>
+			
+			} // Not provided with attributes.
 		
 		} // Not modifying.
 		
@@ -1118,6 +1214,60 @@ class Wrapper extends Dictionary
 		//
 		foreach( $theXML->{'item'} as $element )
 			$this->loadXMLElement( $element, $object );
+		
+		//
+		// Load subject from cache.
+		//
+		if( ! $object->offsetExists( kTAG_SUBJECT ) )
+		{
+			//
+			// Check node.
+			//
+			if( array_key_exists( Node::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_SUBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+			
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing subject." );										// !@! ==>
+		}
+		
+		//
+		// Load predicate from cache.
+		//
+		if( ! $object->offsetExists( kTAG_PREDICATE ) )
+		{
+			//
+			// Check node.
+			//
+			if( array_key_exists( Term::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
+			
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing predicate." );										// !@! ==>
+		}
+		
+		//
+		// Load object from cache.
+		//
+		if( ! $object->offsetExists( kTAG_OBJECT ) )
+		{
+			//
+			// Check node.
+			//
+			if( array_key_exists( Node::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+			
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing object." );										// !@! ==>
+		}
 		
 		//
 		// Commit object.
@@ -1205,48 +1355,109 @@ class Wrapper extends Dictionary
 	 * @param reference				$theValue			Receives value.
 	 * @param SimpleXMLElement		$theElement			XML element.
 	 * @param PersistentObject		$theObject			The object to load.
+	 * @param string				$theNode			Node reference type.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
 	protected function parseXMLItem( &$theValue, \SimpleXMLElement $theElement,
-												 PersistentObject  $theObject )
+												 PersistentObject  $theObject,
+												 				   $theNode = NULL )
 	{
 		//
 		// Reset key.
 		//
 		$key = NULL;
-	
+		
 		//
-		// Parse tag constant.
+		// Determine tag.
 		//
-		if( isset( $theElement[ 'const' ] ) )
+		if( isset( $theElement[ 'tag' ] ) )
+			$key = $theObject->resolveOffset( (string) $theElement[ 'tag' ], TRUE );
+		elseif( isset( $theElement[ 'seq' ] ) )
+			$key = (string) $theElement[ 'seq' ];
+		elseif( isset( $theElement[ 'const' ] ) )
 			$key = constant( (string) $theElement[ 'const' ] );
-
+		
 		//
-		// Parse persistent identifier.
-		//
-		elseif( isset( $theElement[ 'pid' ] ) )
-			$key = $theObject->resolveOffset( (string) $theElement[ 'pid' ], TRUE );
-
-		//
-		// Parse sequence number.
-		//
-		elseif( isset( $theElement[ 'tag' ] ) )
-			$key = (string) $theElement[ 'tag' ];
-
-		//
-		// Parse array element key.
+		// Handle array element key.
 		//
 		elseif( isset( $theElement[ 'key' ] ) )
 			$key = (string) $theElement[ 'key' ];
+		
+		//
+		// Handle node reference.
+		//
+		if( isset( $theElement[ 'node' ] ) )
+			$theNode = (string) $theElement[ 'node' ];
 		
 		//
 		// Handle scalar.
 		//
 		if( ! count( $theElement->{'item'} ) )
 		{
+			//
+			// Resolve node.
+			//
+			if( $theNode !== NULL )
+			{
+				//
+				// Parse reference type.
+				//
+				switch( $theNode )
+				{
+					case 'tag':
+						$value
+							= Node::GetTagMaster(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'seq':
+						$value
+							= Node::GetTagMaster(
+								$this,
+								(int) (string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'term':
+						$value
+							= Node::GetTermMaster(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'pid':
+						$value
+							= Node::GetPidNode(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'node':
+						$value = (string) $theElement;
+						break;
+					
+					default:
+						throw new \Exception(
+							"Unable to set property: "
+						   ."invalid node reference type [$theNode]." );		// !@! ==>
+				
+				} // Parsed node reference type.
+			
+			} // Node reference.
+			
+			//
+			// Set value.
+			//
+			else
+				$value = (string) $theElement;
+			
 			//
 			// Handle empty value.
 			//
@@ -1256,7 +1467,7 @@ class Wrapper extends Dictionary
 				// Handle key.
 				//
 				if( $key !== NULL )
-					$theValue = array( $key => (string) $theElement );
+					$theValue = array( $key => $value );
 				else
 					throw new \Exception(
 						"Unable to set property: "
@@ -1273,13 +1484,13 @@ class Wrapper extends Dictionary
 				// Handle key.
 				//
 				if( $key !== NULL )
-					$theValue[ $key ] = (string) $theElement;
+					$theValue[ $key ] = $value;
 				
 				//
 				// Handle array element.
 				//
 				else
-					$theValue[] = (string) $theElement;
+					$theValue[] = $value;
 			
 			} // Existing value.
 		
@@ -1321,7 +1532,7 @@ class Wrapper extends Dictionary
 			// Load elements.
 			//
 			foreach( $theElement->{'item'} as $element )
-				$this->parseXMLItem( $value, $element, $theObject );
+				$this->parseXMLItem( $value, $element, $theObject, $theNode );
 	
 		} // Array property.
 	

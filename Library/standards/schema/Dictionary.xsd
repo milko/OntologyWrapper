@@ -249,8 +249,11 @@
 				These elements represent object properties, each element must reference a Tag.
 				Tags are identified with the property attributes, array properties are
 				expressed with nested item elements, while scalar properties are expressed
-				in the element value.
-				Structures are represented by nested item elements.
+				in the element value. Structures are represented by nested item elements.
+				Of these attributes, tag, seq and const serve the purpose of selecting the
+				Tag; the node attribute indicates that the element value is referencing a node
+				and it provides the necessary information to interpret the element value;
+				the key attribute indicates an array key.
 			</xs:documentation>
 		</xs:annotation>
 
@@ -267,15 +270,15 @@
 			<xs:attribute name="tag" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a Tag sequence number.
+						This attribute references a Tag native identifier.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 			
-			<xs:attribute name="pid" type="xs:string">
+			<xs:attribute name="seq" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a Tag native identifier.
+						This attribute references a Tag sequence number.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -283,7 +286,24 @@
 			<xs:attribute name="const" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a Tag constant.
+						This attribute references a constant.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="node" type="node-ref-type">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute indicates that the element value references a node,
+						the attribute is required when providing node references.
+						Depending on the attribute value:
+						tag - the value is a tag native identifier;
+						term - the value is a term native identifier;
+						node - the value is a node native identifier;
+						pid - the value is a node persistent identifier.
+						When providing pid and node, the referenced node is univoque;
+						when providing the other options, a master node will be
+						resolved by default.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -298,4 +318,69 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
+	
+	<!-- Node reference type -->
+	<xs:simpleType name="node-ref-type">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				This enumeration defines the different types of node references that
+				can be expressed, it is used by elements expressing a scalar node
+				reference and should be added to the element tag reference.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="tag">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						The value of the element is a tag native identifier,
+						this means that the node will be the master node related
+						to that tag. The node will be resolved and its native identifier
+						will replace the current element's value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			
+			<xs:enumeration value="seq">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						The value of the element is a tag sequence number,
+						this means that the node will be the master node related
+						to that tag. The node will be resolved and its native identifier
+						will replace the current element's value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			
+			<xs:enumeration value="term">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						The value of the element is a term native identifier,
+						this means that the node will be the master node related
+						to that term. The node will be resolved and its native identifier
+						will replace the current element's value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			
+			<xs:enumeration value="node">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						The value of the element is a node native identifier.
+						The element value will remain untouched.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			
+			<xs:enumeration value="pid">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						The value of the element is a node persistent identifier,
+						the node will be resolved and its native identifier will
+						replace the current element's value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
