@@ -382,4 +382,56 @@
 			</item>
 		</TERM>
 	</META>
+	
+	<!-- Relationship types -->
+	
+	<META>
+		<!-- Incoming -->
+		<TERM ns=":relationship" lid="in">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Incoming</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>incoming relationship</em> indicates that the relationship is <em>originating</em> from an <em>external vertex</em> directed to the current vertex.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Outgoing -->
+		<TERM ns=":relationship" lid="out">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Outgoing</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>outgoing relationship</em> indicates that the relationship is <em>originating</em> from the <em>current vertex</em> directed to an external vertex.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Bi-directional -->
+		<TERM ns=":relationship" lid="all">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Bi-directional</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>bi-directional relationship</em> indicates that it is <em>both incoming and outgoing</em>, it <em>originates</em> from both the <em>current and external</em> vertices.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 </METADATA>

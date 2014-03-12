@@ -3008,8 +3008,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			switch( current( $theType ) )
 			{
-				case kTYPE_ARRAY:
 				case kTYPE_SET:
+				case kTYPE_ARRAY:
 				case kTYPE_TYPED_LIST:
 				case kTYPE_LANGUAGE_STRINGS:
 					if( ! is_array( $theIterator->current() ) )
@@ -3031,6 +3031,14 @@ abstract class PersistentObject extends OntologyObject
 						throw new \Exception(
 							"Invalid offset value in [$theOffset]: "
 						   ."invalid shape geometry." );						// !@! ==>
+					
+					return TRUE;													// ==>
+				
+				default:
+					if( is_array( $theIterator->current() ) )
+						throw new \Exception(
+							"Invalid offset value in [$theOffset]: "
+						   ."array not expected." );							// !@! ==>
 					
 					return TRUE;													// ==>
 			

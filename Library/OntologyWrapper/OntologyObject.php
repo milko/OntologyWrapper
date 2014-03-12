@@ -270,6 +270,75 @@ abstract class OntologyObject extends ContainerObject
 	
 	} // reference.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OFFSET RESOLUTION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolveOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset
+	 *
+	 * This method will resolve the provided offset into a {@link Tag} native
+	 * identifier, this is done by using a {@link Dictionary} object stored in the current
+	 * object's {@link $mDictionary} data member.
+	 *
+	 * If you provide an integer or a numeric string, the method will simply cast the value
+	 * to an integer and return it.
+	 *
+	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
+	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
+	 * object stored in the current object's {@link $mDictionary} data member; if the
+	 * provided offset cannot be resolved, the method will raise an exception if the second
+	 * parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
+	 * <tt>FALSE</tt>.
+	 *
+	 * The method will raise an exception if the tag cache is not set.
+	 *
+	 * @param mixed					$theOffset			Data offset.
+	 * @param boolean				$doAssert			Assert offset tag reference.
+	 *
+	 * @access public
+	 * @return mixed				Resolved offset.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses InternalOffsets()
+	 */
+	public function resolveOffset( $theOffset, $doAssert = FALSE )
+	{
+		//
+		// Handle numeric offsets.
+		//
+		if( is_int( $theOffset )
+		 || ctype_digit( $theOffset ) )
+			return (int) $theOffset;												// ==>
+		
+		//
+		// Handle internal offsets.
+		//
+		if( in_array( $theOffset, $this->InternalOffsets() ) )
+			return $theOffset;														// ==>
+		
+		//
+		// Check cache.
+		//
+		if( ! ($this->mDictionary instanceof Dictionary) )
+			throw new \Exception(
+				"Missing data dictionary." );									// !@! ==>
+		
+		return $this->mDictionary->getSerial( $theOffset, $doAssert );			// ==>
+	
+	} // resolveOffset.
+
 		
 
 /*=======================================================================================
@@ -453,75 +522,6 @@ abstract class OntologyObject extends ContainerObject
 		return $ok;																	// ==>
 	
 	} // preOffsetUnset.
-
-	
-
-/*=======================================================================================
- *																						*
- *							PROTECTED OFFSET RESOLUTION INTERFACE						*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	resolveOffset																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve offset
-	 *
-	 * This method will resolve the provided offset into a {@link Tag} native
-	 * identifier, this is done by using a {@link Dictionary} object stored in the current
-	 * object's {@link $mDictionary} data member.
-	 *
-	 * If you provide an integer or a numeric string, the method will simply cast the value
-	 * to an integer and return it.
-	 *
-	 * All other types of offsets, except those returned by the {@link InternalOffsets()}
-	 * method, will be used to locate the tag native identifier using a {@link Dictionary}
-	 * object stored in the current object's {@link $mDictionary} data member; if the
-	 * provided offset cannot be resolved, the method will raise an exception if the second
-	 * parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
-	 * <tt>FALSE</tt>.
-	 *
-	 * The method will raise an exception if the tag cache is not set.
-	 *
-	 * @param mixed					$theOffset			Data offset.
-	 * @param boolean				$doAssert			Assert offset tag reference.
-	 *
-	 * @access protected
-	 * @return mixed				Resolved offset.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses InternalOffsets()
-	 */
-	protected function resolveOffset( $theOffset, $doAssert = FALSE )
-	{
-		//
-		// Handle numeric offsets.
-		//
-		if( is_int( $theOffset )
-		 || ctype_digit( $theOffset ) )
-			return (int) $theOffset;												// ==>
-		
-		//
-		// Handle internal offsets.
-		//
-		if( in_array( $theOffset, $this->InternalOffsets() ) )
-			return $theOffset;														// ==>
-		
-		//
-		// Check cache.
-		//
-		if( ! ($this->mDictionary instanceof Dictionary) )
-			throw new \Exception(
-				"Missing data dictionary." );									// !@! ==>
-		
-		return $this->mDictionary->getSerial( $theOffset, $doAssert );			// ==>
-	
-	} // resolveOffset.
 
 	
 

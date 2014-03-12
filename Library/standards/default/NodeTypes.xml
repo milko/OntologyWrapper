@@ -202,22 +202,6 @@
 			</item>
 		</TERM>
 	
-		<!-- kTYPE_NODE_INSTANCE -->
-		<TERM ns=":type:node" lid="instance">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Instance</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A metadata instance</em>. In general, ontology elements represent metadata, in some cases they may represent actual data: an instance is an ontology item that represents <em>the metadata and data of an object</em>. An ISO 3166 country code can be considered an enumeration that constitutes the metadata for the country it represents, but if you store the country data in that item, this may become also an instance, because it represents the object it defines.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- kTYPE_NODE_ENUMERATION -->
 		<TERM ns=":type:node" lid="enumeration">
 			<item const="kTAG_LABEL">

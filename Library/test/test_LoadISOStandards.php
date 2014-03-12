@@ -74,12 +74,12 @@ try
 	//
 	// Reset ontology.
 	//
-	$wrapper->resetOntology();
+	$wrapper->resetOntology( TRUE );
 	
 	//
 	// Loas ISO Standards.
 	//
-	$wrapper->loadISOStandards();
+	$wrapper->loadISOStandards( TRUE );
 }
 
 //

@@ -318,7 +318,6 @@ if( kOPTION_VERBOSE )
 		if( kOPTION_VERBOSE )
 			echo( "      ".kISO_FILE_639_3."\n" );
 		ISOGenerate6393XML( $theDirectory );
-return;
 		
 		//
 		// Generate ISO 639 standards.
@@ -496,12 +495,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_3 );
 					$term->addAttribute( 'lid', $id3 );
+					
+					//
+					// Set term instance.
+					//
+					$element = $term->addChild( 'item' );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -608,9 +610,10 @@ return;
 						}
 						else
 						{
-							$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-							$element = $term->addChild( 'item', $tmp );
+							$element = $term->addChild( 'item' );
 							$element->addAttribute( 'tag', $ns_type );
+							$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
+							$element->addChild( 'item', $tmp );
 						}
 					
 					} // Has type.
@@ -621,11 +624,11 @@ return;
 					$node = $unit->addChild( 'NODE' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
 					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
@@ -635,6 +638,7 @@ return;
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Reset cross reference data.
@@ -655,12 +659,13 @@ return;
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $id1 );
+						if( ! count( $element_syn_3->xpath( "item[text()='$id1']" ) ) )
+							$element_syn_3->addChild( 'item', $id1 );
 						
 						//
 						// Create part 1 code.
 						//
-						if( ! count( $xml_1->xpath( "//TERM[@kid='$id1']" ) ) )
+						if( ! count( $xml_1->xpath( "//TERM[@lid='$id1']" ) ) )
 						{
 							//
 							// Create unit.
@@ -671,12 +676,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_1 );
 							$term->addAttribute( 'lid', $id1 );
+					
+							//
+							// Set master.
+							//
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -685,86 +692,6 @@ return;
 							$element_syn_1->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_1->addChild( 'item', $id1 );
 							$element_syn_1->addChild( 'item', $id3 );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-								AddLanguageStrings( $term, $tag, $strings );
-					
-							//
-							// Set inverted name.
-							//
-							if( $record[ 'inverted_name' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'inverted_name' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_inverted_name );
-					
-							} // Has inverted name.
-					
-							//
-							// Set common name.
-							//
-							if( $record[ 'common_name' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'common_name' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_common_name );
-					
-							} // Has common name.
-					
-							//
-							// Set status.
-							//
-							if( $record[ 'status' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'status' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_status );
-					
-							} // Has status.
-
-							//
-							// Set scope.
-							//
-							if( $record[ 'scope' ] !== NULL )
-							{
-								$tmp = trim( (string) $record[ 'scope' ] );
-								if( $tmp == 'L' )
-									$tmp = 'R';
-								$tmp = $ns_scope.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-								$element = $term->addChild( 'item', $tmp );
-								$element->addAttribute( 'tag', $ns_scope );
-					
-							} // Has scope.
-
-							//
-							// Set type.
-							//
-							if( $record[ 'type' ] !== NULL )
-							{
-								$tmp = trim( (string) $record[ 'type' ] );
-								if( $tmp == 'Genetic, Ancient' )
-								{
-									$element = $term->addChild( 'item' );
-									$element->addAttribute( 'tag', $ns_type );
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'A';
-									$item = $element->addChild( 'item', $tmp );
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'Genetic';
-									$item = $element->addChild( 'item', $tmp );
-								}
-								else
-								{
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-									$element = $term->addChild( 'item', $tmp );
-									$element->addAttribute( 'tag', $ns_type );
-								}
-					
-							} // Has type.
 					
 							//
 							// Create node.
@@ -772,7 +699,7 @@ return;
 							$node = $unit->addChild( 'NODE' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
 							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
@@ -786,6 +713,7 @@ return;
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_1 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New part 1 element.
 						
@@ -801,10 +729,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has part 1 code.
 					
@@ -822,12 +752,13 @@ return;
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $id2 );
+						if( ! count( $element_syn_3->xpath( "item[text()='$id2']" ) ) )
+							$element_syn_3->addChild( 'item', $id2 );
 						
 						//
 						// Create part 2 code.
 						//
-						if( ! count( $xml_1->xpath( "//TERM[@LID='$id2']" ) ) )
+						if( ! count( $xml_1->xpath( "//TERM[@lid='$id2']" ) ) )
 						{
 							//
 							// Create unit.
@@ -838,12 +769,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_2 );
 							$term->addAttribute( 'lid', $id2 );
+					
+							//
+							// Set master.
+							//
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -857,86 +790,6 @@ return;
 								$element_syn_2->addChild( 'item', $id1 );
 								$element_syn_1->addChild( 'item', $id2 );
 							}
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-								AddLanguageStrings( $term, $tag, $strings );
-					
-							//
-							// Set inverted name.
-							//
-							if( $record[ 'inverted_name' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'inverted_name' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_inverted_name );
-					
-							} // Has inverted name.
-					
-							//
-							// Set common name.
-							//
-							if( $record[ 'common_name' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'common_name' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_common_name );
-					
-							} // Has common name.
-					
-							//
-							// Set status.
-							//
-							if( $record[ 'status' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'status' ];
-								$element = $term->addChild( 'item',
-															htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_status );
-					
-							} // Has status.
-
-							//
-							// Set scope.
-							//
-							if( $record[ 'scope' ] !== NULL )
-							{
-								$tmp = trim( (string) $record[ 'scope' ] );
-								if( $tmp == 'L' )
-									$tmp = 'R';
-								$tmp = $ns_scope.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-								$element = $term->addChild( 'item', $tmp );
-								$element->addAttribute( 'tag', $ns_scope );
-					
-							} // Has scope.
-
-							//
-							// Set type.
-							//
-							if( $record[ 'type' ] !== NULL )
-							{
-								$tmp = trim( (string) $record[ 'type' ] );
-								if( $tmp == 'Genetic, Ancient' )
-								{
-									$element = $term->addChild( 'item' );
-									$element->addAttribute( 'tag', $ns_type );
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'A';
-									$item = $element->addChild( 'item', $tmp );
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'Genetic';
-									$item = $element->addChild( 'item', $tmp );
-								}
-								else
-								{
-									$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-									$element = $term->addChild( 'item', $tmp );
-									$element->addAttribute( 'tag', $ns_type );
-								}
-					
-							} // Has type.
 					
 							//
 							// Create node.
@@ -944,10 +797,10 @@ return;
 							$node = $unit->addChild( 'NODE' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
@@ -958,6 +811,7 @@ return;
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New part 2 element.
 						
@@ -973,10 +827,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has part 2 code.
 					
@@ -991,10 +847,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference part 1 from part 2.
@@ -1004,10 +862,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gid2 );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gid1 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has part 2.
 					
@@ -1024,10 +884,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference part 2 from part 1.
@@ -1037,10 +899,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gid1 );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gid2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has part 1.
 					
@@ -1152,7 +1016,7 @@ return;
 					//
 					// Check if part 1 code exists.
 					//
-					if( count( $xml_1->xpath( "//TERM[@LID='$id1']" ) ) )
+					if( count( $xml_1->xpath( "//TERM[@lid='$id1']" ) ) )
 						$gid1 = $ns_1.kTOKEN_NAMESPACE_SEPARATOR.$id1;
 					else
 						$id1 = NULL;
@@ -1179,105 +1043,83 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_2b );
 					$term->addAttribute( 'lid', $id2b );
-			
+					
 					//
-					// Set term reference.
+					// Set master.
 					//
 					if( $id1 !== NULL )
 					{
 						$element = $term->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_TERM' );
-					}
+						$element->addAttribute( 'const', 'kTAG_MASTER' );
+					
+					} // Has master reference.
 					
 					//
-					// Set term kind.
+					// Load term data.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
-					
-					//
-					// Init term names.
-					//
-					$names = Array();
-					
-					//
-					// Set term english name.
-					//
-					if( $record[ 'name' ] !== NULL )
-					{
-						$tmp = (string) $record[ 'name' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
-					}
-					
-					//
-					// Collect language strings.
-					//
-					ISOCollectLanguageElements( $names, kISO_FILE_639 );
-					
-					//
-					// Set language strings.
-					//
-					foreach( $names as $tag => $strings )
+					else
 					{
 						//
-						// Set tag element.
+						// Init term names.
 						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
+						$names = Array();
+					
 						//
-						// Iterate tag language strings.
+						// Set term english name.
 						//
-						foreach( $strings as $key => $value )
+						if( $record[ 'name' ] !== NULL )
 						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
+							$tmp = (string) $record[ 'name' ];
+							$names[ kTAG_LABEL ][ 'en' ] = $tmp;
+						}
 					
-					} // Iterating name tags.
+						//
+						// Collect language strings.
+						//
+						ISOCollectLanguageElements( $names, kISO_FILE_639 );
 					
+						//
+						// Set language strings.
+						//
+						foreach( $names as $tag => $strings )
+							AddLanguageStrings( $term, $tag, $strings );
+					
+					} // No master reference.
+				
 					//
-					// Set term common name.
+					// Set common name.
 					//
 					if( $record[ 'common_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'common_name' ];
-						$element = $term->addChild( 'item' );
+						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
 						$element->addAttribute( 'tag', $ns_common_name );
-						$item = $element->addChild( 'item', htmlspecialchars( $tmp ) );
-						$item->addAttribute( 'key', 'en' );
-					}
+				
+					} // Has common name.
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2b );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Cross reference part 1.
@@ -1296,10 +1138,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2b );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has part 1.
 				
@@ -1325,112 +1169,90 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_2t );
 					$term->addAttribute( 'lid', $id2t );
 			
 					//
-					// Set term reference.
+					// Set master.
 					//
 					if( $id1 !== NULL )
 					{
 						$element = $term->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_TERM' );
-					}
+						$element->addAttribute( 'const', 'kTAG_MASTER' );
+					
+					} // Has master reference.
 					
 					//
-					// Set term kind.
+					// Load term data.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
-					
-					//
-					// Handle names.
-					//
-					if( $names === NULL )
+					else
 					{
 						//
-						// Init term names.
+						// Handle names.
 						//
-						$names = Array();
-					
-						//
-						// Set term english name.
-						//
-						if( $record[ 'name' ] !== NULL )
+						if( $names === NULL )
 						{
-							$tmp = (string) $record[ 'name' ];
-							$names[ kTERM_LABEL ][ 'en' ] = $tmp;
-						}
+							//
+							// Init term names.
+							//
+							$names = Array();
+					
+							//
+							// Set term english name.
+							//
+							if( $record[ 'name' ] !== NULL )
+							{
+								$tmp = (string) $record[ 'name' ];
+								$names[ kTAG_LABEL ][ 'en' ] = $tmp;
+							}
+					
+							//
+							// Collect language strings.
+							//
+							ISOCollectLanguageElements( $names, kISO_FILE_639 );
+					
+						} // No names yet.
 					
 						//
-						// Collect language strings.
+						// Set language strings.
 						//
-						ISOCollectLanguageElements( $names, kISO_FILE_639 );
+						foreach( $names as $tag => $strings )
+							AddLanguageStrings( $term, $tag, $strings );
 					
-					} // No names yet.
-					
-					//
-					// Set language strings.
-					//
-					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+					} // No master reference.
 					
 					//
-					// Set term common name.
+					// Set common name.
 					//
 					if( $record[ 'common_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'common_name' ];
-						$element = $term->addChild( 'item' );
+						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
 						$element->addAttribute( 'tag', $ns_common_name );
-						$item = $element->addChild( 'item', htmlspecialchars( $tmp ) );
-						$item->addAttribute( 'key', 'en' );
-					}
+				
+					} // Has common name.
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2t );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Cross reference part 1.
@@ -1449,10 +1271,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2t );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has part 1.
 				
@@ -1480,10 +1304,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2b );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 				
 					} // Has part 1 code.
 				
@@ -1504,10 +1330,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2b );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2t );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 				
 					} // Has part 1 code.
 				
@@ -1535,10 +1363,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid1 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2t );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 				
 					} // Has part 1 code.
 				
@@ -1559,10 +1389,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2t );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2b );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 				
 					} // Has part 1 code.
 				
@@ -1636,10 +1468,10 @@ return;
 			//
 			// Set target files name.
 			//
-			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-1-alpha2.xml';
-			$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-1-alpha3.xml';
-			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-1-numeric.xml';
-			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-xref.xml';
+			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml';
+			$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
+			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-numeric.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
 			
 			//
 			// Open XML structures.
@@ -1679,19 +1511,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_3 );
 					$term->addAttribute( 'lid', $id3 );
 					
 					//
-					// Set term kind.
+					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -1706,21 +1534,21 @@ return;
 					$names = Array();
 					
 					//
-					// Set term label.
+					// Set term english name.
 					//
 					if( $record[ 'name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'name' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 					}
 					
 					//
-					// Set term official name.
+					// Set term english official name.
 					//
 					if( $record[ 'official_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'official_name' ];
-						$names[ kTERM_DEFINITION ][ 'en' ] = $tmp;
+						$names[ kTAG_DEFINITION ][ 'en' ] = $tmp;
 					}
 					
 					//
@@ -1741,47 +1569,29 @@ return;
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+						AddLanguageStrings( $term, $tag, $strings );
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 2.
@@ -1802,7 +1612,7 @@ return;
 						//
 						// Create alpha 2 code.
 						//
-						if( ! count( $xml_2->xpath( "//TERM[@LID='$id2']" ) ) )
+						if( ! count( $xml_2->xpath( "//TERM[@lid='$id2']" ) ) )
 						{
 							//
 							// Create unit.
@@ -1813,19 +1623,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_2 );
 							$term->addAttribute( 'lid', $id2 );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -1834,52 +1639,28 @@ return;
 							$element_syn_2->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_2->addChild( 'item', $id2 );
 							$element_syn_2->addChild( 'item', $id3 );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New alpha 2 element.
 						
@@ -1895,10 +1676,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid2 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has alpha 2 code.
 					
@@ -1921,7 +1704,7 @@ return;
 						//
 						// Create numeric code.
 						//
-						if( ! count( $xml_n->xpath( "//TERM[@LID='$idn']" ) ) )
+						if( ! count( $xml_n->xpath( "//TERM[@lid='$idn']" ) ) )
 						{
 							//
 							// Create unit.
@@ -1932,19 +1715,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_n );
 							$term->addAttribute( 'lid', $idn );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -1958,52 +1736,28 @@ return;
 								$element_syn_n->addChild( 'item', $id2 );
 								$element_syn_2->addChild( 'item', $idn );
 							}
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New numeric code.
 						
@@ -2019,10 +1773,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has numeric code.
 					
@@ -2037,10 +1793,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid2 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference alpha 2 from numeric.
@@ -2050,10 +1808,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gidn );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gid2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has numeric.
 					
@@ -2070,10 +1830,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference alpha 2 from numeric.
@@ -2083,10 +1845,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gid2 );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gidn );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has part 1.
 					
@@ -2163,10 +1927,10 @@ return;
 			//
 			// Set target files name.
 			//
-			$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-3-alpha3.xml';
-			$file_4 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-3-alpha4.xml';
-			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-3-numeric.xml';
-			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-xref.xml';
+			$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml';
+			$file_4 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha4.xml';
+			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-numeric.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
 			
 			//
 			// Open XML structures.
@@ -2206,19 +1970,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_3 );
 					$term->addAttribute( 'lid', $id3 );
 					
 					//
-					// Set term kind.
+					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -2233,21 +1993,21 @@ return;
 					$names = Array();
 					
 					//
-					// Set term label.
+					// Set term english name.
 					//
 					if( $record[ 'names' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'names' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 					}
 					
 					//
-					// Set term definition.
+					// Set term english definition.
 					//
 					if( $record[ 'comment' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'comment' ];
-						$names[ kTERM_DEFINITION ][ 'en' ] = $tmp;
+						$names[ kTAG_DEFINITION ][ 'en' ] = $tmp;
 					}
 					
 					//
@@ -2259,25 +2019,7 @@ return;
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+						AddLanguageStrings( $term, $tag, $strings );
 					
 					//
 					// Set date withdrawn.
@@ -2293,23 +2035,23 @@ return;
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 4.
@@ -2330,7 +2072,7 @@ return;
 						//
 						// Create alpha 4 code.
 						//
-						if( ! count( $xml_4->xpath( "//TERM[@LID='$id4']" ) ) )
+						if( ! count( $xml_4->xpath( "//TERM[@lid='$id4']" ) ) )
 						{
 							//
 							// Create unit.
@@ -2341,19 +2083,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_4 );
 							$term->addAttribute( 'lid', $id4 );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -2362,63 +2099,28 @@ return;
 							$element_syn_4->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_4->addChild( 'item', $id4 );
 							$element_syn_4->addChild( 'item', $id3 );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
-					
-							//
-							// Set date withdrawn.
-							//
-							if( $record[ 'date_withdrawn' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'date_withdrawn' ];
-								$element = $term->addChild(
-									'item', htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_date_witdrawn );
-							}
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_4 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New alpha 4 element.
 						
@@ -2434,10 +2136,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid4 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has alpha 4 code.
 					
@@ -2460,7 +2164,7 @@ return;
 						//
 						// Create numeric code.
 						//
-						if( ! count( $xml_n->xpath( "//TERM[@LID='$idn']" ) ) )
+						if( ! count( $xml_n->xpath( "//TERM[@lid='$idn']" ) ) )
 						{
 							//
 							// Create unit.
@@ -2471,19 +2175,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_n );
 							$term->addAttribute( 'lid', $idn );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gid3 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -2497,63 +2196,28 @@ return;
 								$element_syn_n->addChild( 'item', $id4 );
 								$element_syn_4->addChild( 'item', $idn );
 							}
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
-					
-							//
-							// Set date withdrawn.
-							//
-							if( $record[ 'date_withdrawn' ] !== NULL )
-							{
-								$tmp = (string) $record[ 'date_withdrawn' ];
-								$element = $term->addChild(
-									'item', htmlspecialchars( $tmp ) );
-								$element->addAttribute( 'tag', $ns_date_witdrawn );
-							}
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New numeric code.
 						
@@ -2569,10 +2233,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has numeric code.
 					
@@ -2587,10 +2253,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid4 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference alpha 4 from numeric.
@@ -2600,10 +2268,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gidn );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gid4 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has numeric.
 					
@@ -2620,10 +2290,12 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid3 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 						//
 						// Cross reference alpha 4 from numeric.
@@ -2633,10 +2305,12 @@ return;
 							$edge = $unit_xref->addChild( 'EDGE' );
 							$element = $edge->addChild( 'item', $gid4 );
 							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
 							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $gidn );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // Has alpha 4.
 					
@@ -2712,9 +2386,9 @@ return;
 			//
 			// Set target files name.
 			//
-			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-1-alpha2.xml';
-			$file_sub = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-2.xml';
-			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-xref.xml';
+			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml';
+			$file_sub = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
 			
 			//
 			// Open XML structures.
@@ -2747,8 +2421,8 @@ return;
 					//
 					// Get country synonyms.
 					//
-					$term_2 = $xml_2->xpath( "//TERM[@LID='$id_2']" )[ 0 ];
-					$syns = $term_2->xpath( "element[@variable='kTAG_SYNONYM']" );
+					$term_2 = $xml_2->xpath( "//TERM[@lid='$id_2']" )[ 0 ];
+					$syns = $term_2->xpath( "element[@const='kTAG_SYNONYM']" );
 					if( count( $syns ) )
 					{
 						//
@@ -2820,19 +2494,8 @@ return;
 									// Create term.
 									//
 									$term = $unit->addChild( 'TERM' );
-					
-									//
-									// Set term identifier.
-									//
 									$term->addAttribute( 'ns', $ns_sub );
 									$term->addAttribute( 'lid', $idsub );
-					
-									//
-									// Set term kind.
-									//
-									$element = $term->addChild( 'item' );
-									$element->addAttribute( 'const', 'kTAG_KIND' );
-									$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 									//
 									// Set term type.
@@ -2859,61 +2522,43 @@ return;
 									if( $entry[ 'name' ] !== NULL )
 									{
 										$tmp = (string) $entry[ 'name' ];
-										$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+										$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 									}
 					
 									//
 									// Collect language strings.
 									//
-									ISOCollectLanguageElements(
-										$names, kISO_FILE_3166_2 );
+									ISOCollectLanguageElements( $names, kISO_FILE_3166_2 );
 					
 									//
 									// Set language strings.
 									//
 									foreach( $names as $tag => $strings )
-									{
-										//
-										// Set tag element.
-										//
-										$element = $term->addChild( 'item' );
-										$element->addAttribute( 'tag', $tag );
-						
-										//
-										// Iterate tag language strings.
-										//
-										foreach( $strings as $key => $value )
-										{
-											$item = $element->addChild(
-												'item', htmlspecialchars( $value ) );
-											$item->addAttribute( 'key', $key );
-						
-										} // Iterating language strings.
-					
-									} // Iterating name tags.
+										AddLanguageStrings( $term, $tag, $strings );
 					
 									//
 									// Create node.
 									//
 									$node = $unit->addChild( 'NODE' );
-									$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 									//
-									// Set node kind.
+									// Set node type.
 									//
 									$element = $node->addChild( 'item' );
-									$element->addAttribute( 'const', 'kTAG_KIND' );
-									$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+									$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+									$item = $element->addChild( 'item',
+																kTYPE_NODE_ENUMERATION );
 					
 									//
 									// Relate to parent.
 									//
 									$edge = $unit->addChild( 'EDGE' );
 									$element = $edge->addChild(
-										'item', kPREDICATE_ENUM_OF );
+										'item', kPREDICATE_SUBCLASS_OF );
 									$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 									$element = $edge->addChild( 'item', $ns_sub );
 									$element->addAttribute( 'const', 'kTAG_OBJECT' );
+									$element->addAttribute( 'node', 'term' );
 									
 									//
 									// Determine supersets.
@@ -2952,6 +2597,7 @@ return;
 										$element = $edge->addChild( 'item', $gidsub );
 										$element->addAttribute(
 											'const', 'kTAG_SUBJECT' );
+										$element->addAttribute( 'node', 'term' );
 										$element = $edge->addChild(
 											'item', kPREDICATE_SUBSET_OF );
 										$element->addAttribute(
@@ -2959,6 +2605,7 @@ return;
 										$element = $edge->addChild( 'item', $parent );
 										$element->addAttribute(
 											'const', 'kTAG_OBJECT' );
+										$element->addAttribute( 'node', 'term' );
 									}
 									
 								} // Has entry code.
@@ -3029,10 +2676,10 @@ return;
 		//
 		// Set target files name.
 		//
-		$file_13 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-1-alpha3.xml';
-		$file_33 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-3-alpha3.xml';
-		$file_rel = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-RELATIONSHIPS.xml';
-		$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-xref.xml';
+		$file_13 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
+		$file_33 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml';
+		$file_rel = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-RELATIONSHIPS.xml';
+		$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
 		
 		//
 		// Open XML structures.
@@ -3054,9 +2701,9 @@ return;
 			//
 			$edge = $element->xpath( ".." )[ 0 ];
 			$subject = (string) $edge->xpath(
-				"element[@variable='kTAG_SUBJECT']" )[ 0 ];
+				"element[@const='kTAG_SUBJECT']" )[ 0 ];
 			$object = (string) $edge->xpath(
-				"element[@variable='kTAG_OBJECT']" )[ 0 ];
+				"element[@const='kTAG_OBJECT']" )[ 0 ];
 			
 			//
 			// Get namespaces.
@@ -3081,21 +2728,23 @@ return;
 			$edge = $unit_xref->addChild( 'EDGE' );
 			$element = $edge->addChild( 'item', $subject );
 			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			$element = $edge->addChild( 'item', kPREDICATE_VALID );
 			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 			$element = $edge->addChild( 'item', $object );
 			$element->addAttribute( 'const', 'kTAG_OBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			
 			//
 			// Locate subject.
 			//
 			$subject_rec = ( substr( $subject_ns, 9, 1 ) == '3' )
-						 ? $xml_33->xpath( "//TERM[@LID='$subject_id']" )[ 0 ]
-						 : $xml_13->xpath( "//TERM[@LID='$subject_id']" )[ 0 ];
+						 ? $xml_33->xpath( "//TERM[@lid='$subject_id']" )[ 0 ]
+						 : $xml_13->xpath( "//TERM[@lid='$subject_id']" )[ 0 ];
 			$subject_nns = ( substr( $subject_ns, 9, 1 ) == '3' )
 						 ? $ns_3n
 						 : $ns_1n;
-			$subject_syn = $subject_rec->xpath( "element[@variable='kTAG_SYNONYM']" )[ 0 ];
+			$subject_syn = $subject_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			$subject_num = NULL;
 			foreach( $subject_syn->xpath( "item" ) as $item )
 			{
@@ -3110,12 +2759,12 @@ return;
 			// Locate object.
 			//
 			$object_rec = ( substr( $object_ns, 9, 1 ) == '3' )
-						 ? $xml_33->xpath( "//TERM[@LID='$object_id']" )[ 0 ]
-						 : $xml_13->xpath( "//TERM[@LID='$object_id']" )[ 0 ];
+						 ? $xml_33->xpath( "//TERM[@lid='$object_id']" )[ 0 ]
+						 : $xml_13->xpath( "//TERM[@lid='$object_id']" )[ 0 ];
 			$object_nns = ( substr( $object_ns, 9, 1 ) == '3' )
 						 ? $ns_3n
 						 : $ns_1n;
-			$object_syn = $object_rec->xpath( "element[@variable='kTAG_SYNONYM']" )[ 0 ];
+			$object_syn = $object_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			$object_num = NULL;
 			foreach( $object_syn->xpath( "item" ) as $item )
 			{
@@ -3139,10 +2788,12 @@ return;
 				$edge = $unit_xref->addChild( 'EDGE' );
 				$element = $edge->addChild( 'item', $subject_gid );
 				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+				$element->addAttribute( 'node', 'term' );
 				$element = $edge->addChild( 'item', kPREDICATE_VALID );
 				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 				$element = $edge->addChild( 'item', $object_gid );
 				$element->addAttribute( 'const', 'kTAG_OBJECT' );
+				$element->addAttribute( 'node', 'term' );
 			}
 		
 		} // Iterating valid relationships.
@@ -3150,7 +2801,7 @@ return;
 		//
 		// Handle legacy relationsips.
 		//
-		$xpath = "//EDGE/element[.='".kPREDICATE_LEGACY."']";
+		$xpath = "//EDGE/item[.='".kPREDICATE_LEGACY."']";
 		$list = $xml_rel->xpath( $xpath );
 		foreach( $list as $element )
 		{
@@ -3159,9 +2810,9 @@ return;
 			//
 			$edge = $element->xpath( ".." )[ 0 ];
 			$subject = (string) $edge->xpath(
-				"element[@variable='kTAG_SUBJECT']" )[ 0 ];
+				"item[@const='kTAG_SUBJECT']" )[ 0 ];
 			$object = (string) $edge->xpath(
-				"element[@variable='kTAG_OBJECT']" )[ 0 ];
+				"item[@const='kTAG_OBJECT']" )[ 0 ];
 			
 			//
 			// Get namespaces.
@@ -3186,21 +2837,23 @@ return;
 			$edge = $unit_xref->addChild( 'EDGE' );
 			$element = $edge->addChild( 'item', $subject );
 			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			$element = $edge->addChild( 'item', kPREDICATE_LEGACY );
 			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 			$element = $edge->addChild( 'item', $object );
 			$element->addAttribute( 'const', 'kTAG_OBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			
 			//
 			// Locate subject.
 			//
 			$subject_rec = ( substr( $subject_ns, 9, 1 ) == '3' )
-						 ? $xml_33->xpath( "//TERM[@LID='$subject_id']" )[ 0 ]
-						 : $xml_13->xpath( "//TERM[@LID='$subject_id']" )[ 0 ];
+						 ? $xml_33->xpath( "//TERM[@lid='$subject_id']" )[ 0 ]
+						 : $xml_13->xpath( "//TERM[@lid='$subject_id']" )[ 0 ];
 			$subject_nns = ( substr( $subject_ns, 9, 1 ) == '3' )
 						 ? $ns_3n
 						 : $ns_1n;
-			$subject_syn = $subject_rec->xpath( "element[@variable='kTAG_SYNONYM']" )[ 0 ];
+			$subject_syn = $subject_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			$subject_num = NULL;
 			foreach( $subject_syn->xpath( "item" ) as $item )
 			{
@@ -3215,12 +2868,12 @@ return;
 			// Locate object.
 			//
 			$object_rec = ( substr( $object_ns, 9, 1 ) == '3' )
-						 ? $xml_33->xpath( "//TERM[@LID='$object_id']" )[ 0 ]
-						 : $xml_13->xpath( "//TERM[@LID='$object_id']" )[ 0 ];
+						 ? $xml_33->xpath( "//TERM[@lid='$object_id']" )[ 0 ]
+						 : $xml_13->xpath( "//TERM[@lid='$object_id']" )[ 0 ];
 			$object_nns = ( substr( $object_ns, 9, 1 ) == '3' )
 						 ? $ns_3n
 						 : $ns_1n;
-			$object_syn = $object_rec->xpath( "element[@variable='kTAG_SYNONYM']" )[ 0 ];
+			$object_syn = $object_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			$object_num = NULL;
 			foreach( $object_syn->xpath( "item" ) as $item )
 			{
@@ -3244,10 +2897,12 @@ return;
 				$edge = $unit_xref->addChild( 'EDGE' );
 				$element = $edge->addChild( 'item', $subject_gid );
 				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+				$element->addAttribute( 'node', 'term' );
 				$element = $edge->addChild( 'item', kPREDICATE_LEGACY );
 				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 				$element = $edge->addChild( 'item', $object_gid );
 				$element->addAttribute( 'const', 'kTAG_OBJECT' );
+				$element->addAttribute( 'node', 'term' );
 			}
 		
 		} // Iterating legacy relationships.
@@ -3255,7 +2910,7 @@ return;
 		//
 		// Handle subset relationsips.
 		//
-		$xpath = "//EDGE/element[.='".kPREDICATE_SUBSET_OF."']";
+		$xpath = "//EDGE/item[.='".kPREDICATE_SUBSET_OF."']";
 		$list = $xml_rel->xpath( $xpath );
 		foreach( $list as $element )
 		{
@@ -3264,9 +2919,9 @@ return;
 			//
 			$edge = $element->xpath( ".." )[ 0 ];
 			$subject = (string) $edge->xpath(
-				"element[@variable='kTAG_SUBJECT']" )[ 0 ];
+				"item[@const='kTAG_SUBJECT']" )[ 0 ];
 			$object = (string) $edge->xpath(
-				"element[@variable='kTAG_OBJECT']" )[ 0 ];
+				"item[@const='kTAG_OBJECT']" )[ 0 ];
 			
 			//
 			// Get namespaces.
@@ -3289,21 +2944,23 @@ return;
 			$edge = $unit_xref->addChild( 'EDGE' );
 			$element = $edge->addChild( 'item', $subject );
 			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
 			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 			$element = $edge->addChild( 'item', $object );
 			$element->addAttribute( 'const', 'kTAG_OBJECT' );
+			$element->addAttribute( 'node', 'term' );
 			
 			//
 			// Locate subject.
 			//
 			$subject_rec = ( substr( $subject_ns, 9, 1 ) == '3' )
-						 ? $xml_33->xpath( "//TERM[@LID='$subject_id']" )[ 0 ]
-						 : $xml_13->xpath( "//TERM[@LID='$subject_id']" )[ 0 ];
+						 ? $xml_33->xpath( "//TERM[@lid='$subject_id']" )[ 0 ]
+						 : $xml_13->xpath( "//TERM[@lid='$subject_id']" )[ 0 ];
 			$subject_nns = ( substr( $subject_ns, 9, 1 ) == '3' )
 						 ? $ns_3n
 						 : $ns_1n;
-			$subject_syn = $subject_rec->xpath( "element[@variable='kTAG_SYNONYM']" )[ 0 ];
+			$subject_syn = $subject_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			$subject_num = NULL;
 			foreach( $subject_syn->xpath( "item" ) as $item )
 			{
@@ -3324,10 +2981,12 @@ return;
 				$edge = $unit_xref->addChild( 'EDGE' );
 				$element = $edge->addChild( 'item', $subject_gid );
 				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+				$element->addAttribute( 'node', 'term' );
 				$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
 				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 				$element = $edge->addChild( 'item', $object );
 				$element->addAttribute( 'const', 'kTAG_OBJECT' );
+				$element->addAttribute( 'node', 'term' );
 			}
 		
 		} // Iterating subset relationships.
@@ -3390,11 +3049,11 @@ return;
 			//
 			// Set target files name.
 			//
-			$file_al = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO4217-A-alpha.xml';
-			$file_an = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO4217-A-numeric.xml';
-			$file_hl = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO4217-H-alpha.xml';
-			$file_hn = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO4217-H-numeric.xml';
-			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO4217-xref.xml';
+			$file_al = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso217-A-alpha.xml';
+			$file_an = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-A-numeric.xml';
+			$file_hl = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-alpha.xml';
+			$file_hn = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-numeric.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-xref.xml';
 			
 			//
 			// Open XML structures.
@@ -3435,19 +3094,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_al );
 					$term->addAttribute( 'lid', $idal );
 					
 					//
-					// Set term kind.
+					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -3467,7 +3122,7 @@ return;
 					if( $record[ 'currency_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'currency_name' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 					}
 					
 					//
@@ -3479,47 +3134,29 @@ return;
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+						AddLanguageStrings( $term, $tag, $strings );
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_al );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle numeric code.
@@ -3540,7 +3177,7 @@ return;
 						//
 						// Create numeric code.
 						//
-						if( ! count( $xml_an->xpath( "//TERM[@LID='$idan']" ) ) )
+						if( ! count( $xml_an->xpath( "//TERM[@lid='$idan']" ) ) )
 						{
 							//
 							// Create unit.
@@ -3551,19 +3188,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_an );
 							$term->addAttribute( 'lid', $idan );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gidal );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -3572,52 +3204,28 @@ return;
 							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_n->addChild( 'item', $idan );
 							$element_syn_n->addChild( 'item', $idal );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_an );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New numeric element.
 						
@@ -3629,18 +3237,22 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidan );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidal );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidal );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidan );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has numeric code.
 				
@@ -3678,19 +3290,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_hl );
 					$term->addAttribute( 'lid', $idhl );
 					
 					//
-					// Set term kind.
+					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -3710,7 +3318,7 @@ return;
 					if( $record[ 'currency_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'currency_name' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 					}
 					
 					//
@@ -3722,25 +3330,7 @@ return;
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+						AddLanguageStrings( $term, $tag, $strings );
 					
 					//
 					// Set date withdrawn.
@@ -3756,23 +3346,23 @@ return;
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_hl );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle numeric code.
@@ -3793,7 +3383,7 @@ return;
 						//
 						// Create numeric code.
 						//
-						if( ! count( $xml_hn->xpath( "//TERM[@LID='$idhn']" ) ) )
+						if( ! count( $xml_hn->xpath( "//TERM[@lid='$idhn']" ) ) )
 						{
 							//
 							// Create unit.
@@ -3804,19 +3394,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_hn );
 							$term->addAttribute( 'lid', $idhn );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gidhl );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -3825,52 +3410,28 @@ return;
 							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_n->addChild( 'item', $idhn );
 							$element_syn_n->addChild( 'item', $idhl );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_hn );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New numeric element.
 						
@@ -3882,18 +3443,22 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidhn );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidhl );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidhl );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidhn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has numeric code.
 				
@@ -3965,9 +3530,9 @@ return;
 			//
 			// Set target files name.
 			//
-			$file_4 = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO15924-alpha4.xml';
-			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO15924-numeric.xml';
-			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO15924-xref.xml';
+			$file_4 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-alpha4.xml';
+			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-numeric.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-xref.xml';
 			
 			//
 			// Open XML structures.
@@ -4006,19 +3571,15 @@ return;
 					// Create term.
 					//
 					$term = $unit->addChild( 'TERM' );
-					
-					//
-					// Set term identifier.
-					//
 					$term->addAttribute( 'ns', $ns_4 );
 					$term->addAttribute( 'lid', $id4 );
 					
 					//
-					// Set term kind.
+					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
@@ -4038,7 +3599,7 @@ return;
 					if( $record[ 'name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'name' ];
-						$names[ kTERM_LABEL ][ 'en' ] = $tmp;
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
 					}
 					
 					//
@@ -4050,47 +3611,29 @@ return;
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set tag element.
-						//
-						$element = $term->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag );
-						
-						//
-						// Iterate tag language strings.
-						//
-						foreach( $strings as $key => $value )
-						{
-							$item = $element->addChild(
-								'item', htmlspecialchars( $value ) );
-							$item->addAttribute( 'key', $key );
-						
-						} // Iterating language strings.
-					
-					} // Iterating name tags.
+						AddLanguageStrings( $term, $tag, $strings );
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 					//
-					// Set node kind.
+					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_KIND' );
-					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_4 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle numeric code.
@@ -4111,7 +3654,7 @@ return;
 						//
 						// Create numeric code.
 						//
-						if( ! count( $xml_n->xpath( "//TERM[@LID='$idn']" ) ) )
+						if( ! count( $xml_n->xpath( "//TERM[@lid='$idn']" ) ) )
 						{
 							//
 							// Create unit.
@@ -4122,19 +3665,14 @@ return;
 							// Create term.
 							//
 							$term = $unit->addChild( 'TERM' );
-					
-							//
-							// Set term identifier.
-							//
 							$term->addAttribute( 'ns', $ns_n );
 							$term->addAttribute( 'lid', $idn );
 					
 							//
-							// Set term kind.
+							// Set master.
 							//
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $term->addChild( 'item', $gid4 );
+							$element->addAttribute( 'const', 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
@@ -4143,52 +3681,28 @@ return;
 							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
 							$element_syn_n->addChild( 'item', $idn );
 							$element_syn_n->addChild( 'item', $id4 );
-							
-							//
-							// Set language strings.
-							//
-							foreach( $names as $tag => $strings )
-							{
-								//
-								// Set tag element.
-								//
-								$element = $term->addChild( 'item' );
-								$element->addAttribute( 'tag', $tag );
-						
-								//
-								// Iterate tag language strings.
-								//
-								foreach( $strings as $key => $value )
-								{
-									$item = $element->addChild(
-										'item', htmlspecialchars( $value ) );
-									$item->addAttribute( 'key', $key );
-						
-								} // Iterating language strings.
-					
-							} // Iterating name tags.
 					
 							//
 							// Create node.
 							//
 							$node = $unit->addChild( 'NODE' );
-							$node->addAttribute( 'class', 'COntologyMasterVertex' );
 					
 							//
-							// Set node kind.
+							// Set node type.
 							//
 							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_KIND' );
+							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
 						
 						} // New numeric element.
 						
@@ -4200,18 +3714,22 @@ return;
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid4 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 
 						$edge = $unit_xref->addChild( 'EDGE' );
 						$element = $edge->addChild( 'item', $gid4 );
 						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
 					
 					} // Has numeric code.
 				

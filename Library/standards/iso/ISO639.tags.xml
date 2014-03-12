@@ -665,7 +665,7 @@
 				<item>iso:639:inverted_name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:language-strings</item>
+				<item>:type:string</item>
 			</item>
 		</TAG>
 		<NODE tag="iso:639:inverted_name">
@@ -702,7 +702,7 @@
 				<item>iso:639:common_name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
-				<item>:type:language-strings</item>
+				<item>:type:string</item>
 			</item>
 		</TAG>
 		<NODE tag="iso:639:common_name">

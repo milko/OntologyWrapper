@@ -11,1771 +11,1771 @@
 	    <!-- ISO 3166 RELATIONSHIPS -->
 
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ATB</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ATA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ATB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ATA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ATN</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ATA</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:JTN</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:UMI</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:MID</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:UMI</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PUS</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:UMI</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:WAK</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:UMI</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ATN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ATA</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BEN</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:DHY</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:JTN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:UMI</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:DHY</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:BEN</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BFA</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:HVO</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:MID</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:UMI</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:HVO</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:BFA</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PCZ</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:PAN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:UMI</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PAN</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:PAN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PAN</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:PAN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:WAK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:UMI</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:AFI</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:DJI</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BEN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:DHY</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DJI</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:AFI</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ETH</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ETH</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DJI</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:AFI</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:DHY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:BEN</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:RHO</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ZWE</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BFA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:HVO</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ZWE</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:RHO</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ZAR</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:COD</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COD</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:ZAR</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:HVO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:BFA</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ANT</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ABW</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PCZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:PAN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ABW</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:ANT</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:KNA</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:KNA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PAN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:PAN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KNA</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:KNA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PAN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:PAN</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SKM</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:IND</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:AFI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:DJI</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DJI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:AFI</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:BUR</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:MMR</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ETH</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ETH</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MMR</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:BUR</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:TMP</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:TLS</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TLS</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:TMP</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DJI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:AFI</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:VDR</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:VNM</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:RHO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ZWE</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ZWE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:RHO</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BIH</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YUG</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ZAR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:COD</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HRV</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YUG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MKD</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YUG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SCG</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YUG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SVN</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YUG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MNE</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SCG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SRB</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SCG</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SCG</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:SRB</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:ZAR</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:NHB</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:VUT</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ANT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ABW</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VUT</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:NHB</item>
-		</EDGE>
-		
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:CTE</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:KIR</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ABW</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:ANT</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FSM</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:PCI</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:KNA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:KNA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MHL</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:PCI</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MNP</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:PCI</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PLW</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:PCI</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KNA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:KNA</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KAZ</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KGZ</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TJK</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TKM</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UZB</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ARM</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AZE</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GEO</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BLR</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MDA</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:RUS</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UKR</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:EST</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LTU</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:SUN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SKM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:IND</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:BYS</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:BLR</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:BUR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:MMR</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MMR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:BUR</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:YEM</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:YEM</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:TMP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:TLS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:YEM</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YEM</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:YMD</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:YEM</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:YEM</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:YMD</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TLS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:TMP</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CZE</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:CSK</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SVK</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:CSK</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:VDR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:VNM</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ROM</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:ROU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BIH</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ROU</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:ROM</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HRV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MKD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SCG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SVN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MNE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SCG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SRB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SCG</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SCG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:SRB</item>
 		</EDGE>
 		
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:DDR</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:DEU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:NHB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:VUT</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:DEU</item>
-			<item const="kTAG_PREDICATE">:VALID</item>
-			<item const="kTAG_OBJECT">iso:3166:1:alpha-3:DEU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VUT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:NHB</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:CTE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:KIR</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FSM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:PCI</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DEU</item>
-			<item const="kTAG_PREDICATE">:LEGACY</item>
-			<item const="kTAG_OBJECT">iso:3166:3:alpha-3:DEU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MHL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:PCI</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MNP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:PCI</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PLW</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:PCI</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KAZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KGZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TJK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TKM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UZB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ARM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AZE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GEO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BLR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MDA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:RUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UKR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:EST</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LTU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:BYS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:BLR</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:YEM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:YEM</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:YEM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YEM</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:YMD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:YEM</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:YEM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:YMD</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CZE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:CSK</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SVK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:CSK</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ROM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ROU</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ROU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:ROM</item>
+		</EDGE>
+		
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:DDR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:DEU</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:DEU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:DEU</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DEU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:DEU</item>
 		</EDGE>
     
 	    <!-- ISO 3166 SUBSETS -->
 
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ABW</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ABW</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AFG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AFG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:AFI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:AFI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AGO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AGO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AIA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AIA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ALA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ALA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ALB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ALB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AND</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AND</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ANT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ANT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ARE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ARE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ARG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ARG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ARM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ARM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ASM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ASM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ATA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ATA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ATB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ATB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ATF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ATF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ATG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ATG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ATN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ATN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AUS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AUT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AUT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:AZE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:AZE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BDI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BDI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BEL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BEL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BEN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BEN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BFA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BFA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BGD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BGD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BGR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BGR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BHR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BHR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BHS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BHS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BIH</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BIH</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BLM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BLM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BLR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BLR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BLZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BLZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BMU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BMU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BOL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BOL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BRA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BRA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BRB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BRB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BRN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BRN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BTN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BTN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:BUR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:BUR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BVT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BVT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:BWA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:BWA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:BYS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:BYS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CAF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CAF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CAN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CAN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CCK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CCK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CHE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CHE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CHL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CHL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CHN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CHN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CIV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CIV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CMR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CMR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:COM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:COM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CPV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CPV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CRI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CRI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:CSK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:CSK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:CTE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:CTE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CUB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CUB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CUW</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CUW</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CXR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CXR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CYM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CYM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CYP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CYP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:CZE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:CZE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:DDR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:DDR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DEU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DEU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:DHY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:DHY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DJI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DJI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DMA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DMA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DNK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DNK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DOM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DOM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:DZA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DZA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ECU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ECU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:EGY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:EGY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ERI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ERI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ESH</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ESH</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ESP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ESP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:EST</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:EST</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ETH</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ETH</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FIN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FIN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FJI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FJI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FLK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FLK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FRA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FRA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FRO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FRO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:FSM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:FSM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:FXX</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:FXX</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GAB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GAB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GBR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GBR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:GEL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:GEL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GEO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GEO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GGY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GGY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GHA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GHA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GIB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GIB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GIN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GIN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GLP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GLP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GMB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GMB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GNB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GNB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GNQ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GNQ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GRC</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GRC</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GRD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GRD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GRL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GRL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GTM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GTM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GUF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GUF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GUM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GUM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:GUY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:GUY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HKG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HKG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HMD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HMD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HND</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HND</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HRV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HRV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HTI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HTI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:HUN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:HUN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:HVO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:HVO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IDN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IDN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IMN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IMN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IND</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IND</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IOT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IOT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IRL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IRL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IRN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IRN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:IRQ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:IRQ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ISL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ISL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ISR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ISR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ITA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ITA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:JAM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:JAM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:JEY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:JEY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:JOR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:JOR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:JPN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:JPN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:JTN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:JTN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KAZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KAZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KEN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KEN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KGZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KGZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KHM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KHM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KIR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KIR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KNA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KNA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KOR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KOR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:KWT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:KWT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LAO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LAO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LBN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LBN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LBR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LBR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LBY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LBY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LCA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LCA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LIE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LIE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LKA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LKA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LSO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LSO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LTU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LTU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LUX</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LUX</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:LVA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:LVA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MAC</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MAC</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MAF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MAF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MAR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MAR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MCO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MCO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MDA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MDA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MDG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MDG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MDV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MDV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MEX</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MEX</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MHL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MHL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:MID</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:MID</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MKD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MKD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MLI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MLI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MLT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MLT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MMR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MMR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MNE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MNE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MNG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MNG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MNP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MNP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MOZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MOZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MRT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MRT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MSR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MSR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MTQ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MTQ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MUS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MWI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MWI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MYS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MYS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:MYT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:MYT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NAM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NAM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NCL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NCL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NER</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NER</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NFK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NFK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NGA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NGA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:NHB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:NHB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NIC</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NIC</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NIU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NIU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NLD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NLD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NOR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NOR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NPL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NPL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NRU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NRU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:NZL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:NZL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:OMN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:OMN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PAK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PAK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PAN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PAN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PCI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PCI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PCN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PCN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PCZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PCZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PER</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PER</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PHL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PHL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PLW</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PLW</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PNG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PNG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:POL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:POL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PRI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PRI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PRK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PRK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PRT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PRT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PRY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PRY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PSE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PSE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:PUS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:PUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:PYF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:PYF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:QAT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:QAT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:REU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:REU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:RHO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:RHO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ROM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ROM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ROU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ROU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:RUS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:RUS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:RWA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:RWA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SAU</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SAU</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SCG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SCG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SDN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SDN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SEN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SEN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SGP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SGP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SGS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AN</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SGS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AN</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SHN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SHN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SJM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SJM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SKM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SKM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SLB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SLB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SLE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SLE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SLV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SLV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SMR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SMR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SOM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SOM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SPM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SPM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SRB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SRB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:STP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:STP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:SUN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:SUN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SUR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SUR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SVK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SVK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SVN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SVN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SWE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SWE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SWZ</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SWZ</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SYC</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SYC</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:SYR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:SYR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TCA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TCA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TCD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TCD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TGO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TGO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:THA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:THA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TJK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TJK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TKL</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TKL</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TKM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TKM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TLS</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TLS</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:TMP</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:TMP</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TON</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TON</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TTO</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TTO</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TUN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TUN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TUR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TUR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TUV</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TUV</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TWN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TWN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:TZA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:TZA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UGA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UGA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UKR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UKR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UMI</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UMI</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:URY</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:URY</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:USA</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:USA</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:UZB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:UZB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VAT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VAT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VCT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VCT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:VDR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:VDR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VEN</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:SA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VEN</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:SA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VGB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VGB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VIR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:NA</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VIR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:NA</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VNM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VNM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:VUT</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:VUT</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:WAK</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:WAK</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:WLF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:WLF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:WSM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:OC</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:WSM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:OC</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:YEM</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:YEM</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:YMD</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AS</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:YMD</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AS</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:YUG</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:EU</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:YUG</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:EU</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ZAF</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ZAF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:3:alpha-3:ZAR</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ZAR</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ZMB</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ZMB</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT">iso:3166:1:alpha-3:ZWE</item>
-			<item const="kTAG_PREDICATE">:SUBSET-OF</item>
-			<item const="kTAG_OBJECT">iso:3166:continent:AF</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ZWE</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBSET-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 	</META>
 </ONTOLOGY>

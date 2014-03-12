@@ -523,12 +523,20 @@ class Wrapper extends Dictionary
 	 * for the entities and the data databases: be aware that by doing so you might render
 	 * these databases useless</em></b>.
 	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
 	 * @access public
 	 *
 	 * @throws Exception
 	 */
-	public function resetOntology()
+	public function resetOntology( $doLog = FALSE )
 	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting ontology.\n" );
+		
 		//
 		// Check if object is connected.
 		//
@@ -540,39 +548,61 @@ class Wrapper extends Dictionary
 		//
 		// Reset the tag cache.
 		//
+		if( $doLog )
+			echo( "  • Flushing data dictionary.\n" );
 		$this->dictionaryFlush( 0 );
 		
 		//
-		// Resety tag collection.
+		// Reset collections.
 		//
+		if( $doLog )
+			echo( "  • Resetting collections.\n" );
 		Tag::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset term collection.
-		//
 		Term::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset node collection.
-		//
 		Node::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset edge collection.
-		//
 		Edge::ResetCollection( $this->mMetadata );
 		
 		//
 		// Load XML files.
 		//
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Types.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Domains.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Predicates.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/NodeTypes.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml' );
+		if( $doLog )
+			echo( "  • Loading default XML files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Domains.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Predicates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/TermTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/NodeTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 		
 		//
 		// Set sequence number.
@@ -684,6 +714,248 @@ class Wrapper extends Dictionary
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC ONTOLOGY UTILITIES INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	copyRelationships																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Copy relationships from one node to another</h4>
+	 *
+	 * This method can be used to copy all the relationships of a given predicate affecting
+	 * one node to another node. The method will select the source node relationships of the
+	 * provided predicate and direction, it will duplicate these relationships, it will
+	 * substitute the source node with the destination node and replace the source predicate
+	 * with the destination predicate.
+	 *
+	 * The method expects these parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSrcNode</b>: Source node or list of nodes. This represents the original
+	 *		relationships vertex.
+	 *	<li><b>$theSrcPredicate</b>: Source relationship predicate term reference or list.
+	 *	<li><b>$theSrcDirection</b>: Source relationship direction:
+	 *	 <ul>
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships pointing to the
+	 *			source node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_OUT}</tt>: All relationships originating from
+	 *			the source node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: Both of the above.
+	 *	 </ul>
+	 * </ul>
+	 *	<li><b>$theDstNode</b>: Destination node reference.
+	 *	<li><b>$theDstPredicate</b>: Destination relationship predicate term reference.
+	 *	<li><b>$theDstDirection</b>: Destination relationship direction:
+	 *	 <ul>
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships will point to the
+	 *			destination node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_OUT}</tt>: All relationships will originate
+	 *			from the destination node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: Both of the above.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * To resolve both source and destination nodes, the method will perform the following
+	 * steps:
+	 *
+	 * <ol>
+	 *	<li>If the reference is a node object, it will be used.
+	 *	<li>If the reference is an integer, it will be considered as the node's native
+	 *		identifier.
+	 *	<li>The reference will be converted to a string:
+	 *	 <ol>
+	 *		<li>The reference will be considered the node's term global identifier (note
+	 *			that in this case we are targeting master nodes).
+	 *		<li>The reference will be considered the node's persistent identifier.
+	 *	 </ol>
+	 * </ol>
+	 *
+	 * If any of the provided nodes cannot be resolved, the method will raise an exception.
+	 *
+	 * @param mixed					$theSrcNode			Source relationship vertex(s).
+	 * @param mixed					$theSrcPredicate	Source predicate(s).
+	 * @param string				$theSrcDirection	Source relationship direction.
+	 * @param mixed					$theDstNode			Destination relationship vertex(s).
+	 * @param mixed					$theDstPredicate	Destination predicate(s).
+	 * @param string				$theDstDirection	Destination relationship direction.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function copyRelationships( $theSrcNode, $theSrcPredicate, $theSrcDirection,
+									   $theDstNode, $theDstPredicate, $theDstDirection )
+	{
+		//
+		// Handle source vertex list.
+		//
+		if( is_array( $theSrcNode ) )
+		{
+			foreach( $theSrcNode as $node )
+				$this->CopyRelationships(
+					$node, $theSrcPredicate, $theSrcDirection,
+					$theDstNode, $theDstPredicate, $theDstDirection );
+		
+		} // List.
+		
+		//
+		// Handle single standard.
+		//
+		else
+		{
+			//
+			// Get database.
+			//
+			$db = $this->GetDatabase();
+			if( ! ($db instanceof CDatabase) )
+				throw new Exception
+					( "Unable to retrieve database connection",
+					  kERROR_STATE );											// !@! ==>
+			
+			//
+			// Look for enumerated set.
+			// Note that if the node cannot be resolved,
+			// the method will raise an exception.
+			//
+			$tmp = $theSrcNode;
+			$theSrcNode = COntologyMasterNode::Resolve( $db, $tmp, FALSE );
+			if( $theSrcNode === NULL )
+				$theSrcNode = COntologyNode::ResolvePID( $db, $tmp, TRUE, TRUE );
+			
+			//
+			// Look for enumerated set receiver.
+			// Note that if the node cannot be resolved,
+			// the method will raise an exception.
+			//
+			$tmp = $theDstNode;
+			$theDstNode = COntologyMasterNode::Resolve( $db, $tmp, FALSE );
+			if( $theDstNode === NULL )
+				$theDstNode = COntologyNode::ResolvePID( $db, $tmp, TRUE, TRUE );
+		
+			//
+			// Resolve predicate.
+			//
+			$thePredicate = COntologyTerm::Resolve( $db, kPREDICATE_ENUM_OF, NULL, TRUE );
+			
+			//
+			// Get container.
+			//
+			$container = COntologyEdge::DefaultContainer( $db );
+			
+			//
+			// Instantiate query.
+			//
+			$query = $container->NewQuery();
+			
+			//
+			// Add predicate match.
+			//
+			$query->AppendStatement(
+				CStatement::Equals(
+					kTAG_PREDICATE, $thePredicate->NID(), kTYPE_BINARY_STRING ),
+				kOPERATOR_AND );
+		
+			//
+			// Resolve direction.
+			//
+			switch( $theDirection )
+			{
+				case kTYPE_RELATION_IN:
+					$query->AppendStatement(
+						CStatement::Equals( kTAG_OBJECT, $theSrcNode->NID() ),
+						kOPERATOR_AND );
+					break;
+					
+				case kTYPE_RELATION_OUT:
+					$query->AppendStatement(
+						CStatement::Equals( kTAG_SUBJECT, $theSrcNode->NID() ),
+						kOPERATOR_AND );
+					break;
+					
+				case kTYPE_RELATION_ALL:
+					$query->AppendStatement(
+						CStatement::Equals( kTAG_OBJECT, $theSrcNode->NID() ),
+						kOPERATOR_OR );
+					$query->AppendStatement(
+						CStatement::Equals( kTAG_SUBJECT, $theSrcNode->NID() ),
+						kOPERATOR_OR );
+					break;
+				
+				default:
+					throw new Exception
+						( "Invalid or unsupported relationship direction code",
+						  kERROR_PARAMETER );									// !@! ==>
+			}
+			
+			//
+			// Perform query.
+			//
+			$rs = $container-> Query( $query, array( kTAG_SUBJECT ) );
+			
+			//
+			// Build relationships.
+			//
+			foreach( $rs as $edge )
+			{
+				//
+				// Instantiate empty edge.
+				//
+				$new = new COntologyEdge();
+				
+				//
+				// Set subject and object.
+				//
+				switch( $theDirection )
+				{
+					case kTYPE_RELATION_IN:
+						$new->Subject( $edge[ kTAG_SUBJECT ] );
+						$new->Object( $theDstNode );
+						break;
+				
+					case kTYPE_RELATION_OUT:
+						$new->Subject( $theDstNode );
+						$new->Object( $edge[ kTAG_OBJECT ] );
+						break;
+				
+					case kTYPE_RELATION_ALL:
+						if( $edge->Subject() == $theSrcNode->NID() )
+						{
+							$new->Subject( $theDstNode );
+							$new->Object( $edge[ kTAG_OBJECT ] );
+						}
+						else
+						{
+							$new->Subject( $edge[ kTAG_SUBJECT ] );
+							$new->Object( $theDstNode );
+						}
+						break;
+				}
+				
+				//
+				// Set predicate.
+				//
+				$new->Predicate( $thePredicate );
+				
+				//
+				// Insert relationship.
+				//
+				$new->Insert( $container );
+			
+			} // Iterating source relationships.
+		
+		} // Scalar.
+
+	} // copyRelationships.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC STANDARDS INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -699,12 +971,20 @@ class Wrapper extends Dictionary
 	 *
 	 * This method can be used to load the ISO standards.
 	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
 	 * @access public
 	 *
 	 * @throws Exception
 	 */
-	public function loadISOStandards()
+	public function loadISOStandards( $doLog = FALSE )
 	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading ISO standards.\n" );
+		
 		//
 		// Check if object is connected.
 		//
@@ -716,14 +996,91 @@ class Wrapper extends Dictionary
 		//
 		// Load default XML files.
 		//
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/Namespaces.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/Tags.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO639.types.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO639.tags.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO3166.types.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO3166.tags.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO4217.types.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/iso/ISO15924.types.xml' );
+		if( $doLog )
+			echo( "  • Loading default XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO639.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO639.tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166.tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO4217.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO15924.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO639 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO639 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-1.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2B.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2T.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load cross references.
+		//
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO3166 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO3166 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-alpha3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-alpha2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 	
 	} // loadISOStandards.
 
