@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	WBI NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- WBI -->
+	<META>
+		<TERM LID="WBI">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">World Bank Institute</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The World Bank Institute (WBI) is a global connector of knowledge, learning and innovation for poverty reduction. It is part of the World Bank Group. It connects practitioners, networks and institutions to help them find solutions to their development challenges.</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

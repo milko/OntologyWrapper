@@ -736,9 +736,10 @@ class Wrapper extends Dictionary
 	 * The method expects these parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theSrcNode</b>: Source node or list of nodes. This represents the original
-	 *		relationships vertex.
-	 *	<li><b>$theSrcPredicate</b>: Source relationship predicate term reference or list.
+	 *	<li><b>$theSrcNode</b>: Source node or list of node native identifiers. This
+	 *		represents the original relationships vertex.
+	 *	<li><b>$theSrcPredicate</b>: Source relationship predicate term native identifier
+	 *		or list.
 	 *	<li><b>$theSrcDirection</b>: Source relationship direction:
 	 *	 <ul>
 	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships pointing to the
@@ -748,40 +749,30 @@ class Wrapper extends Dictionary
 	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: Both of the above.
 	 *	 </ul>
 	 * </ul>
-	 *	<li><b>$theDstNode</b>: Destination node reference.
-	 *	<li><b>$theDstPredicate</b>: Destination relationship predicate term reference.
+	 *	<li><b>$theDstNode</b>: Destination node native identifier.
+	 *	<li><b>$theDstPredicate</b>: Destination relationship predicate term native
+	 *		identifier.
 	 *	<li><b>$theDstDirection</b>: Destination relationship direction:
 	 *	 <ul>
 	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships will point to the
 	 *			destination node.
 	 *		<li><tt>{@link kTYPE_RELATIONSHIP_OUT}</tt>: All relationships will originate
 	 *			from the destination node.
-	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: Both of the above.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: The vertex holding the source node
+	 *			will be replaced with the destination node.
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * To resolve both source and destination nodes, the method will perform the following
-	 * steps:
+	 * The created {@link Edge} objects will be set exclusively with the predicate and
+	 * vertices.
 	 *
-	 * <ol>
-	 *	<li>If the reference is a node object, it will be used.
-	 *	<li>If the reference is an integer, it will be considered as the node's native
-	 *		identifier.
-	 *	<li>The reference will be converted to a string:
-	 *	 <ol>
-	 *		<li>The reference will be considered the node's term global identifier (note
-	 *			that in this case we are targeting master nodes).
-	 *		<li>The reference will be considered the node's persistent identifier.
-	 *	 </ol>
-	 * </ol>
-	 *
-	 * If any of the provided nodes cannot be resolved, the method will raise an exception.
+	 * If there will be resulting duplicate edges, the method will raise an exception.
 	 *
 	 * @param mixed					$theSrcNode			Source relationship vertex(s).
 	 * @param mixed					$theSrcPredicate	Source predicate(s).
 	 * @param string				$theSrcDirection	Source relationship direction.
-	 * @param mixed					$theDstNode			Destination relationship vertex(s).
-	 * @param mixed					$theDstPredicate	Destination predicate(s).
+	 * @param int					$theDstNode			Destination relationship vertex.
+	 * @param string				$theDstPredicate	Destination predicate.
 	 * @param string				$theDstDirection	Destination relationship direction.
 	 *
 	 * @access public
@@ -809,142 +800,97 @@ class Wrapper extends Dictionary
 		else
 		{
 			//
-			// Get database.
+			// Normalise source predicate.
 			//
-			$db = $this->GetDatabase();
-			if( ! ($db instanceof CDatabase) )
-				throw new Exception
-					( "Unable to retrieve database connection",
-					  kERROR_STATE );											// !@! ==>
+			if( ! is_array( $theSrcPredicate ) )
+				$theSrcPredicate = array( $theSrcPredicate );
 			
 			//
-			// Look for enumerated set.
-			// Note that if the node cannot be resolved,
-			// the method will raise an exception.
+			// Resolve edges collection.
 			//
-			$tmp = $theSrcNode;
-			$theSrcNode = COntologyMasterNode::Resolve( $db, $tmp, FALSE );
-			if( $theSrcNode === NULL )
-				$theSrcNode = COntologyNode::ResolvePID( $db, $tmp, TRUE, TRUE );
+			$collection
+				= Edge::ResolveCollection(
+					Edge::ResolveDatabase( $this, TRUE ) );
 			
 			//
-			// Look for enumerated set receiver.
-			// Note that if the node cannot be resolved,
-			// the method will raise an exception.
+			// Set criteria.
 			//
-			$tmp = $theDstNode;
-			$theDstNode = COntologyMasterNode::Resolve( $db, $tmp, FALSE );
-			if( $theDstNode === NULL )
-				$theDstNode = COntologyNode::ResolvePID( $db, $tmp, TRUE, TRUE );
-		
-			//
-			// Resolve predicate.
-			//
-			$thePredicate = COntologyTerm::Resolve( $db, kPREDICATE_ENUM_OF, NULL, TRUE );
-			
-			//
-			// Get container.
-			//
-			$container = COntologyEdge::DefaultContainer( $db );
-			
-			//
-			// Instantiate query.
-			//
-			$query = $container->NewQuery();
-			
-			//
-			// Add predicate match.
-			//
-			$query->AppendStatement(
-				CStatement::Equals(
-					kTAG_PREDICATE, $thePredicate->NID(), kTYPE_BINARY_STRING ),
-				kOPERATOR_AND );
-		
-			//
-			// Resolve direction.
-			//
-			switch( $theDirection )
+			switch( $theSrcDirection )
 			{
-				case kTYPE_RELATION_IN:
-					$query->AppendStatement(
-						CStatement::Equals( kTAG_OBJECT, $theSrcNode->NID() ),
-						kOPERATOR_AND );
+				case kTYPE_RELATIONSHIP_IN:
+					$criteria = array( kTAG_OBJECT => (int) $theSrcNode );
 					break;
-					
-				case kTYPE_RELATION_OUT:
-					$query->AppendStatement(
-						CStatement::Equals( kTAG_SUBJECT, $theSrcNode->NID() ),
-						kOPERATOR_AND );
+				
+				case kTYPE_RELATIONSHIP_OUT:
+					$criteria = array( kTAG_SUBJECT => (int) $theSrcNode );
 					break;
-					
-				case kTYPE_RELATION_ALL:
-					$query->AppendStatement(
-						CStatement::Equals( kTAG_OBJECT, $theSrcNode->NID() ),
-						kOPERATOR_OR );
-					$query->AppendStatement(
-						CStatement::Equals( kTAG_SUBJECT, $theSrcNode->NID() ),
-						kOPERATOR_OR );
+				
+				case kTYPE_RELATIONSHIP_ALL:
+					$criteria
+						= array( '$or' => array(
+							array( kTAG_SUBJECT => (int) $theSrcNode ),
+							array( kTAG_OBJECT => (int) $theSrcNode ) ) );
 					break;
 				
 				default:
 					throw new Exception
-						( "Invalid or unsupported relationship direction code",
-						  kERROR_PARAMETER );									// !@! ==>
-			}
+						( "Invalid source relationship direction" );			// !@! ==>
+			
+			} // Parsed direction.
 			
 			//
-			// Perform query.
+			// Add predicates filter.
 			//
-			$rs = $container-> Query( $query, array( kTAG_SUBJECT ) );
+			$criteria[ kTAG_PREDICATE ] = array( '$in' => $theSrcPredicate );
 			
 			//
-			// Build relationships.
+			// Iterate source relationships.
 			//
-			foreach( $rs as $edge )
+			$rs = $collection->matchAll( $criteria, kQUERY_ARRAY );
+			foreach( $rs as $source )
 			{
 				//
-				// Instantiate empty edge.
+				// Instantiate object.
 				//
-				$new = new COntologyEdge();
+				$object = new Edge( $this );
 				
 				//
-				// Set subject and object.
+				// Init object data.
 				//
-				switch( $theDirection )
+				$object[ kTAG_SUBJECT ] = $source[ kTAG_SUBJECT ];
+				$object[ kTAG_PREDICATE ] = $theDstPredicate;
+				$object[ kTAG_OBJECT ] = $source[ kTAG_OBJECT ];
+				
+				//
+				// Set vertex.
+				//
+				switch( $theDstDirection )
 				{
-					case kTYPE_RELATION_IN:
-						$new->Subject( $edge[ kTAG_SUBJECT ] );
-						$new->Object( $theDstNode );
+					case kTYPE_RELATIONSHIP_IN:
+						$object[ kTAG_OBJECT ] = (int) $theDstNode;
 						break;
 				
-					case kTYPE_RELATION_OUT:
-						$new->Subject( $theDstNode );
-						$new->Object( $edge[ kTAG_OBJECT ] );
+					case kTYPE_RELATIONSHIP_OUT:
+						$object[ kTAG_SUBJECT ] = (int) $theDstNode;
 						break;
 				
-					case kTYPE_RELATION_ALL:
-						if( $edge->Subject() == $theSrcNode->NID() )
-						{
-							$new->Subject( $theDstNode );
-							$new->Object( $edge[ kTAG_OBJECT ] );
-						}
+					case kTYPE_RELATIONSHIP_ALL:
+						if( $source[ kTAG_SUBJECT ] == (int) $theSrcNode )
+							$object[ kTAG_SUBJECT ] = (int) $theDstNode;
 						else
-						{
-							$new->Subject( $edge[ kTAG_SUBJECT ] );
-							$new->Object( $theDstNode );
-						}
+							$object[ kTAG_OBJECT ] = (int) $theDstNode;
 						break;
-				}
+				
+					default:
+						throw new Exception
+							( "Invalid destination relationship direction" );	// !@! ==>
+			
+				} // Parsed direction.
 				
 				//
-				// Set predicate.
+				// Commit object.
 				//
-				$new->Predicate( $thePredicate );
-				
-				//
-				// Insert relationship.
-				//
-				$new->Insert( $container );
+				$object->commit();
 			
 			} // Iterating source relationships.
 		
@@ -1079,6 +1025,86 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-alpha3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-alpha4.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Populate the ISO 3166 alpha-3 aggregated countries.
+		//
+		if( $doLog )
+			echo( "    - Merge ISO:3166:alpha-3 enumerations\n" );
+		$this->copyRelationships(
+			array( Node::GetTermMaster( $this,
+										'iso:3166:1:alpha-3',
+										kQUERY_ASSERT | kQUERY_NID ),
+				   Node::GetTermMaster( $this,
+				   						'iso:3166:3:alpha-3',
+				   						kQUERY_ASSERT | kQUERY_NID ) ),
+			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN,
+			Node::GetTermMaster( $this, 'iso:3166:alpha-3', kQUERY_ASSERT | kQUERY_NID ),
+			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN );
+		
+		//
+		// Load generated ISO4217 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO4217 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-A-alpha.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-A-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-H-alpha.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-H-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO15924 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO15924 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-alpha4.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-xref.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
@@ -1308,6 +1334,13 @@ class Wrapper extends Dictionary
 	 */
 	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
+		//
+		// Check if updating.
+		//
+		$mod = isset( $theXML[ 'modify' ] );
+		if( $mod )
+			$id = $attributes[ 'modify' ];
+		
 		//
 		// Instantiate tag.
 		//

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	WBI LENDING GROUPS
+	WBI-lending.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<META>
+		<!-- WBI:LENDING -->
+		<TERM NS="WBI" LID="LENDING">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Lending classification group</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">World Bank Institute lending classification group.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lending classification group type.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">WBI:GROUP</item>
+		</EDGE>
+	</META>
+	
+	<!-- WBI:LENDING:ARB -->
+	<META>
+		<TERM NS="WBI:LENDING" LID="IDA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Deeply concessional</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
+			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+		</EDGE>
+	</META>
+	
+	<!-- WBI:LENDING:IBRD -->
+	<META>
+		<TERM NS="WBI:LENDING" LID="IBRD">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Non concessional</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
+			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+		</EDGE>
+	</META>
+	
+	<!-- WBI:LENDING:Blend -->
+	<META>
+		<TERM NS="WBI:LENDING" LID="Blend">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Eligible for IDA loans</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE class="COntologyMasterVertex">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
+			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+		</EDGE>
+	</META>
+</METADATA>

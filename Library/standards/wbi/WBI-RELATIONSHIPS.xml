@@ -1,0 +1,2956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	WBI CROSS REFERENCES
+	WBI-RELATIONSHIPS.xml
+-->
+<ONTOLOGY
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Ontology.xsd">
+	
+	<!-- iso:3166 -->
+	
+	<UNIT>
+		<TERM modify="iso:3166:1:alpha-3:DZA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:NAF</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BHR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:COM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:DJI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:EGY">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:NAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IRQ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:JOR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KWT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LBN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LBY">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:NAF</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MRT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MAR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:NAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:OMN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:QAT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SAU">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SOM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SDN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SYR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TUN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:NAF</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ARE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PSE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:YEM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ARB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ATG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CUB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:DMA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:DOM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GRD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:HTI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:JAM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LCA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:VCT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:CRB</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BHS">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BRB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BLZ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GUY">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SAM</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KNA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SUR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TTO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CSS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AGO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CMR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CAF">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TCD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TCD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:COG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GAB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:STP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CFR</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CRI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SLV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GTM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:HND">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MEX">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OED</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NIC">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PAN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAM</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KAZ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAS</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KGZ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CAS</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TJK">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:CAS</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TKM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:CAS</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:UZB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:CAS</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BWA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BDI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ERI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ETH">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KEN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LSO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MDG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MWI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MUS">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MOZ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NAM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:RWA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SYC">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ZAF">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SSD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SWZ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TZA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:UGA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ZMB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ZWE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:ESA</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ASM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AUS">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BRN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KHM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CHN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:ESS</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:FJI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PYF">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GUM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:HKG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IDN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:JPN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KIR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PRK">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:ESS</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:KOR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LAO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MAC">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MYS">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MHL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:FSM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MNG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:ESS</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MMR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MNP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NCL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NZL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PLW">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PNG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PHL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:WSM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SGP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SLB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TWN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:THA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:3:alpha-3:TMP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TON">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TUV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:VUT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:PAC</item>
+				<item>WBI:INCOME:PSS</item>
+				<item>WBI:INCOME:SST</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:VNM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:EAS</item>
+				<item>WBI:INCOME:EAP</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BLR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BGR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LVA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LTU">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MDA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:3:alpha-3:ROM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:RUS">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:UKR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:EER</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AUT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BEL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CYP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:EST">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:FIN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:FRA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:DEU">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GRC">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IRL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ITA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LUX">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MLT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:MEA</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NLD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PRT">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SVK">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SVN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ESP">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:EMU</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ALB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AND">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ARM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AZE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BIH">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:HRV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CZE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:DNK">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:FRO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GEO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GRL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:HUN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ISL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IMN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LIE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MKD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MCO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MNE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NOR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:POL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SMR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SRB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SWE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CHE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TUR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:ECA</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OED</item>
+				<item>WBI:INCOME:SER</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GBR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:ECS</item>
+				<item>WBI:INCOME:EUU</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:AFG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BEN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BOL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BFA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CIV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GMB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GHA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GIN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GNB">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LBR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MLI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NER">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SEN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SLE">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TGO">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:HPC</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ABW">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BMU">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:NAC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CAN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:NAC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CYM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CUW">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:GNQ">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ISR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PRI">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:SXM">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MAF">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:TCA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:USA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:OEC</item>
+				<item>WBI:INCOME:NAC</item>
+				<item>WBI:INCOME:OED</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:VIR">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:INCOME:HIC</item>
+				<item>WBI:INCOME:NOC</item>
+				<item>WBI:INCOME:LCN</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ARG">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BRA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CHL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OED</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:COL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:ECU">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IRN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MEA</item>
+				<item>WBI:INCOME:MNA</item>
+				<item>WBI:INCOME:MDE</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PRY">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PER">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:URY">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:VEN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IBRD</item>
+				<item>WBI:INCOME:IBD</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:LCN</item>
+				<item>WBI:INCOME:LAC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAM</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:CPV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:IND">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAS</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:PAK">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:LKA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:Blend</item>
+				<item>WBI:INCOME:IBB</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDB</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BGD">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:BTN">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:MDV">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:OSS</item>
+				<item>WBI:INCOME:SST</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+				<item>WBI:INCOME:UMC</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NPL">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LDC</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LIC</item>
+				<item>WBI:INCOME:SAS</item>
+				<item>WBI:INCOME:SAX</item>
+			</item>
+		</TERM>
+		<TERM modify="iso:3166:1:alpha-3:NGA">
+			<item tag="WBI:VERSION">July 2012</item>
+			<item tag="WBI:GROUP">
+				<item>WBI:LENDING:IDA</item>
+				<item>WBI:INCOME:IBT</item>
+				<item>WBI:INCOME:IDX</item>
+				<item>WBI:INCOME:IDA</item>
+				<item>WBI:INCOME:LMY</item>
+				<item>WBI:INCOME:LMC</item>
+				<item>WBI:INCOME:MIC</item>
+				<item>WBI:INCOME:SSF</item>
+				<item>WBI:INCOME:SSA</item>
+				<item>WBI:INCOME:WAF</item>
+			</item>
+		</TERM>
+	</UNIT>
+</ONTOLOGY>

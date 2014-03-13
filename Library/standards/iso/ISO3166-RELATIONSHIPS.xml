@@ -96,11 +96,6 @@
 			<item const="kTAG_PREDICATE">:relationship:predicate:VALID</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1:alpha-3:ETH</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:DJI</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:LEGACY</item>
-			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:AFI</item>
-		</EDGE>
 		
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:RHO</item>
@@ -1778,4 +1773,4 @@
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent:AF</item>
 		</EDGE>
 	</META>
-</ONTOLOGY>
+</METADATA>

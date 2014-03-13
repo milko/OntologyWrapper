@@ -313,6 +313,35 @@ if( kOPTION_VERBOSE )
 			echo( "    - Generating ISO XML files\n" );
 		
 		//
+		// Drop generated XML files.
+		//
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-1.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-2.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-2B.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-2T.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-3.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-xref.xml' );
+		
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha4.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml' );
+		
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-A-alpha.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-A-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-alpha.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-xref.xml' );
+		
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-alpha4.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-xref.xml' );
+		
+		//
 		// Generate ISO parts 1, 2 and 3 standards.
 		//
 		if( kOPTION_VERBOSE )
@@ -390,7 +419,7 @@ if( kOPTION_VERBOSE )
 		//
 		if( kOPTION_VERBOSE )
 			echo( "      WBI-RELATIONSHIPS.xml\n" );
-		_WBIGenerateXMLRelations( $theDirectory );
+		WBIGenerateXMLRelations( $theDirectory );
 		
 	} // GenerateXMLWBIFiles.
 
@@ -634,7 +663,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -709,7 +738,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_1 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -807,7 +836,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1115,7 +1144,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2b );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1248,7 +1277,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2t );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1587,7 +1616,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1656,7 +1685,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1753,7 +1782,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2047,7 +2076,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2116,7 +2145,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_4 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2213,7 +2242,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2422,7 +2451,7 @@ if( kOPTION_VERBOSE )
 					// Get country synonyms.
 					//
 					$term_2 = $xml_2->xpath( "//TERM[@lid='$id_2']" )[ 0 ];
-					$syns = $term_2->xpath( "element[@const='kTAG_SYNONYM']" );
+					$syns = $term_2->xpath( "item[@const='kTAG_SYNONYM']" );
 					if( count( $syns ) )
 					{
 						//
@@ -2500,9 +2529,8 @@ if( kOPTION_VERBOSE )
 									//
 									// Set term type.
 									//
-									$element = $term->addChild( 'item' );
+									$element = $term->addChild( 'item', $type );
 									$element->addAttribute( 'tag', $ns_type );
-									$item = $element->addChild( 'item', $type );
 					
 									//
 									// Set term synonyms.
@@ -2554,7 +2582,7 @@ if( kOPTION_VERBOSE )
 									//
 									$edge = $unit->addChild( 'EDGE' );
 									$element = $edge->addChild(
-										'item', kPREDICATE_SUBCLASS_OF );
+										'item', kPREDICATE_INSTANCE_OF );
 									$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 									$element = $edge->addChild( 'item', $ns_sub );
 									$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2678,7 +2706,7 @@ if( kOPTION_VERBOSE )
 		//
 		$file_13 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
 		$file_33 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml';
-		$file_rel = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-RELATIONSHIPS.xml';
+		$file_rel = $theDirectory."/".kDIR_STANDARDS_ISO.'/ISO3166-RELATIONSHIPS.xml';
 		$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
 		
 		//
@@ -2692,7 +2720,7 @@ if( kOPTION_VERBOSE )
 		//
 		// Handle valid relationsips.
 		//
-		$xpath = "//EDGE/element[.='".kPREDICATE_VALID."']";
+		$xpath = "//EDGE/item[.='".kPREDICATE_VALID."']";
 		$list = $xml_rel->xpath( $xpath );
 		foreach( $list as $element )
 		{
@@ -2701,9 +2729,9 @@ if( kOPTION_VERBOSE )
 			//
 			$edge = $element->xpath( ".." )[ 0 ];
 			$subject = (string) $edge->xpath(
-				"element[@const='kTAG_SUBJECT']" )[ 0 ];
+				"item[@const='kTAG_SUBJECT']" )[ 0 ];
 			$object = (string) $edge->xpath(
-				"element[@const='kTAG_OBJECT']" )[ 0 ];
+				"item[@const='kTAG_OBJECT']" )[ 0 ];
 			
 			//
 			// Get namespaces.
@@ -2961,33 +2989,6 @@ if( kOPTION_VERBOSE )
 						 ? $ns_3n
 						 : $ns_1n;
 			$subject_syn = $subject_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
-			$subject_num = NULL;
-			foreach( $subject_syn->xpath( "item" ) as $item )
-			{
-				if( ctype_digit( (string) $item ) )
-				{
-					$subject_num = (string) $item;
-					break;
-				}
-			}
-			
-			//
-			// Relate numeric codes.
-			//
-			if( $subject_num !== NULL )
-			{
-				$subject_gid = $subject_nns.kTOKEN_NAMESPACE_SEPARATOR.$subject_num;
-				
-				$edge = $unit_xref->addChild( 'EDGE' );
-				$element = $edge->addChild( 'item', $subject_gid );
-				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-				$element->addAttribute( 'node', 'term' );
-				$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
-				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-				$element = $edge->addChild( 'item', $object );
-				$element->addAttribute( 'const', 'kTAG_OBJECT' );
-				$element->addAttribute( 'node', 'term' );
-			}
 		
 		} // Iterating subset relationships.
 		
@@ -3049,7 +3050,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Set target files name.
 			//
-			$file_al = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso217-A-alpha.xml';
+			$file_al = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-A-alpha.xml';
 			$file_an = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-A-numeric.xml';
 			$file_hl = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-alpha.xml';
 			$file_hn = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso4217-H-numeric.xml';
@@ -3152,7 +3153,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_al );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3221,7 +3222,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_an );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3358,7 +3359,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_hl );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3427,7 +3428,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_hn );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3629,7 +3630,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_4 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3698,7 +3699,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBCLASS_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3820,6 +3821,200 @@ if( kOPTION_VERBOSE )
 		} // Found names.
 		
 	} // ISOCollectLanguageElements.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED WBI XML FILE GENERATION INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	WBIGenerateXMLRelations															*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Generate WBI XML relationships</h4>
+	 *
+	 * This method will update the WBI XML cross references file by adding:
+	 *
+	 * <ul>
+	 *	<li><tt>WBI:GROUP</tt>: Add the WBI group tag to all countries.
+	 * </ul>
+	 *
+	 * The method will update the WBI-xref.xml file.
+	 *
+	 * @param string				$theDirectory		Files container directory.
+	 *
+	 * @throws Exception
+	 */
+	function WBIGenerateXMLRelations( $theDirectory )
+	{
+		//
+		// Inform.
+		//
+		if( kOPTION_VERBOSE )
+			echo( "        • WBI relationships\n" );
+	
+		//
+		// Set default namespaces.
+		//
+		$ns_2 = 'iso:3166:1:alpha-2';
+		$ns_3 = 'iso:3166:1:alpha-3';
+		$ns_33 = 'iso:3166:3:alpha-3';
+		$ns_n = 'iso:3166:1:numeric';
+		$ns_3n = 'iso:3166:3:numeric';
+		
+		//
+		// Set target files name.
+		//
+		$file_in = $theDirectory."/".kDIR_STANDARDS_WBI.'/WBI-RELATIONSHIPS.xml';
+		$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
+		$file_33 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml';
+		$file_xref = $theDirectory."/".kDIR_STANDARDS_WBI.'/WBI-xref.xml';
+		
+		//
+		// Open XML structures.
+		//
+		$xml_in = simplexml_load_file( $file_in );
+		$xml_3 = simplexml_load_file( $file_3 );
+		$xml_33 = simplexml_load_file( $file_33 );
+		$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+		
+		//
+		// Iterate terms.
+		//
+		$terms = $xml_in->xpath( "//TERM" );
+		foreach( $terms as $rec_term )
+		{
+			//
+			// Get version.
+			//
+			$version = $rec_term->xpath( "item[@tag='WBI:VERSION']" );
+			$version = ( count( $version ) )
+					 ? (string) $version[ 0 ]
+					 : NULL;
+			
+			//
+			// Get group items.
+			//
+			$items = Array();
+			foreach( $rec_term->xpath( "item[@tag='WBI:GROUP']" )[ 0 ] as $item )
+				$items[ (string) $item ] = (string) $item;
+			
+			//
+			// Get alpha-3 identifiers.
+			//
+			$gid3 = (string) $rec_term[ 'modify' ];
+			$id3 = substr( $gid3, strlen( $gid3 ) - 3 );
+			
+			//
+			// Determine standard.
+			//
+			if( substr( $gid3, 9, 1 ) == '1' )
+			{
+				$xml = $xml_3;
+				$ns = $ns_3;
+			}
+			else
+			{
+				$xml = $xml_33;
+				$ns = $ns_33;
+			}
+			
+			//
+			// Locate country synonyms.
+			//
+			$country_rec = $xml->xpath( "//TERM[@LID='$id3']" )[ 0 ];
+			$syns = $country_rec->xpath( "item[@variable='kTAG_SYNONYMS']" )[ 0 ];
+			
+			//
+			// Build items list.
+			//
+			$list = Array();
+			foreach( $syns as $syn )
+			{
+				//
+				// Normalise.
+				//
+				$syn = (string) $syn;
+				
+				//
+				// Handle part 1.
+				//
+				if( substr( $gid3, 9, 1 ) == '1' )
+					$list[] = ( $id3 != $syn )
+							? ( ( ctype_digit( $syn ) )
+							  ? ($ns_n.kTOKEN_NAMESPACE_SEPARATOR.$syn)
+							  : ($ns_2.kTOKEN_NAMESPACE_SEPARATOR.$syn) )
+							: ($ns_3.kTOKEN_NAMESPACE_SEPARATOR.$syn);
+				
+				//
+				// Handle part 3.
+				//
+				else
+				{
+					if( $id3 == $syn )
+						$list[] = $ns_33.kTOKEN_NAMESPACE_SEPARATOR.$syn;
+					elseif( ctype_digit( $syn ) )
+						$list[] = $ns_3n.kTOKEN_NAMESPACE_SEPARATOR.$syn;
+				
+				} // Part 3.
+			
+			} // Creating aliases.
+			
+			//
+			// Create cross reference unit.
+			//
+			$unit = $xml_xref->addChild( 'UNIT' );
+			
+			//
+			// Iterate enumerations.
+			//
+			foreach( $list as $enum )
+			{
+				//
+				// Create term.
+				//
+				$term = $unit->addChild( 'TERM' );
+				$term->addAttribute( 'modify', $enum );
+				
+				//
+				// Set version.
+				//
+				if( $version !== NULL )
+				{
+					$element = $term->addChild( 'element', htmlspecialchars( $version ) );
+					$element->addAttribute( 'tag', 'WBI:VERSION' );
+				
+				} // Has version.
+				
+				//
+				// Set categories.
+				//
+				if( count( $items ) )
+				{
+					$element = $term->addChild( 'element' );
+					$element->addAttribute( 'tag', 'WBI:GROUP' );
+					
+					foreach( $items as $item )
+						$element->addChild( 'item', $item );
+				
+				} // Has categories.
+			
+			} // Iterating enumerations list.
+			
+		} // Iterating terms.
+		
+		//
+		// Write files.
+		//
+		@unlink( $file_xref ); $xml_xref->asXML( $file_xref );
+		
+	} // WBIGenerateXMLRelations.	
 
 		
 

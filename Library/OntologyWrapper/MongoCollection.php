@@ -231,7 +231,7 @@ class MongoCollection extends CollectionObject
 	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access public
-	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 * @return MongoIterator		Matched data or <tt>NULL</tt>.
 	 */
 	public function matchAll( $theCriteria = Array(),
 							  $theResult = kQUERY_DEFAULT,

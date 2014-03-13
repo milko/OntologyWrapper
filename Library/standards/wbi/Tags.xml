@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	WBI TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- WBI:GROUP -->
+	<META>
+		 <TERM NS="WBI" LID="GROUP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">World Bank Institute classification group</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">For operational and analytical purposes, the World Bank’s main criterion for classifying economies is gross national income (GNI) per capita. In previous editions of our publications, this term was referred to as gross national product, or GNP. Based on its GNI per capita, every economy is classified as low income, middle income (subdivided into lower middle and upper middle), or high income. Other analytical groups based on geographic regions are also used.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>WBI:GROUP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:enum-set</item>
+			</item>
+		</TAG>
+		<NODE tag="WBI:GROUP">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+		</NODE>
+		<NODE term="WBI:GROUP">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:root</item>
+				<item>:type:node:type</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The enumerated set of all income and lending group categories.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- WBI:VERSION -->
+	<META>
+		<TERM NS="WBI" LID="VERSION">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Version</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Classification version.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_PATH">
+				<item node="term">WBI:VERSION</item>
+			</item>
+			<item const="kTAG_TYPE">
+				<item>:type:string</item>
+			</item>
+		</TAG>
+		<NODE tag="WBI:VERSION">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

@@ -35,6 +35,11 @@ require_once( 'styles.inc.php' );
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 
 //
+// Predicate definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
+
+//
 // Session definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
@@ -63,13 +68,17 @@ try
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$meta->drop();
 	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
+	
+	//
+	// Drop metadata.
+	//
+	$meta->drop();
 	
 	//
 	// Reset ontology.

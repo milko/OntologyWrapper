@@ -90,7 +90,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:I</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -122,7 +122,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:M</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -154,7 +154,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:C</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -186,7 +186,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:D</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -218,7 +218,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:R</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -250,7 +250,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:scope:S</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 		<EDGE>
@@ -341,7 +341,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:L</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -373,7 +373,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:E</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -405,7 +405,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:A</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -437,7 +437,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:H</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -469,7 +469,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:C</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -501,7 +501,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:S</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -533,7 +533,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -565,7 +565,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic-like</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>
@@ -597,7 +597,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:639:type:Geographic</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 		<EDGE>

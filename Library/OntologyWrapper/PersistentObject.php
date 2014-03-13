@@ -20,6 +20,13 @@ use OntologyWrapper\CollectionObject;
  *======================================================================================*/
 
 /**
+ * Query flags.
+ *
+ * This file contains the query flag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
+
+/**
  * Persistent object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing objects that can
