@@ -130,7 +130,7 @@ try
 	//
 	if( kOPTION_VERBOSE )
 		echo( "  • Generating WBI standards.\n" );
-//	GenerateXMLWBIFiles( kPATH_STANDARDS_ROOT );
+	GenerateXMLWBIFiles( kPATH_STANDARDS_ROOT );
 	
 	//
 	// Stopwatch.
@@ -413,6 +413,11 @@ if( kOPTION_VERBOSE )
 		//
 		if( kOPTION_VERBOSE )
 			echo( "    - Generating WBI XML files\n" );
+		
+		//
+		// Drop generated XML files.
+		//
+		@unlink( $theDirectory."/".kDIR_STANDARDS_WBI.'/wbi-xref.xml' );
 		
 		//
 		// Generate WBI relationships.
@@ -3842,7 +3847,7 @@ if( kOPTION_VERBOSE )
 	 * This method will update the WBI XML cross references file by adding:
 	 *
 	 * <ul>
-	 *	<li><tt>WBI:GROUP</tt>: Add the WBI group tag to all countries.
+	 *	<li><tt>wbi:group</tt>: Add the WBI group tag to all countries.
 	 * </ul>
 	 *
 	 * The method will update the WBI-xref.xml file.
@@ -3874,7 +3879,7 @@ if( kOPTION_VERBOSE )
 		$file_in = $theDirectory."/".kDIR_STANDARDS_WBI.'/WBI-RELATIONSHIPS.xml';
 		$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
 		$file_33 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml';
-		$file_xref = $theDirectory."/".kDIR_STANDARDS_WBI.'/WBI-xref.xml';
+		$file_xref = $theDirectory."/".kDIR_STANDARDS_WBI.'/wbi-xref.xml';
 		
 		//
 		// Open XML structures.
@@ -3893,7 +3898,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Get version.
 			//
-			$version = $rec_term->xpath( "item[@tag='WBI:VERSION']" );
+			$version = $rec_term->xpath( "item[@tag='wbi:version']" );
 			$version = ( count( $version ) )
 					 ? (string) $version[ 0 ]
 					 : NULL;
@@ -3902,7 +3907,7 @@ if( kOPTION_VERBOSE )
 			// Get group items.
 			//
 			$items = Array();
-			foreach( $rec_term->xpath( "item[@tag='WBI:GROUP']" )[ 0 ] as $item )
+			foreach( $rec_term->xpath( "item[@tag='wbi:group']" )[ 0 ] as $item )
 				$items[ (string) $item ] = (string) $item;
 			
 			//
@@ -3928,8 +3933,8 @@ if( kOPTION_VERBOSE )
 			//
 			// Locate country synonyms.
 			//
-			$country_rec = $xml->xpath( "//TERM[@LID='$id3']" )[ 0 ];
-			$syns = $country_rec->xpath( "item[@variable='kTAG_SYNONYMS']" )[ 0 ];
+			$country_rec = $xml->xpath( "//TERM[@lid='$id3']" )[ 0 ];
+			$syns = $country_rec->xpath( "item[@const='kTAG_SYNONYM']" )[ 0 ];
 			
 			//
 			// Build items list.
@@ -3969,7 +3974,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit = $xml_xref->addChild( 'UNIT' );
+			$unit = $xml_xref->addChild( 'META' );
 			
 			//
 			// Iterate enumerations.
@@ -3987,8 +3992,8 @@ if( kOPTION_VERBOSE )
 				//
 				if( $version !== NULL )
 				{
-					$element = $term->addChild( 'element', htmlspecialchars( $version ) );
-					$element->addAttribute( 'tag', 'WBI:VERSION' );
+					$element = $term->addChild( 'item', htmlspecialchars( $version ) );
+					$element->addAttribute( 'tag', 'wbi:version' );
 				
 				} // Has version.
 				
@@ -3997,8 +4002,8 @@ if( kOPTION_VERBOSE )
 				//
 				if( count( $items ) )
 				{
-					$element = $term->addChild( 'element' );
-					$element->addAttribute( 'tag', 'WBI:GROUP' );
+					$element = $term->addChild( 'item' );
+					$element->addAttribute( 'tag', 'wbi:group' );
 					
 					foreach( $items as $item )
 						$element->addChild( 'item', $item );

@@ -1110,6 +1110,72 @@ class Wrapper extends Dictionary
 	
 	} // loadISOStandards.
 
+	 
+	/*===================================================================================
+	 *	loadWBIStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load WBI standards
+	 *
+	 * This method can be used to load the WBI standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadWBIStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading WBI standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default WBI files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-income.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-lending.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated WBI XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated WBI XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadWBIStandards.
+
 		
 
 /*=======================================================================================
@@ -1339,12 +1405,12 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate tag.
 		//
-		$object = new Tag();
+		$object = new Tag( $this );
 		
 		//
 		// Load properties.
@@ -1353,16 +1419,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
-			$theCache[ Tag::kSEQ_NAME ] = Array();
-		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+				$theCache[ Tag::kSEQ_NAME ] = Array();
+			$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLTag.
 
@@ -1390,29 +1468,21 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate term.
 		//
-		$object = ( $mod )
-			  ? new Term( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Term( $this );
+		$object = new Term( $this );
 		
 		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update term [$id]: "
-			   ."the term does not exist." );									// !@! ==>
-		
-		//
-		// Load attributes.
+		// Handle commit.
 		//
 		if( ! $mod )
 		{
+			//
+			// Load attributes.
+			//
 			$tmp = array( 'ns' => kTAG_NAMESPACE,
 						  'lid' => kTAG_ID_LOCAL,
 						  'pid' => kTAG_NID );
@@ -1421,8 +1491,7 @@ class Wrapper extends Dictionary
 				if( isset( $theXML[ $key ] ) )
 					$object[ $tag ] = (string) $theXML[ $key ];
 			}
-		
-		} // Not modifying.
+		}
 		
 		//
 		// Load properties.
@@ -1431,16 +1500,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
-			$theCache[ Term::kSEQ_NAME ] = Array();
-		$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
+				$theCache[ Term::kSEQ_NAME ] = Array();
+			$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLTerm.
 
@@ -1468,31 +1549,15 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
-		
-		//
-		// Get node class.
-		//
-		$mod = isset( $theXML[ 'class' ] );
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate node.
 		//
-		$object = ( $mod )
-			  ? new Node( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Node( $this );
+		$object = new Node( $this );
 		
 		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update node [$id]: "
-			   ."the node does not exist." );									// !@! ==>
-		
-		//
-		// Load attributes.
+		// Handle commit.
 		//
 		if( ! $mod )
 		{
@@ -1507,7 +1572,7 @@ class Wrapper extends Dictionary
 				if( isset( $theXML[ $key ] ) )
 					$object[ $tag ] = (string) $theXML[ $key ];
 			}
-			
+		
 			//
 			// Get tag or term from cache.
 			//
@@ -1520,22 +1585,21 @@ class Wrapper extends Dictionary
 				if( array_key_exists( Term::kSEQ_NAME, $theCache )
 				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
 					$object[ kTAG_TERM ] = key( $theCache[ Term::kSEQ_NAME ] );
-			
+		
 				//
 				// Check tag.
 				//
 				elseif( array_key_exists( Tag::kSEQ_NAME, $theCache )
 					 && (count( $theCache[ Tag::kSEQ_NAME ] ) == 1) )
 					$object[ kTAG_TAG ] = key( $theCache[ Tag::kSEQ_NAME ] );
-				
+			
 				else
 					throw new \Exception(
 						"Unable to create node: "
 					   ."missing tag and term." );								// !@! ==>
-			
-			} // Not provided with attributes.
 		
-		} // Not modifying.
+			} // Not provided with attributes.
+		}
 		
 		//
 		// Load properties.
@@ -1544,16 +1608,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
-			$theCache[ Node::kSEQ_NAME ] = Array();
-		$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
+				$theCache[ Node::kSEQ_NAME ] = Array();
+			$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLNode.
 
@@ -1581,23 +1657,12 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate edge.
 		//
-		$object = ( $mod )
-			  ? new Edge( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Edge( $this );
-		
-		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update edge [$id]: "
-			   ."the edge does not exist." );									// !@! ==>
+		$object = new Edge( $this );
 		
 		//
 		// Load properties.
@@ -1624,52 +1689,88 @@ class Wrapper extends Dictionary
 		}
 		
 		//
-		// Load predicate from cache.
+		// Handle commit.
 		//
-		if( ! $object->offsetExists( kTAG_PREDICATE ) )
+		if( ! $mod )
 		{
 			//
-			// Check node.
+			// Load predicate from cache.
 			//
-			if( array_key_exists( Term::kSEQ_NAME, $theCache )
-			 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
-				$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
+			if( ! $object->offsetExists( kTAG_PREDICATE ) )
+			{
+				//
+				// Check node.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
 			
-			else
-				throw new \Exception(
-					"Unable to create edge: "
-				   ."missing predicate." );										// !@! ==>
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing predicate." );									// !@! ==>
+			}
+		
+			//
+			// Load predicate from cache.
+			//
+			if( ! $object->offsetExists( kTAG_PREDICATE ) )
+			{
+				//
+				// Check term.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing predicate." );									// !@! ==>
+			}
+		
+			//
+			// Load object from cache.
+			//
+			if( ! $object->offsetExists( kTAG_OBJECT ) )
+			{
+				//
+				// Check node.
+				//
+				if( array_key_exists( Node::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing object." );									// !@! ==>
+			}
 		}
 		
 		//
-		// Load object from cache.
+		// Modify object.
 		//
-		if( ! $object->offsetExists( kTAG_OBJECT ) )
-		{
-			//
-			// Check node.
-			//
-			if( array_key_exists( Node::kSEQ_NAME, $theCache )
-			 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
-				$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
-			
-			else
-				throw new \Exception(
-					"Unable to create edge: "
-				   ."missing object." );										// !@! ==>
-		}
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
 		// Commit object.
 		//
-		$object->commit( $this );
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
 		
-		//
-		// Load cache.
-		//
-		if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
-			$theCache[ Edge::kSEQ_NAME ] = Array();
-		$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
+				$theCache[ Edge::kSEQ_NAME ] = Array();
+			$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLEdge.
 

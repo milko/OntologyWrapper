@@ -358,11 +358,12 @@ class FAOInstitute extends Institution
 	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Wrapper.
+	 * @param boolean				$doVerbose			Display log.
 	 *
 	 * @static
 	 * @return array				Operation statistics.
 	 */
-	static function Maintain( Wrapper $theWrapper )
+	static function Maintain( Wrapper $theWrapper, $doVerbose = FALSE )
 	{
 		//
 		// Init local storage.
@@ -462,13 +463,9 @@ class FAOInstitute extends Institution
 									$new->import( $data, $header );
 									
 									//
-									// Save identifier.
-									//
-									$id = static::FAOIdentifier( $data[ 'INSTCODE' ] );
-									
-									//
 									// Try loading existing.
 									//
+									$id = static::FAOIdentifier( $data[ 'INSTCODE' ] );
 									$criteria = array( kTAG_NID => $id );
 									$old = $collection->matchOne(
 												$criteria, kQUERY_OBJECT );

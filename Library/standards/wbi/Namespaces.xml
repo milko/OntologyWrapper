@@ -9,7 +9,7 @@
 	
 	<!-- WBI -->
 	<META>
-		<TERM LID="WBI">
+		<TERM lid="wbi">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

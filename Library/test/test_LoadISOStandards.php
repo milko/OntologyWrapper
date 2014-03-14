@@ -86,9 +86,14 @@ try
 	$wrapper->resetOntology( TRUE );
 	
 	//
-	// Loas ISO Standards.
+	// Load ISO Standards.
 	//
 	$wrapper->loadISOStandards( TRUE );
+	
+	//
+	// Load WBI Standards.
+	//
+	$wrapper->loadWBIStandards( TRUE );
 }
 
 //

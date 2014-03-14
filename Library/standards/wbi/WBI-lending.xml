@@ -8,8 +8,8 @@
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
 	<META>
-		<!-- WBI:LENDING -->
-		<TERM NS="WBI" LID="LENDING">
+		<!-- wbi:lending -->
+		<TERM ns="wbi" lid="lending">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -36,13 +36,13 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">WBI:GROUP</item>
+			<item const="kTAG_OBJECT" node="term">wbi:group</item>
 		</EDGE>
 	</META>
 	
-	<!-- WBI:LENDING:ARB -->
+	<!-- wbi:lending:ARB -->
 	<META>
-		<TERM NS="WBI:LENDING" LID="IDA">
+		<TERM ns="wbi:lending" lid="IDA">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -57,17 +57,17 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
 		</EDGE>
 	</META>
 	
-	<!-- WBI:LENDING:IBRD -->
+	<!-- wbi:lending:IBRD -->
 	<META>
-		<TERM NS="WBI:LENDING" LID="IBRD">
+		<TERM ns="wbi:lending" lid="IBRD">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -82,17 +82,17 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
 		</EDGE>
 	</META>
 	
-	<!-- WBI:LENDING:Blend -->
+	<!-- wbi:lending:Blend -->
 	<META>
-		<TERM NS="WBI:LENDING" LID="Blend">
+		<TERM ns="wbi:lending" lid="Blend">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -107,11 +107,11 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">WBI:LENDING</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">WBI:GROUP</item>
+			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
 		</EDGE>
 	</META>
 </METADATA>

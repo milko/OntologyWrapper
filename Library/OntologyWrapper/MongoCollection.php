@@ -545,6 +545,119 @@ class MongoCollection extends CollectionObject
 	
 	} // updateTagOffsets.
 
+	 
+	/*===================================================================================
+	 *	replaceOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Replace offsets
+	 *
+	 * In this class we use the <tt>$set</tt> operator.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theProperties		Properties to be added or replaced.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 *
+	 * @throws Exception
+	 */
+	public function replaceOffsets( $theIdentifier, $theProperties )
+	{
+		//
+		// Check offsets.
+		//
+		if( ! is_array( $theProperties ) )
+			throw new \Exception(
+				"Unable to replace properties: "
+			   ."expecting an array." );										// !@! ==>
+		elseif( ! count( $theProperties ) )
+			return 0;																// ==>
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = array( '$set' => $theProperties );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return $ok[ 'n' ];															// ==>
+	
+	} // replaceOffsets.
+
+	 
+	/*===================================================================================
+	 *	deleteOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets
+	 *
+	 * In this class we use the <tt>$unset</tt> operator.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theOffsets			Offsets to be deleted.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	public function deleteOffsets( $theIdentifier, $theOffsets )
+	{
+		//
+		// Check offsets.
+		//
+		if( ! is_array( $theOffsets ) )
+			throw new \Exception(
+				"Unable to delete properties: "
+			   ."expecting an array." );										// !@! ==>
+		elseif( ! count( $theOffsets ) )
+			return 0;																// ==>
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+	
+		//
+		// Set modifications.
+		//
+		$tmp = Array();
+		foreach( $theOffsets as $offset )
+			$tmp[] = array( $offset => '' );
+		$modifications = array( '$unset' => $tmp );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return $ok[ 'n' ];															// ==>
+	
+	} // deleteOffsets.
+
 		
 
 /*=======================================================================================

@@ -68,6 +68,9 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_SYNONYM}</tt>: <em>Synonyms</em>. This attribute is a <em>set of
  *		strings</em> representing <em>alternate identifiers of this term</em>, not formally
  *		defined in the current data set.
+ *	<li><tt>{@link kTAG_TERM_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
+ *		set</em> which <em>qualifies</em> and sets a <em>context</en> for the current term.
+ *		The individual elements can be managed with the {@link TermType()} method.
  *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master term</em>. This property can be used by
  *		<em>synonym terms</em> to <em>reference</em> a single term which represents an
  *		<em>instance</em> of the current term. The current term will hold only the required
@@ -85,7 +88,8 @@ use OntologyWrapper\CollectionObject;
  * attributes specific to the domain in which the object will operate.
  *
  * The object is considered initialised, {@link isInited()}, if it has at least the local
- * identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL}.
+ * identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL} or the master
+ * {@link kTAG_MASTER}.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
@@ -105,6 +109,13 @@ class Term extends PersistentObject
 	 * We use this trait to handle definitions.
 	 */
 	use	traits\Definition;
+
+	/**
+	 * Type trait.
+	 *
+	 * We use this trait to handle types.
+	 */
+	use	traits\TermType;
 
 	/**
 	 * Synonym trait.
@@ -163,7 +174,8 @@ class Term extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+						 ( \ArrayObject::offsetExists( kTAG_LABEL ) ||
+						   \ArrayObject::offsetExists( kTAG_MASTER ) ) );
 
 	} // Constructor.
 
@@ -443,7 +455,8 @@ class Term extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+						 ( \ArrayObject::offsetExists( kTAG_LABEL ) ||
+						   \ArrayObject::offsetExists( kTAG_MASTER ) ) );
 	
 	} // postOffsetSet.
 
@@ -477,7 +490,8 @@ class Term extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_ID_LOCAL ) &&
-						 \ArrayObject::offsetExists( kTAG_LABEL ) );
+						 ( \ArrayObject::offsetExists( kTAG_LABEL ) ||
+						   \ArrayObject::offsetExists( kTAG_MASTER ) ) );
 	
 	} // postOffsetUnset.
 

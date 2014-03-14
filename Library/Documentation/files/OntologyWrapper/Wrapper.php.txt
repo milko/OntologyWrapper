@@ -12,6 +12,7 @@ use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
 use OntologyWrapper\Node;
 use OntologyWrapper\Edge;
+use OntologyWrapper\FAOInstitute;
 use OntologyWrapper\Dictionary;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
@@ -43,6 +44,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
  * This file contains the default token definitions.
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
+
+/**
+ * ISO definitions.
+ *
+ * This file contains the default ISO definitions.
+ */
+require_once( kPATH_STANDARDS_ROOT."/iso/iso.inc.php" );
 
 /**
  * Wrapper
@@ -515,12 +523,20 @@ class Wrapper extends Dictionary
 	 * for the entities and the data databases: be aware that by doing so you might render
 	 * these databases useless</em></b>.
 	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
 	 * @access public
 	 *
 	 * @throws Exception
 	 */
-	public function resetOntology()
+	public function resetOntology( $doLog = FALSE )
 	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting ontology.\n" );
+		
 		//
 		// Check if object is connected.
 		//
@@ -532,38 +548,66 @@ class Wrapper extends Dictionary
 		//
 		// Reset the tag cache.
 		//
+		if( $doLog )
+			echo( "  • Flushing data dictionary.\n" );
 		$this->dictionaryFlush( 0 );
 		
 		//
-		// Resety tag collection.
+		// Reset collections.
 		//
+		if( $doLog )
+			echo( "  • Resetting collections.\n" );
 		Tag::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset term collection.
-		//
 		Term::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset node collection.
-		//
 		Node::ResetCollection( $this->mMetadata );
-		
-		//
-		// Reset edge collection.
-		//
 		Edge::ResetCollection( $this->mMetadata );
 		
 		//
 		// Load XML files.
 		//
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Namespaces.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Types.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Tags.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Domains.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/Predicates.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml' );
-		$this->loadXMLFile( kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml' );
+		if( $doLog )
+			echo( "  • Loading default XML files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Domains.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Predicates.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/TermTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/NodeTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/EntityTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/EntityKinds.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Set sequence number.
+		//
+		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
 	
 	} // resetOntology.
 
@@ -576,11 +620,12 @@ class Wrapper extends Dictionary
 	 * Reset entities
 	 *
 	 * This method can be used to reset the entities database, it will <b>erase the current
-	 * entities collection</em>.
+	 * entities collection</em> and load the FAO insatitutes.
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
 	 * @access public
+	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
@@ -595,8 +640,14 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Create .
+		// Resety entity collection.
 		//
+		FAOInstitute::ResetCollection( $this->mEntities );
+		
+		//
+		// Load FAO institutes.
+		//
+		return FAOInstitute::Maintain( $this );										// ==>
 	
 	} // resetEntities.
 
@@ -658,6 +709,472 @@ class Wrapper extends Dictionary
 		return FALSE;																// ==>
 	
 	} // resetOntology.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC ONTOLOGY UTILITIES INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	copyRelationships																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Copy relationships from one node to another</h4>
+	 *
+	 * This method can be used to copy all the relationships of a given predicate affecting
+	 * one node to another node. The method will select the source node relationships of the
+	 * provided predicate and direction, it will duplicate these relationships, it will
+	 * substitute the source node with the destination node and replace the source predicate
+	 * with the destination predicate.
+	 *
+	 * The method expects these parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSrcNode</b>: Source node or list of node native identifiers. This
+	 *		represents the original relationships vertex.
+	 *	<li><b>$theSrcPredicate</b>: Source relationship predicate term native identifier
+	 *		or list.
+	 *	<li><b>$theSrcDirection</b>: Source relationship direction:
+	 *	 <ul>
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships pointing to the
+	 *			source node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_OUT}</tt>: All relationships originating from
+	 *			the source node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: Both of the above.
+	 *	 </ul>
+	 * </ul>
+	 *	<li><b>$theDstNode</b>: Destination node native identifier.
+	 *	<li><b>$theDstPredicate</b>: Destination relationship predicate term native
+	 *		identifier.
+	 *	<li><b>$theDstDirection</b>: Destination relationship direction:
+	 *	 <ul>
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_IN}</tt>: All relationships will point to the
+	 *			destination node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_OUT}</tt>: All relationships will originate
+	 *			from the destination node.
+	 *		<li><tt>{@link kTYPE_RELATIONSHIP_ALL}</tt>: The vertex holding the source node
+	 *			will be replaced with the destination node.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The created {@link Edge} objects will be set exclusively with the predicate and
+	 * vertices.
+	 *
+	 * If there will be resulting duplicate edges, the method will raise an exception.
+	 *
+	 * @param mixed					$theSrcNode			Source relationship vertex(s).
+	 * @param mixed					$theSrcPredicate	Source predicate(s).
+	 * @param string				$theSrcDirection	Source relationship direction.
+	 * @param int					$theDstNode			Destination relationship vertex.
+	 * @param string				$theDstPredicate	Destination predicate.
+	 * @param string				$theDstDirection	Destination relationship direction.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function copyRelationships( $theSrcNode, $theSrcPredicate, $theSrcDirection,
+									   $theDstNode, $theDstPredicate, $theDstDirection )
+	{
+		//
+		// Handle source vertex list.
+		//
+		if( is_array( $theSrcNode ) )
+		{
+			foreach( $theSrcNode as $node )
+				$this->CopyRelationships(
+					$node, $theSrcPredicate, $theSrcDirection,
+					$theDstNode, $theDstPredicate, $theDstDirection );
+		
+		} // List.
+		
+		//
+		// Handle single standard.
+		//
+		else
+		{
+			//
+			// Normalise source predicate.
+			//
+			if( ! is_array( $theSrcPredicate ) )
+				$theSrcPredicate = array( $theSrcPredicate );
+			
+			//
+			// Resolve edges collection.
+			//
+			$collection
+				= Edge::ResolveCollection(
+					Edge::ResolveDatabase( $this, TRUE ) );
+			
+			//
+			// Set criteria.
+			//
+			switch( $theSrcDirection )
+			{
+				case kTYPE_RELATIONSHIP_IN:
+					$criteria = array( kTAG_OBJECT => (int) $theSrcNode );
+					break;
+				
+				case kTYPE_RELATIONSHIP_OUT:
+					$criteria = array( kTAG_SUBJECT => (int) $theSrcNode );
+					break;
+				
+				case kTYPE_RELATIONSHIP_ALL:
+					$criteria
+						= array( '$or' => array(
+							array( kTAG_SUBJECT => (int) $theSrcNode ),
+							array( kTAG_OBJECT => (int) $theSrcNode ) ) );
+					break;
+				
+				default:
+					throw new Exception
+						( "Invalid source relationship direction" );			// !@! ==>
+			
+			} // Parsed direction.
+			
+			//
+			// Add predicates filter.
+			//
+			$criteria[ kTAG_PREDICATE ] = array( '$in' => $theSrcPredicate );
+			
+			//
+			// Iterate source relationships.
+			//
+			$rs = $collection->matchAll( $criteria, kQUERY_ARRAY );
+			foreach( $rs as $source )
+			{
+				//
+				// Instantiate object.
+				//
+				$object = new Edge( $this );
+				
+				//
+				// Init object data.
+				//
+				$object[ kTAG_SUBJECT ] = $source[ kTAG_SUBJECT ];
+				$object[ kTAG_PREDICATE ] = $theDstPredicate;
+				$object[ kTAG_OBJECT ] = $source[ kTAG_OBJECT ];
+				
+				//
+				// Set vertex.
+				//
+				switch( $theDstDirection )
+				{
+					case kTYPE_RELATIONSHIP_IN:
+						$object[ kTAG_OBJECT ] = (int) $theDstNode;
+						break;
+				
+					case kTYPE_RELATIONSHIP_OUT:
+						$object[ kTAG_SUBJECT ] = (int) $theDstNode;
+						break;
+				
+					case kTYPE_RELATIONSHIP_ALL:
+						if( $source[ kTAG_SUBJECT ] == (int) $theSrcNode )
+							$object[ kTAG_SUBJECT ] = (int) $theDstNode;
+						else
+							$object[ kTAG_OBJECT ] = (int) $theDstNode;
+						break;
+				
+					default:
+						throw new Exception
+							( "Invalid destination relationship direction" );	// !@! ==>
+			
+				} // Parsed direction.
+				
+				//
+				// Commit object.
+				//
+				$object->commit();
+			
+			} // Iterating source relationships.
+		
+		} // Scalar.
+
+	} // copyRelationships.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC STANDARDS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadISOStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load ISO standards
+	 *
+	 * This method can be used to load the ISO standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadISOStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading ISO standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO639.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO639.tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166.tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO4217.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO15924.types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO639 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO639 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-1.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2B.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2T.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load cross references.
+		//
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO3166 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO3166 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-alpha3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-alpha2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-1-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-alpha3.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-alpha4.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Populate the ISO 3166 alpha-3 aggregated countries.
+		//
+		if( $doLog )
+			echo( "    - Merge ISO:3166:alpha-3 enumerations\n" );
+		$this->copyRelationships(
+			array( Node::GetTermMaster( $this,
+										'iso:3166:1:alpha-3',
+										kQUERY_ASSERT | kQUERY_NID ),
+				   Node::GetTermMaster( $this,
+				   						'iso:3166:3:alpha-3',
+				   						kQUERY_ASSERT | kQUERY_NID ) ),
+			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN,
+			Node::GetTermMaster( $this, 'iso:3166:alpha-3', kQUERY_ASSERT | kQUERY_NID ),
+			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN );
+		
+		//
+		// Load generated ISO4217 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO4217 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-A-alpha.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-A-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-H-alpha.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-H-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso4217-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated ISO15924 XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated ISO15924 XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-alpha4.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-numeric.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso15924-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadISOStandards.
+
+	 
+	/*===================================================================================
+	 *	loadWBIStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load WBI standards
+	 *
+	 * This method can be used to load the WBI standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadWBIStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading WBI standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default WBI files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-income.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-lending.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load generated WBI XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading generated WBI XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/wbi/WBI-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadWBIStandards.
 
 		
 
@@ -737,7 +1254,7 @@ class Wrapper extends Dictionary
 	
 	} // loadXMLFile.
 
-		
+	 
 
 /*=======================================================================================
  *																						*
@@ -884,9 +1401,16 @@ class Wrapper extends Dictionary
 	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
+		// Check if updating.
+		//
+		$mod = isset( $theXML[ 'modify' ] );
+		if( $mod )
+			$id = (string) $theXML[ 'modify' ];
+		
+		//
 		// Instantiate tag.
 		//
-		$object = new Tag();
+		$object = new Tag( $this );
 		
 		//
 		// Load properties.
@@ -895,16 +1419,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
-			$theCache[ Tag::kSEQ_NAME ] = Array();
-		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+				$theCache[ Tag::kSEQ_NAME ] = Array();
+			$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLTag.
 
@@ -932,29 +1468,21 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate term.
 		//
-		$object = ( $mod )
-			  ? new Term( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Term( $this );
+		$object = new Term( $this );
 		
 		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update term [$id]: "
-			   ."the term does not exist." );									// !@! ==>
-		
-		//
-		// Load attributes.
+		// Handle commit.
 		//
 		if( ! $mod )
 		{
+			//
+			// Load attributes.
+			//
 			$tmp = array( 'ns' => kTAG_NAMESPACE,
 						  'lid' => kTAG_ID_LOCAL,
 						  'pid' => kTAG_NID );
@@ -963,8 +1491,7 @@ class Wrapper extends Dictionary
 				if( isset( $theXML[ $key ] ) )
 					$object[ $tag ] = (string) $theXML[ $key ];
 			}
-		
-		} // Not modifying.
+		}
 		
 		//
 		// Load properties.
@@ -973,16 +1500,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
-			$theCache[ Term::kSEQ_NAME ] = Array();
-		$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
+				$theCache[ Term::kSEQ_NAME ] = Array();
+			$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLTerm.
 
@@ -1010,36 +1549,21 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
-		
-		//
-		// Get node class.
-		//
-		$mod = isset( $theXML[ 'class' ] );
-		if( $mod )
-			$class = $attributes[ 'class' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate node.
 		//
-		$object = ( $mod )
-			  ? new $class( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new $class( $this );
+		$object = new Node( $this );
 		
 		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update node [$id]: "
-			   ."the node does not exist." );									// !@! ==>
-		
-		//
-		// Load attributes.
+		// Handle commit.
 		//
 		if( ! $mod )
 		{
+			//
+			// Get tag or term from attributes.
+			//
 			$tmp = array( 'tag' => kTAG_TAG,
 						  'term' => kTAG_TERM,
 						  'pid' => kTAG_ID_PERSISTENT );
@@ -1049,7 +1573,33 @@ class Wrapper extends Dictionary
 					$object[ $tag ] = (string) $theXML[ $key ];
 			}
 		
-		} // Not modifying.
+			//
+			// Get tag or term from cache.
+			//
+			if( (! $object->offsetExists( kTAG_TAG ))
+			 && (! $object->offsetExists( kTAG_TERM )) )
+			{
+				//
+				// Check term.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_TERM ] = key( $theCache[ Term::kSEQ_NAME ] );
+		
+				//
+				// Check tag.
+				//
+				elseif( array_key_exists( Tag::kSEQ_NAME, $theCache )
+					 && (count( $theCache[ Tag::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_TAG ] = key( $theCache[ Tag::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create node: "
+					   ."missing tag and term." );								// !@! ==>
+		
+			} // Not provided with attributes.
+		}
 		
 		//
 		// Load properties.
@@ -1058,16 +1608,28 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Modify object.
 		//
-		$object->commit( $this );
+		if( $mod )
+			$object->modifyAdd( $id );
 		
 		//
-		// Load cache.
+		// Commit object.
 		//
-		if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
-			$theCache[ Node::kSEQ_NAME ] = Array();
-		$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
+				$theCache[ Node::kSEQ_NAME ] = Array();
+			$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLNode.
 
@@ -1095,23 +1657,12 @@ class Wrapper extends Dictionary
 		//
 		$mod = isset( $theXML[ 'modify' ] );
 		if( $mod )
-			$id = $attributes[ 'modify' ];
+			$id = (string) $theXML[ 'modify' ];
 		
 		//
 		// Instantiate edge.
 		//
-		$object = ( $mod )
-			  ? new Edge( $this->Metadata(), $theXML[ 'modify' ] )
-			  : new Edge( $this );
-		
-		//
-		// Assert modifications.
-		//
-		if( $mod
-		 && (! $object->isCommitted()) )
-			throw new \Exception(
-				"Unable to update edge [$id]: "
-			   ."the edge does not exist." );									// !@! ==>
+		$object = new Edge( $this );
 		
 		//
 		// Load properties.
@@ -1120,16 +1671,106 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Commit object.
+		// Load subject from cache.
 		//
-		$object->commit( $this );
+		if( ! $object->offsetExists( kTAG_SUBJECT ) )
+		{
+			//
+			// Check node.
+			//
+			if( array_key_exists( Node::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_SUBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+			
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing subject." );										// !@! ==>
+		}
 		
 		//
-		// Load cache.
+		// Handle commit.
 		//
-		if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
-			$theCache[ Edge::kSEQ_NAME ] = Array();
-		$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		if( ! $mod )
+		{
+			//
+			// Load predicate from cache.
+			//
+			if( ! $object->offsetExists( kTAG_PREDICATE ) )
+			{
+				//
+				// Check node.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing predicate." );									// !@! ==>
+			}
+		
+			//
+			// Load predicate from cache.
+			//
+			if( ! $object->offsetExists( kTAG_PREDICATE ) )
+			{
+				//
+				// Check term.
+				//
+				if( array_key_exists( Term::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing predicate." );									// !@! ==>
+			}
+		
+			//
+			// Load object from cache.
+			//
+			if( ! $object->offsetExists( kTAG_OBJECT ) )
+			{
+				//
+				// Check node.
+				//
+				if( array_key_exists( Node::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+					$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+			
+				else
+					throw new \Exception(
+						"Unable to create edge: "
+					   ."missing object." );									// !@! ==>
+			}
+		}
+		
+		//
+		// Modify object.
+		//
+		if( $mod )
+			$object->modifyAdd( $id );
+		
+		//
+		// Commit object.
+		//
+		else
+		{
+			//
+			// Commit.
+			//
+			$object->commit();
+		
+			//
+			// Load cache.
+			//
+			if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
+				$theCache[ Edge::kSEQ_NAME ] = Array();
+			$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
+		}
 	
 	} // loadXMLEdge.
 
@@ -1205,48 +1846,109 @@ class Wrapper extends Dictionary
 	 * @param reference				$theValue			Receives value.
 	 * @param SimpleXMLElement		$theElement			XML element.
 	 * @param PersistentObject		$theObject			The object to load.
+	 * @param string				$theNode			Node reference type.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
 	protected function parseXMLItem( &$theValue, \SimpleXMLElement $theElement,
-												 PersistentObject  $theObject )
+												 PersistentObject  $theObject,
+												 				   $theNode = NULL )
 	{
 		//
 		// Reset key.
 		//
 		$key = NULL;
-	
+		
 		//
-		// Parse tag constant.
+		// Determine tag.
 		//
-		if( isset( $theElement[ 'const' ] ) )
+		if( isset( $theElement[ 'tag' ] ) )
+			$key = $theObject->resolveOffset( (string) $theElement[ 'tag' ], TRUE );
+		elseif( isset( $theElement[ 'seq' ] ) )
+			$key = (string) $theElement[ 'seq' ];
+		elseif( isset( $theElement[ 'const' ] ) )
 			$key = constant( (string) $theElement[ 'const' ] );
-
+		
 		//
-		// Parse persistent identifier.
-		//
-		elseif( isset( $theElement[ 'pid' ] ) )
-			$key = $theObject->resolveOffset( (string) $theElement[ 'pid' ], TRUE );
-
-		//
-		// Parse sequence number.
-		//
-		elseif( isset( $theElement[ 'tag' ] ) )
-			$key = (string) $theElement[ 'tag' ];
-
-		//
-		// Parse array element key.
+		// Handle array element key.
 		//
 		elseif( isset( $theElement[ 'key' ] ) )
 			$key = (string) $theElement[ 'key' ];
+		
+		//
+		// Handle node reference.
+		//
+		if( isset( $theElement[ 'node' ] ) )
+			$theNode = (string) $theElement[ 'node' ];
 		
 		//
 		// Handle scalar.
 		//
 		if( ! count( $theElement->{'item'} ) )
 		{
+			//
+			// Resolve node.
+			//
+			if( $theNode !== NULL )
+			{
+				//
+				// Parse reference type.
+				//
+				switch( $theNode )
+				{
+					case 'tag':
+						$value
+							= Node::GetTagMaster(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'seq':
+						$value
+							= Node::GetTagMaster(
+								$this,
+								(int) (string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'term':
+						$value
+							= Node::GetTermMaster(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'pid':
+						$value
+							= Node::GetPidNode(
+								$this,
+								(string) $theElement,
+								kQUERY_ASSERT | kQUERY_NID );
+						break;
+				
+					case 'node':
+						$value = (string) $theElement;
+						break;
+					
+					default:
+						throw new \Exception(
+							"Unable to set property: "
+						   ."invalid node reference type [$theNode]." );		// !@! ==>
+				
+				} // Parsed node reference type.
+			
+			} // Node reference.
+			
+			//
+			// Set value.
+			//
+			else
+				$value = (string) $theElement;
+			
 			//
 			// Handle empty value.
 			//
@@ -1256,7 +1958,7 @@ class Wrapper extends Dictionary
 				// Handle key.
 				//
 				if( $key !== NULL )
-					$theValue = array( $key => (string) $theElement );
+					$theValue = array( $key => $value );
 				else
 					throw new \Exception(
 						"Unable to set property: "
@@ -1273,13 +1975,13 @@ class Wrapper extends Dictionary
 				// Handle key.
 				//
 				if( $key !== NULL )
-					$theValue[ $key ] = (string) $theElement;
+					$theValue[ $key ] = $value;
 				
 				//
 				// Handle array element.
 				//
 				else
-					$theValue[] = (string) $theElement;
+					$theValue[] = $value;
 			
 			} // Existing value.
 		
@@ -1321,7 +2023,7 @@ class Wrapper extends Dictionary
 			// Load elements.
 			//
 			foreach( $theElement->{'item'} as $element )
-				$this->parseXMLItem( $value, $element, $theObject );
+				$this->parseXMLItem( $value, $element, $theObject, $theNode );
 	
 		} // Array property.
 	

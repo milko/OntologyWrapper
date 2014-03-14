@@ -692,6 +692,63 @@ abstract class CollectionObject extends ConnectionObject
 	 */
 	abstract public function updateTagOffsets( $theTag, $theOffsets );
 
+	 
+	/*===================================================================================
+	 *	replaceOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Replace offsets
+	 *
+	 * This method should set or replace the provided offsets in the object identified by
+	 * the provided native identifier.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theProperties</b>: The properties to be added or replaced in the object.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theProperties		Properties to be added or replaced.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	abstract public function replaceOffsets( $theIdentifier, $theProperties );
+
+	 
+	/*===================================================================================
+	 *	deleteOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets
+	 *
+	 * This method should delete the provided offsets from the object identified by the
+	 * provided native identifier.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theOffsets</b>: The offsets to be deleted from the object, only the top
+	 *		level offsets, not the offset values.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theOffsets			Offsets to be deleted.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
+
 		
 
 /*=======================================================================================

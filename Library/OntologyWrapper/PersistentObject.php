@@ -558,6 +558,247 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // delete.
 
+	 
+	/*===================================================================================
+	 *	modifyAdd																		*
+	 *==================================================================================*/
+
+	/**
+	 * Add offsets to object
+	 *
+	 * This method can be used to add the properties contained in the current object to an
+	 * object residing in the persistent store, the offsets contained in the current object
+	 * will be added or will replace the offsets contained in the stored object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The original object.
+	 *	<li><b>$theWrapper</b>: The persistent store.
+	 * </ul>
+	 *
+	 * In this method we perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We load the original object, if it not found, the method will raise an exception.
+	 *	<li>We select all offsets that will be replaced in the stored object.
+	 *	<li>We decrement eventual reference counts of the replaced offsets.
+	 *	<li>We add the replaced offsets to the stored object.
+	 *	<li>We add the new offsets to the stored object.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param mixed					$theIdentifier		Original object native identifier.
+	 * @param Wrapper				$theWrapper			Persistent store.
+	 *
+	 * @access public
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	public function modifyAdd( $theIdentifier, $theWrapper = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$class = get_class( $this );
+		
+		//
+		// Handle wrapper.
+		//
+		if( $theWrapper !== NULL )
+		{
+			//
+			// Check wrapper.
+			//
+			if( ! ($theWrapper instanceof Wrapper) )
+				throw new \Exception(
+					"Cannot commit object: "
+				   ."invalid wrapper parameter type." );						// !@! ==>
+			
+			//
+			// Set dictionary wrapper.
+			//
+			$this->dictionary( $theWrapper );
+		
+		} // Provided wrapper
+		
+		//
+		// Use existing wrapper.
+		//
+		elseif( ! ($this->dictionary() instanceof Wrapper) )
+			throw new \Exception(
+				"Cannot commit object: "
+			   ."the object is missing its wrapper." );							// !@! ==>
+		
+		//
+		// Set wrapper.
+		//
+		else
+			$theWrapper = $this->dictionary();
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		//
+		// Load original object.
+		//
+		$saved = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
+										kQUERY_ASSERT | kQUERY_OBJECT );
+		
+		//
+		// Collect persistent offsets.
+		//
+		$offsets_old
+			= array_intersect(
+				$saved->arrayKeys(), $this->arrayKeys() );
+		
+		//
+		// Collect new offsets.
+		//
+		$offsets_new
+			= array_diff(
+				$this->arrayKeys(), $saved->arrayKeys() );
+
+		//
+		// Collect old offsets and references.
+		//
+		$tmp = new $class( $theWrapper );
+		foreach( $offsets_old as $offset )
+			$tmp[ $offset ] = $saved[ $offset ];
+		$tmp->collectProperties( $tags, $refs );
+			
+		//
+		// Update tags and references.
+		//
+		$this->postDeleteReferences( $refs );
+		$this->postDeleteTags( $tags );
+		
+		//
+		// Collect new offsets and references.
+		//
+		$tmp = new $class( $theWrapper );
+		foreach( $offsets_new as $offset )
+			$tmp[ $offset ] = $this[ $offset ];
+		$tmp->collectProperties( $tags, $refs );
+			
+		//
+		// Update tags and references.
+		//
+		$this->postCommitReferences( $refs );
+		$this->postCommitTags( $tags );
+		
+		return $collection->replaceOffsets( $theIdentifier, $tmp->getArrayCopy() );	// ==>
+	
+	} // modifyAdd.
+
+	 
+	/*===================================================================================
+	 *	modifyDel																		*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets to object
+	 *
+	 * This method can be used to delete the provided properties from the current object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffsets</b>: The offsets to be deleted.
+	 *	<li><b>$theWrapper</b>: The persistent store.
+	 * </ul>
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param array					$theOffsets			Offsets list.
+	 * @param Wrapper				$theWrapper			Persistent store.
+	 *
+	 * @access public
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	public function modifyDel( $theOffsets, $theWrapper = NULL )
+	{
+		//
+		// Handle wrapper.
+		//
+		if( $theWrapper !== NULL )
+		{
+			//
+			// Check wrapper.
+			//
+			if( ! ($theWrapper instanceof Wrapper) )
+				throw new \Exception(
+					"Cannot commit object: "
+				   ."invalid wrapper parameter type." );						// !@! ==>
+			
+			//
+			// Set dictionary wrapper.
+			//
+			$this->dictionary( $theWrapper );
+		
+		} // Provided wrapper
+		
+		//
+		// Use existing wrapper.
+		//
+		elseif( ! ($this->dictionary() instanceof Wrapper) )
+			throw new \Exception(
+				"Cannot commit object: "
+			   ."the object is missing its wrapper." );							// !@! ==>
+		
+		//
+		// Set wrapper.
+		//
+		else
+			$theWrapper = $this->dictionary();
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		return $collection->deleteOffsets( $theIdentifier, $theOffsets );			// ==>
+	
+	} // modifyDel.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC STATUS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	committed																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check if object is committed
+	 *
+	 * This method will return <tt>TRUE</tt> if the object is committed.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> is committed.
+	 *
+	 * @uses isCommitted()
+	 */
+	public function committed()							{	return $this->isCommitted();	}
+
 		
 
 /*=======================================================================================
@@ -2159,10 +2400,10 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses loadSubProperties()
 	 */
 	protected function traverseProperty( \Iterator $theIterator,
-													&$theTags,
-													&$theRefs,
-													$doStructs = FALSE,
-													$doSubOffsets = FALSE )
+												  &$theTags,
+												  &$theRefs,
+												   $doStructs = FALSE,
+												   $doSubOffsets = FALSE )
 	{
 		//
 		// Init local storage.

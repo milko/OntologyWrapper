@@ -7,9 +7,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
-	<!-- WBI:GROUP -->
+	<!-- wbi:group -->
 	<META>
-		 <TERM NS="WBI" LID="GROUP">
+		 <TERM ns="wbi" lid="group">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -25,19 +25,19 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>WBI:GROUP</item>
+				<item>wbi:group</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">
 				<item>:type:enum-set</item>
 			</item>
 		</TAG>
-		<NODE tag="WBI:GROUP">
+		<NODE tag="wbi:group">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:feature</item>
 				<item>:type:node:scale</item>
 			</item>
 		</NODE>
-		<NODE term="WBI:GROUP">
+		<NODE term="wbi:group">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:root</item>
 				<item>:type:node:type</item>
@@ -51,9 +51,9 @@
 		</NODE>
 	</META>
 	
-	<!-- WBI:VERSION -->
+	<!-- wbi:version -->
 	<META>
-		<TERM NS="WBI" LID="VERSION">
+		<TERM ns="wbi" lid="version">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -68,14 +68,14 @@
 			</item>
 		</TERM>
 		<TAG>
-			<item const="kTAG_PATH">
-				<item node="term">WBI:VERSION</item>
+			<item const="kTAG_TERMS">
+				<item>wbi:version</item>
 			</item>
-			<item const="kTAG_TYPE">
+			<item const="kTAG_DATA_TYPE">
 				<item>:type:string</item>
 			</item>
 		</TAG>
-		<NODE tag="WBI:VERSION">
+		<NODE tag="wbi:version">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:feature</item>
 				<item>:type:node:scale</item>

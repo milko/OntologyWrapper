@@ -226,6 +226,22 @@ define( "kTYPE_REF_UNIT",						':type:ref:unit' );
 define( "kTYPE_REF_SELF",						':type:ref:self' );
 
 /*=======================================================================================
+ *	DEFAULT TERM TYPES																	*
+ *======================================================================================*/
+
+/**
+ * Instance.
+ *
+ * A metadata instance.
+ *
+ * An instance is a term which represents the actual object that it defines, the term
+ * represents the metadata and instance at the same time. This happens generally with
+ * elements of an enumerated set: an enumerated value instance term will hold data in
+ * addition to metadata regarding the object that it defines.
+ */
+define( "kTYPE_TERM_INSTANCE",					':type:term:instance' );
+
+/*=======================================================================================
  *	DEFAULT NODE TYPES																	*
  *======================================================================================*/
 
@@ -373,19 +389,6 @@ define( "kTYPE_NODE_SCALE",							':type:node:scale' );
 define( "kTYPE_NODE_PROPERTY",						':type:node:property' );
 
 /**
- * Instance.
- *
- * A metadata instance.
- *
- * In general, ontology nodes represent metadata, in some cases nodes may represent actual
- * data: an instance node is a node that represents the metadata and data of an object. An
- * ISO 3166 country code can be considered an enumeration node that constitutes the metadata
- * for the country it represents, but if you store data regarding that country in the node,
- * this may become also an instance node, because it represents the object it defines.
- */
-define( "kTYPE_NODE_INSTANCE",						':type:node:instance' );
-
-/**
  * Enumeration.
  *
  * An element of a controlled vocabulary.
@@ -424,6 +427,35 @@ define( "kTYPE_PRIVATE_IN",						':type:private-in' );
  * and it should not be displayed to clients.
  */
 define( "kTYPE_PRIVATE_OUT",					':type:private-out' );
+
+/*=======================================================================================
+ *	RELATIONSHIP TYPES																	*
+ *======================================================================================*/
+
+/**
+ * Incoming.
+ *
+ * An <i>incoming relationship</i> indicates that the relationship is originating from an
+ * external vertex directed to the current vertex.
+ */
+define( "kTYPE_RELATIONSHIP_IN",				':relationship:in' );
+
+/**
+ * Outgoing.
+ *
+ * An <i>outgoing relationship</i> indicates that the relationship is originating from the
+ * current vertex directed to an external vertex.
+ */
+define( "kTYPE_RELATIONSHIP_OUT",				':relationship:out' );
+
+/**
+ * Cross referenced.
+ *
+ * An <i>cross referenced relationship</i> indicates that the relationship is going in both
+ * directions: from the current vertex to an external vertex and from the external vertex to
+ * the current vertex.
+ */
+define( "kTYPE_RELATIONSHIP_ALL",				':relationship:all' );
 
 
 ?>
