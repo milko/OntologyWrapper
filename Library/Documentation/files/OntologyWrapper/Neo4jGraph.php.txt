@@ -68,7 +68,7 @@ abstract class Neo4jGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	NewNode																			*
+	 *	newNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -81,7 +81,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				The node object.
 	 */
-	public function NewNode( $theProperties = NULL )
+	public function newNode( $theProperties = NULL )
 	{
 		//
 		// Check if connected.
@@ -106,11 +106,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to instantiate node: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // NewNode.
+	} // newNode.
 
 	 
 	/*===================================================================================
-	 *	SetNode																			*
+	 *	setNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -129,7 +129,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return int					The node identifier.
 	 */
-	public function SetNode( $theNode, $theProperties = NULL )
+	public function setNode( $theNode, $theProperties = NULL )
 	{
 		//
 		// Check if connected.
@@ -177,11 +177,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to save node: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // SetNode.
+	} // setNode.
 
 	 
 	/*===================================================================================
-	 *	GetNode																			*
+	 *	getNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -198,7 +198,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				The node object.
 	 */
-	public function GetNode( $theIdentifier, $doThrow = FALSE )
+	public function getNode( $theIdentifier, $doThrow = FALSE )
 	{
 		//
 		// Check if connected.
@@ -235,11 +235,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to get node: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // GetNode.
+	} // getNode.
 
 	 
 	/*===================================================================================
-	 *	DelNode																			*
+	 *	delNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -252,7 +252,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
-	public function DelNode( $theIdentifier )
+	public function delNode( $theIdentifier )
 	{
 		//
 		// Check if connected.
@@ -273,7 +273,7 @@ abstract class Neo4jGraph extends ConnectionObject
 				//
 				// Get node.
 				//
-				$node = $this->GetNode( $theIdentifier );
+				$node = $this->getNode( $theIdentifier );
 				if( $node instanceof Everyman\Neo4j\Node )
 					return $this->mConnection->deleteNode( $node );					// ==>
 			
@@ -291,7 +291,7 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to delete node: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // DelNode.
+	} // delNode.
 
 		
 
@@ -304,7 +304,7 @@ abstract class Neo4jGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	NewEdge																			*
+	 *	newEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -323,7 +323,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				Edge object.
 	 */
-	public function NewEdge( $theSubject, $thePredicate, $theObject, $theProperties = NULL )
+	public function newEdge( $theSubject, $thePredicate, $theObject, $theProperties = NULL )
 	{
 		//
 		// Check if connected.
@@ -360,7 +360,7 @@ abstract class Neo4jGraph extends ConnectionObject
 				// Resolve node.
 				//
 				if( is_integer( $theSubject ) )
-					$theSubject = $this->GetNode( $theSubject );
+					$theSubject = $this->getNode( $theSubject );
 				
 				else
 					throw new \Exception(
@@ -386,7 +386,7 @@ abstract class Neo4jGraph extends ConnectionObject
 				// Resolve node.
 				//
 				if( is_integer( $theObject ) )
-					$theObject = $this->GetNode( $theObject );
+					$theObject = $this->getNode( $theObject );
 				
 				else
 					throw new \Exception(
@@ -431,11 +431,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to instantiate edge object: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // NewEdge.
+	} // newEdge.
 
 	 
 	/*===================================================================================
-	 *	SetEdge																			*
+	 *	setEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -448,7 +448,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return int					Edge identifier.
 	 */
-	public function SetEdge( $theEdge )
+	public function setEdge( $theEdge )
 	{
 		//
 		// Check if connected.
@@ -477,11 +477,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to save edge: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // SetEdge.
+	} // setEdge.
 
 	 
 	/*===================================================================================
-	 *	GetEdge																			*
+	 *	getEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -496,7 +496,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				Edge object.
 	 */
-	public function GetEdge( $theIdentifier, $doThrow = FALSE )
+	public function getEdge( $theIdentifier, $doThrow = FALSE )
 	{
 		//
 		// Check if connected.
@@ -533,11 +533,11 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to get edge: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // GetEdge.
+	} // getEdge.
 
 	 
 	/*===================================================================================
-	 *	DelEdge																			*
+	 *	delEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -550,7 +550,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
-	public function DelEdge( $theIdentifier )
+	public function delEdge( $theIdentifier )
 	{
 		//
 		// Check if connected.
@@ -571,7 +571,7 @@ abstract class Neo4jGraph extends ConnectionObject
 				//
 				// Get node.
 				//
-				$edge = $this->GetEdge( $theIdentifier );
+				$edge = $this->getEdge( $theIdentifier );
 				if( $edge instanceof Everyman\Neo4j\Relationship )
 					return $this->mConnection->deleteRelationship( $edge );			// ==>
 			
@@ -589,7 +589,7 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to delete edge: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // DelEdge.
+	} // delEdge.
 
 		
 
@@ -602,7 +602,7 @@ abstract class Neo4jGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	GetNodeProperties																*
+	 *	getNodeProperties																*
 	 *==================================================================================*/
 
 	/**
@@ -616,7 +616,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return array				The node properties
 	 */
-	public function GetNodeProperties( $theNode )
+	public function getNodeProperties( $theNode )
 	{
 		//
 		// Check if connected.
@@ -628,7 +628,7 @@ abstract class Neo4jGraph extends ConnectionObject
 			//
 			if( is_integer( $theNode ) )
 			{
-				$theNode = $this->GetNode( $theNode );
+				$theNode = $this->getNode( $theNode );
 				if( $theNode === NULL )
 					return NULL;													// ==>
 			
@@ -650,7 +650,212 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to get node properties: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // GetNodeProperties.
+	} // getNodeProperties.
+
+	 
+	/*===================================================================================
+	 *	setNodeLabel																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set node label</h4>
+	 *
+	 * This method can be used to set a node's node labels, this feature is specific to
+	 * Neo4j and is not declared in the abstract ancestor.
+	 *
+	 * The method accepts two parameters: the node identifier or the node itself and the
+	 * label or labels to be added.
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * The method will return the full set of labels currently held by the node.
+	 *
+	 * @param mixed					$theNode			Node object or identifier.
+	 * @param mixed					$theLabel			Label or labels.
+	 *
+	 * @access public
+	 * @return array				The node labels.
+	 */
+	public function setNodeLabel( $theNode, $theLabel )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get node.
+			//
+			if( is_integer( $theNode ) )
+			{
+				$theNode = $this->getNode( $theNode );
+				if( $theNode === NULL )
+					throw new \Exception(
+						"Unable to set node label: "
+					   ."unresolved node reference." );							// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Handle node.
+			//
+			if( $theNode instanceof Everyman\Neo4j\Node )
+			{
+				//
+				// Normalise labels.
+				//
+				if( ! is_array( $theLabel ) )
+					$theLabel = array( $theLabel );
+				
+				return $theNode->addLabels( $theLabel );							// ==>
+			
+			} // Correct node type.
+			
+			else
+				throw new \Exception(
+					"Unable to set node label: "
+				   ."provided invalid node object type." );						// !@! ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to set node label: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // setNodeLabel.
+
+	 
+	/*===================================================================================
+	 *	getNodeLabel																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Get node label</h4>
+	 *
+	 * This method can be used to retrieve a node's labels, this feature is specific to
+	 * Neo4j and is not declared in the abstract ancestor.
+	 *
+	 * The method accepts one parameter: the node identifier or the node itself.
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * The method will return the full set of labels currently held by the node.
+	 *
+	 * @param mixed					$theNode			Node object or identifier.
+	 *
+	 * @access public
+	 * @return array				The node labels.
+	 */
+	public function getNodeLabel( $theNode )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get node.
+			//
+			if( is_integer( $theNode ) )
+			{
+				$theNode = $this->getNode( $theNode );
+				if( $theNode === NULL )
+					throw new \Exception(
+						"Unable to get node labels: "
+					   ."unresolved node reference." );							// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Return properties.
+			//
+			if( $theNode instanceof Everyman\Neo4j\Node )
+				return $theNode->getLabels();										// ==>
+			
+			else
+				throw new \Exception(
+					"Unable to get node labels: "
+				   ."provided invalid node object type." );						// !@! ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to get node labels: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // getNodeLabel.
+
+	 
+	/*===================================================================================
+	 *	delNodeLabel																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Delete node label</h4>
+	 *
+	 * This method can be used to delete a node's labels, this feature is specific to
+	 * Neo4j and is not declared in the abstract ancestor.
+	 *
+	 * The method accepts one parameter: the node identifier or the node itself.
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * The method will return the full set of labels held by the node after deleting the
+	 * provided labels.
+	 *
+	 * @param mixed					$theNode			Node object or identifier.
+	 * @param mixed					$theLabel			Label or labels.
+	 *
+	 * @access public
+	 * @return array				The node labels.
+	 */
+	public function delNodeLabel( $theNode, $theLabel )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get node.
+			//
+			if( is_integer( $theNode ) )
+			{
+				$theNode = $this->getNode( $theNode );
+				if( $theNode === NULL )
+					throw new \Exception(
+						"Unable to delete node labels: "
+					   ."unresolved node reference." );							// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Handle node.
+			//
+			if( $theNode instanceof Everyman\Neo4j\Node )
+			{
+				//
+				// Normalise labels.
+				//
+				if( ! is_array( $theLabel ) )
+					$theLabel = array( $theLabel );
+				
+				return $theNode->removeLabels( $theLabel );							// ==>
+			
+			} // Correct node type.
+			
+			else
+				throw new \Exception(
+					"Unable to delete node labels: "
+				   ."provided invalid node object type." );						// !@! ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to delete node labels: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // delNodeLabel.
 
 		
 
@@ -663,7 +868,7 @@ abstract class Neo4jGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	GetNodeEdges																	*
+	 *	getNodeEdges																	*
 	 *==================================================================================*/
 
 	/**
@@ -698,7 +903,7 @@ abstract class Neo4jGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed
 	 */
-	public function GetNodeEdges( $theNode, $thePredicate = NULL,
+	public function getNodeEdges( $theNode, $thePredicate = NULL,
 											$theSense = kTYPE_RELATIONSHIP_ALL )
 	{
 		//
@@ -715,7 +920,7 @@ abstract class Neo4jGraph extends ConnectionObject
 				// Resolve node.
 				//
 				if( is_integer( $theNode ) )
-					$theNode = $this->GetNode( $theNode );
+					$theNode = $this->getNode( $theNode );
 				
 				else
 					throw new \Exception(
@@ -797,7 +1002,7 @@ abstract class Neo4jGraph extends ConnectionObject
 			"Unable to get node edges: "
 		   ."graph is not connected." );										// !@! ==>
 	
-	} // GetNodeEdges.
+	} // getNodeEdges.
 
 	 
 
