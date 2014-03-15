@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\ConnectionObject;
+use OntologyWrapper\DatabaseGraph;
 
 /*=======================================================================================
  *																						*
@@ -19,14 +19,12 @@ use OntologyWrapper\ConnectionObject;
 /**
  * Server object
  *
- * This <i>abstract</i> class is the ancestor of all classes representing graph database
- * instances, this class extends the {@link ConnectionObject} class to implement graph
- * specific functionality prototypes.
+ * This <i>concrete</i> class implements a graph database based on Neo4j.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 14/03/2014
  */
-abstract class Neo4jGraph extends ConnectionObject
+class Neo4jGraph extends DatabaseGraph
 {
 		
 
