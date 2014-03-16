@@ -58,6 +58,17 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
 define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
 
 /*=======================================================================================
+ *	EXTERNAL LIBRARY PATHS																*
+ *======================================================================================*/
+
+/**
+ * Neo4j library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the Neo4j library directory.
+ */
+define( "kPATH_LIBRARY_NEO4J",	"/Library/WebServer/Library/Neo4jphp" );
+
+/*=======================================================================================
  *	DEFAULT LINKS																		*
  *======================================================================================*/
 
@@ -104,5 +115,29 @@ function MyAutoload( $theClassName )
 	} // This librarie's namespace.
 
 } spl_autoload_register( 'MyAutoload' );
+
+/*=======================================================================================
+ *	NEO4J AUTOLOADER																	*
+ *======================================================================================*/
+
+/**
+ * This section allows automatic inclusion of the Neo4j library classes.
+ */
+function Neo4jAutoload( $theClassName )
+{
+	//
+	// Build path.
+	//
+	$_path = kPATH_LIBRARY_NEO4J.'/lib/'
+			.str_replace( '\\', DIRECTORY_SEPARATOR, $theClassName )
+			.'.php';
+	
+	//
+	// Check file.
+	//
+	if( file_exists( $_path ) )
+		require_once( $_path );
+
+} spl_autoload_register( 'Neo4jAutoload' );
 
 ?>

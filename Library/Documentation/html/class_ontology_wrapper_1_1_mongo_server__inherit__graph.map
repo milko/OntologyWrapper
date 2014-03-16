@@ -1,6 +1,0 @@
-<map id="OntologyWrapper\MongoServer" name="OntologyWrapper\MongoServer">
-<area shape="rect" id="node2" href="$class_ontology_wrapper_1_1_server_object.html" title="OntologyWrapper\\ServerObject" alt="" coords="6,345,212,370"/>
-<area shape="rect" id="node3" href="$class_ontology_wrapper_1_1_connection_object.html" title="OntologyWrapper\\Connection\lObject" alt="" coords="11,257,207,295"/>
-<area shape="rect" id="node4" href="$class_ontology_wrapper_1_1_ontology_object.html" title="OntologyWrapper\\Ontology\lObject" alt="" coords="18,169,200,207"/>
-<area shape="rect" id="node5" href="$class_ontology_wrapper_1_1_container_object.html" title="OntologyWrapper\\Container\lObject" alt="" coords="16,81,203,119"/>
-</map>

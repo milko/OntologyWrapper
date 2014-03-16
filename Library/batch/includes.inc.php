@@ -105,4 +105,28 @@ function MyAutoload( $theClassName )
 
 } spl_autoload_register( 'MyAutoload' );
 
+/*=======================================================================================
+ *	NEO4J AUTOLOADER																	*
+ *======================================================================================*/
+
+/**
+ * This section allows automatic inclusion of the Neo4j library classes.
+ */
+function Neo4jAutoload( $theClassName )
+{
+	//
+	// Build path.
+	//
+	$_path = kPATH_LIBRARY_NEO4J.'/lib/'
+			.str_replace( '\\', DIRECTORY_SEPARATOR, $theClassName )
+			.'.php';
+	
+	//
+	// Check file.
+	//
+	if( file_exists( $_path ) )
+		require_once( $_path );
+
+} spl_autoload_register( 'Neo4jAutoload' );
+
 ?>

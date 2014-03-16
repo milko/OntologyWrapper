@@ -59,6 +59,52 @@ class Neo4jGraph extends DatabaseGraph
 
 /*=======================================================================================
  *																						*
+ *									PUBLIC QUERY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	query																			*
+	 *==================================================================================*/
+
+	/**
+	 * Perform a query
+	 *
+	 * This method will perform the provided Cypher query and return the result.
+	 *
+	 * @param string				$theQuery			Cypher query string.
+	 * @param array					$theVariables		Query replacement variables.
+	 *
+	 * @access public
+	 * @return Iterator				Query result set.
+	 */
+	public function query( $theQuery, $theVariables = Array() )
+	{
+		//
+		// Check replacement variables.
+		//
+		if( ! is_array( $theVariables ) )
+			throw new \Exception(
+				"Unable to execute query: "
+			   ."replacement variables are not an array." );					// !@! ==>
+			
+		//
+		// Instantiate Cypher query.
+		//
+		$query = new \Everyman\Neo4j\Cypher\Query( $this->Connection(),
+												   (string) $theQuery,
+												   $theVariables );
+		
+		return $query->getResultSet();												// ==>
+	
+	} // query.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC NODE MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -137,7 +183,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Check node type.
 			//
-			if( ! ($theNode instanceof Everyman\Neo4j\Node) )
+			if( ! ($theNode instanceof \Everyman\Neo4j\Node) )
 				throw new \Exception(
 					"Unable to save node: "
 				   ."provided invalid node object type." );						// !@! ==>
@@ -260,7 +306,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Handle node.
 			//
-			if( $theIdentifier instanceof Everyman\Neo4j\Node )
+			if( $theIdentifier instanceof \Everyman\Neo4j\Node )
 				return $this->mConnection->deleteNode( $theIdentifier );			// ==>
 			
 			//
@@ -272,7 +318,7 @@ class Neo4jGraph extends DatabaseGraph
 				// Get node.
 				//
 				$node = $this->getNode( $theIdentifier );
-				if( $node instanceof Everyman\Neo4j\Node )
+				if( $node instanceof \Everyman\Neo4j\Node )
 					return $this->mConnection->deleteNode( $node );					// ==>
 			
 				return NULL;														// ==>
@@ -352,7 +398,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Resolve subject.
 			//
-			if( ! ($theSubject instanceof Everyman\Neo4j\Node) )
+			if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
 			{
 				//
 				// Resolve node.
@@ -368,7 +414,7 @@ class Neo4jGraph extends DatabaseGraph
 				//
 				// Check node.
 				//
-				if( ! ($theSubject instanceof Everyman\Neo4j\Node) )
+				if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
 					throw new \Exception(
 						"Unable to instantiate edge object: "
 					   ."provided invalid subject node object type." );			// !@! ==>
@@ -378,7 +424,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Resolve object.
 			//
-			if( ! ($theObject instanceof Everyman\Neo4j\Node) )
+			if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
 			{
 				//
 				// Resolve node.
@@ -394,7 +440,7 @@ class Neo4jGraph extends DatabaseGraph
 				//
 				// Check node.
 				//
-				if( ! ($theObject instanceof Everyman\Neo4j\Node) )
+				if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
 					throw new \Exception(
 						"Unable to instantiate edge object: "
 					   ."provided invalid object node object type." );			// !@! ==>
@@ -456,7 +502,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Check edge type.
 			//
-			if( ! ($theEdge instanceof Everyman\Neo4j\Relationship) )
+			if( ! ($theEdge instanceof \Everyman\Neo4j\Relationship) )
 				throw new \Exception(
 					"Unable to save edge: "
 				   ."invalid edge object type." );								// !@! ==>
@@ -558,7 +604,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Handle node.
 			//
-			if( $theIdentifier instanceof Everyman\Neo4j\Relationship )
+			if( $theIdentifier instanceof \Everyman\Neo4j\Relationship )
 				return $this->mConnection->deleteRelationship( $theIdentifier );	// ==>
 			
 			//
@@ -570,7 +616,7 @@ class Neo4jGraph extends DatabaseGraph
 				// Get node.
 				//
 				$edge = $this->getEdge( $theIdentifier );
-				if( $edge instanceof Everyman\Neo4j\Relationship )
+				if( $edge instanceof \Everyman\Neo4j\Relationship )
 					return $this->mConnection->deleteRelationship( $edge );			// ==>
 			
 				return NULL;														// ==>
@@ -597,6 +643,74 @@ class Neo4jGraph extends DatabaseGraph
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	setNodeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set node properties</h4>
+	 *
+	 * In this class we check whether the node is a Neo4j graph node or an integer, in all
+	 * other cases we raise an exception.
+	 *
+	 * @param mixed					$theNode			Node object or reference.
+	 * @param array					$theProperties		Node properties.
+	 *
+	 * @access public
+	 */
+	public function setNodeProperties( $theNode, $theProperties )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get node.
+			//
+			if( is_integer( $theNode ) )
+			{
+				$theNode = $this->getNode( $theNode );
+				if( $theNode === NULL )
+					throw new \Exception(
+						"Unable to set node properties: "
+					   ."unresolved node." );									// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Check node.
+			//
+			if( $theNode instanceof \Everyman\Neo4j\Node )
+			{
+				//
+				// Check properties.
+				//
+				if( is_array( $theProperties ) )
+					$theNode->setProperties( $theProperties );
+			
+				else
+					throw new \Exception(
+						"Unable to set node properties: "
+					   ."provided invalid properties type." );					// !@! ==>
+			
+			} // Correct node.
+			
+			else
+				throw new \Exception(
+					"Unable to set node properties: "
+				   ."provided invalid node object type." );						// !@! ==>
+			
+		} // Is connected.
+		
+		else
+			throw new \Exception(
+				"Unable to set node properties: "
+			   ."graph is not connected." );									// !@! ==>
+	
+	} // setNodeProperties.
 
 	 
 	/*===================================================================================
@@ -635,7 +749,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Return properties.
 			//
-			if( $theNode instanceof Everyman\Neo4j\Node )
+			if( $theNode instanceof \Everyman\Neo4j\Node )
 				return $theNode->getProperties();									// ==>
 			
 			throw new \Exception(
@@ -665,6 +779,9 @@ class Neo4jGraph extends DatabaseGraph
 	 * label or labels to be added.
 	 *
 	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * Note that the node must have been saved before setting the label, or an exception will
+	 * be raised.
 	 *
 	 * The method will return the full set of labels currently held by the node.
 	 *
@@ -697,13 +814,19 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Handle node.
 			//
-			if( $theNode instanceof Everyman\Neo4j\Node )
+			if( $theNode instanceof \Everyman\Neo4j\Node )
 			{
 				//
 				// Normalise labels.
 				//
 				if( ! is_array( $theLabel ) )
 					$theLabel = array( $theLabel );
+				
+				//
+				// Cast labels.
+				//
+				foreach( $theLabel as $key => $value )
+					$theLabel[ $key ] = $this->Connection()->makeLabel( (string) $value );
 				
 				return $theNode->addLabels( $theLabel );							// ==>
 			
@@ -767,8 +890,22 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Return properties.
 			//
-			if( $theNode instanceof Everyman\Neo4j\Node )
-				return $theNode->getLabels();										// ==>
+			if( $theNode instanceof \Everyman\Neo4j\Node )
+			{
+				//
+				// Get label objects.
+				//
+				$labels = $theNode->getLabels();
+				
+				//
+				// Get label names.
+				//
+				foreach( $labels as $key => $value )
+					$labels[ $key ] = $value->getName();
+				
+				return $labels;														// ==>
+			
+			} // Correct type of node.
 			
 			else
 				throw new \Exception(
@@ -830,7 +967,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Handle node.
 			//
-			if( $theNode instanceof Everyman\Neo4j\Node )
+			if( $theNode instanceof \Everyman\Neo4j\Node )
 			{
 				//
 				// Normalise labels.
@@ -912,7 +1049,7 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Resolve node.
 			//
-			if( ! ($theNode instanceof Everyman\Neo4j\Node) )
+			if( ! ($theNode instanceof \Everyman\Neo4j\Node) )
 			{
 				//
 				// Resolve node.
@@ -928,7 +1065,7 @@ class Neo4jGraph extends DatabaseGraph
 				//
 				// Check node.
 				//
-				if( ! ($theNode instanceof Everyman\Neo4j\Node) )
+				if( ! ($theNode instanceof \Everyman\Neo4j\Node) )
 					throw new \Exception(
 						"Unable to get node edges: "
 					   ."node not found." );									// !@! ==>
@@ -970,15 +1107,15 @@ class Neo4jGraph extends DatabaseGraph
 			switch( $theSense )
 			{
 				case kTYPE_RELATIONSHIP_IN:
-					$theSense = Everyman\Neo4j\Relationship::DirectionIn;
+					$theSense = \Everyman\Neo4j\Relationship::DirectionIn;
 					break;
 
 				case kTYPE_RELATIONSHIP_OUT:
-					$theSense = Everyman\Neo4j\Relationship::DirectionOut;
+					$theSense = \Everyman\Neo4j\Relationship::DirectionOut;
 					break;
 
 				case kTYPE_RELATIONSHIP_ALL:
-					$theSense = Everyman\Neo4j\Relationship::DirectionAll;
+					$theSense = \Everyman\Neo4j\Relationship::DirectionAll;
 					break;
 				
 				default:
@@ -1001,6 +1138,43 @@ class Neo4jGraph extends DatabaseGraph
 		   ."graph is not connected." );										// !@! ==>
 	
 	} // getNodeEdges.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Drop graph</h4>
+	 *
+	 * In this class we send a Cypher query to clear the graph.
+	 *
+	 * @access public
+	 */
+	public function drop()
+	{
+		//
+		// Set query.
+		//
+		$query = "MATCH (n) "
+				."OPTIONAL MATCH (n)-[r]-() "
+				."DELETE n,r";
+		
+		//
+		// Execute query.
+		//
+		$this->query( $query );
+	
+	} // drop.
 
 	 
 
@@ -1046,6 +1220,12 @@ class Neo4jGraph extends DatabaseGraph
 		}
 		else
 			$options = '7474';
+		
+		//
+		// Remove scheme.
+		//
+		if( array_key_exists( kTAG_CONN_PROTOCOL, $params ) )
+			unset( $params[ kTAG_CONN_PROTOCOL ] );
 		
 		//
 		// Build data source name.

@@ -32,40 +32,6 @@ abstract class DatabaseGraph extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	DefaultOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return default offsets
-	 *
-	 * In this class we return {@link kTAG_CONN_PROTOCOL}, {@link kTAG_CONN_HOST},
-	 * {@link kTAG_CONN_PORT}, {@link kTAG_CONN_USER}, {@link kTAG_CONN_PASS} and
-	 * {@link kTAG_CONN_OPTS}.
-	 *
-	 * @static
-	 * @return array				List of default offsets.
-	 */
-	static function DefaultOffsets()
-	{
-		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_CONN_PROTOCOL,
-								   kTAG_CONN_HOST, kTAG_CONN_PORT,
-								   kTAG_CONN_USER, kTAG_CONN_PASS,
-								   kTAG_CONN_OPTS ) );								// ==>
-	
-	} // DefaultOffsets;
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC NODE MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -73,7 +39,7 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	NewNode																			*
+	 *	newNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -88,11 +54,11 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				The node object.
 	 */
-	abstract public function NewNode( $theProperties = NULL );
+	abstract public function newNode( $theProperties = NULL );
 
 	 
 	/*===================================================================================
-	 *	SetNode																			*
+	 *	setNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -111,7 +77,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return int					The node identifier.
 	 */
-	abstract public function SetNode( $theNode, $theProperties = NULL );
+	abstract public function setNode( $theNode, $theProperties = NULL );
 
 	 
 	/*===================================================================================
@@ -136,7 +102,7 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	DelNode																			*
+	 *	delNode																			*
 	 *==================================================================================*/
 
 	/**
@@ -152,7 +118,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
-	abstract public function DelNode( $theIdentifier );
+	abstract public function delNode( $theIdentifier );
 
 		
 
@@ -165,7 +131,7 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	NewEdge																			*
+	 *	newEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -184,12 +150,12 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				Edge object.
 	 */
-	abstract public function NewEdge( $theSubject, $thePredicate, $theObject,
+	abstract public function newEdge( $theSubject, $thePredicate, $theObject,
 									  $theProperties = NULL );
 
 	 
 	/*===================================================================================
-	 *	SetEdge																			*
+	 *	setEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -204,11 +170,11 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return int					Edge identifier.
 	 */
-	abstract public function SetEdge( $theEdge );
+	abstract public function setEdge( $theEdge );
 
 	 
 	/*===================================================================================
-	 *	GetEdge																			*
+	 *	getEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -225,11 +191,11 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				Edge object.
 	 */
-	abstract public function GetEdge( $theIdentifier, $doThrow = FALSE );
+	abstract public function getEdge( $theIdentifier, $doThrow = FALSE );
 
 	 
 	/*===================================================================================
-	 *	DelEdge																			*
+	 *	delEdge																			*
 	 *==================================================================================*/
 
 	/**
@@ -245,7 +211,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
-	abstract public function DelEdge( $theIdentifier );
+	abstract public function delEdge( $theIdentifier );
 
 		
 
@@ -258,7 +224,32 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	GetNodeProperties																*
+	 *	setNodeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set node properties</h4>
+	 *
+	 * This method can be used to set the provided node's properties.
+	 *
+	 * The first parameter can be either the node, or the node identifier and the second
+	 * parameter is an array containinf the properties we want to set.
+	 *
+	 * If the node reference is not resolved, the method should return <tt>FALSE</tt>.
+	 *
+	 * If the provided node is not of the correct type, the method should raise an
+	 * exception.
+	 *
+	 * @param mixed					$theNode			Node object or reference.
+	 * @param array					$theProperties		Node properties.
+	 *
+	 * @access public
+	 */
+	abstract public function setNodeProperties( $theNode, $theProperties );
+
+	 
+	/*===================================================================================
+	 *	getNodeProperties																*
 	 *==================================================================================*/
 
 	/**
@@ -279,7 +270,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return array				The node properties
 	 */
-	abstract public function GetNodeProperties( $theNode );
+	abstract public function getNodeProperties( $theNode );
 
 		
 
@@ -292,7 +283,7 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	GetNodeEdges																	*
+	 *	getNodeEdges																	*
 	 *==================================================================================*/
 
 	/**
@@ -327,8 +318,65 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * @access public
 	 * @return mixed
 	 */
-	abstract public function GetNodeEdges( $theNode, $thePredicate = NULL,
+	abstract public function getNodeEdges( $theNode, $thePredicate = NULL,
 													 $theSense = NULL );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Drop graph</h4>
+	 *
+	 * This method should delete all graph elements or drop the graph database.
+	 *
+	 * @access public
+	 */
+	abstract public function drop();
+		
+
+
+/*=======================================================================================
+ *																						*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return {@link kTAG_CONN_PROTOCOL}, {@link kTAG_CONN_HOST},
+	 * {@link kTAG_CONN_PORT}, {@link kTAG_CONN_USER}, {@link kTAG_CONN_PASS} and
+	 * {@link kTAG_CONN_OPTS}.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_CONN_PROTOCOL,
+								   kTAG_CONN_HOST, kTAG_CONN_PORT,
+								   kTAG_CONN_USER, kTAG_CONN_PASS,
+								   kTAG_CONN_OPTS ) );								// ==>
+	
+	} // DefaultOffsets;
 
 	 
 
