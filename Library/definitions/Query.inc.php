@@ -100,5 +100,32 @@ define( "kQUERY_NID",					0x2 );
  */
 define( "kQUERY_COUNT",					0x3 );
 
+/*=======================================================================================
+ *	DEFAULT LIMITS																		*
+ *======================================================================================*/
+
+/**
+ * Default start.
+ *
+ * This integer value indicates the default record start for a query.
+ */
+define( "kQUERY_START_DEFAULT",			0 );
+
+/**
+ * Default limit.
+ *
+ * This integer value indicates the default maximum number of records returned by a query,
+ * this is relevant when aggregating results.
+ */
+define( "kQUERY_LIMIT_DEFAULT",			50 );
+
+/**
+ * Default language.
+ *
+ * This string value indicates the default language code for properties of type
+ * {@link kTYPE_LANGUAGE_STRINGS}.
+ */
+define( "kQUERY_LANG_DEFAULT",			'en' );
+
 
 ?>

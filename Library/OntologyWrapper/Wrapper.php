@@ -15,6 +15,7 @@ use OntologyWrapper\Edge;
 use OntologyWrapper\FAOInstitute;
 use OntologyWrapper\Dictionary;
 use OntologyWrapper\ServerObject;
+use OntologyWrapper\DatabaseGraph;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
 
@@ -99,6 +100,15 @@ class Wrapper extends Dictionary
 	 * @var DatabaseObject
 	 */
 	protected $mUnits = NULL;
+
+	/**
+	 * Graph.
+	 *
+	 * This data member holds the graph {@link DatabaseGraph} derived instance.
+	 *
+	 * @var DatabaseGraph
+	 */
+	protected $mGraph = NULL;
 
 		
 
@@ -358,6 +368,75 @@ class Wrapper extends Dictionary
 		return $save;																// ==>
 	
 	} // Units.
+
+	 
+	/*===================================================================================
+	 *	Graph																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage graph database
+	 *
+	 * This method can be used to manage the <i>graph database</i>, it accepts a parameter
+	 * which represents either the graph database instance or the requested operation,
+	 * depending on its value:
+	 *
+	 * <ul>
+	 *	<li><tt>NULL</tt>: Return the current value.
+	 *	<li><tt>FALSE</tt>: Delete the current value.
+	 *	<li><tt>{@link DatabaseGraph}</tt>: Set the value with the provided parameter.
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <tt>TRUE</tt> will return the <i>old</i>
+	 * value when replacing or resetting; if <tt>FALSE</tt>, it will return the current
+	 * value.
+	 *
+	 * @param mixed					$theValue			Hraph database or operation.
+	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
+	 * @param boolean				$doOpen				<tt>TRUE</tt> open connection.
+	 *
+	 * @access public
+	 * @return mixed				<i>New</i> or <i>old</i> graph database.
+	 *
+	 * @throws Exception
+	 *
+	 * @see $mGraph
+	 *
+	 * @uses manageProperty()
+	 * @uses isInited()
+	 * @uses isReady()
+	 */
+	public function Graph( $theValue = NULL, $getOld = FALSE, $doOpen = TRUE )
+	{
+		//
+		// Check units type.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check data type.
+			//
+			if( ! ($theValue instanceof DatabaseGraph) )
+				throw new \Exception(
+					"Invalid graph database type." );						// !@! ==>
+			
+			//
+			// Open connection.
+			//
+			if( $doOpen )
+				$theValue->openConnection();
+		
+		} // Setting new value.
+		
+		//
+		// Manage member.
+		//
+		$save = $this->manageProperty( $this->mGraph, $theValue, $getOld );
+		
+		return $save;																// ==>
+	
+	} // Graph.
 
 		
 

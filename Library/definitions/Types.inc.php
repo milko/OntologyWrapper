@@ -329,7 +329,7 @@ define( "kTYPE_NODE_FORM",						':type:node:form' );
  * Structures of this kind can be used as templates to define the physical structure of an
  * object.
  */
-define( "kTYPE_NODE_STRUCT",						':type:node:struct' );
+define( "kTYPE_NODE_STRUCT",					':type:node:struct' );
 
 /**
  * Schema.
@@ -341,7 +341,7 @@ define( "kTYPE_NODE_STRUCT",						':type:node:struct' );
  * Structures of this kind can be used as templates to define common sub-structures which
  * will be used by structures to define the physical structure of an object.
  */
-define( "kTYPE_NODE_SCHEMA",						':type:node:schema' );
+define( "kTYPE_NODE_SCHEMA",					':type:node:schema' );
 
 /**
  * Feature.
@@ -353,7 +353,7 @@ define( "kTYPE_NODE_SCHEMA",						':type:node:schema' );
  * structure describing an object. Plant height is a plant characteristic that belongs to
  * the category of morphological traits: the latter is not a feature, while plant height is.
  */
-define( "kTYPE_NODE_FEATURE",						':type:node:feature' );
+define( "kTYPE_NODE_FEATURE",					':type:node:feature' );
 
 /**
  * Method.
@@ -365,7 +365,7 @@ define( "kTYPE_NODE_FEATURE",						':type:node:feature' );
  * attribute of a plant which can be measured after a month or at flowering time; the
  * attribute is the same, but the method is different.
  */
-define( "kTYPE_NODE_METHOD",						':type:node:method' );
+define( "kTYPE_NODE_METHOD",					':type:node:method' );
 
 /**
  * Scale.
@@ -376,7 +376,7 @@ define( "kTYPE_NODE_METHOD",						':type:node:method' );
  * height may be measured in centimeters or inches, as well as in intervals or finite
  * categories.
  */
-define( "kTYPE_NODE_SCALE",							':type:node:scale' );
+define( "kTYPE_NODE_SCALE",						':type:node:scale' );
 
 /**
  * Property.
@@ -386,7 +386,7 @@ define( "kTYPE_NODE_SCALE",							':type:node:scale' );
  * This kind of node references a {@link Tag} object which contains al the necessary
  * information to define and describe a data property.
  */
-define( "kTYPE_NODE_PROPERTY",						':type:node:property' );
+define( "kTYPE_NODE_PROPERTY",					':type:node:property' );
 
 /**
  * Enumeration.
@@ -397,7 +397,7 @@ define( "kTYPE_NODE_PROPERTY",						':type:node:property' );
  * scale nodes and represent the valid choices of enumeration and enumerated set scale
  * nodes. An ISO 3166 country code could be considered an enumeration node.
  */
-define( "kTYPE_NODE_ENUMERATION",					':type:node:enumeration' );
+define( "kTYPE_NODE_ENUMERATION",				':type:node:enumeration' );
 
 /*=======================================================================================
  *	CARDINALITY TYPES																	*

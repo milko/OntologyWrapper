@@ -39,45 +39,25 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	newNode																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Create a new node</h4>
-	 *
-	 * This method should return a new node optionally filled with the provided attributes.
-	 *
-	 * The returned node is not supposed to be saved yet.
-	 *
-	 * @param array					$theProperties		Node properties.
-	 *
-	 * @access public
-	 * @return mixed				The node object.
-	 */
-	abstract public function newNode( $theProperties = NULL );
-
-	 
-	/*===================================================================================
 	 *	setNode																			*
 	 *==================================================================================*/
 
 	/**
 	 * <h4>Save a node</h4>
 	 *
-	 * This method should insert or update the provided node in the current graph.
+	 * This method should insert a new node in the current graph, featuring the provided
+	 * properties and the provided labels.
 	 *
-	 * The method should return the node identifier if the operation was successful.
+	 * The method should return the node identifier if the operation was successful, or
+	 * raise an exception on errors.
 	 *
-	 * If you provide the <tt>$theProperties</tt> parameter, these will be set in the node
-	 * before it is saved.
-	 *
-	 * @param mixed					$theNode			Node object to be saved.
-	 * @param mixed					$theProperties		Node properties.
+	 * @param array					$theProperties		Node properties.
+	 * @param array					$theLabels			Node labels.
 	 *
 	 * @access public
 	 * @return int					The node identifier.
 	 */
-	abstract public function setNode( $theNode, $theProperties = NULL );
+	abstract public function setNode( $theProperties = NULL, $theLabels = NULL );
 
 	 
 	/*===================================================================================
@@ -92,7 +72,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * If the second parameter is <tt>TRUE</tt> and the node was not found, the method
 	 * should raise an exception.
 	 *
-	 * @param mixed					$theIdentifier		Node identifier.
+	 * @param int					$theIdentifier		Node identifier.
 	 * @param boolean				$doThrow			TRUE throw exception if not found.
 	 *
 	 * @access public
@@ -113,7 +93,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * The method should return <tt>TRUE</tt> if the operation was successful and
 	 * <tt>NULL</tt> if the provided identifier is not resolved.
 	 *
-	 * @param mixed					$theIdentifier		Node identifier.
+	 * @param mixed					$theNode			Node identifier or object.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
@@ -131,30 +111,6 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	newEdge																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Create a new edge</h4>
-	 *
-	 * This method should return a new edge connecting the provided subject and object nodes
-	 * via the provided predicate, holding the eventual provided properties.
-	 *
-	 * The returned edge is not supposed to be saved yet.
-	 *
-	 * @param mixed					$theSubject			Subject node or identifier.
-	 * @param array					$thePredicate		Edge predicate native identifier.
-	 * @param mixed					$theObject			Object node or identifier.
-	 * @param array					$theProperties		Edge properties.
-	 *
-	 * @access public
-	 * @return mixed				Edge object.
-	 */
-	abstract public function newEdge( $theSubject, $thePredicate, $theObject,
-									  $theProperties = NULL );
-
-	 
-	/*===================================================================================
 	 *	setEdge																			*
 	 *==================================================================================*/
 
@@ -165,12 +121,18 @@ abstract class DatabaseGraph extends ConnectionObject
 	 *
 	 * The method should return the edge identifier if the operation was successful.
 	 *
-	 * @param mixed					$theEdge			Edge object to be saved.
+	 * @param mixed					$theSubject			Subject node or identifier.
+	 * @param mixed					$thePredicate		Predicate identifier or object.
+	 * @param mixed					$theObject			Object node or identifier.
+	 * @param array					$theProperties		Edge properties.
 	 *
 	 * @access public
 	 * @return int					Edge identifier.
 	 */
-	abstract public function setEdge( $theEdge );
+	abstract public function setEdge( $theSubject,
+									  $thePredicate,
+									  $theObject,
+									  $theProperties = NULL );
 
 	 
 	/*===================================================================================
@@ -206,71 +168,12 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * The method should return <tt>TRUE</tt> if the operation was successful and
 	 * <tt>NULL</tt> if the provided identifier is not resolved.
 	 *
-	 * @param mixed					$theIdentifier		Edge identifier.
+	 * @param mixed					$theEdge			Edge identifier or object.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
 	abstract public function delEdge( $theIdentifier );
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC PROPERTY INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	setNodeProperties																*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Set node properties</h4>
-	 *
-	 * This method can be used to set the provided node's properties.
-	 *
-	 * The first parameter can be either the node, or the node identifier and the second
-	 * parameter is an array containinf the properties we want to set.
-	 *
-	 * If the node reference is not resolved, the method should return <tt>FALSE</tt>.
-	 *
-	 * If the provided node is not of the correct type, the method should raise an
-	 * exception.
-	 *
-	 * @param mixed					$theNode			Node object or reference.
-	 * @param array					$theProperties		Node properties.
-	 *
-	 * @access public
-	 */
-	abstract public function setNodeProperties( $theNode, $theProperties );
-
-	 
-	/*===================================================================================
-	 *	getNodeProperties																*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Get node properties</h4>
-	 *
-	 * This method can be used to retrieve the provided node's properties.
-	 *
-	 * The method accepts one parameter which can either be the node, or the node identifier
-	 * for which we want the properties.
-	 *
-	 * If the node reference is not resolved, the method should return <tt>FALSE</tt>.
-	 *
-	 * If the provided node is not of the correct type, the method should raise an
-	 * exception.
-	 *
-	 * @param mixed					$theNode			Node object or reference.
-	 *
-	 * @access public
-	 * @return array				The node properties
-	 */
-	abstract public function getNodeProperties( $theNode );
 
 		
 
@@ -332,6 +235,20 @@ abstract class DatabaseGraph extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	clear																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Clear graph</h4>
+	 *
+	 * This method should delete all graph elements.
+	 *
+	 * @access public
+	 */
+	abstract public function clear();
+
+	 
+	/*===================================================================================
 	 *	drop																			*
 	 *==================================================================================*/
 
@@ -340,9 +257,11 @@ abstract class DatabaseGraph extends ConnectionObject
 	 *
 	 * This method should delete all graph elements or drop the graph database.
 	 *
+	 * @param string				$theDirectory		Data directory path.
+	 *
 	 * @access public
 	 */
-	abstract public function drop();
+	abstract public function drop( $theDirectory );
 		
 
 

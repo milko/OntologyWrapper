@@ -112,68 +112,25 @@ class Neo4jGraph extends DatabaseGraph
 
 	 
 	/*===================================================================================
-	 *	newNode																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Create a new node</h4>
-	 *
-	 * In this class we return a new Neo4j Node instance.
-	 *
-	 * @param array					$theProperties		Node properties.
-	 *
-	 * @access public
-	 * @return mixed				The node object.
-	 */
-	public function newNode( $theProperties = NULL )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Normalise properties.
-			//
-			if( $theProperties === NULL )
-				$theProperties = Array();
-			elseif( ! is_array( $theProperties ) )
-				throw new \Exception(
-					"Unable to instantiate node: "
-				   ."provided properties are not an array." );					// !@! ==>
-			
-			return $this->mConnection->makeNode( $theProperties );					// ==>
-		
-		} // Is connected.
-
-		throw new \Exception(
-			"Unable to instantiate node: "
-		   ."graph is not connected." );										// !@! ==>
-	
-	} // newNode.
-
-	 
-	/*===================================================================================
 	 *	setNode																			*
 	 *==================================================================================*/
 
 	/**
 	 * <h4>Save a node</h4>
 	 *
-	 * In this class we check if the provided node is of the correct type, save it and
-	 * return its identifier.
+	 * In this class we instantiate the node, set the properties, save it and set the
+	 * labels.
 	 *
-	 * If provided, the second parameter must be an array, or the method will raise an
+	 * If provided, the parameters must be an array, or the method will raise an
 	 * exception.
 	 *
-	 * @param mixed					$theNode			Node object to be saved.
-	 * @param mixed					$theProperties		Node properties.
-	 * @param mixed					$theProperties		Node properties.
+	 * @param array					$theProperties		Node properties.
+	 * @param mixed					$theLabels			Node labels.
 	 *
 	 * @access public
 	 * @return int					The node identifier.
 	 */
-	public function setNode( $theNode, $theProperties = NULL )
+	public function setNode( $theProperties = NULL, $theLabels = NULL )
 	{
 		//
 		// Check if connected.
@@ -181,25 +138,14 @@ class Neo4jGraph extends DatabaseGraph
 		if( $this->isConnected() )
 		{
 			//
-			// Check node type.
-			//
-			if( ! ($theNode instanceof \Everyman\Neo4j\Node) )
-				throw new \Exception(
-					"Unable to save node: "
-				   ."provided invalid node object type." );						// !@! ==>
-			
-			//
 			// Handle properties.
 			//
 			if( $theProperties !== NULL )
 			{
 				//
-				// Set properties.
+				// Check properties.
 				//
-				if( is_array( $theProperties ) )
-					$theNode->setProperties( $theProperties );
-				
-				else
+				if( ! is_array( $theProperties ) )
 					throw new \Exception(
 						"Unable to save node: "
 					   ."provided properties is not an array." );				// !@! ==>
@@ -207,13 +153,47 @@ class Neo4jGraph extends DatabaseGraph
 			} // Provided properties.
 			
 			//
+			// Instantiate node.
+			//
+			$node = ( is_array( $theProperties ) )
+				   ? $this->mConnection->makeNode( $theProperties )
+				   : $this->mConnection->makeNode();
+			
+			//
 			// Save node.
 			//
-			if( ! $this->mConnection->saveNode( $theNode ) )
+			if( ! $this->mConnection->saveNode( $node ) )
 				throw new \Exception(
 					"Unable to save node." );									// !@! ==>
 			
-			return $theNode->getId();												// ==>
+			//
+			// Set node labels.
+			//
+			if( $theLabels !== NULL )
+			{
+				//
+				// Normalise labels.
+				//
+				if( ! is_array( $theLabels ) )
+					$theLabels
+						= array(
+							$this->Connection()->makeLabel( (string) $theLabels ) );
+				else
+				{
+					foreach( $theLabels as $key => $value )
+						$theLabels[ $key ]
+							= $this->Connection()->makeLabel( (string) $value );
+				
+				} // Provided labels list
+				
+				//
+				// Set labels.
+				//
+				$node->addLabels( $theLabels );
+			
+			} // Provided properties.
+			
+			return $node->getId();													// ==>
 		
 		} // Is connected.
 
@@ -236,7 +216,7 @@ class Neo4jGraph extends DatabaseGraph
 	 *
 	 * If the provided identifier is not an integer, we raise an exception.
 	 *
-	 * @param mixed					$theIdentifier		Node identifier.
+	 * @param int					$theIdentifier		Node identifier.
 	 * @param boolean				$doThrow			TRUE throw exception if not found.
 	 *
 	 * @access public
@@ -291,12 +271,12 @@ class Neo4jGraph extends DatabaseGraph
 	 *
 	 * In this class we accept either the actual node, or the node identifier.
 	 *
-	 * @param mixed					$theIdentifier		Node identifier.
+	 * @param mixed					$theNode			Node identifier or object.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
 	 */
-	public function delNode( $theIdentifier )
+	public function delNode( $theNode )
 	{
 		//
 		// Check if connected.
@@ -306,18 +286,18 @@ class Neo4jGraph extends DatabaseGraph
 			//
 			// Handle node.
 			//
-			if( $theIdentifier instanceof \Everyman\Neo4j\Node )
-				return $this->mConnection->deleteNode( $theIdentifier );			// ==>
+			if( $theNode instanceof \Everyman\Neo4j\Node )
+				return $this->mConnection->deleteNode( (int) $theNode );			// ==>
 			
 			//
 			// Check identifier type.
 			//
-			if( is_integer( $theIdentifier ) )
+			if( is_integer( $theNode ) )
 			{
 				//
 				// Get node.
 				//
-				$node = $this->getNode( $theIdentifier );
+				$node = $this->getNode( $theNode );
 				if( $node instanceof \Everyman\Neo4j\Node )
 					return $this->mConnection->deleteNode( $node );					// ==>
 			
@@ -341,305 +321,7 @@ class Neo4jGraph extends DatabaseGraph
 
 /*=======================================================================================
  *																						*
- *							PUBLIC EDGE MANAGEMENT INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	newEdge																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Create a new edge</h4>
-	 *
-	 * This method should return a new edge connecting the provided subject and object nodes
-	 * via the provided predicate, holding the eventual provided properties.
-	 *
-	 * The returned edge is not supposed to be saved yet.
-	 *
-	 * @param mixed					$theSubject			Subject node or identifier.
-	 * @param array					$thePredicate		Edge predicate native identifier.
-	 * @param mixed					$theObject			Object node or identifier.
-	 * @param array					$theProperties		Edge properties.
-	 *
-	 * @access public
-	 * @return mixed				Edge object.
-	 */
-	public function newEdge( $theSubject, $thePredicate, $theObject, $theProperties = NULL )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check properties.
-			//
-			if( $theProperties !== NULL )
-			{
-				//
-				// Set properties.
-				//
-				if( ! is_array( $theProperties ) )
-					throw new \Exception(
-						"Unable to instantiate edge object: "
-					   ."provided properties is not an array." );				// !@! ==>
-			
-			} // Provided properties.
-			
-			//
-			// Init properties.
-			//
-			else
-				$theProperties = Array();
-			
-			//
-			// Resolve subject.
-			//
-			if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
-			{
-				//
-				// Resolve node.
-				//
-				if( is_integer( $theSubject ) )
-					$theSubject = $this->getNode( $theSubject );
-				
-				else
-					throw new \Exception(
-						"Unable to instantiate edge object: "
-					   ."provided invalid subject node identifier type." );		// !@! ==>
-				
-				//
-				// Check node.
-				//
-				if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
-					throw new \Exception(
-						"Unable to instantiate edge object: "
-					   ."provided invalid subject node object type." );			// !@! ==>
-			
-			} // Not a node.
-			
-			//
-			// Resolve object.
-			//
-			if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
-			{
-				//
-				// Resolve node.
-				//
-				if( is_integer( $theObject ) )
-					$theObject = $this->getNode( $theObject );
-				
-				else
-					throw new \Exception(
-						"Unable to instantiate edge object: "
-					   ."provided invalid object node identifier type." );		// !@! ==>
-				
-				//
-				// Check node.
-				//
-				if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
-					throw new \Exception(
-						"Unable to instantiate edge object: "
-					   ."provided invalid object node object type." );			// !@! ==>
-			
-			} // Not a node.
-			
-			//
-			// Instantiate edge.
-			//
-			$edge = $this->mConnection->makeRelationship( $theProperties );
-			
-			//
-			// Set subject.
-			//
-			$edge->setStartNode( $theSubject );
-			
-			//
-			// Set object.
-			//
-			$edge->setEndNode( $theObject );
-			
-			//
-			// Set predicate.
-			//
-			$edge->setType( (string) $thePredicate );
-			
-			return $edge;															// ==>
-			
-		} // Is connected.
-
-		throw new \Exception(
-			"Unable to instantiate edge object: "
-		   ."graph is not connected." );										// !@! ==>
-	
-	} // newEdge.
-
-	 
-	/*===================================================================================
-	 *	setEdge																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Save an edge</h4>
-	 *
-	 * In this class we save the provided edge.
-	 *
-	 * @param mixed					$theEdge			Edge object to be saved.
-	 *
-	 * @access public
-	 * @return int					Edge identifier.
-	 */
-	public function setEdge( $theEdge )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check edge type.
-			//
-			if( ! ($theEdge instanceof \Everyman\Neo4j\Relationship) )
-				throw new \Exception(
-					"Unable to save edge: "
-				   ."invalid edge object type." );								// !@! ==>
-			
-			//
-			// Save node.
-			//
-			if( ! $this->mConnection->saveRelationship( $theEdge ) )
-				return FALSE;														// ==>
-			
-			return $theEdge->getId();												// ==>
-		
-		} // Is connected.
-
-		throw new \Exception(
-			"Unable to save edge: "
-		   ."graph is not connected." );										// !@! ==>
-	
-	} // setEdge.
-
-	 
-	/*===================================================================================
-	 *	getEdge																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Get an existing edge</h4>
-	 *
-	 * In this class we return the edge corresponding to the provided identifier, or
-	 * <tt>NULL</tt>.
-	 *
-	 * @param mixed					$theIdentifier		Edge identifier.
-	 * @param boolean				$doThrow			TRUE throw exception if not found.
-	 *
-	 * @access public
-	 * @return mixed				Edge object.
-	 */
-	public function getEdge( $theIdentifier, $doThrow = FALSE )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Check identifier type.
-			//
-			if( is_integer( $theIdentifier ) )
-			{
-				//
-				// Get edge.
-				//
-				$edge = $this->mConnection->getRelationship( $theIdentifier, FALSE );
-				if( $edge !== NULL )
-					return $edge;													// ==>
-				
-				if( ! $doThrow )
-					return NULL;													// ==>
-				
-				throw new Exception(
-					"Edge not found" );											// !@! ==>
-			
-			} // Provided integer identifier.
-		
-			throw new \Exception(
-				"Unable to get edge: "
-			   ."provided invalid edge identifier type." );						// !@! ==>
-		
-		} // Is connected.
-
-		throw new \Exception(
-			"Unable to get edge: "
-		   ."graph is not connected." );										// !@! ==>
-	
-	} // getEdge.
-
-	 
-	/*===================================================================================
-	 *	delEdge																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Delete an existing edge</h4>
-	 *
-	 * In this class we accept either the actual edge, or the node identifier.
-	 *
-	 * @param mixed					$theIdentifier		Edge identifier.
-	 *
-	 * @access public
-	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
-	 */
-	public function delEdge( $theIdentifier )
-	{
-		//
-		// Check if connected.
-		//
-		if( $this->isConnected() )
-		{
-			//
-			// Handle node.
-			//
-			if( $theIdentifier instanceof \Everyman\Neo4j\Relationship )
-				return $this->mConnection->deleteRelationship( $theIdentifier );	// ==>
-			
-			//
-			// Check identifier type.
-			//
-			if( is_integer( $theIdentifier ) )
-			{
-				//
-				// Get node.
-				//
-				$edge = $this->getEdge( $theIdentifier );
-				if( $edge instanceof \Everyman\Neo4j\Relationship )
-					return $this->mConnection->deleteRelationship( $edge );			// ==>
-			
-				return NULL;														// ==>
-			
-			} // Provided integer identifier.
-		
-			throw new \Exception(
-				"Unable to delete edge: "
-			   ."provided invalid identifier type." );						// !@! ==>
-			
-		} // Is connected.
-
-		throw new \Exception(
-			"Unable to delete edge: "
-		   ."graph is not connected." );										// !@! ==>
-	
-	} // delEdge.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC PROPERTY INTERFACE								*
+ *								PUBLIC NODE PROPERTY INTERFACE							*
  *																						*
  *======================================================================================*/
 
@@ -689,7 +371,18 @@ class Neo4jGraph extends DatabaseGraph
 				// Check properties.
 				//
 				if( is_array( $theProperties ) )
+				{
+					//
+					// Set properties.
+					//
 					$theNode->setProperties( $theProperties );
+					
+					//
+					// Save node.
+					//
+					$this->mConnection->saveNode( $theNode );
+				
+				} // Correct properties format.
 			
 				else
 					throw new \Exception(
@@ -766,6 +459,84 @@ class Neo4jGraph extends DatabaseGraph
 
 	 
 	/*===================================================================================
+	 *	delNodeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set node properties</h4>
+	 *
+	 * In this class we check whether the node is a Neo4j graph node or an integer, in all
+	 * other cases we raise an exception.
+	 *
+	 * @param mixed					$theNode			Node object or reference.
+	 * @param mixed					$theProperties		Node property keys or key.
+	 *
+	 * @access public
+	 */
+	public function delNodeProperties( $theNode, $theProperties )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get node.
+			//
+			if( is_integer( $theNode ) )
+			{
+				$theNode = $this->getNode( $theNode );
+				if( $theNode === NULL )
+					throw new \Exception(
+						"Unable to delete node properties: "
+					   ."unresolved node." );									// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Check node.
+			//
+			if( $theNode instanceof \Everyman\Neo4j\Node )
+			{
+				//
+				// Handle property list.
+				//
+				if( is_array( $theProperties ) )
+				{
+					foreach( $theProperties as $property )
+						$theNode->removeProperty( (string) $property );
+				
+				} // Correct properties format.
+				
+				//
+				// Handle single property.
+				//
+				else
+					$theNode->removeProperty( (string) $theProperties );
+				
+				//
+				// Save node.
+				//
+				$this->mConnection->saveNode( $theNode );
+			
+			} // Correct node.
+			
+			else
+				throw new \Exception(
+					"Unable to set node properties: "
+				   ."provided invalid node object type." );						// !@! ==>
+			
+		} // Is connected.
+		
+		else
+			throw new \Exception(
+				"Unable to set node properties: "
+			   ."graph is not connected." );									// !@! ==>
+	
+	} // delNodeProperties.
+
+	 
+	/*===================================================================================
 	 *	setNodeLabel																	*
 	 *==================================================================================*/
 
@@ -828,7 +599,18 @@ class Neo4jGraph extends DatabaseGraph
 				foreach( $theLabel as $key => $value )
 					$theLabel[ $key ] = $this->Connection()->makeLabel( (string) $value );
 				
-				return $theNode->addLabels( $theLabel );							// ==>
+				//
+				// Set label.
+				//
+				$labels = $theNode->addLabels( $theLabel );
+				
+				//
+				// Normalise labels.
+				//
+				foreach( $labels as $key => $value )
+					$labels[ $key ] = $value->getName();
+				
+				return $labels;														// ==>
 			
 			} // Correct node type.
 			
@@ -973,9 +755,25 @@ class Neo4jGraph extends DatabaseGraph
 				// Normalise labels.
 				//
 				if( ! is_array( $theLabel ) )
-					$theLabel = array( $theLabel );
+					$theLabel
+						= array(
+							$this->Connection()->makeLabel( (string) $theLabel ) );
+				else
+				{
+					foreach( $theLabel as $key => $value )
+						$theLabel[ $key ]
+							= $this->Connection()->makeLabel( (string) $value );
+				}
 				
-				return $theNode->removeLabels( $theLabel );							// ==>
+				$labels = $theNode->removeLabels( $theLabel );
+				
+				//
+				// Normalise labels.
+				//
+				foreach( $labels as $key => $value )
+					$labels[ $key ] = $value->getName();
+				
+				return $labels;														// ==>
 			
 			} // Correct node type.
 			
@@ -991,6 +789,493 @@ class Neo4jGraph extends DatabaseGraph
 		   ."graph is not connected." );										// !@! ==>
 	
 	} // delNodeLabel.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC EDGE MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setEdge																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Create a new edge</h4>
+	 *
+	 * In this class we normalise the edge parameters, instantiate the edge and save it,
+	 * returning the edge sequence number.
+	 *
+	 * The predicate is assumed to be a term reference, no check will be performed, so you
+	 * should ensure the provided string is a correct term reference before calling this
+	 * method.
+	 *
+	 * @param mixed					$theSubject			Subject node or identifier.
+	 * @param mixed					$thePredicate		Predicate identifier or object.
+	 * @param mixed					$theObject			Object node or identifier.
+	 * @param array					$theProperties		Edge properties.
+	 *
+	 * @access public
+	 * @return integer				Edge sequence number.
+	 */
+	public function setEdge( $theSubject, $thePredicate, $theObject, $theProperties = NULL )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check properties.
+			//
+			if( $theProperties !== NULL )
+			{
+				//
+				// Set properties.
+				//
+				if( ! is_array( $theProperties ) )
+					throw new \Exception(
+						"Unable to instantiate edge object: "
+					   ."provided properties is not an array." );				// !@! ==>
+			
+			} // Provided properties.
+			
+			//
+			// Init properties.
+			//
+			else
+				$theProperties = Array();
+			
+			//
+			// Resolve subject.
+			//
+			if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
+			{
+				//
+				// Resolve node.
+				//
+				if( is_integer( $theSubject ) )
+					$theSubject = $this->getNode( $theSubject );
+				
+				else
+					throw new \Exception(
+						"Unable to instantiate edge object: "
+					   ."provided invalid subject node identifier type." );		// !@! ==>
+				
+				//
+				// Check node.
+				//
+				if( ! ($theSubject instanceof \Everyman\Neo4j\Node) )
+					throw new \Exception(
+						"Unable to instantiate edge object: "
+					   ."provided invalid subject node object type." );			// !@! ==>
+			
+			} // Not a node.
+			
+			//
+			// Resolve object.
+			//
+			if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
+			{
+				//
+				// Resolve node.
+				//
+				if( is_integer( $theObject ) )
+					$theObject = $this->getNode( $theObject );
+				
+				else
+					throw new \Exception(
+						"Unable to instantiate edge object: "
+					   ."provided invalid object node identifier type." );		// !@! ==>
+				
+				//
+				// Check node.
+				//
+				if( ! ($theObject instanceof \Everyman\Neo4j\Node) )
+					throw new \Exception(
+						"Unable to instantiate edge object: "
+					   ."provided invalid object node object type." );			// !@! ==>
+			
+			} // Not a node.
+			
+			//
+			// Normalise predicate.
+			//
+			if( $thePredicate instanceof Term )
+				$thePredicate = $thePredicate[ kTAG_NID ];
+			else
+				$thePredicate = (string) $thePredicate;
+			
+			//
+			// Instantiate edge.
+			//
+			$edge = $this->mConnection->makeRelationship( $theProperties );
+			
+			//
+			// Set subject.
+			//
+			$edge->setStartNode( $theSubject );
+			
+			//
+			// Set object.
+			//
+			$edge->setEndNode( $theObject );
+			
+			//
+			// Set predicate.
+			//
+			$edge->setType( (string) $thePredicate );
+			
+			//
+			// Save edge.
+			//
+			if( ! $this->mConnection->saveRelationship( $edge ) )
+				throw new \Exception(
+					"Unable to save edge object." );							// !@! ==>
+			
+			return $edge->getId();													// ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to instantiate edge object: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // setEdge.
+
+	 
+	/*===================================================================================
+	 *	getEdge																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Get an existing edge</h4>
+	 *
+	 * In this class we return the edge corresponding to the provided identifier, or
+	 * <tt>NULL</tt>.
+	 *
+	 * @param mixed					$theIdentifier		Edge identifier.
+	 * @param boolean				$doThrow			TRUE throw exception if not found.
+	 *
+	 * @access public
+	 * @return mixed				Edge object.
+	 */
+	public function getEdge( $theIdentifier, $doThrow = FALSE )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Check identifier type.
+			//
+			if( is_integer( $theIdentifier ) )
+			{
+				//
+				// Get edge.
+				//
+				$edge = $this->mConnection->getRelationship( $theIdentifier, FALSE );
+				if( $edge !== NULL )
+					return $edge;													// ==>
+				
+				if( ! $doThrow )
+					return NULL;													// ==>
+				
+				throw new Exception(
+					"Edge not found" );											// !@! ==>
+			
+			} // Provided integer identifier.
+		
+			throw new \Exception(
+				"Unable to get edge: "
+			   ."provided invalid edge identifier type." );						// !@! ==>
+		
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to get edge: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // getEdge.
+
+	 
+	/*===================================================================================
+	 *	delEdge																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Delete an existing edge</h4>
+	 *
+	 * In this class we accept either the actual edge, or the node identifier.
+	 *
+	 * @param mixed					$theEdge			Edge identifier or object.
+	 *
+	 * @access public
+	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
+	 */
+	public function delEdge( $theEdge )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Handle node.
+			//
+			if( $theEdge instanceof \Everyman\Neo4j\Relationship )
+				return $this->mConnection->deleteRelationship( $theEdge );			// ==>
+			
+			//
+			// Check identifier type.
+			//
+			if( is_integer( $theEdge ) )
+			{
+				//
+				// Get node.
+				//
+				$theEdge = $this->getEdge( $theEdge );
+				if( $theEdge instanceof \Everyman\Neo4j\Relationship )
+					return $this->mConnection->deleteRelationship( $theEdge );		// ==>
+			
+				return NULL;														// ==>
+			
+			} // Provided integer identifier.
+		
+			throw new \Exception(
+				"Unable to delete edge: "
+			   ."provided invalid identifier type." );						// !@! ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to delete edge: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // delEdge.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC EDGE PROPERTY INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setEdgeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set edge properties</h4>
+	 *
+	 * In this class we check whether the edge is a Neo4j graph edge or an integer, in all
+	 * other cases we raise an exception.
+	 *
+	 * @param mixed					$theEdge			Edge object or reference.
+	 * @param array					$theProperties		Edge properties.
+	 *
+	 * @access public
+	 */
+	public function setEdgeProperties( $theEdge, $theProperties )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get edge.
+			//
+			if( is_integer( $theEdge ) )
+			{
+				$theEdge = $this->getEdge( $theEdge );
+				if( $theEdge === NULL )
+					throw new \Exception(
+						"Unable to set edge properties: "
+					   ."unresolved edge." );									// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Check edge.
+			//
+			if( $theEdge instanceof \Everyman\Neo4j\Relationship )
+			{
+				//
+				// Check properties.
+				//
+				if( is_array( $theProperties ) )
+				{
+					//
+					// Set properties.
+					//
+					$theEdge->setProperties( $theProperties );
+					
+					//
+					// Save edge.
+					//
+					$this->mConnection->saveRelationship( $theEdge );
+				
+				} // Correct properties format.
+			
+				else
+					throw new \Exception(
+						"Unable to set edge properties: "
+					   ."provided invalid properties type." );					// !@! ==>
+			
+			} // Correct edge.
+			
+			else
+				throw new \Exception(
+					"Unable to set edge properties: "
+				   ."provided invalid edge object type." );						// !@! ==>
+			
+		} // Is connected.
+		
+		else
+			throw new \Exception(
+				"Unable to set edge properties: "
+			   ."graph is not connected." );									// !@! ==>
+	
+	} // setEdgeProperties.
+
+	 
+	/*===================================================================================
+	 *	getEdgeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Get edge properties</h4>
+	 *
+	 * In this class we check whether the edge is a Neo4j graph edge or an integer, in all
+	 * other cases we raise an exception.
+	 *
+	 * @param mixed					$theEdge			Edge object or reference.
+	 *
+	 * @access public
+	 * @return array				The edge properties
+	 */
+	public function getEdgeProperties( $theEdge )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get edge.
+			//
+			if( is_integer( $theEdge ) )
+			{
+				$theEdge = $this->getEdge( $theEdge );
+				if( $theEdge === NULL )
+					return NULL;													// ==>
+			
+			} // Provided reference.
+			
+			//
+			// Return properties.
+			//
+			if( $theEdge instanceof \Everyman\Neo4j\Relationship )
+				return $theEdge->getProperties();									// ==>
+			
+			throw new \Exception(
+				"Unable to get edge properties: "
+			   ."provided invalid edge object type." );							// !@! ==>
+			
+		} // Is connected.
+
+		throw new \Exception(
+			"Unable to get edge properties: "
+		   ."graph is not connected." );										// !@! ==>
+	
+	} // getEdgeProperties.
+
+	 
+	/*===================================================================================
+	 *	delEdgeProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set edge properties</h4>
+	 *
+	 * In this class we check whether the edge is a Neo4j graph edge or an integer, in all
+	 * other cases we raise an exception.
+	 *
+	 * @param mixed					$theEdge			Edge object or reference.
+	 * @param mixed					$theProperties		Edge property keys or key.
+	 *
+	 * @access public
+	 */
+	public function delEdgeProperties( $theEdge, $theProperties )
+	{
+		//
+		// Check if connected.
+		//
+		if( $this->isConnected() )
+		{
+			//
+			// Get edge.
+			//
+			if( is_integer( $theEdge ) )
+			{
+				$theEdge = $this->getEdge( $theEdge );
+				if( $theEdge === NULL )
+					throw new \Exception(
+						"Unable to delete edge properties: "
+					   ."unresolved edge." );									// !@! ==>
+			
+			} // Provided reference.
+			
+			//
+			// Check edge.
+			//
+			if( $theEdge instanceof \Everyman\Neo4j\Relationship )
+			{
+				//
+				// Handle property list.
+				//
+				if( is_array( $theProperties ) )
+				{
+					foreach( $theProperties as $property )
+						$theEdge->removeProperty( (string) $property );
+				
+				} // Correct properties format.
+				
+				//
+				// Handle single property.
+				//
+				else
+					$theEdge->removeProperty( (string) $theProperties );
+				
+				//
+				// Save edge.
+				//
+				$this->mConnection->saveRelationship( $theEdge );
+			
+			} // Correct edge.
+			
+			else
+				throw new \Exception(
+					"Unable to set edge properties: "
+				   ."provided invalid edge object type." );						// !@! ==>
+			
+		} // Is connected.
+		
+		else
+			throw new \Exception(
+				"Unable to set edge properties: "
+			   ."graph is not connected." );									// !@! ==>
+	
+	} // delEdgeProperties.
 
 		
 
@@ -1150,17 +1435,17 @@ class Neo4jGraph extends DatabaseGraph
 
 	 
 	/*===================================================================================
-	 *	drop																			*
+	 *	clear																			*
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Drop graph</h4>
+	 * <h4>Clear graph</h4>
 	 *
 	 * In this class we send a Cypher query to clear the graph.
 	 *
 	 * @access public
 	 */
-	public function drop()
+	public function clear()
 	{
 		//
 		// Set query.
@@ -1174,7 +1459,100 @@ class Neo4jGraph extends DatabaseGraph
 		//
 		$this->query( $query );
 	
+	} // clear.
+
+	 
+	/*===================================================================================
+	 *	drop																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Drop graph</h4>
+	 *
+	 * In this class we stop the server, delete the data directory and restart the server.
+	 *
+	 * @param string				$theDirectory		Data directory path.
+	 *
+	 * @access public
+	 */
+	public function drop( $theDirectory )
+	{
+		//
+		// Stop server.
+		//
+		exec( 'launchctl unload -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		
+		//
+		// Wait a bit.
+		//
+		sleep( 5 );
+		
+		//
+		// Remove data directory.
+		//
+		exec( "rm -r $theDirectory" );
+		
+		//
+		// Restart server.
+		//
+		exec( 'launchctl load -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		
+		//
+		// Wait a bit.
+		//
+		sleep( 10 );
+		
+		//
+		// Write node 0.
+		//
+		$this->setNode();
+	
 	} // drop.
+
+	 
+	/*===================================================================================
+	 *	backup																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Drop graph</h4>
+	 *
+	 * In this class we stop the server, copy the provided data directory to the provided
+	 * destination directory and restart the server.
+	 *
+	 * @param string				$theSource			Data directory path.
+	 * @param string				$theDest			Backup directory path.
+	 *
+	 * @access public
+	 */
+	public function backup( $theSource, $theDest )
+	{
+		//
+		// Stop server.
+		//
+		exec( 'launchctl unload -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		
+		//
+		// Wait a bit.
+		//
+		sleep( 5 );
+		
+		//
+		// Remove data directory.
+		//
+		exec( "zip -r $theDest/neo4j.zip $theSource" );
+		
+		//
+		// Restart server.
+		//
+		exec( 'launchctl load -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		
+		//
+		// Wait a bit.
+		//
+		sleep( 10 );
+	
+	} // backup.
 
 	 
 

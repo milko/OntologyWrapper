@@ -30,6 +30,11 @@ require_once( 'includes.inc.php' );
 require_once( 'styles.inc.php' );
 
 //
+// Predicate definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
+
+//
 // Session definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
@@ -526,30 +531,13 @@ try
 	echo( '<hr>' );
 
 	//
-	// Instantiate node.
+	// Save node.
 	//
-	echo( '<h4>Instantiate node</h4>' );
+	echo( '<h4>Save node</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$node = $test->newNode();'.kSTYLE_HEAD_POS );
-	$node = $test->newNode();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	var_dump( $node );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Save node and properties.
-	//
-	echo( '<h4>Save node and properties</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id_1 = $test->setNode( $node, array( "KEY" => "VALUE" ) );'.kSTYLE_HEAD_POS );
-	$id_1 = $test->setNode( $node, array( "KEY" => "VALUE" ) );
+	echo( kSTYLE_HEAD_PRE.'$id_1 = $test->setNode( array( "KEY" => "VALUE" ), "LABEL" );'.kSTYLE_HEAD_POS );
+	$id_1 = $test->setNode( array( "KEY" => "VALUE" ), "LABEL" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -557,8 +545,17 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeProperties( $node );'.kSTYLE_HEAD_POS );
-	$ok = $test->getNodeProperties( $node );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeProperties( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeProperties( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeLabel( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeLabel( $id_1 );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -574,8 +571,8 @@ try
 	echo( '<h4>Set node label</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ok = $test->setNodeLabel( $node, "Label 1" );'.kSTYLE_HEAD_POS );
-	$ok = $test->setNodeLabel( $node, "Label 1" );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->setNodeLabel( $id_1, "Label 1" );'.kSTYLE_HEAD_POS );
+	$ok = $test->setNodeLabel( $id_1, "Label 1" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -583,8 +580,262 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeLabel( $node );'.kSTYLE_HEAD_POS );
-	$ok = $test->getNodeLabel( $node );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeLabel( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeLabel( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete node label.
+	//
+	echo( '<h4>Delete node label</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->delNodeLabel( $id_1, "Label 1" );'.kSTYLE_HEAD_POS );
+	$ok = $test->delNodeLabel( $id_1, "Label 1" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeLabel( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeLabel( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Set node properties.
+	//
+	echo( '<h4>Set node properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->setNodeProperties( $id_1, array( "test_key" => "test_value" ) );'.kSTYLE_HEAD_POS );
+	$test->setNodeProperties( $id_1, array( "test_key" => "test_value" ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeProperties( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeProperties( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Update node properties.
+	//
+	echo( '<h4>Update node properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->setNodeProperties( $id_1, array( "test_key" => "NEW" ) );'.kSTYLE_HEAD_POS );
+	$test->setNodeProperties( $id_1, array( "test_key" => "NEW" ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeProperties( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeProperties( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete node properties.
+	//
+	echo( '<h4>Delete node properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->delNodeProperties( $id_1, "test_key" );'.kSTYLE_HEAD_POS );
+	$test->delNodeProperties( $id_1, "test_key" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getNodeProperties( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->getNodeProperties( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Create object node.
+	//
+	echo( '<h4>Create object node</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id_2 = $test->setNode();'.kSTYLE_HEAD_POS );
+	$id_2 = $test->setNode();
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id_2 );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Create relationship.
+	//
+	echo( '<h4>Create relationship</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$id_r = $test->setEdge( $id_1, kPREDICATE_SUBCLASS_OF, $id_2, array( "KEY" => "VALUE" ) );'.kSTYLE_HEAD_POS );
+	$id_r = $test->setEdge( $id_1, kPREDICATE_SUBCLASS_OF, $id_2, array( "KEY" => "VALUE" ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $id_r );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Set relationship properties.
+	//
+	echo( '<h4>Set relationship properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->setEdgeProperties( $id_r, array( "test_key" => "test_value" ) );'.kSTYLE_HEAD_POS );
+	$test->setEdgeProperties( $id_r, array( "test_key" => "test_value" ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getEdgeProperties( $id_r );'.kSTYLE_HEAD_POS );
+	$ok = $test->getEdgeProperties( $id_r );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Update relationship properties.
+	//
+	echo( '<h4>Update relationship properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->setEdgeProperties( $id_r, array( "test_key" => "NEW" ) );'.kSTYLE_HEAD_POS );
+	$test->setEdgeProperties( $id_r, array( "test_key" => "NEW" ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getEdgeProperties( $id_r );'.kSTYLE_HEAD_POS );
+	$ok = $test->getEdgeProperties( $id_r );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete relationship properties.
+	//
+	echo( '<h4>Delete relationship properties</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->delEdgeProperties( $id_r, "test_key" );'.kSTYLE_HEAD_POS );
+	$test->delEdgeProperties( $id_r, "test_key" );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->getEdgeProperties( $id_r );'.kSTYLE_HEAD_POS );
+	$ok = $test->getEdgeProperties( $id_r );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete relationship.
+	//
+	echo( '<h4>Delete relationship</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->delEdge( $id_r );'.kSTYLE_HEAD_POS );
+	$ok = $test->delEdge( $id_r );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete node.
+	//
+	echo( '<h4>Delete node</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->delNode( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->delNode( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete non-existing node.
+	//
+	echo( '<h4>Delete non-existing node</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->delNode( $id_1 );'.kSTYLE_HEAD_POS );
+	$ok = $test->delNode( $id_1 );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Get server info.
+	//
+	echo( '<h4>Get server info</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->Connection()->getServerInfo();'.kSTYLE_HEAD_POS );
+	$ok = $test->Connection()->getServerInfo();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

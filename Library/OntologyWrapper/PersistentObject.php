@@ -10,8 +10,6 @@ namespace OntologyWrapper;
 
 use OntologyWrapper\Wrapper;
 use OntologyWrapper\OntologyObject;
-use OntologyWrapper\DatabaseObject;
-use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*

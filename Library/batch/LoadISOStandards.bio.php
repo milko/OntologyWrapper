@@ -25,9 +25,9 @@
 require_once( 'includes.inc.php' );
 
 //
-// Style includes.
+// Local includes.
 //
-require_once( 'styles.inc.php' );
+require_once( 'local.inc.php' );
 
 //
 // Tag definitions.
@@ -74,11 +74,19 @@ try
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$graph = $wrapper->Graph(
+		new OntologyWrapper\Neo4jGraph(
+			"neo4j://localhost:7474" ) );
 	
 	//
 	// Drop metadata.
 	//
 	$meta->drop();
+	
+	//
+	// Drop graph.
+	//
+	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
 	// Reset ontology.

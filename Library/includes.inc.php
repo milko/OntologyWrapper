@@ -58,6 +58,17 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
 define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
 
 /*=======================================================================================
+ *	EXTERNAL LIBRARY PATHS																*
+ *======================================================================================*/
+
+/**
+ * Neo4j library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the Neo4j library directory.
+ */
+define( "kPATH_LIBRARY_NEO4J",	"/Library/WebServer/Library/Neo4jphp" );
+
+/*=======================================================================================
  *	DEFAULT LINKS																		*
  *======================================================================================*/
 
