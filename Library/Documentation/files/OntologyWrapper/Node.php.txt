@@ -965,21 +965,64 @@ class Node extends PersistentObject
 	protected function preCommitObjectIdentifiers()
 	{
 		//
-		// Resolve collection.
+		// Init local storage.
 		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $this->dictionary(), TRUE ) );
+		$dictionary = $this->dictionary();
+		$graph = $dictionary->Graph();
 		
 		//
-		// Set sequence number.
+		// Handle graph.
 		//
-		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+		if( $graph !== NULL )
+		{
+			//
+			// Create node default properties.
+			//
+			$properties = array( 'pid' => ( $this->offsetExists( kTAG_TAG ) )
+										? $this->offsetGet( kTAG_TAG )
+										: $this->offsetGet( kTAG_TERM ) );
+			
+			//
+			// Create default labels.
+			//
+			$labels = ( $this->offsetExists( kTAG_TAG ) )
+					? array( 'tag' )
+					: array( 'term' );
+			$labels[] = ( $this->offsetExists( kTAG_MASTER ) )
+					  ? 'alias'
+					  : 'master';
+			
+			//
+			// Save node and set sequence number.
+			//
+			$this->offsetSet(
+				kTAG_NID,
+				$graph->setNode( $properties, $labels ) );
+		
+		} // Has graph.
+		
+		//
+		// Handle sequence number.
+		//
+		else
+		{
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $dictionary, TRUE ) );
+		
+			//
+			// Set sequence number.
+			//
 			$this->offsetSet(
 				kTAG_NID,
 				$collection->getSequenceNumber(
 					static::kSEQ_NAME ) );
-	
+		
+		} // Has no graph.
+		
 	} // preCommitObjectIdentifiers.
 
 		

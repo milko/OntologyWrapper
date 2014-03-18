@@ -829,7 +829,8 @@ class FAOInstitute extends Institution
 		// Set nationality.
 		//
 		$this->offsetSet( kTAG_ENTITY_COUNTRY,
-						  substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 ) );
+						  'iso:3166:alpha-3:'
+						 .substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 ) );
 		
 		//
 		// Handle address.

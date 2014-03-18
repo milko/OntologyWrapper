@@ -1,21 +1,20 @@
 <?php
 
 /**
- * Test ISO load procedure.
+ * Data initialisation procedure.
  *
- * This file contains routines to test and demonstrate the behaviour of the
- * {@link Tag} class.
+ * This file contains routines to initialise the data.
  *
  *	@package	OntologyWrapper
- *	@subpackage	Test
+ *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 10/03/2014
+ *	@version	1.00 18/03/2014
  */
 
 /*=======================================================================================
  *																						*
- *								test_LoadISOStandards.php								*
+ *										Init.php										*
  *																						*
  *======================================================================================*/
 
@@ -67,26 +66,20 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Entities(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$graph = $wrapper->Graph(
-		new OntologyWrapper\Neo4jGraph(
-			"neo4j://localhost:7474" ) );
-	
-	//
-	// Drop metadata.
-	//
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	$meta->drop();
-	
-	//
-	// Drop graph.
-	//
-	$graph->drop( '/Volumes/Data/Neo4j/*' );
+	$entities = $wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$entities->drop();
+	$units = $wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$units->drop();
+//	$graph = $wrapper->Graph(
+//		new OntologyWrapper\Neo4jGraph(
+//			"neo4j://localhost:7474" ) );
+//	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
 	// Reset ontology.
@@ -102,6 +95,12 @@ try
 	// Load WBI Standards.
 	//
 	$wrapper->loadWBIStandards( TRUE );
+	
+	//
+	// Load FAO institutes.
+	//
+	$institutes = new OntologyWrapper\FAOInstitute();
+	$institutes->Maintain( $wrapper );
 }
 
 //

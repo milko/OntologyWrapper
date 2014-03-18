@@ -1333,6 +1333,138 @@ class Wrapper extends Dictionary
 	
 	} // loadXMLFile.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC RESOLUTION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	resolveCollection																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve collection
+	 *
+	 * Given a collection name, this method will return a collection reference.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 *
+	 * @access public
+	 * @return CollectionObject		The collection reference.
+	 *
+	 * @throws Exception
+	 */
+	public function resolveCollection( $theCollection )
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to resolve collection: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				return Tag::ResolveCollection(
+						Tag::ResolveDatabase( $this, TRUE ) );						// ==>
+				
+			case Term::kSEQ_NAME:
+				return Term::ResolveCollection(
+						Term::ResolveDatabase( $this, TRUE ) );						// ==>
+				
+			case Node::kSEQ_NAME:
+				return Node::ResolveCollection(
+						Node::ResolveDatabase( $this, TRUE ) );						// ==>
+				
+			case Edge::kSEQ_NAME:
+				return Edge::ResolveCollection(
+						Edge::ResolveDatabase( $this, TRUE ) );						// ==>
+				
+			case EntityObject::kSEQ_NAME:
+				return EntityObject::ResolveCollection(
+						EntityObject::ResolveDatabase( $this, TRUE ) );				// ==>
+				
+			case UnitObject::kSEQ_NAME:
+				return UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $this, TRUE ) );				// ==>
+			
+			default:
+				throw new \Exception(
+					"Cannot resolve collection: "
+				   ."invalid collection name [$collection]." );					// !@! ==>
+		}
+	
+	} // resolveCollection.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC RESOLUTION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveCollectionClass															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve collection class
+	 *
+	 * Given a collection name, this method will return the base class name.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 *
+	 * @static
+	 * @return string				The base class name.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveCollectionClass( $theCollection )
+	{
+		//
+		// Resolve collection.
+		//
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				return 'OntologyWrapper\Tag';										// ==>
+				
+			case Term::kSEQ_NAME:
+				return 'OntologyWrapper\Term';										// ==>
+				
+			case Node::kSEQ_NAME:
+				return 'OntologyWrapper\Node';										// ==>
+				
+			case Edge::kSEQ_NAME:
+				return 'OntologyWrapper\Edge';										// ==>
+				
+			case EntityObject::kSEQ_NAME:
+				return 'OntologyWrapper\EntityObject';								// ==>
+				
+			case UnitObject::kSEQ_NAME:
+				return 'OntologyWrapper\UnitObject';								// ==>
+			
+			default:
+				throw new \Exception(
+					"Cannot resolve class: "
+				   ."invalid collection name [$collection]." );					// !@! ==>
+		}
+	
+	} // ResolveCollectionClass.
+
 	 
 
 /*=======================================================================================

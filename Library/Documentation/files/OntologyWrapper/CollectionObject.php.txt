@@ -412,7 +412,7 @@ abstract class CollectionObject extends ConnectionObject
 	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
 	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
 	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
-	 *				identifier.
+	 *				identifiers.
 	 *		 </ul>
 	 *			Any other value will trigger an exception.
 	 *	 </ul>

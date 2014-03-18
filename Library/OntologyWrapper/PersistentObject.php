@@ -289,6 +289,136 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // collectProperties.
 
+	 
+	/*===================================================================================
+	 *	aggregate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate object
+	 *
+	 * This method can be used to add the current object to an aggregated result set, the
+	 * goal is to add the current object, all referenced objects and all used tag objects
+	 * to the provided array reference.
+	 *
+	 * Each element of this array is indexed by collection name and the value is an array
+	 * indexed by object native identifier having as value the object's array. This method
+	 * will take care of resolving all these references and place the resulting objects in
+	 * the corresponding element of the provided array.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSet</b>: This array reference will receive the resolved objects, if the
+	 *		parameter is not an array, it will be initialised as such.
+	 *	<li><b>$theWrapper</b>: Data wrapper object, if missing, the object's dictionary
+	 *		will be used, or an exception will be raised.
+	 * </ul>
+	 *
+	 * @param reference				$theSet				Results set.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function aggregate( &$theSet, $theWrapper = NULL, $theLanguage = NULL )
+	{
+		//
+		// Check wrapper.
+		//
+		if( $theWrapper === NULL )
+			$theWrapper = $this->dictionary();
+		if( ! ($theWrapper instanceof Wrapper) )
+			throw new \Exception(
+				"Cannot aggregate object: "
+			   ."missing data wrapper." );										// !@! ==>
+		
+		//
+		// Check reference key.
+		//
+		$ref_key = static::GetReferenceKey();
+		if( ! $this->offsetExists( $ref_key ) )
+			throw new \Exception(
+				"Cannot aggregate object: "
+			   ."missing reference key." );										// !@! ==>
+		
+		//
+		// Save reference key.
+		//
+		$ref_val = $this->offsetGet( $ref_key );
+	
+		//
+		// Init result set.
+		//
+		if( ! is_array( $theSet ) )
+			$theSet = Array();
+		
+		//
+		// Allocate object set.
+		//
+		if( ! array_key_exists( static::kSEQ_NAME, $theSet ) )
+			$theSet[ static::kSEQ_NAME ] = Array();
+		
+		//
+		// Locate object.
+		//
+		if( ! array_key_exists( $ref_val, $theSet[ static::kSEQ_NAME ] ) )
+		{
+			//
+			// Aggregate object.
+			//
+			$theSet[ static::kSEQ_NAME ][ $ref_val ] = $this->getArrayCopy();
+			
+			//
+			// Collect object properties.
+			//
+			$this->collectProperties( $tags, $refs, TRUE, TRUE );
+			
+			//
+			// Allocate tags set.
+			//
+			if( ! array_key_exists( Tag::kSEQ_NAME, $theSet ) )
+				$theSet[ Tag::kSEQ_NAME ] = Array();
+			
+			//
+			// Resolve collection.
+			//
+			$collection = Tag::ResolveCollection(
+							Tag::ResolveDatabase( $theWrapper, TRUE ) );
+		
+			//
+			// Load tags.
+			//
+			$criteria[ kTAG_ID_SEQUENCE ] = array( '$in' => $tags );
+			$rs = $collection->matchAll( $criteria, kQUERY_ASSERT | kQUERY_ARRAY );
+			foreach( $rs as $key => $value )
+				$theSet[ Tag::kSEQ_NAME ][ $key ] = $value;
+			
+			//
+			// Handle referenced objects.
+			//
+			foreach( $refs as $name => $objects )
+			{
+				//
+				// Resolve collection.
+				//
+				$collection = $theWrapper->resolveCollection( $name );
+			
+				//
+				// Load references.
+				//
+				$criteria[ kTAG_NID ] = array( '$in' => $objects );
+				$rs = $collection->matchAll( $criteria, kQUERY_ASSERT | kQUERY_ARRAY );
+				foreach( $rs as $key => $value )
+					$theSet[ $name ][ $key ] = $value;
+			
+			} // Iterating referenced collections.
+			
+		} // Not already in set.
+	
+	} // aggregate.
+
 		
 
 /*=======================================================================================
@@ -2969,7 +3099,6 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_CONN_PASS:
 			case kTAG_CONN_BASE:
 			case kTAG_CONN_COLL:
-			case kTAG_ENTITY_COUNTRY:
 				$theType = array( kTYPE_STRING );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -2978,7 +3107,7 @@ abstract class PersistentObject extends OntologyObject
 			// Enumerations.
 			//
 			case kTAG_DOMAIN:
-//			case kTAG_ENTITY_COUNTRY:
+			case kTAG_ENTITY_COUNTRY:
 				$theType = array( kTYPE_ENUM );
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -3647,7 +3776,7 @@ abstract class PersistentObject extends OntologyObject
 							  kTYPE_REF_NODE => 'OntologyWrapper\Node',
 							  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
 							  kTYPE_REF_ENTITY => 'OntologyWrapper\EntityObject',
-							  kTYPE_REF_UNIT => 'OntologyWrapper\Unit' );
+							  kTYPE_REF_UNIT => 'OntologyWrapper\UnitObject' );
 			
 			//
 			// Handle self reference.
@@ -3940,50 +4069,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve collection.
 		//
-		switch( $theCollection )
-		{
-			case Tag::kSEQ_NAME:
-				$collection
-					= Tag::ResolveCollection(
-						Tag::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			case Term::kSEQ_NAME:
-				$collection
-					= Term::ResolveCollection(
-						Term::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			case Node::kSEQ_NAME:
-				$collection
-					= Term::ResolveCollection(
-						Term::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			case Edge::kSEQ_NAME:
-				$collection
-					= Edge::ResolveCollection(
-						Edge::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			case EntityObject::kSEQ_NAME:
-				$collection
-					= EntityObject::ResolveCollection(
-						EntityObject::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			case UnitObject::kSEQ_NAME:
-				$collection
-					= UnitObject::ResolveCollection(
-						UnitObject::ResolveDatabase( $dictionary, TRUE ) );
-				break;
-		
-			default:
-				throw new \Exception(
-					"Unable to update reference count in collection [$theCollection]: "
-				   ."unknown collection." );									// !@! ==>
-		
-		} // Parsed collection.
+		$collection = $dictionary->resolveCollection( (string) $theCollection );
 		
 		//
 		// Resolve tag.

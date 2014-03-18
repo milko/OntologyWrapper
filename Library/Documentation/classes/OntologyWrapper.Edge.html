@@ -114,7 +114,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">3</span>
                                 </a>
                             </li>
                             <li>
@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1363660023"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1529362761"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1363660023" class="accordion-body collapse in">
+            <div id="namespace-1529362761" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1793457062"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-258312404"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-1793457062" class="accordion-body collapse ">
+            <div id="namespace-258312404" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1364475514"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1349421272"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-1364475514" class="accordion-body collapse ">
+            <div id="namespace-1349421272" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -309,6 +309,7 @@ predicate and object references.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_ResolveDatabase" class="">ResolveDatabase()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_ResetCollection" class="">ResetCollection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_collectProperties" class="">collectProperties()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_aggregate" class="">aggregate()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_commit" class="">commit()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_delete" class="">delete()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_modifyAdd" class="">modifyAdd()</a><br />
@@ -407,8 +408,6 @@ predicate and object references.</p>
                     <dl>
                         <dt>File</dt>
                             <dd><a href="../files/OntologyWrapper.Edge.php.html"><div class="path-wrapper">OntologyWrapper/Edge.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -434,7 +433,7 @@ predicate and object references.</p>
                                 author
                             </th>
                             <td>
-                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -675,16 +674,16 @@ parameter and <tt>FALSE</tt> to reset it.</p>
 immutable, so in that case the method will raise an exception.</p>
 <p>When resetting the status, the method will also remove the eventual
 {@link kTAG_MASTER} attribute.</p>
-<em>Note that not any object can be set as alias: objects that can take this state
+<p><em>Note that not any object can be set as alias: objects that can take this state
 must feature a method that selects their master object, so you should shadow this
-method in derived classes that do not implement the concept of master and alias.
+method in derived classes that do not implement the concept of master and alias.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doSet</td>
-                                <td><tt>TRUE</tt> to set.</td>
+                                <td><p><tt>TRUE</tt> to set.</p></td>
                             </tr>
                                             </table>
                 
@@ -745,7 +744,7 @@ instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -896,6 +895,75 @@ are not already an array.</p>
                                                                                             <dt>Uses</dt>
                                                                 <dd>traverseProperty()</dd>
                                                 </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_aggregate" name="method_aggregate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">aggregate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">aggregate(\OntologyWrapper\reference <span class="argument">$theSet</span>, \OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>,  <span class="argument">$theLanguage</span>)</pre>
+                <p><em>Aggregate object</em></p>
+                <p>This method can be used to add the current object to an aggregated result set, the
+goal is to add the current object, all referenced objects and all used tag objects
+to the provided array reference.</p>
+<p>Each element of this array is indexed by collection name and the value is an array
+indexed by object native identifier having as value the object's array. This method
+will take care of resolving all these references and place the resulting objects in
+the corresponding element of the provided array.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theSet</b>: This array reference will receive the resolved objects, if the
+    parameter is not an array, it will be initialised as such.
+<li><b>$theWrapper</b>: Data wrapper object, if missing, the object's dictionary
+    will be used, or an exception will be raised.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theSet</td>
+                                <td><p>Results set.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$theLanguage</td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -1195,7 +1263,7 @@ will be added or will replace the offsets contained in the stored object.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> is committed.
+                                            &mdash; <p><tt>TRUE</tt> is committed.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1244,7 +1312,7 @@ to return the default {@link CollectionObject} instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -1366,7 +1434,7 @@ above.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
+                                <td><p><tt>TRUE</tt> get old value.</p></td>
                             </tr>
                                             </table>
                 
@@ -1463,10 +1531,9 @@ to an integer and return it.</p>
 method, will be used to locate the tag native identifier using a {@link Dictionary}
 object stored in the current object's {@link $mDictionary} data member; if the
 provided offset cannot be resolved, the method will raise an exception if the second
-parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is</p>
-<tt>FALSE</tt>.
-
-The method will raise an exception if the tag cache is not set.
+parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
+<tt>FALSE</tt>.</p>
+<p>The method will raise an exception if the tag cache is not set.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1636,7 +1703,7 @@ call the parent method; if not, we return the received value.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the offset exists.
+                                            &mdash; <p><tt>TRUE</tt> the offset exists.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1964,12 +2031,11 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                 <p><em>Handle offset and value before setting it</em></p>
                 <p>This method can be used to manage the offset before passing it to the inherited
 {@link ArrayObject::OffsetSet()} method.</p>
-<p>The method provides the offset and value as references, if the method returns</p>
+<p>The method provides the offset and value as references, if the method returns
 <tt>NULL</tt> it means that the offset and value must be passed to the inherited
 {@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
-that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
-
-In this class we do nothing.
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.</p>
+<p>In this class we do nothing.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1988,7 +2054,7 @@ In this class we do nothing.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> set offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> set offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2296,7 +2362,7 @@ handle the object tags.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> means ready.
+                                            &mdash; <p><tt>TRUE</tt> means ready.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2388,7 +2454,7 @@ that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> delete offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> delete offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2967,7 +3033,7 @@ called methods.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3022,7 +3088,7 @@ referenced and is fit to be deleted.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3091,7 +3157,7 @@ validation or casting.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3371,7 +3437,7 @@ stop it: it will return <tt>TRUE</tt> by default.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+                                            &mdash; <p><tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3460,7 +3526,7 @@ stop it.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+                                            &mdash; <p><tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3562,7 +3628,7 @@ methods it calls.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> continues the traversal.
+                                            &mdash; <p><tt>TRUE</tt> continues the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3788,7 +3854,7 @@ offset is internal.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>TRUE</tt> if the tag was resolved.
+                                            &mdash; <p><tt>TRUE</tt> if the tag was resolved.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3857,7 +3923,7 @@ value <em>must</em> be an array.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> if structure or list.
+                                            &mdash; <p><tt>TRUE</tt> if structure or list.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3893,11 +3959,10 @@ offset is neither a structure nor a list; list elements, however, are passed to 
 method.</p>
 <p>In this class we assert that structured types are arrays, <em>only if the current
 offset data type has a single entry</em>.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one data type,</p>
-<tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.
-
-Derived classes can handle custom cases by calling the parent method and checking the
-retuned value.
+<p>The method will return <tt>NULL</tt> if the offset has more than one data type,
+<tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.</p>
+<p>Derived classes can handle custom cases by calling the parent method and checking the
+retuned value.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -3931,7 +3996,7 @@ retuned value.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3967,8 +4032,8 @@ type, the method will only be called for scalar values.</p>
 overload this method in derived classes only if you plan to handle offsets that can
 have more than one data type.</p>
 <p>This method will not handle object reference types.</p>
-<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and</p>
-<tt>NULL</tt> if the offset has more than one data type.
+<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
+<tt>NULL</tt> if the offset has more than one data type.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -4007,7 +4072,7 @@ have more than one data type.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4104,12 +4169,11 @@ assumed that all references belong to the current data dictionary wtrapper,
 {@link dictionary()}.</p>
 <p>In this class we handle all object reference data types, <em>only if the current
 offset data type has a single entry</em>.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one data type,</p>
+<p>The method will return <tt>NULL</tt> if the offset has more than one data type,
 <tt>TRUE</tt> if the reference was resolved and <tt>FALSE</tt> if it was not
-resolved; this will only happen if the element's data type is not recognised.
-
-Derived classes can handle custom cases by calling the parent method and checking the
-retuned value.
+resolved; this will only happen if the element's data type is not recognised.</p>
+<p>Derived classes can handle custom cases by calling the parent method and checking the
+retuned value.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -4148,7 +4212,7 @@ retuned value.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4522,7 +4586,7 @@ be returned and the inherited {@link ArrayObject::OffsetExists()} will be skippe
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> check offset, other, return.
+                                            &mdash; <p><tt>NULL</tt> check offset, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4572,7 +4636,7 @@ returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> get offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> get offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4644,7 +4708,7 @@ returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 15th, 2014 at 21:47.
+                    on March 18th, 2014 at 18:22.
                 </section>
             </section>
         </section>

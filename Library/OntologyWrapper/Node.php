@@ -985,12 +985,12 @@ class Node extends PersistentObject
 			//
 			// Create default labels.
 			//
-			$labels[ 'type' ] = ( $this->offsetExists( kTAG_TAG ) )
-							  ? 'tag'
-							  : 'term';
-			$labels[ 'kind' ] = ( $this->offsetExists( kTAG_MASTER ) )
-							  ? 'alias'
-							  : 'master';
+			$labels = ( $this->offsetExists( kTAG_TAG ) )
+					? array( 'tag' )
+					: array( 'term' );
+			$labels[] = ( $this->offsetExists( kTAG_MASTER ) )
+					  ? 'alias'
+					  : 'master';
 			
 			//
 			// Save node and set sequence number.

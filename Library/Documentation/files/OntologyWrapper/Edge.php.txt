@@ -526,6 +526,22 @@ class Edge extends PersistentObject
 		// Init local storage.
 		//
 		$id = $this->__toString();
+		$dictionary = $this->dictionary();
+		$graph = $dictionary->Graph();
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $dictionary, TRUE ) );
+		
+		//
+		// Check for duplicates.
+		//
+		if( $collection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
+			throw new \Exception(
+				"Duplicate edge object [$id]." );								// !@! ==>
 		
 		//
 		// Set native identifier.
@@ -534,18 +550,35 @@ class Edge extends PersistentObject
 			\ArrayObject::offsetSet( kTAG_NID, $id );
 		
 		//
-		// Resolve collection.
+		// Handle graph.
 		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
+		if( $graph !== NULL )
+		{
+			//
+			// Save edge and set sequence number.
+			//
+			$this->offsetSet(
+				kTAG_ID_SEQUENCE,
+				$graph->setEdge( $this->offsetGet( kTAG_SUBJECT ),
+								 $this->offsetGet( kTAG_PREDICATE ),
+								 $this->offsetGet( kTAG_OBJECT ) ) );
+		
+		} // Has graph.
 		
 		//
-		// Check for duplicates.
+		// Handle sequence number.
 		//
-		if( $collection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
-			throw new \Exception(
-				"Duplicate edge object [$id]." );								// !@! ==>
+		else
+		{
+			//
+			// Set sequence number.
+			//
+			$this->offsetSet(
+				kTAG_ID_SEQUENCE,
+				$collection->getSequenceNumber(
+					static::kSEQ_NAME ) );
+		
+		} // Has no graph.
 	
 	} // preCommitObjectIdentifiers.
 
