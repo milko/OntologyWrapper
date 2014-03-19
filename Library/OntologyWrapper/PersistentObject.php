@@ -905,32 +905,6 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *									PUBLIC STATUS INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	committed																		*
-	 *==================================================================================*/
-
-	/**
-	 * Check if object is committed
-	 *
-	 * This method will return <tt>TRUE</tt> if the object is committed.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> is committed.
-	 *
-	 * @uses isCommitted()
-	 */
-	public function committed()							{	return $this->isCommitted();	}
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC MASTER MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -3260,12 +3234,38 @@ abstract class PersistentObject extends OntologyObject
 				return TRUE;														// ==>
 		
 			//
+			// Private string lists.
+			//
+			case kTAG_TAG_OFFSETS:
+			case kTAG_TERM_OFFSETS:
+			case kTAG_NODE_OFFSETS:
+			case kTAG_EDGE_OFFSETS:
+			case kTAG_ENTITY_OFFSETS:
+			case kTAG_UNIT_OFFSETS:
+				$theType = array( kTYPE_STRING );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN );
+				return TRUE;														// ==>
+		
+			//
 			// Private integers.
 			//
 			case kTAG_UNIT_COUNT:
+			case kTAG_UNIT_COUNT:
 			case kTAG_ENTITY_COUNT:
+			case kTAG_TAG_COUNT:
+			case kTAG_TERM_COUNT:
+			case kTAG_NODE_COUNT:
+			case kTAG_EDGE_COUNT:
 				$theType = array( kTYPE_INT );
 				$theKind = array( kTYPE_PRIVATE_IN );
+				return TRUE;														// ==>
+		
+			//
+			// Private integer lists.
+			//
+			case kTAG_OBJECT_TAGS:
+				$theType = array( kTYPE_INT );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN );
 				return TRUE;														// ==>
 		
 		} // Parsing default tags.

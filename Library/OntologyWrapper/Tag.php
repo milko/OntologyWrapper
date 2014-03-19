@@ -123,6 +123,11 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
+ *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: <em>Tag offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by other objects as a leaf offset, that is, an offset holding a value.
+ *		@@@
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the global identifier,

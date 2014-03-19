@@ -89,18 +89,17 @@ try
 	//
 	// Load ISO Standards.
 	//
-	$wrapper->loadISOStandards( TRUE );
+	$wrapper->initISOStandards( TRUE );
 	
 	//
 	// Load WBI Standards.
 	//
-	$wrapper->loadWBIStandards( TRUE );
+	$wrapper->initWBIStandards( TRUE );
 	
 	//
-	// Load FAO institutes.
+	// Load entities.
 	//
-	$institutes = new OntologyWrapper\FAOInstitute();
-	$institutes->Maintain( $wrapper );
+	$wrapper->initEntities( TRUE );
 }
 
 //

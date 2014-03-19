@@ -325,6 +325,15 @@ abstract class CollectionObject extends ConnectionObject
 	
 	} // delete.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *									PUBLIC QUERY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
 	 
 	/*===================================================================================
 	 *	matchOne																		*
@@ -458,6 +467,182 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MODIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * This method should update the reference count of the provided objects, the method
+	 * accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdent</b>: The object reference or list of references.
+	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
+	 *		this corresponds to a tag sequence number.
+	 *	<li><b>$theCountOffset</b>: The offset holding the reference count, this corresponds
+	 *		to a tag sequence number.
+	 *	<li><b>$theCount</b>: The number by which the count must be incremented.
+	 * </ul>
+	 *
+	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
+	 * of references provided in <tt>$theIdent</tt> and for each one increment the value
+	 * stored in the <tt>$theCountOffset</tt> by the count provided in <tt>$theCount</tt>.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theCountOffset		Reference count offset.
+	 * @param integer				$theCount			Reference count delta.
+	 *
+	 * @access public
+	 */
+	abstract public function updateReferenceCount( $theIdent,
+												   $theIdentOffset,
+												   $theCountOffset,
+												   $theCount = 1 );
+
+	 
+	/*===================================================================================
+	 *	addToSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Add to set
+	 *
+	 * This method should add the provided elements to the set contained in the provided
+	 * object reference, the method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdent</b>: The object reference or list of references.
+	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
+	 *		this corresponds to a tag sequence number.
+	 *	<li><b>$theSetOffset</b>: The offset of the set, this corresponds to a tag sequence
+	 *		number.
+	 *	<li><b>$theElements</b>: The list of strings to be added to the set.
+	 * </ul>
+	 *
+	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
+	 * of references provided in <tt>$theIdent</tt> and for each one add the values provided
+	 * in the <tt>$theElements</tt> list only if not there already.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theSetOffset		Offset of set.
+	 * @param array					$theElements		List of elements to be added.
+	 *
+	 * @access public
+	 */
+	abstract public function addToSet( $theIdent, $theIdentOffset,
+									   $theSetOffset, $theElements );
+
+	 
+	/*===================================================================================
+	 *	delFromSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Remove from set
+	 *
+	 * This method should remove the provided elements from the set contained in the
+	 * provided object reference, the method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdent</b>: The object reference or list of references.
+	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
+	 *		this corresponds to a tag sequence number.
+	 *	<li><b>$theSetOffset</b>: The offset of the set, this corresponds to a tag sequence
+	 *		number.
+	 *	<li><b>$theElements</b>: The list of strings to be removed from the set.
+	 * </ul>
+	 *
+	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
+	 * of references provided in <tt>$theIdent</tt> and for each one remove the values
+	 * provided in the <tt>$theElements</tt> list if there.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theSetOffset		Offset of set.
+	 * @param array					$theElements		List of elements to be added.
+	 *
+	 * @access public
+	 */
+	abstract public function delFromSet( $theIdent, $theIdentOffset,
+										 $theSetOffset, $theElements );
+
+	 
+	/*===================================================================================
+	 *	replaceOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Replace offsets
+	 *
+	 * This method should set or replace the provided offsets in the object identified by
+	 * the provided native identifier.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theProperties</b>: The properties to be added or replaced in the object.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theProperties		Properties to be added or replaced.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	abstract public function replaceOffsets( $theIdentifier, $theProperties );
+
+	 
+	/*===================================================================================
+	 *	deleteOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets
+	 *
+	 * This method should delete the provided offsets from the object identified by the
+	 * provided native identifier.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
+	 *	<li><b>$theOffsets</b>: The offsets to be deleted from the object, only the top
+	 *		level offsets, not the offset values.
+	 * </ul>
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theOffsets			Offsets to be deleted.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC SEQUENCE MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
@@ -547,7 +732,7 @@ abstract class CollectionObject extends ConnectionObject
 		
 		return $this->mParent->getSequenceNumber( $theSequence );				 // ==>
 	
-	} // setSequenceNumber.
+	} // getSequenceNumber.
 
 		
 
@@ -557,23 +742,6 @@ abstract class CollectionObject extends ConnectionObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	getIndex																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get index
-	 *
-	 * This method should return the list of indexed offsets.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @access public
-	 * @return array				The list of indexed offsets.
-	 */
-	abstract public function getIndex();
 
 	 
 	/*===================================================================================
@@ -606,6 +774,23 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
+	 *	getIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get index
+	 *
+	 * This method should return the list of indexed offsets.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @access public
+	 * @return array				The list of indexed offsets.
+	 */
+	abstract public function getIndex();
+
+	 
+	/*===================================================================================
 	 *	deleteIndex																		*
 	 *==================================================================================*/
 
@@ -620,134 +805,6 @@ abstract class CollectionObject extends ConnectionObject
 	 * @access public
 	 */
 	abstract public function deleteIndex( $theIndex = NULL );
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC OPERATIONS INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	updateReferenceCount															*
-	 *==================================================================================*/
-
-	/**
-	 * Update reference count
-	 *
-	 * This method should update the reference count for the object identified by the
-	 * provided parameters.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The object identifier or list of identifiers.
-	 *	<li><b>$theReferenceOffset</b>: The offset of the property holding the reference
-	 *		count.
-	 *	<li><b>$theIdentOffset</b>: The offset of the provided identifier.
-	 *	<li><b>$theReferenceCount</b>: The number by which the count must be incremented.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier or identifiers.
-	 * @param string				$theReferenceOffset	Reference count offset.
-	 * @param string				$theIdentOffset		Identifier offset.
-	 * @param integer				$theReferenceCount	Reference count value.
-	 *
-	 * @access public
-	 */
-	abstract public function updateReferenceCount( $theIdentifier,
-												   $theReferenceOffset,
-												   $theIdentOffset = kTAG_NID,
-												   $theReferenceCount = 1 );
-
-	 
-	/*===================================================================================
-	 *	updateTagOffsets																*
-	 *==================================================================================*/
-
-	/**
-	 * Update tag offsets
-	 *
-	 * This method should add the provided offsets to the tag referenced by the provided
-	 * parameter.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theTag</b>: The native identifier of the tag.
-	 *	<li><b>$theOffsets</b>: The list of offsets for that tag.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param int					$theTag				Tag native identifier.
-	 * @param array					$theOffsets			List of tag offsets.
-	 *
-	 * @access public
-	 */
-	abstract public function updateTagOffsets( $theTag, $theOffsets );
-
-	 
-	/*===================================================================================
-	 *	replaceOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Replace offsets
-	 *
-	 * This method should set or replace the provided offsets in the object identified by
-	 * the provided native identifier.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
-	 *	<li><b>$theProperties</b>: The properties to be added or replaced in the object.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theProperties		Properties to be added or replaced.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function replaceOffsets( $theIdentifier, $theProperties );
-
-	 
-	/*===================================================================================
-	 *	deleteOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Delete offsets
-	 *
-	 * This method should delete the provided offsets from the object identified by the
-	 * provided native identifier.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The native identifier of the object.
-	 *	<li><b>$theOffsets</b>: The offsets to be deleted from the object, only the top
-	 *		level offsets, not the offset values.
-	 * </ul>
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theOffsets			Offsets to be deleted.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
 
 		
 

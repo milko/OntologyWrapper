@@ -497,7 +497,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">3 character country code</item>
+					<item const="kTAG_TEXT">Aggregated 3 character country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -508,6 +508,9 @@
 			</item>
 		</TERM>
 		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

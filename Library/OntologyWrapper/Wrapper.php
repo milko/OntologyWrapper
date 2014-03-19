@@ -981,14 +981,14 @@ class Wrapper extends Dictionary
 
 /*=======================================================================================
  *																						*
- *								PUBLIC STANDARDS INTERFACE								*
+ *						PUBLIC STANDARDS INITIALISATION INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	loadISOStandards																*
+	 *	initISOStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1002,7 +1002,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function loadISOStandards( $doLog = FALSE )
+	public function initISOStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1187,11 +1187,11 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // loadISOStandards.
+	} // initISOStandards.
 
 	 
 	/*===================================================================================
-	 *	loadWBIStandards																*
+	 *	initWBIStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1205,7 +1205,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function loadWBIStandards( $doLog = FALSE )
+	public function initWBIStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1253,7 +1253,50 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // loadWBIStandards.
+	} // initWBIStandards.
+
+	 
+	/*===================================================================================
+	 *	initEntities																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load default entities
+	 *
+	 * This method can be used to load the default entities.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function initEntities( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading default entities.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset ontology: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default FAO institutes.
+		//
+		if( $doLog )
+			echo( "  • Loading FAO institutes.\n" );
+
+		$institutes = new FAOInstitute();
+		$institutes->Maintain( $this );
+	
+	} // initEntities.
 
 		
 

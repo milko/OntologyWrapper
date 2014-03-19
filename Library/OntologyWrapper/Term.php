@@ -373,6 +373,120 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC RESOLUTION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ResolveCountryCode																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve a country code
+	 *
+	 * This method can be used to resolve a country code, it expects a code and will check
+	 * whether the code exists among the ISO standards, the method will check the provided
+	 * code in the following order:
+	 *
+	 * <ul>
+	 *	<li><em>2 character codes</em>: <tt>iso:3166:1:alpha-2</tt>
+	 *	<li><em>3 character codes</em>:
+	 *	 <ul>
+	 *		<li><em>Numeric</em>:
+	 *		 <ul>
+	 *			<li><tt>iso:3166:1:numeric</tt>
+	 *			<li><tt>iso:3166:3:numeric</tt>
+	 *		 </ul>
+	 *		<li><em>Character</em>:
+	 *		 <ul>
+	 *			<li><tt>iso:3166:1:alpha-3</tt>
+	 *			<li><tt>iso:3166:3:alpha-3</tt>
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><em>4 character codes</em>: <tt>iso:3166:3:alpha-4</tt>
+	 * </ul>
+	 *
+	 * If the code is resolved, the method will return the code with its namespace, if not,
+	 * the method will return <tt>NULL</tt>. If the code size doesn't match the above cases,
+	 * the method will return <tt>FALSE</tt>.
+	 *
+	 * <em>Note that this is not an exact procedure, there may be synonyms, so you are
+	 * better off curating the data at the source</em>.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param string				$theCode			Country code.
+	 *
+	 * @static
+	 * @return string				Full country code, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 */
+	static function ResolveCountryCode( Wrapper $theWrapper, $theCode )
+	{
+		//
+		// Init local storage.
+		//
+		$criteria = array( kTAG_NID => NULL );
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Parse by code size.
+		//
+		switch( strlen( $theCode ) )
+		{
+			case 2:
+				$code = "iso:3166:1:alpha-2:$theCode";
+				$criteria[ kTAG_NID ] = $code;
+				if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+					return $code;													// ==>
+				return NULL;														// ==>
+			
+			case 3:
+				if( ctype_digit( $theCode ) )
+				{
+					$code = "iso:3166:1:numeric:$theCode";
+					$criteria[ kTAG_NID ] = $code;
+					if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+						return $code;												// ==>
+					$code = "iso:3166:3:numeric:$theCode";
+					$criteria[ kTAG_NID ] = $code;
+					if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+						return $code;												// ==>
+				}
+				else
+				{
+					$code = "iso:3166:1:alpha-3:$theCode";
+					$criteria[ kTAG_NID ] = $code;
+					if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+						return $code;												// ==>
+					$code = "iso:3166:3:alpha-3:$theCode";
+					$criteria[ kTAG_NID ] = $code;
+					if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+						return $code;												// ==>
+				}
+				return NULL;														// ==>
+			
+			case 4:
+				$code = "iso:3166:3:alpha-4:$theCode";
+				$criteria[ kTAG_NID ] = $code;
+				if( $collection->matchOne( $criteria, kQUERY_COUNT ) )
+					return $code;													// ==>
+				return NULL;														// ==>
+			
+			default:
+				return FALSE;														// ==>
+		}
+		
+		return NULL;																// ==>
+	
+	} // ResolveCountryCode.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
