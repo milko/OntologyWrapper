@@ -303,17 +303,15 @@ abstract class UnitObject extends PersistentObject
 	/**
 	 * Create indexes
 	 *
-	 * This method will create the default indexes for the current class, unlike the other
-	 * persistent classes in this library, we do not use the {@link ResetCollection()}
-	 * method to do so, because the class inheritance forks into several distinct classes,
-	 * while the hosting collection is either the entities or the units collection.
+	 * In this class we index the following offsets:
 	 *
-	 * To reset the collection, concrete derived classes should first call the inherited
-	 * {@link ResetCollection()} method to clear the collection, then call all the leaf class
-	 * current method to load all the necessary indexes.
-	 *
-	 * In this class we index all the default unit object offsets, in derived classes you
-	 * should call this method for each concrete leaf class.
+	 * <ul>
+	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: Domain.
+	 *	<li><tt>{@link kTAG_AUTHORITY}</tt>: Authority.
+	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: Collection.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Identifier.
+	 *	<li><tt>{@link kTAG_VERSION}</tt>: Version.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
@@ -323,9 +321,9 @@ abstract class UnitObject extends PersistentObject
 	static function CreateIndexes( DatabaseObject $theDatabase )
 	{
 		//
-		// Get and open collection.
+		// Set parent indexes and retrieve collection.
 		//
-		$collection = $theDatabase->Collection( static::kSEQ_NAME, TRUE );
+		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
 		// Set domain index.

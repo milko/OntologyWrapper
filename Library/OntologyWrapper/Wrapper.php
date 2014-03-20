@@ -636,10 +636,11 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collections.\n" );
-		Tag::ResetCollection( $this->mMetadata );
-		Term::ResetCollection( $this->mMetadata );
-		Node::ResetCollection( $this->mMetadata );
-		Edge::ResetCollection( $this->mMetadata );
+		$this->mMetadata->drop();
+		Tag::CreateIndexes( $this->mMetadata );
+		Term::CreateIndexes( $this->mMetadata );
+		Node::CreateIndexes( $this->mMetadata );
+		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
 		// Load XML files.

@@ -289,26 +289,31 @@ class Term extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	ResetCollection																	*
+	 *	CreateIndexes																	*
 	 *==================================================================================*/
 
 	/**
-	 * Reset the collection
+	 * Create indexes
 	 *
-	 * In this class we first drop the collection by calling the parent method, then we
-	 * create the default indexes.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: Local identifier.
+	 *	<li><tt>{@link kTAG_NAMESPACE}</tt>: Namespace.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
 	 * @static
 	 * @return CollectionObject		The collection.
 	 */
-	static function ResetCollection( DatabaseObject $theDatabase )
+	static function CreateIndexes( DatabaseObject $theDatabase )
 	{
 		//
-		// Drop and get collection.
+		// Set parent indexes and retrieve collection.
 		//
-		$collection = parent::ResetCollection( $theDatabase );
+		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
 		// Set local identifier index.
@@ -331,7 +336,7 @@ class Term extends PersistentObject
 		
 		return $collection;															// ==>
 	
-	} // ResetCollection.
+	} // CreateIndexes.
 
 		
 
@@ -620,22 +625,6 @@ class Term extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitObjectTags																*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitObjectTags( &$theTags )									   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitObjectIdentifiers														*
 	 *==================================================================================*/
 
@@ -658,33 +647,6 @@ class Term extends PersistentObject
 			\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
 	
 	} // preCommitObjectIdentifiers.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-COMMIT INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postCommitTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of tag reference
-	 * counts and offsets.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 */
-	protected function postCommitTags( &$theTags )										   {}
 
 		
 

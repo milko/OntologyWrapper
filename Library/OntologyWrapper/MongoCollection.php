@@ -98,7 +98,7 @@ class MongoCollection extends CollectionObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PERSISTENCE INTERFACE							*
+ *									PUBLIC QUERY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -307,6 +307,283 @@ class MongoCollection extends CollectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MODIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	updateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update reference count
+	 *
+	 * In this class we use the <tt>$inc</tt> operator.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theCountOffset		Reference count offset.
+	 * @param integer				$theCount			Reference count delta.
+	 *
+	 * @access public
+	 */
+	public function updateReferenceCount( $theIdent, $theIdentOffset,
+													 $theCountOffset, $theCount = 1 )
+	{
+		//
+		// Set criteria.
+		//
+		$criteria = ( is_array( $theIdent ) )
+				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
+				  : array( (string) $theIdentOffset => $theIdent );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = array( '$inc' => array( (string) $theCountOffset
+											  => (int) $theCount ) );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // updateReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	addToSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Add to set
+	 *
+	 * In this class we use the <tt>$addToSet</tt> operator.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theSetOffset		Offset of set.
+	 * @param array					$theElements		List of elements to be added.
+	 *
+	 * @access public
+	 */
+	public function addToSet( $theIdent, $theIdentOffset,
+							  $theSetOffset, $theElements )
+	{
+		//
+		// Set criteria.
+		//
+		$criteria = ( is_array( $theIdent ) )
+				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
+				  : array( (string) $theIdentOffset => $theIdent );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = ( is_array( $theElements ) )
+					   ? array(
+							'$addToSet' => array(
+								(string) $theSetOffset => array(
+									'$each' => $theElements ) ) )
+					   : array(
+					   		'$addToSet' => array(
+					   			(string) $theSetOffset => (string) $theElements ) );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => is_array( $theIdent ),
+						  'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // addToSet.
+
+	 
+	/*===================================================================================
+	 *	delFromSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Remove from set
+	 *
+	 * In this class we use the <tt>$pull</tt> operator.
+	 *
+	 * @param mixed					$theIdent			Object identifier or identifiers.
+	 * @param string				$theIdentOffset		Object identifier offset.
+	 * @param string				$theSetOffset		Offset of set.
+	 * @param array					$theElements		List of elements to be removed.
+	 *
+	 * @access public
+	 */
+	public function delFromSet( $theIdent, $theIdentOffset,
+								$theSetOffset, $theElements )
+	{
+		//
+		// Set criteria.
+		//
+		$criteria = ( is_array( $theIdent ) )
+				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
+				  : array( (string) $theIdentOffset => $theIdent );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = ( is_array( $theElements ) )
+					   ? array(
+							'$pull' => array(
+								(string) $theSetOffset => array(
+									'$each' => $theElements ) ) )
+					   : array(
+					   		'$pull' => array(
+					   			(string) $theSetOffset => (string) $theElements ) );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => is_array( $theIdent ),
+						  'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+	
+	} // delFromSet.
+
+	 
+	/*===================================================================================
+	 *	replaceOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Replace offsets
+	 *
+	 * In this class we use the <tt>$set</tt> operator.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theProperties		Properties to be added or replaced.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 *
+	 * @throws Exception
+	 */
+	public function replaceOffsets( $theIdentifier, $theProperties )
+	{
+		//
+		// Check offsets.
+		//
+		if( ! is_array( $theProperties ) )
+			throw new \Exception(
+				"Unable to replace properties: "
+			   ."expecting an array." );										// !@! ==>
+		elseif( ! count( $theProperties ) )
+			return 0;																// ==>
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+	
+		//
+		// Set modifications.
+		//
+		$modifications = array( '$set' => $theProperties );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return $ok[ 'n' ];															// ==>
+	
+	} // replaceOffsets.
+
+	 
+	/*===================================================================================
+	 *	deleteOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets
+	 *
+	 * In this class we use the <tt>$unset</tt> operator.
+	 *
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param array					$theOffsets			Offsets to be deleted.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	public function deleteOffsets( $theIdentifier, $theOffsets )
+	{
+		//
+		// Check offsets.
+		//
+		if( ! is_array( $theOffsets ) )
+			throw new \Exception(
+				"Unable to delete properties: "
+			   ."expecting an array." );										// !@! ==>
+		elseif( ! count( $theOffsets ) )
+			return 0;																// ==>
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+	
+		//
+		// Set modifications.
+		//
+		$tmp = Array();
+		foreach( $theOffsets as $offset )
+			$tmp[] = array( $offset => '' );
+		$modifications = array( '$unset' => $tmp );
+	
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Update.
+		//
+		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return $ok[ 'n' ];															// ==>
+	
+	} // deleteOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC INDEX MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -438,225 +715,6 @@ class MongoCollection extends CollectionObject
 			   ."connection is not open." );									// !@! ==>
 	
 	} // deleteIndex.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC OPERATIONS INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	updateReferenceCount															*
-	 *==================================================================================*/
-
-	/**
-	 * Update reference count
-	 *
-	 * In this class we use the <tt>$inc</tt> operator.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier or identifiers.
-	 * @param string				$theReferenceOffset	Reference count offset.
-	 * @param string				$theIdentOffset		Identifier offset.
-	 * @param integer				$theReferenceCount	Reference count value.
-	 *
-	 * @access public
-	 */
-	public function updateReferenceCount( $theIdentifier,
-										  $theReferenceOffset,
-										  $theIdentOffset = kTAG_NID,
-										  $theReferenceCount = 1 )
-	{
-		//
-		// Set criteria.
-		//
-		$criteria = ( is_array( $theIdentifier ) )
-				  ? array( (string) $theIdentOffset => array( '$in' => $theIdentifier ) )
-				  : array( (string) $theIdentOffset => $theIdentifier );
-	
-		//
-		// Set modifications.
-		//
-		$modifications = array( '$inc' => array( (string) $theReferenceOffset
-											  => (int) $theReferenceCount ) );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-	
-	} // updateReferenceCount.
-
-	 
-	/*===================================================================================
-	 *	updateTagOffsets																*
-	 *==================================================================================*/
-
-	/**
-	 * Update tag offsets
-	 *
-	 * In this class we use the <tt>$addToSet</tt> operator.
-	 *
-	 * @param int					$theTag				Tag native identifier.
-	 * @param mixed					$theOffsets			List of tag offsets or offset.
-	 *
-	 * @access public
-	 */
-	public function updateTagOffsets( $theTag, $theOffsets )
-	{
-		//
-		// Set criteria.
-		//
-		$criteria = array( (string) kTAG_ID_SEQUENCE => (int) $theTag );
-	
-		//
-		// Set modifications.
-		//
-		$modifications = ( is_array( $theOffsets ) )
-					   ? array(
-							'$addToSet' => array(
-								(string) kTAG_UNIT_OFFSETS => array(
-									'$each' => $theOffsets ) ) )
-					   : array(
-					   		'$addToSet' => array(
-					   			(string) kTAG_UNIT_OFFSETS => (string) $theOffsets ) );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-	
-	} // updateTagOffsets.
-
-	 
-	/*===================================================================================
-	 *	replaceOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Replace offsets
-	 *
-	 * In this class we use the <tt>$set</tt> operator.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theProperties		Properties to be added or replaced.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 *
-	 * @throws Exception
-	 */
-	public function replaceOffsets( $theIdentifier, $theProperties )
-	{
-		//
-		// Check offsets.
-		//
-		if( ! is_array( $theProperties ) )
-			throw new \Exception(
-				"Unable to replace properties: "
-			   ."expecting an array." );										// !@! ==>
-		elseif( ! count( $theProperties ) )
-			return 0;																// ==>
-		
-		//
-		// Set criteria.
-		//
-		$criteria = array( kTAG_NID => $theIdentifier );
-	
-		//
-		// Set modifications.
-		//
-		$modifications = array( '$set' => $theProperties );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-		
-		return $ok[ 'n' ];															// ==>
-	
-	} // replaceOffsets.
-
-	 
-	/*===================================================================================
-	 *	deleteOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Delete offsets
-	 *
-	 * In this class we use the <tt>$unset</tt> operator.
-	 *
-	 * @param mixed					$theIdentifier		Object native identifier.
-	 * @param array					$theOffsets			Offsets to be deleted.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	public function deleteOffsets( $theIdentifier, $theOffsets )
-	{
-		//
-		// Check offsets.
-		//
-		if( ! is_array( $theOffsets ) )
-			throw new \Exception(
-				"Unable to delete properties: "
-			   ."expecting an array." );										// !@! ==>
-		elseif( ! count( $theOffsets ) )
-			return 0;																// ==>
-		
-		//
-		// Set criteria.
-		//
-		$criteria = array( kTAG_NID => $theIdentifier );
-	
-		//
-		// Set modifications.
-		//
-		$tmp = Array();
-		foreach( $theOffsets as $offset )
-			$tmp[] = array( $offset => '' );
-		$modifications = array( '$unset' => $tmp );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => FALSE, 'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-		
-		return $ok[ 'n' ];															// ==>
-	
-	} // deleteOffsets.
 
 		
 

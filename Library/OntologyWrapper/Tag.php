@@ -386,26 +386,33 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	ResetCollection																	*
+	 *	CreateIndexes																	*
 	 *==================================================================================*/
 
 	/**
-	 * Reset the collection
+	 * Create indexes
 	 *
-	 * In this class we first drop the collection by calling the parent method, then we
-	 * create the default indexes.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_TERMS}</tt>: Terms path.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
+	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Units count.
+	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities count.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
 	 * @static
 	 * @return CollectionObject		The collection.
 	 */
-	static function ResetCollection( DatabaseObject $theDatabase )
+	static function CreateIndexes( DatabaseObject $theDatabase )
 	{
 		//
-		// Drop and get collection.
+		// Set parent indexes and retrieve collection.
 		//
-		$collection = parent::ResetCollection( $theDatabase );
+		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
 		// Set sequence identifier index.
@@ -427,22 +434,22 @@ class Tag extends PersistentObject
 								  array( "name" => "LABEL" ) );
 		
 		//
-		// Set entities count index.
-		//
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITIES",
-								  		 "sparse" => TRUE ) );
-		
-		//
 		// Set units count index.
 		//
 		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
 								  array( "name" => "UNITS",
 								  		 "sparse" => TRUE ) );
 		
+		//
+		// Set entities count index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITIES",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
-	} // ResetCollection.
+	} // CreateIndexes.
 
 		
 
@@ -610,6 +617,8 @@ class Tag extends PersistentObject
 	 *
 	 * @access protected
 	 *
+	 * @throws Exception
+	 *
 	 * @uses isInited()
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
@@ -620,7 +629,7 @@ class Tag extends PersistentObject
 		if( ! $this->offsetExists( kTAG_LABEL ) )
 		{
 			//
-			// Check tags.
+			// Check terms.
 			//
 			if( $this->offsetExists( kTAG_TERMS ) )
 			{
@@ -633,7 +642,18 @@ class Tag extends PersistentObject
 				// Handle object.
 				//
 				if( $term instanceof Term )
-					$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+				{
+					//
+					// Copy label.
+					//
+					if( $term->offsetExists( kTAG_LABEL ) )
+						$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+					else
+						throw new \Exception(
+							"Unable to commit: "
+						   ."missing term label." );							// !@! ==>
+				
+				} // Term object.
 				
 				//
 				// Handle reference.
@@ -650,6 +670,10 @@ class Tag extends PersistentObject
 					//
 					if( $term->offsetExists( kTAG_LABEL ) )
 						$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+					else
+						throw new \Exception(
+							"Unable to commit: "
+						   ."missing term label." );							// !@! ==>
 				
 				} // Term reference.
 			
@@ -675,22 +699,6 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitObjectTags																*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitObjectTags( &$theTags )									   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitObjectIdentifiers														*
 	 *==================================================================================*/
 
@@ -711,7 +719,7 @@ class Tag extends PersistentObject
 		//
 		$collection
 			= static::ResolveCollection(
-				static::ResolveDatabase( $this->dictionary(), TRUE ) );
+				static::ResolveDatabase( $this->dictionary() ) );
 		
 		//
 		// Set native identifier.
@@ -768,24 +776,6 @@ class Tag extends PersistentObject
 	
 	} // postCommit.
 
-	 
-	/*===================================================================================
-	 *	postCommitTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of tag reference
-	 * counts and offsets.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 */
-	protected function postCommitTags( &$theTags )										   {}
-
 		
 
 /*=======================================================================================
@@ -826,24 +816,6 @@ class Tag extends PersistentObject
 		$this->dictionary()->delTag( $this, 0 );
 	
 	} // postDelete.
-
-	 
-	/*===================================================================================
-	 *	postDeleteTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property leaf tags.
-	 *
-	 * @access protected
-	 *
-	 * @uses updateReferenceCount()
-	 */
-	protected function postDeleteTags( &$theTags )										   {}
 
 		
 

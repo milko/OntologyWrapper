@@ -358,26 +358,32 @@ class Node extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	ResetCollection																	*
+	 *	CreateIndexes																	*
 	 *==================================================================================*/
 
 	/**
-	 * Reset the collection
+	 * Create indexes
 	 *
-	 * In this class we first drop the collection by calling the parent method, then we
-	 * create the default indexes.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: Persistent identifier.
+	 *	<li><tt>{@link kTAG_TAG}</tt>: Tag reference.
+	 *	<li><tt>{@link kTAG_TERM}</tt>: Term reference.
+	 *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: Node type.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
 	 * @static
 	 * @return CollectionObject		The collection.
 	 */
-	static function ResetCollection( DatabaseObject $theDatabase )
+	static function CreateIndexes( DatabaseObject $theDatabase )
 	{
 		//
-		// Drop and get collection.
+		// Set parent indexes and retrieve collection.
 		//
-		$collection = parent::ResetCollection( $theDatabase );
+		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
 		// Set persistent identifier index.
@@ -402,13 +408,6 @@ class Node extends PersistentObject
 								  		 "sparse" => TRUE ) );
 		
 		//
-		// Set master index.
-		//
-		$collection->createIndex( array( kTAG_MASTER => 1 ),
-								  array( "name" => "MASTER",
-								  		 "sparse" => TRUE ) );
-		
-		//
 		// Set type index.
 		//
 		$collection->createIndex( array( kTAG_NODE_TYPE => 1 ),
@@ -417,7 +416,7 @@ class Node extends PersistentObject
 		
 		return $collection;															// ==>
 	
-	} // ResetCollection.
+	} // CreateIndexes.
 
 		
 
@@ -936,22 +935,6 @@ class Node extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitObjectTags																*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitObjectTags( &$theTags )									   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitObjectIdentifiers														*
 	 *==================================================================================*/
 
@@ -1024,60 +1007,6 @@ class Node extends PersistentObject
 		} // Has no graph.
 		
 	} // preCommitObjectIdentifiers.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-COMMIT INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postCommitTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of tag reference
-	 * counts and offsets.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 */
-	protected function postCommitTags( &$theTags )										   {}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-DELETE INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postDeleteTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property leaf tags.
-	 *
-	 * @access protected
-	 *
-	 * @uses updateReferenceCount()
-	 */
-	protected function postDeleteTags( &$theTags )										   {}
 
 		
 

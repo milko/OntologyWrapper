@@ -1661,7 +1661,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a <em>list of tag sequence numbers</em> referring to the set of tag objects referenced by an object's offsets.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1680,7 +1680,81 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of integers</em> which represent <em>tag sequence numbers</em>, this list provides the set of tags referenced by the current object's offsets at any level in the structure.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of elements</em> in which the first item <em>indicates a tag sequence number</em> and the second item <em>lists the offset paths</em> in which the tag <em>is used as a leaf offset</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 44 -->
+	<!-- kTAG_OBJECT_OFFSETS -->
+	<META>
+	   <TERM ns="" lid="object-offsets">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Object offsets</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:object-offsets</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:array</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+				<item>:type:private-out</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of elements</em> in which the the key represents the <em>tag sequence number</em> and the value is the <em>list offset paths</em> in which the tag <em>is used as a leaf offset</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 45 -->
+	<!-- kTAG_OBJECT_REFERENCES -->
+	<META>
+	   <TERM ns="" lid="object-references">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Object references</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of object references</em> and their relative <em>collection</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:object-references</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:array</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+				<item>:type:private-out</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property holds an <em>array indexed by collection name</em> holding as value the <em>list of native identifiers</em> of objects referenced by the holding object in that collection.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1688,7 +1762,7 @@
 	
 	<!-- Generic attributes -->
 	
-	<!-- 44 -->
+	<!-- 46 -->
 	<!-- kTAG_TYPE -->
 	<META>
 		<TAG>
@@ -1707,7 +1781,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 45 -->
+	<!-- 47 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -1740,7 +1814,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 46 -->
+	<!-- 48 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -1773,7 +1847,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 47 -->
+	<!-- 49 -->
 	<!-- kTAG_URL -->
 	<META>
 	   <TERM ns="" lid="url">
@@ -1806,7 +1880,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 48 -->
+	<!-- 50 -->
 	<!-- kTAG_MIN -->
 	<META>
 	   <TERM ns="" lid="min">
@@ -1839,7 +1913,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 49 -->
+	<!-- 51 -->
 	<!-- kTAG_MAX -->
 	<META>
 	   <TERM ns="" lid="max">
@@ -1872,7 +1946,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 50 -->
+	<!-- 52 -->
 	<!-- kTAG_PATTERN -->
 	<META>
 	   <TERM ns="" lid="grep">
@@ -1905,7 +1979,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 51 -->
+	<!-- 53 -->
 	<!-- kTAG_GEO_LOCATION -->
 	<META>
 	   <TERM ns="" lid="geo">
@@ -1938,7 +2012,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 52 -->
+	<!-- 54 -->
 	<!-- kTAG_GEO_LOCATION -->
 	<META>
 	   <TERM ns="" lid="geo-pub">
@@ -1973,7 +2047,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 53 -->
+	<!-- 55 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -2012,7 +2086,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 54 -->
+	<!-- 56 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -2051,7 +2125,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 55 -->
+	<!-- 57 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -2090,7 +2164,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 56 -->
+	<!-- 58 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -2129,7 +2203,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 57 -->
+	<!-- 59 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -2168,7 +2242,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 58 -->
+	<!-- 60 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -2207,7 +2281,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 59 -->
+	<!-- 61 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -2246,7 +2320,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 60 -->
+	<!-- 62 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
@@ -2287,7 +2361,7 @@
 	
 	<!-- Entity attributes -->
 	
-	<!-- 61 -->
+	<!-- 63 -->
 	<!-- kTAG_ENTITY_FNAME -->
 	<META>
 	   <TERM ns=":entity" lid="fname">
@@ -2320,7 +2394,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 62 -->
+	<!-- 64 -->
 	<!-- kTAG_ENTITY_LNAME -->
 	<META>
 	   <TERM ns=":entity" lid="lname">
@@ -2353,7 +2427,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 63 -->
+	<!-- 65 -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="entity">
@@ -2386,7 +2460,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 64 -->
+	<!-- 66 -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
 	   <TERM ns=":kind" lid="entity">
@@ -2419,7 +2493,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 65 -->
+	<!-- 67 -->
 	<!-- kTAG_ENTITY_ACRONYM -->
 	<META>
 	   <TERM ns=":entity" lid="acronym">
@@ -2461,7 +2535,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 66 -->
+	<!-- 68 -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 	   <TERM ns=":entity" lid="mail">
@@ -2500,7 +2574,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 67 -->
+	<!-- 69 -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 	   <TERM ns=":entity" lid="email">
@@ -2539,7 +2613,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 68 -->
+	<!-- 70 -->
 	<!-- kTAG_ENTITY_LINK -->
 	<META>
 	   <TERM ns=":entity" lid="url">
@@ -2578,7 +2652,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 69 -->
+	<!-- 71 -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 	   <TERM ns=":entity" lid="phone">
@@ -2617,7 +2691,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 70 -->
+	<!-- 72 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 	   <TERM ns=":entity" lid="fax">
@@ -2656,7 +2730,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 71 -->
+	<!-- 73 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 	   <TERM ns=":entity" lid="affiliation">
@@ -2689,7 +2763,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 72 -->
+	<!-- 74 -->
 	<!-- kTAG_ENTITY_COUNTRY -->
 	<META>
 	   <TERM ns=":entity" lid="country">
@@ -2728,7 +2802,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 73 -->
+	<!-- 75 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 	   <TERM ns=":entity" lid="valid">

@@ -1208,6 +1208,7 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
+exit;
 
 	//
 	// Instantiate empty object.
@@ -1552,7 +1553,7 @@ try
 //
 catch( \Exception $error )
 {
-	echo( $error->xdebug_message );
+	echo( '<pre>'.$error->xdebug_message.'</pre>' );
 }
 
 echo( "\nDone!\n" );

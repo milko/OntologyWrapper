@@ -350,17 +350,16 @@ abstract class EntityObject extends UnitObject
 	/**
 	 * Create indexes
 	 *
-	 * This method will create the default indexes for the current class, unlike the other
-	 * persistent classes in this library, we do not use the {@link ResetCollection()}
-	 * method to do so, because the class inheritance forks into several distinct classes,
-	 * while the hosting collection is either the entities or the units collection.
+	 * In this class we index the following offsets:
 	 *
-	 * To reset the collection, concrete derived classes should first call the inherited
-	 * {@link ResetCollection()} method to clear the collection, then call all the leaf class
-	 * current method to load all the necessary indexes.
-	 *
-	 * In this class we index all the default unit object offsets, in derived classes you
-	 * should call this method for each concrete leaf class.
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NAME}</tt>: Name.
+	 *	<li><tt>{@link kTAG_ENTITY_TYPE}</tt>: Type.
+	 *	<li><tt>{@link kTAG_ENTITY_KIND}</tt>: Kind.
+	 *	<li><tt>{@link kTAG_ENTITY_COUNTRY}</tt>: Country.
+	 *	<li><tt>{@link kTAG_ENTITY_AFFILIATION}</tt>: Affiliation.
+	 *	<li><tt>{@link kTAG_ENTITY_VALID}</tt>: Valid entity reference.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
@@ -530,91 +529,6 @@ abstract class EntityObject extends UnitObject
 						 \ArrayObject::offsetExists( kTAG_NAME ) );
 	
 	} // postOffsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PRE-COMMIT UTILITIES							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	preCommitObjectTags																*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitObjectTags( &$theTags )									   {}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-COMMIT INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postCommit																		*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags and
-	 * references.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @uses postCommitReferences()
-	 * @uses postCommitTags()
-	 */
-	protected function postCommit( &$theTags, &$theRefs )								   {}
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-DELETE INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postDelete																		*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object after delete
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags and
-	 * references.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @uses postDeleteReferences()
-	 * @uses postDeleteTags()
-	 */
-	protected function postDelete( &$theTags, &$theRefs )								   {}
 
 	 
 
