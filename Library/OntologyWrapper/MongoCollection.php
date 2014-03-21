@@ -361,24 +361,33 @@ class MongoCollection extends CollectionObject
 
 	 
 	/*===================================================================================
-	 *	addToSet																		*
+	 *	updateSet																		*
 	 *==================================================================================*/
 
 	/**
-	 * Add to set
+	 * Update set
 	 *
-	 * In this class we use the <tt>$addToSet</tt> operator.
+	 * In this class we use the <tt>$addToSet</tt> and the <tt>$pull</tt> operators.
 	 *
 	 * @param mixed					$theIdent			Object identifier or identifiers.
 	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theSetOffset		Offset of set.
 	 * @param array					$theElements		List of elements to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
 	 *
 	 * @access public
+	 *
+	 * @throws Exception
 	 */
-	public function addToSet( $theIdent, $theIdentOffset,
-							  $theSetOffset, $theElements )
+	public function updateSet( $theIdent, $theIdentOffset, $theElements, $doAdd )
 	{
+		//
+		// Check elements.
+		//
+		if( ! is_array( $theElements ) )
+			throw new \Exception(
+				"Unable to add to set: "
+			   ."expecting an array of elements." );							// !@! ==>
+		
 		//
 		// Set criteria.
 		//
@@ -387,16 +396,27 @@ class MongoCollection extends CollectionObject
 				  : array( (string) $theIdentOffset => $theIdent );
 	
 		//
-		// Set modifications.
+		// Init modifications.
 		//
-		$modifications = ( is_array( $theElements ) )
-					   ? array(
-							'$addToSet' => array(
-								(string) $theSetOffset => array(
-									'$each' => $theElements ) ) )
-					   : array(
-					   		'$addToSet' => array(
-					   			(string) $theSetOffset => (string) $theElements ) );
+		$modifications = ( $doAdd )
+					   ? array( '$addToSet' => Array() )
+					   : array( '$pull' => Array() );
+		
+		//
+		// Reference actions.
+		//
+		if( $doAdd )
+			$ref = & $modifications[ '$addToSet' ];
+		else
+			$ref = & $modifications[ '$pull' ];
+		
+		//
+		// Add elements.
+		//
+		foreach( $theElements as $offset => $value )
+			$ref[ (string) $offset ] = ( is_array( $value ) )
+									 ? array( '$each' => $value )
+									 : $value;
 	
 		//
 		// Set options.
@@ -411,61 +431,7 @@ class MongoCollection extends CollectionObject
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
 	
-	} // addToSet.
-
-	 
-	/*===================================================================================
-	 *	delFromSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Remove from set
-	 *
-	 * In this class we use the <tt>$pull</tt> operator.
-	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theSetOffset		Offset of set.
-	 * @param array					$theElements		List of elements to be removed.
-	 *
-	 * @access public
-	 */
-	public function delFromSet( $theIdent, $theIdentOffset,
-								$theSetOffset, $theElements )
-	{
-		//
-		// Set criteria.
-		//
-		$criteria = ( is_array( $theIdent ) )
-				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
-				  : array( (string) $theIdentOffset => $theIdent );
-	
-		//
-		// Set modifications.
-		//
-		$modifications = ( is_array( $theElements ) )
-					   ? array(
-							'$pull' => array(
-								(string) $theSetOffset => array(
-									'$each' => $theElements ) ) )
-					   : array(
-					   		'$pull' => array(
-					   			(string) $theSetOffset => (string) $theElements ) );
-	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => is_array( $theIdent ),
-						  'upsert' => FALSE );
-		
-		//
-		// Update.
-		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
-		if( ! $ok[ 'ok' ] )
-			throw new Exception( $ok[ 'err' ] );								// !@! ==>
-	
-	} // delFromSet.
+	} // updateSet.
 
 	 
 	/*===================================================================================

@@ -512,75 +512,45 @@ abstract class CollectionObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	addToSet																		*
+	 *	updateSet																		*
 	 *==================================================================================*/
 
 	/**
-	 * Add to set
+	 * Update set
 	 *
-	 * This method should add the provided elements to the set contained in the provided
-	 * object reference, the method accepts the following parameters:
+	 * This method should add or delete the provided elements to and from the set contained
+	 * in the provided object reference, the method accepts the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theIdent</b>: The object reference or list of references.
 	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
 	 *		this corresponds to a tag sequence number.
-	 *	<li><b>$theSetOffset</b>: The offset of the set, this corresponds to a tag sequence
-	 *		number.
-	 *	<li><b>$theElements</b>: The list of strings to be added to the set.
+	 *	<li><b>$theElements</b>: The list of elements to be added or deleted, this is an
+	 *		aray structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The offset of the set.
+	 *		<li><tt>value</tt>: The value or values to be added.
+	 *	 </ul>
+	 *	<li><b>$doAdd</b>: If <tt>TRUE</tt> the elements will be added; if <tt>FALSE</tt>
+	 *		the elements will be deleted.
 	 * </ul>
 	 *
 	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
-	 * of references provided in <tt>$theIdent</tt> and for each one add the values provided
-	 * in the <tt>$theElements</tt> list only if not there already.
+	 * of references provided in <tt>$theIdent</tt>, once the object is located, the method
+	 * should iterate the elements in <tt>$theElements</tt> adding or removing from the
+	 * offset provided in the element key the value or values provided in the element value,
+	 * without generating duplicates when adding.
 	 *
 	 * Derived classes must implement this method.
 	 *
 	 * @param mixed					$theIdent			Object identifier or identifiers.
 	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theSetOffset		Offset of set.
 	 * @param array					$theElements		List of elements to be added.
+	 * @param boolean				$doAdd				<tt>TRUE</tt> add.
 	 *
 	 * @access public
 	 */
-	abstract public function addToSet( $theIdent, $theIdentOffset,
-									   $theSetOffset, $theElements );
-
-	 
-	/*===================================================================================
-	 *	delFromSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Remove from set
-	 *
-	 * This method should remove the provided elements from the set contained in the
-	 * provided object reference, the method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdent</b>: The object reference or list of references.
-	 *	<li><b>$theIdentOffset</b>: The offset corresponding to the provided references,
-	 *		this corresponds to a tag sequence number.
-	 *	<li><b>$theSetOffset</b>: The offset of the set, this corresponds to a tag sequence
-	 *		number.
-	 *	<li><b>$theElements</b>: The list of strings to be removed from the set.
-	 * </ul>
-	 *
-	 * The method should select all objects whose <tt>$theIdentOffset</tt> matches the list
-	 * of references provided in <tt>$theIdent</tt> and for each one remove the values
-	 * provided in the <tt>$theElements</tt> list if there.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param mixed					$theIdent			Object identifier or identifiers.
-	 * @param string				$theIdentOffset		Object identifier offset.
-	 * @param string				$theSetOffset		Offset of set.
-	 * @param array					$theElements		List of elements to be added.
-	 *
-	 * @access public
-	 */
-	abstract public function delFromSet( $theIdent, $theIdentOffset,
-										 $theSetOffset, $theElements );
+	abstract public function updateSet( $theIdent, $theIdentOffset, $theElements, $doAdd );
 
 	 
 	/*===================================================================================

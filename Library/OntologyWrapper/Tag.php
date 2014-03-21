@@ -398,6 +398,10 @@ class Tag extends PersistentObject
 	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
 	 *	<li><tt>{@link kTAG_TERMS}</tt>: Terms path.
 	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
+	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tags count.
+	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Terms count.
+	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Nodes count.
+	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edges count.
 	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Units count.
 	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities count.
 	 * </ul>
@@ -432,6 +436,34 @@ class Tag extends PersistentObject
 		//
 		$collection->createIndex( array( kTAG_LABEL => 1 ),
 								  array( "name" => "LABEL" ) );
+		
+		//
+		// Set tags count index.
+		//
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAGS",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set terms count index.
+		//
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERMS",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set nodes count index.
+		//
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODES",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set edges count index.
+		//
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGES",
+								  		 "sparse" => TRUE ) );
 		
 		//
 		// Set units count index.
