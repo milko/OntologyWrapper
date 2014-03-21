@@ -535,15 +535,15 @@ trait AccessorOffset
 	 * properties and offsets, this method can be used to manage the elements of an array of
 	 * array elements in which one item's value represents the discriminant.
 	 *
-	 * Offsets of this kind are arrays or {@link ArrayObject} instances that represent a list
-	 * of elements, each of which is constituted by an array of two elements, where the value
-	 * matching the <tt>$theTypeOffset</tt> key represents the element key and the value
-	 * matching the <tt>$theDataOffset</tt> key represents the element's value.
+	 * Offsets of this kind are arrays that represent a list of elements, each of which is
+	 * constituted by an array of two items, where the value matching the
+	 * <tt>$theTypeOffset</tt> key represents the element key and the value matching the
+	 * <tt>$theDataOffset</tt> key represents the element's value.
 	 *
 	 * This method allows retrieving the element value and deleting or setting an element.
 	 *
-	 * It is assumed that the value at the provided offset is either an array or an
-	 * {@link ArrayObject}, if this is not the case, the method will raise an exception.
+	 * It is assumed that the value at the provided offset is an array, if this is not the
+	 * case, the method will raise an exception.
 	 *
 	 * If you want to manage the set itself, you have to use the offset management methods.
 	 *
@@ -818,6 +818,428 @@ trait AccessorOffset
 				  kERROR_PARAMETER );											// !@! ==>
 	
 	} // manageElementMatchOffset.
+
+	 
+	/*===================================================================================
+	 *	manageElementListOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Manage element list offset</h4>
+	 *
+	 * This class provides a protected interface for member accessor methods, both for
+	 * properties and offsets, this method can be used to manage the elements of an array of
+	 * array elements in which one item's value represents the discriminant and the other
+	 * item is a list of values.
+	 *
+	 * Offsets of this kind are arrays that represent a list of elements, each of which is
+	 * constituted by an array of two items, where the value matching the
+	 * <tt>$theTypeOffset</tt> key represents the element key and the value matching the
+	 * <tt>$theDataOffset</tt> key represents the element's value. The element's value, in
+	 * this case, is a list of values: this method allows managing the individual elements
+	 * of this list.
+	 *
+	 * It is assumed that the value at the provided offset is an array, if this is not the
+	 * case, the method will raise an exception.
+	 *
+	 * If you want to manage the set itself, you have to use the offset management methods.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><tt>$theOffset</tt>: The offset to the attribute containing the match list.
+	 *	<li><tt>$theTypeOffset</tt>: The offset to the element item representing the
+	 *		discriminator.
+	 *	<li><tt>$theDataOffset</tt>: The offset to the element holding the list of values
+	 *		related to the discriminator.
+	 *	<li><tt>$theTypeValue</tt>: The value of the discriminator element to match.
+	 *	<li><tt>$theDataValue</tt>: The value of the list element related to the
+	 *		discriminator, or the list operation:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Select all the elements of the list related to the provided
+	 *			discriminator.
+	 *		<li><i>other</i>: Any other type will be cast to a string and will represent the
+	 *			list value to be matched.
+	 *	 </ul>
+	 *	<li><tt>$theOperation</tt>: The operation to be performed:
+	 *	 <ul>
+	 *		<li><tt>NULL</tt>: Return the list value matched by the <tt>$theDataValue</tt>
+	 *			parameter.
+	 *		<li><tt>FALSE</tt>: Delete the list value matched by the <tt>$theDataValue</tt>
+	 *			parameter.
+	 *		<li><tt>TRUE</tt>: Add the list value provided in the <tt>$theDataValue</tt>
+	 *			parameter to the list.
+	 *	 </ul>
+	 *	<li><tt>$getOld</tt>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method expects each element to be a structure containing containing both the
+	 * <tt>$theTypeOffset</tt> and <tt>$theDataOffset</tt> items, if that is not the case,
+	 * the method will raise an exception. All elements are supposed to be arrays.
+	 *
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param string				$theTypeOffset		Offset of type item.
+	 * @param string				$theDataOffset		Offset of data item.
+	 * @param string				$theTypeValue		Discriminator value.
+	 * @param mixed					$theDataValue		Lis value selector.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed				Old or new value.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses offsetSet()
+	 * @uses offsetGet()
+	 * @uses offsetUnset()
+	 */
+	protected function manageElementListOffset( $theOffset,
+												$theTypeOffset, $theDataOffset,
+												$theTypeValue, $theDataValue = NULL,
+												$theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Init local storage.
+		//
+		$list = $this->offsetGet( $theOffset );
+		
+		//
+		// Handle empty offset.
+		//
+		if( $list === NULL )
+		{
+			//
+			// Handle retrieve and delete.
+			//
+			if( ($theOperation === NULL)
+			 || ($theOperation === FALSE) )
+				return NULL;														// ==>
+			
+			//
+			// Assert the data value.
+			//
+			if( $theDataValue === NULL )
+				throw new \Exception
+						( "Expecting a value for offset [$theOffset]." );		// !@! ==>
+			
+			//
+			// Handle new element.
+			//
+			if( $theOperation )
+			{
+				$this->offsetSet(
+					$theOffset,
+					array( array( $theTypeOffset => $theTypeValue,
+						   $theDataOffset => array( $theDataValue ) ) ) );
+			
+				if( $getOld )
+					return NULL;													// ==>
+			
+				return $theDataValue;												// ==>
+			
+			} // New element.
+			
+			return NULL;															// ==>
+		
+		} // Empty offset.
+		
+		//
+		// Check offset type.
+		//
+		if( is_array( $list ) )
+		{
+			//
+			// Init local storage.
+			//
+			$idx_element = $idx_item = NULL;
+	
+			//
+			// Match element.
+			//
+			foreach( $list as $key => $value )
+			{
+				//
+				// Check element data type.
+				//
+				if( ! is_array( $value ) )
+					throw new \Exception
+							( "Expecting a list of arrays "
+							 ."at offset [$theOffset]." );						// !@! ==>
+				
+				//
+				// Check type element.
+				//
+				if( ! array_key_exists( $theTypeOffset, $value ) )
+					throw new \Exception
+							( "Expecting an element featuring "
+							 ."the [$theTypeOffset] offset." );					// !@! ==>
+				
+				//
+				// Check data element.
+				//
+				if( ! array_key_exists( $theDataOffset, $value ) )
+					throw new \Exception
+							( "Expecting an element featuring "
+							 ."the [$theDataOffset] offset." );					// !@! ==>
+				
+				//
+				// Match discriminator.
+				//
+				if( $value[ $theTypeOffset ] == $theTypeValue )
+				{
+					//
+					// Reference element.
+					//
+					$idx_element = $key;
+					
+					//
+					// Match item.
+					//
+					if( $theDataValue !== NULL )
+					{
+						foreach( $value[ $theDataOffset ] as $key => $value )
+						{
+							if( $value == $theDataValue )
+							{
+								$idx_item = $key;
+								
+								break;										// =>
+							
+							} // Matched data value.
+						
+						} // Iterating data values.
+					
+					} // Provided data match.
+					
+					break;													// =>
+				
+				} // Matched discriminator.
+			
+			} // Iterating elements.
+		
+			//
+			// Return.
+			//
+			if( $theOperation === NULL )
+			{
+				//
+				// Handle element not matched.
+				//
+				if( $idx_element === NULL )
+					return NULL;													// ==>
+				
+				//
+				// Return data list.
+				//
+				if( $theDataValue === NULL )
+					return $list[ $idx_element ][ $theDataOffset ];					// ==>
+				
+				//
+				// Handle item not matched.
+				//
+				if( $idx_item === NULL )
+					return NULL;													// ==>
+				
+				return $list[ $idx_element ][ $theDataOffset ][ $idx_item ];		// ==>
+			
+			} // Retrieve.
+			
+			//
+			// Delete.
+			//
+			if( $theOperation === FALSE )
+			{
+				//
+				// Handle element not matched.
+				//
+				if( $idx_element === NULL )
+					return NULL;													// ==>
+				
+				//
+				// Delete data list.
+				//
+				if( $theDataValue === NULL )
+				{
+					//
+					// Save element.
+					//
+					$save = $list[ $idx_element ];
+					
+					//
+					// Delete element.
+					//
+					unset( $list[ $idx_element ] );
+					
+					//
+					// Handle no elements.
+					//
+					if( ! count( $list ) )
+						$this->offsetUnset( $theOffset );
+					
+					//
+					// Update array.
+					//
+					else
+					{
+						//
+						// Restore array.
+						//
+						$list = array_values( $list );
+					
+						//
+						// Replace array.
+						//
+						$this->offsetSet( $theOffset, $list );
+					
+					} // Non empty set.
+				
+				} // Delete data list.
+				
+				//
+				// Delete data item.
+				//
+				else
+				{
+					//
+					// Handle item not matched.
+					//
+					if( $idx_item === NULL )
+						return NULL;												// ==>
+				
+					//
+					// Reference element.
+					//
+					$ref_element = & $list[ $idx_element ];
+				
+					//
+					// Reference data items.
+					//
+					$ref_items = & $ref_element[ $theDataValue ];
+				
+					//
+					// Save item.
+					//
+					$save = $ref_items[ $idx_item ];
+				
+					//
+					// Delete item.
+					//
+					unset( $ref_items[ $idx_item ] );
+				
+					//
+					// Handle no items.
+					//
+					if( ! count( $ref_items ) )
+					{
+						//
+						// Delete element.
+						//
+						unset( $list[ $idx_element ] );
+					
+						//
+						// Handle no elements.
+						//
+						if( ! count( $list ) )
+							$this->offsetUnset( $theOffset );
+					
+						//
+						// Update items.
+						//
+						else
+						{
+							//
+							// Restore elements.
+							//
+							$list = array_values( $list );
+					
+							//
+							// Replace elements.
+							//
+							$this->offsetSet( $theOffset, $list );
+					
+						} // Non empty set.
+				
+					} // No more items.
+				
+					//
+					// Update items.
+					//
+					else
+					{
+						//
+						// Restore items.
+						//
+						$ref_items = array_values( $ref_items );
+				
+						//
+						// Replace elements.
+						//
+						$this->offsetSet( $theOffset, $list );
+					
+					} // Items left.
+				
+				} // Delete data item.
+					
+				if( $getOld )
+					return $save;													// ==>
+				
+				return NULL;														// ==>
+			
+			} // Delete.
+			
+			//
+			// Assert the data value.
+			//
+			if( $theDataValue === NULL )
+				throw new \Exception
+						( "Expecting a value for offset [$theOffset]." );		// !@! ==>
+			
+			//
+			// Add new element.
+			//
+			if( $idx_element === NULL )
+				$list[] = array( array( $theTypeOffset => $theTypeValue ),
+								 array( $theDataOffset => array( $theDataValue ) ) );
+			
+			//
+			// Handle existing element.
+			//
+			else
+			{
+				//
+				// Handle duplicate.
+				//
+				if( $idx_item !== NULL )
+					return $theDataValue;											// ==>
+			
+				//
+				// Add item.
+				//
+				$list[ $idx_element ][ $theDataOffset ][] = $theDataValue;
+			
+				//
+				// Replace elements.
+				//
+				$this->offsetSet( $theOffset, $list );
+			
+			} // Existing element.
+			
+			if( $getOld )
+				return NULL;														// ==>
+			
+			return $theDataValue;													// ==>
+		
+		} // Correct offset data type.
+
+		throw new Exception
+				( "Expecting array at offset [$theOffset]." );					// !@! ==>
+	
+	} // manageElementListOffset.
 
 	 
 

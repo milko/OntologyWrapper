@@ -123,6 +123,46 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
+ *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: <em>Tag offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by other tag objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: <em>Term offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by term objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: <em>Node offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by node objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: <em>Edge offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by edge objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: <em>Unit offsets</em>. This attribute is
+ *		handled automatically and should not be modified by clients, it collects all the
+ *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
+ *		the tag was used by unit objects as a leaf offset, that is, an offset holding a
+ *		value.
+ *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: <em>Entity offsets</em>. This attribute is
+ *		handled automatically and should not be modified by clients, it collects all the
+ *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
+ *		the tag was used by entity objects as a leaf offset, that is, an offset holding a
+ *		value.
+ *	<li><tt>{@link kTAG_TAG_STRUCT}</tt>: <em>Container structure</em>. This attribute holds
+ *		a tag object reference that must be a structure, if set, it indicates that the
+ *		property defined by the current tag must be stored in the property referenced by the
+ *		the value of this attribute.
+ *		This means that whenever a property defined by a tag featuring this offset is stored
+ *		in an object, this property must be placed inside of the offset referenced by the
+ *		value of this attribute.
+ *	<li><tt>{@link kTAG_TAG_STRUCT_IDX}</tt>: <em>Container structure index</em>. This
+ *		attribute should only be featured by tags which define a list of structures. The
+ *		value of this attribute is a tag object reference which represents the structure
+ *		element which acts as the list index. This means that no two elements of a list of
+ *		structures may share the same value in the offset defined by the current attribute.
+ *		This also means that the offset defined in this property <em>is required</em> by the
+ *		hosting structure.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the global identifier,
@@ -381,26 +421,37 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	ResetCollection																	*
+	 *	CreateIndexes																	*
 	 *==================================================================================*/
 
 	/**
-	 * Reset the collection
+	 * Create indexes
 	 *
-	 * In this class we first drop the collection by calling the parent method, then we
-	 * create the default indexes.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_TERMS}</tt>: Terms path.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Labels.
+	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tags count.
+	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Terms count.
+	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Nodes count.
+	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edges count.
+	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Units count.
+	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities count.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *
 	 * @static
 	 * @return CollectionObject		The collection.
 	 */
-	static function ResetCollection( DatabaseObject $theDatabase )
+	static function CreateIndexes( DatabaseObject $theDatabase )
 	{
 		//
-		// Drop and get collection.
+		// Set parent indexes and retrieve collection.
 		//
-		$collection = parent::ResetCollection( $theDatabase );
+		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
 		// Set sequence identifier index.
@@ -422,10 +473,31 @@ class Tag extends PersistentObject
 								  array( "name" => "LABEL" ) );
 		
 		//
-		// Set entities count index.
+		// Set tags count index.
 		//
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITIES",
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAGS",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set terms count index.
+		//
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERMS",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set nodes count index.
+		//
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODES",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set edges count index.
+		//
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGES",
 								  		 "sparse" => TRUE ) );
 		
 		//
@@ -435,9 +507,16 @@ class Tag extends PersistentObject
 								  array( "name" => "UNITS",
 								  		 "sparse" => TRUE ) );
 		
+		//
+		// Set entities count index.
+		//
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITIES",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
-	} // ResetCollection.
+	} // CreateIndexes.
 
 		
 
@@ -605,6 +684,8 @@ class Tag extends PersistentObject
 	 *
 	 * @access protected
 	 *
+	 * @throws Exception
+	 *
 	 * @uses isInited()
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
@@ -615,7 +696,7 @@ class Tag extends PersistentObject
 		if( ! $this->offsetExists( kTAG_LABEL ) )
 		{
 			//
-			// Check tags.
+			// Check terms.
 			//
 			if( $this->offsetExists( kTAG_TERMS ) )
 			{
@@ -628,7 +709,18 @@ class Tag extends PersistentObject
 				// Handle object.
 				//
 				if( $term instanceof Term )
-					$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+				{
+					//
+					// Copy label.
+					//
+					if( $term->offsetExists( kTAG_LABEL ) )
+						$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+					else
+						throw new \Exception(
+							"Unable to commit: "
+						   ."missing term label." );							// !@! ==>
+				
+				} // Term object.
 				
 				//
 				// Handle reference.
@@ -645,6 +737,10 @@ class Tag extends PersistentObject
 					//
 					if( $term->offsetExists( kTAG_LABEL ) )
 						$this->offsetSet( kTAG_LABEL, $term->offsetGet( kTAG_LABEL ) );
+					else
+						throw new \Exception(
+							"Unable to commit: "
+						   ."missing term label." );							// !@! ==>
 				
 				} // Term reference.
 			
@@ -670,22 +766,6 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	preCommitObjectTags																*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 *
-	 * @access protected
-	 */
-	protected function preCommitObjectTags( &$theTags )									   {}
-
-	 
-	/*===================================================================================
 	 *	preCommitObjectIdentifiers														*
 	 *==================================================================================*/
 
@@ -706,7 +786,7 @@ class Tag extends PersistentObject
 		//
 		$collection
 			= static::ResolveCollection(
-				static::ResolveDatabase( $this->dictionary(), TRUE ) );
+				static::ResolveDatabase( $this->dictionary() ) );
 		
 		//
 		// Set native identifier.
@@ -763,24 +843,6 @@ class Tag extends PersistentObject
 	
 	} // postCommit.
 
-	 
-	/*===================================================================================
-	 *	postCommitTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of tag reference
-	 * counts and offsets.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 */
-	protected function postCommitTags( &$theTags )										   {}
-
 		
 
 /*=======================================================================================
@@ -821,24 +883,6 @@ class Tag extends PersistentObject
 		$this->dictionary()->delTag( $this, 0 );
 	
 	} // postDelete.
-
-	 
-	/*===================================================================================
-	 *	postDeleteTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object tags after commit
-	 *
-	 * In this class we shadow this method since we do not keep track of object tags.
-	 *
-	 * @param reference				$theTags			Property leaf tags.
-	 *
-	 * @access protected
-	 *
-	 * @uses updateReferenceCount()
-	 */
-	protected function postDeleteTags( &$theTags )										   {}
 
 		
 

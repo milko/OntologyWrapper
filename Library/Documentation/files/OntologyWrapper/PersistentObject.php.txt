@@ -30,30 +30,64 @@ require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
  * This <i>abstract</i> class is the ancestor of all classes representing objects that can
  * persist in a container and that are constituted by ontology offsets.
  *
- * The main purpose of this class is to add the status and persistence traits providing the
- * prototypes needed to implement concrete persistent objects.
+ * The main purpose of this class is to add status and persistence management common to all
+ * concrete derived classes.
  *
- * The class makes use of the {@link Status} and {@link Persistence} traits:
+ * The class makes use of the {@link Status} trait to manage the object's state according to
+ * actions:
  *
  * <ul>
- *	<li><tt>{@link Status}</tt>: This class handles a bitfirld data member that keeps
- *		track of the object's status:
- *	 <ul>
- *		<li><tt>{@link isDirty()}</tt>: This flag is set whenever any offset is modified,
- *			this status can be tested whenever the object should be stored in a persistent
- *			container: if set, it means the object has been modified, if not set, it means
- *			that the object is identical to the persistent copy.
- *		<li><tt>{@link isCommitted()}</tt>: This flag is set whenever the object has been
- *			loaded or stored into a persistent container. This status can be useful to lock
- *			properties that cannot change once the object is stored.
- *	 </ul>
- *	<li><tt>{@link Persistence}</tt>: This class handles the object persistence.
+ *	<li><tt>{@link isDirty}</tt>: This flag is set whenever any offset is modified, this
+ *		status indicates that the contents of the object have changed since the lat time it
+ *		was instantiated, loaded from a persistent store or committed to a persistent store.
+ *	<li><tt>{@link isCommitted}</tt>: This flag is set whenever the object has been loaded
+ *		or stored into a persistent container.
  * </ul>
  *
  * Objects derived from this class <em>must</em> define a constant called <em>kSEQ_NAME</em>
  * which provides a <em<string</em> representing the <em>default collection name</em> for
  * the current object: methods that commit or read objects of a specific class can then
- * resolve the collection given a database.
+ * resolve the collection given a database; this class does not declare this constant.
+ *
+ * All objects derived from this class feature the following offsets:
+ *
+ * <ul>
+ *	<li><tt>{@link kTAG_NID}</tt>: This represents the primary key of the object, it should
+ *		be of a scalar type and will be unique within the collection in which the object is
+ *		stored. This property is required.
+ *	<li><tt>{@link kTAG_CLASS}</tt>: This represents the PHP class name of the current
+ *		object, this information is used when loading objects from the persistent store.
+ *		This property is required.
+ *	<li><tt>{@link kTAG_MASTER}</tt>: This property holds a reference to another object
+ *		derived from the same class which holds the information regarding the object.
+ *		If an object features this property it means that it is an <em>alias</em>, which
+ *		indicates that bthere may be a set of other objects pointing to the same
+ *		<em>master</em>. This is used to prevent duplicate information from being stored
+ *		in the database. This property is optional.
+ *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: This property holds an integer indicating the
+ *		number of tag objects referencing the current object.
+ *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: This property holds an integer indicating the
+ *		number of term objects referencing the current object.
+ *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: This property holds an integer indicating the
+ *		number of node objects referencing the current object.
+ *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: This property holds an integer indicating the
+ *		number of edge objects referencing the current object.
+ *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: This property holds an integer indicating the
+ *		number of unit objects referencing the current object.
+ *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: This property holds an integer indicating the
+ *		number of entity objects referencing the current object.
+ *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This property is an array listing all tags used
+ *		as leaf offsets in the current object. This means all tags referenced by object
+ *		offsets which hold a value and are not structures. This property is managed
+ *		internally.
+ *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This property is an array holding the same
+ *		number of elements as {@link kTAG_OBJECT_TAGS}, in this case the array key is the
+ *		tag sequence number and the value is the list of offset paths in which the tag was
+ *		referenced in the current object as a leaf offset.
+ *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: This property is an array holding the list
+ *		of object references featured by the object, the array is indexed by collection name
+ *		and the values represent the native identifiers of the objects in the collection.
+ * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 14/02/2014
@@ -84,8 +118,10 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Instantiate class.
 	 *
-	 * Objects derived from this class share the same constructor prototype, they should not
-	 * overload this method. The method accepts two parameters:
+	 * Objects derived from this class share the same constructor prototype and should not
+	 * overload this method.
+	 *
+	 * The method accepts three parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theContainer</b>: This may either be an array containing the object's
@@ -96,6 +132,9 @@ abstract class PersistentObject extends OntologyObject
 	 *		object from the wrapper provided in the previous parameter, in the second case,
 	 *		it is assumed that the provided array holds the persistent attributes of an
 	 *		object committed in the provided container.
+	 *	<li><b>$doAssert</b>: This boolean parameter is relevant only if the first parameter
+	 *		is a wrapper and the second is an identifier: if <tt>TRUE</tt>, the method will
+	 *		raise an exception if the object was not found.
 	 * </ul>
 	 *
 	 * The workflow is as follows:
@@ -103,21 +142,30 @@ abstract class PersistentObject extends OntologyObject
 	 * <ul>
 	 *	<li><i>Empty object</i>: Both parameters are omitted.
 	 *	<li><i>Empty object with wrapper</i>: The first parameter is a {@link Wrapper}
-	 *		object and the second parameter is omitted.
-	 *	<li><i>Filled non committed object</i>: The first parameter is an array.
+	 *		object and the second parameter is omitted. In this case an empty object is
+	 *		instantiated, the committed status will not be set.
+	 *	<li><i>Filled non committed object</i>: The first parameter is an array. In this
+	 *		case the committed status is not set, but the object will have content.
 	 *	<li><i>Filled committed object</i>: The first parameter is {@link Wrapper} object
-	 *		and the second parameter is an array holding the object's persistent data.
+	 *		and the second parameter is an array holding the object's persistent data. This
+	 *		combination can be used when you want to load a persistent object with its
+	 *		contents, in this case the object will be set committed.
 	 *	<li><i>Load object from container</i>: The first parameter is a {@link Wrapper}
-	 *		object and the second parameter is a scalar identifier.
+	 *		object and the second parameter is a scalar identifier. Use this combination to
+	 *		load an object from the database, to check whether the object was loaded you
+	 *		must call the {@link committed()} method or provide <tt>TRUE</tt> in the third
+	 *		parameter to raise an exception if the object was not resolved; defaults to
+	 *		<tt>TRUE</tt>.
 	 * </ul>
 	 *
 	 * Any other combination will raise an exception.
 	 *
-	 * This constructor sets the committed flag, derived classes should first call the
-	 * parent constructor, then they should set the inited flag.
+	 * This constructor sets the {@link isCommitted()} flag, derived classes should first
+	 * call the parent constructor, then they should set the {@link isInited()} flag.
 	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theContainer		Data wrapper or properties.
+	 * @param mixed					$theIdentifier		Object identifier or properties.
+	 * @param boolean				$doAssert			Raise exception if not resolved.
 	 *
 	 * @access public
 	 *
@@ -128,7 +176,9 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveCollection()
 	 * @uses isCommitted()
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $doAssert = TRUE )
 	{
 		//
 		// Instantiate empty object.
@@ -137,13 +187,13 @@ abstract class PersistentObject extends OntologyObject
 			parent::__construct();
 		
 		//
-		// Instantiate from object attributes array.
+		// Load object attributes from array.
 		//
 		elseif( is_array( $theContainer ) )
 			parent::__construct( $theContainer );
 		
 		//
-		// Instantiate from object.
+		// Load object attributes from object.
 		//
 		elseif( ($theIdentifier === NULL)
 		 && ($theContainer instanceof \ArrayObject)
@@ -159,18 +209,6 @@ abstract class PersistentObject extends OntologyObject
 			// Set dictionary.
 			//
 			$this->dictionary( $theContainer );
-			
-			//
-			// Resolve collection.
-			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $theContainer, TRUE ) );
-			
-			//
-			// Open collection.
-			//
-			$collection->openConnection();
 			
 			//
 			// Load object data.
@@ -192,8 +230,15 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Resolve object.
 			//
-			else
+			elseif( $theIdentifier !== NULL )
 			{
+				//
+				// Resolve collection.
+				//
+				$collection
+					= static::ResolveCollection(
+						static::ResolveDatabase( $theContainer ) );
+			
 				//
 				// Find object.
 				//
@@ -216,10 +261,24 @@ abstract class PersistentObject extends OntologyObject
 				//
 				// Not found.
 				//
+				elseif( $doAssert )
+					throw new \Exception(
+						"Cannot instantiate object: "
+					   ."unresolved identifier [$theIdentifier]." );			// !@! ==>
+				
+				//
+				// Empty object.
+				//
 				else
 					parent::__construct();
 			
 			} // Provided identifier.
+			
+			//
+			// Empty object.
+			//
+			else
+				parent::__construct();
 		
 		} // Container connection.
 		
@@ -229,195 +288,6 @@ abstract class PersistentObject extends OntologyObject
 			   ."invalid container parameter type." );							// !@! ==>
 
 	} // Constructor.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PUBLIC OBJECT STRUCTURE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectProperties																*
-	 *==================================================================================*/
-
-	/**
-	 * Collect object properties
-	 *
-	 * This method will traverse the object and return the set of all tag sequence numbers
-	 * referenced by offsets in the current object and the list of all referenced objects.
-	 *
-	 * The two provided reference parameters will be initialised by this method only if they
-	 * are not already an array.
-	 *
-	 * @param reference				$theTags			Receives tags set.
-	 * @param reference				$theRefs			Receives object references.
-	 * @param boolean				$doStructs			Include structures.
-	 * @param boolean				$doSubOffsets		Include sub-offsets.
-	 *
-	 * @access public
-	 * @return array				List of property tag references.
-	 *
-	 * @uses traverseProperty()
-	 */
-	public function collectProperties( &$theTags, &$theRefs, $doStructs = FALSE,
-															 $doSubOffsets = FALSE )
-	{
-		//
-		// Init tags.
-		//
-		if( ! is_array( $theTags ) )
-			$theTags = Array();
-		
-		//
-		// Init references.
-		//
-		if( ! is_array( $theRefs ) )
-			$theRefs = Array();
-		
-		//
-		// Traverse object.
-		//
-		$iterator = $this->getIterator();
-		iterator_apply( $iterator,
-						array( $this, 'traverseProperty' ),
-						array( $iterator, & $theTags, & $theRefs, $doStructs,
-																  $doSubOffsets ) );
-	
-	} // collectProperties.
-
-	 
-	/*===================================================================================
-	 *	aggregate																		*
-	 *==================================================================================*/
-
-	/**
-	 * Aggregate object
-	 *
-	 * This method can be used to add the current object to an aggregated result set, the
-	 * goal is to add the current object, all referenced objects and all used tag objects
-	 * to the provided array reference.
-	 *
-	 * Each element of this array is indexed by collection name and the value is an array
-	 * indexed by object native identifier having as value the object's array. This method
-	 * will take care of resolving all these references and place the resulting objects in
-	 * the corresponding element of the provided array.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theSet</b>: This array reference will receive the resolved objects, if the
-	 *		parameter is not an array, it will be initialised as such.
-	 *	<li><b>$theWrapper</b>: Data wrapper object, if missing, the object's dictionary
-	 *		will be used, or an exception will be raised.
-	 * </ul>
-	 *
-	 * @param reference				$theSet				Results set.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 */
-	public function aggregate( &$theSet, $theWrapper = NULL, $theLanguage = NULL )
-	{
-		//
-		// Check wrapper.
-		//
-		if( $theWrapper === NULL )
-			$theWrapper = $this->dictionary();
-		if( ! ($theWrapper instanceof Wrapper) )
-			throw new \Exception(
-				"Cannot aggregate object: "
-			   ."missing data wrapper." );										// !@! ==>
-		
-		//
-		// Check reference key.
-		//
-		$ref_key = static::GetReferenceKey();
-		if( ! $this->offsetExists( $ref_key ) )
-			throw new \Exception(
-				"Cannot aggregate object: "
-			   ."missing reference key." );										// !@! ==>
-		
-		//
-		// Save reference key.
-		//
-		$ref_val = $this->offsetGet( $ref_key );
-	
-		//
-		// Init result set.
-		//
-		if( ! is_array( $theSet ) )
-			$theSet = Array();
-		
-		//
-		// Allocate object set.
-		//
-		if( ! array_key_exists( static::kSEQ_NAME, $theSet ) )
-			$theSet[ static::kSEQ_NAME ] = Array();
-		
-		//
-		// Locate object.
-		//
-		if( ! array_key_exists( $ref_val, $theSet[ static::kSEQ_NAME ] ) )
-		{
-			//
-			// Aggregate object.
-			//
-			$theSet[ static::kSEQ_NAME ][ $ref_val ] = $this->getArrayCopy();
-			
-			//
-			// Collect object properties.
-			//
-			$this->collectProperties( $tags, $refs, TRUE, TRUE );
-			
-			//
-			// Allocate tags set.
-			//
-			if( ! array_key_exists( Tag::kSEQ_NAME, $theSet ) )
-				$theSet[ Tag::kSEQ_NAME ] = Array();
-			
-			//
-			// Resolve collection.
-			//
-			$collection = Tag::ResolveCollection(
-							Tag::ResolveDatabase( $theWrapper, TRUE ) );
-		
-			//
-			// Load tags.
-			//
-			$criteria[ kTAG_ID_SEQUENCE ] = array( '$in' => $tags );
-			$rs = $collection->matchAll( $criteria, kQUERY_ASSERT | kQUERY_ARRAY );
-			foreach( $rs as $key => $value )
-				$theSet[ Tag::kSEQ_NAME ][ $key ] = $value;
-			
-			//
-			// Handle referenced objects.
-			//
-			foreach( $refs as $name => $objects )
-			{
-				//
-				// Resolve collection.
-				//
-				$collection = $theWrapper->resolveCollection( $name );
-			
-				//
-				// Load references.
-				//
-				$criteria[ kTAG_NID ] = array( '$in' => $objects );
-				$rs = $collection->matchAll( $criteria, kQUERY_ASSERT | kQUERY_ARRAY );
-				foreach( $rs as $key => $value )
-					$theSet[ $name ][ $key ] = $value;
-			
-			} // Iterating referenced collections.
-			
-		} // Not already in set.
-	
-	} // aggregate.
 
 		
 
@@ -436,30 +306,42 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Insert the object
 	 *
-	 * This method should insert the current object into the provided persistent store.
+	 * This method will insert the current object into the provided persistent store, the
+	 * method expects the object not to be already committed, if that is the case the method
+	 * will raise an exception: use the {@link committed()} method before you call this one.
 	 *
-	 * In this method we perform the following steps:
+	 * The method expects a single parameter representing the wrapper, this can be omitted
+	 * if the object was instantiated with a wrapper.
+	 *
+	 * This method will perform the following steps:
 	 *
 	 * <ul>
-	 *	<li>We resolve the eventually provided persistent store into a collection object,
-	 *		or we use the current object's collection; if this is not set, or if the
-	 *		collection canot be resolved, the method will raise an exception.
-	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible for
-	 *		preparing the object for being committed.
-	 *	<li>If the object is not ready, {@link isReady()}, we raise an exception.
-	 *	<li>We pass the current object to the collection's commit method and recuperate the
-	 *		identifier.
-	 *	<li>We call the <tt>{@link postCommit()}</tt> method that is responsible of cleaning
-	 *		up the objecxt after the commit.
+	 *	<li>We resolve the wrapper or raise an exception.
+	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link preCommitPrepare()}</tt>: Prepare the object before committing.
+	 *		<li><tt>{@link preCommitTraverse()}</tt>: Traverse the object's properties
+	 *			validating formats and references.
+	 *		<li><tt>{@link preCommitFinalise()}</tt>: Load the dynamic object properties and
+	 *			compute the eventual object identifiers.
+	 *	 </ul>
+	 *	<li>We pass the current object to the collection's
+	 *		{@link CollectionObject::commit()} method and recuperate the identifier.
+	 *	<li>We call the <tt>{@link postCommit()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link postCommitReferences()}</tt>: Update object references.
+	 *		<li><tt>{@link postCommitTags()}</tt>: Update object tags.
+	 *	 </ul>
+	 *	<li>We set the object {@link isCommitted()} and reset the {@link isDirty()} status.
 	 *	<li>We return the object's identifier.
 	 * </ul>
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
-	 * The parameter to this method may be omitted if you instantiated the object by
-	 * providing the wrapper.
+	 * This method is declared <em>final</em>, to customise the operation you should
+	 * overload the methods called in this method.
 	 *
-	 * @param Wrapper				$theWrapper			Persistent store.
+	 * @param Wrapper				$theWrapper			Data wrapper.
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier.
@@ -467,14 +349,14 @@ abstract class PersistentObject extends OntologyObject
 	 * @throws Exception
 	 *
 	 * @uses isCommitted()
-	 * @uses dictionary()
+	 * @uses resolveWrapper()
 	 * @uses ResolveDatabase()
 	 * @uses ResolveCollection()
 	 * @uses preCommit()
 	 * @uses postCommit()
 	 * @uses isDirty()
 	 */
-	public function commit( $theWrapper = NULL )
+	public final function commit( $theWrapper = NULL )
 	{
 		//
 		// Do it only if the object is not committed.
@@ -482,45 +364,16 @@ abstract class PersistentObject extends OntologyObject
 		if( ! $this->isCommitted() )
 		{
 			//
-			// Handle wrapper.
+			// Resolve wrapper.
 			//
-			if( $theWrapper !== NULL )
-			{
-				//
-				// Check wrapper.
-				//
-				if( ! ($theWrapper instanceof Wrapper) )
-					throw new \Exception(
-						"Cannot commit object: "
-					   ."invalid wrapper parameter type." );					// !@! ==>
-				
-				//
-				// Set dictionary wrapper.
-				//
-				$this->dictionary( $theWrapper );
-			
-			} // Provided wrapper
-			
-			//
-			// Use existing wrapper.
-			//
-			elseif( ! ($this->dictionary() instanceof Wrapper) )
-				throw new \Exception(
-					"Cannot commit object: "
-				   ."the object is missing its wrapper." );						// !@! ==>
-			
-			//
-			// Set wrapper.
-			//
-			else
-				$theWrapper = $this->dictionary();
+			$this->resolveWrapper( $theWrapper );
 			
 			//
 			// Resolve collection.
 			//
 			$collection
 				= static::ResolveCollection(
-					static::ResolveDatabase( $theWrapper, TRUE ) );
+					static::ResolveDatabase( $theWrapper ) );
 		
 			//
 			// Prepare object.
@@ -549,383 +402,15 @@ abstract class PersistentObject extends OntologyObject
 			$this->isDirty( FALSE );
 			$this->isCommitted( TRUE );
 		
+			return $id;																// ==>
+		
 		} // Dirty or not committed.
 		
-		return $this->offsetGet( kTAG_NID );										// ==>
+		throw new \Exception(
+			"Cannot commit object: "
+		   ."the object is already committed." );								// !@! ==>
 	
 	} // commit.
-
-	 
-	/*===================================================================================
-	 *	delete																			*
-	 *==================================================================================*/
-
-	/**
-	 * Delete the object
-	 *
-	 * This method should delete the current object from the provided persistent store.
-	 * Whenever deleting objects you <em>must call this method with the full object, no
-	 * offsets should be missing</em>, this because the delete procedure must update all
-	 * reference counts.
-	 *
-	 * In this method we perform the following steps:
-	 *
-	 * <ul>
-	 *	<li>We resolve the eventually provided persistent store into a collection object,
-	 *		or we use the current object's collection; if this is not set, or if the
-	 *		collection canot be resolved, the method will raise an exception.
-	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible for
-	 *		preparing the object for being committed.
-	 *	<li>If the object is not ready, {@link isReady()}, we raise an exception.
-	 *	<li>We pass the current object to the collection's commit method and recuperate the
-	 *		identifier.
-	 *	<li>We call the <tt>{@link postCommit()}</tt> method that is responsible of cleaning
-	 *		up the objecxt after the commit.
-	 *	<li>We return the object's identifier.
-	 * </ul>
-	 *
-	 * If any of the above steps fail the method must raise an exception.
-	 *
-	 * The parameter to this method may be omitted if you instantiated the object by
-	 * providing the wrapper.
-	 *
-	 * The method will return the object's native identifier if it was deleted; if the
-	 * object is not committed, or if the object does not feature the native identifier,
-	 * the method will return <tt>NULL</tt>; if the object is referenced, or if for any
-	 * other reason the object cannot be deleted, the method will return <tt>FALSE</tt>.
-	 *
-	 * @param Wrapper				$theWrapper			Persistent store.
-	 *
-	 * @access public
-	 * @return mixed				The object's native identifier.
-	 *
-	 * @throws Exception
-	 */
-	public function delete( $theWrapper = NULL )
-	{
-		//
-		// Do it only if the object is committed.
-		//
-		if( $this->isCommitted() )
-		{
-			//
-			// Check native identifier.
-			//
-			if( ! $this->offsetExists( kTAG_NID ) )
-				return NULL;														// ==>
-			
-			//
-			// Handle wrapper.
-			//
-			if( $theWrapper !== NULL )
-			{
-				//
-				// Check wrapper.
-				//
-				if( ! ($theWrapper instanceof Wrapper) )
-					throw new \Exception(
-						"Cannot commit object: "
-					   ."invalid wrapper parameter type." );					// !@! ==>
-				
-				//
-				// Set dictionary wrapper.
-				//
-				$this->dictionary( $theWrapper );
-			
-			} // Provided wrapper
-			
-			//
-			// Use existing wrapper.
-			//
-			elseif( ! ($this->dictionary() instanceof Wrapper) )
-				throw new \Exception(
-					"Cannot commit object: "
-				   ."the object is missing its wrapper." );						// !@! ==>
-			
-			//
-			// Set wrapper.
-			//
-			else
-				$theWrapper = $this->dictionary();
-			
-			//
-			// Resolve collection.
-			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $theWrapper, TRUE ) );
-		
-			//
-			// Prepare object.
-			//
-			if( ! $this->preDelete( $tags, $references ) )
-				return FALSE;														// ==>
-		
-			//
-			// Commit.
-			//
-			$id = $collection->delete( $this );
-		
-			//
-			// Update references.
-			//
-			$this->postDelete( $tags, $references );
-	
-			//
-			// Set object status.
-			//
-			$this->isDirty( FALSE );
-			$this->isCommitted( FALSE );
-		
-		} // Dirty or not committed.
-		
-		else
-			return NULL;															// ==>
-		
-		return $this->offsetGet( kTAG_NID );										// ==>
-	
-	} // delete.
-
-	 
-	/*===================================================================================
-	 *	modifyAdd																		*
-	 *==================================================================================*/
-
-	/**
-	 * Add offsets to object
-	 *
-	 * This method can be used to add the properties contained in the current object to an
-	 * object residing in the persistent store, the offsets contained in the current object
-	 * will be added or will replace the offsets contained in the stored object.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The original object.
-	 *	<li><b>$theWrapper</b>: The persistent store.
-	 * </ul>
-	 *
-	 * In this method we perform the following steps:
-	 *
-	 * <ul>
-	 *	<li>We load the original object, if it not found, the method will raise an exception.
-	 *	<li>We select all offsets that will be replaced in the stored object.
-	 *	<li>We decrement eventual reference counts of the replaced offsets.
-	 *	<li>We add the replaced offsets to the stored object.
-	 *	<li>We add the new offsets to the stored object.
-	 * </ul>
-	 *
-	 * If any of the above steps fail the method must raise an exception.
-	 *
-	 * The method will return the number of elements affected by the operation (1 or 0).
-	 *
-	 * @param mixed					$theIdentifier		Original object native identifier.
-	 * @param Wrapper				$theWrapper			Persistent store.
-	 *
-	 * @access public
-	 * return integer				Number of objects affected.
-	 *
-	 * @throws Exception
-	 */
-	public function modifyAdd( $theIdentifier, $theWrapper = NULL )
-	{
-		//
-		// Init local storage.
-		//
-		$class = get_class( $this );
-		
-		//
-		// Handle wrapper.
-		//
-		if( $theWrapper !== NULL )
-		{
-			//
-			// Check wrapper.
-			//
-			if( ! ($theWrapper instanceof Wrapper) )
-				throw new \Exception(
-					"Cannot commit object: "
-				   ."invalid wrapper parameter type." );						// !@! ==>
-			
-			//
-			// Set dictionary wrapper.
-			//
-			$this->dictionary( $theWrapper );
-		
-		} // Provided wrapper
-		
-		//
-		// Use existing wrapper.
-		//
-		elseif( ! ($this->dictionary() instanceof Wrapper) )
-			throw new \Exception(
-				"Cannot commit object: "
-			   ."the object is missing its wrapper." );							// !@! ==>
-		
-		//
-		// Set wrapper.
-		//
-		else
-			$theWrapper = $this->dictionary();
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-		
-		//
-		// Load original object.
-		//
-		$saved = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
-										kQUERY_ASSERT | kQUERY_OBJECT );
-		
-		//
-		// Collect persistent offsets.
-		//
-		$offsets_old
-			= array_intersect(
-				$saved->arrayKeys(), $this->arrayKeys() );
-		
-		//
-		// Collect new offsets.
-		//
-		$offsets_new
-			= array_diff(
-				$this->arrayKeys(), $saved->arrayKeys() );
-
-		//
-		// Collect old offsets and references.
-		//
-		$tmp = new $class( $theWrapper );
-		foreach( $offsets_old as $offset )
-			$tmp[ $offset ] = $saved[ $offset ];
-		$tmp->collectProperties( $tags, $refs );
-			
-		//
-		// Update tags and references.
-		//
-		$this->postDeleteReferences( $refs );
-		$this->postDeleteTags( $tags );
-		
-		//
-		// Collect new offsets and references.
-		//
-		$tmp = new $class( $theWrapper );
-		foreach( $offsets_new as $offset )
-			$tmp[ $offset ] = $this[ $offset ];
-		$tmp->collectProperties( $tags, $refs );
-			
-		//
-		// Update tags and references.
-		//
-		$this->postCommitReferences( $refs );
-		$this->postCommitTags( $tags );
-		
-		return $collection->replaceOffsets( $theIdentifier, $tmp->getArrayCopy() );	// ==>
-	
-	} // modifyAdd.
-
-	 
-	/*===================================================================================
-	 *	modifyDel																		*
-	 *==================================================================================*/
-
-	/**
-	 * Delete offsets to object
-	 *
-	 * This method can be used to delete the provided properties from the current object.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffsets</b>: The offsets to be deleted.
-	 *	<li><b>$theWrapper</b>: The persistent store.
-	 * </ul>
-	 *
-	 * The method will return the number of elements affected by the operation (1 or 0).
-	 *
-	 * @param array					$theOffsets			Offsets list.
-	 * @param Wrapper				$theWrapper			Persistent store.
-	 *
-	 * @access public
-	 * return integer				Number of objects affected.
-	 *
-	 * @throws Exception
-	 */
-	public function modifyDel( $theOffsets, $theWrapper = NULL )
-	{
-		//
-		// Handle wrapper.
-		//
-		if( $theWrapper !== NULL )
-		{
-			//
-			// Check wrapper.
-			//
-			if( ! ($theWrapper instanceof Wrapper) )
-				throw new \Exception(
-					"Cannot commit object: "
-				   ."invalid wrapper parameter type." );						// !@! ==>
-			
-			//
-			// Set dictionary wrapper.
-			//
-			$this->dictionary( $theWrapper );
-		
-		} // Provided wrapper
-		
-		//
-		// Use existing wrapper.
-		//
-		elseif( ! ($this->dictionary() instanceof Wrapper) )
-			throw new \Exception(
-				"Cannot commit object: "
-			   ."the object is missing its wrapper." );							// !@! ==>
-		
-		//
-		// Set wrapper.
-		//
-		else
-			$theWrapper = $this->dictionary();
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper, TRUE ) );
-		
-		return $collection->deleteOffsets( $theIdentifier, $theOffsets );			// ==>
-	
-	} // modifyDel.
-
-		
-
-/*=======================================================================================
- *																						*
- *									PUBLIC STATUS INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	committed																		*
-	 *==================================================================================*/
-
-	/**
-	 * Check if object is committed
-	 *
-	 * This method will return <tt>TRUE</tt> if the object is committed.
-	 *
-	 * @access public
-	 * @return boolean				<tt>TRUE</tt> is committed.
-	 *
-	 * @uses isCommitted()
-	 */
-	public function committed()							{	return $this->isCommitted();	}
 
 		
 
@@ -966,6 +451,9 @@ abstract class PersistentObject extends OntologyObject
 	 * @throws Exception
 	 *
 	 * @see kTAG_MASTER
+	 *
+	 * @uses isAlias()
+	 * @uses isCommitted()
 	 */
 	public function setAlias( $doSet = TRUE )
 	{
@@ -1041,7 +529,338 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *								STATIC CONNECTION INTERFACE								*
+ *								STATIC OFFSET INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	PrivateOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return private offsets
+	 *
+	 * This method will return the current object list of private offsets, these offsets
+	 * are managed internally by the class and should not be handled by clients or be part
+	 * of the tag and offset paths statistics.
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
+	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
+	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
+	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offset path references.
+	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Node property references.
+	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offset path references.
+	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edge property references.
+	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offset path references.
+	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Unit property references.
+	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offset path references.
+	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities property references.
+	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offset path references.
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: Object tags list.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: Object offsets list.
+	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: Object object references list.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function PrivateOffsets()
+	{
+		return array
+		(
+			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
+			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
+			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
+			kTAG_EDGE_COUNT, kTAG_EDGE_OFFSETS,
+			kTAG_UNIT_COUNT, kTAG_UNIT_OFFSETS,
+			kTAG_ENTITY_COUNT, kTAG_ENTITY_OFFSETS,
+			kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
+		);																			// ==>
+	
+	} // PrivateOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * This method will create the default indexes for the current class.
+	 *
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_MASTER}</tt>: This will speed the search for the master object.
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This will help the selection of objects
+	 *		based on the searched offsets.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This is necessary to speed referencial
+	 *		integrity.
+	 * </ul>
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Get and open collection.
+		//
+		$collection = $theDatabase->Collection( static::kSEQ_NAME );
+		
+		//
+		// Set master.
+		//
+		$collection->createIndex( array( kTAG_MASTER => 1 ),
+								  array( "name" => "MASTER",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set tags.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_TAGS => 1 ),
+								  array( "name" => "TAGS" ) );
+		
+		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
+
+
+	/*===================================================================================
+	 *	Delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete an object
+	 *
+	 * This method will delete the object corresponding to the provided native identifier.
+	 *
+	 * Deleting objects is a static matter, since, in order to ensure referential integrity,
+	 * it is necessary to traverse an object which is a mirror of the persistent image. The
+	 * methods which actually delete the object are declared protected, so that it should
+	 * not be easy to delete an incomplete object.
+	 *
+	 * This method should be called using the base class of the object one wants to delete,
+	 * this means that either you know the class, or you may call this method from the
+	 * object that you want to delete.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: The data wrapper.
+	 *	<li><b>$theIdentifier</b>: The object native identifier.
+	 * </ul>
+	 *
+	 * The method will first load the object from the persistent store and then it will
+	 * call its protected {@link deleteObject()} method, returning:
+	 *
+	 * <ul>
+	 *	<li><em>Native identifier</em>: If the object was deleted, the method will return
+	 *		the deleted object's native identifier.
+	 *	<li><tt>NULL</tt>: This value will be returned if the method was unable to locate
+	 *		the object.
+	 *	<li><tt>FALSE</tt>: This value will be returned if the object features reference
+	 *		counts, this means that other objects reference it and for that reason it cannot
+	 *		be deleted.
+	 * </ul>
+	 *
+	 * When loading the object only the {@link kTAG_NID}, {@link kTAG_OBJECT_OFFSETS} and
+	 * {@link kTAG_OBJECT_REFERENCES} will be loaded, since these are the offsets that
+	 * contain the necessary information for maintaining referential integrity, if you need
+	 * to handle other object offsets, you should overload the static
+	 * {@link DeleteFieldsSelection()} method.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 *
+	 * @static
+	 * @return mixed				Identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 */
+	static function Delete( Wrapper $theWrapper, $theIdentifier )
+	{
+		//
+		// Check if wrapper is connected.
+		//
+		if( ! $theWrapper->isConnected() )
+			throw new \Exception(
+				"Unable to resolve collection: "
+			   ."wrapper is not connected." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Set criteria.
+		//
+		$criteria = array( kTAG_NID => $theIdentifier );
+		
+		//
+		// Select fields.
+		//
+		$fields = static::DeleteFieldsSelection();
+		
+		//
+		// Resolve object.
+		//
+		$object = $collection->matchOne( $criteria, kQUERY_OBJECT, $fields );
+		
+		//
+		// Delete object.
+		//
+		if( $object instanceof self )
+			return $object->deleteObject();											// ==>
+		
+		return NULL;																// ==>
+	
+	} // Delete.
+
+
+	/*===================================================================================
+	 *	Modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify an object
+	 *
+	 * This method will modify the object corresponding to the provided identifier by either
+	 * adding, replacing or removing the provided offsets.
+	 *
+	 * Modifying objects is a static matter, since, in order to ensure referential integrity,
+	 * it is necessary to traverse an object which is a mirror of the persistent image. The
+	 * methods which actually modify the object are declared protected, so that it should
+	 * not be easy to modify an incomplete object.
+	 *
+	 * This method should be called using the base class of the object one wants to modify,
+	 * this means that either you know the class, or you may call this method from the
+	 * object that you want to modify.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: The data wrapper.
+	 *	<li><b>$theIdentifier</b>: The object native identifier.
+	 *	<li><b>$theOffsets</b>: The offsets to be added, replaced or deleted. This parameter
+	 *		is structured according to the requested operation:
+	 *	 <ul>
+	 *		<li><em>Add or replace</tt>: This occurs if the last parameter is <tt>TRUE</tt>.
+	 *			The parameter should be an array indexed by tag sequence number and value
+	 *			representing the offset value. All offsets will be added at the root level.
+	 *		<li><em>Remove</tt>: This occurs if the last parameter is <tt>FALSE</tt>.
+	 *			The parameter should be an array listing all the offsets to be removed at
+	 *			the root level.
+	 *	 </ul>
+	 *	<li><b>$doSet</b>: <tt>TRUE</tt> means add or replace offsets, <tt>FALSE</tt> means
+	 *		remove offsets.
+	 * </ul>
+	 *
+	 * The method will first load the object from the persistent store and then it will
+	 * call its protected {@link modifyObject()} method.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param mixed					$theOffsets			Offsets to be modified.
+	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
+	 *
+	 * @static
+	 * return PersistentObject		Modified object.
+	 *
+	 * @throws Exception
+	 */
+	static function Modify( Wrapper $theWrapper,
+									$theIdentifier,
+									$theOffsets,
+									$doSet )
+	{
+		//
+		// Check if wrapper is connected.
+		//
+		if( ! $theWrapper->isConnected() )
+			throw new \Exception(
+				"Unable to modify object: "
+			   ."wrapper is not connected." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Load original object.
+		//
+		$object = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
+										 kQUERY_ASSERT | kQUERY_OBJECT );
+		
+		//
+		// Modify object.
+		//
+		$object->modifyObject( $theOffsets, $doSet );
+		
+		return $object;																// ==>
+	
+	} // Modify.
+
+	 
+	/*===================================================================================
+	 *	DeleteFieldsSelection															*
+	 *==================================================================================*/
+
+	/**
+	 * Return delete fields selection
+	 *
+	 * This method should return the fields selection used to load the object to be deleted.
+	 * By default we load the {@link kTAG_NID}, {@link kTAG_OBJECT_OFFSETS} and
+	 * {@link kTAG_OBJECT_REFERENCES} properties, derived classes may overload this method
+	 * to add other offsets.
+	 *
+	 * @static
+	 * @return array				Delete object fields selection.
+	 *
+	 * @throws Exception
+	 */
+	static function DeleteFieldsSelection()
+	{
+		return array( kTAG_NID => TRUE,
+					  kTAG_OBJECT_OFFSETS => TRUE,
+					  kTAG_OBJECT_REFERENCES => TRUE );								// ==>
+	
+	} // DeleteFieldsSelection.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC RESOLUTION INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -1106,56 +925,190 @@ abstract class PersistentObject extends OntologyObject
 	} // ResolveCollection.
 
 		
-
-/*=======================================================================================
- *																						*
- *								STATIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
 	/*===================================================================================
-	 *	ResetCollection																	*
+	 *	ResolveCollectionByName															*
 	 *==================================================================================*/
 
 	/**
-	 * Reset the collection
+	 * Resolve collection
 	 *
-	 * This method will drop the collection in the provided database named after the
-	 * object's {@link kSEQ_NAME} constant.
+	 * Given a wrapper and a collection name, this method will return a collection
+	 * reference.
 	 *
-	 * The database connection will be opened by default in this method.
+	 * If the wrapper is not connected, or if the collection could not be resolved, the
+	 * method will raise an exception.
 	 *
-	 * Derived classes can overload this method by calling the parent method and creating
-	 * the default indexes.
-	 *
-	 * @param DatabaseObject		$theDatabase		Database reference.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param string				$theCollection		Collection name.
 	 *
 	 * @static
-	 * @return CollectionObject		The collection.
+	 * @return CollectionObject		The collection reference.
+	 *
+	 * @throws Exception
 	 */
-	static function ResetCollection( DatabaseObject $theDatabase )
+	static function ResolveCollectionByName( Wrapper $theWrapper, $theCollection )
 	{
 		//
-		// Get and open collection.
+		// Check if wrapper is connected.
 		//
-		$collection = $theDatabase->Collection( static::kSEQ_NAME, TRUE );
+		if( ! $theWrapper->isConnected() )
+			throw new \Exception(
+				"Unable to resolve collection: "
+			   ."wrapper is not connected." );									// !@! ==>
 		
 		//
-		// Drop collection.
+		// Resolve collection.
 		//
-		$collection->drop();
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				return Tag::ResolveCollection(
+						Tag::ResolveDatabase( $theWrapper ) );						// ==>
+				
+			case Term::kSEQ_NAME:
+				return Term::ResolveCollection(
+						Term::ResolveDatabase( $theWrapper ) );						// ==>
+				
+			case Node::kSEQ_NAME:
+				return Node::ResolveCollection(
+						Node::ResolveDatabase( $theWrapper ) );						// ==>
+				
+			case Edge::kSEQ_NAME:
+				return Edge::ResolveCollection(
+						Edge::ResolveDatabase( $theWrapper ) );						// ==>
+				
+			case EntityObject::kSEQ_NAME:
+				return EntityObject::ResolveCollection(
+						EntityObject::ResolveDatabase( $theWrapper ) );				// ==>
+				
+			case UnitObject::kSEQ_NAME:
+				return UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $theWrapper ) );				// ==>
+			
+			default:
+				throw new \Exception(
+					"Cannot resolve collection: "
+				   ."invalid collection name [$theCollection]." );				// !@! ==>
 		
-		return $collection;															// ==>
+		} // Parsed collection name.
 	
-	} // ResetCollection.
+	} // ResolveCollectionByName.
+
+	 
+	/*===================================================================================
+	 *	ResolveRefCountTag																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve reference count tag
+	 *
+	 * Given a collection name, this method will return the tag sequence number
+	 * corresponding to the offset holding the number of objects, stored in the provided
+	 * collection reference, that reference the current object.
+	 *
+	 * If the tag could not be resolved, the method will raise an exception.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 *
+	 * @static
+	 * @return integer				Tag sequence number.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveRefCountTag( $theCollection )
+	{
+		//
+		// Select reference count tag according to provided collection.
+		//
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				return kTAG_TAG_COUNT;												// ==>
+		
+			case Term::kSEQ_NAME:
+				return kTAG_TERM_COUNT;												// ==>
+		
+			case Node::kSEQ_NAME:
+				return kTAG_NODE_COUNT;												// ==>
+	
+			case Edge::kSEQ_NAME:
+				return kTAG_EDGE_COUNT;												// ==>
+		
+			case EntityObject::kSEQ_NAME:
+				return kTAG_ENTITY_COUNT;											// ==>
+		
+			case UnitObject::kSEQ_NAME:
+				return kTAG_UNIT_COUNT;												// ==>
+		
+			default:
+				throw new \Exception(
+					"Cannot resolve reference count tag: "
+				   ."invalid collection name [$theCollection]." );				// !@! ==>
+		
+		} // Parsed collection name.
+	
+	} // ResolveRefCountTag.
+
+	 
+	/*===================================================================================
+	 *	ResolveOffsetsTag																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offsets tag
+	 *
+	 * Given a collection name, this method will return the tag sequence number
+	 * corresponding to the tag object offset holding the set of offsets in which the tag
+	 * was used by objects stored in the provided collection.
+	 *
+	 * If the tag could not be resolved, the method will raise an exception.
+	 *
+	 * @param string				$theCollection		Collection name.
+	 *
+	 * @static
+	 * @return integer				Tag sequence number.
+	 *
+	 * @throws Exception
+	 */
+	static function ResolveOffsetsTag( $theCollection )
+	{
+		//
+		// Select offsets tag according to provided collection.
+		//
+		switch( (string) $theCollection )
+		{
+			case Tag::kSEQ_NAME:
+				return kTAG_TAG_OFFSETS;											// ==>
+		
+			case Term::kSEQ_NAME:
+				return kTAG_TERM_OFFSETS;											// ==>
+		
+			case Node::kSEQ_NAME:
+				return kTAG_NODE_OFFSETS;											// ==>
+	
+			case Edge::kSEQ_NAME:
+				return kTAG_EDGE_OFFSETS;											// ==>
+		
+			case EntityObject::kSEQ_NAME:
+				return kTAG_ENTITY_OFFSETS;											// ==>
+		
+			case UnitObject::kSEQ_NAME:
+				return kTAG_UNIT_OFFSETS;											// ==>
+		
+			default:
+				throw new \Exception(
+					"Cannot resolve offsets tag: "
+				   ."invalid collection name [$theCollection]." );				// !@! ==>
+		
+		} // Parsed collection name.
+	
+	} // ResolveOffsetsTag.
 
 		
 
 /*=======================================================================================
  *																						*
- *							STATIC OBJECT REFERENCE INTERFACE							*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -1178,6 +1131,28 @@ abstract class PersistentObject extends OntologyObject
 	 * @return string				Key offset.
 	 */
 	static function GetReferenceKey()								{	return kTAG_NID;	}
+
+		
+	/*===================================================================================
+	 *	GetReferenceTypes																*
+	 *==================================================================================*/
+
+	/**
+	 * Get reference types
+	 *
+	 * This method will return the list of types that represent an object reference.
+	 *
+	 * @static
+	 * @return array				List of reference types.
+	 */
+	static function GetReferenceTypes()
+	{
+		return array( kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
+					  kTYPE_REF_ENTITY, kTYPE_REF_UNIT,
+					  kTYPE_REF_SELF,
+					  kTYPE_ENUM, kTYPE_SET );										// ==>
+	
+	} // GetReferenceTypes.
 
 		
 
@@ -1369,6 +1344,513 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
+ *							PROTECTED PERSISTENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	deleteObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete the object
+	 *
+	 * This method will delete the current object from its persistent store, the method
+	 * expects the current object to be {@link isCommitted()} and not {@link isDirty()},
+	 * if that is not the case, the method will raise an exception.
+	 *
+	 * In particular, <em>the object must contain the {@link kTAG_OBJECT_OFFSETS} and
+	 * {@link kTAG_OBJECT_REFERENCES} properties ensure that all references are reset</em>.
+	 * This is fundamental for ensuring referential integrity. For this reason the static
+	 * method, {@link Delete()}, is the preferred method for deleting objects.
+	 *
+	 * This method will perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We call the <tt>{@link preDelete()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link preDeletePrepare()}</tt>: Check if the object can be deleted, if
+	 *			that is not the case, the method should return <tt>FALSE</tt>.
+	 *		<li><tt>{@link preDeleteFinalise()}</tt>: Perform final operations before the
+	 *			object is deleted.
+	 *	 </ul>
+	 *	<li>We pass the current object to the collection's
+	 *		{@link CollectionObject::delete()} method and recuperate the identifier.
+	 *	<li>We call the <tt>{@link postDelete()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link postDeleteReferences()}</tt>: Update object references.
+	 *		<li><tt>{@link postDeleteTags()}</tt>: Update object tags.
+	 *	 </ul>
+	 *	<li>We reset both the object's {@link isCommitted()} and {@link isDirty()} status.
+	 *	<li>We return the object's identifier.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the object's native identifier if it was deleted; if the
+	 * object is not committed, or if the object does not feature the native identifier,
+	 * the method will return <tt>NULL</tt>; if the object is referenced, or if for any
+	 * other reason the object cannot be deleted, the method will return <tt>FALSE</tt>.
+	 *
+	 * This method is declared <em>final</em>, to customise the operation you should
+	 * overload the methods called in this method.
+	 *
+	 * @access protected
+	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses isCommitted()
+	 * @uses isDirty()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses preDelete()
+	 * @uses postDelete()
+	 */
+	protected final function deleteObject()
+	{
+		//
+		// Do it only if the object is committed and clean.
+		//
+		if( $this->isCommitted()
+		 && (! $this->isDirty()) )
+		{
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary ) );
+		
+			//
+			// Prepare object.
+			//
+			if( ! $this->preDelete( $tags, $references ) )
+				return FALSE;														// ==>
+		
+			//
+			// Delete.
+			//
+			$id = $collection->delete( $this );
+		
+			//
+			// Update references.
+			//
+			$this->postDelete( $tags, $references );
+	
+			//
+			// Set object status.
+			//
+			$this->isDirty( FALSE );
+			$this->isCommitted( FALSE );
+		
+			return $id;																// ==>
+		
+		} // Clean and committed.
+		
+		throw new \Exception(
+			"Cannot delete object: "
+		   ."the object is not committed or was modified." );					// !@! ==>
+	
+	} // deleteObject.
+
+	 
+	/*===================================================================================
+	 *	modifyObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object
+	 *
+	 * This method will modify the current object by either adding, replacing or deleting
+	 * the provided offsets. The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffsets</b>: The offsets to be added, replaced or deleted. This parameter
+	 *		is structured according to the requested operation:
+	 *	 <ul>
+	 *		<li><em>Add or replace</tt>: This occurs if the last parameter is <tt>TRUE</tt>.
+	 *			The parameter should be an array indexed by tag sequence number and value
+	 *			representing the offset value. All offsets will be added at the root level.
+	 *		<li><em>Remove</tt>: This occurs if the last parameter is <tt>FALSE</tt>.
+	 *			The parameter should be an array listing all the offsets to be removed at
+	 *			the root level.
+	 *	 </ul>
+	 *	<li><b>$doSet</b>: <tt>TRUE</tt> means add or replace offsets, <tt>FALSE</tt> means
+	 *		remove offsets.
+	 * </ul>
+	 *
+	 * This method will call the {@link modifyObjectAdd()} method if setting and the
+	 * {@link modifyObjectDel()} method if removing.
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param mixed					$theOffsets			Offsets to be modified.
+	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
+	 *
+	 * @access protected
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	protected function modifyObject( $theOffsets, $doSet )
+	{
+		//
+		// Do it only if the object is committed and clean.
+		//
+		if( $this->isCommitted()
+		 && (! $this->isDirty()) )
+		{
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary ) );
+		
+			//
+			// Set offsets.
+			//
+			if( $doSet )
+				return $this->modifyObjectAdd( $collection, $theOffsets );				// ==>
+		
+			return $this->modifyObjectDel( $collection, $theOffsets );					// ==>
+		
+		} // Clean and committed.
+		
+		throw new \Exception(
+			"Cannot modify object: "
+		   ."the object is not committed or was modified." );					// !@! ==>
+	
+	} // modifyObject.
+
+	 
+	/*===================================================================================
+	 *	modifyObjectAdd																	*
+	 *==================================================================================*/
+
+	/**
+	 * Add offsets to object
+	 *
+	 * This method can be used to add the provided properties to the current object, the
+	 * provided offsets will be added or will replace the offsets contained in the current
+	 * object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCollection</b>: The object's persistent store.
+	 *	<li><b>$theOffsets</b>: The offsets to be added or replaced, this parameter should
+	 *		be an array of properties in which the element key is the offset and the value
+	 *		is the offset value.
+	 * </ul>
+	 *
+	 * In this method we perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We update the {@link kTAG_OBJECT_TAGS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_OFFSETS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_REFERENCES} property.
+	 *	<li>We update the metadata of new tags and references.
+	 *	<li>We update the metadata of removed tags, offsets and references.
+	 *	<li>We update the metadata of new offsets of common collections.
+	 *	<li>We update the metadata of removed offsets of common collections.
+	 *	<li>We replace the offsets in the stored object.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the modified object.
+	 *
+	 * @param CollectionObject		$theCollection		Object collection.
+	 * @param mixed					$theOffsets			Modification properties.
+	 *
+	 * @access protected
+	 * return integer				Number of objects affected.
+	 */
+	protected function modifyObjectAdd( CollectionObject $theCollection, $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( kTAG_NID );
+		
+		//
+		// Instantiate modifications as object.
+		//
+		if( $theOffsets instanceof self )
+			$mods = $theOffset;
+		elseif( is_array( $theOffsets ) )
+		{
+			$class = get_class( $this );
+			$mods = new $class( $this->mDictionary, $theOffsets );
+		}
+		else
+			throw new \Exception(
+				"Cannot modify offsets: "
+			   ."invalid modifications parameter type." );						// !@! ==>
+		
+		//
+		// Validate, collect tags, offsets and references.
+		//
+		$mods_tags = $mods_refs = Array();
+		$mods->preCommitTraverse( $mods_tags, $mods_refs );
+		
+		//
+		// Save old tags and references.
+		//
+		$old_tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$old_refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		
+		//
+		// Add and replace properties.
+		//
+		foreach( $mods as $key => $value )
+			$this->offsetSet( $key, $value );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$cur_tags = $cur_refs = Array();
+		$this->preCommitTraverse( $cur_tags, $cur_refs, FALSE );
+		
+		//
+		// Replace tags list.
+		//
+		$this->offsetSet( kTAG_OBJECT_TAGS, array_keys( $cur_tags ) );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_TAGS => array_keys( $cur_tags ) ) );
+	
+		//
+		// Replace tag offsets.
+		//
+		$tmp = Array();
+		foreach( $cur_tags as $key => $value )
+			$tmp[ $key ] = $value[ kTAG_OBJECT_OFFSETS ];
+		$this->offsetSet( kTAG_OBJECT_OFFSETS, $tmp );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_OFFSETS => $tmp ) );
+		
+		//
+		// Replace object references.
+		//
+		$this->offsetSet( kTAG_OBJECT_REFERENCES, $cur_refs );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_REFERENCES => $cur_refs ) );
+		
+		//
+		// Select new tags and references.
+		//
+		$tags = array_diff_key( $mods_tags, $old_tags );
+		$refs = $mods->compareObjectOffsets( $mods_refs, $old_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$mods->postCommit( $tags, $refs );
+		
+		//
+		// Select removed tags and references.
+		//
+		$tags = array_diff_key( $old_tags, $cur_tags );
+		$refs = $mods->compareObjectOffsets( $old_refs, $cur_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$mods->postDelete( $tags, $refs );
+		
+		//
+		// Select common tags.
+		//
+		$tags = array_intersect_key( $mods_tags, $old_tags );
+		
+		//
+		// Filter new offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $info[ kTAG_OBJECT_OFFSETS ],
+							   $old_tags[ $tag ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Add new offsets.
+		//
+		if( count( $set ) )
+			$mods->postCommitTagOffsets( $set );
+		
+		//
+		// Filter deleted offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $old_tags[ $tag ],
+							   $info[ kTAG_OBJECT_OFFSETS ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Delete old offsets.
+		//
+		if( count( $set ) )
+			$mods->postDeleteTagOffsets( $set );
+		
+		return $theCollection->replaceOffsets( $id, $mods->getArrayCopy() );		// ==>
+	
+	} // modifyObjectAdd.
+
+	 
+	/*===================================================================================
+	 *	modifyObjectDel																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets from object
+	 *
+	 * This method can be used to delete the provided properties from the current object,
+	 * the method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCollection</b>: The object's persistent store.
+	 *	<li><b>$theOffsets</b>: The offsets to be added or replaced, this parameter should
+	 *		be an array of tag sequence numbers referencing the offsets to be removed from
+	 *		the root of the object.
+	 * </ul>
+	 *
+	 * In this method we perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We update the {@link kTAG_OBJECT_TAGS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_OFFSETS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_REFERENCES} property.
+	 *	<li>We update the metadata of removed tags, offsets and references.
+	 *	<li>We update the metadata of removed offsets of common collections.
+	 *	<li>We remove the offsets from the stored object.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param CollectionObject		$theCollection		Object collection.
+	 * @param array					$theOffsets			Modification properties.
+	 *
+	 * @access public
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	public function modifyObjectDel( CollectionObject $theCollection, $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( kTAG_NID );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$old_tags = $old_refs = Array();
+		$this->preCommitTraverse( $old_tags, $old_refs, FALSE );
+		
+		//
+		// Remove properties.
+		//
+		foreach( $theOffsets as $offset )
+			$this->offsetUnset( $offset );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$cur_tags = $cur_refs = Array();
+		$this->preCommitTraverse( $cur_tags, $cur_refs, FALSE );
+		
+		//
+		// Replace tags list.
+		//
+		$this->offsetSet( kTAG_OBJECT_TAGS, array_keys( $cur_tags ) );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_TAGS => array_keys( $cur_tags ) ) );
+	
+		//
+		// Replace tag offsets.
+		//
+		$tmp = Array();
+		foreach( $cur_tags as $key => $value )
+			$tmp[ $key ] = $value[ kTAG_OBJECT_OFFSETS ];
+		$this->offsetSet( kTAG_OBJECT_OFFSETS, $tmp );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_OFFSETS => $tmp ) );
+		
+		//
+		// Replace object references.
+		//
+		$this->offsetSet( kTAG_OBJECT_REFERENCES, $cur_refs );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_REFERENCES => $cur_refs ) );
+		
+		//
+		// Select removed tags and references.
+		//
+		$tags = array_diff_key( $old_tags, $cur_tags );
+		$refs = $this->compareObjectOffsets( $old_refs, $cur_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$this->postDelete( $tags, $refs );
+		
+		//
+		// Select common tags.
+		//
+		$tags = array_intersect_key( $cur_tags, $old_tags );
+		
+		//
+		// Filter deleted offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $old_tags[ $tag ],
+							   $info[ kTAG_OBJECT_OFFSETS ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Delete old offsets.
+		//
+		if( count( $set ) )
+			$this->postDeleteTagOffsets( $set );
+		
+		return $theCollection->deleteOffsets( $id, $theOffsets );					// ==>
+	
+	} // modifyObjectDel.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PRE-COMMIT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -1386,54 +1868,56 @@ abstract class PersistentObject extends OntologyObject
 	 * the following steps:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link preCommitPrepare()}</tt>: This method should prepare the object and
-	 *		perform preliminary initialisation of the traversal data.
+	 *	<li><tt>{@link preCommitPrepare()}</tt>: This method will check if the object is
+	 *		initialised and will prepare the parameters used by the object traversal method.
 	 *	<li><tt>{@link preCommitTraverse()}</tt>: This method will traverse the object's
-	 *		structure and eventual sub-structures validating and casting data properties and
-	 *		collecting structure data which will be used by other commit phase methods to
-	 *		ensure the object is fit for being committed.
-	 *	<li><tt>{@link preCommitFinalise()}</tt>: This method should finalise the pre-commit
-	 *		phase ensuring the object holds all the correct and necessary data.
+	 *		structure validating and casting data properties, and collecting tags and
+	 *		references that will be used by the post-commit workflow.
+	 *	<li><tt>{@link preCommitFinalise()}</tt>: This method will load the object's
+	 *		{@link kTAG_OBJECT_TAGS}, {@link kTAG_OBJECT_OFFSETS} and
+	 *		{@link kTAG_OBJECT_REFERENCES} properties andeventually compute the object's
+	 *		identifiers.
 	 *	<li><tt>{@link isReady()}</tt>: The final step of the pre-commit phase is to test
 	 *		whether the object is ready to be committed.
 	 * </ul>
 	 *
-	 * The method accepts two reference parameters which will be initialised by the
-	 * {@link preCommitPrepare()} method, will be filled by the {@link preCommitTraverse()}
-	 * method and will be passed to the {@link preCommitFinalise()} method:
+	 * The method accepts two array reference parameters which will be initialised in this
+	 * method, these will be filled by the {@link preCommitTraverse()} method and are
+	 * structured as follows:
 	 *
 	 * <ul>
-	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
-	 *		is a set of tags, their data type and kind, and their relative offsets. The
-	 *		array is a list of elements structured as follows:
-	 *	 <ul>
+	 *	<li><b>$theTags</b>: This array is the set of all tags referenced by the object's
+	 *		offsets, except for the offsets corresponding to the {@link InternalOffsets()}:
 	 *		<li><tt>key</tt>: The tag sequence number.
 	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
 	 *			tag, each element of the array is structured as follows:
 	 *		 <ul>
-	 *			<li><tt>type</tt>: The item indexed by this key will contain the list of
-	 *				data types of the tag.
-	 *			<li><tt>kind</tt>: The item indexed by this key will contain the list of
-	 *				data kinds of the tag.
-	 *			<li><tt>offset</tt>: The item indexed by this key will contain the list of
-	 *				all the offsets (obtained from the path at the current level) where the
-	 *				current tag is featured as leaf node.
+	 *			<li><tt>{@link kTAG_DATA_TYPE}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_DATA_KIND}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: The item indexed by this key will
+	 *				collect the list of all the offsets in which the current tag appears as
+	 *				a leaf offset. In practice, this element collects all the possible
+	 *				offsets at any depth level in which the current tag holds a value. This
+	 *				also means that it will only be filled if the current tag is not a
+	 *				structural element.
 	 *		 </ul>
 	 *	 </ul>
 	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as folloes:
+	 *		the current object. It is an array of elements structured as follows:
 	 *	 <ul>
 	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: The referenced object's native identifier.
+	 *		<li><tt>value</tt>: The set of all native identifiers representing the
+	 *			referenced objects.
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * These parameter will be initialised by the {@link preCommitPrepare()} method.
+	 * These parameter will be initialised in this method.
 	 *
-	 * Derived classes should not overload this method, they should, instead, overload the
-	 * called methods.
+	 * This method is declared final, derived classes should overload the called methods.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
@@ -1445,8 +1929,13 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommitFinalise()
 	 * @uses isReady()
 	 */
-	protected function preCommit( &$theTags, &$theRefs )
+	protected final function preCommit( &$theTags, &$theRefs )
 	{
+		//
+		// Init parameters.
+		//
+		$theTags = $theRefs = Array();
+		
 		//
 		// Prepare object.
 		//
@@ -1480,30 +1969,18 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Prepare object before commit
 	 *
-	 * This method will first perform global preliminary checks to ensure the object is fit
-	 * for the pre-commit phase, if this is not the case, the method will raise an
-	 * exception. In the current class we check if the object is {@link isInited()}.
+	 * This method is called by the {@link preCommit()} method, it should perform
+	 * preliminary checks to ensure that the object is fit to be committed.
 	 *
-	 * The second task of this method is to initialise the parameters that will be passed to
-	 * the other methods involved in committing the object, both parameters will be set as
-	 * empty arrays.
+	 * In this class we check if the object is {@link isInited()}, in derived classes you
+	 * can overload this method to make sure the object is {@link isInited()} and then call
+	 * the inherited method.
 	 *
-	 * Derived classes that wish to add actions to this phase should perform:
+	 * The method features the traversal parameters, derived classes can take the
+	 * opportunity to modify these parameters. See the {@link preCommit()} method for a
+	 * description of those parameters.
 	 *
-	 * <ul>
-	 *	<li><em>Perform global preliminary validation.</em> Perform any check of global
-	 *		scope that might prevent the object from being committed.
-	 *	<li>Call the parent method.</em> This will ensure default preliminary validation and
-	 *		initialisation of the parameter.
-	 *	<li><em>Add custom elements to the traversal parameter.</em> If derived classes need
-	 *		to pass additional data to the commit process, they can initialise it after
-	 *		having called the parent method.
-	 * </ul>
-	 *
-	 * In this class we check whether the object is initialised and initialise the data
-	 * parameter passed to the method.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
@@ -1522,18 +1999,6 @@ abstract class PersistentObject extends OntologyObject
 				"Unable to commit: "
 			   ."the object is not initialised." );								// !@! ==>
 		
-		//
-		// Initialise tags set.
-		//
-		if( ! is_array( $theTags ) )
-			$theTags = Array();
-		
-		//
-		// Initialise object references.
-		//
-		if( ! is_array( $theRefs ) )
-			$theRefs = Array();
-	
 	} // preCommitPrepare.
 
 		
@@ -1544,65 +2009,48 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Traverse object before commit
 	 *
-	 * This method will apply the {@link traverseStructure()} method to the object's
-	 * persistent data iterator, the aforementioned method will be called for each offset
-	 * of the object and will be recursed for each sub-structure of the object.
+	 * This method is called by the {@link preCommit()} method, it will apply the
+	 * {@link traverseValidate()} method to the object's persistent data iterator, the
+	 * aforementioned method will be called for each offset of the object and will be
+	 * recursed for each sub-structure or list of the object.
 	 *
-	 * The method expects the following parameters:
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
 	 *
-	 * <ul>
-	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
-	 *		is a set of tags and their relative offsets. The array is a list of elements
-	 *		structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The tag sequence number (or current offset).
-	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
-	 *			tag, each element of the array is structured as follows:
-	 *		 <ul>
-	 *			<li><tt>type</tt>: The item indexed by this key will contain the list of
-	 *				data types of the tag.
-	 *			<li><tt>kind</tt>: The item indexed by this key will contain the list of
-	 *				data kinds of the tag.
-	 *			<li><tt>offset</tt>: The item indexed by this key will contain the list of
-	 *				all the offsets (obtained from the path at the current level) where the
-	 *				current tag is featured as leaf node.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as folloes:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: The referenced object's native identifier.
-	 *	 </ul>
-	 * </ul>
+	 * Before traversing the object, the method will delete all private offsets in the
+	 * object, this is to ensure these properties are exclusively managed by these methods.
 	 *
-	 * The method expects all parameters, to have been initialised.
+	 * The last parameter of this method is a flag which if set will activate the
+	 * validation, reference check and casting of the offsets.
 	 *
-	 * This method should not be overloaded by derived classes, rather, the methods called
-	 * by the {@link traverseStructure()} method can be extended to provided custom
-	 * validation or casting.
+	 * The method is declared final, so derived classes should only overload the called
+	 * methods, if you need to modify the traversal parameters do so overloading the
+	 * {@link preCommitPrepare()} method.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
 	 * @access protected
 	 *
-	 * @uses traverseStructure()
+	 * @uses traverseValidate()
 	 */
-	protected function preCommitTraverse( &$theTags, &$theRefs )
+	protected final function preCommitTraverse( &$theTags, &$theRefs, $doValidate = TRUE )
 	{
 		//
-		// Init path.
+		// Remove private offsets.
 		//
-		$path = Array();
-		
+		foreach( static::PrivateOffsets() as $offset )
+			$this->offsetUnset( $offset );
+	
 		//
 		// Traverse object.
 		//
+		$path = Array();
 		$iterator = $this->getIterator();
 		iterator_apply( $iterator,
-						array( $this, 'traverseStructure' ),
-						array( $iterator, & $path, & $theTags, & $theRefs ) );
+						array( $this, 'traverseValidate' ),
+						array( $iterator, & $path, & $theTags, & $theRefs, $doValidate ) );
 	
 	} // preCommitTraverse.
 
@@ -1614,28 +2062,35 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Finalise object before commit
 	 *
-	 * This method will be called before checking if the object is ready, {@link isReady()},
-	 * its duty is to make the last preparations before the object is to be committed.
+	 * This method is called by the {@link preCommit()} method, it will be executed before
+	 * checking if the object is ready, {@link isReady()}, its duty is to make the last
+	 * preparations before the object is to be committed.
 	 *
-	 * The method calls two other methods:
+	 * The method calls two methods:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link preCommitObjectTags()}</tt>: This method will iterate through all the
-	 *		elements of the tags parameter and feed each one to the {@link loadObjectTag()}
-	 *		method which will populate the {@link kTAG_OBJECT_TAGS} object property.
-	 *	<li><tt>{@link preCommitObjectIdentifiers()}</tt>: This method is responsible for
-	 *		setting the object's identifiers.
+	 *	<li><tt>{@link preCommitObjectTags()}</tt>: This method is responsible for loading
+	 *		the {@link kTAG_OBJECT_TAGS} and {@link kTAG_OBJECT_OFFSETS} object properties.
+	 *	<li><tt>{@link preCommitObjectReferences()}</tt>: This method is responsible for
+	 *		loading the {@link kTAG_OBJECT_REFERENCES} object property.
+	 *	<li><tt>{@link preCommitObjectIdentifiers()}</tt>: This method is responsible of
+	 *		computing the object's identifiers.
 	 * </ul>
 	 *
-	 * Derived classes should only overload this method if there is the need to perform
-	 * another main operation.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * Derived classes should overload the called methods, if they need to either change
+	 * the default behaviour or prevent loading tags or updating reference counts; if other
+	 * actions should be performed, this method can be overloaded.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 *
 	 * @uses preCommitObjectTags()
+	 * @uses preCommitObjectReferences()
 	 * @uses preCommitObjectIdentifiers()
 	 */
 	protected function preCommitFinalise( &$theTags, &$theRefs )
@@ -1646,20 +2101,16 @@ abstract class PersistentObject extends OntologyObject
 		$this->preCommitObjectTags( $theTags );
 	
 		//
-		// Load object identifiers.
+		// Load object references.
+		//
+		$this->preCommitObjectReferences( $theRefs );
+	
+		//
+		// Compute object identifiers.
 		//
 		$this->preCommitObjectIdentifiers();
 	
 	} // preCommitFinalise.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PRE-COMMIT UTILITIES							*
- *																						*
- *======================================================================================*/
-
 
 	 
 	/*===================================================================================
@@ -1669,49 +2120,95 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Load object tags
 	 *
-	 * This method will collect the offset tags set from the tags parameter and populate the
-	 * {@link kTAG_OBJECT_TAGS} offset.
+	 * This method is called by the {@link preCommitFinalise()} method, it will collect the
+	 * offset tags set from the tags parameter and populate the {@link kTAG_OBJECT_TAGS}
+	 * and the {@link kTAG_OBJECT_OFFSETS} offsets of the current object.
 	 *
-	 * Derived classes should only overload this method if that offset should not be set,
-	 * if not, they should overload the {@link loadObjectTag()} method which is called for
-	 * each collected tag to filter which elements will be set in the offset.
+	 * Only tags which feature the {@link kTAG_OBJECT_OFFSETS} element will be considered.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_OBJECT_TAGS
-	 *
-	 * @uses loadObjectTag()
+	 * @see kTAG_OBJECT_TAGS kTAG_OBJECT_OFFSETS
 	 */
 	protected function preCommitObjectTags( &$theTags )
 	{
 		//
 		// Init local storage.
 		//
-		$tags = Array();
-		
-		//
-		// Get collection indexes.
-		//
-		$indexes
-			= static::ResolveCollection(
-				static::ResolveDatabase( $this->dictionary(), TRUE ) )
-					->getIndex();
+		$tags = $offsets = Array();
 		
 		//
 		// Iterate tags.
 		//
 		foreach( $theTags as $tag => $info )
-			$this->loadObjectTag( $tag, $info, $tags, $indexes );
+		{
+			//
+			// Select leaf tags.
+			//
+			if( array_key_exists( kTAG_OBJECT_OFFSETS, $info ) )
+			{
+				//
+				// Load tags list.
+				//
+				$tags[] = (int) $tag;
+				
+				//
+				// Load offsets list.
+				//
+				$offsets[ $tag ] = $info[ kTAG_OBJECT_OFFSETS ];
+			
+			}
+		
+		} // Iterating tags.
 		
 		//
-		// Set offset.
+		// Set offsets.
 		//
 		if( count( $tags ) )
+		{
 			$this->offsetSet( kTAG_OBJECT_TAGS, $tags );
+			$this->offsetSet( kTAG_OBJECT_OFFSETS, $offsets );
+		}
 	
 	} // preCommitObjectTags.
+
+	 
+	/*===================================================================================
+	 *	preCommitObjectReferences														*
+	 *==================================================================================*/
+
+	/**
+	 * Load object tags
+	 *
+	 * This method is called by the {@link preCommitFinalise()} method, it will collect the
+	 * object references set from the references parameter and populate the
+	 * {@link kTAG_OBJECT_REFERENCES offset of the current object.
+	 *
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * In this class we simply copy the parameter to the offset.
+	 *
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_OBJECT_REFERENCES
+	 */
+	protected function preCommitObjectReferences( &$theRefs )
+	{
+		//
+		// Check references.
+		//
+		if( count( $theRefs ) )
+			$this->offsetSet( kTAG_OBJECT_REFERENCES, $theRefs );
+	
+	} // preCommitObjectReferences.
 
 	 
 	/*===================================================================================
@@ -1721,10 +2218,14 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Load object identifiers
 	 *
-	 * This method should load the object identifiers.
+	 * This method is called by the {@link preCommitFinalise()} method, its duty is to
+	 * compute the object's identifiers if needed.
 	 *
-	 * In this class we do nothing, in derived classes you can overload this method if you
-	 * need to compute identifiers.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * In this class we do not handle identifiers, derived classes should overload this
+	 * method if they need to compute identifiers.
 	 *
 	 * @access protected
 	 */
@@ -1747,20 +2248,24 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Handle object after commit
 	 *
-	 * This method is called immediately after the object is committed, its duty is to
-	 * handle the object after it was committed and to handle related objects.
-	 *
-	 * In this class we do the following:
+	 * This method is called immediately after the object was committed, its duty is to
+	 * update references and tags, the method will perform the following steps:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link postCommitReferences()}</tt>: This method should handle the current
-	 *		object references, in this class we update the reference counts of all objects
-	 *		referenced by the current object.
-	 *	<li><tt>{@link postCommitTags()}</tt>: This method should handle the tags used by
-	 *		the current object.
+	 *	<li><tt>{@link postCommitReferences()}</tt>: This method will process the references
+	 *		collected during the pre-commit object traversal phase.
+	 *	<li><tt>{@link postCommitTags()}</tt>: This method will process the tags collected
+	 *		during the pre-commit object traversal phase.
 	 * </ul>
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If derived classes need to customise the references and tags processing, they should
+	 * overload the called methods; if they need additional processing they can overload
+	 * this method.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
@@ -1771,46 +2276,16 @@ abstract class PersistentObject extends OntologyObject
 	protected function postCommit( &$theTags, &$theRefs )
 	{
 		//
-		// Update object references.
-		//
-		$this->postCommitReferences( $theRefs );
-	
-		//
 		// Update object tags.
 		//
 		$this->postCommitTags( $theTags );
 	
-	} // postCommit.
-
-	 
-	/*===================================================================================
-	 *	postCommitReferences															*
-	 *==================================================================================*/
-
-	/**
-	 * Update object references
-	 *
-	 *é This method should handle the objects referenced by the current object.
-	 *
-	 * In this class we update the reference counts of all objects referenced by the current
-	 * one.
-	 *
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @uses updateReferenceCount()
-	 */
-	protected function postCommitReferences( &$theRefs )
-	{
 		//
-		// Iterate by collection.
+		// Update object references.
 		//
-		foreach( $theRefs as $collection => $references )
-			$this->updateReferenceCount(
-				$collection, $references );
+		$this->postCommitReferences( $theRefs );
 	
-	} // postCommitReferences.
+	} // postCommit.
 
 	 
 	/*===================================================================================
@@ -1820,19 +2295,24 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Handle object tags after commit
 	 *
-	 * This method is called immediately after the object is committed, its duty is to
-	 * handle the object tags.
-	 *
-	 * In this class we do the following:
+	 * This method is called by the {@link postCommit()} method, it will provide the tags
+	 * collected during the pre-commit phase and feed them to the following methods:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link postCommitTagRefCount()}</tt>: We update the reference counts of the
-	 *		tags used in the current object.
-	 *	<li><tt>{@link postCommitTagOffsets()}</tt>: We update the offsets of all tags used
-	 *		in the current object.
+	 *	<li><tt>{@link postCommitTagRefCount()}</tt>: It updates the reference counts of the
+	 *		provided tags.
+	 *	<li><tt>{@link postCommitTagOffsets()}</tt>: It updates the offsets of the provided
+	 *		tags.
 	 * </ul>
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If you need to overload this method <em>be aware that you should mirror the changes
+	 * in the {@link postDeleteTags()} method</em>, since deleting affects references in
+	 * the opposite way commit does.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 *
 	 * @access protected
 	 *
@@ -1861,14 +2341,18 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Update tag reference counts
 	 *
-	 * This method will update the reference counts of all tags holding data in the current
-	 * object.
+	 * This method is called by the {@link postCommitTags()} method, it will update the
+	 * reference counts of all tags holding data in the current object.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If you need to overload this method <em>make sure you mirror the changes in the
+	 * {@link postDeleteTagRefCount()} method, in order to maintain referential integrity.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 *
 	 * @access protected
-	 *
-	 * @throws Exception
 	 *
 	 * @uses updateReferenceCount()
 	 */
@@ -1877,8 +2361,11 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update tags reference count.
 		//
-		$this->updateReferenceCount(
-			Tag::kSEQ_NAME, array_keys( $theTags ), kTAG_ID_SEQUENCE );
+		if( count( $theTags ) )
+			$this->updateReferenceCount( Tag::kSEQ_NAME,			// Collection.
+										 array_keys( $theTags ),	// Identifiers.
+										 kTAG_ID_SEQUENCE,			// Identifiers offset.
+										 1 );						// Reference count.
 		
 	} // postCommitTagRefCount.
 
@@ -1890,45 +2377,99 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Update tag offsets
 	 *
-	 * This method will update the offsets list of all tags used in the current object.
+	 * This method is called by the {@link postCommitTags()} method, it will update the
+	 * offsets list of the tag objects referenced by the leaf offsets of the current object.
 	 *
-	 * Note that this method expects the {@link dictionary()} to be there.
+	 * The method will add the offsets contained in the provided parameter to the property
+	 * related to the current object. If the current object has no associated offsets set
+	 * tag, an exception will be raised.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If you need to overload this method <em>make sure you mirror the changes in the
+	 * {@link postDeleteTagOffsets()} method, in order to maintain referential integrity.
+	 *
+	 * This method expects the {@link dictionary()} set.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 *
 	 * @access protected
+	 *
+	 * @uses ResolveOffsetsTag()
+	 * @uses updateOffsetsSet()
 	 */
 	protected function postCommitTagOffsets( &$theTags )
 	{
 		//
-		// Resolve collection.
+		// Check tags.
 		//
-		$collection
-			= Tag::ResolveCollection(
-				Tag::ResolveDatabase( $this->dictionary(), TRUE ) );
-		
-		//
-		// Get tag identifiers.
-		//
-		$tags = array_keys( $theTags );
-		
-		//
-		// Iterate tag elements.
-		//
-		foreach( $tags as $tag )
+		if( count( $theTags ) )
 		{
 			//
-			// Reference info.
+			// Resolve collection.
 			//
-			$ref = & $theTags[ $tag ];
-			
+			$collection
+				= Tag::ResolveCollection(
+					Tag::ResolveDatabase( $this->mDictionary ) );
+		
 			//
-			// Update tag offsets.
+			// Resolve set property.
 			//
-			$collection->updateTagOffsets( (int) $tag, $ref[ 'offset' ] );
-		}
+			$offset = static::ResolveOffsetsTag( static::kSEQ_NAME );
+		
+			//
+			// Get tag identifiers.
+			//
+			$tags = array_keys( $theTags );
+		
+			//
+			// Iterate tag elements.
+			//
+			foreach( $tags as $tag )
+				$this->updateOffsetsSet(
+					$collection, $tag, $offset, $theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] );
+		
+		} // Has tags.
 	
 	} // postCommitTagOffsets.
+
+	 
+	/*===================================================================================
+	 *	postCommitReferences															*
+	 *==================================================================================*/
+
+	/**
+	 * Update object references
+	 *
+	 * This method is called by the {@link postCommit()} method, it will iterate all
+	 * references collected during the pre-commit phase and feed them to the
+	 * {@link updateReferenceCount()} method that will update the referenced object's
+	 * reference count.
+	 *
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * By default all referenced objects are tracked, in derived classes you may overload
+	 * this method <em>provided you mirror the changes in the {@link postDeleteReferences()}
+	 * method</em>, which performs the same function for deleted objects.
+	 *
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses updateReferenceCount()
+	 */
+	protected function postCommitReferences( &$theRefs )
+	{
+		//
+		// Iterate by collection.
+		//
+		if( count( $theRefs ) )
+			foreach( $theRefs as $collection => $references )
+				$this->updateReferenceCount( $collection, $references, kTAG_NID, 1 );
+	
+	} // postCommitReferences.
 
 		
 
@@ -1953,44 +2494,63 @@ abstract class PersistentObject extends OntologyObject
 	 * <ul>
 	 *	<li><tt>{@link preDeletePrepare()}</tt>: This method should check whether the object
 	 *		can indeed be deleted, it should verify that the object is not referenced.
-	 *	<li><tt>{@link preDeleteTraverse()}</tt>: This method will traverse the object's
-	 *		structure and eventual sub-structures collectiong all tags and references which
-	 *		will be used to update reference counts.
+	 *	<li><tt>{@link preDeleteCollect()}</tt>: This method should collect all tags and
+	 *		references which will be used to update reference counts.
 	 *	<li><tt>{@link preDeleteFinalise()}</tt>: This method should finalise the pre-delete
 	 *		phase ensuring the object is ready to be deleted.
 	 * </ul>
 	 *
 	 * The method accepts two reference parameters which will be filled by the
-	 * {@link preDeleteTraverse()} method and will be passed to the
+	 * {@link preDeleteCollect()} method and will be passed to the
 	 * {@link preDeleteFinalise()} method:
 	 *
 	 * <ul>
-	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
-	 *		is an array of tag sequence numbers.
+	 *	<li><b>$theTags</b>: This array is the set of all tags referenced by the object's
+	 *		offsets, except for the offsets corresponding to the {@link InternalOffsets()}:
+	 *		<li><tt>key</tt>: The tag sequence number.
+	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
+	 *			tag, each element of the array is structured as follows:
+	 *		 <ul>
+	 *			<li><tt>{@link kTAG_DATA_TYPE}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_DATA_KIND}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: The item indexed by this key will
+	 *				collect the list of all the offsets in which the current tag appears as
+	 *				a leaf offset. In practice, this element collects all the possible
+	 *				offsets at any depth level in which the current tag holds a value. This
+	 *				also means that it will only be filled if the current tag is not a
+	 *				structural element.
+	 *		 </ul>
+	 *	 </ul>
+	 *		This parameter will be filled using the object's {@link kTAG_OBJECT_OFFSETS}
+	 *		property.
 	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as folloes:
+	 *		the current object. It is an array of elements structured as follows:
 	 *	 <ul>
 	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: The referenced object's native identifier.
+	 *		<li><tt>value</tt>: The set of all native identifiers representing the
+	 *			referenced objects.
 	 *	 </ul>
+	 *		This parameter will be filled using the object's {@link kTAG_OBJECT_REFERENCES}
+	 *		property.
 	 * </ul>
 	 *
 	 * These parameter will be initialised by this method.
 	 *
-	 * Derived classes should not overload this method, they should, instead, overload the
-	 * called methods.
+	 * This method is declared final, derived classes should overload the called methods.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
 	 *
 	 * @uses preDeletePrepare()
-	 * @uses preDeleteTraverse()
+	 * @uses preDeleteCollect()
 	 * @uses preDeleteFinalise()
 	 */
-	protected function preDelete( &$theTags, &$theRefs )
+	protected final function preDelete( &$theTags, &$theRefs )
 	{
 		//
 		// Init parameters.
@@ -2004,9 +2564,9 @@ abstract class PersistentObject extends OntologyObject
 			return FALSE;															// ==>
 	
 		//
-		// Traverse object.
+		// Collect references.
 		//
-		if( ! $this->preDeleteTraverse( $theTags, $theRefs ) )
+		if( ! $this->preDeleteCollect( $theTags, $theRefs ) )
 			return FALSE;															// ==>
 		
 		//
@@ -2030,9 +2590,13 @@ abstract class PersistentObject extends OntologyObject
 	 * This method should perform global preliminary checks to ensure the object is not
 	 * referenced and is fit to be deleted.
 	 *
-	 * In this class we assert that the object is not referenced.
+	 * The method should return a boolean value indicating whether the object can be deleted
+	 * or not.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * In this class we check whether the object is referenced, in that case the method will
+	 * return <tt>FALSE</tt>.
+	 *
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
@@ -2040,18 +2604,20 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_UNIT_COUNT kTAG_ENTITY_COUNT
 	 * @see kTAG_TAG_COUNT kTAG_TERM_COUNT kTAG_NODE_COUNT kTAG_EDGE_COUNT
+	 *
+	 * @uses getOffsetTypes()
 	 */
 	protected function preDeletePrepare( &$theTags, &$theRefs )
 	{	
 		//
 		// Check reference counts.
 		//
-		if( $this->offsetExists( kTAG_UNIT_COUNT )
-		 || $this->offsetExists( kTAG_ENTITY_COUNT )
-		 || $this->offsetExists( kTAG_TAG_COUNT )
-		 || $this->offsetExists( kTAG_TERM_COUNT )
-		 || $this->offsetExists( kTAG_NODE_COUNT )
-		 || $this->offsetExists( kTAG_EDGE_COUNT ) )
+		if( $this->offsetGet( kTAG_UNIT_COUNT )
+		 || $this->offsetGet( kTAG_TAG_COUNT )
+		 || $this->offsetGet( kTAG_TERM_COUNT )
+		 || $this->offsetGet( kTAG_NODE_COUNT )
+		 || $this->offsetGet( kTAG_EDGE_COUNT )
+		 || $this->offsetGet( kTAG_ENTITY_COUNT ) )
 			return FALSE;															// ==>
 		
 		return TRUE;																// ==>
@@ -2060,56 +2626,69 @@ abstract class PersistentObject extends OntologyObject
 
 		
 	/*===================================================================================
-	 *	preDeleteTraverse																*
+	 *	preDeleteCollect																*
 	 *==================================================================================*/
 
 	/**
-	 * Traverse object before delete
+	 * Collect object references
 	 *
-	 * This method will traverse the object and return the set of all tag sequence numbers
-	 * referenced by offsets in the current object and the list of all referenced objects.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theTags</b>: This parameter will collect all the tags referenced by offsets
-	 *		in the object. This is an array containing the set of tag sequence numbers.
-	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: An array collecting all the referenced object's native
-	 *			identifiers for the collection indicated in the key.
-	 *	 </ul>
-	 * </ul>
+	 * This method should fill the provided parameters with the necessary information;
+	 * please consult the {@link preDelete()} method documentation for a description of
+	 * these parameters.
 	 *
 	 * The method expects all parameters, to have been initialised.
 	 *
-	 * This method should not be overloaded by derived classes, rather, the methods called
-	 * by the {@link traverseProperty()} method can be extended to provided custom
-	 * validation or casting.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
 	 *
-	 * @uses traverseProperty()
+	 * @see kTAG_OBJECT_OFFSETS kTAG_OBJECT_REFERENCES
 	 */
-	protected function preDeleteTraverse( &$theTags, &$theRefs )
+	protected function preDeleteCollect( &$theTags, &$theRefs )
 	{
 		//
-		// Traverse object.
+		// Handle object tags.
 		//
-		$iterator = $this->getIterator();
-		iterator_apply( $iterator,
-						array( $this, 'traverseProperty' ),
-						array( $iterator, & $theTags, & $theRefs, FALSE, FALSE ) );
+		if( $this->offsetExists( kTAG_OBJECT_OFFSETS ) )
+		{
+			//
+			// Load object tags.
+			//
+			foreach( $this->offsetGet( kTAG_OBJECT_OFFSETS ) as $tag => $offsets )
+			{
+				//
+				// Init tag element.
+				//
+				$theTags[ $tag ] = array( kTAG_OBJECT_OFFSETS => $offsets );
+			
+				//
+				// Collect data type and kind.
+				//
+				$ref = & $theTags[ $tag ];
+				$this->getOffsetTypes( $tag, $ref[ kTAG_DATA_TYPE ],
+											 $ref[ kTAG_DATA_KIND ] );
+			
+			} // Iterating object tags.
+		
+		} // Has object offsets.
+		
+		else
+			$theTags = Array();
+		
+		//
+		// Load object references.
+		//
+		if( $this->offsetExists( kTAG_OBJECT_REFERENCES ) )
+			$theRefs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		
+		else
+			$theRefs = Array();
 		
 		return TRUE;																// ==>
 	
-	} // preDeleteTraverse.
+	} // preDeleteCollect.
 
 	 
 	/*===================================================================================
@@ -2117,7 +2696,7 @@ abstract class PersistentObject extends OntologyObject
 	 *==================================================================================*/
 
 	/**
-	 * Finalise object before commit
+	 * Finalise object before delete
 	 *
 	 * This method will be called before the object is going to be deleted, it is the last
 	 * chance of performing actions before the object gets removed from the persistent
@@ -2125,10 +2704,11 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * In this class we do nothing.
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> the object can be deleted.
 	 */
 	protected function preDeleteFinalise( &$theTags, &$theRefs )		{	return TRUE;	}
 
@@ -2156,14 +2736,15 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we do the following:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link postDeleteTags()}</tt>: This method should handle the tags used by
+	 *		the current object, in this class we remove orphan offset paths from the
+	 *		relative tag objects.
 	 *	<li><tt>{@link postDeleteReferences()}</tt>: This method should handle the current
 	 *		object references, in this class we update the reference counts of all objects
 	 *		referenced by the current object.
-	 *	<li><tt>{@link postDeleteTags()}</tt>: This method should handle the tags used by
-	 *		the current object.
 	 * </ul>
 	 *
-	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theTags			Object tags.
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
@@ -2179,7 +2760,7 @@ abstract class PersistentObject extends OntologyObject
 		$this->postDeleteReferences( $theRefs );
 	
 		//
-		// Update tag offsets.
+		// Update object tags.
 		//
 		$this->postDeleteTags( $theTags );
 	
@@ -2193,10 +2774,17 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Update object references
 	 *
-	 *é This method should handle the objects referenced by the current object.
+	 * This method is called by the {@link postDelete()} method, it will iterate all
+	 * references collected during the pre-delete phase and feed them to the
+	 * {@link updateReferenceCount()} method that will update the referenced object's
+	 * reference count.
 	 *
-	 * In this class we update the reference counts of all objects referenced by the current
-	 * one.
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preDelete()} method documentation.
+	 *
+	 * By default all referenced objects are tracked, in derived classes you may overload
+	 * this method <em>provided you mirror the changes in the {@link postCommitReferences()}
+	 * method</em>, which performs the same function for deleted objects.
 	 *
 	 * @param reference				$theRefs			Object references.
 	 *
@@ -2210,8 +2798,7 @@ abstract class PersistentObject extends OntologyObject
 		// Iterate by collection.
 		//
 		foreach( $theRefs as $collection => $references )
-			$this->updateReferenceCount(
-				$collection, $references, kTAG_NID, -1 );
+			$this->updateReferenceCount( $collection, $references, kTAG_NID, -1 );
 	
 	} // postDeleteReferences.
 
@@ -2223,24 +2810,147 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Handle object tags after commit
 	 *
-	 * This method is called immediately after the object is committed, its duty is to
-	 * handle the object tags.
+	 * This method is called by the {@link postDelete()} method, it will provide the tags
+	 * collected during the pre-delete phase and feed them to the following methods:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link postDeleteTagRefCount()}</tt>: It updates the reference counts of the
+	 *		provided tags.
+	 *	<li><tt>{@link postDeleteTagOffsets()}</tt>: It updates the offsets of the provided
+	 *		tags.
+	 * </ul>
+	 *
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preDelete()} method documentation.
+	 *
+	 * If you need to overload this method <em>be aware that you should mirror the changes
+	 * in the {@link postCommitTags()} method</em>, since committing affects references in
+	 * the opposite way delete does.
 	 *
 	 * @param reference				$theTags			Property leaf tags.
 	 *
 	 * @access protected
 	 *
-	 * @uses updateReferenceCount()
+	 * @uses postDeleteTagRefCount()
+	 * @uses postDeleteTagOffsets()
 	 */
 	protected function postDeleteTags( &$theTags )
 	{
 		//
 		// Update tags reference count.
 		//
-		$this->updateReferenceCount(
-			Tag::kSEQ_NAME, $theTags, kTAG_ID_SEQUENCE, -1 );
+		$this->postDeleteTagRefCount( $theTags );
+	
+		//
+		// Update tag offsets.
+		//
+		$this->postDeleteTagOffsets( $theTags );
 	
 	} // postDeleteTags.
+
+	 
+	/*===================================================================================
+	 *	postDeleteTagRefCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag reference counts
+	 *
+	 * This method is called by the {@link postDeleteTags()} method, it will update the
+	 * reference counts of all tags holding data in the current object.
+	 *
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If you need to overload this method <em>make sure you mirror the changes in the
+	 * {@link postCommitTagRefCount()} method, in order to maintain referential integrity.
+	 *
+	 * @param reference				$theTags			Object tags.
+	 *
+	 * @access protected
+	 *
+	 * @uses updateReferenceCount()
+	 */
+	protected function postDeleteTagRefCount( &$theTags )
+	{
+		//
+		// Update tags reference count.
+		//
+		if( count( $theTags ) )
+			$this->updateReferenceCount( Tag::kSEQ_NAME,			// Collection.
+										 array_keys( $theTags ),	// Identifiers.
+										 kTAG_ID_SEQUENCE,			// Identifiers offset.
+										 -1 );						// Reference count.
+		
+	} // postDeleteTagRefCount.
+
+	 
+	/*===================================================================================
+	 *	postDeleteTagOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag offsets
+	 *
+	 * This method is called by the {@link postDeleteTags()} method, it will update the
+	 * offsets list of the tag objects referenced by the leaf offsets of the current object.
+	 *
+	 * This method will first select the set of offsets to be removed, then, for each of
+	 * these offsets, it will check if there are other objects featuring them: if that is
+	 * the case, the method will do notning, if the offset cannot be found in any other
+	 * object, the method will remove it grom the relative tag's set.
+	 *
+	 * For a description of the parameters to this method, please consult the
+	 * {@link preCommit()} method documentation.
+	 *
+	 * If you need to overload this method <em>make sure you mirror the changes in the
+	 * {@link postCommitTagOffsets()} method, in order to maintain referential integrity.
+	 *
+	 * This method expects the {@link dictionary()} set.
+	 *
+	 * @param reference				$theTags			Object tags.
+	 *
+	 * @access protected
+	 *
+	 * @uses ResolveOffsetsTag()
+	 * @uses updateOffsetsSet()
+	 */
+	protected function postDeleteTagOffsets( &$theTags )
+	{
+		//
+		// Resolve set property.
+		//
+		$set = static::ResolveOffsetsTag( static::kSEQ_NAME );
+	
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary ) );
+	
+		//
+		// Remove existing offsets from list.
+		//
+		$list = new \ArrayObject( $theTags );
+		$iterator = $list->getIterator();
+		iterator_apply( $iterator,
+						array( $this, 'traverseFilterOffsets' ),
+						array( $iterator, $collection ) );
+	
+		//
+		// Remove missing offsets from tags.
+		//
+		if( count( $theTags ) )
+		{
+			$list = new \ArrayObject( $theTags );
+			$iterator = $list->getIterator();
+			iterator_apply( $iterator,
+							array( $this, 'traverseRemoveOffsets' ),
+							array( $iterator, $collection, $set ) );
+		}
+	
+	} // postDeleteTagOffsets.
 
 	
 
@@ -2253,16 +2963,18 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	traverseStructure																*
+	 *	traverseValidate																*
 	 *==================================================================================*/
 
 	/**
 	 * Traverse structure
 	 *
-	 * This method's duty is to validate and normalise an offset of the current object, the
-	 * method will be called for each offset at the root or sub-structure level of the
+	 * This method's duty is to validate and normalise offsets of the current object and
+	 * collect other information while traversing the structure of the current object.
+	 *
+	 * This method will be called for each offset at the root or sub-structure level of the
 	 * current object. This means that this method will not be called for elements of a list
-	 * offset, kind {@link kTYPE_LIST}.
+	 * offset.
 	 *
 	 * The method is passed a series of reference parameters that will be populated as this
 	 * method traverses the object's structure, this data will be then used in the commit
@@ -2273,34 +2985,38 @@ abstract class PersistentObject extends OntologyObject
 	 * <ul>
 	 *	<li><b>$theIterator</b>: This parameter contains the element currently pointed to by
 	 *		the iterator. This iterator is not recursive, each time a sub-structure is
-	 *		encountered, a new iterator is generated and this method is handed over.
+	 *		encountered, a new iterator is generated and is handed over to this method.
 	 *	<li><b>$thePath</b>: This run-time parameter contains the path to the current
 	 *		iterator element represented by a list of offsets, starting from the root
 	 *		offset and ending with the offset at the current depth. The current iterator
 	 *		element's offset is pushed at entry and popped at exit.
-	 *	<li><b>$theTags</b>: This parameter collects all the leaf offsets of the object, it
-	 *		represents the set of tag sequence numbers used as offsets in the current
-	 *		object, the parameter is an array of elements structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The tag sequence number (or current offset).
+	 *	<li><b>$theTags</b>: This array is the set of all tags referenced by the object's
+	 *		offsets, except for the offsets corresponding to the {@link InternalOffsets()}:
+	 *		<li><tt>key</tt>: The tag sequence number.
 	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
 	 *			tag, each element of the array is structured as follows:
 	 *		 <ul>
-	 *			<li><tt>type</tt>: The item indexed by this key will contain the list of
-	 *				data types of the tag.
-	 *			<li><tt>kind</tt>: The item indexed by this key will contain the list of
-	 *				data kinds of the tag.
-	 *			<li><tt>offset</tt>: The item indexed by this key will contain the list of
-	 *				all the offsets (obtained from the path at the current level) where the
-	 *				current tag is featured as leaf node.
+	 *			<li><tt>{@link kTAG_DATA_TYPE}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_DATA_KIND}</tt>: The item indexed by this key will
+	 *				contain the corresponding tag object offset.
+	 *			<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: The item indexed by this key will
+	 *				collect the list of all the offsets in which the current tag appears as
+	 *				a leaf offset. In practice, this element collects all the possible
+	 *				offsets at any depth level in which the current tag holds a value. This
+	 *				also means that it will only be filled if the current tag is not a
+	 *				structural element.
 	 *		 </ul>
 	 *	 </ul>
 	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as folloes:
+	 *		the current object. It is an array of elements structured as follows:
 	 *	 <ul>
 	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: The referenced object's native identifier.
+	 *		<li><tt>value</tt>: The set of all native identifiers representing the
+	 *			referenced objects.
 	 *	 </ul>
+	 *	<li><b>$doValidate</b>: If this flag is set, the method will activate all the
+	 *		validation procedures, if not set, the procedure will only collect information.
 	 * </ul>
 	 *
 	 * The method will perform the following steps:
@@ -2312,16 +3028,16 @@ abstract class PersistentObject extends OntologyObject
 	 *		method will determine the types and kinds of the current offset value and update
 	 *		the tags parameter. If the current offset is an internal offset, all steps
 	 *		except the last one will be skipped.
-	 *	<li><em>Verify offset structure</em>: The {@link verifyOffsetStructure()} method
+	 *	<li><em>Verify offset structure</em>: The {@link verifyStructureOffset()} method
 	 *		will check if the current element value has the correct structure.
 	 *	<li><em>Verify and cast value</em>: If the current offset type is not a structure,
-	 *		{@link kTYPE_STRUCT}, the {@link traverseValue()} method will be used to verify
+	 *		{@link kTYPE_STRUCT}, the {@link traverseValidateValue()} method will be used to verify
 	 *		the offset value and cast it to the correct data type.
 	 *	<li><em>Recurse structures</em>: If the current element is a structure, its elements
 	 *		will be iterated and handed to this method. Structure lists will recursively be
 	 *		iterated.
 	 *	<li><em>Scan lists</em>: If the current element is a list of scalar elements, each
-	 *		element of the list will be handed to the {@link traverseValue()} method which
+	 *		element of the list will be handed to the {@link traverseValidateValue()} method which
 	 *		will take care of validating and casting the value.
 	 *	<li><em>Pop offset from path</em>: The current offset will be popped from the path
 	 *		parameter.
@@ -2338,17 +3054,19 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$thePath			Offsets path.
 	 * @param reference				$theTags			Property tags and offsets.
 	 * @param reference				$theRefs			Object references.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
 	 *
 	 * @uses collectOffsetInformation()
-	 * @uses verifyOffsetStructure()
-	 * @uses traverseValue()
+	 * @uses verifyStructureOffset()
+	 * @uses traverseValidateValue()
 	 */
-	final protected function traverseStructure( \Iterator $theIterator, &$thePath,
-																		&$theTags,
-																		&$theRefs )
+	final protected function traverseValidate( \Iterator $theIterator, &$thePath,
+																	   &$theTags,
+																	   &$theRefs,
+																	    $doValidate = TRUE )
 	{
 		//
 		// Push to path.
@@ -2368,22 +3086,23 @@ abstract class PersistentObject extends OntologyObject
 		if( $offset !== NULL )
 		{
 			//
-			// Verify offset structure.
-			//
-			$this->verifyOffsetStructure( $theIterator, $type, $kind, $offset );
-			
-			//
 			// Handle scalar offset.
 			//
 			if( (! in_array( kTYPE_LIST, $kind ))
 			 && (! in_array( kTYPE_STRUCT, $type )) )
-				$this->traverseValue( $theIterator, $theRefs, $type, $kind, $offset );
+				$this->traverseValidateValue(
+					$theIterator, $theRefs, $type, $kind, $offset, $doValidate );
 		
 			//
 			// Handle structure and list offsets.
 			//
 			else
 			{
+				//
+				// Verify structure offset.
+				//
+				$this->verifyStructureOffset( $theIterator, $type, $kind, $offset );
+			
 				//
 				// Save list or structure.
 				//
@@ -2410,10 +3129,11 @@ abstract class PersistentObject extends OntologyObject
 							$struct = new \ArrayObject( $struct );
 							$iterator = $struct->getIterator();
 							iterator_apply( $iterator,
-											array( $this, 'traverseStructure' ),
+											array( $this, 'traverseValidate' ),
 											array( $iterator, & $thePath,
 															  & $theTags,
-															  & $theRefs ) );
+															  & $theRefs,
+																$doValidate ) );
 		
 							//
 							// Update structure.
@@ -2435,10 +3155,11 @@ abstract class PersistentObject extends OntologyObject
 						//
 						$iterator = $list->getIterator();
 						iterator_apply( $iterator,
-										array( $this, 'traverseStructure' ),
+										array( $this, 'traverseValidate' ),
 										array( $iterator, & $thePath,
 														  & $theTags,
-														  & $theRefs ) );
+														  & $theRefs,
+															$doValidate ) );
 			
 					} // Scalar structure.
 		
@@ -2454,11 +3175,12 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$iterator = $list->getIterator();
 					iterator_apply( $iterator,
-									array( $this, 'traverseValue' ),
+									array( $this, 'traverseValidateValue' ),
 									array( $iterator, & $theRefs,
 													  & $type,
 													  & $kind,
-													  & $offset ) );
+													  & $offset,
+														$doValidate ) );
 			
 				} // List of scalars.
 
@@ -2478,186 +3200,11 @@ abstract class PersistentObject extends OntologyObject
 		
 		return TRUE;																// ==>
 	
-	} // traverseStructure.
+	} // traverseValidate.
 
 	 
 	/*===================================================================================
-	 *	traverseProperty																*
-	 *==================================================================================*/
-
-	/**
-	 * Traverse properties
-	 *
-	 * This method will be called for each element of the object structure, it will add to
-	 * the provided parameter the set of all tags used by the object as offsets.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theTags</b>: This parameter will collect all the tags referenced by offsets
-	 *		in the object. This is an array containing the set of tag sequence numbers.
-	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: An array collecting all the referenced object's native
-	 *			identifiers for the collection indicated in the key.
-	 *	 </ul>
-	 *	<li><b>$doStructs</b>: This flag indicates whether to add structure tags to the tags
-	 *		list.
-	 *	<li><b>$doSubOffsets</b>: This flag indicates whether to add sub-structure tags to
-	 *		the tags list.
-	 * </ul>
-	 *
-	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
-	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theTags			Receives tags set.
-	 * @param reference				$theRefs			Receives object references.
-	 * @param boolean				$doStructs			Include structures.
-	 * @param boolean				$doSubOffsets		Include sub-offsets.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
-	 *
-	 * @uses InternalOffsets()
-	 * @uses getOffsetTypes()
-	 * @uses loadPropertyReferences()
-	 * @uses loadSubProperties()
-	 */
-	protected function traverseProperty( \Iterator $theIterator,
-												  &$theTags,
-												  &$theRefs,
-												   $doStructs = FALSE,
-												   $doSubOffsets = FALSE )
-	{
-		//
-		// Init local storage.
-		//
-		$key = $theIterator->key();
-		
-		//
-		// Skip internal offsets and offset tags.
-		//
-		if( ! in_array( $key, static::InternalOffsets() ) )
-		{
-			//
-			// Collect offset types.
-			//
-			$this->getOffsetTypes( $key, $type, $kind );
-		
-			//
-			// Add to tag set.
-			//
-			if( ! in_array( (int) $key, $theTags ) )
-			{
-				//
-				// Handle structures.
-				//
-				if( in_array( kTYPE_STRUCT, $type ) )
-				{
-					//
-					// Only if requested.
-					//
-					if( $doStructs )
-						$theTags[] = (int) $key;
-				
-				} // Structure.
-				
-				//
-				// Handle leaf offsets.
-				//
-				else
-					$theTags[] = (int) $key;
-			
-			} // Not in set.
-		
-			//
-			// Save list or structure.
-			//
-			$list = $theIterator->current();
-	
-			//
-			// Handle structure offsets.
-			//
-			if( in_array( kTYPE_STRUCT, $type ) )
-			{
-				//
-				// Handle structure lists.
-				//
-				if( in_array( kTYPE_LIST, $kind ) )
-				{
-					//
-					// Iterate list.
-					//
-					foreach( $list as $idx => $struct )
-					{
-						//
-						// Traverse structure.
-						//
-						$iterator = new \ArrayIterator( $struct );
-						iterator_apply( $iterator,
-										array( $this, 'traverseProperty' ),
-										array( $iterator, & $theTags,
-														  & $theRefs,
-														  	$doStructs,
-															$doSubOffsets ) );
-			
-					} // Iterating list.
-		
-				} // List of structures.
-		
-				//
-				// Handle scalar structure.
-				//
-				else
-				{
-					//
-					// Traverse structure.
-					//
-					$iterator = new \ArrayIterator( $list );
-					iterator_apply( $iterator,
-									array( $this, 'traverseProperty' ),
-									array( $iterator, & $theTags,
-													  & $theRefs,
-													  	$doStructs,
-														$doSubOffsets ) );
-		
-				} // Scalar structure.
-		
-			} // Structured offset.
-			
-			//
-			// Handle scalar offsets.
-			//
-			else
-			{
-				//
-				// Load references.
-				//
-				$this->loadPropertyReferences(
-					$theIterator->current(), $theRefs, $type, $kind );
-				
-				//
-				// Handle sub-structure properties.
-				//
-				if( $doSubOffsets )
-					$this->loadSubProperties(
-						$theIterator->current(), $theTags, $type, $kind );
-			
-			} // Scalar offset.
-		
-		} // Not an internal offset.
-		
-		return TRUE;																// ==>
-	
-	} // traverseProperty.
-
-	 
-	/*===================================================================================
-	 *	traverseValue																	*
+	 *	traverseValidateValue															*
 	 *==================================================================================*/
 
 	/**
@@ -2669,10 +3216,10 @@ abstract class PersistentObject extends OntologyObject
 	 * The main duties of this method are:
 	 *
 	 * <ul>
-	 *	<li><em>Validate the offset value</em>: The {@link verifyValue()} method will check
+	 *	<li><em>Validate the offset value</em>: The {@link verifyOffsetValue()} method will check
 	 *		whether the current offset's value is correct.
-	 *	<li><em>Validate references</em>: The {@link verifyReference()} method will validate
-	 *		object reference values:
+	 *	<li><em>Validate references</em>: The {@link verifyOffsetReference()} method will
+	 *		validate object reference values:
 	 *	 <ul>
 	 *		<li>If the reference is provided as an uncommitted object, the method will
 	 *			commit the object and replace it with its native identifier.
@@ -2685,10 +3232,8 @@ abstract class PersistentObject extends OntologyObject
 	 *			to the provided references parameter updating the reference count.
 	 *	 </ul>
 	 *		<em>Note that an offset having an object reference as its data type is assumed
-	 *		to have only that data type; for the moment we do not handle the case in which
-	 *		a value may have both a primitive data type and be also an object
-	 *		reference</em>.
-	 *	<li><em>Cast the offset value</em>: The {@link castValue()} method will cast the
+	 *		to have only that data type</em>.
+	 *	<li><em>Cast the offset value</em>: The {@link castOffsetValue()} method will cast the
 	 *		offset value to the data type of the tag corresponding to the leaf node of the
 	 *		offsets path.
 	 * </ul>
@@ -2698,7 +3243,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
 	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it.
+	 * stop it: it will return <tt>TRUE</tt> by default.
 	 *
 	 * This method is final, derived classes should not overload this method, but rather the
 	 * methods it calls.
@@ -2708,47 +3253,179 @@ abstract class PersistentObject extends OntologyObject
 	 * @param reference				$theType			Offset data type.
 	 * @param reference				$theKind			Offset data kind.
 	 * @param reference				$theOffset			Current offset string.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
 	 * @access protected
 	 * @return boolean				<tt>TRUE</tt> continues the traversal.
 	 *
-	 * @uses verifyValue()
-	 * @uses verifyReference()
-	 * @uses castValue()
+	 * @uses verifyOffsetValue()
+	 * @uses GetReferenceTypes()
+	 * @uses verifyOffsetReference()
+	 * @uses castOffsetValue()
 	 */
-	final protected function traverseValue( \Iterator $theIterator, &$theRefs,
-																	&$theType,
-																	&$theKind,
-																	&$theOffset )
+	final protected function traverseValidateValue( \Iterator $theIterator, &$theRefs,
+																			&$theType,
+																			&$theKind,
+																			&$theOffset,
+															  $doValidate = TRUE )
 	{
-		//
-		// Init local storage.
-		//
-		$ref_types = array( kTYPE_REF_TAG, kTYPE_REF_TERM,
-							kTYPE_REF_NODE, kTYPE_REF_EDGE,
-							kTYPE_REF_ENTITY, kTYPE_REF_UNIT,
-							kTYPE_REF_SELF, kTYPE_ENUM, kTYPE_SET );
-		
 		//
 		// Verify value.
 		//
-		$this->verifyValue( $theIterator, $theType, $theKind, $theOffset );
+		if( $doValidate )
+			$this->verifyOffsetValue( $theIterator, $theType, $theKind, $theOffset );
 		
 		//
 		// Verify reference.
 		//
-		if( count( array_intersect( $theType, $ref_types ) ) )
-			$this->verifyReference(
-				$theIterator, $theRefs, $theType, $theKind, $theOffset );
+		if( count( array_intersect( $theType, static::GetReferenceTypes() ) ) )
+			$this->verifyOffsetReference(
+				$theIterator, $theRefs, $theType, $theKind, $theOffset, $doValidate );
 		
 		//
 		// Cast value.
 		//
-		$this->castValue( $theIterator, $theRefs, $theType, $theKind, $theOffset );
+		if( $doValidate )
+			$this->castOffsetValue(
+				$theIterator, $theRefs, $theType, $theKind, $theOffset );
 		
 		return TRUE;																// ==>
 	
-	} // traverseValue.
+	} // traverseValidateValue.
+
+	 
+	/*===================================================================================
+	 *	traverseFilterOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Remove offsets from tags list
+	 *
+	 * This method is called for each element of the tags list parameter described in the
+	 * {@link preDelete()} method, its duty is to check whether objects stored in the
+	 * current object's collection still have the offsets of the current object, if that
+	 * is not the case, these offsets will be remoived from the current iterator element:
+	 * after this process the iterated list will only feature the offsets to be removed from
+	 * the relative tag objects.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIterator</b>: This parameter points to the current element of the tags
+	 *		list.
+	 *	<li><b>$theCollection</b>: The collection of the current object.
+	 * </ul>
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param CollectionObject		$theCollection		Current object collection.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> continues the traversal.
+	 */
+	protected function traverseFilterOffsets( \Iterator		   $theIterator,
+											  CollectionObject $theCollection )
+	{
+		//
+		// Init local storage.
+		//
+		$tag = (int) $theIterator->key();
+		$info = $theIterator->current();
+		$ref = & $info[ kTAG_OBJECT_OFFSETS ];
+		$base_criteria = array( kTAG_ID_SEQUENCE => $tag );
+
+		//
+		// Iterate offsets.
+		//
+		foreach( $ref as $key => $offset )
+		{
+			//
+			// Check offset.
+			//
+			$criteria = $base_criteria;
+			$criteria[ kTAG_OBJECT_OFFSETS.".$tag" ] = $offset;
+			if( $theCollection->matchAll( $criteria, kQUERY_ARRAY ) )
+				unset( $ref[ $key ] );
+		
+		} // Iterating offsets.
+		
+		//
+		// Handle empty list.
+		//
+		if( ! count( $ref ) )
+			$theIterator->offsetUnset( $theIterator->key() );
+		
+		//
+		// Update list.
+		//
+		else
+		{
+			//
+			// Normalise list.
+			//
+			$ref = array_values( $ref );
+			
+			//
+			// Update list.
+			//
+			$theIterator->offsetSet( $theIterator->key(), $info );
+		
+		} // Offsets left.
+		
+		return TRUE;																// ==>
+	
+	} // traverseFilterOffsets.
+
+	 
+	/*===================================================================================
+	 *	traverseRemoveOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Remove offsets from tag objects
+	 *
+	 * This method is called for each element of the tags list parameter described in the
+	 * {@link preDelete()} method, its duty is to remove all offsets featured in the list
+	 * from tag objects.
+	 *
+	 * This method will be invoked <em>after running the {@link traverseFilterOffsets()}
+	 * method</em>, which means that the iterated list will only hold those offsets which
+	 * are not referenced any more by objects of the current class.
+	 *
+	 * The method will iterate the list and remove from the relative tag object set all the
+	 * offsets featured in the current list element.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIterator</b>: This parameter points to the current element of the tags
+	 *		list.
+	 *	<li><b>$theTagCollection</b>: The collection of tag objects.
+	 *	<li><b>$theCollection</b>: The collection of the current object.
+	 * </ul>
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param CollectionObject		$theCollection		Tag object collection.
+	 * @param string				$theOffset			Tag object set offset.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> continues the traversal.
+	 */
+	protected function traverseRemoveOffsets( \Iterator		   $theIterator,
+											  CollectionObject $theCollection,
+															   $theOffset )
+	{
+		//
+		// Remove from set.
+		//
+		$theCollection->updateSet(
+			(int) $theIterator->key(),
+			kTAG_ID_SEQUENCE,
+			array( $theOffset => $theIterator->current()[ kTAG_OBJECT_OFFSETS ] ),
+			FALSE );
+		
+		return TRUE;																// ==>
+	
+	} // traverseRemoveOffsets.
 
 	
 
@@ -2808,6 +3485,8 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 * @return array				List of locked offsets.
 	 *
+	 * @see kTAG_MASTER
+	 *
 	 * @uses InternalOffsets()
 	 */
 	protected function lockedOffsets()
@@ -2820,234 +3499,10 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED REFERENCE INTERFACE							*
+ *							PROTECTED RESOLUTION UTILITIES								*
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	validateReference																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate object reference
-	 *
-	 * This method will validate the provided reference, it will check whether the value is
-	 * an object, in which case it will use its native identifier if committed, or check
-	 * whether it is of the correct type.
-	 *
-	 * @param reference				$theValue			Object reference.
-	 * @param string				$theClass			Ancestor class name.
-	 * @param string				$theType			Reference data type.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTYPE_REF_TERM kTYPE_REF_TAG kTYPE_REF_NODE kTYPE_REF_EDGE
-	 * @see kTYPE_REF_ENTITY kTYPE_REF_UNIT kTYPE_REF_SELF
-	 */
-	protected function validateReference( &$theValue, $theClass, $theType )
-	{
-		//
-		// Handle namespace object.
-		//
-		if( is_object( $theValue ) )
-		{
-			//
-			// Handle terms.
-			//
-			if( $theValue instanceof $theClass )
-			{
-				//
-				// Get object reference.
-				//
-				if( $theValue->isCommitted() )
-					$theValue = $theValue->reference();
-			
-			} // Is a term.
-			
-			else
-				throw new \Exception(
-					"Unable to set object reference: "
-				   ."provided an object other than $theClass." );				// !@! ==>
-		
-		} // Namespace object.
-		
-		//
-		// Handle reference.
-		//
-		else
-		{
-			//
-			// Parse type.
-			//
-			switch( $theType )
-			{
-				case kTYPE_REF_TAG:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_ENTITY:
-				case kTYPE_REF_UNIT:
-					$theValue = (string) $theValue;
-					break;
-				
-				case kTYPE_REF_NODE:
-					$theValue = (int) $theValue;
-					break;
-				
-				case kTYPE_REF_SELF:
-					switch( static::kSEQ_NAME )
-					{
-						case Tag::kSEQ_NAME:
-						case Term::kSEQ_NAME:
-						case Edge::kSEQ_NAME:
-						case EntityObject::kSEQ_NAME:
-						case UnitObject::kSEQ_NAME:
-							$theValue = (string) $theValue;
-							break;
-				
-						case Node::kSEQ_NAME:
-							$theValue = (int) $theValue;
-							break;
-					}
-					break;
-			}
-		
-		} // Object reference.
-	
-	} // validateReference.
-
-	
-
-/*=======================================================================================
- *																						*
- *								PROTECTED OFFSET UTILITIES								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	collectOffsetInformation														*
-	 *==================================================================================*/
-
-	/**
-	 * Collect offset information
-	 *
-	 * This method will collect all the necessary information regarding the current offset.
-	 * This method expects the provided iterator's current element to be pointing to an
-	 * offset, not to an element of a list offset.
-	 *
-	 * The main duty of this method is to:
-	 *
-	 * <ul>
-	 *	<li><em>Add offset to path</em>. The method add the current offset to the path
-	 *		parameter.
-	 *	<li><em>Generate offset string</em>. The method will generate the offset string from
-	 *		the provided path parameter, the resulting string will contain all the offsets
-	 *		traversed at the current level separated by a period; this string can be used to
-	 *		refer to the specific offset, this string will be returned by the method.
-	 *	<li><em>Resolve the offset data type and kind</em>. The method should return in the
-	 *		provided reference parameters the current offset's types and kinds.
-	 *	<li><em>Verify offset structure</em>. The current offset data structure will be
-	 *		verified.
-	 * </ul>
-	 *
-	 * The method will return the current offset string, or <tt>NULL</tt> if the offset is
-	 * internal; in the latter case, this method will do nothing.
-	 *
-	 * Derived classes should not need to overload this method.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$thePath			Offsets path.
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
-	 *
-	 * @access protected
-	 * @return string				Current offset string.
-	 *
-	 * @uses InternalOffsets()
-	 * @uses getOffsetTypes()
-	 */
-	protected function collectOffsetInformation( \Iterator $theIterator, &$thePath,
-																		 &$theTags,
-																		 &$theType,
-																		 &$theKind )
-	{
-		//
-		// Skip internal offsets.
-		//
-		if( ! in_array( $theIterator->key(), static::InternalOffsets() ) )
-		{
-			//
-			// Init local storage.
-			//
-			$tag = $theIterator->key();
-		
-			//
-			// Determine offset string.
-			//
-			$offset = implode( '.', $thePath );
-			
-			//
-			// Handle existing tag.
-			//
-			if( array_key_exists( $tag, $theTags ) )
-			{
-				//
-				// Get types and kinds.
-				//
-				$theType = $theTags[ $tag ][ 'type' ];
-				$theKind = $theTags[ $tag ][ 'kind' ];
-				
-				//
-				// Check offset.
-				//
-				if( ! in_array( $offset, $theTags[ $tag ][ 'offset' ] ) )
-					$theTags[ $tag ][ 'offset' ][] = $offset;
-			
-			} // Existing tag.
-			
-			//
-			// Handle new tag.
-			//
-			else
-			{
-				//
-				// Get types and kinds.
-				//
-				$this->getOffsetTypes( $tag, $theType, $theKind );
-				
-				//
-				// Add tag if not a structure.
-				//
-				if( ! in_array( kTYPE_STRUCT, $theType ) )
-				{
-					//
-					// Set types and kinds.
-					//
-					$theTags[ $tag ][ 'type' ] = $theType;
-					$theTags[ $tag ][ 'kind' ] = $theKind;
-					
-					//
-					// Set offset.
-					//
-					$theTags[ $tag ][ 'offset' ] = array( $offset );
-				
-				} // Not a structure.
-			
-			} // New tag.
-			
-			return $offset;															// ==>
-		
-		} // Not an internal offset.
-		
-		return NULL;																// ==>
-	
-	} // collectOffsetInformation.
 
 	 
 	/*===================================================================================
@@ -3061,7 +3516,7 @@ abstract class PersistentObject extends OntologyObject
 	 * allow loading the data dictionary on a pristine system.
 	 *
 	 * If the provided offset is not among the ones handled in this method, it will call
-	 * the inherited one.
+	 * the parent method.
 	 *
 	 * @param string				$theOffset			Current offset.
 	 * @param reference				$theType			Receives data type.
@@ -3082,6 +3537,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_AUTHORITY:
 			case kTAG_COLLECTION:
+			case kTAG_IDENTIFIER:
 			case kTAG_ID_LOCAL:
 			case kTAG_ID_PERSISTENT:
 			case kTAG_ID_VALID:
@@ -3118,6 +3574,8 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_CATEGORY:
 			case kTAG_DATA_TYPE:
 			case kTAG_DATA_KIND:
+			case kTAG_TERM_TYPE:
+			case kTAG_NODE_TYPE:
 			case kTAG_ENTITY_TYPE:
 			case kTAG_ENTITY_KIND:
 				$theType = array( kTYPE_SET );
@@ -3180,6 +3638,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar entity references.
 			//
+			case kTAG_ENTITY:
 			case kTAG_ENTITY_VALID:
 				$theType = array( kTYPE_REF_ENTITY );
 				$theKind = Array();
@@ -3204,9 +3663,9 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar typed lists.
 			//
-			case kTAG_ENTITY_LINK:
 			case kTAG_ENTITY_MAIL:
 			case kTAG_ENTITY_EMAIL:
+			case kTAG_ENTITY_LINK:
 			case kTAG_ENTITY_PHONE:
 			case kTAG_ENTITY_FAX:
 			case kTAG_ENTITY_AFFILIATION:
@@ -3260,12 +3719,45 @@ abstract class PersistentObject extends OntologyObject
 				return TRUE;														// ==>
 		
 			//
+			// Private string lists.
+			//
+			case kTAG_TAG_OFFSETS:
+			case kTAG_TERM_OFFSETS:
+			case kTAG_NODE_OFFSETS:
+			case kTAG_EDGE_OFFSETS:
+			case kTAG_ENTITY_OFFSETS:
+			case kTAG_UNIT_OFFSETS:
+				$theType = array( kTYPE_STRING );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
+				return TRUE;														// ==>
+		
+			//
 			// Private integers.
 			//
 			case kTAG_UNIT_COUNT:
 			case kTAG_ENTITY_COUNT:
+			case kTAG_TAG_COUNT:
+			case kTAG_TERM_COUNT:
+			case kTAG_NODE_COUNT:
+			case kTAG_EDGE_COUNT:
 				$theType = array( kTYPE_INT );
 				$theKind = array( kTYPE_PRIVATE_IN );
+				return TRUE;														// ==>
+		
+			//
+			// Private integer lists.
+			//
+			case kTAG_OBJECT_TAGS:
+				$theType = array( kTYPE_INT );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
+				return TRUE;														// ==>
+		
+			//
+			// Private scalar arrays.
+			//
+			case kTAG_OBJECT_OFFSETS:
+				$theType = array( kTYPE_ARRAY );
+				$theKind = array( kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
 				return TRUE;														// ==>
 		
 		} // Parsing default tags.
@@ -3276,13 +3768,253 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	verifyOffsetStructure															*
+	 *	getReferenceTypeClass															*
 	 *==================================================================================*/
 
 	/**
-	 * Verify offset structure
+	 * Resolve object reference data type class
 	 *
-	 * This method should verify the structure of the current offset value.
+	 * Given a data type, this method will return the base class name corresponding to the
+	 * referenced object, or <tt>NULL</tt> if the data type is not an object reference.
+	 *
+	 * If provided the {@link kTYPE_REF_SELF} data type, the method will return the current
+	 * object's class name.
+	 *
+	 * @param string				$theType			Data type.
+	 *
+	 * @access public
+	 * @return string				Base class name.
+	 */
+	public function getReferenceTypeClass( $theType )
+	{
+		//
+		// Parse by data type.
+		//
+		switch( (string) $theType )
+		{
+			case kTYPE_REF_TAG:
+				return 'OntologyWrapper\Tag';										// ==>
+		
+			case kTYPE_SET:
+			case kTYPE_ENUM:
+			case kTYPE_REF_TERM:
+				return 'OntologyWrapper\Term';										// ==>
+		
+			case kTYPE_REF_NODE:
+				return 'OntologyWrapper\Node';										// ==>
+		
+			case kTYPE_REF_EDGE:
+				return 'OntologyWrapper\Edge';										// ==>
+		
+			case kTYPE_REF_UNIT:
+				return 'OntologyWrapper\UnitObject';								// ==>
+		
+			case kTYPE_REF_ENTITY:
+				return 'OntologyWrapper\EntityObject';								// ==>
+		
+			case kTYPE_REF_SELF:
+				return get_class( $this );											// ==>
+		
+		} // Parsed collection name.
+		
+		return NULL;																// ==>
+	
+	} // getReferenceTypeClass.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OBJECT TRAVERSAL UTILITIES						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectOffsetInformation														*
+	 *==================================================================================*/
+
+	/**
+	 * Collect offset information
+	 *
+	 * This method will collect all the necessary information regarding the current offset.
+	 * This method expects the provided iterator's current element to be pointing to an
+	 * offset, not to an element of a list offset.
+	 *
+	 * The main duty of this method is to:
+	 *
+	 * <ul>
+	 *	<li><em>Compute the current offset path</em>. The method will return the path of the
+	 *		current offset, if the offset is among the internal offsets,
+	 *		{@link InternalOffsets()}, the method will exit and return <tt>NULL</tt>.
+	 *	<li><em>Resolve the offset data type and kind</em>. The method should return in the
+	 *		provided reference parameters the current offset's types and kinds.
+	 *	<li><em>Copy data type and kind in tags list</em>. If the offset is not a structure,
+	 *		the method will copy the type and kind to the tags list.
+	 * </ul>
+	 *
+	 * For a description of the <tt>$theTags</tt> parameter, please consult the
+	 * {@link traverseValidate()} documentation.
+	 *
+	 * The method will return the current offset string, or <tt>NULL</tt> if the offset is
+	 * internal; in the latter case, this method will do nothing.
+	 *
+	 * Derived classes should not need to overload this method.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$thePath			Offsets path.
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 *
+	 * @access protected
+	 * @return string				Current offset string.
+	 *
+	 * @uses InternalOffsets()
+	 * @uses getOffsetTypes()
+	 */
+	protected function collectOffsetInformation( \Iterator $theIterator, &$thePath,
+																		 &$theTags,
+																		 &$theType,
+																		 &$theKind )
+	{
+		//
+		// Skip internal offsets.
+		//
+		if( ! in_array( $theIterator->key(),
+						array_merge( static::InternalOffsets(),
+									 static::PrivateOffsets() ) ) )
+		{
+			//
+			// Determine offset string.
+			//
+			$offset = implode( '.', $thePath );
+			
+			//
+			// Save current tag.
+			//
+			$tag = $theIterator->key();
+		
+			//
+			// Handle existing tag.
+			//
+			if( array_key_exists( $tag, $theTags ) )
+			{
+				//
+				// Get types and kinds.
+				//
+				$theType = $theTags[ $tag ][ kTAG_DATA_TYPE ];
+				$theKind = $theTags[ $tag ][ kTAG_DATA_KIND ];
+				
+				//
+				// Check offset.
+				//
+				if( ! in_array( $offset, $theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] ) )
+					$theTags[ $tag ][ kTAG_OBJECT_OFFSETS ][] = $offset;
+			
+			} // Existing tag.
+			
+			//
+			// Handle new tag.
+			//
+			else
+			{
+				//
+				// Get types and kinds.
+				//
+				$this->getOffsetTypes( $tag, $theType, $theKind );
+				
+				//
+				// Add tag if not a structure.
+				//
+				if( ! in_array( kTYPE_STRUCT, $theType ) )
+				{
+					//
+					// Set types and kinds.
+					//
+					$theTags[ $tag ][ kTAG_DATA_TYPE ] = $theType;
+					$theTags[ $tag ][ kTAG_DATA_KIND ] = $theKind;
+					
+					//
+					// Set offset.
+					//
+					$theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] = array( $offset );
+				
+				} // Not a structure.
+			
+			} // New tag.
+			
+			return $offset;															// ==>
+		
+		} // Not an internal offset.
+		
+		return NULL;																// ==>
+	
+	} // collectOffsetInformation.
+
+	 
+	/*===================================================================================
+	 *	collectObjectReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Collect object reference
+	 *
+	 * This method will add the provided identifier to the provided references parameter
+	 * under the element indexed by the collection name corresponding to the provided class
+	 * name.
+	 *
+	 * @param reference				$theRefs			Object references.
+	 * @param string				$theClass			Class name.
+	 * @param mixed					$theIdentifier		Referenced object identifier.
+	 *
+	 * @access protected
+	 */
+	protected function collectObjectReference( &$theRefs, $theClass, $theIdentifier )
+	{
+		//
+		// Create collection entry.
+		//
+		if( ! array_key_exists( $theClass::kSEQ_NAME, $theRefs ) )
+			$theRefs[ $theClass::kSEQ_NAME ]
+				= ( is_array( $theIdentifier ) )
+				? $theIdentifier
+				: array( $theIdentifier );
+		
+		//
+		// Update collection entry.
+		//
+		else
+		{
+			//
+			// Normalise value.
+			//
+			if( ! is_array( $theIdentifier ) )
+				$theIdentifier = array( $theIdentifier );
+			
+			//
+			// Update list.
+			//
+			$theRefs[ $theClass::kSEQ_NAME ]
+				= array_merge(
+					$theRefs[ $theClass::kSEQ_NAME ],
+					array_diff( $theIdentifier, $theRefs[ $theClass::kSEQ_NAME ] ) );
+		
+		} // Collection exists.
+	
+	} // collectObjectReference.
+
+		
+	/*===================================================================================
+	 *	verifyStructureOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Verify structure offset
+	 *
+	 * This method should verify the structure of the current offset value which should
+	 * either be a structure or a list.
 	 *
 	 * In this class we verify whether lists and structures are arrays and raise an
 	 * exception if that is not the case.
@@ -3301,7 +4033,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 */
-	protected function verifyOffsetStructure( \Iterator $theIterator, &$theType,
+	protected function verifyStructureOffset( \Iterator $theIterator, &$theType,
 																	  &$theKind,
 																	  &$theOffset )
 	{
@@ -3335,20 +4067,20 @@ abstract class PersistentObject extends OntologyObject
 		
 		} // Is a structure.
 		
-	} // verifyOffsetStructure.
+	} // verifyStructureOffset.
 
 	 
 	/*===================================================================================
-	 *	verifyValue																		*
+	 *	verifyOffsetValue																*
 	 *==================================================================================*/
 
 	/**
 	 * Verify offset value
 	 *
-	 * This method should verify if the current element's value is correct, this method is
-	 * called by the {@link traverseValue()} method which is called only if the current
-	 * offset is neither a structure nor a list; list elements, however, are passed to this
-	 * method.
+	 * This method should verify if the current offset's value is correct, this method is
+	 * called by the {@link traverseValidateValue()} method which is called only if the
+	 * current offset is neither a structure nor a list; list elements, however, are passed
+	 * to this method with the parent offset data type and kind.
 	 *
 	 * In this class we assert that structured types are arrays, <em>only if the current
 	 * offset data type has a single entry</em>.
@@ -3356,8 +4088,8 @@ abstract class PersistentObject extends OntologyObject
 	 * The method will return <tt>NULL</tt> if the offset has more than one data type,
 	 * <tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.
 	 *
-	 * Derived classes can handle custom cases by calling the parent method and checking the
-	 * retuned value.
+	 * Derived classes can handle custom cases by handling the value if the parent method
+	 * has not returnd <tt>TRUE</tt>.
 	 *
 	 * @param Iterator				$theIterator		Iterator.
 	 * @param reference				$theType			Offset data type.
@@ -3369,9 +4101,9 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 */
-	protected function verifyValue( \Iterator $theIterator, &$theType,
-															&$theKind,
-															&$theOffset )
+	protected function verifyOffsetValue( \Iterator $theIterator, &$theType,
+																  &$theKind,
+																  &$theOffset )
 	{
 		//
 		// Verify single data types.
@@ -3425,11 +4157,231 @@ abstract class PersistentObject extends OntologyObject
 		
 		return NULL;																// ==>
 	
-	} // verifyValue.
+	} // verifyOffsetValue.
 
 	 
 	/*===================================================================================
-	 *	castValue																		*
+	 *	verifyOffsetReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Verify object reference
+	 *
+	 * The duty of this method is to resolve and verify offset values which should be object
+	 * references.
+	 *
+	 * The method expects the current offset to have an object reference type, this must
+	 * have been checked beforehand; if the data type is not an object reference, the method
+	 * will ignore the value.
+	 *
+	 * The current element may either be an object reference or the object itself, if the
+	 * object is not {@link isCommitted()}, the method will commit it; if the object is
+	 * {@link isCommitted()}, the method assumes the object exists in its container; in all
+	 * other cases the method assumes the value to represent an object native identifier and
+	 * it will check if the referenced object exists.
+	 *
+	 * The method will raise an exception if the provided object is not of the correct class
+	 * and if the provided object reference is not found in its default container. It is
+	 * assumed that all references belong to the current data dictionary,
+	 * {@link dictionary()}.
+	 *
+	 * In this class we handle all object reference data types, <em>only if the current
+	 * offset data type has a single entry</em>.
+	 *
+	 * The method will return <tt>NULL</tt> if the offset has more than one data type,
+	 * <tt>TRUE</tt> if the reference was resolved and <tt>FALSE</tt> if it was not
+	 * resolved; this will only happen if the element's data type is not recognised.
+	 *
+	 * Derived classes can handle custom cases by calling the parent method and checking the
+	 * retuned value.
+	 *
+	 * @param Iterator				$theIterator		Iterator.
+	 * @param reference				$theRefs			Object references.
+	 * @param reference				$theType			Offset data type.
+	 * @param reference				$theKind			Offset data kind.
+	 * @param reference				$theOffset			Current offset string.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 *
+	 * @access protected
+	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 *
+	 * @uses getReferenceTypeClass()
+	 * @uses collectObjectReference()
+	 */
+	protected function verifyOffsetReference( \Iterator $theIterator, &$theRefs,
+																	  &$theType,
+																	  &$theKind,
+																	  &$theOffset,
+																	   $doValidate = TRUE )
+	{
+		//
+		// Verify single data types.
+		//
+		if( count( $theType ) == 1 )
+		{
+			//
+			// Init local storage.
+			//
+			$type = current( $theType );
+			$value = $theIterator->current();
+			$class = $this->getReferenceTypeClass( $type );
+		
+			//
+			// Check type.
+			//
+			if( $class === NULL )
+				return FALSE;														// ==>
+		
+			//
+			// Handle objects.
+			//
+			if( is_object( $value ) )
+			{
+				//
+				// Verify class.
+				//
+				if( ! ($value instanceof $class) )
+					throw new \Exception(
+						"Invalid object reference in [$theOffset]: "
+					   ."incorrect class object." );							// !@! ==>
+			
+				//
+				// Commit object.
+				//
+				if( ! $value->isCommitted() )
+					$id = $value->commit( $this->mDictionary );
+			
+				//
+				// Get identifier.
+				//
+				elseif( ! $value->offsetExists( kTAG_NID ) )
+					throw new \Exception(
+						"Invalid object in [$theOffset]: "
+					   ."missing native identifier." );							// !@! ==>
+			
+				//
+				// Get identifier.
+				//
+				else
+					$id = $value[ kTAG_NID ];
+			
+				//
+				// Set identifier.
+				//
+				$theIterator->offsetSet( $theIterator->key(), $id );
+			
+				//
+				// Add reference count.
+				//
+				$this->collectObjectReference( $theRefs, $class, $id );
+			
+				return TRUE;														// ==>
+		
+			} // Property is an object.
+				
+			//
+			// Cast identifier.
+			//
+			switch( $type )
+			{
+				case kTYPE_REF_TAG:
+				case kTYPE_ENUM:
+				case kTYPE_REF_TERM:
+				case kTYPE_REF_EDGE:
+				case kTYPE_REF_ENTITY:
+				case kTYPE_REF_UNIT:
+					$value = (string) $value;
+					break;
+		
+				case kTYPE_REF_NODE:
+					$value = (int) $value;
+					break;
+		
+				case kTYPE_SET:
+					foreach( $value as $key => $val )
+						$value[ $key ] = (string) $val;
+					break;
+				
+				case kTYPE_REF_SELF:
+					switch( $class::kSEQ_NAME )
+					{
+						case Tag::kSEQ_NAME:
+						case Term::kSEQ_NAME:
+						case Edge::kSEQ_NAME:
+						case UnitObject::kSEQ_NAME:
+						case EntityObject::kSEQ_NAME:
+							$value = (string) $value;
+							break;
+						case Node::kSEQ_NAME:
+							$value = (int) $value;
+							break;
+						default:
+							return FALSE;											// ==>
+					}
+					break;
+			
+				default:
+					return FALSE;													// ==>
+		
+			} // Parsed type.
+			
+			//
+			// Verify reference.
+			//
+			if( $doValidate )
+			{
+				//
+				// Resolve collection.
+				//
+				$collection
+					= $class::ResolveCollection(
+						$class::ResolveDatabase( $this->mDictionary ) );
+		
+				//
+				// Resolve reference.
+				//
+				if( is_array( $value ) )
+				{
+					foreach( $value as $val )
+					{
+						if( ! $collection->matchOne(
+								array( kTAG_NID => $val ), kQUERY_COUNT ) )
+							throw new \Exception(
+								"Unresolved reference in [$theOffset]: "
+							   ."($val)." );									// !@! ==>
+					}
+				}
+				elseif( ! $collection->matchOne(
+							array( kTAG_NID => $value ), kQUERY_COUNT ) )
+					throw new \Exception(
+						"Unresolved reference in [$theOffset]: "
+					   ."($value)." );											// !@! ==>
+			
+			} // Requested verification.
+		
+			//
+			// Cast value.
+			//
+			$theIterator->offsetSet( $theIterator->key(), $value );
+		
+			//
+			// Add reference count.
+			//
+			$this->collectObjectReference( $theRefs, $class, $value );
+		
+			return TRUE;															// ==>
+		
+		} // Single data type.
+		
+		return NULL;																// ==>
+	
+	} // verifyOffsetReference.
+
+	 
+	/*===================================================================================
+	 *	castOffsetValue																	*
 	 *==================================================================================*/
 
 	/**
@@ -3441,8 +4393,6 @@ abstract class PersistentObject extends OntologyObject
 	 * If the property has more than one data type, the method will do nothing; you should
 	 * overload this method in derived classes only if you plan to handle offsets that can
 	 * have more than one data type.
-	 *
-	 * This method will not handle object reference types.
 	 *
 	 * The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
 	 * <tt>NULL</tt> if the offset has more than one data type.
@@ -3458,12 +4408,13 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 *
-	 * @uses traverseStructure()
+	 * @uses castShapeGeometry()
+	 * @uses traverseValidate()
 	 */
-	protected function castValue( \Iterator $theIterator, &$theRefs,
-														  &$theType,
-														  &$theKind,
-														  &$theOffset )
+	protected function castOffsetValue( \Iterator $theIterator, &$theRefs,
+																&$theType,
+																&$theKind,
+																&$theOffset )
 	{
 		//
 		// Cast only single types.
@@ -3488,6 +4439,11 @@ abstract class PersistentObject extends OntologyObject
 				case kTYPE_STRING:
 				case kTYPE_ENUM:
 				case kTYPE_URL:
+				case kTYPE_REF_TAG:
+				case kTYPE_REF_TERM:
+				case kTYPE_REF_EDGE:
+				case kTYPE_REF_UNIT:
+				case kTYPE_REF_ENTITY:
 					$theIterator->offsetSet( $key, (string) $value );
 					return TRUE;													// ==>
 				
@@ -3495,6 +4451,7 @@ abstract class PersistentObject extends OntologyObject
 				// Integers.
 				//
 				case kTYPE_INT:
+				case kTYPE_REF_NODE:
 					$theIterator->offsetSet( $key, (int) $value );
 					return TRUE;													// ==>
 		
@@ -3550,7 +4507,7 @@ abstract class PersistentObject extends OntologyObject
 						$struct = new \ArrayObject( $value[ $idx ] );
 						$iterator = $struct->getIterator();
 						iterator_apply( $iterator,
-										array( $this, 'traverseStructure' ),
+										array( $this, 'traverseValidate' ),
 										array( $iterator, & $path,
 														  & $tags,
 														  & $theRefs ) );
@@ -3572,7 +4529,7 @@ abstract class PersistentObject extends OntologyObject
 					//
 					// Cast geometry.
 					//
-					$this->castGeometry( $value );
+					$this->castShapeGeometry( $value );
 					//
 					// Update offset.
 					//
@@ -3587,11 +4544,11 @@ abstract class PersistentObject extends OntologyObject
 		
 		return NULL;																// ==>
 	
-	} // castValue.
+	} // castOffsetValue.
 
 	 
 	/*===================================================================================
-	 *	castGeometry																	*
+	 *	castShapeGeometry																*
 	 *==================================================================================*/
 
 	/**
@@ -3608,7 +4565,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 */
-	protected function castGeometry( &$theShape )
+	protected function castShapeGeometry( &$theShape )
 	{
 		//
 		// Init local storage.
@@ -3661,7 +4618,7 @@ abstract class PersistentObject extends OntologyObject
 						//
 						$shape = array( kTAG_SHAPE_TYPE => 'Point',
 										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
-						$this->castGeometry( $shape );
+						$this->castShapeGeometry( $shape );
 						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
 					}
 				}
@@ -3687,7 +4644,7 @@ abstract class PersistentObject extends OntologyObject
 						//
 						$shape = array( kTAG_SHAPE_TYPE => 'LineString',
 										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
-						$this->castGeometry( $shape );
+						$this->castShapeGeometry( $shape );
 						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
 					}
 				}
@@ -3702,333 +4659,16 @@ abstract class PersistentObject extends OntologyObject
 		
 		} // Parsed type.
 	
-	} // castGeometry.
+	} // castShapeGeometry.
 
-	 
-	/*===================================================================================
-	 *	verifyReference																	*
-	 *==================================================================================*/
+		
 
-	/**
-	 * Verify object reference
-	 *
-	 * The duty of this method is to resolve and verify offset values which should be object
-	 * references.
-	 *
-	 * The method expects the current offset to have an object reference type, this must
-	 * have been checked beforehand; if the data type is not an object reference, the method
-	 * will ignore the value.
-	 *
-	 * The current element may either be an object reference or the object itself, if the
-	 * object is not {@link isCommitted()}, the method will commit it; if the object is
-	 * {@link isCommitted()}, the method assumes the object exists in its container; in all
-	 * other cases the method assumes the value represents an object reference and it will
-	 * check if the referenced object exists.
-	 *
-	 * The method will raise an exception if the provided object is not of the correct class
-	 * and if the provided object reference is not found in its default container. It is
-	 * assumed that all references belong to the current data dictionary wtrapper,
-	 * {@link dictionary()}.
-	 *
-	 * In this class we handle all object reference data types, <em>only if the current
-	 * offset data type has a single entry</em>.
-	 *
-	 * The method will return <tt>NULL</tt> if the offset has more than one data type,
-	 * <tt>TRUE</tt> if the reference was resolved and <tt>FALSE</tt> if it was not
-	 * resolved; this will only happen if the element's data type is not recognised.
-	 *
-	 * Derived classes can handle custom cases by calling the parent method and checking the
-	 * retuned value.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theRefs			Object references.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset string.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses dictionary()
-	 * @uses addReferenceCount()
-	 */
-	protected function verifyReference( \Iterator $theIterator, &$theRefs,
-																&$theType,
-																&$theKind,
-																&$theOffset )
-	{
-		//
-		// Verify single data types.
-		//
-		if( count( $theType ) == 1 )
-		{
-			//
-			// Init local storage.
-			//
-			$type = current( $theType );
-			$value = $theIterator->current();
-			$classes = array( kTYPE_REF_TAG => 'OntologyWrapper\Tag',
-							  kTYPE_ENUM => 'OntologyWrapper\Term',
-							  kTYPE_SET => 'OntologyWrapper\Term',
-							  kTYPE_REF_TERM => 'OntologyWrapper\Term',
-							  kTYPE_REF_NODE => 'OntologyWrapper\Node',
-							  kTYPE_REF_EDGE => 'OntologyWrapper\Edge',
-							  kTYPE_REF_ENTITY => 'OntologyWrapper\EntityObject',
-							  kTYPE_REF_UNIT => 'OntologyWrapper\UnitObject' );
-			
-			//
-			// Handle self reference.
-			//
-			if( $type == kTYPE_REF_SELF )
-			{
-				//
-				// Parse by sequence name.
-				//
-				switch( static::kSEQ_NAME )
-				{
-					case Tag::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_TAG ];
-						break;
-						
-					case Term::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_TERM ];
-						break;
-						
-					case Node::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_NODE ];
-						break;
-						
-					case Edge::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_EDGE ];
-						break;
-						
-					case EntityObject::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_ENTITY ];
-						break;
-						
-					case UnitObject::kSEQ_NAME:
-						$classes[ kTYPE_REF_SELF ] = $classes[ kTYPE_REF_UNIT ];
-						break;
-						
-				} // Parsed by sequence number.
-			
-			} // Self reference.
-		
-			//
-			// Check type.
-			//
-			if( ! array_key_exists( $type, $classes ) )
-				return FALSE;														// ==>
-		
-			//
-			// Handle objects.
-			//
-			if( is_object( $value ) )
-			{
-				//
-				// Verify class.
-				//
-				if( ! ($value instanceof $classes[ $type ]) )
-					throw new \Exception(
-						"Invalid object reference in [$theOffset]: "
-					   ."incorrect class object." );							// !@! ==>
-			
-				//
-				// Commit object.
-				//
-				if( ! $value->isCommitted() )
-					$id = $value->commit( $this->dictionary() );
-			
-				//
-				// Get identifier.
-				//
-				elseif( ! $value->offsetExists( kTAG_NID ) )
-					throw new \Exception(
-						"Invalid object in [$theOffset]: "
-					   ."missing native identifier." );							// !@! ==>
-			
-				//
-				// Get identifier.
-				//
-				else
-					$id = $value[ kTAG_NID ];
-			
-				//
-				// Set identifier.
-				//
-				$theIterator->offsetSet( $theIterator->key(), $id );
-			
-				//
-				// Add reference count.
-				//
-				$this->addReferenceCount( $theRefs, $type, $id );
-			
-				return TRUE;														// ==>
-		
-			} // Property is an object.
-		
-			//
-			// Resolve collection.
-			//
-			$class = $classes[ $type ];
-			$collection
-				= $class::ResolveCollection(
-					$class::ResolveDatabase( $this->dictionary(), TRUE ) );
-				
-			//
-			// Cast identifier.
-			//
-			switch( $type )
-			{
-				case kTYPE_REF_TAG:
-				case kTYPE_ENUM:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_ENTITY:
-				case kTYPE_REF_UNIT:
-					$value = (string) $value;
-					break;
-		
-				case kTYPE_REF_NODE:
-					$value = (int) $value;
-					break;
-		
-				case kTYPE_SET:
-					foreach( $value as $key => $val )
-						$value[ $key ] = (string) $val;
-					break;
-			
-				default:
-					return FALSE;													// ==>
-		
-			} // Parsed type.
-		
-			//
-			// Resolve reference.
-			//
-			if( is_array( $value ) )
-			{
-				foreach( $value as $val )
-				{
-					if( ! $collection->matchOne( array( kTAG_NID => $val ), kQUERY_COUNT ) )
-						throw new \Exception(
-							"Unresolved reference in [$theOffset]: "
-						   ."($val)." );										// !@! ==>
-				}
-			}
-			elseif( ! $collection->matchOne( array( kTAG_NID => $value ), kQUERY_COUNT ) )
-				throw new \Exception(
-					"Unresolved reference in [$theOffset]: "
-				   ."($value)." );												// !@! ==>
-		
-			//
-			// Cast value.
-			//
-			$theIterator->offsetSet( $theIterator->key(), $value );
-		
-			//
-			// Add reference count.
-			//
-			$this->addReferenceCount( $theRefs, $type, $value );
-		
-			return TRUE;															// ==>
-		
-		} // Single data type.
-		
-		return NULL;																// ==>
-	
-	} // verifyReference.
+/*=======================================================================================
+ *																						*
+ *								PROTECTED REFERENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
 
-	 
-	/*===================================================================================
-	 *	addReferenceCount																*
-	 *==================================================================================*/
-
-	/**
-	 * Add reference count
-	 *
-	 * This method will add the reference count to the provided traversal data parameter,
-	 * the method is called by the {@link castReference()} method and it will increment the
-	 * reference count for the collection and object identifier provided as parameter.
-	 *
-	 * @param reference				$theRefs			Object references.
-	 * @param string				$theType			Offset data type.
-	 * @param mixed					$theIdentifier		Referenced object identifier.
-	 *
-	 * @access protected
-	 */
-	protected function addReferenceCount( &$theRefs, $theType, $theIdentifier )
-	{
-		//
-		// Determine collection.
-		//
-		switch( $theType )
-		{
-			case kTYPE_REF_TAG:
-				$collection = Tag::kSEQ_NAME;
-				break;
-		
-			case kTYPE_ENUM:
-			case kTYPE_SET:
-			case kTYPE_REF_TERM:
-				$collection = Term::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_NODE:
-				$collection = Node::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_EDGE:
-				$collection = Edge::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_ENTITY:
-				$collection = EntityObject::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_UNIT:
-				$collection = UnitObject::kSEQ_NAME;
-				break;
-		
-			case kTYPE_REF_SELF:
-				$collection = static::kSEQ_NAME;
-				break;
-		
-		} // Parsed type.
-		
-		//
-		// Create collection entry.
-		//
-		if( ! array_key_exists( $collection, $theRefs ) )
-			$theRefs[ $collection ]
-				= ( is_array( $theIdentifier ) )
-				? $theIdentifier
-				: array( $theIdentifier );
-		
-		//
-		// Update collection entry.
-		//
-		else
-		{
-			//
-			// Normalise value.
-			//
-			if( ! is_array( $theIdentifier ) )
-				$theIdentifier = array( $theIdentifier );
-			
-			//
-			// Update list.
-			//
-			$theRefs[ $collection ]
-				= array_merge(
-					$theRefs[ $collection ],
-					array_diff( $theIdentifier, $theRefs[ $collection ] ) );
-		
-		} // Collection exists.
-	
-	} // addReferenceCount.
 
 	 
 	/*===================================================================================
@@ -4039,379 +4679,371 @@ abstract class PersistentObject extends OntologyObject
 	 * Update reference count
 	 *
 	 * This method will update the references count of the object identified by the provided
-	 * parameter. If the provided collection has no associated reference count, the method
-	 * will do nothing.
+	 * parameter. If the provided collection has no associated reference count, an
+	 * exception will be raised.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCollection</b>: The name of the collection where the provided identifiers
+	 *		are stored.
+	 *	<li><b>$theIdent</b>: The object identifier or list of identifiers.
+	 *	<li><b>$theIdentOffset</b>: The offset matching to the provided identifier.
+	 *	<li><b>$theCount</b>: The number of references.
+	 * </ul>
+	 *
+	 * The method will first resolve the reference count tag corresponding to the current
+	 * object's collection by using the static {@link ResolveRefCountTag()} method, it will
+	 * then select all objects where the <tt>$theIdentOffset</tt> matches the references
+	 * provided in <tt>$theIdent</tt> and with each selected object it will increment
+	 * the reference count stored in the reference count tag resolved at the beginning by
+	 * the value provided in the <tt>$theCount</tt> parameter.
+	 *
+	 * The method assumes the current object has its {@link dictionary()} set.
 	 *
 	 * @param string				$theCollection		Collection name.
-	 * @param mixed					$theIdentifier		Object identifier or identifiers.
+	 * @param mixed					$theIdent			Object identifier or identifiers.
 	 * @param string				$theIdentOffset		Identifier offset.
-	 * @param integer				$theReferenceCount	Reference count.
+	 * @param integer				$theCount			Reference count.
 	 *
 	 * @access protected
 	 *
-	 * @throws Exception
-	 *
-	 * @uses dictionary()
+	 * @uses ResolveRefCountTag()
+	 * @uses ResolveCollectionByName()
 	 */
-	protected function updateReferenceCount( $theCollection, $theIdentifier,
+	protected function updateReferenceCount( $theCollection, $theIdent,
 															 $theIdentOffset = kTAG_NID,
-															 $theReferenceCount = 1 )
+															 $theCount = 1 )
 	{
 		//
-		// Init local storage.
+		// Resolve reference count tag according to current object.
 		//
-		$dictionary = $this->dictionary();
-		if( $dictionary === NULL )
-			throw new \Exception(
-				"Unable to update reference count: "
-			   ."missing data dictionary." );									// !@! ==>
+		$tag = static::ResolveRefCountTag( static::kSEQ_NAME );
 		
 		//
 		// Resolve collection.
 		//
-		$collection = $dictionary->resolveCollection( (string) $theCollection );
-		
-		//
-		// Resolve tag.
-		//
-		switch( static::kSEQ_NAME )
-		{
-			case Tag::kSEQ_NAME:
-				$tag = kTAG_TAG_COUNT;
-				break;
-		
-			case Term::kSEQ_NAME:
-				$tag = kTAG_TERM_COUNT;
-				break;
-		
-			case Node::kSEQ_NAME:
-				$tag = kTAG_NODE_COUNT;
-				break;
-		
-			case Edge::kSEQ_NAME:
-				$tag = kTAG_EDGE_COUNT;
-				break;
-		
-			case EntityObject::kSEQ_NAME:
-				$tag = kTAG_ENTITY_COUNT;
-				break;
-		
-			case UnitObject::kSEQ_NAME:
-				$tag = kTAG_UNIT_COUNT;
-				break;
-		
-			default:
-				return;																// ==>
-				throw new \Exception(
-					"Unable to update reference count: "
-				   ."unknown current object reference count tag." );			// !@! ==>
-		
-		} // Parsed collection.
+		$collection
+			= static::ResolveCollectionByName(
+				$this->mDictionary, (string) $theCollection );
 		
 		//
 		// Update reference count.
 		//
-		$collection->updateReferenceCount(
-			$theIdentifier, $tag, $theIdentOffset, $theReferenceCount );
+		$collection->updateReferenceCount($theIdent, $theIdentOffset, $tag, $theCount );
 	
 	} // updateReferenceCount.
 
 	 
 	/*===================================================================================
-	 *	loadObjectTag																	*
+	 *	updateOffsetsSet																*
 	 *==================================================================================*/
 
 	/**
-	 * Load object tags
+	 * Update offsets set
 	 *
-	 * This method will load the provided parameter with the tag references used by offsets
-	 * of the current object.
+	 * This method will update the offsets set corresponding to the current object in the
+	 * provided tag references.
 	 *
-	 * The method expects the following parameters:
+	 * The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theTag</b>: Tag sequence number.
-	 *	<li><b>$theInfo</b>: Tag information.
-	 *	<li><b>$theTags</b>: Receives tag list.
+	 *	<li><b>$theCollection</b>: The tags collection.
+	 *	<li><b>$theOffset</b>: The tag object offset receiving the offsets list.
+	 *	<li><b>$theOffsets</b>: The list of offsets.
+	 *	<li><b>$doAdd</b>: <tt>TRUE</tt> means add to set, <tt>FALSE</tt> means remove from
+	 *		set.
 	 * </ul>
 	 *
-	 * In this class we simply add the provided tag, derived classes can overload this
-	 * method to exclude certain tags from the list.
+	 * The method assumes the current object has its {@link dictionary()} set.
 	 *
-	 * @param integer				$theTag				Tag sequence number.
-	 * @param reference				$theInfo			Tag information.
-	 * @param reference				$theTags			Receives tags list.
-	 * @param reference				$theIndexes			List of collection indexes.
+	 * @param CollectionObject		$theCollection		Tags collection.
+	 * @param int					$theTag				Tag sequence number.
+	 * @param string				$theOffset			Tag offsets list offset.
+	 * @param array					$theOffsets			Offsets list.
+	 * @param boolean				$doAdd				Add or remove from set.
 	 *
 	 * @access protected
 	 */
-	protected function loadObjectTag( $theTag, &$theInfo, &$theTags, &$theIndexes )
+	protected function updateOffsetsSet( CollectionObject $theCollection,
+														  $theTag, $theOffset, $theOffsets,
+														  $doAdd = TRUE )
 	{
 		//
-		// Cast tag.
+		// Update set.
 		//
-		$theTag = (int) $theTag;
+		$theCollection->updateSet(
+			(int) $theTag,							// Tag sequence number.
+			kTAG_ID_SEQUENCE,						// Sequence number offset.
+			array( $theOffset => $theOffsets ),		// Offsets list.
+			$doAdd );								// Add or delete.
 	
-		//
-		// Add to set.
-		//
-		if( ! in_array( $theTag, $theTags ) )
-			$theTags[] = $theTag;
-	
-	} // loadObjectTag.
+	} // updateOffsetsSet.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
 
 	 
 	/*===================================================================================
-	 *	loadPropertyReferences															*
+	 *	resolveWrapper																	*
 	 *==================================================================================*/
 
 	/**
-	 * Load property references
+	 * Resolve wrapper
 	 *
-	 * This method will load in the provided parameter the object references contained in
-	 * the provided iterator element.
+	 * This method can be used to resolve the wrapper, it expects a reference to a wrapper
+	 * which will either set the current object's {@link dictionary()}, or will be set by
+	 * the current object's {@link dictionary()}.
 	 *
-	 * The method expects the following parameters:
+	 * The method assumes that the wrapper must be resolved, if that is not the case, the
+	 * method will raise an exception.
 	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: Property value.
-	 *	<li><b>$theRefs</b>: This parameter will receive the object references, it is an
-	 *		array structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: An array collecting all the referenced object's native
-	 *			identifiers for the collection indicated in the key.
-	 *	 </ul>
-	 *	<li><b>$theType</b>: Property data types.
-	 *	<li><b>$theKind</b>: Property data kinds.
-	 * </ul>
-	 *
-	 * The method will only consider properties which represent object references and will
-	 * handle list properties.
-	 *
-	 * @param mixed					$theValue			Property value.
-	 * @param reference				$theRefs			Receives object references.
-	 * @param reference				$theType			Property data types.
-	 * @param reference				$theKind			Property data kind.
+	 * @param reference				$theWrapper			Data wrapper.
 	 *
 	 * @access protected
+	 *
+	 * @throws Exception
 	 */
-	protected function loadPropertyReferences( $theValue, &$theRefs,
-														  &$theType,
-														  &$theKind )
+	protected function resolveWrapper( &$theWrapper )
 	{
 		//
-		// Init local storage.
+		// Use dictionary.
 		//
-		$types = array( kTYPE_ENUM, kTYPE_SET,
-						kTYPE_REF_TAG, kTYPE_REF_TERM, kTYPE_REF_NODE, kTYPE_REF_EDGE,
-						kTYPE_REF_ENTITY, kTYPE_REF_UNIT, kTYPE_REF_SELF );
-		$tags  = array( kTYPE_REF_TAG );
-		$terms = array( kTYPE_ENUM, kTYPE_SET, kTYPE_REF_TERM );
-		$nodes = array( kTYPE_REF_NODE );
-		$edges = array( kTYPE_REF_EDGE );
-		$units = array( kTYPE_REF_UNIT );
-		$entities = array( kTYPE_REF_ENTITY );
-		
-		//
-		// Skip non-references.
-		//
-		if( count( array_intersect( $theType, $types ) ) )
+		if( $theWrapper === NULL )
 		{
 			//
-			// Handle lists.
+			// Set wrapper with dictionary.
 			//
-			if( in_array( kTYPE_LIST, $theKind ) )
+			$theWrapper = $this->mDictionary;
+			if( $theWrapper === NULL )
+				throw new \Exception( "Missing wrapper." );						// !@! ==>
+		
+		} // Used object dictionary.
+		
+		//
+		// Set dictionary.
+		//
+		elseif( $theWrapper instanceof Wrapper )
+			$this->dictionary( $theWrapper );
+		
+		//
+		// Invalid wrapper.
+		//
+		else
+			throw new \Exception( "Invalid wrapper type." );					// !@! ==>
+	
+	} // resolveWrapper.
+
+	 
+	/*===================================================================================
+	 *	validateReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate object reference
+	 *
+	 * This method will validate the provided reference, it will check whether the value is
+	 * an object, in which case it will use its native identifier if committed, or check
+	 * whether it is of the correct type.
+	 *
+	 * @param reference				$theValue			Object reference.
+	 * @param string				$theClass			Ancestor class name.
+	 * @param string				$theType			Reference data type.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTYPE_REF_TERM kTYPE_REF_TAG kTYPE_REF_NODE kTYPE_REF_EDGE
+	 * @see kTYPE_REF_ENTITY kTYPE_REF_UNIT kTYPE_REF_SELF
+	 */
+	protected function validateReference( &$theValue, $theClass, $theType )
+	{
+		//
+		// Handle namespace object.
+		//
+		if( is_object( $theValue ) )
+		{
+			//
+			// Handle terms.
+			//
+			if( $theValue instanceof $theClass )
 			{
 				//
-				// Remove list from kind.
+				// Get object reference.
 				//
-				$kind = array_diff( $theKind, array( kTYPE_LIST ) );
-				
-				//
-				// Recurse list elements.
-				//
-				foreach( $theValue as $value )
-					$this->loadPropertyReferences(
-						$value, $theRefs, $theType, $kind );
+				if( $theValue->isCommitted() )
+					$theValue = $theValue->reference();
 			
-			} // List.
+			} // Is a term.
 			
-			//
-			// Handle scalars.
-			//
 			else
+				throw new \Exception(
+					"Unable to set object reference: "
+				   ."provided an object other than $theClass." );				// !@! ==>
+		
+		} // Namespace object.
+		
+		//
+		// Handle reference.
+		//
+		else
+		{
+			//
+			// Cast identifier.
+			//
+			switch( $theType )
 			{
-				//
-				// Get tag collection name.
-				//
-				if( count( array_intersect( $theType, $tags ) ) )
-					$collection = Tag::kSEQ_NAME;
-			
-				//
-				// Get term collection name.
-				//
-				elseif( count( array_intersect( $theType, $terms ) ) )
-					$collection = Term::kSEQ_NAME;
-			
-				//
-				// Get node collection name.
-				//
-				elseif( count( array_intersect( $theType, $nodes ) ) )
-					$collection = Node::kSEQ_NAME;
-			
-				//
-				// Get edge collection name.
-				//
-				elseif( count( array_intersect( $theType, $edges ) ) )
-					$collection = Edge::kSEQ_NAME;
-			
-				//
-				// Get unit collection name.
-				//
-				elseif( count( array_intersect( $theType, $units ) ) )
-					$collection = UnitObject::kSEQ_NAME;
-			
-				//
-				// Get entity collection name.
-				//
-				elseif( count( array_intersect( $theType, $entities ) ) )
-					$collection = EntityObject::kSEQ_NAME;
-			
-				//
-				// Get self collection name.
-				//
-				elseif( in_array( kTYPE_REF_SELF, $theType ) )
-					$collection = static::kSEQ_NAME;
+				case kTYPE_REF_TAG:
+				case kTYPE_ENUM:
+				case kTYPE_REF_TERM:
+				case kTYPE_REF_EDGE:
+				case kTYPE_REF_ENTITY:
+				case kTYPE_REF_UNIT:
+					$theValue = (string) $theValue;
+					break;
+		
+				case kTYPE_REF_NODE:
+					$theValue = (int) $theValue;
+					break;
+		
+				case kTYPE_SET:
+					foreach( $theValue as $key => $val )
+						$theValue[ $key ] = (string) $val;
+					break;
 				
-				//
-				// Allocate collection.
-				//
-				if( ! array_key_exists( $collection, $theRefs ) )
-					$theRefs[ $collection ]
-						= Array();
-				
-				//
-				// Reference collection.
-				//
-				$ref = & $theRefs[ $collection ];
-				
-				//
-				// Handle array values.
-				//
-				if( is_array( $theValue ) )
-				{
-					foreach( $theValue as $value )
+				case kTYPE_REF_SELF:
+					switch( $class::kSEQ_NAME )
 					{
-						if( ! in_array( $value, $ref ) )
-							$ref[] = $value;
+						case Tag::kSEQ_NAME:
+						case Term::kSEQ_NAME:
+						case Edge::kSEQ_NAME:
+						case UnitObject::kSEQ_NAME:
+						case EntityObject::kSEQ_NAME:
+							$theValue = (string) $theValue;
+							break;
+						case Node::kSEQ_NAME:
+							$theValue = (int) $theValue;
+							break;
 					}
-				
-				} // List of references.
-				
-				//
-				// Handle scalar values.
-				//
-				elseif( ! in_array( $theValue, $ref ) )
-					$ref[] = $theValue;
-			
-			} // Scalar.
+					break;
 		
-		} // Is a reference.
+			} // Parsed type.
+		
+		} // Object reference.
 	
-	} // loadPropertyReferences.
+	} // validateReference.
 
 	 
 	/*===================================================================================
-	 *	loadSubProperties																*
+	 *	compareObjectOffsets															*
 	 *==================================================================================*/
 
 	/**
-	 * Load sub-properties
+	 * Compare object offsets
 	 *
-	 * This method will load in the provided parameter the provided iterator element's
-	 * sub-properties.
+	 * This method expects two parameters structured as the {@link kTAG_OBJECT_OFFSETS}
+	 * property, it will return either the differences or the matches between the two
+	 * parameters.
 	 *
-	 * The method expects the following parameters:
+	 * The difference is computed by selecting all collections featured by the first
+	 * parameter not existing in the second parameter. If the collection exists in both,
+	 * the references featured by the first collection that are not part of the same
+	 * collection in the second parameter will be selected.
 	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: Property value.
-	 *	<li><b>$theTags</b>: This parameter will receive the list of sub-properties of the
-	 *		provided property.
-	 *	<li><b>$theType</b>: Property data types.
-	 *	<li><b>$theKind</b>: Property data kinds.
-	 * </ul>
+	 * The similarity is computed by selecting only those collections belonging to both
+	 * parameters and the references in those collections existing in both collections.
 	 *
-	 * The method will only consider properties which are structured scalar.
+	 * If the third parameter is <tt>TRUE</tt>, the method will compute the difference, if
+	 * not, the similarity.
 	 *
-	 * @param mixed					$theValue			Property value.
-	 * @param reference				$theTags			Receives sub-property tags.
-	 * @param reference				$theType			Property data types.
-	 * @param reference				$theKind			Property data kind.
+	 * The method will return the computed array, no collections will be empty.
+	 *
+	 * <em>The method expects both parameters to be arrays structured as the
+	 * {@link kTAG_OBJECT_OFFSETS} property.
+	 *
+	 * @param reference				$theFirst			Reference parameter.
+	 * @param reference				$theSecond			Compare parameter.
+	 * @param boolean				$doDiff				<tt>TRUE</tt> compute difference.
 	 *
 	 * @access protected
+	 * @return array				The difference or intersection.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_OBJECT_OFFSETS
 	 */
-	protected function loadSubProperties( $theValue, &$theTags,
-													 &$theType,
-													 &$theKind )
+	protected function compareObjectOffsets( &$theFirst, &$theSecond, $doDiff )
 	{
 		//
 		// Init local storage.
 		//
-		$types = array( kTYPE_LANGUAGE_STRINGS, kTYPE_TYPED_LIST );
+		$result = Array();
 		
 		//
-		// Skip non-structured types.
+		// Iterate reference parameter.
 		//
-		if( count( array_intersect( $theType, $types ) ) )
+		foreach( $theFirst as $collection => $references )
 		{
 			//
-			// Handle lists.
+			// Handle difference.
 			//
-			if( in_array( kTYPE_LIST, $theKind ) )
+			if( $doDiff )
 			{
 				//
-				// Remove list from kind.
+				// New collection.
 				//
-				$kind = array_diff( $theKind, array( kTYPE_LIST ) );
+				if( ! array_key_exists( $collection, $theSecond ) )
+					$result[ $collection ] = $references;
 				
 				//
-				// Recurse list elements.
+				// Same collection.
 				//
-				foreach( $theValue as $value )
-					$this->loadSubProperties(
-						$value, $theTags, $theType, $kind );
+				else
+				{
+					//
+					// Compute references difference.
+					//
+					$tmp = array_diff( $references, $theSecond[ $collection ] );
+					if( count( $tmp ) )
+						$result[ $collection ] = $tmp;
+				
+				} // Same collection.
 			
-			} // List.
-			
+			} // Difference.
+		
 			//
-			// Handle scalars.
+			// Handle intersection.
 			//
 			else
 			{
 				//
-				// Iterate language strings.
+				// Same collection.
 				//
-				foreach( $theValue as $element )
+				if( array_key_exists( $collection, $theSecond ) )
 				{
 					//
-					// Iterate structure elements.
+					// Compute references intersection.
 					//
-					$offsets = array_keys( $element );
-					foreach( $offsets as $offset )
-					{
-						if( ! in_array( (int) $offset, $theTags ) )
-							$theTags[] = (int) $offset;
+					$tmp = array_intersect( $references, $theSecond[ $collection ] );
+					if( count( $tmp ) )
+						$result[ $collection ] = $tmp;
 				
-					} // Iterating languafe string offsets.
+				} // Same collection.
 			
-				} // Iterating structure elements.
-			
-			} // Scalar.
+			} // Difference.
 		
-		} // Is a reference.
+		} // Iterating first parameter.
+		
+		return $result;																// ==>
 	
-	} // loadSubProperties.
+	} // compareObjectOffsets.
 
 	 
 

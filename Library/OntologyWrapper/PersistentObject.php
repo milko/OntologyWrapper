@@ -412,195 +412,6 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // commit.
 
-	 
-	/*===================================================================================
-	 *	modifyAdd																		*
-	 *==================================================================================*/
-
-	/**
-	 * Add offsets to object
-	 *
-	 * This method can be used to add the properties contained in the current object to an
-	 * object residing in the persistent store, the offsets contained in the current object
-	 * will be added or will replace the offsets contained in the stored object.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The object native identifier.
-	 *	<li><b>$theWrapper</b>: The persistent store.
-	 * </ul>
-	 *
-	 * The current object <em>must only contain the offsets to be added</em>, the method
-	 * will take into consideration all the offsets contained in the object.
-	 *
-	 * In this method we perform the following steps:
-	 *
-	 * <ul>
-	 *	<li>We load the original object, if it not found, the method will raise an exception.
-	 *	<li>We select all new tags and add them to the {@link .
-	 *	<li>We decrement eventual reference counts of the replaced offsets.
-	 *	<li>We add the replaced offsets to the stored object.
-	 *	<li>We add the new offsets to the stored object.
-	 * </ul>
-	 *
-	 * If any of the above steps fail the method must raise an exception.
-	 *
-	 * The method will return the number of elements affected by the operation (1 or 0).
-	 *
-	 * @param mixed					$theIdentifier		Original object native identifier.
-	 * @param Wrapper				$theWrapper			Persistent store.
-	 *
-	 * @access public
-	 * return integer				Number of objects affected.
-	 *
-	 * @throws Exception
-	 */
-	public function modifyAdd( $theIdentifier, $theWrapper = NULL )
-	{
-		//
-		// Init local storage.
-		//
-		$class = get_class( $this );
-		
-		//
-		// Resolve wrapper.
-		//
-		$this->resolveWrapper( $theWrapper );
-		
-		//
-		// Validate, collect tags, offsets and references.
-		//
-		$this_tags = $this_refs = Array();
-		$this->preCommitTraverse( $this_tags, $this_refs );
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $theWrapper ) );
-		
-		//
-		// Load original object.
-		//
-		$saved = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
-										kQUERY_ASSERT | kQUERY_OBJECT );
-		
-		//
-		// Save old tags and references.
-		//
-		$old_tags = $saved->offsetGet( kTAG_OBJECT_OFFSETS );
-		$old_refs = $saved->offsetGet( kTAG_OBJECT_REFERENCES );
-		
-		//
-		// Add and replace properties.
-		//
-		foreach( $this as $key => $value )
-			$saved->offsetSet( $key, $value );
-		
-		//
-		// Collect tags, offsets and references.
-		//
-		$cur_tags = $cur_refs = Array();
-		$saved->preCommitTraverse( $cur_tags, $cur_refs, FALSE );
-		
-		//
-		// Replace tags list.
-		//
-		$collection->replaceOffsets(
-			$theIdentifier,
-			array( kTAG_OBJECT_TAGS => array_keys( $cur_tags ) ) );
-	
-		//
-		// Replace tag offsets.
-		//
-		$tmp = Array();
-		foreach( $cur_tags as $key => $value )
-			$tmp[ $key ] = $value[ kTAG_OBJECT_OFFSETS ];
-		$collection->replaceOffsets(
-			$theIdentifier,
-			array( kTAG_OBJECT_OFFSETS => $tmp ) );
-		
-		//
-		// Replace object references.
-		//
-		$collection->replaceOffsets(
-			$theIdentifier,
-			array( kTAG_OBJECT_REFERENCES => $cur_refs ) );
-		
-		//
-		// Select new tags and references.
-		//
-		$tags = array_diff_key( $this_tags, $old_tags );
-		$refs = array_diff_key( $this_refs, $old_refs );
-			
-		//
-		// Update metadata.
-		//
-		$this->postCommit( $tags, $refs );
-		
-		//
-		// Select removed tags and references.
-		//
-		$tags = array_diff_key( $old_tags, $cur_tags );
-		$refs = array_diff_key( $old_refs, $cur_refs );
-			
-		//
-		// Update metadata.
-		//
-		$this->postDelete( $tags, $refs );
-		
-		//
-		// Select common tags.
-		//
-		$tags = array_intersect_key( $this_tags, $old_tags );
-		
-		//
-		// Filter new offsets.
-		//
-		$set = $tags;
-		foreach( $tags as $tag => $info )
-		{
-			$tmp = array_diff( $info[ kTAG_OBJECT_OFFSETS ],
-							   $old_tags[ $tag ][ kTAG_OBJECT_OFFSETS ] );
-			if( ! count( $tmp ) )
-				unset( $set[ $key ] );
-			else
-				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
-		}
-		
-		//
-		// Add new offsets.
-		//
-		if( count( $set ) )
-			$this->postCommitTagOffsets( $set );
-		
-		//
-		// Filter deleted offsets.
-		//
-		$set = $tags;
-		foreach( $tags as $tag => $info )
-		{
-			$tmp = array_diff( $old_tags[ $tag ][ kTAG_OBJECT_OFFSETS ],
-							   $info[ kTAG_OBJECT_OFFSETS ] );
-			if( ! count( $tmp ) )
-				unset( $set[ $key ] );
-			else
-				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
-		}
-		
-		//
-		// Delete old offsets.
-		//
-		if( count( $set ) )
-			$this->postDeleteTagOffsets( $set );
-		
-		return $collection->replaceOffsets( $theIdentifier,
-											$this->getArrayCopy() );				// ==>
-	
-	} // modifyAdd.
-
 		
 
 /*=======================================================================================
@@ -853,9 +664,8 @@ abstract class PersistentObject extends OntologyObject
 	 * not be easy to delete an incomplete object.
 	 *
 	 * This method should be called using the base class of the object one wants to delete,
-	 * that means that either you know the class, or you may call this method from an
-	 * existing object that you want to delete, in that case the object needs only to
-	 * feature its native identifier.
+	 * this means that either you know the class, or you may call this method from the
+	 * object that you want to delete.
 	 *
 	 * The method expects the following parameters:
 	 *
@@ -931,7 +741,94 @@ abstract class PersistentObject extends OntologyObject
 		
 		return NULL;																// ==>
 	
-	} // ResolveCollectionByName.
+	} // Delete.
+
+
+	/*===================================================================================
+	 *	Modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify an object
+	 *
+	 * This method will modify the object corresponding to the provided identifier by either
+	 * adding, replacing or removing the provided offsets.
+	 *
+	 * Modifying objects is a static matter, since, in order to ensure referential integrity,
+	 * it is necessary to traverse an object which is a mirror of the persistent image. The
+	 * methods which actually modify the object are declared protected, so that it should
+	 * not be easy to modify an incomplete object.
+	 *
+	 * This method should be called using the base class of the object one wants to modify,
+	 * this means that either you know the class, or you may call this method from the
+	 * object that you want to modify.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: The data wrapper.
+	 *	<li><b>$theIdentifier</b>: The object native identifier.
+	 *	<li><b>$theOffsets</b>: The offsets to be added, replaced or deleted. This parameter
+	 *		is structured according to the requested operation:
+	 *	 <ul>
+	 *		<li><em>Add or replace</tt>: This occurs if the last parameter is <tt>TRUE</tt>.
+	 *			The parameter should be an array indexed by tag sequence number and value
+	 *			representing the offset value. All offsets will be added at the root level.
+	 *		<li><em>Remove</tt>: This occurs if the last parameter is <tt>FALSE</tt>.
+	 *			The parameter should be an array listing all the offsets to be removed at
+	 *			the root level.
+	 *	 </ul>
+	 *	<li><b>$doSet</b>: <tt>TRUE</tt> means add or replace offsets, <tt>FALSE</tt> means
+	 *		remove offsets.
+	 * </ul>
+	 *
+	 * The method will first load the object from the persistent store and then it will
+	 * call its protected {@link modifyObject()} method.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theIdentifier		Object native identifier.
+	 * @param mixed					$theOffsets			Offsets to be modified.
+	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
+	 *
+	 * @static
+	 * return PersistentObject		Modified object.
+	 *
+	 * @throws Exception
+	 */
+	static function Modify( Wrapper $theWrapper,
+									$theIdentifier,
+									$theOffsets,
+									$doSet )
+	{
+		//
+		// Check if wrapper is connected.
+		//
+		if( ! $theWrapper->isConnected() )
+			throw new \Exception(
+				"Unable to modify object: "
+			   ."wrapper is not connected." );									// !@! ==>
+		
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Load original object.
+		//
+		$object = $collection->matchOne( array( kTAG_NID => $theIdentifier ),
+										 kQUERY_ASSERT | kQUERY_OBJECT );
+		
+		//
+		// Modify object.
+		//
+		$object->modifyObject( $theOffsets, $doSet );
+		
+		return $object;																// ==>
+	
+	} // Modify.
 
 	 
 	/*===================================================================================
@@ -1558,6 +1455,397 @@ abstract class PersistentObject extends OntologyObject
 		   ."the object is not committed or was modified." );					// !@! ==>
 	
 	} // deleteObject.
+
+	 
+	/*===================================================================================
+	 *	modifyObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object
+	 *
+	 * This method will modify the current object by either adding, replacing or deleting
+	 * the provided offsets. The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffsets</b>: The offsets to be added, replaced or deleted. This parameter
+	 *		is structured according to the requested operation:
+	 *	 <ul>
+	 *		<li><em>Add or replace</tt>: This occurs if the last parameter is <tt>TRUE</tt>.
+	 *			The parameter should be an array indexed by tag sequence number and value
+	 *			representing the offset value. All offsets will be added at the root level.
+	 *		<li><em>Remove</tt>: This occurs if the last parameter is <tt>FALSE</tt>.
+	 *			The parameter should be an array listing all the offsets to be removed at
+	 *			the root level.
+	 *	 </ul>
+	 *	<li><b>$doSet</b>: <tt>TRUE</tt> means add or replace offsets, <tt>FALSE</tt> means
+	 *		remove offsets.
+	 * </ul>
+	 *
+	 * This method will call the {@link modifyObjectAdd()} method if setting and the
+	 * {@link modifyObjectDel()} method if removing.
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param mixed					$theOffsets			Offsets to be modified.
+	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
+	 *
+	 * @access protected
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	protected function modifyObject( $theOffsets, $doSet )
+	{
+		//
+		// Do it only if the object is committed and clean.
+		//
+		if( $this->isCommitted()
+		 && (! $this->isDirty()) )
+		{
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary ) );
+		
+			//
+			// Set offsets.
+			//
+			if( $doSet )
+				return $this->modifyObjectAdd( $collection, $theOffsets );				// ==>
+		
+			return $this->modifyObjectDel( $collection, $theOffsets );					// ==>
+		
+		} // Clean and committed.
+		
+		throw new \Exception(
+			"Cannot modify object: "
+		   ."the object is not committed or was modified." );					// !@! ==>
+	
+	} // modifyObject.
+
+	 
+	/*===================================================================================
+	 *	modifyObjectAdd																	*
+	 *==================================================================================*/
+
+	/**
+	 * Add offsets to object
+	 *
+	 * This method can be used to add the provided properties to the current object, the
+	 * provided offsets will be added or will replace the offsets contained in the current
+	 * object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCollection</b>: The object's persistent store.
+	 *	<li><b>$theOffsets</b>: The offsets to be added or replaced, this parameter should
+	 *		be an array of properties in which the element key is the offset and the value
+	 *		is the offset value.
+	 * </ul>
+	 *
+	 * In this method we perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We update the {@link kTAG_OBJECT_TAGS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_OFFSETS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_REFERENCES} property.
+	 *	<li>We update the metadata of new tags and references.
+	 *	<li>We update the metadata of removed tags, offsets and references.
+	 *	<li>We update the metadata of new offsets of common collections.
+	 *	<li>We update the metadata of removed offsets of common collections.
+	 *	<li>We replace the offsets in the stored object.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the modified object.
+	 *
+	 * @param CollectionObject		$theCollection		Object collection.
+	 * @param mixed					$theOffsets			Modification properties.
+	 *
+	 * @access protected
+	 * return integer				Number of objects affected.
+	 */
+	protected function modifyObjectAdd( CollectionObject $theCollection, $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( kTAG_NID );
+		
+		//
+		// Instantiate modifications as object.
+		//
+		if( $theOffsets instanceof self )
+			$mods = $theOffset;
+		elseif( is_array( $theOffsets ) )
+		{
+			$class = get_class( $this );
+			$mods = new $class( $this->mDictionary, $theOffsets );
+		}
+		else
+			throw new \Exception(
+				"Cannot modify offsets: "
+			   ."invalid modifications parameter type." );						// !@! ==>
+		
+		//
+		// Validate, collect tags, offsets and references.
+		//
+		$mods_tags = $mods_refs = Array();
+		$mods->preCommitTraverse( $mods_tags, $mods_refs );
+		
+		//
+		// Save old tags and references.
+		//
+		$old_tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$old_refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		
+		//
+		// Add and replace properties.
+		//
+		foreach( $mods as $key => $value )
+			$this->offsetSet( $key, $value );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$cur_tags = $cur_refs = Array();
+		$this->preCommitTraverse( $cur_tags, $cur_refs, FALSE );
+		
+		//
+		// Replace tags list.
+		//
+		$this->offsetSet( kTAG_OBJECT_TAGS, array_keys( $cur_tags ) );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_TAGS => array_keys( $cur_tags ) ) );
+	
+		//
+		// Replace tag offsets.
+		//
+		$tmp = Array();
+		foreach( $cur_tags as $key => $value )
+			$tmp[ $key ] = $value[ kTAG_OBJECT_OFFSETS ];
+		$this->offsetSet( kTAG_OBJECT_OFFSETS, $tmp );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_OFFSETS => $tmp ) );
+		
+		//
+		// Replace object references.
+		//
+		$this->offsetSet( kTAG_OBJECT_REFERENCES, $cur_refs );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_REFERENCES => $cur_refs ) );
+		
+		//
+		// Select new tags and references.
+		//
+		$tags = array_diff_key( $mods_tags, $old_tags );
+		$refs = $mods->compareObjectOffsets( $mods_refs, $old_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$mods->postCommit( $tags, $refs );
+		
+		//
+		// Select removed tags and references.
+		//
+		$tags = array_diff_key( $old_tags, $cur_tags );
+		$refs = $mods->compareObjectOffsets( $old_refs, $cur_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$mods->postDelete( $tags, $refs );
+		
+		//
+		// Select common tags.
+		//
+		$tags = array_intersect_key( $mods_tags, $old_tags );
+		
+		//
+		// Filter new offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $info[ kTAG_OBJECT_OFFSETS ],
+							   $old_tags[ $tag ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Add new offsets.
+		//
+		if( count( $set ) )
+			$mods->postCommitTagOffsets( $set );
+		
+		//
+		// Filter deleted offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $old_tags[ $tag ],
+							   $info[ kTAG_OBJECT_OFFSETS ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Delete old offsets.
+		//
+		if( count( $set ) )
+			$mods->postDeleteTagOffsets( $set );
+		
+		return $theCollection->replaceOffsets( $id, $mods->getArrayCopy() );		// ==>
+	
+	} // modifyObjectAdd.
+
+	 
+	/*===================================================================================
+	 *	modifyObjectDel																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete offsets from object
+	 *
+	 * This method can be used to delete the provided properties from the current object,
+	 * the method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theCollection</b>: The object's persistent store.
+	 *	<li><b>$theOffsets</b>: The offsets to be added or replaced, this parameter should
+	 *		be an array of tag sequence numbers referencing the offsets to be removed from
+	 *		the root of the object.
+	 * </ul>
+	 *
+	 * In this method we perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We update the {@link kTAG_OBJECT_TAGS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_OFFSETS} property.
+	 *	<li>We update the {@link kTAG_OBJECT_REFERENCES} property.
+	 *	<li>We update the metadata of removed tags, offsets and references.
+	 *	<li>We update the metadata of removed offsets of common collections.
+	 *	<li>We remove the offsets from the stored object.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * @param CollectionObject		$theCollection		Object collection.
+	 * @param array					$theOffsets			Modification properties.
+	 *
+	 * @access public
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	public function modifyObjectDel( CollectionObject $theCollection, $theOffsets )
+	{
+		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( kTAG_NID );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$old_tags = $old_refs = Array();
+		$this->preCommitTraverse( $old_tags, $old_refs, FALSE );
+		
+		//
+		// Remove properties.
+		//
+		foreach( $theOffsets as $offset )
+			$this->offsetUnset( $offset );
+		
+		//
+		// Collect tags, offsets and references.
+		//
+		$cur_tags = $cur_refs = Array();
+		$this->preCommitTraverse( $cur_tags, $cur_refs, FALSE );
+		
+		//
+		// Replace tags list.
+		//
+		$this->offsetSet( kTAG_OBJECT_TAGS, array_keys( $cur_tags ) );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_TAGS => array_keys( $cur_tags ) ) );
+	
+		//
+		// Replace tag offsets.
+		//
+		$tmp = Array();
+		foreach( $cur_tags as $key => $value )
+			$tmp[ $key ] = $value[ kTAG_OBJECT_OFFSETS ];
+		$this->offsetSet( kTAG_OBJECT_OFFSETS, $tmp );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_OFFSETS => $tmp ) );
+		
+		//
+		// Replace object references.
+		//
+		$this->offsetSet( kTAG_OBJECT_REFERENCES, $cur_refs );
+		$theCollection->replaceOffsets(
+			$id,
+			array( kTAG_OBJECT_REFERENCES => $cur_refs ) );
+		
+		//
+		// Select removed tags and references.
+		//
+		$tags = array_diff_key( $old_tags, $cur_tags );
+		$refs = $this->compareObjectOffsets( $old_refs, $cur_refs, TRUE );
+			
+		//
+		// Update metadata.
+		//
+		$this->postDelete( $tags, $refs );
+		
+		//
+		// Select common tags.
+		//
+		$tags = array_intersect_key( $cur_tags, $old_tags );
+		
+		//
+		// Filter deleted offsets.
+		//
+		$set = $tags;
+		foreach( $tags as $tag => $info )
+		{
+			$tmp = array_diff( $old_tags[ $tag ],
+							   $info[ kTAG_OBJECT_OFFSETS ] );
+			if( ! count( $tmp ) )
+				unset( $set[ $key ] );
+			else
+				$set[ $tag ][ kTAG_OBJECT_OFFSETS ] = $tmp;
+		}
+		
+		//
+		// Delete old offsets.
+		//
+		if( count( $set ) )
+			$this->postDeleteTagOffsets( $set );
+		
+		return $theCollection->deleteOffsets( $id, $theOffsets );					// ==>
+	
+	} // modifyObjectDel.
 
 		
 
@@ -3043,7 +3331,7 @@ abstract class PersistentObject extends OntologyObject
 		$tag = (int) $theIterator->key();
 		$info = $theIterator->current();
 		$ref = & $info[ kTAG_OBJECT_OFFSETS ];
-		$base_criteria = array( kTAG_ID_SEQUENCE => $key );
+		$base_criteria = array( kTAG_ID_SEQUENCE => $tag );
 
 		//
 		// Iterate offsets.
@@ -3064,7 +3352,7 @@ abstract class PersistentObject extends OntologyObject
 		// Handle empty list.
 		//
 		if( ! count( $ref ) )
-			$iterator->offsetUnset( $theIterator->key() );
+			$theIterator->offsetUnset( $theIterator->key() );
 		
 		//
 		// Update list.
@@ -4651,6 +4939,111 @@ abstract class PersistentObject extends OntologyObject
 		} // Object reference.
 	
 	} // validateReference.
+
+	 
+	/*===================================================================================
+	 *	compareObjectOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Compare object offsets
+	 *
+	 * This method expects two parameters structured as the {@link kTAG_OBJECT_OFFSETS}
+	 * property, it will return either the differences or the matches between the two
+	 * parameters.
+	 *
+	 * The difference is computed by selecting all collections featured by the first
+	 * parameter not existing in the second parameter. If the collection exists in both,
+	 * the references featured by the first collection that are not part of the same
+	 * collection in the second parameter will be selected.
+	 *
+	 * The similarity is computed by selecting only those collections belonging to both
+	 * parameters and the references in those collections existing in both collections.
+	 *
+	 * If the third parameter is <tt>TRUE</tt>, the method will compute the difference, if
+	 * not, the similarity.
+	 *
+	 * The method will return the computed array, no collections will be empty.
+	 *
+	 * <em>The method expects both parameters to be arrays structured as the
+	 * {@link kTAG_OBJECT_OFFSETS} property.
+	 *
+	 * @param reference				$theFirst			Reference parameter.
+	 * @param reference				$theSecond			Compare parameter.
+	 * @param boolean				$doDiff				<tt>TRUE</tt> compute difference.
+	 *
+	 * @access protected
+	 * @return array				The difference or intersection.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_OBJECT_OFFSETS
+	 */
+	protected function compareObjectOffsets( &$theFirst, &$theSecond, $doDiff )
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		
+		//
+		// Iterate reference parameter.
+		//
+		foreach( $theFirst as $collection => $references )
+		{
+			//
+			// Handle difference.
+			//
+			if( $doDiff )
+			{
+				//
+				// New collection.
+				//
+				if( ! array_key_exists( $collection, $theSecond ) )
+					$result[ $collection ] = $references;
+				
+				//
+				// Same collection.
+				//
+				else
+				{
+					//
+					// Compute references difference.
+					//
+					$tmp = array_diff( $references, $theSecond[ $collection ] );
+					if( count( $tmp ) )
+						$result[ $collection ] = $tmp;
+				
+				} // Same collection.
+			
+			} // Difference.
+		
+			//
+			// Handle intersection.
+			//
+			else
+			{
+				//
+				// Same collection.
+				//
+				if( array_key_exists( $collection, $theSecond ) )
+				{
+					//
+					// Compute references intersection.
+					//
+					$tmp = array_intersect( $references, $theSecond[ $collection ] );
+					if( count( $tmp ) )
+						$result[ $collection ] = $tmp;
+				
+				} // Same collection.
+			
+			} // Difference.
+		
+		} // Iterating first parameter.
+		
+		return $result;																// ==>
+	
+	} // compareObjectOffsets.
 
 	 
 

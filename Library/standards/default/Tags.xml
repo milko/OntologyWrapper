@@ -1760,9 +1760,83 @@
 		</TAG>
 	</META>
 	
+	<!-- 46 -->
+	<!-- kTAG_TAG_STRUCT -->
+	<META>
+	   <TERM ns=":tag" lid="struct">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Structure</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a <em>reference to a container structure</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:tag:struct</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:tag</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+				<item>:type:private-out</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property holds a <em>tag object native identifier</em> that <em>must be of structure type</em>, <em>properties defined by the current tag must be stored in the offset referenced by the value of this property</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- 47 -->
+	<!-- kTAG_TAG_STRUCT_IDX -->
+	<META>
+	   <TERM ns=":tag" lid="struct-index">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Structure index</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents <em>the index of a container structure</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:tag:struct-index</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">
+				<item>:type:ref:tag</item>
+			</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+				<item>:type:private-out</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property <em>should only be featured by structure list tags</em>, it holds a <em>tag object native identifier</em> referencing the <em>structure offset acting as the list index</em>. This means that no two structure elements of a list may share the same value in the property referenced by this attribute.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
 	<!-- Generic attributes -->
 	
-	<!-- 46 -->
+	<!-- 48 -->
 	<!-- kTAG_TYPE -->
 	<META>
 		<TAG>
@@ -1781,7 +1855,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 47 -->
+	<!-- 49 -->
 	<!-- kTAG_LANGUAGE -->
 	<META>
 		<TERM ns="" lid="language">
@@ -1814,7 +1888,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 48 -->
+	<!-- 50 -->
 	<!-- kTAG_TEXT -->
 	<META>
 	   <TERM ns="" lid="text">
@@ -1847,7 +1921,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 49 -->
+	<!-- 51 -->
 	<!-- kTAG_URL -->
 	<META>
 	   <TERM ns="" lid="url">
@@ -1880,7 +1954,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 50 -->
+	<!-- 52 -->
 	<!-- kTAG_MIN -->
 	<META>
 	   <TERM ns="" lid="min">
@@ -1913,7 +1987,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 51 -->
+	<!-- 53 -->
 	<!-- kTAG_MAX -->
 	<META>
 	   <TERM ns="" lid="max">
@@ -1946,7 +2020,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 52 -->
+	<!-- 54 -->
 	<!-- kTAG_PATTERN -->
 	<META>
 	   <TERM ns="" lid="grep">
@@ -1979,7 +2053,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 53 -->
+	<!-- 55 -->
 	<!-- kTAG_GEO_LOCATION -->
 	<META>
 	   <TERM ns="" lid="geo">
@@ -2012,7 +2086,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 54 -->
+	<!-- 56 -->
 	<!-- kTAG_GEO_LOCATION -->
 	<META>
 	   <TERM ns="" lid="geo-pub">
@@ -2047,7 +2121,7 @@
 	
 	<!-- Connection attributes -->
 	
-	<!-- 55 -->
+	<!-- 57 -->
 	<!-- kTAG_CONN_PROTOCOL -->
 	<META>
 	   <TERM ns=":connection" lid="protocol">
@@ -2086,7 +2160,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 56 -->
+	<!-- 58 -->
 	<!-- kTAG_CONN_HOST -->
 	<META>
 	   <TERM ns=":connection" lid="host">
@@ -2125,7 +2199,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 57 -->
+	<!-- 59 -->
 	<!-- kTAG_CONN_PORT -->
 	<META>
 	   <TERM ns=":connection" lid="port">
@@ -2164,7 +2238,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 58 -->
+	<!-- 60 -->
 	<!-- kTAG_CONN_USER -->
 	<META>
 	   <TERM ns=":connection" lid="user">
@@ -2203,7 +2277,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 59 -->
+	<!-- 61 -->
 	<!-- kTAG_CONN_PASS -->
 	<META>
 	   <TERM ns=":connection" lid="pass">
@@ -2242,7 +2316,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 60 -->
+	<!-- 62 -->
 	<!-- kTAG_CONN_BASE -->
 	<META>
 	   <TERM ns=":connection" lid="database">
@@ -2281,7 +2355,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 61 -->
+	<!-- 63 -->
 	<!-- kTAG_CONN_COLL -->
 	<META>
 	   <TERM ns=":connection" lid="collection">
@@ -2320,7 +2394,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 62 -->
+	<!-- 64 -->
 	<!-- kTAG_CONN_OPTS -->
 	<META>
 	   <TERM ns=":connection" lid="options">
@@ -2361,7 +2435,7 @@
 	
 	<!-- Entity attributes -->
 	
-	<!-- 63 -->
+	<!-- 65 -->
 	<!-- kTAG_ENTITY_FNAME -->
 	<META>
 	   <TERM ns=":entity" lid="fname">
@@ -2394,7 +2468,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 64 -->
+	<!-- 66 -->
 	<!-- kTAG_ENTITY_LNAME -->
 	<META>
 	   <TERM ns=":entity" lid="lname">
@@ -2427,7 +2501,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 65 -->
+	<!-- 67 -->
 	<!-- kTAG_ENTITY_TYPE -->
 	<META>
 	   <TERM ns=":type" lid="entity">
@@ -2460,7 +2534,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 66 -->
+	<!-- 68 -->
 	<!-- kTAG_ENTITY_KIND -->
 	<META>
 	   <TERM ns=":kind" lid="entity">
@@ -2493,7 +2567,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 67 -->
+	<!-- 69 -->
 	<!-- kTAG_ENTITY_ACRONYM -->
 	<META>
 	   <TERM ns=":entity" lid="acronym">
@@ -2535,7 +2609,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 68 -->
+	<!-- 70 -->
 	<!-- kTAG_ENTITY_MAIL -->
 	<META>
 	   <TERM ns=":entity" lid="mail">
@@ -2574,7 +2648,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 69 -->
+	<!-- 71 -->
 	<!-- kTAG_ENTITY_EMAIL -->
 	<META>
 	   <TERM ns=":entity" lid="email">
@@ -2613,7 +2687,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 70 -->
+	<!-- 72 -->
 	<!-- kTAG_ENTITY_LINK -->
 	<META>
 	   <TERM ns=":entity" lid="url">
@@ -2652,7 +2726,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 71 -->
+	<!-- 73 -->
 	<!-- kTAG_ENTITY_PHONE -->
 	<META>
 	   <TERM ns=":entity" lid="phone">
@@ -2691,7 +2765,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 72 -->
+	<!-- 74 -->
 	<!-- kTAG_ENTITY_FAX -->
 	<META>
 	   <TERM ns=":entity" lid="fax">
@@ -2730,7 +2804,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 73 -->
+	<!-- 75 -->
 	<!-- kTAG_ENTITY_AFFILIATION -->
 	<META>
 	   <TERM ns=":entity" lid="affiliation">
@@ -2763,7 +2837,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 74 -->
+	<!-- 76 -->
 	<!-- kTAG_ENTITY_COUNTRY -->
 	<META>
 	   <TERM ns=":entity" lid="country">
@@ -2802,7 +2876,7 @@
 		</TAG>
 	</META>
 	
-	<!-- 75 -->
+	<!-- 77 -->
 	<!-- kTAG_ENTITY_VALID -->
 	<META>
 	   <TERM ns=":entity" lid="valid">

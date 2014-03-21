@@ -68,7 +68,12 @@ class Individual extends EntityObject
 	/**
 	 * Create indexes
 	 *
-	 * In this class we index the first and last name.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ENTITY_FNAME}</tt>: First name.
+	 *	<li><tt>{@link kTAG_ENTITY_LNAME}</tt>: Last name.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *

@@ -76,7 +76,11 @@ class Institution extends EntityObject
 	/**
 	 * Create indexes
 	 *
-	 * In this class we index the acronym.
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ENTITY_ACRONYM}</tt>: Acronym.
+	 * </ul>
 	 *
 	 * @param DatabaseObject		$theDatabase		Database reference.
 	 *

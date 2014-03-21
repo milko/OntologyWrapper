@@ -93,7 +93,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * The method should return <tt>TRUE</tt> if the operation was successful and
 	 * <tt>NULL</tt> if the provided identifier is not resolved.
 	 *
-	 * @param mixed					$theNode			Node identifier or object.
+	 * @param mixed					$theIdentifier		Node identifier or object.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.
@@ -168,7 +168,7 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * The method should return <tt>TRUE</tt> if the operation was successful and
 	 * <tt>NULL</tt> if the provided identifier is not resolved.
 	 *
-	 * @param mixed					$theEdge			Edge identifier or object.
+	 * @param mixed					$theIdentifier		Edge identifier or object.
 	 *
 	 * @access public
 	 * @return mixed				<tt>TRUE</tt> deleted, <tt>NULL</tt> not found.

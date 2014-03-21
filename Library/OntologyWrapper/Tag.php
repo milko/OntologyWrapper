@@ -123,11 +123,46 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
- *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: <em>Tag offsets</em>. This attribute is handled
+ *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: <em>Tag offsets</em>. This attribute is handled
  *		automatically and should not be modified by clients, it collects all the offsets
  *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
- *		was used by other objects as a leaf offset, that is, an offset holding a value.
- *		@@@
+ *		was used by other tag objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: <em>Term offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by term objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: <em>Node offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by node objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: <em>Edge offsets</em>. This attribute is handled
+ *		automatically and should not be modified by clients, it collects all the offsets
+ *		(sequence of tags indicating the structure path to a leaf offset) in which the tag
+ *		was used by edge objects as a leaf offset, that is, an offset holding a value.
+ *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: <em>Unit offsets</em>. This attribute is
+ *		handled automatically and should not be modified by clients, it collects all the
+ *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
+ *		the tag was used by unit objects as a leaf offset, that is, an offset holding a
+ *		value.
+ *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: <em>Entity offsets</em>. This attribute is
+ *		handled automatically and should not be modified by clients, it collects all the
+ *		offsets (sequence of tags indicating the structure path to a leaf offset) in which
+ *		the tag was used by entity objects as a leaf offset, that is, an offset holding a
+ *		value.
+ *	<li><tt>{@link kTAG_TAG_STRUCT}</tt>: <em>Container structure</em>. This attribute holds
+ *		a tag object reference that must be a structure, if set, it indicates that the
+ *		property defined by the current tag must be stored in the property referenced by the
+ *		the value of this attribute.
+ *		This means that whenever a property defined by a tag featuring this offset is stored
+ *		in an object, this property must be placed inside of the offset referenced by the
+ *		value of this attribute.
+ *	<li><tt>{@link kTAG_TAG_STRUCT_IDX}</tt>: <em>Container structure index</em>. This
+ *		attribute should only be featured by tags which define a list of structures. The
+ *		value of this attribute is a tag object reference which represents the structure
+ *		element which acts as the list index. This means that no two elements of a list of
+ *		structures may share the same value in the offset defined by the current attribute.
+ *		This also means that the offset defined in this property <em>is required</em> by the
+ *		hosting structure.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the global identifier,

@@ -1677,7 +1677,7 @@ class Wrapper extends Dictionary
 		// Modify object.
 		//
 		if( $mod )
-			$object->modifyAdd( $id );
+			Tag::Modify( $this, $id, $object, TRUE );
 		
 		//
 		// Commit object.
@@ -1758,7 +1758,7 @@ class Wrapper extends Dictionary
 		// Modify object.
 		//
 		if( $mod )
-			$object->modifyAdd( $id );
+			Term::Modify( $this, $id, $object, TRUE );
 		
 		//
 		// Commit object.
@@ -1866,7 +1866,7 @@ class Wrapper extends Dictionary
 		// Modify object.
 		//
 		if( $mod )
-			$object->modifyAdd( $id );
+			Node::Modify( $this, $id, $object, TRUE );
 		
 		//
 		// Commit object.
@@ -2007,7 +2007,7 @@ class Wrapper extends Dictionary
 		// Modify object.
 		//
 		if( $mod )
-			$object->modifyAdd( $id );
+			Edge::Modify( $this, $id, $object, TRUE );
 		
 		//
 		// Commit object.

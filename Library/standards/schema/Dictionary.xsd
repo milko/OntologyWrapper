@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-	
-	<!-- METADATA -->
+
+	<!-- ============================================================ -->
+	<!-- 							METADATA						  -->
+	<!-- ============================================================ -->
+
+	<!-- ROOT -->
 	<xs:element name="METADATA">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">
 				This is the root element for metadata blocks.
 			</xs:documentation>
 		</xs:annotation>
-		
+
 		<xs:complexType>
 			<xs:annotation>
 				<xs:documentation xml:lang="en">
@@ -20,8 +24,8 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	<!-- META -->
+
+	<!-- ELEMENTS -->
 	<xs:element name="META">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">
@@ -39,7 +43,7 @@
 						 </xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				
+
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="TAG">
 					<xs:annotation>
 						<xs:documentation xml:lang="en">
@@ -47,7 +51,7 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				
+
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="NODE">
 					<xs:annotation>
 						<xs:documentation xml:lang="en">
@@ -151,7 +155,7 @@
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
-			
+
 			<xs:attribute name="tag" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
@@ -160,7 +164,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
+
 			<xs:attribute name="term" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
@@ -169,7 +173,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
+
 			<xs:attribute name="pid" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
@@ -183,7 +187,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
+
 			<xs:attribute name="modify" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
@@ -261,32 +265,45 @@
 			<xs:sequence>
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						Items represent elements of an array property.
+						Nested item elements represent members of an array or structured property.
 					</xs:documentation>
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
-			
+
 			<xs:attribute name="tag" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a Tag native identifier.
+						This attribute can be used to identify the tag holding the current element's
+						data, in this case it references a Tag native identifier.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
+
 			<xs:attribute name="seq" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a Tag sequence number.
+						This attribute can be used to identify the tag holding the current element's
+						data, in this case it references a Tag sequence number.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
+
 			<xs:attribute name="const" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute references a constant.
+						This attribute can be used to identify the tag holding the current element's
+						data, in this case it references a constant that should be defined by the
+						software that will parse the file.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
+			<xs:attribute name="key" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute is used by nested items representing array elements,
+						it holds the string representing the array element's key.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -294,25 +311,118 @@
 			<xs:attribute name="node" type="node-ref-type">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute indicates that the element value references a node,
+						This attribute indicates that the element value references a Node object,
 						the attribute is required when providing node references.
 						Depending on the attribute value:
 						tag - the value is a tag native identifier;
 						term - the value is a term native identifier;
 						node - the value is a node native identifier;
 						pid - the value is a node persistent identifier.
-						When providing pid and node, the referenced node is univoque;
+						When providing pid or node, the referenced node is univoque;
 						when providing the other options, a master node will be
 						resolved by default.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 			
-			<xs:attribute name="key" type="xs:string">
+			<xs:attribute name="struct" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute holds the string value of the element's key,
-						this attribute is used by nested items representing array elements.
+						This attribute is used to indicate in which container structure the
+						current element should be stored, this and the next two attributes
+						can be used to provide individual structure elements at the root
+						level without the need to shape the XML as the actual structure.
+						The value of this attribute should be a Tag object native identifier,
+						this tag should be of type struct. If the tag is not a list, the
+						value of the current element will be set in the offset indicated by
+						the other tag reference attributes and that offset will be stored as
+						an element of the structure indicated by this attribute, in this case,
+						the next two attributes should be omitted; if the tag is a list, the
+						next two attributes are required to identify which element of the list
+						of structures is to receive the current element.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="index" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute is only relevant if the struct attribute was provided
+						and if that struct is also a list: it holds the Tag object native
+						identifier indicating which offset in the container structures list
+						acts as the index of the list elements.
+						This means that the current item element should be stored in the list
+						element which features the tag identified by this attribute matching
+						the value provided in the next attribute.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute is only relevant if the struct attribute was provided
+						and if that struct is also a list: it holds the value that should be
+						matched with the values of the tag indicated in the index attribute
+						to select in which element of the list the current element should be
+						stored.
+						This means that the current item element should be stored in the list
+						element in which the offset value, defined by the index attribute, is
+						equal to the value of the current attribute.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- ============================================================ -->
+	<!-- 							DATA							  -->
+	<!-- ============================================================ -->
+
+	<!-- ROOT -->
+	<xs:element name="UNITS">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				This is the root element for units blocks.
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation xml:lang="en">
+					The unit block is the units transaction unit.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="UNIT"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- UNIT -->
+	<xs:element name="UNIT">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				Each unit represents a unit object.
+			</xs:documentation>
+		</xs:annotation>
+
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="unbounded" ref="item">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">
+							List of unit attributes.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+
+			<xs:attribute name="class" use="required" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute represents the class of the unit,
+						it will be used to instantiate the unit object.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
