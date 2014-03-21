@@ -1514,9 +1514,9 @@ abstract class PersistentObject extends OntologyObject
 			// Set offsets.
 			//
 			if( $doSet )
-				return $this->modifyObjectAdd( $collection, $theOffsets );				// ==>
+				return $this->modifyObjectAdd( $collection, $theOffsets );			// ==>
 		
-			return $this->modifyObjectDel( $collection, $theOffsets );					// ==>
+			return $this->modifyObjectDel( $collection, $theOffsets );				// ==>
 		
 		} // Clean and committed.
 		
@@ -1581,7 +1581,7 @@ abstract class PersistentObject extends OntologyObject
 		// Instantiate modifications as object.
 		//
 		if( $theOffsets instanceof self )
-			$mods = $theOffset;
+			$mods = $theOffsets;
 		elseif( is_array( $theOffsets ) )
 		{
 			$class = get_class( $this );

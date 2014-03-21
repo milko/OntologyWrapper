@@ -119,16 +119,27 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-
-			<xs:attribute name="modify" type="xs:string">
+			
+			<xs:attribute name="set" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
 						Modification reference. This attribute must hold the persistent identifier
 						of a term: if provided, it means that the properties of the current block
-						will replace or be added to the term corresponding to the native
-						identifier provided in this attribute. This implies that this should be
-						the only attribute and all other properties should be provided with the
-						item elements.
+						will be added or replace those in the term corresponding to the native
+						identifier provided in this attribute. This should be the only attribute
+						of this element.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="del" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a term: if provided, it means that the properties of the current block
+						will be removed from the term corresponding to the native identifier
+						provided in this attribute. This should be the only attribute of this
+						element. The values of these properties are irrelevant.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -187,15 +198,27 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-
-			<xs:attribute name="modify" type="xs:string">
+			
+			<xs:attribute name="set" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
 						Modification reference. This attribute must hold the persistent identifier
-						of a node: if provided, it means that the elements of the current block
-						will replace or be added to the node corresponding to the persistent identifier
-						provided in this attribute. If you provide this attribute you should not
-						provide any other attribute.
+						of a node: if provided, it means that the properties of the current block
+						will be added or replace those in the node corresponding to the native
+						identifier provided in this attribute. This should be the only attribute
+						of this element.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="del" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a node: if provided, it means that the properties of the current block
+						will be removed from the node corresponding to the native identifier
+						provided in this attribute. This should be the only attribute of this
+						element. The values of these properties are irrelevant.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -221,6 +244,30 @@
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
+			
+			<xs:attribute name="set" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of an edge: if provided, it means that the properties of the current block
+						will be added or replace those in the edge corresponding to the native
+						identifier provided in this attribute. This should be the only attribute
+						of this element.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="del" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of an edge: if provided, it means that the properties of the current block
+						will be removed from the edge corresponding to the native identifier
+						provided in this attribute. This should be the only attribute of this
+						element. The values of these properties are irrelevant.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 
@@ -243,6 +290,30 @@
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
+			
+			<xs:attribute name="set" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a tag: if provided, it means that the properties of the current block
+						will be added or replace those in the tag corresponding to the native
+						identifier provided in this attribute. This should be the only attribute
+						of this element.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="del" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a tag: if provided, it means that the properties of the current block
+						will be removed from the tag corresponding to the native identifier
+						provided in this attribute. This should be the only attribute of this
+						element. The values of these properties are irrelevant.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 
