@@ -1207,6 +1207,38 @@ abstract class PersistentObject extends OntologyObject
 					   ."the object is committed." );							// !@! ==>
 		
 			} // Object is committed.
+			
+			//
+			// Parse offsets.
+			//
+			switch( $theOffset )
+			{
+				//
+				// Check container structure.
+				//
+				case kTAG_TAG_STRUCT:
+					$tag = $this->dictionary()->getObject( $theValue );
+					if( $tag !== NULL )
+					{
+						if( array_key_exists( kTAG_DATA_TYPE, $tag ) )
+						{
+							if( ! in_array( kTYPE_STRUCT, $tag[ kTAG_DATA_TYPE ] ) )
+								throw new \Exception(
+									"Cannot set the [$theOffset] offset: "
+								   ."[$theValue] is not a structure." );		// !@! ==>
+						}
+						else
+							throw new \Exception(
+								"Cannot set the [$theOffset] offset: "
+							   ."[$theValue] is missing its data type." );		// !@! ==>
+					}
+					else
+						throw new \Exception(
+							"Cannot set the [$theOffset] offset: "
+						   ."missing data dictionary." );						// !@! ==>
+					break;
+			
+			} // Parsed offsets.
 		
 		} // Intercepted by preflight.
 		

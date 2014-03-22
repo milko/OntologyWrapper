@@ -475,30 +475,38 @@ class Tag extends PersistentObject
 		//
 		// Set tags count index.
 		//
+	/*
 		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
 								  array( "name" => "TAGS",
 								  		 "sparse" => TRUE ) );
+	*/
 		
 		//
 		// Set terms count index.
 		//
+	/*
 		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
 								  array( "name" => "TERMS",
 								  		 "sparse" => TRUE ) );
+	*/
 		
 		//
 		// Set nodes count index.
 		//
+	/*
 		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
 								  array( "name" => "NODES",
 								  		 "sparse" => TRUE ) );
+	*/
 		
 		//
 		// Set edges count index.
 		//
+	/*
 		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
 								  array( "name" => "EDGES",
 								  		 "sparse" => TRUE ) );
+	*/
 		
 		//
 		// Set units count index.
@@ -578,10 +586,14 @@ class Tag extends PersistentObject
 		if( $ok === NULL )
 		{
 			//
-			// Intercept sequence number.
+			// Intercept custom offsets.
 			//
-			if( $theOffset == kTAG_ID_SEQUENCE )
-				$theValue = (int) $theValue;
+			switch( $theOffset )
+			{
+				case kTAG_ID_SEQUENCE:
+					$theValue = (int) $theValue;
+					break;
+			}
 			
 		} // Passed preflight.
 		
@@ -747,6 +759,24 @@ class Tag extends PersistentObject
 			} // Has terms path.
 		
 		} // Missing label.
+		
+		//
+		// Check structure list index.
+		//
+		if( $this->offsetExists( kTAG_TAG_STRUCT_IDX ) )
+		{
+			//
+			// Assert current tag is a list of structures.
+			//
+			if( (! $this->offsetExists( kTAG_DATA_TYPE ))
+			 || (! array_key_exists( kTYPE_STRUCT, $this->offsetGet( kTAG_DATA_TYPE ) ))
+			 || (! offsetExists( kTAG_DATA_KIND ))
+			 || (! array_key_exists( kTYPE_LIST, $this->offsetGet( kTAG_DATA_KIND ) )) )
+				throw new \Exception(
+					"Cannot be a structure list index: "
+				   ."The current tag is not a structure and not a list." );		// !@! ==>
+		
+		} // Has structure list index.
 		
 		//
 		// Call parent method.
