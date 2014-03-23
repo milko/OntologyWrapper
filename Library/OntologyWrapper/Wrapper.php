@@ -179,7 +179,7 @@ class Wrapper extends Dictionary
 			//
 			// Set server dictionary.
 			//
-			$theValue->Parent()->dictionary( $this );
+			$theValue->parent()->dictionary( $this );
 			
 			//
 			// Open connection.

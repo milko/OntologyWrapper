@@ -70,7 +70,7 @@ class MongoIterator extends IteratorObject
 		//
 		// Check collection.
 		//
-		if( ! ($theCollection->Connection() instanceof \MongoCollection) )
+		if( ! ($theCollection->connection() instanceof \MongoCollection) )
 			throw new \Exception(
 				"Invalid collection type." );									// !@! ==>
 		

@@ -308,7 +308,7 @@ abstract class IteratorObject implements \Iterator,
 		//
 		// Get key offset.
 		//
-		switch( $this->collection()->Connection()->getName() )
+		switch( $this->collection()->connection()->getName() )
 		{
 			case Tag::kSEQ_NAME:
 				$offset = Tag::GetReferenceKey();
@@ -616,9 +616,6 @@ abstract class IteratorObject implements \Iterator,
 		//
 		switch( $this->resultType() )
 		{
-			case kQUERY_ARRAY:
-				return $theObject;													// ==>
-		
 			case kQUERY_OBJECT:
 				//
 				// Check class.
@@ -631,6 +628,9 @@ abstract class IteratorObject implements \Iterator,
 				$class = $theObject[ kTAG_CLASS ];
 				
 				return new $class( $this->collection()->dictionary(), $theObject );	// ==>
+		
+			case kQUERY_ARRAY:
+				return $theObject;													// ==>
 		
 			case kQUERY_NID:
 				//

@@ -371,8 +371,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$database = $test->Parent();'.kSTYLE_HEAD_POS );
-	$database = $test->Parent();
+	echo( kSTYLE_HEAD_PRE.'$database = $test->parent();'.kSTYLE_HEAD_POS );
+	$database = $test->parent();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -380,8 +380,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$server = $database->Parent();'.kSTYLE_HEAD_POS );
-	$server = $database->Parent();
+	echo( kSTYLE_HEAD_PRE.'$server = $database->parent();'.kSTYLE_HEAD_POS );
+	$server = $database->parent();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
@@ -436,8 +436,8 @@ try
 	$test->drop();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$collections = $test->Parent()->getCollections();'.kSTYLE_HEAD_POS );
-	$collections = $test->Parent()->getCollections();
+	echo( kSTYLE_HEAD_PRE.'$collections = $test->parent()->getCollections();'.kSTYLE_HEAD_POS );
+	$collections = $test->parent()->getCollections();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

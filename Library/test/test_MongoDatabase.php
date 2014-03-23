@@ -518,7 +518,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -542,7 +542,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -566,7 +566,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );
@@ -585,7 +585,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$seqs = $test->Connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
+	$seqs = $test->connection()->selectCollection( OntologyWrapper\MongoDatabase::kSEQ_COLLECTION )->find();
 	$seqs = iterator_to_array( $seqs );
 	var_dump( $seqs );
 	echo( kSTYLE_DATA_POS );

@@ -834,8 +834,8 @@ try
 	echo( '<h4>Get server info</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ok = $test->Connection()->getServerInfo();'.kSTYLE_HEAD_POS );
-	$ok = $test->Connection()->getServerInfo();
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->connection()->getServerInfo();'.kSTYLE_HEAD_POS );
+	$ok = $test->connection()->getServerInfo();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

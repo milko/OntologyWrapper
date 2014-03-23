@@ -338,8 +338,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * If any of the above steps fail the method must raise an exception.
 	 *
-	 * This method is declared <em>final</em>, to customise the operation you should
-	 * overload the methods called in this method.
+	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 *
@@ -356,7 +355,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses postCommit()
 	 * @uses isDirty()
 	 */
-	public final function commit( $theWrapper = NULL )
+	public function commit( $theWrapper = NULL )
 	{
 		//
 		// Do it only if the object is not committed.
@@ -1426,8 +1425,7 @@ abstract class PersistentObject extends OntologyObject
 	 * the method will return <tt>NULL</tt>; if the object is referenced, or if for any
 	 * other reason the object cannot be deleted, the method will return <tt>FALSE</tt>.
 	 *
-	 * This method is declared <em>final</em>, to customise the operation you should
-	 * overload the methods called in this method.
+	 * Do not overload this method, you should overload the methods called in this method.
 	 *
 	 * @access protected
 	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
@@ -1441,7 +1439,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preDelete()
 	 * @uses postDelete()
 	 */
-	protected final function deleteObject()
+	protected function deleteObject()
 	{
 		//
 		// Do it only if the object is committed and clean.

@@ -353,7 +353,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Update.
 		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		$ok = $this->mConnection->update( $criteria, $modifications, $options );
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
 	
@@ -427,7 +427,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Update.
 		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		$ok = $this->mConnection->update( $criteria, $modifications, $options );
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
 	
@@ -481,7 +481,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Update.
 		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		$ok = $this->mConnection->update( $criteria, $modifications, $options );
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
 		
@@ -538,7 +538,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Update.
 		//
-		$ok = $this->Connection()->update( $criteria, $modifications, $options );
+		$ok = $this->mConnection->update( $criteria, $modifications, $options );
 		if( ! $ok[ 'ok' ] )
 			throw new Exception( $ok[ 'err' ] );								// !@! ==>
 		
@@ -580,7 +580,7 @@ class MongoCollection extends CollectionObject
 		//
 		// Iterate collection index records.
 		//
-		$list = $this->Connection()->getIndexInfo();
+		$list = $this->mConnection->getIndexInfo();
 		foreach( $list as $info )
 		{
 			//
@@ -630,7 +630,7 @@ class MongoCollection extends CollectionObject
 		// Check if connected.
 		//
 		if( $this->isConnected() )
-			$this->Connection()->ensureIndex( $theIndex, $theOptions );
+			$this->mConnection->ensureIndex( $theIndex, $theOptions );
 		
 		else
 			throw new \Exception(
@@ -665,13 +665,13 @@ class MongoCollection extends CollectionObject
 			// Delete all indexes.
 			//
 			if( $theIndex === NULL )
-				$this->Connection()->deleteIndexes();
+				$this->mConnection->deleteIndexes();
 			
 			//
 			// Delete specific indexes.
 			//
 			else
-				$this->Connection()->deleteIndex( $theIndex );
+				$this->mConnection->deleteIndex( $theIndex );
 		
 		} // Connected.
 		
@@ -700,7 +700,7 @@ class MongoCollection extends CollectionObject
 	 * Open connection
 	 *
 	 * This method will instantiate a {@link \MongoCollection} object and set it in the
-	 * {@link Connection()} data member.
+	 * {@link mConnection} data member.
 	 *
 	 * This method expects the caller to have checked whether the connection is already
 	 * open.
@@ -731,7 +731,7 @@ class MongoCollection extends CollectionObject
 			if( $this->offsetExists( kTAG_CONN_COLL ) )
 				$this->mConnection
 					= $this->mParent
-						->Connection()->selectCollection(
+						->mConnection->selectCollection(
 							$this->offsetGet( kTAG_CONN_COLL ) );
 			
 			else

@@ -331,6 +331,48 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert the object
+	 *
+	 * We overload this method to add the object to the data dictionary cache.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access public
+	 * @return mixed				The object's native identifier.
+	 *
+	 * @uses dictionary()
+	 */
+	public final function commit( $theWrapper = NULL )
+	{
+		//
+		// Call parent method
+		//
+		$id = parent::commit( $theWrapper );
+		
+		//
+		// Set cache.
+		//
+		$this->dictionary()->setTag( $this, 0 );
+		
+		return $id;																	// ==>
+	
+	} // commit.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC MASTER MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -676,6 +718,82 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PROTECTED PERSISTENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	deleteObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Delete the object
+	 *
+	 * We overload this method to remove the tag from the data dictionary.
+	 *
+	 * @access protected
+	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
+	 *
+	 * @uses dictionary()
+	 */
+	protected final function deleteObject()
+	{
+		//
+		// Call parent method
+		//
+		$id = parent::deleteObject();
+		if( $id === FALSE )
+			return FALSE;															// ==>
+		
+		//
+		// Reset cache.
+		//
+		$this->dictionary()->delTag( $this, 0 );
+		
+		return $id;																	// ==>
+	
+	} // deleteObject.
+
+	 
+	/*===================================================================================
+	 *	modifyObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object
+	 *
+	 * We overload this method to update the object in the data dictionary cache.
+	 *
+	 * @param mixed					$theOffsets			Offsets to be modified.
+	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
+	 *
+	 * @access protected
+	 * return integer				Number of objects affected.
+	 *
+	 * @throws Exception
+	 */
+	protected function modifyObject( $theOffsets, $doSet )
+	{
+		//
+		// Call parent method.
+		//
+		$ok = parent::modifyObject( $theOffsets, $doSet );
+		
+		//
+		// Set cache.
+		//
+		$this->dictionary()->setTag( $this, 0 );
+		
+		return $ok;																	// ==>
+	
+	} // modifyObject.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PRE-COMMIT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -834,85 +952,6 @@ class Tag extends PersistentObject
 					static::kSEQ_NAME ) );
 	
 	} // preCommitObjectIdentifiers.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-COMMIT INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postCommit																		*
-	 *==================================================================================*/
-
-	/**
-	 * Cleanup object after commit
-	 *
-	 * In this class we set the newly inserted tag into the cache.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 */
-	protected function postCommit( &$theTags, &$theRefs )
-	{
-		//
-		// Call parent method.
-		//
-		parent::postCommit( $theTags, $theRefs );
-		
-		//
-		// Set cache.
-		//
-		$this->dictionary()->setTag( $this, 0 );
-	
-	} // postCommit.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED POST-DELETE INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	postDelete																		*
-	 *==================================================================================*/
-
-	/**
-	 * Handle object after delete
-	 *
-	 * In this class we delete the tag from the data dictionary.
-	 *
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 *
-	 * @access protected
-	 *
-	 * @uses postDeleteReferences()
-	 * @uses postDeleteTags()
-	 */
-	protected function postDelete( &$theTags, &$theRefs )
-	{
-		//
-		// Call parent method.
-		//
-		parent::postDelete( $theTags, $theRefs );
-		
-		//
-		// Set cache.
-		//
-		$this->dictionary()->delTag( $this, 0 );
-	
-	} // postDelete.
 
 		
 
