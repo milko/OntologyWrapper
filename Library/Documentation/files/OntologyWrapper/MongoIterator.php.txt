@@ -48,16 +48,31 @@ class MongoIterator extends IteratorObject
 	 * We overload the parent constructor to check whether the cursor and collection are
 	 * Mongo objects.
 	 *
+	 *	<li><b>$theCursor</b>: The query result cursor.
+	 *	<li><b>$theCollection</b>: The collection to which the query was applied.
+	 *	<li><b>$theCriteria</b>: The query filter.
+	 *	<li><b>$theFields</b>: The query fields.
+	 *	<li><b>$theResult</b>: A bitfield value determining what kind of data the iterator
+	 *		will return:
+	 *	 <ul>
+	 *		<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
+	 *		<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
+	 *		<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native identifier.
+	 *	 </ul>
+	 * </ul>
+	 *
 	 * @param Iterator				$theCursor			Query cursor.
 	 * @param CollectionObject		$theCollection		Query collection.
+	 * @param array					$theCriteria		Query criteria.
+	 * @param array					$theFields			Query fields.
 	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
-	 *
-	 * @throws Exception
 	 */
 	public function __construct( \Iterator		  $theCursor,
 								 CollectionObject $theCollection,
+								 				  $theCriteria,
+								 				  $theFields = Array(),
 												  $theResult = kQUERY_ARRAY)
 	{
 		//
@@ -70,7 +85,7 @@ class MongoIterator extends IteratorObject
 		//
 		// Check collection.
 		//
-		if( ! ($theCollection->Connection() instanceof \MongoCollection) )
+		if( ! ($theCollection->connection() instanceof \MongoCollection) )
 			throw new \Exception(
 				"Invalid collection type." );									// !@! ==>
 		
@@ -197,16 +212,24 @@ class MongoIterator extends IteratorObject
 	/**
 	 * <h4>Skip a number of elements</h4>
 	 *
-	 * This method should be used only before the cursor has beed iterated, it will skip a
-	 * number of elements before starting to iterate.
-	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
+	 * When setting the value, you should do so only before the iterator was iterated.
 	 *
 	 * @param integer				$theCount			Number of elements to skip.
 	 *
 	 * @access public
+	 * @return integer				Current skip value.
 	 */
-	public function skip( $theCount )				{	$this->cursor()->skip( $theCount );	}
+	public function skip( $theCount = NULL )
+	{
+		//
+		// Skip.
+		//
+		if( $theCount !== NULL )
+			$this->cursor()->skip( $theCount );
+		
+		return $this->cursor()->info()[ 'skip' ];									// ==>
+	
+	} // skip.
 
 	 
 	/*===================================================================================
@@ -216,46 +239,24 @@ class MongoIterator extends IteratorObject
 	/**
 	 * <h4>Limit the number of elements</h4>
 	 *
-	 * This method should be used only before the cursor has beed iterated, it will limit
-	 * the number of elements to be iterated.
-	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
+	 * When setting the value, you should do so only before the iterator was iterated.
 	 *
 	 * @param integer				$theCount			Maximum number of iterations.
 	 *
 	 * @access public
+	 * @return integer				Current limit value.
 	 */
-	public function limit( $theCount )			{	$this->cursor()->limit( $theCount );	}
-
-	 
-	/*===================================================================================
-	 *	sort																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Sort the cursor</h4>
-	 *
-	 * This method should be used only before the cursor has beed iterated, it will sort the
-	 * cursor elements according to the provided array parameter:
-	 *
-	 * <ul>
-	 *	<li><tt>key</tt>: The key corresponds to the field to be sorted.
-	 *	<li><tt>value</tt>: The direction in which to sort:
-	 *	 <ul>
-	 *		<li><tt>1</tt>: Ascending.
-	 *		<li><tt>-1</tt>: Descending.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The sort is also determined by the order in which the array elements are provided.
-	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
-	 *
-	 * @param array					$theOrder			Sort order indications.
-	 *
-	 * @access public
-	 */
-	public function sort( $theOrder )				{	$this->cursor()->sort( $theOrder );	}
+	public function limit( $theCount = NULL )
+	{
+		//
+		// Limit.
+		//
+		if( $theCount !== NULL )
+			$this->cursor()->limit( $theCount );
+		
+		return $this->cursor()->info()[ 'limit' ];									// ==>
+	
+	} // limit.
 
 	 
 	/*===================================================================================
@@ -265,25 +266,41 @@ class MongoIterator extends IteratorObject
 	/**
 	 * <h4>Select the fields to be returned</h4>
 	 *
-	 * This method should be used only before the cursor has beed iterated, it will indicate
-	 * which fields the cursor should return according to the provided array parameter:
-	 *
-	 * <ul>
-	 *	<li><tt>key</tt>: The key corresponds to the field to be selected.
-	 *	<li><tt>value</tt>: Whether to include or exclude it:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Include the field and exclude all others.
-	 *		<li><tt>FALSE</tt>: Exclude the field and include all others.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
+	 * When setting the value, you should do so only before the iterator was iterated.
 	 *
 	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access public
+	 * @return array				Current fields selection.
 	 */
-	public function fields( $theFields )		{	$this->cursor()->fields( $theFields );	}
+	public function fields( $theFields = NULL )
+	{
+		//
+		// Limit.
+		//
+		if( $theFields !== NULL )
+			$this->cursor()->fields( $theFields );
+		
+		return $this->cursor()->info()[ 'fields' ];									// ==>
+	
+	} // fields.
+
+	 
+	/*===================================================================================
+	 *	sort																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Sort the cursor</h4>
+	 *
+	 * Use this method only before the iterator was iterated.
+	 *
+	 * @param array					$theOrder			Sort order indications.
+	 *
+	 * @access public
+	 * @return array				Current sort order.
+	 */
+	public function sort( $theOrder )				{	$this->cursor()->sort( $theOrder );	}
 
 	 
 

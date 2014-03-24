@@ -264,7 +264,10 @@ class MongoCollection extends CollectionObject
 			
 			} // No matches.
 			
-			return new MongoIterator( $cursor, $this, $theResult & kRESULT_MASK );	// ==>
+			return new MongoIterator(
+					$cursor, $this,
+					$theCriteria, $theFields,
+					$theResult & kRESULT_MASK );									// ==>
 		
 		} // Connected.
 			

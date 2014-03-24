@@ -64,11 +64,11 @@ use OntologyWrapper\OntologyObject;
  * </ul>
  *
  * The class provides accessor methods for the object properties: the {@link $mDSN} data
- * member can be managed with the {@link DSN()} method, the {@link $mConnection} data
- * member can be retrieved with the {@link Connection()} method and the {@link $mParent}
- * data member can be retrieved with the {@link Parent()} method.
+ * member can be managed with the {@link dsn()} method, the {@link $mConnection} data
+ * member can be retrieved with the {@link connection()} method and the {@link $mParent}
+ * data member can be retrieved with the {@link parent()} method.
  *
- * When setting the connection string, {@link DSN()}, the object's connection parameters
+ * When setting the connection string, {@link dsn()}, the object's connection parameters
  * will be synchronised. When setting offsets, the data source name will not be changed.
  * When the connection is opened, {@link openConnection()}, the data source name will be
  * re-constituted using the object's offsets. This means that the object offsets represent
@@ -194,7 +194,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 *
-	 * @uses DSN()
+	 * @uses dsn()
 	 * @uses parseOffsets()
 	 * @uses statusReset()
 	 */
@@ -224,7 +224,7 @@ abstract class ConnectionObject extends OntologyObject
 				//
 				// Generate and load DSN.
 				//
-				$this->DSN( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
+				$this->dsn( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
 			
 			} // Provided individual parameters.
 		
@@ -232,7 +232,7 @@ abstract class ConnectionObject extends OntologyObject
 			// Handle data source name.
 			//
 			else
-				$this->DSN( (string) $theParameter );
+				$this->dsn( (string) $theParameter );
 		
 		} // Provided parameter.
 		
@@ -363,7 +363,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * @access public
 	 * @return string				The global identifier.
 	 */
-	public function __toString()								{	return $this->DSN();	}
+	public function __toString()								{	return $this->dsn();	}
 
 		
 
@@ -376,7 +376,7 @@ abstract class ConnectionObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	DSN																				*
+	 *	dsn																				*
 	 *==================================================================================*/
 
 	/**
@@ -422,7 +422,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * @uses parseDSN()
 	 * @uses isDirty()
 	 */
-	public function DSN( $theValue = NULL, $getOld = FALSE, $doSync = TRUE )
+	public function dsn( $theValue = NULL, $getOld = FALSE, $doSync = TRUE )
 	{
 		//
 		// Handle locked object.
@@ -456,11 +456,11 @@ abstract class ConnectionObject extends OntologyObject
 		
 		return $save;																// ==>
 	
-	} // DSN.
+	} // dsn.
 
 		
 	/*===================================================================================
-	 *	Connection																		*
+	 *	connection																		*
 	 *==================================================================================*/
 
 	/**
@@ -477,11 +477,11 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @see $mConnection
 	 */
-	public function Connection()							{	return $this->mConnection;	}
+	public function connection()							{	return $this->mConnection;	}
 
 	 
 	/*===================================================================================
-	 *	Parent																			*
+	 *	parent																			*
 	 *==================================================================================*/
 
 	/**
@@ -498,7 +498,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @see $mParent
 	 */
-	public function Parent()									{	return $this->mParent;	}
+	public function parent()									{	return $this->mParent;	}
 
 		
 
@@ -552,7 +552,7 @@ abstract class ConnectionObject extends OntologyObject
 	 *
 	 * @uses isConnected()
 	 * @uses isDirty()
-	 * @uses DSN()
+	 * @uses dsn()
 	 * @uses parseOffsets()
 	 * @uses connectionOpen()
 	 */
@@ -567,7 +567,7 @@ abstract class ConnectionObject extends OntologyObject
 			// Synchronise DSN.
 			//
 			if( $this->isDirty() )
-				$this->DSN( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
+				$this->dsn( $this->parseOffsets( $this->getArrayCopy() ), FALSE, FALSE );
 		
 			//
 			// Open and set connection.
@@ -594,7 +594,7 @@ abstract class ConnectionObject extends OntologyObject
 	 * Close connection
 	 *
 	 * If the connection is open, this method will close the connection and reset the
-	 * {@link Connection} data member.
+	 * {@link connection} data member.
 	 *
 	 * The method will return <tt>TRUE</tt> if the connection was open and <tt>FALSE</tt> if
 	 * not.

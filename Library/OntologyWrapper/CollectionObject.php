@@ -440,7 +440,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access public
-	 * @return mixed				Matched data or <tt>NULL</tt>.
+	 * @return IteratorObject		Matched data or <tt>NULL</tt>.
 	 */
 	abstract public function matchAll( $theCriteria = Array(),
 									   $theResult = kQUERY_DEFAULT,
@@ -454,12 +454,15 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Return all objects
 	 *
-	 * This method should select all the objects of the collection and return an iterator.
+	 * This method should select all the objects of the collection and return an iterator,
+	 * this iterator is not an instance of {@link IteratorObject}, but the curso of the
+	 * native database engine; by default it should be an iterator whose elements are array
+	 * representations of the selected objects.
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
 	 * @access public
-	 * @return Iterator				Selection of all objects of the collection.
+	 * @return Iterator				Selection of all objects in the collection.
 	 */
 	abstract public function getAll();
 

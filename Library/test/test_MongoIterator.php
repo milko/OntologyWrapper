@@ -77,19 +77,23 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$meta->drop();
-	$wrapper->Entities(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$entities = $wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$units = $wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$units->drop();
+//	$graph = $wrapper->Graph(
+//		new OntologyWrapper\Neo4jGraph(
+//			"neo4j://localhost:7474" ) );
+//	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
-	// Reset ontology.
+	// Load cache.
 	//
-	$wrapper->resetOntology();
+	$wrapper->loadTagCache();
 	
 	//
 	// Test parent class.
@@ -126,7 +130,7 @@ try
 	//
 	// Check count.
 	//
-	echo( '<h4>Query all terms</h4>' );
+	echo( '<h4>Check count</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -188,6 +192,10 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+
+$set = new OntologyWrapper\ResultAggregator( $test );
+echo( '<pre>' ); print_r( $set->aggregate( 'en' ) ); echo( '</pre>' );
+exit;
 
 	//
 	// Iterate objects.

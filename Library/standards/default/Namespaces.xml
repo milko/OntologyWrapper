@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature<em> or <em>composition</em> of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature</em> or <em>composition</em> of an object.]]></item>
 				</item>
 			</item>
 		</TERM>

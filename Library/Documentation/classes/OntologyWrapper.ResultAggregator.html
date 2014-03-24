@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1233331228"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1233331228" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-921032639"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-921032639" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1928117385"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1928117385" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorObject.html">IteratorObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ResultAggregator.html">ResultAggregator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\OntologyWrapper</small>ResultAggregator</h1>
+                    <p><em>Results aggregator</em></p>
+                    <p>The duty of this object is to aggregate the results of the provided iterator object into
+a single structure in which all the iterator element's tag and other object references
+are resolved.</p>
+<p>The object stores this structure in a data member, the structure is divided into three
+main blocks, the first one is structured as follows:</p>
+<ul>
+<li><tt>{@link kSTATUS}</tt>: This element holds the status and iterator counters:
+ <ul>
+    <li><tt>{@link kSTATE}</tt>: The value of this element will be <tt>ok</tt> if the
+        operation was successful, or <tt>error</tt> on errors.
+    <li><tt>{@link kMESSAGE}</tt>: If there was an error, this element will hold the
+        error message.
+    <li><tt>{@link kAFFECTED}</tt>: This element will hold an integer indicating the
+        total number of records affected by the query; this value does not take into
+        consideration paging.
+    <li><tt>{@link kRETURNED}</tt>: This element will hold an integer indicating the
+        number of records returned by the iterator; this value takes into consideration
+        paging.
+    <li><tt>{@link kSTART}</tt>: This element will hold an integer indicating the
+        number of records skipped.
+    <li><tt>{@link kLIMIT}</tt>: This element will hold an integer indicating the
+        maximum number of requested records.
+ </ul>
+</ul>
+<p>This first block holds the information pertaining to the iterator, the second block
+holds information regarding the contents of the third block:</p>
+<ul>
+<li><tt>{@link kDICT}</tt>: This element holds the cross references needed to access
+    the elements of the result block:
+ <ul>
+    <li><tt>{@link kCOLLECTION}</tt>: This element will hold the name of the iterator's
+        collection.
+    <li><tt>{@link kTAGXREF}</tt>: This element will hold the list of all referenced
+        tags, the key represents the tag sequence number of the value the tag native
+        identifier. This element makes it easier to select tag objects by offset.
+    <li><tt>{@link kIDs}</tt>: This element will hold an array listing the native
+        identifiers of the objects selected by the iterator. This is necessary to
+        discriminate the actual result set from eventual objects, belonging to the
+        iterator's collection, referenced by other objects in the set.
+ </ul>
+</ul>
+<p>The second block should be used to identify the result set and to reference tags by
+offset. The third set is an array indexed by collection name, holding all tag objects
+referenced by offsets and all eventual referenced objects belonging to the results set:</p>
+<ul>
+<li><tt>{@link kOBJECTS}</tt>: This element holds the list of names of the collections
+    featuring objects; each element is also an array holding the list of objects
+    belonging to that collection indexed by native identifier. The objects are stored as
+    arrays.
+</ul>
+<p>Object references are resolved as follows:</p>
+<ul>
+<li><em>Offsets</em>: All offsets of all objects, including tag offsets, are resolved
+    into tag objects, these are stored in the relative element of the {@link kOBJECTS}
+    block and their native and sequence identifiers are cross referenced in the
+    {@link kTAGXREF} element.
+<li><em>Object references</em>: All object references are resolved at the first level,
+    which means that referenced objects will not resolve their references.
+</ul>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_resultSet" class="">resultSet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_aggregate" class="">aggregate()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kSTATUS" class="">kSTATUS</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kSTATE" class="">kSTATE</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kMESSAGE" class="">kMESSAGE</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kAFFECTED" class="">kAFFECTED</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kRETURNED" class="">kRETURNED</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kSTART" class="">kSTART</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kLIMIT" class="">kLIMIT</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kDICT" class="">kDICT</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kCOLLECTION" class="">kCOLLECTION</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kTAGXREF" class="">kTAGXREF</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kIDs" class="">kIDs</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#constant_kOBJECTS" class="">kOBJECTS</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_process" class="">process()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_processObject" class="">processObject()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_traverseObject" class="">traverseObject()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_loadTags" class="">loadTags()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_loadReferences" class="">loadReferences()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#method_selectLanguageString" class="">selectLanguageString()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#property_mIterator" class="">$mIterator</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#property_mResults" class="">$mResults</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ResultAggregator.html#property_mProcessed" class="">$mProcessed</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/OntologyWrapper.ResultAggregator.php.html"><div class="path-wrapper">OntologyWrapper/ResultAggregator.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\ResultAggregator</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>23/03/2014</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kSTATUS" name="constant_kSTATUS" class="anchor"></a>
+            <article id="constant_kSTATUS" class="constant">
+                <h3 class="">kSTATUS</h3>
+                <pre class="signature">kSTATUS</pre>
+                <p><em>Status.</em></p>
+                <p>This constant references the status block.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kSTATE" name="constant_kSTATE" class="anchor"></a>
+            <article id="constant_kSTATE" class="constant">
+                <h3 class="">kSTATE</h3>
+                <pre class="signature">kSTATE</pre>
+                <p><em>State.</em></p>
+                <p>This constant references the status state, the value will be the <tt>ok</tt> string
+or <tt>error</tt>, in case of an error.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kMESSAGE" name="constant_kMESSAGE" class="anchor"></a>
+            <article id="constant_kMESSAGE" class="constant">
+                <h3 class="">kMESSAGE</h3>
+                <pre class="signature">kMESSAGE</pre>
+                <p><em>Message.</em></p>
+                <p>This constant references the status message string, this element will only be
+present if there was an error: it represents the error message.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAFFECTED" name="constant_kAFFECTED" class="anchor"></a>
+            <article id="constant_kAFFECTED" class="constant">
+                <h3 class="">kAFFECTED</h3>
+                <pre class="signature">kAFFECTED</pre>
+                <p><em>Affected count.</em></p>
+                <p>This constant references the affected count, which represents an integer indicating
+the total number of elements affected by the query, without considering paging.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kRETURNED" name="constant_kRETURNED" class="anchor"></a>
+            <article id="constant_kRETURNED" class="constant">
+                <h3 class="">kRETURNED</h3>
+                <pre class="signature">kRETURNED</pre>
+                <p><em>Returned count.</em></p>
+                <p>This constant references the returned count, which represents an integer indicating
+the total number of elements returned by the operation; this takes into
+consideration paging.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kSTART" name="constant_kSTART" class="anchor"></a>
+            <article id="constant_kSTART" class="constant">
+                <h3 class="">kSTART</h3>
+                <pre class="signature">kSTART</pre>
+                <p><em>Skipped.</em></p>
+                <p>This constant references the number of skipped elements, this represents an integer
+referring to the <tt>start</tt> paging parameter which starts with <tt>0</tt>.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kLIMIT" name="constant_kLIMIT" class="anchor"></a>
+            <article id="constant_kLIMIT" class="constant">
+                <h3 class="">kLIMIT</h3>
+                <pre class="signature">kLIMIT</pre>
+                <p><em>Limit.</em></p>
+                <p>This constant represents an integer referencing the maximum number of elements to be
+returned by the iterator.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kDICT" name="constant_kDICT" class="anchor"></a>
+            <article id="constant_kDICT" class="constant">
+                <h3 class="">kDICT</h3>
+                <pre class="signature">kDICT</pre>
+                <p><em>Dictionary.</em></p>
+                <p>This constant references the block holding the results cross references.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kCOLLECTION" name="constant_kCOLLECTION" class="anchor"></a>
+            <article id="constant_kCOLLECTION" class="constant">
+                <h3 class="">kCOLLECTION</h3>
+                <pre class="signature">kCOLLECTION</pre>
+                <p><em>Collection.</em></p>
+                <p>This constant represents the iterator's collection name, this will correspond to
+the key of the block holding objects returned by the iterator; and eventual
+referenced objects belonging to the same collection.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kTAGXREF" name="constant_kTAGXREF" class="anchor"></a>
+            <article id="constant_kTAGXREF" class="constant">
+                <h3 class="">kTAGXREF</h3>
+                <pre class="signature">kTAGXREF</pre>
+                <p><em>Tag cross references.</em></p>
+                <p>This constant references the block holding all tag cross references: this is an
+array indexed by tag sequence number with as value the tag native identifier, this
+is used to resolve object offsets.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kIDs" name="constant_kIDs" class="anchor"></a>
+            <article id="constant_kIDs" class="constant">
+                <h3 class="">kIDs</h3>
+                <pre class="signature">kIDs</pre>
+                <p><em>Query identifiers.</em></p>
+                <p>This constant references the block holding the native identifiers of the objects
+selected by the iterator.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kOBJECTS" name="constant_kOBJECTS" class="anchor"></a>
+            <article id="constant_kOBJECTS" class="constant">
+                <h3 class="">kOBJECTS</h3>
+                <pre class="signature">kOBJECTS</pre>
+                <p><em>Objects.</em></p>
+                <p>This constant references the block holding all the objects referenced by the
+result set, it is an array indexed by collection name, holding the list of objects,
+represented as the object array, belonging to the collection.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mIterator" name="property_mIterator" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mIterator</h3>
+                <pre class="signature">$mIterator : \OntologyWrapper\IteratorObject</pre>
+                <p><em>Iterator.</em></p>
+                <p>This protected data member holds the iterator.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mResults" name="property_mResults" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mResults</h3>
+                <pre class="signature">$mResults : array</pre>
+                <p><em>Results.</em></p>
+                <p>This protected data member holds the iterator aggregated results.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mProcessed" name="property_mProcessed" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mProcessed</h3>
+                <pre class="signature">$mProcessed : array</pre>
+                <p><em>Processed.</em></p>
+                <p>This protected data member holds a flag indicating whether the iterator was
+processed, in that case, the result is not needed to be re-processed.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\OntologyWrapper\IteratorObject <span class="argument">$theIterator</span>)</pre>
+                <p><em>Instantiate class.</em></p>
+                <p>The object should be instantiated with an iterator object, this iterator should have
+been paged by the caller: in this class we do not handle paging and sorting, we
+simply scan the iterator.</p>
+<p>The constructor will store the iterator and exctract the relevant information from
+it, it will then initialise the standard blocks.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a></td>
+                                <td>$theIterator</td>
+                                <td><p>Iterator.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_resultSet" name="method_resultSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">resultSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">resultSet() : array</pre>
+                <p><em>&lt;h4&gt;Return the result set&lt;/h4&gt;</em></p>
+                <p>This method will return the current result set.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Result set.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_aggregate" name="method_aggregate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">aggregate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">aggregate(string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>) : array</pre>
+                <p><em>&lt;h4&gt;Aggregate and return results&lt;/h4&gt;</em></p>
+                <p>This method will iterate the results set aggregating the data, the method will return
+the resulting array.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Aggregated results.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_process" name="method_process" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">process()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">process(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, \OntologyWrapper\reference <span class="argument">$theObject</span>, string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>, boolean <span class="argument">$doRefObjects</span>)</pre>
+                <p><em>Process object</em></p>
+                <p>This method will parse the provided object and perform the following actions:</p>
+<ul>
+<li><em>Collect tags and references</em>. The method will collect the object's tags
+    and references.
+<li><em>Serialise object</em>. The method will traverse the object and perform the
+    following actions:
+ <ul>
+    <li><em>Remove unpublished offsets</em>: all offsets not making part of the
+        {@link kTAG_OBJECT_TAGS} property will be removed from the object.
+    <li><em>Select default language strings</em>: if the language code was provided,
+        all language string property values will be replaced by the string matching
+        the provided language code, following these rules:
+     <ul>
+        <li>If the string matching the code is there, use it.
+        <li>If a code <tt>0</tt> is there, use it.
+        <li>Use the first string.
+     </ul>
+    <li><em>Shadow structures</em>: if the fourth parameter is <tt>TRUE</tt>, the
+        method will replace all structure property values with the offset path of
+        the property; this value can be used later to retrieve the single structure
+        properties.
+ </ul>
+<li><em>Load object references</em>. The method will load all the objects referenced
+    by the current object, if the fifth parameter is <tt>TRUE</tt>.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theObject</td>
+                                <td><p>Object array reference.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefObjects</td>
+                                <td><tt>TRUE</tt> load object refs.</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_processObject" name="method_processObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">processObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">processObject(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, \OntologyWrapper\reference <span class="argument">$theObject</span>, \OntologyWrapper\reference <span class="argument">$theTags</span>, string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>)</pre>
+                <p><em>Reduce object</em></p>
+                <p>This method will remove unreferenced tags from the provided object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theObject</td>
+                                <td><p>Object array.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theTags</td>
+                                <td><p>Tag sequence numbers.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_traverseObject" name="method_traverseObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">traverseObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">traverseObject(\OntologyWrapper\Iterator <span class="argument">$theIterator</span>, \OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, \OntologyWrapper\reference <span class="argument">$theNew</span>, \OntologyWrapper\reference <span class="argument">$thePath</span>, \OntologyWrapper\reference <span class="argument">$theTags</span>, string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>) : boolean</pre>
+                <p><em>Traverse object structure</em></p>
+                <p>This method's duty is to traverse the object's structure and:</p>
+<ul>
+<li><em>Remove unpublished tags</em>. These are tags not included in the object's
+    {@link kTAG_OBJECT_TAGS} property.
+<li><em>Select default language strings</em>. If the {@link aggregate()} method was
+    provided a default language code, the method will select the corresponding
+    string and replace the offset's value with that string, following these tules:
+ <ul>
+    <li>If the string matching the code is there, use it.
+    <li>If a code <tt>0</tt> is there, use it.
+    <li>Use the first string.
+ </ul>
+<li><em>Reference structures</em>. If the {@link aggregate()} method was provided
+    that option, all structure offset values will be replaced with the pffset path
+    to the structure property.
+</ul>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theIterator</b>: The iterator pointing to the current property.
+<li><b>$theWrapper</b>: The data wrapper.
+<li><b>$theNew</b>: This array reference will receive the processed object.
+<li><b>$thePath</b>: An array that will be used to compute the path of the current
+    property.
+<li><b>$theTags</b>: The list of published tag sequence numbers.
+<li><b>$theLanguage</b>: The default language code.
+<li><b>$doRefStructs</b>: If <tt>TRUE</tt>, structure contents will be replaced with
+    the path to the property.
+</ul>
+<p>This method is used by the PHP {@link iterator_apply()} method, which means that it
+should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+stop it: it will return <tt>TRUE</tt> by default.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\Iterator</td>
+                                <td>$theIterator</td>
+                                <td><p>Iterator.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theNew</td>
+                                <td><p>Receives processed object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$thePath</td>
+                                <td><p>Offsets path.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theTags</td>
+                                <td><p>Tag sequence numbers.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadTags" name="method_loadTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadTags(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, \OntologyWrapper\reference <span class="argument">$theTags</span>, string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>)</pre>
+                <p><em>Load tags</em></p>
+                <p>This method will load the tag objects provided in the parameter.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theTags</td>
+                                <td><p>Tag sequence numbers.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadReferences" name="method_loadReferences" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadReferences()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadReferences(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>, \OntologyWrapper\reference <span class="argument">$theRefs</span>, string <span class="argument">$theLanguage</span>, boolean <span class="argument">$doRefStructs</span>)</pre>
+                <p><em>Load references</em></p>
+                <p>This method will load the object references provided in the parameter.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theRefs</td>
+                                <td><p>Object references.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$doRefStructs</td>
+                                <td><tt>TRUE</tt> reference structures.</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_selectLanguageString" name="method_selectLanguageString" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">selectLanguageString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">selectLanguageString(array <span class="argument">$theStrings</span>, string <span class="argument">$theLanguage</span>) : string</pre>
+                <p><em>Traverse language strings</em></p>
+                <p>This method's duty is to replace the property with the string matching the provided
+language code, the method will perform the following steps:</p>
+<ul>
+<li>If the string matching the code is there, use it.
+<li>If a code <tt>0</tt> is there, use it.
+<li>Use the first string.
+</ul>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theStrings</b>: The property containing the strings.
+<li><b>$theLanguage</b>: The default language code.
+</ul>
+<p>This method is used by the PHP {@link iterator_apply()} method, which means that it
+should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
+stop it: it will return <tt>TRUE</tt> by default.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theStrings</td>
+                                <td><p>Language strings property.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theLanguage</td>
+                                <td><p>Default language code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The selected string.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                    <span class="label label-info">final</span>
+                                    <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ResultAggregator.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OntologyWrapper/ResultAggregator.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on March 24th, 2014 at 02:59.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

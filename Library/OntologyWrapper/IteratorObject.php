@@ -71,6 +71,24 @@ abstract class IteratorObject implements \Iterator,
 	 protected $mCollection = NULL;
 
 	/**
+	 * Criteria.
+	 *
+	 * This data member holds the query criteria.
+	 *
+	 * @var array
+	 */
+	 protected $mCriteria = NULL;
+
+	/**
+	 * Fields.
+	 *
+	 * This data member holds the selection fields.
+	 *
+	 * @var array
+	 */
+	 protected $mFields = NULL;
+
+	/**
 	 * Result.
 	 *
 	 * This data member holds an enumerated value determining what the iterator should
@@ -108,6 +126,8 @@ abstract class IteratorObject implements \Iterator,
 	 * <ul>
 	 *	<li><b>$theCursor</b>: The query result cursor.
 	 *	<li><b>$theCollection</b>: The collection to which the query was applied.
+	 *	<li><b>$theCriteria</b>: The query filter.
+	 *	<li><b>$theFields</b>: The query fields.
 	 *	<li><b>$theResult</b>: A bitfield value determining what kind of data the iterator
 	 *		will return:
 	 *	 <ul>
@@ -119,12 +139,16 @@ abstract class IteratorObject implements \Iterator,
 	 *
 	 * @param Iterator				$theCursor			Query cursor.
 	 * @param CollectionObject		$theCollection		Query collection.
+	 * @param array					$theCriteria		Query criteria.
+	 * @param array					$theFields			Query fields.
 	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
 	 */
 	public function __construct( \Iterator		  $theCursor,
 								 CollectionObject $theCollection,
+								 				  $theCriteria,
+								 				  $theFields = Array(),
 												  $theResult = kQUERY_ARRAY)
 	{
 		//
@@ -136,6 +160,16 @@ abstract class IteratorObject implements \Iterator,
 		// Set collection.
 		//
 		$this->mCollection = $theCollection;
+		
+		//
+		// Set criteria.
+		//
+		$this->mCriteria = $theCriteria;
+		
+		//
+		// Set fields.
+		//
+		$this->mFields = $theFields;
 		
 		//
 		// Set result.
@@ -187,6 +221,22 @@ abstract class IteratorObject implements \Iterator,
 
 	 
 	/*===================================================================================
+	 *	criteria																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return criteria</h4>
+	 *
+	 * This method can be used to retrieve the current object's criteria, which is the query
+	 * filter.
+	 *
+	 * @access public
+	 * @return array				Query filter.
+	 */
+	public function criteria()								{	return $this->mCriteria;	}
+
+	 
+	/*===================================================================================
 	 *	resultType																		*
 	 *==================================================================================*/
 
@@ -212,7 +262,6 @@ abstract class IteratorObject implements \Iterator,
 	 *
 	 * @param mixed					$theValue			Data source name or operation.
 	 * @param boolean				$getOld				<tt>TRUE</tt> get old value.
-	 * @param boolean				$doSync				<tt>TRUE</tt> will sync offsets.
 	 *
 	 * @access public
 	 * @return mixed				<i>New</i> or <i>old</i> result type code.
@@ -483,16 +532,20 @@ abstract class IteratorObject implements \Iterator,
 	/**
 	 * <h4>Skip a number of elements</h4>
 	 *
-	 * This method should be used only before the cursor has beed iterated, it will skip a
-	 * number of elements before starting to iterate.
+	 * This method can be used to skip a number of records, if you provide an integer, the
+	 * iterator will start from the element corresponding to the provided value; in this
+	 * case the method should be used only before the cursor has beed iterated.
 	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
+	 * If you provide <tt>NULL</tt>, the method should return the current skip value.
+	 *
+	 * The method will return the current skip value.
 	 *
 	 * @param integer				$theCount			Number of elements to skip.
 	 *
 	 * @access public
+	 * @return integer				Current skip value.
 	 */
-	abstract public function skip( $theCount );
+	abstract public function skip( $theCount = NULL );
 
 	 
 	/*===================================================================================
@@ -502,16 +555,54 @@ abstract class IteratorObject implements \Iterator,
 	/**
 	 * <h4>Limit the number of elements</h4>
 	 *
-	 * This method should be used only before the cursor has beed iterated, it will limit
-	 * the number of elements to be iterated.
+	 * This method can be used to provide the maximum number of records to be returned, if
+	 * you provide an integer, the iterator will limit its results to the number
+	 * corresponding to the provided value; in this case the method should be used only
+	 * before the cursor has beed iterated.
 	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
+	 * If you provide <tt>NULL</tt>, the method should return the current limit value.
+	 *
+	 * The method will return the current limit value.
 	 *
 	 * @param integer				$theCount			Maximum number of iterations.
 	 *
 	 * @access public
+	 * @return integer				Current limit value.
 	 */
-	abstract public function limit( $theCount );
+	abstract public function limit( $theCount = NULL );
+
+	 
+	/*===================================================================================
+	 *	fields																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Select the fields to be returned</h4>
+	 *
+	 * This method should be used only before the cursor has beed iterated, it will indicate
+	 * which fields the cursor should return according to the provided array parameter:
+	 *
+	 * <ul>
+	 *	<li><tt>key</tt>: The key corresponds to the field to be selected.
+	 *	<li><tt>value</tt>: Whether to include or exclude it:
+	 *	 <ul>
+	 *		<li><tt>TRUE</tt>: Include the field and exclude all others.
+	 *		<li><tt>FALSE</tt>: Exclude the field and include all others.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the cursor has already started iterating, the method should raise an exception.
+	 *
+	 * If you provide <tt>NULL</tt>, the method will return the current fields selection.
+	 *
+	 * The method will return the current fields selection.
+	 *
+	 * @param array					$theFields			Fields selection.
+	 *
+	 * @access public
+	 * @return array				Current fields selection.
+	 */
+	abstract public function fields( $theFields = NULL );
 
 	 
 	/*===================================================================================
@@ -540,36 +631,9 @@ abstract class IteratorObject implements \Iterator,
 	 * @param array					$theOrder			Sort order indications.
 	 *
 	 * @access public
+	 * @return array				Current sort order.
 	 */
 	abstract public function sort( $theOrder );
-
-	 
-	/*===================================================================================
-	 *	fields																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Select the fields to be returned</h4>
-	 *
-	 * This method should be used only before the cursor has beed iterated, it will indicate
-	 * which fields the cursor should return according to the provided array parameter:
-	 *
-	 * <ul>
-	 *	<li><tt>key</tt>: The key corresponds to the field to be selected.
-	 *	<li><tt>value</tt>: Whether to include or exclude it:
-	 *	 <ul>
-	 *		<li><tt>TRUE</tt>: Include the field and exclude all others.
-	 *		<li><tt>FALSE</tt>: Exclude the field and include all others.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * If the cursor has already started iterating, the method should raise an exception.
-	 *
-	 * @param array					$theFields			Fields selection.
-	 *
-	 * @access public
-	 */
-	abstract public function fields( $theFields );
 
 		
 

@@ -288,7 +288,7 @@ class MongoDatabase extends DatabaseObject
 	 * Open connection
 	 *
 	 * This method will instantiate a {@link MongoDB} object and set it in the
-	 * {@link Connection()} data member.
+	 * {@link mConnection()} data member.
 	 *
 	 * This method expects the caller to have checked whether the connection is already
 	 * open.
@@ -319,7 +319,7 @@ class MongoDatabase extends DatabaseObject
 			if( $this->offsetExists( kTAG_CONN_BASE ) )
 				$this->mConnection
 					= $this->mParent
-						->Connection()->selectDB(
+						->mConnection->selectDB(
 							$this->offsetGet( kTAG_CONN_BASE ) );
 			
 			else

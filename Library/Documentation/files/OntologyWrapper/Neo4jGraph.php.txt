@@ -93,7 +93,7 @@ class Neo4jGraph extends DatabaseGraph
 		//
 		// Instantiate Cypher query.
 		//
-		$query = new \Everyman\Neo4j\Cypher\Query( $this->Connection(),
+		$query = new \Everyman\Neo4j\Cypher\Query( $this->mConnection,
 												   (string) $theQuery,
 												   $theVariables );
 		
@@ -177,12 +177,12 @@ class Neo4jGraph extends DatabaseGraph
 				if( ! is_array( $theLabels ) )
 					$theLabels
 						= array(
-							$this->Connection()->makeLabel( (string) $theLabels ) );
+							$this->mConnection->makeLabel( (string) $theLabels ) );
 				else
 				{
 					foreach( $theLabels as $key => $value )
 						$theLabels[ $key ]
-							= $this->Connection()->makeLabel( (string) $value );
+							= $this->mConnection->makeLabel( (string) $value );
 				
 				} // Provided labels list
 				
@@ -597,7 +597,7 @@ class Neo4jGraph extends DatabaseGraph
 				// Cast labels.
 				//
 				foreach( $theLabel as $key => $value )
-					$theLabel[ $key ] = $this->Connection()->makeLabel( (string) $value );
+					$theLabel[ $key ] = $this->mConnection->makeLabel( (string) $value );
 				
 				//
 				// Set label.
@@ -757,12 +757,12 @@ class Neo4jGraph extends DatabaseGraph
 				if( ! is_array( $theLabel ) )
 					$theLabel
 						= array(
-							$this->Connection()->makeLabel( (string) $theLabel ) );
+							$this->mConnection->makeLabel( (string) $theLabel ) );
 				else
 				{
 					foreach( $theLabel as $key => $value )
 						$theLabel[ $key ]
-							= $this->Connection()->makeLabel( (string) $value );
+							= $this->mConnection->makeLabel( (string) $value );
 				}
 				
 				$labels = $theNode->removeLabels( $theLabel );

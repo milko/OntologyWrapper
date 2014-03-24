@@ -343,6 +343,101 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	OffsetTypes																		*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset types
+	 *
+	 * This method will resolve the provided offset into a {@link Tag} object and return in
+	 * the provided reference parameters the data type and kind; this is done by using the
+	 * provided {@link Dictionary} object.
+	 *
+	 * The method expects the following parameters: 
+	 *
+	 * <ul>
+	 *	<li><b>$theDictionary</b>: This parameter represents the data dictionary.
+	 *	<li><b>$theOffset</b>: This parameter represents the offset.
+	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
+	 *		tag, if the tag could not be resolved, the value will be an empty array.
+	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
+	 *		tag, if the tag could not be resolved, the value will be an empty array; if the
+	 *		tag has no data kind, the parameter will hold an empty array.
+	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt> and either the offset or the tag could not
+	 *		be resolved, the method will raise an exception; the default is <tt>TRUE</tt>.
+	 * </ul>
+	 *
+	 * If the provided offset is numeric, the method will assume it is a tag sequence
+	 * number, if not, the method will resolve it into a tag sequence number; if this fails
+	 * and the last paraneter is <tt>TRUE</tt>, the method will raise an exception.
+	 *
+	 * The method will return <tt>TRUE</tt> if the types were resolved and <tt>NULL</tt> if
+	 * not.
+	 *
+	 * @param DictionaryObject		$theDictionary		Data dictionary.
+	 * @param mixed					$theOffset			Offset.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
+	 *
+	 * @static
+	 * @return mixed				<tt>TRUE</tt> if the tag was resolved, or <tt>NULL</tt>.
+	 */
+	static function OffsetTypes( DictionaryObject $theDictionary,
+												  $theOffset,
+												 &$theType, &$theKind,
+												  $doAssert = TRUE )
+	{
+		//
+		// Init parameters.
+		//
+		$theType = Array();
+		$theKind = Array();
+
+		//
+		// Resolve offset.
+		//
+		if( (! is_int( $theOffset ))
+		 && (! ctype_digit( $theOffset )) )
+			$theOffset = $theDictionary->getSerial( $theOffset, $doAssert );
+		
+		//
+		// Resolve tag.
+		//
+		$tag = $theDictionary->getObject( (int) $theOffset, $doAssert );
+		if( $tag !== NULL )
+		{
+			//
+			// Set data type.
+			// Note that the data type is required.
+			//
+			$theType = $tag[ kTAG_DATA_TYPE ];
+			
+			//
+			// Get data kind.
+			//
+			if( array_key_exists( kTAG_DATA_KIND, $tag ) )
+				$theKind = $tag[ kTAG_DATA_KIND ];
+			
+			return TRUE;															// ==>
+		
+		} // Resolved tag.
+		
+		return NULL;																// ==>
+		
+	} // OffsetTypes.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC OFFSET INTERFACE									*
  *																						*
  *======================================================================================*/
@@ -540,45 +635,36 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Resolve offset types
 	 *
-	 * This method will resolve the current offset into a {@link Tag} object and return in
-	 * the provided reference parameters the data type and kind; this is done by using the
-	 * {@link Dictionary} object stored in the current object's {@link $mDictionary} data
-	 * member.
+	 * This method can be used to resolve the provided offset's data types and kinds,
+	 * returning them in the provided reference parameters.
+	 *
+	 * The method will only consider offsets not belonging to the {@link InternalOffsets()}
+	 * set, if that is the case, the method will return <tt>NULL</tt>; if the offset was
+	 * resolved, the method will return <tt>TRUE</tt>.
 	 *
 	 * The method expects the following parameters: 
 	 *
 	 * <ul>
-	 *	<li><b>$theOffset</b>: This parameter represents the current offset tag reference.
+	 *	<li><b>$theOffset</b>: This parameter represents the offset.
 	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
-	 *		tag, if the tag could not be resolved, the parameter will hold an empty array.
+	 *		tag.
 	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
-	 *		tag, if the tag could not be resolved, or if the tag has no data kind, the
-	 *		parameter will hold an empty array.
+	 *		tag, if the tag has no data kind, the parameter will hold an empty array.
 	 * </ul>
-	 *
-	 * The method will raise an exception if the current offset is not an integer, a numeric
-	 * string or part of the internal offsets.
-	 *
-	 * The method will return <tt>TRUE</tt> if the tag was resolved and <tt>NULL</tt> if the
-	 * offset is internal.
 	 *
 	 * @param string				$theOffset			Current offset.
 	 * @param reference				$theType			Receives data type.
 	 * @param reference				$theKind			Receives data kind.
 	 *
 	 * @access protected
-	 * @return mixed				<tt>TRUE</tt> if the tag was resolved.
+	 * @return mixed				<tt>TRUE</tt> if the tag was resolved or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
+	 *
+	 * @uses OffsetTypes()
 	 */
 	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
 	{
-		//
-		// Init parameters.
-		//
-		$theType = Array();
-		$theKind = Array();
-		
 		//
 		// Skip internal tags.
 		//
@@ -591,39 +677,17 @@ abstract class OntologyObject extends ContainerObject
 				throw new \Exception(
 					"Missing data dictionary." );								// !@! ==>
 	
-			//
-			// Handle numeric offsets.
-			//
-			if( is_int( $theOffset )
-			 || ctype_digit( $theOffset ) )
-			{
-				//
-				// Resolve tag.
-				//
-				$tag = $this->mDictionary->getObject( (int) $theOffset, TRUE );
-				if( $tag !== NULL )
-				{
-					//
-					// Get data type.
-					//
-					$theType = $tag[ kTAG_DATA_TYPE ];
-					
-					//
-					// Get data kind.
-					//
-					if( array_key_exists( kTAG_DATA_KIND, $tag ) )
-						$theKind = $tag[ kTAG_DATA_KIND ];
-					
-					return TRUE;													// ==>
-				
-				} // Found tag.
-		
-			} // Numeric offset.
-			
-			throw new \Exception(
-				"Invalid tag reference [$theOffset]." );						// !@! ==>
+			return static::OffsetTypes(
+						$this->mDictionary,
+						$theOffset, $theType, $theKind, TRUE );						// ==>
 		
 		} // Not an internal offset.
+		
+		//
+		// Init parameters.
+		//
+		$theType = Array();
+		$theKind = Array();
 		
 		return NULL;																// ==>
 	

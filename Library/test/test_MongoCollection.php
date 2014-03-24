@@ -42,7 +42,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 //
 // Debug switches.
 //
-define( 'kDEBUG_PARENT', TRUE );
+define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
@@ -97,19 +97,18 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$meta->drop();
-	$wrapper->Entities(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$entities = $wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$units = $wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	
-	//
-	// Reset ontology.
-	//
-	$wrapper->resetOntology();
+	$units->drop();
+//	$graph = $wrapper->Graph(
+//		new OntologyWrapper\Neo4jGraph(
+//			"neo4j://localhost:7474" ) );
+//	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
 	// Test parent class.

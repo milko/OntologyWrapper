@@ -125,9 +125,22 @@ try
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Init cache.
+	// Set databases.
 	//
-	$_SESSION[ kSESSION_DDICT ]->init();
+	$meta = $wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$entities = $wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$units = $wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$units->drop();
+//	$graph = $wrapper->Graph(
+//		new OntologyWrapper\Neo4jGraph(
+//			"neo4j://localhost:7474" ) );
+//	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
 	// Test parent class.

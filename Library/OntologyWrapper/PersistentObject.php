@@ -1114,6 +1114,274 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	OffsetTypes																		*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve offset types
+	 *
+	 * In this class we hard-code the data types and kinds of the default tags, this is to
+	 * allow loading the data dictionary on a pristine system.
+	 *
+	 * If the provided offset is not among the ones handled in this method, it will call
+	 * the parent method.
+	 *
+	 * @param DictionaryObject		$theDictionary		Data dictionary.
+	 * @param mixed					$theOffset			Offset.
+	 * @param reference				$theType			Receives data type.
+	 * @param reference				$theKind			Receives data kind.
+	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
+	 *
+	 * @static
+	 * @return mixed				<tt>TRUE</tt> if the tag was resolved, or <tt>NULL</tt>.
+	 */
+	static function OffsetTypes( DictionaryObject $theDictionary,
+												  $theOffset,
+												 &$theType, &$theKind,
+												  $doAssert = TRUE )
+	{
+		//
+		// Handle default tags.
+		//
+		switch( $theOffset )
+		{
+			//
+			// Scalar strings.
+			//
+			case kTAG_AUTHORITY:
+			case kTAG_COLLECTION:
+			case kTAG_IDENTIFIER:
+			case kTAG_ID_LOCAL:
+			case kTAG_ID_PERSISTENT:
+			case kTAG_ID_VALID:
+			case kTAG_VERSION:
+			case kTAG_NAME:
+			case kTAG_TYPE:
+			case kTAG_LANGUAGE:
+			case kTAG_TEXT:
+			case kTAG_PATTERN:
+			case kTAG_ENTITY_FNAME:
+			case kTAG_ENTITY_LNAME:
+			case kTAG_CONN_PROTOCOL:
+			case kTAG_CONN_HOST:
+			case kTAG_CONN_USER:
+			case kTAG_CONN_PASS:
+			case kTAG_CONN_BASE:
+			case kTAG_CONN_COLL:
+				$theType = array( kTYPE_STRING );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Enumerations.
+			//
+			case kTAG_DOMAIN:
+			case kTAG_ENTITY_COUNTRY:
+				$theType = array( kTYPE_ENUM );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Enumerated sets.
+			//
+			case kTAG_CATEGORY:
+			case kTAG_DATA_TYPE:
+			case kTAG_DATA_KIND:
+			case kTAG_TERM_TYPE:
+			case kTAG_NODE_TYPE:
+			case kTAG_ENTITY_TYPE:
+			case kTAG_ENTITY_KIND:
+				$theType = array( kTYPE_SET );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar integers.
+			//
+			case kTAG_ID_SEQUENCE:
+			case kTAG_CONN_PORT:
+				$theType = array( kTYPE_INT );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar floats.
+			//
+			case kTAG_MIN:
+			case kTAG_MAX:
+				$theType = array( kTYPE_FLOAT );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar URLs.
+			//
+			case kTAG_URL:
+				$theType = array( kTYPE_URL );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar term references.
+			//
+			case kTAG_NAMESPACE:
+			case kTAG_TERM:
+			case kTAG_PREDICATE:
+				$theType = array( kTYPE_REF_TERM );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar tag references.
+			//
+			case kTAG_TAG:
+				$theType = array( kTYPE_REF_TAG );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar node references.
+			//
+			case kTAG_SUBJECT:
+			case kTAG_OBJECT:
+				$theType = array( kTYPE_REF_NODE );
+				$theKind = Array();
+				return TRUE;														// ==>
+			
+			//
+			// Scalar entity references.
+			//
+			case kTAG_ENTITY:
+			case kTAG_ENTITY_VALID:
+				$theType = array( kTYPE_REF_ENTITY );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar array references.
+			//
+			case kTAG_CONN_OPTS:
+				$theType = array( kTYPE_ARRAY );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar self references.
+			//
+			case kTAG_MASTER:
+				$theType = array( kTYPE_REF_SELF );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar typed lists.
+			//
+			case kTAG_ENTITY_MAIL:
+			case kTAG_ENTITY_EMAIL:
+			case kTAG_ENTITY_LINK:
+			case kTAG_ENTITY_PHONE:
+			case kTAG_ENTITY_FAX:
+			case kTAG_ENTITY_AFFILIATION:
+				$theType = array( kTYPE_TYPED_LIST );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar shapes.
+			//
+			case kTAG_GEO_LOCATION:
+			case kTAG_GEO_PUB_LOCATION:
+				$theType = array( kTYPE_SHAPE );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Scalar language string references.
+			//
+			case kTAG_LABEL:
+			case kTAG_DEFINITION:
+			case kTAG_DESCRIPTION:
+				$theType = array( kTYPE_LANGUAGE_STRINGS );
+				$theKind = Array();
+				return TRUE;														// ==>
+		
+			//
+			// Term reference lists.
+			//
+			case kTAG_TERMS:
+				$theType = array( kTYPE_REF_TERM );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// Tag reference lists.
+			//
+			case kTAG_TAGS:
+				$theType = array( kTYPE_REF_TAG );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// String lists.
+			//
+			case kTAG_NOTE:
+			case kTAG_SYNONYM:
+			case kTAG_ENTITY_ACRONYM:
+				$theType = array( kTYPE_STRING );
+				$theKind = array( kTYPE_LIST );
+				return TRUE;														// ==>
+		
+			//
+			// Private string lists.
+			//
+			case kTAG_TAG_OFFSETS:
+			case kTAG_TERM_OFFSETS:
+			case kTAG_NODE_OFFSETS:
+			case kTAG_EDGE_OFFSETS:
+			case kTAG_ENTITY_OFFSETS:
+			case kTAG_UNIT_OFFSETS:
+				$theType = array( kTYPE_STRING );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
+				return TRUE;														// ==>
+		
+			//
+			// Private integers.
+			//
+			case kTAG_UNIT_COUNT:
+			case kTAG_ENTITY_COUNT:
+			case kTAG_TAG_COUNT:
+			case kTAG_TERM_COUNT:
+			case kTAG_NODE_COUNT:
+			case kTAG_EDGE_COUNT:
+				$theType = array( kTYPE_INT );
+				$theKind = array( kTYPE_PRIVATE_IN );
+				return TRUE;														// ==>
+		
+			//
+			// Private integer lists.
+			//
+			case kTAG_OBJECT_TAGS:
+				$theType = array( kTYPE_INT );
+				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
+				return TRUE;														// ==>
+		
+			//
+			// Private scalar arrays.
+			//
+			case kTAG_OBJECT_OFFSETS:
+				$theType = array( kTYPE_ARRAY );
+				$theKind = array( kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
+				return TRUE;														// ==>
+		
+		} // Parsing default tags.
+		
+		return parent::OffsetTypes(
+					$theDictionary, $theOffset, $theType, $theKind, $doAssert );	// ==>
+		
+	} // OffsetTypes.
+
+
+	/*===================================================================================
 	 *	GetReferenceKey																	*
 	 *==================================================================================*/
 
@@ -3093,7 +3361,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses verifyStructureOffset()
 	 * @uses traverseValidateValue()
 	 */
-	final protected function traverseValidate( \Iterator $theIterator, &$thePath,
+	protected final function traverseValidate( \Iterator $theIterator, &$thePath,
 																	   &$theTags,
 																	   &$theRefs,
 																	    $doValidate = TRUE )
@@ -3533,268 +3801,6 @@ abstract class PersistentObject extends OntologyObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	getOffsetTypes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve offset type
-	 *
-	 * In this class we hard-code the data types and kinds of the default tags, this is to
-	 * allow loading the data dictionary on a pristine system.
-	 *
-	 * If the provided offset is not among the ones handled in this method, it will call
-	 * the parent method.
-	 *
-	 * @param string				$theOffset			Current offset.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>TRUE</tt> if the tag was resolved.
-	 */
-	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
-	{
-		//
-		// Handle default tags.
-		//
-		switch( $theOffset )
-		{
-			//
-			// Scalar strings.
-			//
-			case kTAG_AUTHORITY:
-			case kTAG_COLLECTION:
-			case kTAG_IDENTIFIER:
-			case kTAG_ID_LOCAL:
-			case kTAG_ID_PERSISTENT:
-			case kTAG_ID_VALID:
-			case kTAG_VERSION:
-			case kTAG_NAME:
-			case kTAG_TYPE:
-			case kTAG_LANGUAGE:
-			case kTAG_TEXT:
-			case kTAG_PATTERN:
-			case kTAG_ENTITY_FNAME:
-			case kTAG_ENTITY_LNAME:
-			case kTAG_CONN_PROTOCOL:
-			case kTAG_CONN_HOST:
-			case kTAG_CONN_USER:
-			case kTAG_CONN_PASS:
-			case kTAG_CONN_BASE:
-			case kTAG_CONN_COLL:
-				$theType = array( kTYPE_STRING );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Enumerations.
-			//
-			case kTAG_DOMAIN:
-			case kTAG_ENTITY_COUNTRY:
-				$theType = array( kTYPE_ENUM );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Enumerated sets.
-			//
-			case kTAG_CATEGORY:
-			case kTAG_DATA_TYPE:
-			case kTAG_DATA_KIND:
-			case kTAG_TERM_TYPE:
-			case kTAG_NODE_TYPE:
-			case kTAG_ENTITY_TYPE:
-			case kTAG_ENTITY_KIND:
-				$theType = array( kTYPE_SET );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar integers.
-			//
-			case kTAG_ID_SEQUENCE:
-			case kTAG_CONN_PORT:
-				$theType = array( kTYPE_INT );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar floats.
-			//
-			case kTAG_MIN:
-			case kTAG_MAX:
-				$theType = array( kTYPE_FLOAT );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar URLs.
-			//
-			case kTAG_URL:
-				$theType = array( kTYPE_URL );
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar term references.
-			//
-			case kTAG_NAMESPACE:
-			case kTAG_TERM:
-			case kTAG_PREDICATE:
-				$theType = array( kTYPE_REF_TERM );
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar tag references.
-			//
-			case kTAG_TAG:
-				$theType = array( kTYPE_REF_TAG );
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar node references.
-			//
-			case kTAG_SUBJECT:
-			case kTAG_OBJECT:
-				$theType = array( kTYPE_REF_NODE );
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar entity references.
-			//
-			case kTAG_ENTITY:
-			case kTAG_ENTITY_VALID:
-				$theType = array( kTYPE_REF_ENTITY );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar array references.
-			//
-			case kTAG_CONN_OPTS:
-				$theType = array( kTYPE_ARRAY );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar self references.
-			//
-			case kTAG_MASTER:
-				$theType = array( kTYPE_REF_SELF );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar typed lists.
-			//
-			case kTAG_ENTITY_MAIL:
-			case kTAG_ENTITY_EMAIL:
-			case kTAG_ENTITY_LINK:
-			case kTAG_ENTITY_PHONE:
-			case kTAG_ENTITY_FAX:
-			case kTAG_ENTITY_AFFILIATION:
-				$theType = array( kTYPE_TYPED_LIST );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar shapes.
-			//
-			case kTAG_GEO_LOCATION:
-			case kTAG_GEO_PUB_LOCATION:
-				$theType = array( kTYPE_SHAPE );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar language string references.
-			//
-			case kTAG_LABEL:
-			case kTAG_DEFINITION:
-			case kTAG_DESCRIPTION:
-				$theType = array( kTYPE_LANGUAGE_STRINGS );
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Term reference lists.
-			//
-			case kTAG_TERMS:
-				$theType = array( kTYPE_REF_TERM );
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// Tag reference lists.
-			//
-			case kTAG_TAGS:
-				$theType = array( kTYPE_REF_TAG );
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// String lists.
-			//
-			case kTAG_NOTE:
-			case kTAG_SYNONYM:
-			case kTAG_ENTITY_ACRONYM:
-				$theType = array( kTYPE_STRING );
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// Private string lists.
-			//
-			case kTAG_TAG_OFFSETS:
-			case kTAG_TERM_OFFSETS:
-			case kTAG_NODE_OFFSETS:
-			case kTAG_EDGE_OFFSETS:
-			case kTAG_ENTITY_OFFSETS:
-			case kTAG_UNIT_OFFSETS:
-				$theType = array( kTYPE_STRING );
-				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-			//
-			// Private integers.
-			//
-			case kTAG_UNIT_COUNT:
-			case kTAG_ENTITY_COUNT:
-			case kTAG_TAG_COUNT:
-			case kTAG_TERM_COUNT:
-			case kTAG_NODE_COUNT:
-			case kTAG_EDGE_COUNT:
-				$theType = array( kTYPE_INT );
-				$theKind = array( kTYPE_PRIVATE_IN );
-				return TRUE;														// ==>
-		
-			//
-			// Private integer lists.
-			//
-			case kTAG_OBJECT_TAGS:
-				$theType = array( kTYPE_INT );
-				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-			//
-			// Private scalar arrays.
-			//
-			case kTAG_OBJECT_OFFSETS:
-				$theType = array( kTYPE_ARRAY );
-				$theKind = array( kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-		} // Parsing default tags.
-		
-		return parent::getOffsetTypes( $theOffset, $theType, $theKind );			// ==>
-	
-	} // getOffsetTypes.
 
 	 
 	/*===================================================================================
