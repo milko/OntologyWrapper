@@ -612,7 +612,7 @@ class ResultAggregator
 				// Init new object property.
 				//
 				$theNew[ $offset ] = Array();
-				$ref = & $theNew[ $offset ];
+				$reference = & $theNew[ $offset ];
 				
 				//
 				// Handle structure lists.
@@ -627,8 +627,8 @@ class ResultAggregator
 						//
 						// Init new object property.
 						//
-						$ref[ $idx ] = Array();
-						$ref = & $ref[ $idx ];
+						$reference[ $idx ] = Array();
+						$ref = & $reference[ $idx ];
 				
 						//
 						// Traverse structure.
@@ -667,12 +667,12 @@ class ResultAggregator
 						$iterator = $struct->getIterator();
 						iterator_apply( $iterator,
 										array( $this, 'traverseObject' ),
-										array( $iterator, $theWrapper, & $ref,
+										array( $iterator, $theWrapper, & $reference,
 																	   & $theTags,
 																	   & $theTags,
 																		 $theLanguage,
 																		 $doRefStructs ) );
-					}
+					} // Do not shadow structures.
 		
 				} // Scalar structure.
 			
