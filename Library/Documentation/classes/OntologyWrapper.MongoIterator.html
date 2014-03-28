@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1604766331"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1820041540"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1604766331" class="accordion-body collapse in">
+            <div id="namespace-1820041540" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-863998670"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-912945036"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-863998670" class="accordion-body collapse ">
+            <div id="namespace-912945036" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-574100690"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1724992436"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-574100690" class="accordion-body collapse ">
+            <div id="namespace-1724992436" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -276,6 +276,7 @@ iterator which uses a {@link MongoCursor} instance as the object cursor.</p>
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_limit" class="">limit()</a><br />
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_fields" class="">fields()</a><br />
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_sort" class="">sort()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.IteratorObject.html#method_setTimeout" class="">setTimeout()</a><br />
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_cursor" class="">cursor()</a><br />
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_collection" class="">collection()</a><br />
                                                                     <a href="../classes/OntologyWrapper.IteratorObject.html#method_criteria" class="">criteria()</a><br />
@@ -327,8 +328,6 @@ iterator which uses a {@link MongoCursor} instance as the object cursor.</p>
                     <dl>
                         <dt>File</dt>
                             <dd><a href="../files/OntologyWrapper.MongoIterator.php.html"><div class="path-wrapper">OntologyWrapper/MongoIterator.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                 
@@ -348,7 +347,7 @@ iterator which uses a {@link MongoCursor} instance as the object cursor.</p>
                                 author
                             </th>
                             <td>
-                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -673,8 +672,8 @@ including eventual limits and skip.</p>
                 <pre class="signature" style="margin-right: 54px;">affectedCount() : int</pre>
                 <p><em>&lt;h4&gt;Return affected count&lt;/h4&gt;</em></p>
                 <p>Return the total count excluding eventual limits and skip.</p>
-<p>Note that the cursor must implement the Countable interface in which the</p>
-<tt>count()</tt> method should return the count including skip and limits.
+<p>Note that the cursor must implement the Countable interface in which the
+<tt>count()</tt> method should return the count including skip and limits.</p>
 
                 
                 
@@ -953,6 +952,50 @@ cursor elements according to the provided array parameter:</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_setTimeout" name="method_setTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTimeout(int <span class="argument">$theTimeout</span>)</pre>
+                <p><em>&lt;h4&gt;Set cursor timeout&lt;/h4&gt;</em></p>
+                <p>This method should be used to set the cursor timeout, the method should be available
+also once the cursor has been iterated.</p>
+<p>The method accepts a single parameter indicating the timeout in milliseconds.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$theTimeout</td>
+                                <td><p>Timeout in milliseconds.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                        <span class="label label-info">abstract</span>
+                                                <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.IteratorObject.html"><div class="path-wrapper">\OntologyWrapper\IteratorObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_cursor" name="method_cursor" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">cursor()</h3>
@@ -1095,7 +1138,7 @@ value.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
+                                <td><p><tt>TRUE</tt> get old value.</p></td>
                             </tr>
                                             </table>
                 
@@ -1107,7 +1150,7 @@ value.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <i>New</i> or <i>old</i> result type code.
+                                            &mdash; <p><i>New</i> or <i>old</i> result type code.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -1158,8 +1201,7 @@ value.</p>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.IteratorObject.html"><div class="path-wrapper">\OntologyWrapper\IteratorObject</div></a></dd>
                                                                                             <dt>Uses</dt>
-                                                                <dd>cursor()</dd>
-                                            <dd>shapeResult()</dd>
+                                                                <dd>shapeResult()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -1197,9 +1239,7 @@ cursor's key if the former is not available.</p>
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/OntologyWrapper.IteratorObject.html"><div class="path-wrapper">\OntologyWrapper\IteratorObject</div></a></dd>
-                                                                                            <dt>Uses</dt>
-                                                                <dd>cursor()</dd>
-                                                </dl>
+                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -1422,7 +1462,7 @@ cursor's key if the former is not available.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 24th, 2014 at 02:59.
+                    on March 28th, 2014 at 16:52.
                 </section>
             </section>
         </section>

@@ -121,7 +121,7 @@ class MongoIterator extends IteratorObject
 	 */
 	public function count()
 	{
-		return $this->cursor()->count( TRUE );										// ==>
+		return $this->mCursor->count( TRUE );										// ==>
 
 	} // count.
 
@@ -147,7 +147,7 @@ class MongoIterator extends IteratorObject
 	 * @access public
 	 * @return int					Element count excluding skip and limits.
 	 */
-	public function affectedCount()				{	return $this->cursor()->count( FALSE );	}
+	public function affectedCount()				{	return $this->mCursor->count( FALSE );	}
 
 		
 
@@ -181,7 +181,7 @@ class MongoIterator extends IteratorObject
 		//
 		// Create other iterator.
 		//
-		$iterator = new static( $this->cursor(), $this->collection(), $this->resultType() );
+		$iterator = new static( $this->mCursor, $this->collection(), $this->resultType() );
 		
 		//
 		// Fill keys.
@@ -225,9 +225,9 @@ class MongoIterator extends IteratorObject
 		// Skip.
 		//
 		if( $theCount !== NULL )
-			$this->cursor()->skip( $theCount );
+			$this->mCursor->skip( $theCount );
 		
-		return $this->cursor()->info()[ 'skip' ];									// ==>
+		return $this->mCursor->info()[ 'skip' ];									// ==>
 	
 	} // skip.
 
@@ -252,9 +252,9 @@ class MongoIterator extends IteratorObject
 		// Limit.
 		//
 		if( $theCount !== NULL )
-			$this->cursor()->limit( $theCount );
+			$this->mCursor->limit( $theCount );
 		
-		return $this->cursor()->info()[ 'limit' ];									// ==>
+		return $this->mCursor->info()[ 'limit' ];									// ==>
 	
 	} // limit.
 
@@ -279,9 +279,9 @@ class MongoIterator extends IteratorObject
 		// Limit.
 		//
 		if( $theFields !== NULL )
-			$this->cursor()->fields( $theFields );
+			$this->mCursor->fields( $theFields );
 		
-		return $this->cursor()->info()[ 'fields' ];									// ==>
+		return $this->mCursor->info()[ 'fields' ];									// ==>
 	
 	} // fields.
 
@@ -300,7 +300,23 @@ class MongoIterator extends IteratorObject
 	 * @access public
 	 * @return array				Current sort order.
 	 */
-	public function sort( $theOrder )				{	$this->cursor()->sort( $theOrder );	}
+	public function sort( $theOrder )				{	$this->mCursor->sort( $theOrder );	}
+
+	 
+	/*===================================================================================
+	 *	setTimeout																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set cursor timeout</h4>
+	 *
+	 * This method can be used also once the iterator has been iterated.
+	 *
+	 * @param int					$theTimeout			Timeout in milliseconds.
+	 *
+	 * @access public
+	 */
+	public function setTimeout( $theTimeout )	{	$this->mCursor->timeout( $theTimeout );	}
 
 	 
 

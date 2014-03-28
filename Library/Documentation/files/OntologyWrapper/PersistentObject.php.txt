@@ -3278,7 +3278,7 @@ abstract class PersistentObject extends OntologyObject
 	 * method traverses the object's structure, this data will be then used in the commit
 	 * workflow to perform tasks related to referenced objects and statistical information.
 	 *
-	 * These parameters are:
+	 * These parameters are [[kTAG_DATA_TYPE]]
 	 *
 	 * <ul>
 	 *	<li><b>$theIterator</b>: This parameter contains the element currently pointed to by

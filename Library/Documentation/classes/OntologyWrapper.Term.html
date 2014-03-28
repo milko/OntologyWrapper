@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2143489816"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-817910839"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2143489816" class="accordion-body collapse in">
+            <div id="namespace-817910839" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-70093393"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1466493041"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-70093393" class="accordion-body collapse ">
+            <div id="namespace-1466493041" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-567604929"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2021306115"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-567604929" class="accordion-body collapse ">
+            <div id="namespace-2021306115" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -250,17 +250,14 @@
 
                     <h1><small>\OntologyWrapper</small>Term</h1>
                     <p><em>Term</em></p>
-                    <p>A term object holds the necessary information to <i>uniquely identify</i>,</p>
+                    <p>A term object holds the necessary information to <i>uniquely identify</i>,
 <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related
-to a specific context</i>.
-
-For instance, a <tt>name</tt> is defined as a string or text that identifies something,
+to a specific context</i>.</p>
+<p>For instance, a <tt>name</tt> is defined as a string or text that identifies something,
 this is true for both a person name or an object name, however, the term <tt>name</tt>
 will bare a different meaning depending on what context it is used in: the term object
-holds the definition of that will not change with its context.
-
-The class features the following default offsets:
-
+holds the definition of that will not change with its context.</p>
+<p>The class features the following default offsets:</p>
 <ul>
 <li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
     the term global identifier. By convention this value is the combination of the
@@ -305,19 +302,16 @@ The class features the following default offsets:
     information, while the referenced term will hold the complete information. This is
     useful when there are several terms which are exact cross references.
 </ul>
-
-The {@link __toString()} method will return the value stored in the native identifier,
+<p>The {@link __toString()} method will return the value stored in the native identifier,
 if set, or the computed global identifier if at least the local identifier is set; if the
-latter is not set, the method will fail.
-
-Objects of this class can hold any additional attribute that is considered necessary or
+latter is not set, the method will fail.</p>
+<p>Objects of this class can hold any additional attribute that is considered necessary or
 useful to define and share the current term. In this class we define only those
 attributes that constitute the core functionality of the object, derived classes will add
-attributes specific to the domain in which the object will operate.
-
-The object is considered initialised, {@link isInited()}, if it has at least the local
+attributes specific to the domain in which the object will operate.</p>
+<p>The object is considered initialised, {@link isInited()}, if it has at least the local
 identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL} or the master
-{@link kTAG_MASTER}.
+{@link kTAG_MASTER}.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -452,8 +446,6 @@ identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL} or the mast
                     <dl>
                         <dt>File</dt>
                             <dd><a href="../files/OntologyWrapper.Term.php.html"><div class="path-wrapper">OntologyWrapper/Term.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -492,7 +484,7 @@ identifier, {@link kTAG_ID_LOCAL}, and the label, {@link kTAG_LABEL} or the mast
                                 author
                             </th>
                             <td>
-                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -762,7 +754,7 @@ instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -947,8 +939,8 @@ code in the following order:</p>
 <p>If the code is resolved, the method will return the code with its namespace, if not,
 the method will return <tt>NULL</tt>. If the code size doesn't match the above cases,
 the method will return <tt>FALSE</tt>.</p>
-<em>Note that this is not an exact procedure, there may be synonyms, so you are
-better off curating the data at the source</em>.
+<p><em>Note that this is not an exact procedure, there may be synonyms, so you are
+better off curating the data at the source</em>.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1096,16 +1088,16 @@ parameter and <tt>FALSE</tt> to reset it.</p>
 immutable, so in that case the method will raise an exception.</p>
 <p>When resetting the status, the method will also remove the eventual
 {@link kTAG_MASTER} attribute.</p>
-<em>Note that not any object can be set as alias: objects that can take this state
+<p><em>Note that not any object can be set as alias: objects that can take this state
 must feature a method that selects their master object, so you should shadow this
-method in derived classes that do not implement the concept of master and alias.
+method in derived classes that do not implement the concept of master and alias.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doSet</td>
-                                <td><tt>TRUE</tt> to set.</td>
+                                <td><p><tt>TRUE</tt> to set.</p></td>
                             </tr>
                                             </table>
                 
@@ -1354,7 +1346,7 @@ call its protected {@link modifyObject()} method.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doSet</td>
-                                <td><tt>TRUE</tt> means add or replace.</td>
+                                <td><p><tt>TRUE</tt> means add or replace.</p></td>
                             </tr>
                                             </table>
                 
@@ -1472,7 +1464,7 @@ to return the default {@link CollectionObject} instance.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doOpen</td>
-                                <td><tt>TRUE</tt> open connection.</td>
+                                <td><p><tt>TRUE</tt> open connection.</p></td>
                             </tr>
                                             </table>
                 
@@ -1759,7 +1751,7 @@ not.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>TRUE</tt> if the tag was resolved, or <tt>NULL</tt>.
+                                            &mdash; <p><tt>TRUE</tt> if the tag was resolved, or <tt>NULL</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2035,7 +2027,7 @@ above.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$getOld</td>
-                                <td><tt>TRUE</tt> get old value.</td>
+                                <td><p><tt>TRUE</tt> get old value.</p></td>
                             </tr>
                                             </table>
                 
@@ -2132,10 +2124,9 @@ to an integer and return it.</p>
 method, will be used to locate the tag native identifier using a {@link Dictionary}
 object stored in the current object's {@link $mDictionary} data member; if the
 provided offset cannot be resolved, the method will raise an exception if the second
-parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is</p>
-<tt>FALSE</tt>.
-
-The method will raise an exception if the tag cache is not set.
+parameter is <tt>TRUE</tt>, or <tt>NULL</tt> if the second parameter is
+<tt>FALSE</tt>.</p>
+<p>The method will raise an exception if the tag cache is not set.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2255,7 +2246,7 @@ call the parent method; if not, we return the received value.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the offset exists.
+                                            &mdash; <p><tt>TRUE</tt> the offset exists.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2583,12 +2574,11 @@ converting recursively any {@link ArrayObject} instance into an array.</p>
                 <p><em>Handle offset and value before setting it</em></p>
                 <p>This method can be used to manage the offset before passing it to the inherited
 {@link ArrayObject::OffsetSet()} method.</p>
-<p>The method provides the offset and value as references, if the method returns</p>
+<p>The method provides the offset and value as references, if the method returns
 <tt>NULL</tt> it means that the offset and value must be passed to the inherited
 {@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
-that the inherited {@link ArrayObject::OffsetSet()} should be skipped.
-
-In this class we do nothing.
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.</p>
+<p>In this class we do nothing.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2607,7 +2597,7 @@ In this class we do nothing.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> set offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> set offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2829,7 +2819,7 @@ the opposite way delete does.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> means ready.
+                                            &mdash; <p><tt>TRUE</tt> means ready.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -2923,7 +2913,7 @@ that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> delete offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> delete offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3062,7 +3052,7 @@ the provided offsets. The method expects the following parameters:</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doSet</td>
-                                <td><tt>TRUE</tt> means add or replace.</td>
+                                <td><p><tt>TRUE</tt> means add or replace.</p></td>
                             </tr>
                                             </table>
                 
@@ -3363,7 +3353,7 @@ methods, if you need to modify the traversal parameters do so overloading the
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doValidate</td>
-                                <td><tt>TRUE</tt> validate.</td>
+                                <td><p><tt>TRUE</tt> validate.</p></td>
                             </tr>
                                             </table>
                 
@@ -3897,7 +3887,7 @@ This method is declared final, derived classes should overload the called method
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -3956,7 +3946,7 @@ return <tt>FALSE</tt>.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4013,7 +4003,7 @@ these parameters.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4067,7 +4057,7 @@ store.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> the object can be deleted.
+                                            &mdash; <p><tt>TRUE</tt> the object can be deleted.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4318,7 +4308,7 @@ offset.</p>
 <p>The method is passed a series of reference parameters that will be populated as this
 method traverses the object's structure, this data will be then used in the commit
 workflow to perform tasks related to referenced objects and statistical information.</p>
-<p>These parameters are:</p>
+<p>These parameters are [[kTAG_DATA_TYPE]]</p>
 <ul>
 <li><b>$theIterator</b>: This parameter contains the element currently pointed to by
     the iterator. This iterator is not recursive, each time a sub-structure is
@@ -4412,14 +4402,14 @@ stop it: it will return <tt>TRUE</tt> by default.
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doValidate</td>
-                                <td><tt>TRUE</tt> validate.</td>
+                                <td><p><tt>TRUE</tt> validate.</p></td>
                             </tr>
                                             </table>
                 
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
+                                            &mdash; <p><tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4517,14 +4507,14 @@ methods it calls.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doValidate</td>
-                                <td><tt>TRUE</tt> validate.</td>
+                                <td><p><tt>TRUE</tt> validate.</p></td>
                             </tr>
                                             </table>
                 
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> continues the traversal.
+                                            &mdash; <p><tt>TRUE</tt> continues the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4590,7 +4580,7 @@ the relative tag objects.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> continues the traversal.
+                                            &mdash; <p><tt>TRUE</tt> continues the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4658,7 +4648,7 @@ offsets featured in the current list element.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> continues the traversal.
+                                            &mdash; <p><tt>TRUE</tt> continues the traversal.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4865,7 +4855,7 @@ value <em>must</em> be an array.</p>
                 
                                     <h4>Returns</h4>
                     boolean
-                                            &mdash; <tt>TRUE</tt> if structure or list.
+                                            &mdash; <p><tt>TRUE</tt> if structure or list.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4901,11 +4891,10 @@ current offset is neither a structure nor a list; list elements, however, are pa
 to this method with the parent offset data type and kind.</p>
 <p>In this class we assert that structured types are arrays, <em>only if the current
 offset data type has a single entry</em>.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one data type,</p>
-<tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.
-
-Derived classes can handle custom cases by handling the value if the parent method
-has not returnd <tt>TRUE</tt>.
+<p>The method will return <tt>NULL</tt> if the offset has more than one data type,
+<tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.</p>
+<p>Derived classes can handle custom cases by handling the value if the parent method
+has not returnd <tt>TRUE</tt>.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -4939,7 +4928,7 @@ has not returnd <tt>TRUE</tt>.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4985,12 +4974,11 @@ assumed that all references belong to the current data dictionary,
 {@link dictionary()}.</p>
 <p>In this class we handle all object reference data types, <em>only if the current
 offset data type has a single entry</em>.</p>
-<p>The method will return <tt>NULL</tt> if the offset has more than one data type,</p>
+<p>The method will return <tt>NULL</tt> if the offset has more than one data type,
 <tt>TRUE</tt> if the reference was resolved and <tt>FALSE</tt> if it was not
-resolved; this will only happen if the element's data type is not recognised.
-
-Derived classes can handle custom cases by calling the parent method and checking the
-retuned value.
+resolved; this will only happen if the element's data type is not recognised.</p>
+<p>Derived classes can handle custom cases by calling the parent method and checking the
+retuned value.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -5022,7 +5010,7 @@ retuned value.
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doValidate</td>
-                                <td><tt>TRUE</tt> validate.</td>
+                                <td><p><tt>TRUE</tt> validate.</p></td>
                             </tr>
                                             </table>
                 
@@ -5034,7 +5022,7 @@ retuned value.
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -5072,8 +5060,8 @@ type, the method will only be called for scalar values.</p>
 <p>If the property has more than one data type, the method will do nothing; you should
 overload this method in derived classes only if you plan to handle offsets that can
 have more than one data type.</p>
-<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and</p>
-<tt>NULL</tt> if the offset has more than one data type.
+<p>The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
+<tt>NULL</tt> if the offset has more than one data type.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -5112,7 +5100,7 @@ have more than one data type.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
+                                            &mdash; <p><tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -5464,8 +5452,8 @@ parameters and the references in those collections existing in both collections.
 <p>If the third parameter is <tt>TRUE</tt>, the method will compute the difference, if
 not, the similarity.</p>
 <p>The method will return the computed array, no collections will be empty.</p>
-<em>The method expects both parameters to be arrays structured as the
-{@link kTAG_OBJECT_OFFSETS} property.
+<p><em>The method expects both parameters to be arrays structured as the
+{@link kTAG_OBJECT_OFFSETS} property.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -5482,7 +5470,7 @@ not, the similarity.</p>
                                                     <tr>
                                 <td>boolean</td>
                                 <td>$doDiff</td>
-                                <td><tt>TRUE</tt> compute difference.</td>
+                                <td><p><tt>TRUE</tt> compute difference.</p></td>
                             </tr>
                                             </table>
                 
@@ -5546,7 +5534,7 @@ be returned and the inherited {@link ArrayObject::OffsetExists()} will be skippe
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> check offset, other, return.
+                                            &mdash; <p><tt>NULL</tt> check offset, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -5596,7 +5584,7 @@ returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>NULL</tt> get offset value, other, return.
+                                            &mdash; <p><tt>NULL</tt> get offset value, other, return.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -5667,7 +5655,7 @@ resolved, the method will return <tt>TRUE</tt>.</p>
                 
                                     <h4>Returns</h4>
                     mixed
-                                            &mdash; <tt>TRUE</tt> if the tag was resolved or <tt>NULL</tt>.
+                                            &mdash; <p><tt>TRUE</tt> if the tag was resolved or <tt>NULL</tt>.</p>
                                                 </article>
         </div>
         <aside class="span4 detailsbar">
@@ -5741,7 +5729,7 @@ resolved, the method will return <tt>TRUE</tt>.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 24th, 2014 at 02:59.
+                    on March 28th, 2014 at 16:52.
                 </section>
             </section>
         </section>

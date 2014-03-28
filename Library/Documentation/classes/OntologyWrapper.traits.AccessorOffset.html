@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1851708038"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1990622093"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1851708038" class="accordion-body collapse in">
+            <div id="namespace-1990622093" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-369854449"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1587205950"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-369854449" class="accordion-body collapse ">
+            <div id="namespace-1587205950" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1624172246"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-960718513"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-1624172246" class="accordion-body collapse ">
+            <div id="namespace-960718513" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -327,8 +327,6 @@ accessor methods by sharing standards.</p>
                     <dl>
                         <dt>File</dt>
                             <dd><a href="../files/OntologyWrapper.traits.AccessorOffset.php.html"><div class="path-wrapper">OntologyWrapper/traits/AccessorOffset.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
                                                                                                                                                                     <div class="namespace-wrapper">\OntologyWrapper\traits\AccessorOffset</div>
@@ -346,7 +344,7 @@ accessor methods by sharing standards.</p>
                                 author
                             </th>
                             <td>
-                                                                    <p>Milko A. Škofič <m.skofic@cgiar.org></p>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -655,26 +653,21 @@ method will delete the offset itself.</p>
 properties and offsets, this method can be used to manage the elements of an array of
 array elements in which one item's value represents the discriminant.</p>
 <p>Offsets of this kind are arrays that represent a list of elements, each of which is
-constituted by an array of two items, where the value matching the</p>
+constituted by an array of two items, where the value matching the
 <tt>$theTypeOffset</tt> key represents the element key and the value matching the
-<tt>$theDataOffset</tt> key represents the element's value.
-
-This method allows retrieving the element value and deleting or setting an element.
-
-It is assumed that the value at the provided offset is an array, if this is not the
-case, the method will raise an exception.
-
-If you want to manage the set itself, you have to use the offset management methods.
-
-The method accepts the following parameters:
-
+<tt>$theDataOffset</tt> key represents the element's value.</p>
+<p>This method allows retrieving the element value and deleting or setting an element.</p>
+<p>It is assumed that the value at the provided offset is an array, if this is not the
+case, the method will raise an exception.</p>
+<p>If you want to manage the set itself, you have to use the offset management methods.</p>
+<p>The method accepts the following parameters:</p>
 <ul>
 <li><tt>$theOffset</tt>: The offset to the attribute containing the match list.
 <li><tt>$theTypeOffset</tt>: The offset to the type within the element.
 <li><tt>$theDataOffset</tt>: The offset to the data within the element.
 <li><tt>$theTypeValue</tt>: The value of the element's type to match, it represents
     the key to the element; we assume the value to be a string. A <tt>NULL</tt>
-<pre><code>value is used to select the element missing the &lt;tt&gt;$theTypeOffset&lt;/tt&gt; offset.</code></pre>
+    value is used to select the element missing the <tt>$theTypeOffset</tt> offset.
 <li><tt>$theDataValue</tt>: The value or operation:
  <ul>
     <li><tt>NULL</tt>: Return the offset's <tt>$theDataOffset</tt> value.
@@ -689,10 +682,9 @@ The method accepts the following parameters:
         eventually modified.
  </ul>
 </ul>
-
-The method expects each element to be a structure containing at least an element
+<p>The method expects each element to be a structure containing at least an element
 indexed by the <tt>$theDataOffset</tt> offset, if that is not the case, the method
-will raise an exception. All elements are supposed to be arrays.
+will raise an exception. All elements are supposed to be arrays.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -775,19 +767,15 @@ properties and offsets, this method can be used to manage the elements of an arr
 array elements in which one item's value represents the discriminant and the other
 item is a list of values.</p>
 <p>Offsets of this kind are arrays that represent a list of elements, each of which is
-constituted by an array of two items, where the value matching the</p>
+constituted by an array of two items, where the value matching the
 <tt>$theTypeOffset</tt> key represents the element key and the value matching the
 <tt>$theDataOffset</tt> key represents the element's value. The element's value, in
 this case, is a list of values: this method allows managing the individual elements
-of this list.
-
-It is assumed that the value at the provided offset is an array, if this is not the
-case, the method will raise an exception.
-
-If you want to manage the set itself, you have to use the offset management methods.
-
-The method accepts the following parameters:
-
+of this list.</p>
+<p>It is assumed that the value at the provided offset is an array, if this is not the
+case, the method will raise an exception.</p>
+<p>If you want to manage the set itself, you have to use the offset management methods.</p>
+<p>The method accepts the following parameters:</p>
 <ul>
 <li><tt>$theOffset</tt>: The offset to the attribute containing the match list.
 <li><tt>$theTypeOffset</tt>: The offset to the element item representing the
@@ -806,22 +794,21 @@ The method accepts the following parameters:
 <li><tt>$theOperation</tt>: The operation to be performed:
  <ul>
     <li><tt>NULL</tt>: Return the list value matched by the <tt>$theDataValue</tt>
-<pre><code>    parameter.
-&lt;li&gt;&lt;tt&gt;FALSE&lt;/tt&gt;: Delete the list value matched by the &lt;tt&gt;$theDataValue&lt;/tt&gt;
-    parameter.
-&lt;li&gt;&lt;tt&gt;TRUE&lt;/tt&gt;: Add the list value provided in the &lt;tt&gt;$theDataValue&lt;/tt&gt;
-    parameter to the list.</code></pre>
-<p> </ul></p>
+        parameter.
+    <li><tt>FALSE</tt>: Delete the list value matched by the <tt>$theDataValue</tt>
+        parameter.
+    <li><tt>TRUE</tt>: Add the list value provided in the <tt>$theDataValue</tt>
+        parameter to the list.
+ </ul>
 <li><tt>$getOld</tt>: Determines what the method will return:
  <ul>
     <li><tt>TRUE</tt>: Return the value <i>before</i> it was eventually modified.
     <li><tt>FALSE</tt>: Return the value <i>after</i> it was eventually modified.
  </ul>
 </ul>
-
-The method expects each element to be a structure containing containing both the
+<p>The method expects each element to be a structure containing containing both the
 <tt>$theTypeOffset</tt> and <tt>$theDataOffset</tt> items, if that is not the case,
-the method will raise an exception. All elements are supposed to be arrays.
+the method will raise an exception. All elements are supposed to be arrays.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -946,7 +933,7 @@ the method will raise an exception. All elements are supposed to be arrays.
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 24th, 2014 at 02:59.
+                    on March 28th, 2014 at 16:52.
                 </section>
             </section>
         </section>

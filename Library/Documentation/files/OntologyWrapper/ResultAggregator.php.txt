@@ -28,12 +28,8 @@ use OntologyWrapper\IteratorObject;
  * main blocks, the first one is structured as follows:
  *
  * <ul>
- *	<li><tt>{@link kSTATUS}</tt>: This element holds the status and iterator counters:
+ *	<li><tt>{@link kPAGE}</tt>: This element holds the iterator counters:
  *	 <ul>
- *		<li><tt>{@link kSTATE}</tt>: The value of this element will be <tt>ok</tt> if the
- *			operation was successful, or <tt>error</tt> on errors.
- *		<li><tt>{@link kMESSAGE}</tt>: If there was an error, this element will hold the
- *			error message.
  *		<li><tt>{@link kAFFECTED}</tt>: This element will hold an integer indicating the
  *			total number of records affected by the query; this value does not take into
  *			consideration paging.
@@ -122,29 +118,13 @@ class ResultAggregator
 	protected $mProcessed = FALSE;
 
 	/**
-	 * Status.
+	 * Page.
 	 *
-	 * This constant references the status block.
+	 * This constant references the page block.
 	 *
 	 * @var string
 	 */
-	const kSTATUS = 'status';
-
-	/**
-	 * State.
-	 *
-	 * This constant references the status state, the value will be the <tt>ok</tt> string
-	 * or <tt>error</tt>, in case of an error.
-	 */
-	const kSTATE = 'stat';
-
-	/**
-	 * Message.
-	 *
-	 * This constant references the status message string, this element will only be
-	 * present if there was an error: it represents the error message.
-	 */
-	const kMESSAGE = 'msg';
+	const kPAGE = 'page';
 
 	/**
 	 * Affected count.
@@ -267,11 +247,10 @@ class ResultAggregator
 		$this->mIterator = $theIterator;
 		
 		//
-		// Init status.
+		// Init page.
 		//
-		$this->mResults[ self::kSTATUS ]
-			= array( self::kSTATE => 'ok',
-					 self::kAFFECTED => $theIterator->affectedCount(),
+		$this->mResults[ self::kPAGE ]
+			= array( self::kAFFECTED => $theIterator->affectedCount(),
 					 self::kRETURNED => $theIterator->count(),
 					 self::kSTART => $theIterator->skip(),
 					 self::kLIMIT => $theIterator->limit() );
@@ -354,7 +333,7 @@ class ResultAggregator
 			$collection = $this->mIterator->collection();
 			$wrapper = $collection->dictionary();
 			$name = $collection[ kTAG_CONN_COLL ];
-		
+	
 			//
 			// Iterate iterator.
 			//
@@ -366,29 +345,29 @@ class ResultAggregator
 				$this->mResults[ self::kDICT ]
 							   [ self::kIDs ]
 							   [] = $key;
-			
+		
 				//
 				// Process object.
 				//
 				$this->process( $wrapper, $value, $theLanguage, $doRefStructs, TRUE );
-			
+		
 				//
 				// Store object.
 				//
 				$this->mResults[ self::kOBJECTS ]
 							   [ $name ]
 							   [ $key ] = $value;
-		
+	
 			} // Iterating iterator.
-			
+		
 			//
 			// Signal processed.
 			//
 			$this->mProcessed = TRUE;
-		
+	
 		} // Not processed.
-		
-		return $this->mResults;														// ==>
+	
+		return $this->mResults;													// ==>
 	
 	} // aggregate.
 
@@ -612,7 +591,7 @@ class ResultAggregator
 				// Init new object property.
 				//
 				$theNew[ $offset ] = Array();
-				$ref = & $theNew[ $offset ];
+				$reference = & $theNew[ $offset ];
 				
 				//
 				// Handle structure lists.
@@ -627,8 +606,8 @@ class ResultAggregator
 						//
 						// Init new object property.
 						//
-						$ref[ $idx ] = Array();
-						$ref = & $ref[ $idx ];
+						$reference[ $idx ] = Array();
+						$ref = & $reference[ $idx ];
 				
 						//
 						// Traverse structure.
@@ -667,12 +646,12 @@ class ResultAggregator
 						$iterator = $struct->getIterator();
 						iterator_apply( $iterator,
 										array( $this, 'traverseObject' ),
-										array( $iterator, $theWrapper, & $ref,
+										array( $iterator, $theWrapper, & $reference,
 																	   & $theTags,
 																	   & $theTags,
 																		 $theLanguage,
 																		 $doRefStructs ) );
-					}
+					} // Do not shadow structures.
 		
 				} // Scalar structure.
 			

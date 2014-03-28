@@ -47,7 +47,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 //
 // Debug switches.
 //
-define( 'kDEBUG_PARENT', TRUE );
+define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
@@ -65,6 +65,22 @@ class MyClass extends OntologyWrapper\PersistentObject
 															 $doAssert = TRUE,
 															 $doOpen = TRUE )
 	{	return $theWrapper->Units();											}
+
+	static function ResolveRefCountTag( $theCollection )
+	{
+		if( $theCollection == 'test' )
+			return kTAG_UNIT_COUNT;
+		return parent::ResolveRefCountTag( $theCollection );
+	
+	} // ResolveRefCountTag.
+	
+	static function ResolveOffsetsTag( $theCollection )
+	{
+		if( $theCollection == 'test' )
+			return kTAG_UNIT_OFFSETS;
+		return parent::ResolveOffsetsTag( $theCollection );
+	
+	} // ResolveOffsetsTag.
 	
 	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
 	{	parent::__construct( $theContainer, $theIdentifier );
@@ -156,7 +172,6 @@ try
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$meta->drop();
 	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
@@ -165,9 +180,16 @@ try
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
-	// Reset ontology.
+	// Load data dictionary.
 	//
-	$wrapper->resetOntology();
+	$wrapper->loadTagCache();
+	
+	//
+	// Drop test collection.
+	//
+	MyClass::ResolveCollection(
+		MyClass::ResolveDatabase( $wrapper ) )
+			->drop();
 	
 	//
 	// Test parent class.
@@ -1208,7 +1230,6 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
-exit;
 
 	//
 	// Instantiate empty object.
@@ -1233,12 +1254,12 @@ exit;
 	echo( '<h4>Store and load object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NID ] = "Global identifier";'.kSTYLE_HEAD_POS );
-	$test[ kTAG_ID_PERSISTENT ] = "Global identifier";
+	echo( kSTYLE_HEAD_PRE.'$test[ kTAG_NID ] = "OBJECT1";'.kSTYLE_HEAD_POS );
+	$test[ kTAG_NID ] = "OBJECT1";
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1252,24 +1273,16 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Instantiate from collection by native identifier.
-	//
-	echo( '<h4>Instantiate from collection by native identifier</h4>' );
-	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, $id );'.kSTYLE_HEAD_POS );
 	$test = new MyClass( $wrapper, $id );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1437,110 +1450,6 @@ exit;
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $test->getArrayCopy() );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test collect leaf properties.
-	//
-	echo( '<h4>Test collect leaf properties</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$tags = $refs = NULL;<br/>' );
-	$tags = $refs = NULL;
-	echo( '$test->collectProperties( $tags, $refs, FALSE, FALSE );' );
-	$test->collectProperties( $tags, $refs, FALSE, FALSE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test collect sub properties.
-	//
-	echo( '<h4>Test collect sub properties</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$tags = $refs = NULL;<br/>' );
-	$tags = $refs = NULL;
-	echo( '$test->collectProperties( $tags, $refs, FALSE, TRUE );' );
-	$test->collectProperties( $tags, $refs, FALSE, TRUE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test collect struct properties.
-	//
-	echo( '<h4>Test collect struct properties</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$tags = $refs = NULL;<br/>' );
-	$tags = $refs = NULL;
-	echo( '$test->collectProperties( $tags, $refs, TRUE, FALSE );' );
-	$test->collectProperties( $tags, $refs, TRUE, FALSE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test collect struct and sub properties.
-	//
-	echo( '<h4>Test collect struct and sub properties</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( '$tags = $refs = NULL;<br/>' );
-	$tags = $refs = NULL;
-	echo( '$test->collectProperties( $tags, $refs, TRUE, TRUE );' );
-	$test->collectProperties( $tags, $refs, TRUE, TRUE );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $tags ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $refs ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

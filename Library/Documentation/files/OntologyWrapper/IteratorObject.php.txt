@@ -322,12 +322,11 @@ abstract class IteratorObject implements \Iterator,
 	 * @access public
 	 * @return mixed				Current element value.
 	 *
-	 * @uses cursor()
 	 * @uses shapeResult()
 	 */
 	public function current()
 	{
-		return $this->shapeResult( $this->cursor()->current() );					// ==>
+		return $this->shapeResult( $this->mCursor->current() );						// ==>
 
 	} // current.
 
@@ -345,14 +344,13 @@ abstract class IteratorObject implements \Iterator,
 	 * @access public
 	 * @return mixed				Current element's key.
 	 *
-	 * @uses cursor()
 	 */
 	public function key()
 	{
 		//
 		// Get current element.
 		//
-		$current = $this->cursor()->current();
+		$current = $this->mCursor->current();
 		
 		//
 		// Get key offset.
@@ -395,7 +393,7 @@ abstract class IteratorObject implements \Iterator,
 		if( array_key_exists( $offset, $current ) )
 			return $current[ $offset ];												// ==>
 		
-		return $this->cursor()->key();												// ==>
+		return $this->mCursor->key();												// ==>
 	
 	} // key.
 
@@ -411,7 +409,7 @@ abstract class IteratorObject implements \Iterator,
 	 *
 	 * @access public
 	 */
-	public function next()									{	$this->cursor()->next();	}
+	public function next()										{	$this->mCursor->next();	}
 
 	 
 	/*===================================================================================
@@ -425,7 +423,7 @@ abstract class IteratorObject implements \Iterator,
 	 *
 	 * @access public
 	 */
-	public function rewind()								{	$this->cursor()->rewind();	}
+	public function rewind()								{	$this->mCursor->rewind();	}
 
 	 
 	/*===================================================================================
@@ -440,7 +438,7 @@ abstract class IteratorObject implements \Iterator,
 	 * @access public
 	 * @return boolean
 	 */
-	public function valid()							{	return $this->cursor()->valid();	}
+	public function valid()								{	return $this->mCursor->valid();	}
 
 		
 
@@ -469,7 +467,7 @@ abstract class IteratorObject implements \Iterator,
 	 */
 	public function count()
 	{
-		return $this->cursor()->count();											// ==>
+		return $this->mCursor->count();												// ==>
 
 	} // count.
 
@@ -634,6 +632,25 @@ abstract class IteratorObject implements \Iterator,
 	 * @return array				Current sort order.
 	 */
 	abstract public function sort( $theOrder );
+
+	 
+	/*===================================================================================
+	 *	setTimeout																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Set cursor timeout</h4>
+	 *
+	 * This method should be used to set the cursor timeout, the method should be available
+	 * also once the cursor has been iterated.
+	 *
+	 * The method accepts a single parameter indicating the timeout in milliseconds.
+	 *
+	 * @param int					$theTimeout			Timeout in milliseconds.
+	 *
+	 * @access public
+	 */
+	abstract public function setTimeout( $theTimeout );
 
 		
 
