@@ -762,7 +762,7 @@ class Node extends PersistentObject
 					// Validate offsets.
 					//
 					$this->validateReference(
-						$theValue, __class__, kTYPE_REF_NODE );
+						$theValue, kTYPE_REF_NODE, __class__, $theOffset );
 						
 					break;
 			

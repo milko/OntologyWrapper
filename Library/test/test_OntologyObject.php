@@ -89,18 +89,23 @@ class MyClass extends OntologyWrapper\OntologyObject
 	{
 		switch( $theOffset )
 		{
-			case -1:
-				$theType = array( kTYPE_FLOAT );
+			case 1000001:
+				$theType = kTYPE_FLOAT;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;
 			
-			case -2:
-				$theType = array( kTYPE_STRUCT );
+			case 1000002:
+				$theType = kTYPE_STRUCT;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;
 			
-			case -3:
-				$theType = array( kTYPE_STRUCT );
+			case 1000003:
+				$theType = kTYPE_STRUCT;
+				$theKind = Array();
+				return TRUE;
+			
+			case 1000004:
+				$theType = kTYPE_STRUCT;
 				$theKind = Array();
 				return TRUE;
 		}
@@ -124,7 +129,7 @@ try
 	//
 	// Instantiate data dictionary.
 	//
-	$dictionary
+	$wrapper
 		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
@@ -132,21 +137,20 @@ try
 	//
 	// Set databases.
 	//
-	$meta = $dictionary->Metadata(
+	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$meta->drop();
-	$dictionary->Entities(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$dictionary->Units(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/TEST?connect=1" ) );
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
-	// Reset ontology.
+	// Load data dictionary.
 	//
-	$dictionary->resetOntology();
+	$wrapper->loadTagCache();
 	
 	//
 	// Test parent class.
@@ -165,7 +169,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		var_dump( $test );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -316,10 +320,6 @@ try
 		$test = new MyClass();
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test->dictionary( $dictionary );'.kSTYLE_HEAD_POS );
-		$test->dictionary( $dictionary );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test->AccessorProperty( $test->property, "value" );'.kSTYLE_HEAD_POS );
 		$test->AccessorProperty( $test->property, "value" );
 		echo( kSTYLE_ROW_POS );
@@ -342,7 +342,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -359,7 +359,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); var_dump( $value ); echo( '</pre>' );
+		var_dump( $value );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
@@ -457,7 +457,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -496,7 +496,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -518,7 +518,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -540,7 +540,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -557,7 +557,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
@@ -571,7 +571,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -582,6 +582,10 @@ try
 		//
 		echo( '<h4>Test retrieve non-existing offset<br /><i>should return <tt>NULL</tt></i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'$test->dictionary( $wrapper );'.kSTYLE_HEAD_POS );
+		$test->dictionary( $wrapper );
+		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$value = $test->AccessorOffset( "NOT THERE" );'.kSTYLE_HEAD_POS );
 		$value = $test->AccessorOffset( "NOT THERE" );
@@ -606,7 +610,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -640,7 +644,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -657,7 +661,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -679,7 +683,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -701,7 +705,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -723,7 +727,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -758,7 +762,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -792,7 +796,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -814,7 +818,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -836,7 +840,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -858,7 +862,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -881,7 +885,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -903,7 +907,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -925,7 +929,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -976,7 +980,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -998,7 +1002,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -1020,7 +1024,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -1042,7 +1046,7 @@ try
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_DATA_PRE );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 		echo( kSTYLE_DATA_POS );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_TABLE_POS );
@@ -1065,8 +1069,8 @@ try
 	$test = new MyClass();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test->dictionary( $dictionary );'.kSTYLE_HEAD_POS );
-	$test->dictionary( $dictionary );
+	echo( kSTYLE_HEAD_PRE.'$test->dictionary( $wrapper );'.kSTYLE_HEAD_POS );
+	$test->dictionary( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
@@ -1074,7 +1078,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1091,7 +1095,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1131,7 +1135,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1176,6 +1180,395 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $ref );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test set nested offset.
+	//
+	echo( '<h4>Test set nested offset<br /><i>should create intermediate containers</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ $offset ] = kTYPE_STRING;'.kSTYLE_HEAD_POS );
+	$test[ $offset ] = kTYPE_STRING;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test check nested offset.
+	//
+	echo( '<h4>Test check nested offset<br /><i>should return <tt>TRUE</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->offsetExists( $offset );'.kSTYLE_HEAD_POS );
+	$ok = $test->offsetExists( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test check nested offset.
+	//
+	echo( '<h4>Test check nested offset<br /><i>should return <tt>FALSE</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000003.1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000003.1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test->offsetExists( $offset );'.kSTYLE_HEAD_POS );
+	$ok = $test->offsetExists( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test get nested offset.
+	//
+	echo( '<h4>Test get nested offset<br /><i>should return kTYPE_STRING</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test[ $offset ];'.kSTYLE_HEAD_POS );
+	$ok = $test[ $offset ];
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test get nested offset.
+	//
+	echo( '<h4>Test get nested offset<br /><i>should return the "1000004" array</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004";'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test[ $offset ];'.kSTYLE_HEAD_POS );
+	$ok = $test[ $offset ];
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test get nested offset.
+	//
+	echo( '<h4>Test get nested offset<br /><i>should return <tt>NULL</tt></i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000003";'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000003";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$ok = $test[ $offset ];'.kSTYLE_HEAD_POS );
+	$ok = $test[ $offset ];
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $ok );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Add element to structure.
+	//
+	echo( '<h4>Add element to structure<br /><i>should add to 1000004 a data type</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ $offset ] = kTYPE_INT;'.kSTYLE_HEAD_POS );
+	$test[ $offset ] = kTYPE_INT;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Add element to structure.
+	//
+	echo( '<h4>Add element to structure<br /><i>should add to 1000004 a structures list with a data kind</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000002";'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000002";
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ $offset ] = array( array( 1000003 => array( kTAG_DATA_KIND => array( kTYPE_LIST ) ) ) );'.kSTYLE_HEAD_POS );
+	$test[ $offset ] = array( array( 1000003 => array( kTAG_DATA_KIND => array( kTYPE_LIST ) ) ) );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Append element to structure.
+	//
+	echo( '<h4>Append element to structure<br /><i>should add the 1000004 structure list to 1000002 with a data type</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000002.".kTAG_OPERATION_APPEND.".1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000002.".kTAG_OPERATION_APPEND.".1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test[ $offset ] = kTYPE_INT;'.kSTYLE_HEAD_POS );
+	$test[ $offset ] = kTYPE_INT;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Append element to non list.
+	//
+	echo( '<h4>Append element to non list<br /><i>should raise an exception</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.".kTAG_OPERATION_APPEND.".1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.".kTAG_OPERATION_APPEND.".1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	try
+	{
+		$test[ $offset ] = kTYPE_INT;
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test unset nested offset.
+	//
+	echo( '<h4>Test unset nested offset<br /><i>should delete the second element of 1000002</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000002.1.1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000002.1.1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( $offset );'.kSTYLE_HEAD_POS );
+	$test->offsetUnset( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test unset nested offset.
+	//
+	echo( '<h4>Test unset nested offset<br /><i>should delete only the 22 element of 1000004</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( $offset );'.kSTYLE_HEAD_POS );
+	$test->offsetUnset( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test unset nested offset.
+	//
+	echo( '<h4>Test unset nested offset<br /><i>should delete the 1000003 element of 1000004</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( $offset );'.kSTYLE_HEAD_POS );
+	$test->offsetUnset( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test unset nested offset.
+	//
+	echo( '<h4>Test unset nested offset<br /><i>should delete nothing</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000003.".kTAG_DATA_TYPE;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( $offset );'.kSTYLE_HEAD_POS );
+	$test->offsetUnset( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Test unset nested offset.
+	//
+	echo( '<h4>Test unset nested offset<br /><i>should delete everything</i></h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$offset = "1000003.1000004.1000002.0.1000003.".kTAG_DATA_KIND;'.kSTYLE_HEAD_POS );
+	$offset = "1000003.1000004.1000002.0.1000003.".kTAG_DATA_KIND;
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $offset );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'$test->offsetUnset( $offset );'.kSTYLE_HEAD_POS );
+	$test->offsetUnset( $offset );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	var_dump( $test->getArrayCopy() );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

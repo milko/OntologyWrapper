@@ -29,9 +29,7 @@
 			<item const="kTAG_TERMS">
 				<item>iso:3166:common_name</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:language-strings</item>
-			</item>
+			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 		</TAG>
 		<NODE tag="iso:3166:common_name">
 			<item const="kTAG_NODE_TYPE">
@@ -66,9 +64,7 @@
 			<item const="kTAG_TERMS">
 				<item>iso:3166:2:type</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:string</item>
-			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 		</TAG>
 		<NODE tag="iso:3166:2:type">
 			<item const="kTAG_NODE_TYPE">

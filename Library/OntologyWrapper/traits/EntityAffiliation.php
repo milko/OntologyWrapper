@@ -92,7 +92,8 @@ trait EntityAffiliation
 		//
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
-			$this->validateReference( $theValue, "EntityObject", kTYPE_REF_ENTITY );
+			$this->validateReference(
+				$theValue, kTYPE_REF_ENTITY, "EntityObject", kTAG_ENTITY_AFFILIATION );
 		
 		return $this->manageElementMatchOffset(
 				kTAG_ENTITY_AFFILIATION, kTAG_TYPE, kTAG_ENTITY,

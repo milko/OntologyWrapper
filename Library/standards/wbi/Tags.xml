@@ -27,9 +27,7 @@
 			<item const="kTAG_TERMS">
 				<item>wbi:group</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:enum-set</item>
-			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 		</TAG>
 		<NODE tag="wbi:group">
 			<item const="kTAG_NODE_TYPE">
@@ -71,9 +69,7 @@
 			<item const="kTAG_TERMS">
 				<item>wbi:version</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">
-				<item>:type:string</item>
-			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 		</TAG>
 		<NODE tag="wbi:version">
 			<item const="kTAG_NODE_TYPE">

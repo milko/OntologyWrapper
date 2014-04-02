@@ -832,7 +832,7 @@ class FAOInstitute extends Institution
 		if( $tmp = Term::ResolveCountryCode( $this->dictionary(), $code ) )
 			$this->offsetSet( kTAG_ENTITY_COUNTRY, $tmp );
 		else
-			throw new Exception( "Invalid country code [$code]." );				// !@! ==>
+			throw new \Exception( "Invalid country code [$code]." );			// !@! ==>
 		
 		//
 		// Handle address.

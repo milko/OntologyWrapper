@@ -335,9 +335,147 @@ abstract class OntologyObject extends ContainerObject
 			throw new \Exception(
 				"Missing data dictionary." );									// !@! ==>
 		
-		return $this->mDictionary->getSerial( $theOffset, $doAssert );			// ==>
+		return $this->mDictionary->getSerial( $theOffset, $doAssert );				// ==>
 	
 	} // resolveOffset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	offsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check if an offset exists
+	 *
+	 * We overload this method to resolve nested offsets, these offsets are a sequence of
+	 * tag sequence numbers separated by periods, this method will traverse the structure
+	 * and check whether the nested offset exists.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return boolean				<tt>TRUE</tt> the offset exists.
+	 *
+	 * @uses nestedOffsetExists()
+	 */
+	public function offsetExists( $theOffset )
+	{
+		//
+		// Intercept nested offsets.
+		//
+		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+			return $this->nestedOffsetExists( $theOffset, $value );					// ==>
+		
+		return parent::offsetExists( $theOffset );									// ==>
+	
+	} // offsetExists.
+
+	 
+	/*===================================================================================
+	 *	offsetGet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a value at a given offset
+	 *
+	 * We overload this method to resolve nested offsets, these offsets are a sequence of
+	 * tag sequence numbers separated by periods, this method will traverse the structure
+	 * and check whether the nested offset exists.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return mixed				Offset value or <tt>NULL</tt>.
+	 *
+	 * @uses nestedOffsetGet()
+	 */
+	public function offsetGet( $theOffset )
+	{
+		//
+		// Intercept nested offsets.
+		//
+		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+			return $this->nestedOffsetGet( $theOffset, $value );					// ==>
+		
+		return parent::offsetGet( $theOffset );										// ==>
+	
+	} // offsetGet.
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value at a given offset
+	 *
+	 * We overload this method to resolve nested offsets, these offsets are a sequence of
+	 * tag sequence numbers separated by periods, this method will traverse the structure
+	 * and check whether the nested offset exists.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 *
+	 * @uses nestedOffsetSet()
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Intercept nested offsets.
+		//
+		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+			$this->nestedOffsetSet( $theOffset, $theValue,
+									$root_offset, $root_value,
+									$current_offset, $current_value );
+		
+		//
+		// Handle non-nested offsets.
+		//
+		else
+			parent::offsetSet( $theOffset, $theValue );
+	
+	} // offsetSet.
+
+	 
+	/*===================================================================================
+	 *	offsetUnset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset a value at a given offset
+	 *
+	 * We overload this method to resolve nested offsets, these offsets are a sequence of
+	 * tag sequence numbers separated by periods, this method will traverse the structure
+	 * and check whether the nested offset exists.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 *
+	 * @uses nestedOffsetUnset()
+	 */
+	public function offsetUnset( $theOffset )
+	{
+		//
+		// Intercept nested offsets.
+		//
+		if( preg_match( '/^\d+(\.\d+)+/', $theOffset ) )
+			return $this->nestedOffsetUnset( $theOffset, $toot, $value );			// ==>
+		
+		return parent::offsetUnset( $theOffset );									// ==>
+	
+	} // offsetUnset.
 
 		
 
@@ -383,8 +521,8 @@ abstract class OntologyObject extends ContainerObject
 	 *
 	 * @param DictionaryObject		$theDictionary		Data dictionary.
 	 * @param mixed					$theOffset			Offset.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
+	 * @param string				$theType			Receives data type.
+	 * @param array					$theKind			Receives data kind.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
 	 *
 	 * @static
@@ -398,7 +536,7 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Init parameters.
 		//
-		$theType = Array();
+		$theType = NULL;
 		$theKind = Array();
 
 		//
@@ -409,26 +547,17 @@ abstract class OntologyObject extends ContainerObject
 			$theOffset = $theDictionary->getSerial( $theOffset, $doAssert );
 		
 		//
-		// Resolve tag.
+		// Handle tag.
 		//
-		$tag = $theDictionary->getObject( (int) $theOffset, $doAssert );
-		if( $tag !== NULL )
+		if( $theOffset !== NULL )
 		{
 			//
-			// Set data type.
-			// Note that the data type is required.
+			// Get types.
 			//
-			$theType = $tag[ kTAG_DATA_TYPE ];
-			
-			//
-			// Get data kind.
-			//
-			if( array_key_exists( kTAG_DATA_KIND, $tag ) )
-				$theKind = $tag[ kTAG_DATA_KIND ];
-			
-			return TRUE;															// ==>
+			if( $theDictionary->getTypes( $theOffset, $theType, $theKind, $doAssert ) )
+				return TRUE;															// ==>
 		
-		} // Resolved tag.
+		} // Have tag.
 		
 		return NULL;																// ==>
 		
@@ -618,6 +747,436 @@ abstract class OntologyObject extends ContainerObject
 	
 	} // preOffsetUnset.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *						PROTECTED NESTED OFFSET ACCESS INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	nestedOffsetExists																*
+	 *==================================================================================*/
+
+	/**
+	 * Check if an offset exists
+	 *
+	 * This method is the equivalent of {@link offsetExists()} for nested offsets, the
+	 * method will traverse the current value until it finds the offset, if at any level
+	 * an offset is not resolved, the method will return <tt>FALSE</tt>.
+	 *
+	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * the case, the method will return <tt>FALSE</tt>.
+	 *
+	 * The provided offset must be a valid nested offset, which is a sequence of numerics
+	 * separated by a period; this check must have been performed by the caller.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 * @param array					$theValue			Current value.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> the offset exists.
+	 */
+	protected function nestedOffsetExists( $theOffset, &$theValue )
+	{
+		//
+		// Handle root offset.
+		// Note that we know the offset to have at least two levels.
+		//
+		if( $theValue === NULL)
+		{
+			//
+			// Convert offset.
+			//
+			$theOffset = explode( '.', $theOffset );
+			
+			//
+			// Get offset value.
+			//
+			$theValue = parent::offsetGet( array_shift( $theOffset ) );
+		
+		} // Root offset.
+		
+		//
+		// Check value.
+		//
+		if( ! is_array( $theValue ) )
+			return FALSE;															// ==>
+	
+		//
+		// Get current offset.
+		//
+		$offset = array_shift( $theOffset );
+	
+		//
+		// Check offset.
+		//
+		if( ! array_key_exists( $offset, $theValue ) )
+			return FALSE;															// ==>
+	
+		//
+		// Handle leaf offset.
+		//
+		if( ! count( $theOffset ) )
+			return TRUE;															// ==>
+		
+		return $this->nestedOffsetExists( $theOffset, $theValue[ $offset ] );		// ==>
+	
+	} // nestedOffsetExists.
+
+	 
+	/*===================================================================================
+	 *	nestedOffsetGet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return a value at a given nested offset
+	 *
+	 * This method is the equivalent of {@link offsetGet()} for nested offsets, the method
+	 * will traverse the current value until it finds the offset, if at any level an offset
+	 * is not resolved, the method will return <tt>NULL</tt>.
+	 *
+	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * the case, the method will return <tt>NULL</tt>.
+	 *
+	 * The provided offset must be a valid nested offset, which is a sequence of numerics
+	 * separated by a period; this check must have been performed by the caller.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 * @param array					$theValue			Current value.
+	 *
+	 * @access public
+	 * @return mixed				Offset value or <tt>NULL</tt>.
+	 */
+	public function nestedOffsetGet( $theOffset, &$theValue )
+	{
+		//
+		// Handle root offset.
+		// Note that we know the offset to have at least two levels.
+		//
+		if( $theValue === NULL)
+		{
+			//
+			// Convert offset.
+			//
+			$theOffset = explode( '.', $theOffset );
+			
+			//
+			// Get offset value.
+			//
+			$theValue = parent::offsetGet( array_shift( $theOffset ) );
+		
+		} // Root offset.
+		
+		//
+		// Check value.
+		//
+		if( ! is_array( $theValue ) )
+			return NULL;															// ==>
+	
+		//
+		// Get current offset.
+		//
+		$offset = array_shift( $theOffset );
+	
+		//
+		// Check offset.
+		//
+		if( ! array_key_exists( $offset, $theValue ) )
+			return NULL;															// ==>
+	
+		//
+		// Handle leaf offset.
+		//
+		if( ! count( $theOffset ) )
+			return $theValue[ $offset ];											// ==>
+		
+		return $this->nestedOffsetGet( $theOffset, $theValue[ $offset ] );			// ==>
+	
+	} // nestedOffsetGet.
+
+	 
+	/*===================================================================================
+	 *	nestedOffsetSet																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value at a given offset
+	 *
+	 * This method is the equivalent of {@link offsetSet()} for nested offsets, the method
+	 * will traverse the current value setting eventual missing intermediate offsets as
+	 * arrays; note that if the method finds another kind of value, it will overwrite it
+	 * with an empty array: it is assumed that setting an offset replaces the previous
+	 * contents.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter expects the nested offset string, when
+	 *		recursing, it will be passed the nested offset path array.
+	 *	<li><b>$theValue</b>: This parameter expects the value to be set at the leaf offset.
+	 *	<li><b>$theRootOffset</b>: This parameter is only used during recursion.
+	 *	<li><b>$theRootValue</b>: This parameter is only used during recursion.
+	 *	<li><b>$theCurrentValue</b>: This parameter is only used during recursion.
+	 * </ul>
+	 *
+	 * The method will take care of setting the the object's offset.
+	 *
+	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * the case, the method will return <tt>NULL</tt>.
+	 *
+	 * The provided offset must be a valid nested offset, which is a sequence of numerics
+	 * separated by a period; this check must have been performed by the caller.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value to set at offset.
+	 * @param string				$theRootOffset		Receives root offset.
+	 * @param array					$theRootValue		Receives root value.
+	 * @param string				$theCurrentOffset	Receives current offset.
+	 * @param array					$theCurrentValue	Current level value.
+	 *
+	 * @access public
+	 * @return array				The updated nested structure.
+	 *
+	 * @throws Exception
+	 */
+	public function nestedOffsetSet( $theOffset, $theValue,
+									&$theRootOffset, &$theRootValue,
+									&$theCurrentOffset, &$theCurrentValue )
+	{
+		//
+		// Handle root offset.
+		// Note that we know the offset to have at least two levels.
+		//
+		if( $theCurrentValue === NULL)
+		{
+			//
+			// Convert offset.
+			//
+			$theOffset = explode( '.', $theOffset );
+			
+			//
+			// Get root offset.
+			//
+			$theCurrentOffset = $theRootOffset = array_shift( $theOffset );
+			
+			//
+			// Set root value.
+			//
+			$theRootValue = parent::offsetGet( $theRootOffset );
+			
+			//
+			// Point to root.
+			//
+			$theCurrentValue = & $theRootValue;
+		
+		} // Root offset.
+	
+		//
+		// Initialise container offset.
+		//
+		if( ! is_array( $theCurrentValue ) )
+			$theCurrentValue = Array();
+		
+		//
+		// Get current offset.
+		//
+		$offset = array_shift( $theOffset );
+		
+		//
+		// Handle array append.
+		//
+		if( $offset == kTAG_OPERATION_APPEND )
+		{
+			//
+			// Check if offset is an array.
+			//
+			if( $this->isOffsetListType( $theCurrentOffset ) )
+				$offset = count( $theCurrentValue );
+			else
+				throw new \Exception(
+					"Unable to set nested offset: "
+				   ."the [$theCurrentOffset] offset is not a list." );			// !@! ==>
+		
+		} // Append operation.
+	
+		//
+		// Handle leaf offset.
+		//
+		if( ! count( $theOffset ) )
+		{
+			//
+			// Set leaf offset value.
+			//
+			$theCurrentValue[ $offset ] = $theValue;
+			
+			//
+			// Set root offset value.
+			//
+			\ArrayObject::offsetSet( $theRootOffset, $theRootValue );
+		
+		} // Leaf offset.
+		
+		//
+		// Handle intermediate offsets.
+		//
+		else
+		{
+			//
+			// Initialise container offset.
+			//
+			if( (! array_key_exists( $offset, $theCurrentValue ))
+			 || (! is_array( $theCurrentValue[ $offset ] )) )
+				$theCurrentValue[ $offset ] = Array();
+
+			//
+			// Point to current level.
+			//
+			$theCurrentOffset = $offset;
+			$theCurrentValue = & $theCurrentValue[ $offset ];
+	
+			//
+			// Recurse.
+			//
+			$this->nestedOffsetSet( $theOffset, $theValue,
+									$theRootOffset, $theRootValue,
+									$theCurrentOffset, $theCurrentValue );
+		
+		} // Not the leaf offset.
+	
+	} // nestedOffsetSet.
+
+	 
+	/*===================================================================================
+	 *	offsetUnset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset a value at a given offset
+	 *
+	 * This method is the equivalent of {@link offsetUnset()} for nested offsets, the method
+	 * will traverse the current value until it reaches the requested offset and it will
+	 * delete it, if any offset is not matched, or if any intermediate offset is not an
+	 * array, the method will do nothing.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter expects the nested offset string, when
+	 *		recursing, it will be passed the nested offset path array.
+	 *	<li><b>$theRootOffset</b>: This parameter is only used during recursion.
+	 *	<li><b>$theCurrentValue</b>: This parameter is only used during recursion.
+	 * </ul>
+	 *
+	 * The method will take care of deleting the the object's offset. If any intermediate
+	 * offset holds an empry array, the method will delete it.
+	 *
+	 * It is assumed that all offsets except the last one must be arrays, if that is not
+	 * the case, the method will return <tt>NULL</tt>.
+	 *
+	 * The provided offset must be a valid nested offset, which is a sequence of numerics
+	 * separated by a period; this check must have been performed by the caller.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param string				$theRootOffset		Receives root offset.
+	 * @param array					$theCurrentValue	Current level value.
+	 *
+	 * @access public
+	 */
+	public function nestedOffsetUnset( $theOffset, &$theRootOffset, &$theCurrentValue )
+	{
+		//
+		// Handle root offset.
+		// Note that we know the offset to have at least two levels.
+		//
+		if( $theCurrentValue === NULL)
+		{
+			//
+			// Convert offset.
+			//
+			$theOffset = explode( '.', $theOffset );
+			
+			//
+			// Get root offset.
+			//
+			$theRootOffset = array_shift( $theOffset );
+			
+			//
+			// Get offset value.
+			//
+			$theCurrentValue = parent::offsetGet( $theRootOffset );
+			
+			//
+			// Recurse.
+			//
+			$this->nestedOffsetUnset(
+				$theOffset, $theRootOffset, $theCurrentValue );
+			
+			//
+			// Delete.
+			//
+			if( ! count( $theCurrentValue ) )
+				\ArrayObject::offsetUnset( $theRootOffset );
+			
+			//
+			// Update.
+			//
+			else
+				\ArrayObject::offsetSet( $theRootOffset, $theCurrentValue );
+			
+			return;																	// ==>
+		
+		} // Root offset.
+		
+		//
+		// Only handle arrays.
+		//
+		if( is_array( $theCurrentValue ) )
+		{
+			//
+			// Get current offset.
+			//
+			$offset = array_shift( $theOffset );
+	
+			//
+			// Check offset.
+			//
+			if( array_key_exists( $offset, $theCurrentValue ) )
+			{
+				//
+				// Delete leaf offset.
+				//
+				if( ! count( $theOffset ) )
+					unset( $theCurrentValue[ $offset ] );
+					
+				//
+				// Not a leaf offset.
+				//
+				else
+				{
+					//
+					// Recurse.
+					//
+					$this->nestedOffsetUnset(
+						$theOffset, $theRootOffset, $theCurrentValue[ $offset ] );
+					
+					//
+					// Delete empty arrays.
+					//
+					if( ! count( $theCurrentValue[ $offset ] ) )
+						unset( $theCurrentValue[ $offset ] );
+				
+				} // Not a leaf offset.
+			
+			} // Offset exists.
+		
+		} // Offset is array.
+	
+	} // nestedOffsetUnset.
+
 	
 
 /*=======================================================================================
@@ -653,8 +1212,8 @@ abstract class OntologyObject extends ContainerObject
 	 * </ul>
 	 *
 	 * @param string				$theOffset			Current offset.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
+	 * @param string				$theType			Receives data type.
+	 * @param array					$theKind			Receives data kind.
 	 *
 	 * @access protected
 	 * @return mixed				<tt>TRUE</tt> if the tag was resolved or <tt>NULL</tt>.
@@ -686,12 +1245,59 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Init parameters.
 		//
-		$theType = Array();
+		$theType = NULL;
 		$theKind = Array();
 		
 		return NULL;																// ==>
 	
 	} // getOffsetTypes.
+
+	 
+	/*===================================================================================
+	 *	isOffsetListType																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check if offset is a list type
+	 *
+	 * This method will check whether the provided offset is a list type, that is, if it has
+	 * the {@link kTYPE_LIST} in its data kind, or if the root element is an array.
+	 *
+	 * The method will return <tt>TRUE</tt> if the provided offset is an array.
+	 *
+	 * If the offset is not a tag, the method will raise an exception.
+	 *
+	 * @param mixed					$theOffset			Offset.
+	 *
+	 * @access protected
+	 * @return boolean				<tt>TRUE</tt> if the offset is an array.
+	 */
+	protected function isOffsetListType( $theOffset )
+	{
+		//
+		// Skip internal offsets.
+		//
+		if( ! in_array( (string) $theOffset, static::InternalOffsets() ) )
+		{
+			//
+			// Get offset types.
+			//
+			$this->getOffsetTypes( $theOffset, $type, $kind );
+			
+			//
+			// Check data type and kind.
+			//
+			if( ($type == kTYPE_SET)
+			 || ($type == kTYPE_TYPED_LIST)
+			 || ($type == kTYPE_LANGUAGE_STRINGS)
+			 || in_array( kTYPE_LIST, $kind ) )
+				return TRUE;														// ==>
+		
+		} // Not an internal offset.
+		
+		return FALSE;																// ==>
+		
+	} // isOffsetListType.
 
 	 
 

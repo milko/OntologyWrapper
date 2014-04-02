@@ -362,9 +362,9 @@ define( "kTAG_CATEGORY",				21 );
  *	<li><em>Type</em>: {@link kTYPE_SET}
  * </ul>
  *
- * This tag holds an <em>enumerated set</em> of <em>term object references</em> which
- * indicate the <em>data type</em> of a data property. This type corresponds to the
- * <em>primitive data representation and structure of a data property</em>.
+ * This tag holds a <em>term object references</em> which indicate the <em>data type</em>
+ * of a data property. This type corresponds to the <em>primitive data representation and
+ * structure of a data property</em>.
  */
 define( "kTAG_DATA_TYPE",				22 );
 
@@ -1104,6 +1104,19 @@ define( "kTAG_ENTITY_COUNTRY",			76 );
  * or valid entity.
  */
 define( "kTAG_ENTITY_VALID",			77 );
+
+/*=======================================================================================
+ *	OPERATION OFFSETS																	*
+ *======================================================================================*/
+
+/**
+ * Append to array
+ *
+ * This tag indicates an append to array directive, it is used when setting nested offsets:
+ * whenever this offset is encountered in a sequence of nested offsets, the sequence
+ * following this offset will be appended to the offset preceding this tag.
+ */
+define( "kTAG_OPERATION_APPEND",		100 );
 
 /*=======================================================================================
  *	DEFAULT TAGS LIMIT																	*

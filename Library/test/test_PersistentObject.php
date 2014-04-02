@@ -35,6 +35,11 @@ require_once( 'styles.inc.php' );
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
 
 //
+// Domain definitions.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
+
+//
 // Session definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
@@ -112,38 +117,47 @@ class MyClass extends OntologyWrapper\PersistentObject
 	
 	public function __toString()						{	return "hello!";	}
 	
-	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
+	static function OffsetTypes( OntologyWrapper\DictionaryObject $theDictionary,
+												  $theOffset,
+												 &$theType, &$theKind,
+												  $doAssert = TRUE )
 	{
 		switch( $theOffset )
 		{
 			case -1:
-				$theType = array( kTYPE_FLOAT );
+				$theType = kTYPE_FLOAT;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;
 			
 			case -2:
-				$theType = array( kTYPE_STRUCT );
+				$theType = kTYPE_STRUCT;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;
 			
 			case -3:
-				$theType = array( kTYPE_STRUCT );
+				$theType = kTYPE_STRUCT;
 				$theKind = Array();
 				return TRUE;
 			
 			case -4:
-				$theType = array( kTYPE_SHAPE );
+				$theType = kTYPE_SHAPE;
 				$theKind = Array();
 				return TRUE;
 		}
 
-		return parent::getOffsetTypes( $theOffset, $theType, $theKind );
+		return parent::OffsetTypes(
+			$theDictionary, $theOffset, $theType, $theKind, $doAssert );
 	}
 	
 	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}
 	public function Dirty()		{	return ( $this->isDirty() ) ? 'checked="1"' : '';	}
 	public function Committed()	{	return ( $this->isCommitted() ) ? 'checked="1"' : '';	}
 	public function Alias()		{	return ( $this->isAlias() ) ? 'checked="1"' : '';	}
+	
+	public function traverseObject( &$theTags, &$theRefs, $doValidate = TRUE )
+	{
+		$this->parseObject( $theTags, $theRefs, $doValidate );
+	}
 }
 
 
@@ -1296,7 +1310,7 @@ try
 	(
 		kTAG_NID => "ID",
 		kTAG_CLASS => "OntologyObject",
-		kTAG_DOMAIN => ":type",
+		kTAG_DOMAIN => kDOMAIN_UNIT,
 		kTAG_NAME => 123,
 		-1 => array( "12.47", "35.22", 5.01263, 12 ),
 		-3 => array
@@ -1373,7 +1387,7 @@ try
 					 							   array( '37', '42' ),
 					 							   array( '59', '63.26' ),
 					 							   array( '89', '71.12' ) ) ),
-		kTAG_DATA_TYPE => array( ':type:ref:term', ':type:int' )
+		kTAG_DATA_KIND => array( ':type:ref:term', ':type:int' )
 	);
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
@@ -1399,6 +1413,41 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	
+$test->traverseObject( $tags, $refs, TRUE );
+echo( kSTYLE_TABLE_PRE );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_HEAD_PRE.'$test->traverseObject( $tags, $refs, TRUE );'.kSTYLE_HEAD_POS );
+$test->traverseObject( $tags, $refs, TRUE );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_HEAD_PRE.'TAGS'.kSTYLE_HEAD_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_DATA_PRE );
+var_dump( $tags );
+echo( kSTYLE_DATA_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_HEAD_PRE.'REFS'.kSTYLE_HEAD_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_DATA_PRE );
+var_dump( $refs );
+echo( kSTYLE_DATA_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_HEAD_PRE.'OBJECT'.kSTYLE_HEAD_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_ROW_PRE );
+echo( kSTYLE_DATA_PRE );
+var_dump( $test->getArrayCopy() );
+echo( kSTYLE_DATA_POS );
+echo( kSTYLE_ROW_POS );
+echo( kSTYLE_TABLE_POS );
+echo( '<hr>' );
+
+exit;
 
 	//
 	// Commit object.

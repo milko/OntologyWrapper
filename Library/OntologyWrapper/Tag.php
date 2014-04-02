@@ -83,10 +83,8 @@ use OntologyWrapper\CollectionObject;
  *		offset accessor methods which respectively add and remove elements of the branch as
  *		if it was a stack.
  *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: <em>Data type</em>. This attribute is an enumerated
- *		set of values listing all the <em>data types</em> that the value of the property
- *		defined by the current tag may take. To populate and handle individual data types
- *		use the {@link DataType()} offset accessor method. This property is
- *		<em>required</em> by all tag objects.
+ *		value indicating the <em>data type</em> that the value of the property defined by
+ *		the current tag may take.
  *	<li><tt>{@link kTAG_DATA_KIND}</tt>: <em>Data kind</em>. This attribute is an enumerated
  *		set of values providing the <em>data attributes</em> of the property defined by the
  *		current tag. This may be whether the property is a list of values, or if the
@@ -220,13 +218,6 @@ class Tag extends PersistentObject
 	 * We use this trait to handle the terms list.
 	 */
 	use	traits\Terms;
-
-	/**
-	 * Data type trait.
-	 *
-	 * We use this trait to handle data types.
-	 */
-	use	traits\DataType;
 
 	/**
 	 * Data kind trait.
@@ -863,7 +854,7 @@ class Tag extends PersistentObject
 			// Assert current tag is a list of structures.
 			//
 			if( (! $this->offsetExists( kTAG_DATA_TYPE ))
-			 || (! array_key_exists( kTYPE_STRUCT, $this->offsetGet( kTAG_DATA_TYPE ) ))
+			 || ($this->offsetGet( kTAG_DATA_TYPE ) != kTYPE_STRUCT)
 			 || (! offsetExists( kTAG_DATA_KIND ))
 			 || (! array_key_exists( kTYPE_LIST, $this->offsetGet( kTAG_DATA_KIND ) )) )
 				throw new \Exception(

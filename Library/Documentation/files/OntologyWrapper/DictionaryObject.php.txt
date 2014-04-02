@@ -234,8 +234,8 @@ abstract class DictionaryObject extends ContainerObject
 	 *
 	 * @access public
 	 * @return mixed				Tag object array or <tt>NULL</tt>.
-	 +
-	 + @throws Exception
+	 *
+	 * @throws Exception
 	 *
 	 * @uses getEntry()
 	 */
@@ -244,9 +244,9 @@ abstract class DictionaryObject extends ContainerObject
 		//
 		// Match offset.
 		//
-		$id = $this->getEntry( (int) $theIdentifier, $doAssert );
-		if( $id !== NULL )
-			return $id;																// ==>
+		$object = $this->getEntry( (int) $theIdentifier, $doAssert );
+		if( $object !== NULL )
+			return $object;															// ==>
 		
 		//
 		// Assert.
@@ -258,6 +258,72 @@ abstract class DictionaryObject extends ContainerObject
 		return NULL;																// ==>
 		
 	} // getObject.
+
+	 
+	/*===================================================================================
+	 *	getTypes																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get tag types
+	 *
+	 * This method should return the tag data type and kind in the provided reference
+	 * parameters, the method expects the identifier to be a tag sequence number, it will
+	 * be cast to an integer.
+	 *
+	 * The last parameter represents a boolean flag: if <tt>TRUE</tt> and the provided
+	 * identifier is not matched, the method will raise an exception; if <tt>FALSE</tt>, the
+	 * method will set the data type to <tt>NULL</tt> and the data kind to an empty array;
+	 * if the tag has no data kind, the method will set the relative parameter to an empty
+	 * array.
+	 *
+	 * @param integer				$theIdentifier		Serial identifier.
+	 * @param string				$theType			Receives data type.
+	 * @param array					$theKind			Receives data kind.
+	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert match.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 * @return boolean				<tt>TRUE</tt> means the tag was found.
+	 *
+	 * @uses getEntry()
+	 */
+	public function getTypes( $theIdentifier, &$theType, &$theKind, $doAssert = TRUE )
+	{
+		//
+		// Init parameters.
+		//
+		$theType = NULL;
+		$theKind = Array();
+		
+		//
+		// Match offset.
+		//
+		$object = $this->getEntry( (int) $theIdentifier, $doAssert );
+		if( $object !== NULL )
+		{
+			//
+			// Set parameters.
+			//
+			$theType = $object[ kTAG_DATA_TYPE ];
+			if( array_key_exists( kTAG_DATA_KIND, $object ) )
+				$theKind = $object[ kTAG_DATA_KIND ];
+			
+			return TRUE;															// ==>
+		
+		} // Found tag.
+		
+		//
+		// Assert.
+		//
+		elseif( $doAssert )
+			throw new \Exception(
+				"Unmatched dictionary identifier [$theIdentifier]." );			// !@! ==>
+		
+		return FALSE;																// ==>
+		
+	} // getTypes.
 
 	 
 	/*===================================================================================

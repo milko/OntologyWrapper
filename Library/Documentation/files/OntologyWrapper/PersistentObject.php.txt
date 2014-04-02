@@ -929,7 +929,7 @@ abstract class PersistentObject extends OntologyObject
 	 *==================================================================================*/
 
 	/**
-	 * Resolve collection
+	 * Resolve collection by name
 	 *
 	 * Given a wrapper and a collection name, this method will return a collection
 	 * reference.
@@ -1128,8 +1128,8 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param DictionaryObject		$theDictionary		Data dictionary.
 	 * @param mixed					$theOffset			Offset.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
+	 * @param string				$theType			Receives data type.
+	 * @param array					$theKind			Receives data kind.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
 	 *
 	 * @static
@@ -1168,7 +1168,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_CONN_PASS:
 			case kTAG_CONN_BASE:
 			case kTAG_CONN_COLL:
-				$theType = array( kTYPE_STRING );
+				$theType = kTYPE_STRING;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1176,8 +1176,9 @@ abstract class PersistentObject extends OntologyObject
 			// Enumerations.
 			//
 			case kTAG_DOMAIN:
+			case kTAG_DATA_TYPE:
 			case kTAG_ENTITY_COUNTRY:
-				$theType = array( kTYPE_ENUM );
+				$theType = kTYPE_ENUM;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1185,13 +1186,12 @@ abstract class PersistentObject extends OntologyObject
 			// Enumerated sets.
 			//
 			case kTAG_CATEGORY:
-			case kTAG_DATA_TYPE:
 			case kTAG_DATA_KIND:
 			case kTAG_TERM_TYPE:
 			case kTAG_NODE_TYPE:
 			case kTAG_ENTITY_TYPE:
 			case kTAG_ENTITY_KIND:
-				$theType = array( kTYPE_SET );
+				$theType = kTYPE_SET;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1200,7 +1200,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_ID_SEQUENCE:
 			case kTAG_CONN_PORT:
-				$theType = array( kTYPE_INT );
+				$theType = kTYPE_INT;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1209,7 +1209,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_MIN:
 			case kTAG_MAX:
-				$theType = array( kTYPE_FLOAT );
+				$theType = kTYPE_FLOAT;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1217,7 +1217,7 @@ abstract class PersistentObject extends OntologyObject
 			// Scalar URLs.
 			//
 			case kTAG_URL:
-				$theType = array( kTYPE_URL );
+				$theType = kTYPE_URL;
 				$theKind = Array();
 				return TRUE;														// ==>
 			
@@ -1227,7 +1227,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_NAMESPACE:
 			case kTAG_TERM:
 			case kTAG_PREDICATE:
-				$theType = array( kTYPE_REF_TERM );
+				$theType = kTYPE_REF_TERM;
 				$theKind = Array();
 				return TRUE;														// ==>
 			
@@ -1235,7 +1235,7 @@ abstract class PersistentObject extends OntologyObject
 			// Scalar tag references.
 			//
 			case kTAG_TAG:
-				$theType = array( kTYPE_REF_TAG );
+				$theType = kTYPE_REF_TAG;
 				$theKind = Array();
 				return TRUE;														// ==>
 			
@@ -1244,7 +1244,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_SUBJECT:
 			case kTAG_OBJECT:
-				$theType = array( kTYPE_REF_NODE );
+				$theType = kTYPE_REF_NODE;
 				$theKind = Array();
 				return TRUE;														// ==>
 			
@@ -1253,7 +1253,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_ENTITY:
 			case kTAG_ENTITY_VALID:
-				$theType = array( kTYPE_REF_ENTITY );
+				$theType = kTYPE_REF_ENTITY;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1261,7 +1261,7 @@ abstract class PersistentObject extends OntologyObject
 			// Scalar array references.
 			//
 			case kTAG_CONN_OPTS:
-				$theType = array( kTYPE_ARRAY );
+				$theType = kTYPE_ARRAY;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1269,7 +1269,7 @@ abstract class PersistentObject extends OntologyObject
 			// Scalar self references.
 			//
 			case kTAG_MASTER:
-				$theType = array( kTYPE_REF_SELF );
+				$theType = kTYPE_REF_SELF;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1282,7 +1282,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_ENTITY_PHONE:
 			case kTAG_ENTITY_FAX:
 			case kTAG_ENTITY_AFFILIATION:
-				$theType = array( kTYPE_TYPED_LIST );
+				$theType = kTYPE_TYPED_LIST;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1291,7 +1291,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_GEO_LOCATION:
 			case kTAG_GEO_PUB_LOCATION:
-				$theType = array( kTYPE_SHAPE );
+				$theType = kTYPE_SHAPE;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1301,7 +1301,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_LABEL:
 			case kTAG_DEFINITION:
 			case kTAG_DESCRIPTION:
-				$theType = array( kTYPE_LANGUAGE_STRINGS );
+				$theType = kTYPE_LANGUAGE_STRINGS;
 				$theKind = Array();
 				return TRUE;														// ==>
 		
@@ -1309,7 +1309,7 @@ abstract class PersistentObject extends OntologyObject
 			// Term reference lists.
 			//
 			case kTAG_TERMS:
-				$theType = array( kTYPE_REF_TERM );
+				$theType = kTYPE_REF_TERM;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;														// ==>
 		
@@ -1317,7 +1317,7 @@ abstract class PersistentObject extends OntologyObject
 			// Tag reference lists.
 			//
 			case kTAG_TAGS:
-				$theType = array( kTYPE_REF_TAG );
+				$theType = kTYPE_REF_TAG;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;														// ==>
 		
@@ -1327,7 +1327,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_NOTE:
 			case kTAG_SYNONYM:
 			case kTAG_ENTITY_ACRONYM:
-				$theType = array( kTYPE_STRING );
+				$theType = kTYPE_STRING;
 				$theKind = array( kTYPE_LIST );
 				return TRUE;														// ==>
 		
@@ -1340,7 +1340,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_EDGE_OFFSETS:
 			case kTAG_ENTITY_OFFSETS:
 			case kTAG_UNIT_OFFSETS:
-				$theType = array( kTYPE_STRING );
+				$theType = kTYPE_STRING;
 				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
 				return TRUE;														// ==>
 		
@@ -1353,7 +1353,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTAG_TERM_COUNT:
 			case kTAG_NODE_COUNT:
 			case kTAG_EDGE_COUNT:
-				$theType = array( kTYPE_INT );
+				$theType = kTYPE_INT;
 				$theKind = array( kTYPE_PRIVATE_IN );
 				return TRUE;														// ==>
 		
@@ -1361,7 +1361,7 @@ abstract class PersistentObject extends OntologyObject
 			// Private integer lists.
 			//
 			case kTAG_OBJECT_TAGS:
-				$theType = array( kTYPE_INT );
+				$theType = kTYPE_INT;
 				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
 				return TRUE;														// ==>
 		
@@ -1369,7 +1369,7 @@ abstract class PersistentObject extends OntologyObject
 			// Private scalar arrays.
 			//
 			case kTAG_OBJECT_OFFSETS:
-				$theType = array( kTYPE_ARRAY );
+				$theType = kTYPE_ARRAY;
 				$theKind = array( kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
 				return TRUE;														// ==>
 		
@@ -1489,7 +1489,7 @@ abstract class PersistentObject extends OntologyObject
 					{
 						if( array_key_exists( kTAG_DATA_TYPE, $tag ) )
 						{
-							if( ! in_array( kTYPE_STRUCT, $tag[ kTAG_DATA_TYPE ] ) )
+							if( $tag[ kTAG_DATA_TYPE ] != kTYPE_STRUCT )
 								throw new \Exception(
 									"Cannot set the [$theOffset] offset: "
 								   ."[$theValue] is not a structure." );		// !@! ==>
@@ -2342,13 +2342,9 @@ abstract class PersistentObject extends OntologyObject
 			$this->offsetUnset( $offset );
 	
 		//
-		// Traverse object.
+		// Parse object.
 		//
-		$path = Array();
-		$iterator = $this->getIterator();
-		iterator_apply( $iterator,
-						array( $this, 'traverseValidate' ),
-						array( $iterator, & $path, & $theTags, & $theRefs, $doValidate ) );
+		$this->parseObject( $theTags, $theRefs, $doValidate );
 	
 	} // preCommitTraverse.
 
@@ -2695,7 +2691,6 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 *
 	 * @uses ResolveOffsetsTag()
-	 * @uses updateOffsetsSet()
 	 */
 	protected function postCommitTagOffsets( &$theTags )
 	{
@@ -2725,8 +2720,11 @@ abstract class PersistentObject extends OntologyObject
 			// Iterate tag elements.
 			//
 			foreach( $tags as $tag )
-				$this->updateOffsetsSet(
-					$collection, $tag, $offset, $theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] );
+				$collection->updateSet(
+					(int) $tag,
+					kTAG_ID_SEQUENCE,
+					array( $offset => $theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] ),
+					TRUE );
 		
 		} // Has tags.
 	
@@ -2902,8 +2900,6 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_UNIT_COUNT kTAG_ENTITY_COUNT
 	 * @see kTAG_TAG_COUNT kTAG_TERM_COUNT kTAG_NODE_COUNT kTAG_EDGE_COUNT
-	 *
-	 * @uses getOffsetTypes()
 	 */
 	protected function preDeletePrepare( &$theTags, &$theRefs )
 	{	
@@ -3211,7 +3207,6 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 *
 	 * @uses ResolveOffsetsTag()
-	 * @uses updateOffsetsSet()
 	 */
 	protected function postDeleteTagOffsets( &$theTags )
 	{
@@ -3254,476 +3249,951 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *							PROTECTED OBJECT TRAVERSAL INTERFACE						*
+ *							PROTECTED OBJECT PARSING INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	traverseValidate																*
+	 *	parseObject																		*
 	 *==================================================================================*/
 
 	/**
-	 * Traverse structure
+	 * Parse object
 	 *
-	 * This method's duty is to validate and normalise offsets of the current object and
-	 * collect other information while traversing the structure of the current object.
-	 *
-	 * This method will be called for each offset at the root or sub-structure level of the
-	 * current object. This means that this method will not be called for elements of a list
-	 * offset.
-	 *
-	 * The method is passed a series of reference parameters that will be populated as this
-	 * method traverses the object's structure, this data will be then used in the commit
-	 * workflow to perform tasks related to referenced objects and statistical information.
-	 *
-	 * These parameters are [[kTAG_DATA_TYPE]]
-	 *
-	 * <ul>
-	 *	<li><b>$theIterator</b>: This parameter contains the element currently pointed to by
-	 *		the iterator. This iterator is not recursive, each time a sub-structure is
-	 *		encountered, a new iterator is generated and is handed over to this method.
-	 *	<li><b>$thePath</b>: This run-time parameter contains the path to the current
-	 *		iterator element represented by a list of offsets, starting from the root
-	 *		offset and ending with the offset at the current depth. The current iterator
-	 *		element's offset is pushed at entry and popped at exit.
-	 *	<li><b>$theTags</b>: This array is the set of all tags referenced by the object's
-	 *		offsets, except for the offsets corresponding to the {@link InternalOffsets()}:
-	 *		<li><tt>key</tt>: The tag sequence number.
-	 *		<li><tt>value</tt>: An array collecting all the relevant information about that
-	 *			tag, each element of the array is structured as follows:
-	 *		 <ul>
-	 *			<li><tt>{@link kTAG_DATA_TYPE}</tt>: The item indexed by this key will
-	 *				contain the corresponding tag object offset.
-	 *			<li><tt>{@link kTAG_DATA_KIND}</tt>: The item indexed by this key will
-	 *				contain the corresponding tag object offset.
-	 *			<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: The item indexed by this key will
-	 *				collect the list of all the offsets in which the current tag appears as
-	 *				a leaf offset. In practice, this element collects all the possible
-	 *				offsets at any depth level in which the current tag holds a value. This
-	 *				also means that it will only be filled if the current tag is not a
-	 *				structural element.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><b>$theRefs</b>: This parameter collects all the object references featured in
-	 *		the current object. It is an array of elements structured as follows:
-	 *	 <ul>
-	 *		<li><tt>key</tt>: The referenced object's collection name.
-	 *		<li><tt>value</tt>: The set of all native identifiers representing the
-	 *			referenced objects.
-	 *	 </ul>
-	 *	<li><b>$doValidate</b>: If this flag is set, the method will activate all the
-	 *		validation procedures, if not set, the procedure will only collect information.
-	 * </ul>
-	 *
-	 * The method will perform the following steps:
-	 *
-	 * <ul>
-	 *	<li><em>Push the current offset to the path</em>: The current offset will be
-	 *		appended to the path parameter.
-	 *	<li><em>Collect offset tag information</em>: The {@link collectOffsetInformation()}
-	 *		method will determine the types and kinds of the current offset value and update
-	 *		the tags parameter. If the current offset is an internal offset, all steps
-	 *		except the last one will be skipped.
-	 *	<li><em>Verify offset structure</em>: The {@link verifyStructureOffset()} method
-	 *		will check if the current element value has the correct structure.
-	 *	<li><em>Verify and cast value</em>: If the current offset type is not a structure,
-	 *		{@link kTYPE_STRUCT}, the {@link traverseValidateValue()} method will be used to verify
-	 *		the offset value and cast it to the correct data type.
-	 *	<li><em>Recurse structures</em>: If the current element is a structure, its elements
-	 *		will be iterated and handed to this method. Structure lists will recursively be
-	 *		iterated.
-	 *	<li><em>Scan lists</em>: If the current element is a list of scalar elements, each
-	 *		element of the list will be handed to the {@link traverseValidateValue()} method which
-	 *		will take care of validating and casting the value.
-	 *	<li><em>Pop offset from path</em>: The current offset will be popped from the path
-	 *		parameter.
-	 * </ul>
-	 *
-	 * This method is final, derived classes should only need to overload the methods called
-	 * by this one.
-	 *
-	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
-	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it: it will return <tt>TRUE</tt> by default.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$thePath			Offsets path.
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theRefs			Object references.
-	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt>, or <tt>FALSE</tt> to stop the traversal.
-	 *
-	 * @uses collectOffsetInformation()
-	 * @uses verifyStructureOffset()
-	 * @uses traverseValidateValue()
-	 */
-	protected final function traverseValidate( \Iterator $theIterator, &$thePath,
-																	   &$theTags,
-																	   &$theRefs,
-																	    $doValidate = TRUE )
-	{
-		//
-		// Push to path.
-		//
-		$thePath[] = $theIterator->key();
-		
-		//
-		// Collect offset information.
-		//
-		$offset
-			= $this->collectOffsetInformation(
-				$theIterator, $thePath, $theTags, $type, $kind );
-		
-		//
-		// Skip internal offsets.
-		//
-		if( $offset !== NULL )
-		{
-			//
-			// Handle scalar offset.
-			//
-			if( (! in_array( kTYPE_LIST, $kind ))
-			 && (! in_array( kTYPE_STRUCT, $type )) )
-				$this->traverseValidateValue(
-					$theIterator, $theRefs, $type, $kind, $offset, $doValidate );
-		
-			//
-			// Handle structure and list offsets.
-			//
-			else
-			{
-				//
-				// Verify structure offset.
-				//
-				$this->verifyStructureOffset( $theIterator, $type, $kind, $offset );
-			
-				//
-				// Save list or structure.
-				//
-				$list = new \ArrayObject( $theIterator->current() );
-		
-				//
-				// Handle structure.
-				//
-				if( in_array( kTYPE_STRUCT, $type ) )
-				{
-					//
-					// Handle structure lists.
-					//
-					if( in_array( kTYPE_LIST, $kind ) )
-					{
-						//
-						// Iterate list.
-						//
-						foreach( $list as $idx => $struct )
-						{
-							//
-							// Traverse structure.
-							//
-							$struct = new \ArrayObject( $struct );
-							$iterator = $struct->getIterator();
-							iterator_apply( $iterator,
-											array( $this, 'traverseValidate' ),
-											array( $iterator, & $thePath,
-															  & $theTags,
-															  & $theRefs,
-																$doValidate ) );
-		
-							//
-							// Update structure.
-							//
-							if( $struct->count() )
-								$list[ $idx ] = $struct->getArrayCopy();
-				
-						} // Iterating list.
-			
-					} // List of structures.
-			
-					//
-					// Handle scalar structure.
-					//
-					else
-					{
-						//
-						// Traverse structure.
-						//
-						$iterator = $list->getIterator();
-						iterator_apply( $iterator,
-										array( $this, 'traverseValidate' ),
-										array( $iterator, & $thePath,
-														  & $theTags,
-														  & $theRefs,
-															$doValidate ) );
-			
-					} // Scalar structure.
-		
-				} // Structure.
-			
-				//
-				// Handle list of scalars.
-				//
-				else
-				{
-					//
-					// Iterate scalar list.
-					//
-					$iterator = $list->getIterator();
-					iterator_apply( $iterator,
-									array( $this, 'traverseValidateValue' ),
-									array( $iterator, & $theRefs,
-													  & $type,
-													  & $kind,
-													  & $offset,
-														$doValidate ) );
-			
-				} // List of scalars.
-
-				//
-				// Update current iterator value.
-				//
-				$theIterator->offsetSet( $theIterator->key(), $list->getArrayCopy() );
-		
-			} // Structured offset.
-		
-		} // Not an internal offset.
-		
-		//
-		// Pop from path.
-		//
-		array_pop( $thePath );
-		
-		return TRUE;																// ==>
-	
-	} // traverseValidate.
-
-	 
-	/*===================================================================================
-	 *	traverseValidateValue															*
-	 *==================================================================================*/
-
-	/**
-	 * Traverse value
-	 *
-	 * This method will be called by iterators that traverse list offset values, or by
-	 * methods which are traversing a scalar offset value.
-	 *
-	 * The main duties of this method are:
-	 *
-	 * <ul>
-	 *	<li><em>Validate the offset value</em>: The {@link verifyOffsetValue()} method will check
-	 *		whether the current offset's value is correct.
-	 *	<li><em>Validate references</em>: The {@link verifyOffsetReference()} method will
-	 *		validate object reference values:
-	 *	 <ul>
-	 *		<li>If the reference is provided as an uncommitted object, the method will
-	 *			commit the object and replace it with its native identifier.
-	 *		<li>If the reference is provided as a committed object, the method will replace
-	 *			it with its native identifier. <em>We assume here that a committed object
-	 *			exists in its collection</em>.
-	 *		<li>If the reference is provided as an object reference, the method will check
-	 *			whether the reference is correct.
-	 *		<li>Once the reference was validated, the method will add the object reference
-	 *			to the provided references parameter updating the reference count.
-	 *	 </ul>
-	 *		<em>Note that an offset having an object reference as its data type is assumed
-	 *		to have only that data type</em>.
-	 *	<li><em>Cast the offset value</em>: The {@link castOffsetValue()} method will cast the
-	 *		offset value to the data type of the tag corresponding to the leaf node of the
-	 *		offsets path.
-	 * </ul>
-	 *
-	 * The above methods will check whether the current offset has <em>a single data
-	 * type</em>: only in that case will they operate on the value.
-	 *
-	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
-	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it: it will return <tt>TRUE</tt> by default.
-	 *
-	 * This method is final, derived classes should not overload this method, but rather the
-	 * methods it calls.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theRefs			Object references.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset string.
-	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> continues the traversal.
-	 *
-	 * @uses verifyOffsetValue()
-	 * @uses GetReferenceTypes()
-	 * @uses verifyOffsetReference()
-	 * @uses castOffsetValue()
-	 */
-	final protected function traverseValidateValue( \Iterator $theIterator, &$theRefs,
-																			&$theType,
-																			&$theKind,
-																			&$theOffset,
-															  $doValidate = TRUE )
-	{
-		//
-		// Verify value.
-		//
-		if( $doValidate )
-			$this->verifyOffsetValue( $theIterator, $theType, $theKind, $theOffset );
-		
-		//
-		// Verify reference.
-		//
-		if( count( array_intersect( $theType, static::GetReferenceTypes() ) ) )
-			$this->verifyOffsetReference(
-				$theIterator, $theRefs, $theType, $theKind, $theOffset, $doValidate );
-		
-		//
-		// Cast value.
-		//
-		if( $doValidate )
-			$this->castOffsetValue(
-				$theIterator, $theRefs, $theType, $theKind, $theOffset );
-		
-		return TRUE;																// ==>
-	
-	} // traverseValidateValue.
-
-	 
-	/*===================================================================================
-	 *	traverseFilterOffsets															*
-	 *==================================================================================*/
-
-	/**
-	 * Remove offsets from tags list
-	 *
-	 * This method is called for each element of the tags list parameter described in the
-	 * {@link preDelete()} method, its duty is to check whether objects stored in the
-	 * current object's collection still have the offsets of the current object, if that
-	 * is not the case, these offsets will be remoived from the current iterator element:
-	 * after this process the iterated list will only feature the offsets to be removed from
-	 * the relative tag objects.
+	 * The duty of this method is to traverse the current object structure, collect tag,
+	 * offset and reference information and eventually validate the object properties.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIterator</b>: This parameter points to the current element of the tags
-	 *		list.
-	 *	<li><b>$theCollection</b>: The collection of the current object.
+	 *	<li><b>$theTags</b>: This parameter will receive the list of tags used in the
+	 *		current object, the parameter is a reference to an array indexed by tag sequence
+	 *		number holding the following elements:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_DATA_TYPE}</tt>: The item indexed by this key will contain
+	 *			the tag data type.
+	 *		<li><tt>{@link kTAG_DATA_KIND}</tt>: The item indexed by this key will contain
+	 *			the tag data kinds.
+	 *		<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: The item indexed by this key will
+	 *			collect all the possible offsets at any depth level in which the current tag
+	 *			holds a scalar value (not a structure).
+	 *		 </ul>
+	 *	<li><b>$theRefs</b>: This parameter will receive the list of all object references
+	 *		held by the object, the parameter is an array reference in which the key is the
+	 *		collection name and the value is a list of native identifiers of the referenced
+	 *		objects held by the collection.
+	 *	<li><b>$doValidate</b>: If this parameter is <tt>TRUE</tt>, the object's properties
+	 *		will be validated and cast to their correct type.
 	 * </ul>
 	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param CollectionObject		$theCollection		Current object collection.
+	 * @param array					$theTags			Receives tag information.
+	 * @param array					$theRefs			Receives references information.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> continues the traversal.
+	 *
+	 * @uses parseStructure()
 	 */
-	protected function traverseFilterOffsets( \Iterator		   $theIterator,
-											  CollectionObject $theCollection )
+	protected function parseObject( &$theTags, &$theRefs, $doValidate = TRUE )
 	{
 		//
 		// Init local storage.
 		//
-		$tag = (int) $theIterator->key();
-		$info = $theIterator->current();
-		$ref = & $info[ kTAG_OBJECT_OFFSETS ];
-		$base_criteria = array( kTAG_ID_SEQUENCE => $tag );
-
-		//
-		// Iterate offsets.
-		//
-		foreach( $ref as $key => $offset )
-		{
-			//
-			// Check offset.
-			//
-			$criteria = $base_criteria;
-			$criteria[ kTAG_OBJECT_OFFSETS.".$tag" ] = $offset;
-			if( $theCollection->matchAll( $criteria, kQUERY_ARRAY ) )
-				unset( $ref[ $key ] );
-		
-		} // Iterating offsets.
+		$path = $theTags = $theRefs = Array();
 		
 		//
-		// Handle empty list.
+		// Get object array copy.
 		//
-		if( ! count( $ref ) )
-			$theIterator->offsetUnset( $theIterator->key() );
+		$object = $this->getArrayCopy();
 		
 		//
-		// Update list.
+		// Iterate properties.
 		//
-		else
-		{
-			//
-			// Normalise list.
-			//
-			$ref = array_values( $ref );
-			
-			//
-			// Update list.
-			//
-			$theIterator->offsetSet( $theIterator->key(), $info );
+		$this->parseStructure(
+			$object, $path, $theTags, $theRefs, $doValidate );
 		
-		} // Offsets left.
-		
-		return TRUE;																// ==>
+		//
+		// Update object.
+		//
+		if( $doValidate )
+			$this->exchangeArray( $object );
 	
-	} // traverseFilterOffsets.
+	} // parseObject.
 
 	 
 	/*===================================================================================
-	 *	traverseRemoveOffsets															*
+	 *	parseStructure																	*
 	 *==================================================================================*/
 
 	/**
-	 * Remove offsets from tag objects
+	 * Parse property
 	 *
-	 * This method is called for each element of the tags list parameter described in the
-	 * {@link preDelete()} method, its duty is to remove all offsets featured in the list
-	 * from tag objects.
+	 * This method will parse the provided structure collecting tag, offset and object
+	 * reference information in the provided reference parameters, the method will perform
+	 * the following actions:
 	 *
-	 * This method will be invoked <em>after running the {@link traverseFilterOffsets()}
-	 * method</em>, which means that the iterated list will only hold those offsets which
-	 * are not referenced any more by objects of the current class.
+	 * <ul>
+	 *	<li><b>Collect tag information</b>: The method will collect all tags referenced by
+	 *		the leaf offsets of the provided structure and for each tag it will collect the
+	 *		data type, data kind and offset path.
+	 *	<li><b>Collect object references</b>: The method will collect all object references
+	 *		contained in the provided structure, these references will be grouped by
+	 *		collection.
+	 *	<li><em>Validate properties</em>: The method will validate all properties of the
+	 *		provided structure, if the last parameter is <tt>TRUE</tt>.
+	 *	<li><em>Cast properties</em>: The method will cast all properties of the provided
+	 *		structure to the expected data type, if the last parameter is <tt>TRUE</tt>.
+	 * </ul>
 	 *
-	 * The method will iterate the list and remove from the relative tag object set all the
-	 * offsets featured in the current list element.
+	 * The above actions will only be applied to offsets not belonging to the list of
+	 * internal offsets, {@link InternalOffsets()}, and the method will recursively be
+	 * applied to all nested structures.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theIterator</b>: This parameter points to the current element of the tags
-	 *		list.
-	 *	<li><b>$theTagCollection</b>: The collection of tag objects.
-	 *	<li><b>$theCollection</b>: The collection of the current object.
+	 *	<li><b>$theStructure</b>: This parameter is a reference to an array containing the
+	 *		structure.
+	 *	<li><b>$thePath</b>: This parameter is a reference to an array representing the path
+	 *		of offsets pointing to the provided structure.
+	 *	<li><b>$theTags</b>: This parameter is a reference to an array which will receive
+	 *		tag information related to the provided structure's offsets, the array is
+	 *		structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The element key represents the tag sequence numbers referenced
+	 *			by the offset. Each element is an array structured as follows:
+	 *		 <ul>
+	 +			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
+	 *				tag data type.
+	 +			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
+	 *				tag data kind; if the tag has no data kind, this item will be an empty
+	 *				array.
+	 +			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
+	 *				contain the list of offset paths in which the current tag is referenced
+	 *				as a leaf offset (an offset holding a value, not a structure).
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><b>$theRefs</b>: This parameter is a reference to an array which will receive
+	 *		the list of object references held by the structure, the array is structured as
+	 *		follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The element key represents a collection name.
+	 *		<li><tt>value</tt>: The element value is the list of references to objects
+	 *			belonging to the collection.
+	 *	 </ul>
+	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
+	 *		validate and cast the structure elements.
 	 * </ul>
 	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param CollectionObject		$theCollection		Tag object collection.
-	 * @param string				$theOffset			Tag object set offset.
+	 * @param array					$theStructure		Structure.
+	 * @param array					$thePath			Receives the offset path.
+	 * @param array					$theTags			Receives the tag information.
+	 * @param array					$theRefs			Receives the object references.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
 	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> continues the traversal.
+	 *
+	 * @uses InternalOffsets()
+	 * @uses OffsetTypes()
+	 * @uses parseProperty()
+	 * @uses loadTagInformation()
+	 * @uses loadReferenceInformation()
 	 */
-	protected function traverseRemoveOffsets( \Iterator		   $theIterator,
-											  CollectionObject $theCollection,
-															   $theOffset )
+	protected function parseStructure( &$theStructure, &$thePath, &$theTags, &$theRefs,
+										$doValidate )
 	{
 		//
-		// Remove from set.
+		// Iterate properties.
 		//
-		$theCollection->updateSet(
-			(int) $theIterator->key(),
-			kTAG_ID_SEQUENCE,
-			array( $theOffset => $theIterator->current()[ kTAG_OBJECT_OFFSETS ] ),
-			FALSE );
+		$tags = array_keys( $theStructure );
+		foreach( $tags as $tag )
+		{
+			//
+			// Skip internal offsets.
+			//
+			if( ! in_array( $tag, static::InternalOffsets() ) )
+			{
+				//
+				// Push offset to path.
+				//
+				$thePath[] = $tag;
 		
-		return TRUE;																// ==>
+				//
+				// Compute offset.
+				//
+				$offset = implode( '.', $thePath );
+		
+				//
+				// Reference property.
+				//
+				$property_ref = & $theStructure[ $tag ];
+			
+				//
+				// Copy type and kind.
+				//
+				if( array_key_exists( $tag, $theTags ) )
+				{
+					//
+					// Copy type and kind.
+					//
+					$type = $theTags[ $tag ][ kTAG_DATA_TYPE ];
+					$kind = $theTags[ $tag ][ kTAG_DATA_KIND ];
 	
-	} // traverseRemoveOffsets.
+				} // Already parsed.
+	
+				//
+				// Determine type and kind.
+				//
+				else
+					static::OffsetTypes(
+						$this->mDictionary, $tag, $type, $kind, TRUE );
+				
+				//
+				// Handle lists.
+				//
+				if( in_array( kTYPE_LIST, $kind ) )
+				{
+					//
+					// Verify list.
+					//
+					if( ! is_array( $property_ref ) )
+						throw new \Exception(
+							"Invalid list in [$offset]: "
+						   ."the value is not an array." );						// !@! ==>
+					
+					//
+					// Iterate list elements.
+					//
+					$keys = array_keys( $property_ref );
+					foreach( $keys as $key )
+					{
+						//
+						// Reference element.
+						//
+						$element_ref = & $property_ref[ $key ];
+						
+						//
+						// Handle structures.
+						//
+						if( $type == kTYPE_STRUCT )
+						{
+							//
+							// Verify structure.
+							//
+							if( ! is_array( $element_ref ) )
+								throw new \Exception(
+									"Invalid structure in [$offset]: "
+								   ."the value is not an array." );				// !@! ==>
+				
+							//
+							// Parse structure.
+							//
+							$this->parseStructure(
+								$element_ref,
+								$thePath, $theTags, $theRefs, $doValidate );
+						
+						} // Structure.
+						
+						//
+						// Handle scalars.
+						//
+						else
+						{
+							//
+							// Parse property.
+							//
+							$class
+								= $this->parseProperty(
+									$element_ref, $type, $offset, $doValidate );
+						
+							//
+							// Load tag information.
+							//
+							$this->loadTagInformation(
+								$theTags, $kind, $type, $offset, $tag );
+				
+							//
+							// Load reference information.
+							//
+							$this->loadReferenceInformation(
+								$element_ref, $theRefs, $type, $offset );
+			
+						} // Scalar.
+					
+					} // Iterating list elements.
+				
+				} // List.
+				
+				//
+				// Handle structure.
+				//
+				elseif( $type == kTYPE_STRUCT )
+				{
+					//
+					// Verify structure.
+					//
+					if( ! is_array( $property_ref ) )
+						throw new \Exception(
+							"Invalid structure value in [$offset]: "
+						   ."the value is not an array." );						// !@! ==>
+			
+					//
+					// Traverse structure properties.
+					//
+					$this->parseStructure(
+						$property_ref,
+						$thePath, $theTags, $theRefs, $doValidate );
+				
+				} // Structure.
+				
+				//
+				// Handle scalar.
+				//
+				else
+				{
+					//
+					// Parse property.
+					//
+					$class
+						= $this->parseProperty(
+							$property_ref, $type, $offset, $doValidate );
+				
+					//
+					// Load tag information.
+					//
+					$this->loadTagInformation(
+						$theTags, $kind, $type, $offset, $tag );
+				
+					//
+					// Load reference information.
+					//
+					$this->loadReferenceInformation(
+						$property_ref, $theRefs, $type, $offset );
+	
+				} // Scalar.
+		
+				//
+				// Pop offset from path.
+				//
+				array_pop( $thePath );
+			
+			} // Not an internal offset.
+	
+		} // Iterating properties.
+		
+	} // parseStructure.
+
+	 
+	/*===================================================================================
+	 *	parseProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse property
+	 *
+	 * The duty of this method is to parse the provided scalar property and perform the
+	 * following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Validate reference</em>: If the provided property is an object reference,
+	 *		the method will commit it, if it is a non committed object and the .
+	 *	<li><em>Validate properties</em>: The method will check if the provided list or
+	 *		structure is an array, or validate the provided property if it is a scalar.
+	 *	<li><em>Cast properties</em>: The method will cast the property value if it is a
+	 *		scalar.
+	 * </ul>
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theProperty</b>: The property to parse, a scalar property is expected.
+	 *	<li><b>$theType</b>: The property data type.
+	 *	<li><b>$thePath</b>: The property offset path.
+	 *	<li><b>$doValidate</b>: This boolean flag indicates whether the method should
+	 *		validate and cast the structure elements.
+	 * </ul>
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 * @param string				$thePath			Offset path.
+	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
+	 *
+	 * @access protected
+	 * @return string				Eventual property class name.
+	 *
+	 * @uses validateProperty()
+	 * @uses getReferenceTypeClass()
+	 * @uses parseReference()
+	 * @uses validateReference()
+	 * @uses castProperty()
+	 */
+	protected function parseProperty( &$theProperty,
+									   $theType, $thePath, $doValidate )
+	{
+		//
+		// Validate scalar.
+		//
+		if( $doValidate )
+			$this->validateProperty(
+				$theProperty, $theType, $thePath );
+		
+		//
+		// Get reference class.
+		//
+		$class = $this->getReferenceTypeClass( $theType );
+		
+		//
+		// Parse object reference.
+		//
+		if( $class !== NULL )
+			$this->parseReference( $theProperty, $class, $thePath );
+		
+		//
+		// Validate.
+		//
+		if( $doValidate )
+		{
+			//
+			// Validate reference.
+			//
+			if( $class !== NULL )
+				$this->validateReference(
+					$theProperty, $theType, $class, $thePath );
+			
+			//
+			// Cast value.
+			//
+			$this->castProperty(
+				$theProperty, $theType, $thePath );
+		
+		} // Validate.
+		
+		return $class;																// ==>
+		
+	} // parseProperty.
+
+	 
+	/*===================================================================================
+	 *	parseReference																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse reference
+	 *
+	 * The duty of this method is to parse the provided reference expressed as an object,
+	 * the method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check class</em>: If the provided property is an object and is not an
+	 *		instance of the provided class, the method will raise an exception.
+	 *	<li><em>Commit object</em>: If the provided property is an uncommitted object, the
+	 *		method will commit it.
+	 *	<li><em>Check object identifier</em>: If the provided property is an object which
+	 *		lacks its native identifier, the method will raise an exception.
+	 *	<li><em>Use object native identifier</em>: The method will replace the object with
+	 *		its native identifier.
+	 * </ul>
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theClass			Object class name.
+	 * @param string				$thePath			Offset path.
+	 *
+	 * @access protected
+	 */
+	protected function parseReference( &$theProperty, $theClass, $thePath )
+	{
+		//
+		// Handle objects.
+		//
+		if( is_object( $theProperty ) )
+		{
+			//
+			// Verify class.
+			//
+			if( ! ($theProperty instanceof $theClass) )
+				throw new \Exception(
+					"Invalid object reference in [$thePath]: "
+				   ."incorrect class [$theClass]." );							// !@! ==>
+	
+			//
+			// Commit object.
+			//
+			if( ! $theProperty->isCommitted() )
+				$id = $theProperty->commit( $this->mDictionary );
+	
+			//
+			// Get identifier.
+			//
+			elseif( ! $theProperty->offsetExists( kTAG_NID ) )
+				throw new \Exception(
+					"Invalid object in [$thePath]: "
+				   ."missing native identifier." );								// !@! ==>
+	
+			//
+			// Set identifier.
+			//
+			$theProperty = $theProperty[ kTAG_NID ];
+
+		} // Property is an object.
+		
+	} // parseReference.
+
+	 
+	/*===================================================================================
+	 *	validateProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate property
+	 *
+	 * The duty of this method is to validate the provided scalar property. In this class
+	 * we check whether the structure of the property is correct, we assert the following
+	 * properties:
+	 *
+	 * <ul>
+	 *	<li>We check whether structured data types are arrays.
+	 *	<li>We check the contents of shapes.
+	 *	<li>We assert that all other data types are not arrays.
+	 * </ul>
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 * @param string				$thePath			Offset path.
+	 *
+	 * @access protected
+	 */
+	protected final function validateProperty( &$theProperty,
+												$theType, $thePath )
+	{
+		//
+		// Validate property.
+		//
+		switch( $theType )
+		{
+			case kTYPE_SET:
+			case kTYPE_ARRAY:
+			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRINGS:
+				if( ! is_array( $theProperty ) )
+					throw new \Exception(
+						"Invalid offset value in [$thePath]: "
+					   ."the value is not an array." );							// !@! ==>
+				
+				break;
+			
+			case kTYPE_SHAPE:
+				if( ! is_array( $theProperty ) )
+					throw new \Exception(
+						"Invalid offset value in [$thePath]: "
+					   ."the value is not an array." );							// !@! ==>
+				
+				if( (! array_key_exists( kTAG_SHAPE_TYPE, $theProperty ))
+				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theProperty ))
+				 || (! is_array( $theProperty[ kTAG_SHAPE_GEOMETRY ] )) )
+					throw new \Exception(
+						"Invalid offset value in [$thePath]: "
+					   ."invalid shape geometry." );							// !@! ==>
+				
+				break;
+			
+			default:
+				if( is_array( $theProperty ) )
+					throw new \Exception(
+						"Invalid offset value in [$thePath]: "
+					   ."array not expected." );								// !@! ==>
+				
+				break;
+		
+		} // Parsed data type.
+	
+	} // validateProperty.
+
+	 
+	/*===================================================================================
+	 *	validateReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate reference
+	 *
+	 * The duty of this method is to validate the provided object reference, the method will
+	 * perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Cast reference</em>: The method will cast the object references.
+	 *	<li><em>Assert reference</em>: The method will resolve the references.
+	 * </ul>
+	 *
+	 * This method expects an object reference, not an object, the latter case must have
+	 * been handled by the {@link parseReference()} method.
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 * @param string				$theClass			Object class name.
+	 * @param string				$thePath			Offset path.
+	 *
+	 * @access protected
+	 */
+	protected final function validateReference( &$theProperty,
+												 $theType, $theClass, $thePath )
+	{
+		//
+		// Cast identifier.
+		//
+		switch( $theType )
+		{
+			case kTYPE_REF_TAG:
+			case kTYPE_ENUM:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_UNIT:
+				$theProperty = (string) $theProperty;
+				break;
+
+			case kTYPE_REF_NODE:
+				$theProperty = (int) $theProperty;
+				break;
+
+			case kTYPE_SET:
+				foreach( $theProperty as $key => $val )
+					$theProperty[ $key ] = (string) $val;
+				break;
+	
+			case kTYPE_REF_SELF:
+				switch( $theClass::kSEQ_NAME )
+				{
+					case Tag::kSEQ_NAME:
+					case Term::kSEQ_NAME:
+					case Edge::kSEQ_NAME:
+					case UnitObject::kSEQ_NAME:
+					case EntityObject::kSEQ_NAME:
+						$theProperty = (string) $theProperty;
+						break;
+					case Node::kSEQ_NAME:
+						$theProperty = (int) $theProperty;
+						break;
+				}
+				break;
+
+		} // Parsed type.
+
+		//
+		// Resolve collection.
+		//
+		$collection
+			= $theClass::ResolveCollection(
+				$theClass::ResolveDatabase( $this->mDictionary ) );
+
+		//
+		// Handle references list.
+		//
+		if( is_array( $theProperty ) )
+		{
+			//
+			// Iterate list.
+			//
+			foreach( $theProperty as $val )
+			{
+				//
+				// Assert reference.
+				//
+				if( ! $collection->matchOne( array( kTAG_NID => $val ), kQUERY_COUNT ) )
+					throw new \Exception(
+						"Unresolved reference in [$thePath]: "
+					   ."($val)." );											// !@! ==>
+			
+			} // Iterating references list.
+		
+		} // List of references.
+		
+		//
+		// Assert reference.
+		//
+		elseif( ! $collection->matchOne( array( kTAG_NID => $theProperty ), kQUERY_COUNT ) )
+			throw new \Exception(
+				"Unresolved reference in [$thePath]: "
+			   ."($theProperty)." );											// !@! ==>
+		
+	} // validateReference.
+
+	 
+	/*===================================================================================
+	 *	castProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Cast scalar
+	 *
+	 * The duty of this method is to cast the provided scalar property to the provided data
+	 * type.
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 * @param string				$thePath			Offset path.
+	 *
+	 * @access protected
+	 *
+	 * @uses parseStructure()
+	 * @uses castShapeGeometry()
+	 */
+	protected final function castProperty( &$theProperty,
+											$theType, $thePath )
+	{
+		//
+		// Cast property.
+		//
+		switch( $theType )
+		{
+			//
+			// Strings.
+			//
+			case kTYPE_STRING:
+			case kTYPE_ENUM:
+			case kTYPE_URL:
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_UNIT:
+			case kTYPE_REF_ENTITY:
+				$theProperty = (string) $theProperty;
+				break;
+			
+			//
+			// Integers.
+			//
+			case kTYPE_INT:
+			case kTYPE_REF_NODE:
+				$theProperty = (int) $theProperty;
+				break;
+	
+			//
+			// Floats.
+			//
+			case kTYPE_FLOAT:
+				$theProperty = (double) $theProperty;
+				break;
+	
+			//
+			// Enumerated sets.
+			//
+			case kTYPE_SET:
+				//
+				// Iterate set.
+				//
+				$idxs = array_keys( $theProperty );
+				foreach( $idxs as $idx )
+					$theProperty[ $idx ] = (string) $theProperty[ $idx ];
+				break;
+	
+			//
+			// Language strings.
+			//
+			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRINGS:
+				//
+				// Init loop storage.
+				//
+				$tags = Array();
+				$path = explode( '.', $thePath );
+				//
+				// Iterate elements.
+				//
+				$idxs = array_keys( $theProperty );
+				foreach( $idxs as $idx )
+				{
+					//
+					// Check format.
+					//
+					if( ! is_array( $theProperty[ $idx ] ) )
+						throw new \Exception(
+							"Invalid offset value element in [$thePath]: "
+						   ."the value is not an array." );						// !@! ==>
+					//
+					// Traverse element.
+					//
+					$ref = $theProperty[ $idx ];
+					$this->parseStructure(
+						$theProperty[ $idx ], $path, $tags, $theRefs, TRUE );
+				}
+				break;
+	
+			//
+			// Shapes.
+			//
+			case kTYPE_SHAPE:
+				//
+				// Cast geometry.
+				//
+				$this->castShapeGeometry( $theProperty );
+				break;
+	
+		} // Parsed type.
+	
+	} // castProperty.
+
+	 
+	/*===================================================================================
+	 *	loadTagInformation																*
+	 *==================================================================================*/
+
+	/**
+	 * Load tag information
+	 *
+	 * The duty of this method is to load the provided tag information into the provided
+	 * array reference, the method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTags</b>: This parameter will receive the the tag information, it is a
+	 *		reference to an array structured as follows:
+	 *	 <ul>
+	 *		<li><tt>key</tt>: The element key represents the tag sequence number, the value
+	 *			is an array structured as follows:
+	 *		 <ul>
+	 +			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
+	 *				tag data type.
+	 +			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
+	 *				tag data kind; if the tag has no data kind, this item will be an empty
+	 *				array.
+	 +			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
+	 *				contain the list of offset paths in which the current tag is referenced
+	 *				as a leaf offset (an offset holding a value, not a structure).
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><b>$theKind</b>: This parameter holds the tag data kind, if missing, it will be
+	 *		an empty array.
+	 *	<li><b>$theType</b>: This parameter holds the tag data type, if missing, it will be
+	 *		<tt>NULL</tt>.
+	 *	<li><b>$thePath</b>: This parameter holds the offset path.
+	 *	<li><b>$theTag</b>: This parameter holds the tag sequence number.
+	 * </ul>
+	 *
+	 * @param array					$theTags			Receives tag information.
+	 * @param array					$theKind			Data kind.
+	 * @param string				$theType			Data type.
+	 * @param string				$thePath			Offset path.
+	 * @param string				$theTag				Tag sequence number.
+	 *
+	 * @access protected
+	 */
+	public function loadTagInformation( &$theTags, &$theKind, $theType, $thePath, $theTag )
+	{
+		//
+		// Copy tag information.
+		//
+		if( array_key_exists( $theTag, $theTags ) )
+		{
+			//
+			// Update offset path.
+			//
+			if( ! in_array( $thePath, $theTags[ $theTag ][ kTAG_OBJECT_OFFSETS ] ) )
+				$theTags[ $theTag ][ kTAG_OBJECT_OFFSETS ][] = $thePath;
+
+		} // Already parsed.
+
+		//
+		// Collect tag information.
+		//
+		else
+		{
+			//
+			// Set type and kind.
+			//
+			$theTags[ $theTag ][ kTAG_DATA_TYPE ] = $theType;
+			$theTags[ $theTag ][ kTAG_DATA_KIND ] = $theKind;
+	
+			//
+			// Set offset path.
+			//
+			$theTags[ $theTag ][ kTAG_OBJECT_OFFSETS ] = array( $thePath );
+
+		} // New tag.
+	
+	} // loadTagInformation.
+
+	 
+	/*===================================================================================
+	 *	loadReferenceInformation														*
+	 *==================================================================================*/
+
+	/**
+	 * Load reference information
+	 *
+	 * The duty of this method is to load the provided array reference with the eventual
+	 * object references, the method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theProperty</b>: This parameter represents the current property.
+	 *	<li><b>$theRefs</b>: This parameter is a reference to an array which will receive
+	 *		the list of object references held by the structure, the array is structured as
+	 *		follows:
+	 *	<li><b>$theType</b>: This parameter holds the tag data type.
+	 *	<li><b>$thePath</b>: This parameter holds the offset path.
+	 * </ul>
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param array					$theRefs			Receives object references.
+	 * @param string				$theType			Data type.
+	 * @param string				$thePath			Offset path.
+	 *
+	 * @access protected
+	 *
+	 * @uses getReferenceTypeClass()
+	 */
+	public function loadReferenceInformation( &$theProperty, &$theRefs, $theType, $thePath )
+	{
+		//
+		// Get reference collection name.
+		//
+		$collection = $this->getReferenceTypeCollection( $theType );
+		
+		//
+		// Get reference class.
+		//
+		if( $collection !== NULL )
+		{
+			//
+			// Handle references list.
+			//
+			if( is_array( $theProperty ) )
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theProperty as $reference )
+				{
+					//
+					// Update references.
+					//
+					if( ! array_key_exists( $collection, $theRefs ) )
+						$theRefs[ $collection ] = array( $reference );
+					elseif( ! in_array( $theRefs[ $collection ], $theProperty ) )
+						$theRefs[ $collection ][] = $reference;
+			
+				} // Iterating list.
+		
+			} // List of references.
+		
+			//
+			// Scalar reference.
+			//
+			else
+			{
+				//
+				// Update references.
+				//
+				if( ! array_key_exists( $collection, $theRefs ) )
+					$theRefs[ $collection ] = array( $theProperty );
+				elseif( ! in_array( $theProperty, $theRefs[ $collection ] ) )
+					$theRefs[ $collection ][] = $theProperty;
+		
+			} // Scalar reference.
+		
+		} // Is an object reference.
+		
+	} // loadReferenceInformation.
 
 	
 
@@ -3813,8 +4283,8 @@ abstract class PersistentObject extends OntologyObject
 	 * Given a data type, this method will return the base class name corresponding to the
 	 * referenced object, or <tt>NULL</tt> if the data type is not an object reference.
 	 *
-	 * If provided the {@link kTYPE_REF_SELF} data type, the method will return the current
-	 * object's class name.
+	 * If provided the {@link kTYPE_REF_SELF} data type, the method will return the base
+	 * class name of the current object.
 	 *
 	 * @param string				$theType			Data type.
 	 *
@@ -3826,7 +4296,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Parse by data type.
 		//
-		switch( (string) $theType )
+		switch( $theType )
 		{
 			case kTYPE_REF_TAG:
 				return 'OntologyWrapper\Tag';										// ==>
@@ -3849,13 +4319,80 @@ abstract class PersistentObject extends OntologyObject
 				return 'OntologyWrapper\EntityObject';								// ==>
 		
 			case kTYPE_REF_SELF:
-				return get_class( $this );											// ==>
+				if( $this instanceof Tag )
+					return 'OntologyWrapper\Tag';									// ==>
+				elseif( $this instanceof Term )
+					return 'OntologyWrapper\Term';									// ==>
+				elseif( $this instanceof Node )
+					return 'OntologyWrapper\Node';									// ==>
+				elseif( $this instanceof Edge )
+					return 'OntologyWrapper\Edge';									// ==>
+				elseif( $this instanceof UnitObject )
+					return 'OntologyWrapper\UnitObject';							// ==>
+				elseif( $this instanceof EntityObject )
+					return 'OntologyWrapper\EntityObject';							// ==>
+				break;
 		
 		} // Parsed collection name.
 		
 		return NULL;																// ==>
 	
 	} // getReferenceTypeClass.
+
+	 
+	/*===================================================================================
+	 *	getReferenceTypeCollection														*
+	 *==================================================================================*/
+
+	/**
+	 * Retun the collection name for a reference data type
+	 *
+	 * Given a data type, this method will return the collection name corresponding to the
+	 * referenced object, or <tt>NULL</tt> if the data type is not an object reference.
+	 *
+	 * If provided the {@link kTYPE_REF_SELF} data type, the method will return the current
+	 * object's collection name.
+	 *
+	 * @param string				$theType			Data type.
+	 *
+	 * @access public
+	 * @return string				Base class name.
+	 */
+	public function getReferenceTypeCollection( $theType )
+	{
+		//
+		// Parse by data type.
+		//
+		switch( $theType )
+		{
+			case kTYPE_REF_TAG:
+				return Tag::kSEQ_NAME;												// ==>
+		
+			case kTYPE_SET:
+			case kTYPE_ENUM:
+			case kTYPE_REF_TERM:
+				return Term::kSEQ_NAME;												// ==>
+		
+			case kTYPE_REF_NODE:
+				return Node::kSEQ_NAME;												// ==>
+		
+			case kTYPE_REF_EDGE:
+				return Edge::kSEQ_NAME;												// ==>
+		
+			case kTYPE_REF_UNIT:
+				return UnitObject::kSEQ_NAME;										// ==>
+		
+			case kTYPE_REF_ENTITY:
+				return EntityObject::kSEQ_NAME;										// ==>
+		
+			case kTYPE_REF_SELF:
+				return static::kSEQ_NAME;											// ==>
+		
+		} // Parsed data type.
+		
+		return NULL;																// ==>
+	
+	} // getReferenceTypeCollection.
 
 	 
 
@@ -3865,722 +4402,6 @@ abstract class PersistentObject extends OntologyObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	collectOffsetInformation														*
-	 *==================================================================================*/
-
-	/**
-	 * Collect offset information
-	 *
-	 * This method will collect all the necessary information regarding the current offset.
-	 * This method expects the provided iterator's current element to be pointing to an
-	 * offset, not to an element of a list offset.
-	 *
-	 * The main duty of this method is to:
-	 *
-	 * <ul>
-	 *	<li><em>Compute the current offset path</em>. The method will return the path of the
-	 *		current offset, if the offset is among the internal offsets,
-	 *		{@link InternalOffsets()}, the method will exit and return <tt>NULL</tt>.
-	 *	<li><em>Resolve the offset data type and kind</em>. The method should return in the
-	 *		provided reference parameters the current offset's types and kinds.
-	 *	<li><em>Copy data type and kind in tags list</em>. If the offset is not a structure,
-	 *		the method will copy the type and kind to the tags list.
-	 * </ul>
-	 *
-	 * For a description of the <tt>$theTags</tt> parameter, please consult the
-	 * {@link traverseValidate()} documentation.
-	 *
-	 * The method will return the current offset string, or <tt>NULL</tt> if the offset is
-	 * internal; in the latter case, this method will do nothing.
-	 *
-	 * Derived classes should not need to overload this method.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$thePath			Offsets path.
-	 * @param reference				$theTags			Property tags and offsets.
-	 * @param reference				$theType			Receives data type.
-	 * @param reference				$theKind			Receives data kind.
-	 *
-	 * @access protected
-	 * @return string				Current offset string.
-	 *
-	 * @uses InternalOffsets()
-	 * @uses getOffsetTypes()
-	 */
-	protected function collectOffsetInformation( \Iterator $theIterator, &$thePath,
-																		 &$theTags,
-																		 &$theType,
-																		 &$theKind )
-	{
-		//
-		// Skip internal offsets.
-		//
-		if( ! in_array( $theIterator->key(),
-						array_merge( static::InternalOffsets(),
-									 static::PrivateOffsets() ) ) )
-		{
-			//
-			// Determine offset string.
-			//
-			$offset = implode( '.', $thePath );
-			
-			//
-			// Save current tag.
-			//
-			$tag = $theIterator->key();
-		
-			//
-			// Handle existing tag.
-			//
-			if( array_key_exists( $tag, $theTags ) )
-			{
-				//
-				// Get types and kinds.
-				//
-				$theType = $theTags[ $tag ][ kTAG_DATA_TYPE ];
-				$theKind = $theTags[ $tag ][ kTAG_DATA_KIND ];
-				
-				//
-				// Check offset.
-				//
-				if( ! in_array( $offset, $theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] ) )
-					$theTags[ $tag ][ kTAG_OBJECT_OFFSETS ][] = $offset;
-			
-			} // Existing tag.
-			
-			//
-			// Handle new tag.
-			//
-			else
-			{
-				//
-				// Get types and kinds.
-				//
-				$this->getOffsetTypes( $tag, $theType, $theKind );
-				
-				//
-				// Add tag if not a structure.
-				//
-				if( ! in_array( kTYPE_STRUCT, $theType ) )
-				{
-					//
-					// Set types and kinds.
-					//
-					$theTags[ $tag ][ kTAG_DATA_TYPE ] = $theType;
-					$theTags[ $tag ][ kTAG_DATA_KIND ] = $theKind;
-					
-					//
-					// Set offset.
-					//
-					$theTags[ $tag ][ kTAG_OBJECT_OFFSETS ] = array( $offset );
-				
-				} // Not a structure.
-			
-			} // New tag.
-			
-			return $offset;															// ==>
-		
-		} // Not an internal offset.
-		
-		return NULL;																// ==>
-	
-	} // collectOffsetInformation.
-
-	 
-	/*===================================================================================
-	 *	collectObjectReference															*
-	 *==================================================================================*/
-
-	/**
-	 * Collect object reference
-	 *
-	 * This method will add the provided identifier to the provided references parameter
-	 * under the element indexed by the collection name corresponding to the provided class
-	 * name.
-	 *
-	 * @param reference				$theRefs			Object references.
-	 * @param string				$theClass			Class name.
-	 * @param mixed					$theIdentifier		Referenced object identifier.
-	 *
-	 * @access protected
-	 */
-	protected function collectObjectReference( &$theRefs, $theClass, $theIdentifier )
-	{
-		//
-		// Create collection entry.
-		//
-		if( ! array_key_exists( $theClass::kSEQ_NAME, $theRefs ) )
-			$theRefs[ $theClass::kSEQ_NAME ]
-				= ( is_array( $theIdentifier ) )
-				? $theIdentifier
-				: array( $theIdentifier );
-		
-		//
-		// Update collection entry.
-		//
-		else
-		{
-			//
-			// Normalise value.
-			//
-			if( ! is_array( $theIdentifier ) )
-				$theIdentifier = array( $theIdentifier );
-			
-			//
-			// Update list.
-			//
-			$theRefs[ $theClass::kSEQ_NAME ]
-				= array_merge(
-					$theRefs[ $theClass::kSEQ_NAME ],
-					array_diff( $theIdentifier, $theRefs[ $theClass::kSEQ_NAME ] ) );
-		
-		} // Collection exists.
-	
-	} // collectObjectReference.
-
-		
-	/*===================================================================================
-	 *	verifyStructureOffset															*
-	 *==================================================================================*/
-
-	/**
-	 * Verify structure offset
-	 *
-	 * This method should verify the structure of the current offset value which should
-	 * either be a structure or a list.
-	 *
-	 * In this class we verify whether lists and structures are arrays and raise an
-	 * exception if that is not the case.
-	 *
-	 * When we check if the data type contains the {@link kTYPE_STRUCT} type, we assume that
-	 * in that case the property cannot have any other primitive data type, therefore the
-	 * value <em>must</em> be an array.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset.
-	 *
-	 * @access protected
-	 * @return boolean				<tt>TRUE</tt> if structure or list.
-	 *
-	 * @throws Exception
-	 */
-	protected function verifyStructureOffset( \Iterator $theIterator, &$theType,
-																	  &$theKind,
-																	  &$theOffset )
-	{
-		//
-		// Assert lists.
-		//
-		if( in_array( kTYPE_LIST, $theKind ) )
-		{
-			//
-			// Verify list.
-			//
-			if( ! is_array( $theIterator->current() ) )
-				throw new \Exception(
-					"Invalid offset list value in [$theOffset]: "
-				   ."the value is not an array." );								// !@! ==>
-		
-		} // List.
-	
-		//
-		// Assert structure.
-		//
-		elseif( in_array( kTYPE_STRUCT, $theType ) )
-		{
-			//
-			// Verify structure.
-			//
-			if( ! is_array( $theIterator->current() ) )
-				throw new \Exception(
-					"Invalid offset structure value in [$theOffset]: "
-				   ."the value is not an array." );								// !@! ==>
-		
-		} // Is a structure.
-		
-	} // verifyStructureOffset.
-
-	 
-	/*===================================================================================
-	 *	verifyOffsetValue																*
-	 *==================================================================================*/
-
-	/**
-	 * Verify offset value
-	 *
-	 * This method should verify if the current offset's value is correct, this method is
-	 * called by the {@link traverseValidateValue()} method which is called only if the
-	 * current offset is neither a structure nor a list; list elements, however, are passed
-	 * to this method with the parent offset data type and kind.
-	 *
-	 * In this class we assert that structured types are arrays, <em>only if the current
-	 * offset data type has a single entry</em>.
-	 *
-	 * The method will return <tt>NULL</tt> if the offset has more than one data type,
-	 * <tt>TRUE</tt> if the value was verified and <tt>FALSE</tt> if it was not verified.
-	 *
-	 * Derived classes can handle custom cases by handling the value if the parent method
-	 * has not returnd <tt>TRUE</tt>.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset string.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
-	 */
-	protected function verifyOffsetValue( \Iterator $theIterator, &$theType,
-																  &$theKind,
-																  &$theOffset )
-	{
-		//
-		// Verify single data types.
-		//
-		if( count( $theType ) == 1 )
-		{
-			//
-			// Assert array values.
-			//
-			switch( current( $theType ) )
-			{
-				case kTYPE_SET:
-				case kTYPE_ARRAY:
-				case kTYPE_TYPED_LIST:
-				case kTYPE_LANGUAGE_STRINGS:
-					if( ! is_array( $theIterator->current() ) )
-						throw new \Exception(
-							"Invalid offset value in [$theOffset]: "
-						   ."the value is not an array." );						// !@! ==>
-					
-					return TRUE;													// ==>
-				
-				case kTYPE_SHAPE:
-					if( ! is_array( $theIterator->current() ) )
-						throw new \Exception(
-							"Invalid offset value in [$theOffset]: "
-						   ."the value is not an array." );						// !@! ==>
-					
-					if( (! array_key_exists( kTAG_SHAPE_TYPE, $theIterator->current() ))
-					 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theIterator->current() ))
-					 || (! is_array( $theIterator->current()[ kTAG_SHAPE_GEOMETRY ] )) )
-						throw new \Exception(
-							"Invalid offset value in [$theOffset]: "
-						   ."invalid shape geometry." );						// !@! ==>
-					
-					return TRUE;													// ==>
-				
-				default:
-					if( is_array( $theIterator->current() ) )
-						throw new \Exception(
-							"Invalid offset value in [$theOffset]: "
-						   ."array not expected." );							// !@! ==>
-					
-					return TRUE;													// ==>
-			
-			} // Parsed data type.
-			
-			return FALSE;															// ==>
-		
-		} // Single data type.
-		
-		return NULL;																// ==>
-	
-	} // verifyOffsetValue.
-
-	 
-	/*===================================================================================
-	 *	verifyOffsetReference															*
-	 *==================================================================================*/
-
-	/**
-	 * Verify object reference
-	 *
-	 * The duty of this method is to resolve and verify offset values which should be object
-	 * references.
-	 *
-	 * The method expects the current offset to have an object reference type, this must
-	 * have been checked beforehand; if the data type is not an object reference, the method
-	 * will ignore the value.
-	 *
-	 * The current element may either be an object reference or the object itself, if the
-	 * object is not {@link isCommitted()}, the method will commit it; if the object is
-	 * {@link isCommitted()}, the method assumes the object exists in its container; in all
-	 * other cases the method assumes the value to represent an object native identifier and
-	 * it will check if the referenced object exists.
-	 *
-	 * The method will raise an exception if the provided object is not of the correct class
-	 * and if the provided object reference is not found in its default container. It is
-	 * assumed that all references belong to the current data dictionary,
-	 * {@link dictionary()}.
-	 *
-	 * In this class we handle all object reference data types, <em>only if the current
-	 * offset data type has a single entry</em>.
-	 *
-	 * The method will return <tt>NULL</tt> if the offset has more than one data type,
-	 * <tt>TRUE</tt> if the reference was resolved and <tt>FALSE</tt> if it was not
-	 * resolved; this will only happen if the element's data type is not recognised.
-	 *
-	 * Derived classes can handle custom cases by calling the parent method and checking the
-	 * retuned value.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theRefs			Object references.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset string.
-	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses getReferenceTypeClass()
-	 * @uses collectObjectReference()
-	 */
-	protected function verifyOffsetReference( \Iterator $theIterator, &$theRefs,
-																	  &$theType,
-																	  &$theKind,
-																	  &$theOffset,
-																	   $doValidate = TRUE )
-	{
-		//
-		// Verify single data types.
-		//
-		if( count( $theType ) == 1 )
-		{
-			//
-			// Init local storage.
-			//
-			$type = current( $theType );
-			$value = $theIterator->current();
-			$class = $this->getReferenceTypeClass( $type );
-		
-			//
-			// Check type.
-			//
-			if( $class === NULL )
-				return FALSE;														// ==>
-		
-			//
-			// Handle objects.
-			//
-			if( is_object( $value ) )
-			{
-				//
-				// Verify class.
-				//
-				if( ! ($value instanceof $class) )
-					throw new \Exception(
-						"Invalid object reference in [$theOffset]: "
-					   ."incorrect class object." );							// !@! ==>
-			
-				//
-				// Commit object.
-				//
-				if( ! $value->isCommitted() )
-					$id = $value->commit( $this->mDictionary );
-			
-				//
-				// Get identifier.
-				//
-				elseif( ! $value->offsetExists( kTAG_NID ) )
-					throw new \Exception(
-						"Invalid object in [$theOffset]: "
-					   ."missing native identifier." );							// !@! ==>
-			
-				//
-				// Get identifier.
-				//
-				else
-					$id = $value[ kTAG_NID ];
-			
-				//
-				// Set identifier.
-				//
-				$theIterator->offsetSet( $theIterator->key(), $id );
-			
-				//
-				// Add reference count.
-				//
-				$this->collectObjectReference( $theRefs, $class, $id );
-			
-				return TRUE;														// ==>
-		
-			} // Property is an object.
-				
-			//
-			// Cast identifier.
-			//
-			switch( $type )
-			{
-				case kTYPE_REF_TAG:
-				case kTYPE_ENUM:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_ENTITY:
-				case kTYPE_REF_UNIT:
-					$value = (string) $value;
-					break;
-		
-				case kTYPE_REF_NODE:
-					$value = (int) $value;
-					break;
-		
-				case kTYPE_SET:
-					foreach( $value as $key => $val )
-						$value[ $key ] = (string) $val;
-					break;
-				
-				case kTYPE_REF_SELF:
-					switch( $class::kSEQ_NAME )
-					{
-						case Tag::kSEQ_NAME:
-						case Term::kSEQ_NAME:
-						case Edge::kSEQ_NAME:
-						case UnitObject::kSEQ_NAME:
-						case EntityObject::kSEQ_NAME:
-							$value = (string) $value;
-							break;
-						case Node::kSEQ_NAME:
-							$value = (int) $value;
-							break;
-						default:
-							return FALSE;											// ==>
-					}
-					break;
-			
-				default:
-					return FALSE;													// ==>
-		
-			} // Parsed type.
-			
-			//
-			// Verify reference.
-			//
-			if( $doValidate )
-			{
-				//
-				// Resolve collection.
-				//
-				$collection
-					= $class::ResolveCollection(
-						$class::ResolveDatabase( $this->mDictionary ) );
-		
-				//
-				// Resolve reference.
-				//
-				if( is_array( $value ) )
-				{
-					foreach( $value as $val )
-					{
-						if( ! $collection->matchOne(
-								array( kTAG_NID => $val ), kQUERY_COUNT ) )
-							throw new \Exception(
-								"Unresolved reference in [$theOffset]: "
-							   ."($val)." );									// !@! ==>
-					}
-				}
-				elseif( ! $collection->matchOne(
-							array( kTAG_NID => $value ), kQUERY_COUNT ) )
-					throw new \Exception(
-						"Unresolved reference in [$theOffset]: "
-					   ."($value)." );											// !@! ==>
-			
-			} // Requested verification.
-		
-			//
-			// Cast value.
-			//
-			$theIterator->offsetSet( $theIterator->key(), $value );
-		
-			//
-			// Add reference count.
-			//
-			$this->collectObjectReference( $theRefs, $class, $value );
-		
-			return TRUE;															// ==>
-		
-		} // Single data type.
-		
-		return NULL;																// ==>
-	
-	} // verifyOffsetReference.
-
-	 
-	/*===================================================================================
-	 *	castOffsetValue																	*
-	 *==================================================================================*/
-
-	/**
-	 * Cast offset value
-	 *
-	 * The duty of this method is to cast the iterator's current value to the correct data
-	 * type, the method will only be called for scalar values.
-	 *
-	 * If the property has more than one data type, the method will do nothing; you should
-	 * overload this method in derived classes only if you plan to handle offsets that can
-	 * have more than one data type.
-	 *
-	 * The method will return <tt>TRUE</tt> if the value was cast, <tt>FALSE</tt> if not and
-	 * <tt>NULL</tt> if the offset has more than one data type.
-	 *
-	 * @param Iterator				$theIterator		Iterator.
-	 * @param reference				$theRefs			Receives object references.
-	 * @param reference				$theType			Offset data type.
-	 * @param reference				$theKind			Offset data kind.
-	 * @param reference				$theOffset			Current offset string.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>NULL</tt>, <tt>TRUE</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses castShapeGeometry()
-	 * @uses traverseValidate()
-	 */
-	protected function castOffsetValue( \Iterator $theIterator, &$theRefs,
-																&$theType,
-																&$theKind,
-																&$theOffset )
-	{
-		//
-		// Cast only single types.
-		//
-		if( count( $theType ) == 1 )
-		{
-			//
-			// Init local storage.
-			//
-			$type = current( $theType );
-			$key = $theIterator->key();
-			$value = $theIterator->current();
-			
-			//
-			// Parse by type.
-			//
-			switch( $type )
-			{
-				//
-				// Strings.
-				//
-				case kTYPE_STRING:
-				case kTYPE_ENUM:
-				case kTYPE_URL:
-				case kTYPE_REF_TAG:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_UNIT:
-				case kTYPE_REF_ENTITY:
-					$theIterator->offsetSet( $key, (string) $value );
-					return TRUE;													// ==>
-				
-				//
-				// Integers.
-				//
-				case kTYPE_INT:
-				case kTYPE_REF_NODE:
-					$theIterator->offsetSet( $key, (int) $value );
-					return TRUE;													// ==>
-		
-				//
-				// Floats.
-				//
-				case kTYPE_FLOAT:
-					$theIterator->offsetSet( $key, (double) $value );
-					return TRUE;													// ==>
-		
-				//
-				// Enumerated sets.
-				//
-				case kTYPE_SET:
-					//
-					// Iterate set.
-					//
-					$idxs = array_keys( $value );
-					foreach( $idxs as $idx )
-						$value[ $idx ] = (string) $value[ $idx ];
-					//
-					// Set value.
-					//
-					$theIterator->offsetSet( $key, $value );
-					return TRUE;													// ==>
-		
-				//
-				// Language strings.
-				//
-				case kTYPE_TYPED_LIST:
-				case kTYPE_LANGUAGE_STRINGS:
-					//
-					// Init loop storage.
-					//
-					$tags = Array();
-					$path = explode( '.', $theOffset );
-					//
-					// Iterate elements.
-					//
-					$idxs = array_keys( $value );
-					foreach( $idxs as $idx )
-					{
-						//
-						// Check format.
-						//
-						if( ! is_array( $value[ $idx ] ) )
-							throw new \Exception(
-								"Invalid offset value element in [$theOffset]: "
-							   ."the value is not an array." );					// !@! ==>
-						//
-						// Traverse element.
-						//
-						$struct = new \ArrayObject( $value[ $idx ] );
-						$iterator = $struct->getIterator();
-						iterator_apply( $iterator,
-										array( $this, 'traverseValidate' ),
-										array( $iterator, & $path,
-														  & $tags,
-														  & $theRefs ) );
-						//
-						// Set element.
-						//
-						$value[ $idx ] = $struct->getArrayCopy();
-					}
-					//
-					// Set value.
-					//
-					$theIterator->offsetSet( $key, $value );
-					return TRUE;													// ==>
-		
-				//
-				// Shapes.
-				//
-				case kTYPE_SHAPE:
-					//
-					// Cast geometry.
-					//
-					$this->castShapeGeometry( $value );
-					//
-					// Update offset.
-					//
-					$theIterator->offsetSet( $key, $value );
-					return TRUE;													// ==>
-		
-			} // Parsed type.
-			
-			return FALSE;															// ==>
-		
-		} // Single data type.
-		
-		return NULL;																// ==>
-	
-	} // castOffsetValue.
 
 	 
 	/*===================================================================================
@@ -4770,52 +4591,6 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // updateReferenceCount.
 
-	 
-	/*===================================================================================
-	 *	updateOffsetsSet																*
-	 *==================================================================================*/
-
-	/**
-	 * Update offsets set
-	 *
-	 * This method will update the offsets set corresponding to the current object in the
-	 * provided tag references.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theCollection</b>: The tags collection.
-	 *	<li><b>$theOffset</b>: The tag object offset receiving the offsets list.
-	 *	<li><b>$theOffsets</b>: The list of offsets.
-	 *	<li><b>$doAdd</b>: <tt>TRUE</tt> means add to set, <tt>FALSE</tt> means remove from
-	 *		set.
-	 * </ul>
-	 *
-	 * The method assumes the current object has its {@link dictionary()} set.
-	 *
-	 * @param CollectionObject		$theCollection		Tags collection.
-	 * @param int					$theTag				Tag sequence number.
-	 * @param string				$theOffset			Tag offsets list offset.
-	 * @param array					$theOffsets			Offsets list.
-	 * @param boolean				$doAdd				Add or remove from set.
-	 *
-	 * @access protected
-	 */
-	protected function updateOffsetsSet( CollectionObject $theCollection,
-														  $theTag, $theOffset, $theOffsets,
-														  $doAdd = TRUE )
-	{
-		//
-		// Update set.
-		//
-		$theCollection->updateSet(
-			(int) $theTag,							// Tag sequence number.
-			kTAG_ID_SEQUENCE,						// Sequence number offset.
-			array( $theOffset => $theOffsets ),		// Offsets list.
-			$doAdd );								// Add or delete.
-	
-	} // updateOffsetsSet.
-
 		
 
 /*=======================================================================================
@@ -4875,106 +4650,6 @@ abstract class PersistentObject extends OntologyObject
 			throw new \Exception( "Invalid wrapper type." );					// !@! ==>
 	
 	} // resolveWrapper.
-
-	 
-	/*===================================================================================
-	 *	validateReference																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate object reference
-	 *
-	 * This method will validate the provided reference, it will check whether the value is
-	 * an object, in which case it will use its native identifier if committed, or check
-	 * whether it is of the correct type.
-	 *
-	 * @param reference				$theValue			Object reference.
-	 * @param string				$theClass			Ancestor class name.
-	 * @param string				$theType			Reference data type.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kTYPE_REF_TERM kTYPE_REF_TAG kTYPE_REF_NODE kTYPE_REF_EDGE
-	 * @see kTYPE_REF_ENTITY kTYPE_REF_UNIT kTYPE_REF_SELF
-	 */
-	protected function validateReference( &$theValue, $theClass, $theType )
-	{
-		//
-		// Handle namespace object.
-		//
-		if( is_object( $theValue ) )
-		{
-			//
-			// Handle terms.
-			//
-			if( $theValue instanceof $theClass )
-			{
-				//
-				// Get object reference.
-				//
-				if( $theValue->isCommitted() )
-					$theValue = $theValue->reference();
-			
-			} // Is a term.
-			
-			else
-				throw new \Exception(
-					"Unable to set object reference: "
-				   ."provided an object other than $theClass." );				// !@! ==>
-		
-		} // Namespace object.
-		
-		//
-		// Handle reference.
-		//
-		else
-		{
-			//
-			// Cast identifier.
-			//
-			switch( $theType )
-			{
-				case kTYPE_REF_TAG:
-				case kTYPE_ENUM:
-				case kTYPE_REF_TERM:
-				case kTYPE_REF_EDGE:
-				case kTYPE_REF_ENTITY:
-				case kTYPE_REF_UNIT:
-					$theValue = (string) $theValue;
-					break;
-		
-				case kTYPE_REF_NODE:
-					$theValue = (int) $theValue;
-					break;
-		
-				case kTYPE_SET:
-					foreach( $theValue as $key => $val )
-						$theValue[ $key ] = (string) $val;
-					break;
-				
-				case kTYPE_REF_SELF:
-					switch( $class::kSEQ_NAME )
-					{
-						case Tag::kSEQ_NAME:
-						case Term::kSEQ_NAME:
-						case Edge::kSEQ_NAME:
-						case UnitObject::kSEQ_NAME:
-						case EntityObject::kSEQ_NAME:
-							$theValue = (string) $theValue;
-							break;
-						case Node::kSEQ_NAME:
-							$theValue = (int) $theValue;
-							break;
-					}
-					break;
-		
-			} // Parsed type.
-		
-		} // Object reference.
-	
-	} // validateReference.
 
 	 
 	/*===================================================================================

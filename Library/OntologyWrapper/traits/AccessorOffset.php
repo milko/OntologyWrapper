@@ -322,8 +322,7 @@ trait AccessorOffset
 		} // Offset is array or ArrayObject.
 
 		throw new Exception
-				( "Expecting array or ArrayObject at offset [$theOffset]",
-				  kERROR_PARAMETER );											// !@! ==>
+				( "Expecting array or ArrayObject at offset [$theOffset]" );	// !@! ==>
 	
 	} // manageSetOffset.
 
@@ -518,8 +517,7 @@ trait AccessorOffset
 		} // Offset is array or ArrayObject.
 
 		throw new Exception
-				( "Expecting array or ArrayObject at offset [$theOffset]",
-				  kERROR_PARAMETER );											// !@! ==>
+				( "Expecting array or ArrayObject at offset [$theOffset]" );	// !@! ==>
 	
 	} // manageArrayOffset.
 
@@ -660,16 +658,16 @@ trait AccessorOffset
 				//
 				if( ! is_array( $element ) )
 					throw new \Exception
-							( "Expecting a list of arrays at offset [$theOffset]",
-							  kERROR_PARAMETER );								// !@! ==>
+							( "Expecting a list of arrays at offset "
+							 ."[$theOffset]" );									// !@! ==>
 				
 				//
 				// Check data element.
 				//
 				if( ! array_key_exists( $theDataOffset, $element ) )
 					throw new \Exception
-							( "Expecting an element featuring the [$theDataOffset] offset",
-							  kERROR_PARAMETER );								// !@! ==>
+							( "Expecting an element featuring the "
+							 ."[$theDataOffset] offset" );						// !@! ==>
 				
 				//
 				// Match element.
@@ -814,8 +812,7 @@ trait AccessorOffset
 		} // Correct offset data type.
 
 		throw new Exception
-				( "Expecting array or ArrayObject at offset [$theOffset]",
-				  kERROR_PARAMETER );											// !@! ==>
+				( "Expecting array or ArrayObject at offset [$theOffset]" );	// !@! ==>
 	
 	} // manageElementMatchOffset.
 

@@ -477,7 +477,7 @@ abstract class EntityObject extends UnitObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_NAME
 	 *
 	 * @uses TermCount()
 	 */
@@ -511,7 +511,7 @@ abstract class EntityObject extends UnitObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_NAME
 	 *
 	 * @uses TermCount()
 	 */

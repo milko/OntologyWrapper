@@ -533,7 +533,8 @@ class Term extends PersistentObject
 			{
 				case kTAG_MASTER:
 				case kTAG_NAMESPACE:
-					$this->validateReference( $theValue, __class__, kTYPE_REF_TERM );
+					$this->validateReference(
+						$theValue, kTYPE_REF_TERM, __class__, $theOffset );
 					break;
 			}
 			
