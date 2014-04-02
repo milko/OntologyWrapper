@@ -10,7 +10,7 @@
 	<!-- iso:3166 -->
 	
 	<UNIT>
-		<TERM modify="iso:3166:1:alpha-3:DZA">
+		<TERM set="iso:3166:1:alpha-3:DZA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -26,7 +26,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BHR">
+		<TERM set="iso:3166:1:alpha-3:BHR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -35,7 +35,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:COM">
+		<TERM set="iso:3166:1:alpha-3:COM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -54,7 +54,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:DJI">
+		<TERM set="iso:3166:1:alpha-3:DJI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -73,7 +73,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:EGY">
+		<TERM set="iso:3166:1:alpha-3:EGY">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -89,7 +89,7 @@
 				<item>wbi:income:NAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IRQ">
+		<TERM set="iso:3166:1:alpha-3:IRQ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -105,7 +105,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:JOR">
+		<TERM set="iso:3166:1:alpha-3:JOR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -121,7 +121,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KWT">
+		<TERM set="iso:3166:1:alpha-3:KWT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -130,7 +130,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LBN">
+		<TERM set="iso:3166:1:alpha-3:LBN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -146,7 +146,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LBY">
+		<TERM set="iso:3166:1:alpha-3:LBY">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -162,7 +162,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MRT">
+		<TERM set="iso:3166:1:alpha-3:MRT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -179,7 +179,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MAR">
+		<TERM set="iso:3166:1:alpha-3:MAR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -195,7 +195,7 @@
 				<item>wbi:income:NAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:OMN">
+		<TERM set="iso:3166:1:alpha-3:OMN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -204,7 +204,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:QAT">
+		<TERM set="iso:3166:1:alpha-3:QAT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -213,7 +213,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SAU">
+		<TERM set="iso:3166:1:alpha-3:SAU">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -222,7 +222,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SOM">
+		<TERM set="iso:3166:1:alpha-3:SOM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -239,7 +239,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SDN">
+		<TERM set="iso:3166:1:alpha-3:SDN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -257,7 +257,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SYR">
+		<TERM set="iso:3166:1:alpha-3:SYR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -273,7 +273,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TUN">
+		<TERM set="iso:3166:1:alpha-3:TUN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -289,7 +289,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ARE">
+		<TERM set="iso:3166:1:alpha-3:ARE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -298,7 +298,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PSE">
+		<TERM set="iso:3166:1:alpha-3:PSE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ARB</item>
@@ -310,7 +310,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:YEM">
+		<TERM set="iso:3166:1:alpha-3:YEM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -327,7 +327,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ATG">
+		<TERM set="iso:3166:1:alpha-3:ATG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -344,7 +344,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CUB">
+		<TERM set="iso:3166:1:alpha-3:CUB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:CRB</item>
@@ -355,7 +355,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:DMA">
+		<TERM set="iso:3166:1:alpha-3:DMA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -373,7 +373,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:DOM">
+		<TERM set="iso:3166:1:alpha-3:DOM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -388,7 +388,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GRD">
+		<TERM set="iso:3166:1:alpha-3:GRD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -406,7 +406,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:HTI">
+		<TERM set="iso:3166:1:alpha-3:HTI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -422,7 +422,7 @@
 				<item>wbi:income:LIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:JAM">
+		<TERM set="iso:3166:1:alpha-3:JAM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -439,7 +439,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LCA">
+		<TERM set="iso:3166:1:alpha-3:LCA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -457,7 +457,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:VCT">
+		<TERM set="iso:3166:1:alpha-3:VCT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -475,7 +475,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BHS">
+		<TERM set="iso:3166:1:alpha-3:BHS">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:CSS</item>
@@ -485,7 +485,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BRB">
+		<TERM set="iso:3166:1:alpha-3:BRB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:CSS</item>
@@ -495,7 +495,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BLZ">
+		<TERM set="iso:3166:1:alpha-3:BLZ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -512,7 +512,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GUY">
+		<TERM set="iso:3166:1:alpha-3:GUY">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -530,7 +530,7 @@
 				<item>wbi:income:SAM</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KNA">
+		<TERM set="iso:3166:1:alpha-3:KNA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -544,7 +544,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SUR">
+		<TERM set="iso:3166:1:alpha-3:SUR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -561,7 +561,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TTO">
+		<TERM set="iso:3166:1:alpha-3:TTO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -575,7 +575,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AGO">
+		<TERM set="iso:3166:1:alpha-3:AGO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -591,7 +591,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CMR">
+		<TERM set="iso:3166:1:alpha-3:CMR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -607,7 +607,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CAF">
+		<TERM set="iso:3166:1:alpha-3:CAF">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -623,7 +623,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TCD">
+		<TERM set="iso:3166:1:alpha-3:TCD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -639,7 +639,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TCD">
+		<TERM set="iso:3166:1:alpha-3:TCD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -655,7 +655,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:COG">
+		<TERM set="iso:3166:1:alpha-3:COG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -671,7 +671,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GAB">
+		<TERM set="iso:3166:1:alpha-3:GAB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -688,7 +688,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:STP">
+		<TERM set="iso:3166:1:alpha-3:STP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -707,7 +707,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CRI">
+		<TERM set="iso:3166:1:alpha-3:CRI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -722,7 +722,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SLV">
+		<TERM set="iso:3166:1:alpha-3:SLV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -737,7 +737,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GTM">
+		<TERM set="iso:3166:1:alpha-3:GTM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -752,7 +752,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:HND">
+		<TERM set="iso:3166:1:alpha-3:HND">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -768,7 +768,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MEX">
+		<TERM set="iso:3166:1:alpha-3:MEX">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -784,7 +784,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NIC">
+		<TERM set="iso:3166:1:alpha-3:NIC">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -800,7 +800,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PAN">
+		<TERM set="iso:3166:1:alpha-3:PAN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -815,7 +815,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KAZ">
+		<TERM set="iso:3166:1:alpha-3:KAZ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -830,7 +830,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KGZ">
+		<TERM set="iso:3166:1:alpha-3:KGZ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -844,7 +844,7 @@
 				<item>wbi:income:LIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TJK">
+		<TERM set="iso:3166:1:alpha-3:TJK">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -858,7 +858,7 @@
 				<item>wbi:income:LIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TKM">
+		<TERM set="iso:3166:1:alpha-3:TKM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -873,7 +873,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:UZB">
+		<TERM set="iso:3166:1:alpha-3:UZB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -889,7 +889,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BWA">
+		<TERM set="iso:3166:1:alpha-3:BWA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -906,7 +906,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BDI">
+		<TERM set="iso:3166:1:alpha-3:BDI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -922,7 +922,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ERI">
+		<TERM set="iso:3166:1:alpha-3:ERI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -938,7 +938,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ETH">
+		<TERM set="iso:3166:1:alpha-3:ETH">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -954,7 +954,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KEN">
+		<TERM set="iso:3166:1:alpha-3:KEN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -968,7 +968,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LSO">
+		<TERM set="iso:3166:1:alpha-3:LSO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -986,7 +986,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MDG">
+		<TERM set="iso:3166:1:alpha-3:MDG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1002,7 +1002,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MWI">
+		<TERM set="iso:3166:1:alpha-3:MWI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1018,7 +1018,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MUS">
+		<TERM set="iso:3166:1:alpha-3:MUS">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1035,7 +1035,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MOZ">
+		<TERM set="iso:3166:1:alpha-3:MOZ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1051,7 +1051,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NAM">
+		<TERM set="iso:3166:1:alpha-3:NAM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1068,7 +1068,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:RWA">
+		<TERM set="iso:3166:1:alpha-3:RWA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1084,7 +1084,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SYC">
+		<TERM set="iso:3166:1:alpha-3:SYC">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1101,7 +1101,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ZAF">
+		<TERM set="iso:3166:1:alpha-3:ZAF">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1116,7 +1116,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SSD">
+		<TERM set="iso:3166:1:alpha-3:SSD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ESA</item>
@@ -1127,7 +1127,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SWZ">
+		<TERM set="iso:3166:1:alpha-3:SWZ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1144,7 +1144,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TZA">
+		<TERM set="iso:3166:1:alpha-3:TZA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1160,7 +1160,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:UGA">
+		<TERM set="iso:3166:1:alpha-3:UGA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1176,7 +1176,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ZMB">
+		<TERM set="iso:3166:1:alpha-3:ZMB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1193,7 +1193,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ZWE">
+		<TERM set="iso:3166:1:alpha-3:ZWE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -1208,7 +1208,7 @@
 				<item>wbi:income:SSA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ASM">
+		<TERM set="iso:3166:1:alpha-3:ASM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1219,7 +1219,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AUS">
+		<TERM set="iso:3166:1:alpha-3:AUS">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1228,7 +1228,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BRN">
+		<TERM set="iso:3166:1:alpha-3:BRN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1236,7 +1236,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KHM">
+		<TERM set="iso:3166:1:alpha-3:KHM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1251,7 +1251,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CHN">
+		<TERM set="iso:3166:1:alpha-3:CHN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1266,7 +1266,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:FJI">
+		<TERM set="iso:3166:1:alpha-3:FJI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1283,7 +1283,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PYF">
+		<TERM set="iso:3166:1:alpha-3:PYF">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1291,7 +1291,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GUM">
+		<TERM set="iso:3166:1:alpha-3:GUM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1299,7 +1299,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:HKG">
+		<TERM set="iso:3166:1:alpha-3:HKG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1307,7 +1307,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IDN">
+		<TERM set="iso:3166:1:alpha-3:IDN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1322,7 +1322,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:JPN">
+		<TERM set="iso:3166:1:alpha-3:JPN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1331,7 +1331,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KIR">
+		<TERM set="iso:3166:1:alpha-3:KIR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1349,7 +1349,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PRK">
+		<TERM set="iso:3166:1:alpha-3:PRK">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1359,7 +1359,7 @@
 				<item>wbi:income:LIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:KOR">
+		<TERM set="iso:3166:1:alpha-3:KOR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1372,7 +1372,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LAO">
+		<TERM set="iso:3166:1:alpha-3:LAO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1388,7 +1388,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MAC">
+		<TERM set="iso:3166:1:alpha-3:MAC">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1396,7 +1396,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MYS">
+		<TERM set="iso:3166:1:alpha-3:MYS">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1411,7 +1411,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MHL">
+		<TERM set="iso:3166:1:alpha-3:MHL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1428,7 +1428,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:FSM">
+		<TERM set="iso:3166:1:alpha-3:FSM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1445,7 +1445,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MNG">
+		<TERM set="iso:3166:1:alpha-3:MNG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -1461,7 +1461,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MMR">
+		<TERM set="iso:3166:1:alpha-3:MMR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1476,7 +1476,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MNP">
+		<TERM set="iso:3166:1:alpha-3:MNP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1484,7 +1484,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NCL">
+		<TERM set="iso:3166:1:alpha-3:NCL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1492,7 +1492,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NZL">
+		<TERM set="iso:3166:1:alpha-3:NZL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1501,7 +1501,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PLW">
+		<TERM set="iso:3166:1:alpha-3:PLW">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1518,7 +1518,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PNG">
+		<TERM set="iso:3166:1:alpha-3:PNG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -1534,7 +1534,7 @@
 				<item>wbi:income:PAC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PHL">
+		<TERM set="iso:3166:1:alpha-3:PHL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1549,7 +1549,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:WSM">
+		<TERM set="iso:3166:1:alpha-3:WSM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1567,7 +1567,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SGP">
+		<TERM set="iso:3166:1:alpha-3:SGP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1575,7 +1575,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SLB">
+		<TERM set="iso:3166:1:alpha-3:SLB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1593,7 +1593,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TWN">
+		<TERM set="iso:3166:1:alpha-3:TWN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EAS</item>
@@ -1601,7 +1601,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:THA">
+		<TERM set="iso:3166:1:alpha-3:THA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1616,7 +1616,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:3:alpha-3:TMP">
+		<TERM set="iso:3166:3:alpha-3:TMP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1634,7 +1634,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TON">
+		<TERM set="iso:3166:1:alpha-3:TON">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1651,7 +1651,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TUV">
+		<TERM set="iso:3166:1:alpha-3:TUV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1669,7 +1669,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:VUT">
+		<TERM set="iso:3166:1:alpha-3:VUT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1687,7 +1687,7 @@
 				<item>wbi:income:SST</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:VNM">
+		<TERM set="iso:3166:1:alpha-3:VNM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -1703,7 +1703,7 @@
 				<item>wbi:income:SEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BLR">
+		<TERM set="iso:3166:1:alpha-3:BLR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1718,7 +1718,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BGR">
+		<TERM set="iso:3166:1:alpha-3:BGR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1734,7 +1734,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LVA">
+		<TERM set="iso:3166:1:alpha-3:LVA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EER</item>
@@ -1746,7 +1746,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LTU">
+		<TERM set="iso:3166:1:alpha-3:LTU">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EER</item>
@@ -1758,7 +1758,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MDA">
+		<TERM set="iso:3166:1:alpha-3:MDA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -1773,7 +1773,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:3:alpha-3:ROM">
+		<TERM set="iso:3166:3:alpha-3:ROM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1789,7 +1789,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:RUS">
+		<TERM set="iso:3166:1:alpha-3:RUS">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1804,7 +1804,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:UKR">
+		<TERM set="iso:3166:1:alpha-3:UKR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -1819,7 +1819,7 @@
 				<item>wbi:income:MIC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AUT">
+		<TERM set="iso:3166:1:alpha-3:AUT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1830,7 +1830,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BEL">
+		<TERM set="iso:3166:1:alpha-3:BEL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1841,7 +1841,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CYP">
+		<TERM set="iso:3166:1:alpha-3:CYP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1851,7 +1851,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:EST">
+		<TERM set="iso:3166:1:alpha-3:EST">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1862,7 +1862,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:FIN">
+		<TERM set="iso:3166:1:alpha-3:FIN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1873,7 +1873,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:FRA">
+		<TERM set="iso:3166:1:alpha-3:FRA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1884,7 +1884,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:DEU">
+		<TERM set="iso:3166:1:alpha-3:DEU">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1895,7 +1895,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GRC">
+		<TERM set="iso:3166:1:alpha-3:GRC">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1906,7 +1906,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IRL">
+		<TERM set="iso:3166:1:alpha-3:IRL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1917,7 +1917,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ITA">
+		<TERM set="iso:3166:1:alpha-3:ITA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1928,7 +1928,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LUX">
+		<TERM set="iso:3166:1:alpha-3:LUX">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1939,7 +1939,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MLT">
+		<TERM set="iso:3166:1:alpha-3:MLT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1949,7 +1949,7 @@
 				<item>wbi:income:MEA</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NLD">
+		<TERM set="iso:3166:1:alpha-3:NLD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1960,7 +1960,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PRT">
+		<TERM set="iso:3166:1:alpha-3:PRT">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1971,7 +1971,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SVK">
+		<TERM set="iso:3166:1:alpha-3:SVK">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1982,7 +1982,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SVN">
+		<TERM set="iso:3166:1:alpha-3:SVN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -1993,7 +1993,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ESP">
+		<TERM set="iso:3166:1:alpha-3:ESP">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:EMU</item>
@@ -2004,7 +2004,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ALB">
+		<TERM set="iso:3166:1:alpha-3:ALB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2019,7 +2019,7 @@
 				<item>wbi:income:SER</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AND">
+		<TERM set="iso:3166:1:alpha-3:AND">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2027,7 +2027,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ARM">
+		<TERM set="iso:3166:1:alpha-3:ARM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2043,7 +2043,7 @@
 				<item>wbi:income:SER</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AZE">
+		<TERM set="iso:3166:1:alpha-3:AZE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2058,7 +2058,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BIH">
+		<TERM set="iso:3166:1:alpha-3:BIH">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2074,7 +2074,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:HRV">
+		<TERM set="iso:3166:1:alpha-3:HRV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2086,7 +2086,7 @@
 				<item>wbi:income:IBT</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CZE">
+		<TERM set="iso:3166:1:alpha-3:CZE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2096,7 +2096,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:DNK">
+		<TERM set="iso:3166:1:alpha-3:DNK">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2106,7 +2106,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:FRO">
+		<TERM set="iso:3166:1:alpha-3:FRO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2114,7 +2114,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GEO">
+		<TERM set="iso:3166:1:alpha-3:GEO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2130,7 +2130,7 @@
 				<item>wbi:income:SER</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GRL">
+		<TERM set="iso:3166:1:alpha-3:GRL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2138,7 +2138,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:HUN">
+		<TERM set="iso:3166:1:alpha-3:HUN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2148,7 +2148,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ISL">
+		<TERM set="iso:3166:1:alpha-3:ISL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2157,7 +2157,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IMN">
+		<TERM set="iso:3166:1:alpha-3:IMN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2165,7 +2165,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LIE">
+		<TERM set="iso:3166:1:alpha-3:LIE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2173,7 +2173,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MKD">
+		<TERM set="iso:3166:1:alpha-3:MKD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2188,7 +2188,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MCO">
+		<TERM set="iso:3166:1:alpha-3:MCO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2196,7 +2196,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MNE">
+		<TERM set="iso:3166:1:alpha-3:MNE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2213,7 +2213,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NOR">
+		<TERM set="iso:3166:1:alpha-3:NOR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2222,7 +2222,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:POL">
+		<TERM set="iso:3166:1:alpha-3:POL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2236,7 +2236,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SMR">
+		<TERM set="iso:3166:1:alpha-3:SMR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2244,7 +2244,7 @@
 				<item>wbi:income:NOC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SRB">
+		<TERM set="iso:3166:1:alpha-3:SRB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2259,7 +2259,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SWE">
+		<TERM set="iso:3166:1:alpha-3:SWE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2269,7 +2269,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CHE">
+		<TERM set="iso:3166:1:alpha-3:CHE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2278,7 +2278,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TUR">
+		<TERM set="iso:3166:1:alpha-3:TUR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2294,7 +2294,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GBR">
+		<TERM set="iso:3166:1:alpha-3:GBR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:ECS</item>
@@ -2304,7 +2304,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:AFG">
+		<TERM set="iso:3166:1:alpha-3:AFG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2319,7 +2319,7 @@
 				<item>wbi:income:SAX</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BEN">
+		<TERM set="iso:3166:1:alpha-3:BEN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2335,7 +2335,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BOL">
+		<TERM set="iso:3166:1:alpha-3:BOL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2352,7 +2352,7 @@
 				<item>wbi:income:SAM</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BFA">
+		<TERM set="iso:3166:1:alpha-3:BFA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2368,7 +2368,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CIV">
+		<TERM set="iso:3166:1:alpha-3:CIV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2384,7 +2384,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GMB">
+		<TERM set="iso:3166:1:alpha-3:GMB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2402,7 +2402,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GHA">
+		<TERM set="iso:3166:1:alpha-3:GHA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2418,7 +2418,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GIN">
+		<TERM set="iso:3166:1:alpha-3:GIN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2434,7 +2434,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GNB">
+		<TERM set="iso:3166:1:alpha-3:GNB">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2452,7 +2452,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LBR">
+		<TERM set="iso:3166:1:alpha-3:LBR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2468,7 +2468,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MLI">
+		<TERM set="iso:3166:1:alpha-3:MLI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2484,7 +2484,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NER">
+		<TERM set="iso:3166:1:alpha-3:NER">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2500,7 +2500,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SEN">
+		<TERM set="iso:3166:1:alpha-3:SEN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2517,7 +2517,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SLE">
+		<TERM set="iso:3166:1:alpha-3:SLE">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2533,7 +2533,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TGO">
+		<TERM set="iso:3166:1:alpha-3:TGO">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2549,7 +2549,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ABW">
+		<TERM set="iso:3166:1:alpha-3:ABW">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2557,7 +2557,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BMU">
+		<TERM set="iso:3166:1:alpha-3:BMU">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2565,7 +2565,7 @@
 				<item>wbi:income:NAC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CAN">
+		<TERM set="iso:3166:1:alpha-3:CAN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2574,7 +2574,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CYM">
+		<TERM set="iso:3166:1:alpha-3:CYM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2582,7 +2582,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CUW">
+		<TERM set="iso:3166:1:alpha-3:CUW">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2590,7 +2590,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:GNQ">
+		<TERM set="iso:3166:1:alpha-3:GNQ">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2605,7 +2605,7 @@
 				<item>wbi:income:SSF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ISR">
+		<TERM set="iso:3166:1:alpha-3:ISR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2614,7 +2614,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PRI">
+		<TERM set="iso:3166:1:alpha-3:PRI">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2622,7 +2622,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:SXM">
+		<TERM set="iso:3166:1:alpha-3:SXM">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2630,7 +2630,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MAF">
+		<TERM set="iso:3166:1:alpha-3:MAF">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2638,7 +2638,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:TCA">
+		<TERM set="iso:3166:1:alpha-3:TCA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2646,7 +2646,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:USA">
+		<TERM set="iso:3166:1:alpha-3:USA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2655,7 +2655,7 @@
 				<item>wbi:income:OED</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:VIR">
+		<TERM set="iso:3166:1:alpha-3:VIR">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:income:HIC</item>
@@ -2663,7 +2663,7 @@
 				<item>wbi:income:LCN</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ARG">
+		<TERM set="iso:3166:1:alpha-3:ARG">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2678,7 +2678,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BRA">
+		<TERM set="iso:3166:1:alpha-3:BRA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2693,7 +2693,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CHL">
+		<TERM set="iso:3166:1:alpha-3:CHL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2709,7 +2709,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:COL">
+		<TERM set="iso:3166:1:alpha-3:COL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2724,7 +2724,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:ECU">
+		<TERM set="iso:3166:1:alpha-3:ECU">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2739,7 +2739,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IRN">
+		<TERM set="iso:3166:1:alpha-3:IRN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2754,7 +2754,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PRY">
+		<TERM set="iso:3166:1:alpha-3:PRY">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2769,7 +2769,7 @@
 				<item>wbi:income:SAM</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PER">
+		<TERM set="iso:3166:1:alpha-3:PER">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2784,7 +2784,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:URY">
+		<TERM set="iso:3166:1:alpha-3:URY">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2799,7 +2799,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:VEN">
+		<TERM set="iso:3166:1:alpha-3:VEN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IBRD</item>
@@ -2814,7 +2814,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:CPV">
+		<TERM set="iso:3166:1:alpha-3:CPV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2832,7 +2832,7 @@
 				<item>wbi:income:WAF</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:IND">
+		<TERM set="iso:3166:1:alpha-3:IND">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2846,22 +2846,7 @@
 				<item>wbi:income:SAS</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:PAK">
-			<item tag="wbi:version">July 2012</item>
-			<item tag="wbi:group">
-				<item>wbi:lending:Blend</item>
-				<item>wbi:income:IBB</item>
-				<item>wbi:income:IBT</item>
-				<item>wbi:income:IDB</item>
-				<item>wbi:income:IDA</item>
-				<item>wbi:income:LMY</item>
-				<item>wbi:income:LMC</item>
-				<item>wbi:income:MIC</item>
-				<item>wbi:income:SAS</item>
-				<item>wbi:income:SAX</item>
-			</item>
-		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:LKA">
+		<TERM set="iso:3166:1:alpha-3:PAK">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:Blend</item>
@@ -2876,7 +2861,22 @@
 				<item>wbi:income:SAX</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BGD">
+		<TERM set="iso:3166:1:alpha-3:LKA">
+			<item tag="wbi:version">July 2012</item>
+			<item tag="wbi:group">
+				<item>wbi:lending:Blend</item>
+				<item>wbi:income:IBB</item>
+				<item>wbi:income:IBT</item>
+				<item>wbi:income:IDB</item>
+				<item>wbi:income:IDA</item>
+				<item>wbi:income:LMY</item>
+				<item>wbi:income:LMC</item>
+				<item>wbi:income:MIC</item>
+				<item>wbi:income:SAS</item>
+				<item>wbi:income:SAX</item>
+			</item>
+		</TERM>
+		<TERM set="iso:3166:1:alpha-3:BGD">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2890,7 +2890,7 @@
 				<item>wbi:income:SAX</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:BTN">
+		<TERM set="iso:3166:1:alpha-3:BTN">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2907,7 +2907,7 @@
 				<item>wbi:income:SAX</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:MDV">
+		<TERM set="iso:3166:1:alpha-3:MDV">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2923,7 +2923,7 @@
 				<item>wbi:income:UMC</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NPL">
+		<TERM set="iso:3166:1:alpha-3:NPL">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>
@@ -2937,7 +2937,7 @@
 				<item>wbi:income:SAX</item>
 			</item>
 		</TERM>
-		<TERM modify="iso:3166:1:alpha-3:NGA">
+		<TERM set="iso:3166:1:alpha-3:NGA">
 			<item tag="wbi:version">July 2012</item>
 			<item tag="wbi:group">
 				<item>wbi:lending:IDA</item>

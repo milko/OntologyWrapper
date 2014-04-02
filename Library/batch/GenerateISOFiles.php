@@ -3913,7 +3913,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Get alpha-3 identifiers.
 			//
-			$gid3 = (string) $rec_term[ 'modify' ];
+			$gid3 = (string) $rec_term[ 'set' ];
 			$id3 = substr( $gid3, strlen( $gid3 ) - 3 );
 			
 			//
@@ -3985,7 +3985,7 @@ if( kOPTION_VERBOSE )
 				// Create term.
 				//
 				$term = $unit->addChild( 'TERM' );
-				$term->addAttribute( 'modify', $enum );
+				$term->addAttribute( 'set', $enum );
 				
 				//
 				// Set version.

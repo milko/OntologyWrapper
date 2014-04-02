@@ -1656,11 +1656,16 @@ class Wrapper extends Dictionary
 	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if updating.
+		// Check if replacing or deleting.
 		//
-		$mod = isset( $theXML[ 'modify' ] );
-		if( $mod )
-			$id = (string) $theXML[ 'modify' ];
+		if( isset( $theXML[ 'set' ] ) )
+			$mod = TRUE;
+		elseif( isset( $theXML[ 'del' ] ) )
+			$mod = FALSE;
+		if( isset( $mod ) )
+			$id = ( $mod )
+				? (string) $theXML[ 'set' ]
+				: (string) $theXML[ 'del' ];
 		
 		//
 		// Instantiate tag.
@@ -1676,8 +1681,8 @@ class Wrapper extends Dictionary
 		//
 		// Modify object.
 		//
-		if( $mod )
-			Tag::Modify( $this, $id, $object, TRUE );
+		if( isset( $mod ) )
+			Tag::Modify( $this, $id, $object, $mod );
 		
 		//
 		// Commit object.
@@ -1719,11 +1724,16 @@ class Wrapper extends Dictionary
 	protected function loadXMLTerm( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if updating.
+		// Check if replacing or deleting.
 		//
-		$mod = isset( $theXML[ 'modify' ] );
-		if( $mod )
-			$id = (string) $theXML[ 'modify' ];
+		if( isset( $theXML[ 'set' ] ) )
+			$mod = TRUE;
+		elseif( isset( $theXML[ 'del' ] ) )
+			$mod = FALSE;
+		if( isset( $mod ) )
+			$id = ( $mod )
+				? (string) $theXML[ 'set' ]
+				: (string) $theXML[ 'del' ];
 		
 		//
 		// Instantiate term.
@@ -1733,7 +1743,7 @@ class Wrapper extends Dictionary
 		//
 		// Handle commit.
 		//
-		if( ! $mod )
+		if( ! isset( $mod ) )
 		{
 			//
 			// Load attributes.
@@ -1757,8 +1767,8 @@ class Wrapper extends Dictionary
 		//
 		// Modify object.
 		//
-		if( $mod )
-			Term::Modify( $this, $id, $object, TRUE );
+		if( isset( $mod ) )
+			Term::Modify( $this, $id, $object, $mod );
 		
 		//
 		// Commit object.
@@ -1800,11 +1810,16 @@ class Wrapper extends Dictionary
 	protected function loadXMLNode( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if updating.
+		// Check if replacing or deleting.
 		//
-		$mod = isset( $theXML[ 'modify' ] );
-		if( $mod )
-			$id = (string) $theXML[ 'modify' ];
+		if( isset( $theXML[ 'set' ] ) )
+			$mod = TRUE;
+		elseif( isset( $theXML[ 'del' ] ) )
+			$mod = FALSE;
+		if( isset( $mod ) )
+			$id = ( $mod )
+				? (string) $theXML[ 'set' ]
+				: (string) $theXML[ 'del' ];
 		
 		//
 		// Instantiate node.
@@ -1814,7 +1829,7 @@ class Wrapper extends Dictionary
 		//
 		// Handle commit.
 		//
-		if( ! $mod )
+		if( ! isset( $mod ) )
 		{
 			//
 			// Get tag or term from attributes.
@@ -1865,8 +1880,8 @@ class Wrapper extends Dictionary
 		//
 		// Modify object.
 		//
-		if( $mod )
-			Node::Modify( $this, $id, $object, TRUE );
+		if( isset( $mod ) )
+			Node::Modify( $this, $id, $object, $mod );
 		
 		//
 		// Commit object.
@@ -1908,11 +1923,16 @@ class Wrapper extends Dictionary
 	protected function loadXMLEdge( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if updating.
+		// Check if replacing or deleting.
 		//
-		$mod = isset( $theXML[ 'modify' ] );
-		if( $mod )
-			$id = (string) $theXML[ 'modify' ];
+		if( isset( $theXML[ 'set' ] ) )
+			$mod = TRUE;
+		elseif( isset( $theXML[ 'del' ] ) )
+			$mod = FALSE;
+		if( isset( $mod ) )
+			$id = ( $mod )
+				? (string) $theXML[ 'set' ]
+				: (string) $theXML[ 'del' ];
 		
 		//
 		// Instantiate edge.
@@ -1946,7 +1966,7 @@ class Wrapper extends Dictionary
 		//
 		// Handle commit.
 		//
-		if( ! $mod )
+		if( ! isset( $mod ) )
 		{
 			//
 			// Load predicate from cache.
@@ -2006,8 +2026,8 @@ class Wrapper extends Dictionary
 		//
 		// Modify object.
 		//
-		if( $mod )
-			Edge::Modify( $this, $id, $object, TRUE );
+		if( isset( $mod ) )
+			Edge::Modify( $this, $id, $object, $mod );
 		
 		//
 		// Commit object.

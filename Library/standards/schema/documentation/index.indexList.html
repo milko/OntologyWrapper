@@ -1,5 +1,5 @@
 <!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -237,21 +237,21 @@
           
 
     
-                        //--></script></head>
+                    //--></script></head>
    <body>
       <h2><a id="INDEX">Table of Contents</a></h2>
       <div class="toc">
          <form action="none">
-            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'Dictionary.indexList.html', 'Dictionary.indexListns.html', 'Dictionary.indexListcomp.html');">
-                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
-                     <option value="toc_group_by_location">Location</option>
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'index.indexList.html', 'index.indexListns.html', 'index.indexListcomp.html');">
+                     <option value="toc_group_by_namespace">Namespace</option>
+                     <option value="toc_group_by_location" selected="selected">Location</option>
                      <option value="toc_group_by_component_type">Component Type</option></select></span></div>
          </form>
-         <div class="level1" id="toc_group_by_namespace" style="display:block">
+         <div class="level1" id="toc_group_by_location" style="display:block">
             <div>
                <div class="level2">
-                  <p><input id="button_boxIdNamespace1" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1');" class="control" /><span class="indexGroupTitle">No namespace</span></p>
-                  <div id="boxIdNamespace1" style="display:block">
+                  <p><input id="button_gr_Dictionary.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_Dictionary.xsd');" class="control" /><span class="indexGroupTitle">Dictionary.xsd</span></p>
+                  <div id="gr_Dictionary.xsd" style="display:block">
                      <div class="horizontalLayout">
                         <table class="rt">
                            <tr>
@@ -265,7 +265,7 @@
                                  <table class="componentGroup">
                                     <tbody>
                                        <tr>
-                                          <td class="componentGroup"><input id="button_boxIdNamespace1Element" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1Element');" class="control" /></td>
+                                          <td class="componentGroup"><input id="button_gr_Dictionary.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_Dictionary.xsdElement');" class="control" /></td>
                                           <td class="componentGroup">
                                              <div class="componentGroupTitle">Elements</div>
                                           </td>
@@ -273,14 +273,15 @@
                                        <tr>
                                           <td class="componentGroup"></td>
                                           <td class="componentGroup">
-                                             <div id="boxIdNamespace1Element" class="componentGroup" style="display:block">
+                                             <div id="gr_Dictionary.xsdElement" class="componentGroup" style="display:block">
                                                 <div><b><a href="Dictionary_xsd.html#EDGE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">EDGE</a></b></div>
+                                                <div><b><a href="Dictionary_xsd.html#META" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">META</a></b></div>
+                                                <div><b><a href="Dictionary_xsd.html#METADATA" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">METADATA</a></b></div>
                                                 <div><b><a href="Dictionary_xsd.html#NODE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#ONTOLOGY" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">ONTOLOGY</a></b></div>
                                                 <div><b><a href="Dictionary_xsd.html#TAG" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TAG</a></b></div>
                                                 <div><b><a href="Dictionary_xsd.html#TERM" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM</a></b></div>
                                                 <div><b><a href="Dictionary_xsd.html#UNIT" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNIT</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#element" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">element</a></b></div>
+                                                <div><b><a href="Dictionary_xsd.html#UNITS" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNITS</a></b></div>
                                                 <div><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></div>
                                              </div>
                                           </td>
@@ -310,31 +311,16 @@
                                  <table class="componentGroup">
                                     <tbody>
                                        <tr>
-                                          <td class="componentGroup"><input id="button_boxIdNamespace1Attribute" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1Attribute');" class="control" /></td>
+                                          <td class="componentGroup"><input id="button_gr_Dictionary.xsdSimple_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_Dictionary.xsdSimple_Type');" class="control" /></td>
                                           <td class="componentGroup">
-                                             <div class="componentGroupTitle">Attributes</div>
+                                             <div class="componentGroupTitle">Simple Types</div>
                                           </td>
                                        </tr>
                                        <tr>
                                           <td class="componentGroup"></td>
                                           <td class="componentGroup">
-                                             <div id="boxIdNamespace1Attribute" class="componentGroup" style="display:block">
-                                                <div><b><a href="Dictionary_xsd.html#NODE_modify" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE/@modify</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#NODE_pid" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE/@pid</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#NODE_tag" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE/@tag</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#NODE_term" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE/@term</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#TERM_lid" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM/@lid</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#TERM_modify" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM/@modify</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#TERM_ns" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM/@ns</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#TERM_pid" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM/@pid</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#element_const" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">element/@const</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#element_pid" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">element/@pid</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#element_seq" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">element/@seq</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#item_const" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item/@const</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#item_key" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item/@key</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#item_ln" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item/@ln</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#item_pid" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item/@pid</a></b></div>
-                                                <div><b><a href="Dictionary_xsd.html#item_seq" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item/@seq</a></b></div>
+                                             <div id="gr_Dictionary.xsdSimple_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="Dictionary_xsd.html#node-ref-type" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">node-ref-type</a></b></div>
                                              </div>
                                           </td>
                                        </tr>
@@ -360,6 +346,34 @@
          <hr />
          <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
          </div>
-      </div>
-   </body>
+      </div><script type="text/javascript">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body>
 </html>
