@@ -65,6 +65,7 @@ define( 'kDEBUG_PARENT', FALSE );
 class MyClass extends OntologyWrapper\PersistentObject
 {
 	const kSEQ_NAME = 'test';
+	const kDEFAULT_DOMAIN = kDOMAIN_UNIT;
 	
 	static function ResolveDatabase( OntologyWrapper\Wrapper $theWrapper,
 															 $doAssert = TRUE,
@@ -1413,41 +1414,58 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
-$test->traverseObject( $tags, $refs, TRUE );
-echo( kSTYLE_TABLE_PRE );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE.'$test->traverseObject( $tags, $refs, TRUE );'.kSTYLE_HEAD_POS );
-$test->traverseObject( $tags, $refs, TRUE );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE.'TAGS'.kSTYLE_HEAD_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_DATA_PRE );
-var_dump( $tags );
-echo( kSTYLE_DATA_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE.'REFS'.kSTYLE_HEAD_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_DATA_PRE );
-var_dump( $refs );
-echo( kSTYLE_DATA_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE.'OBJECT'.kSTYLE_HEAD_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_DATA_PRE );
-var_dump( $test->getArrayCopy() );
-echo( kSTYLE_DATA_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_TABLE_POS );
-echo( '<hr>' );
 
-exit;
+	//
+	// Get referenced objects and tags count.
+	//
+	echo( '<h4>Get referenced objects and tags count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TAG [:unit:domain]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Tag( $wrapper, ":unit:domain" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:domain:unit]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":domain:unit" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:ref:term]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:ref:term" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:int]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:int" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 
 	//
 	// Commit object.
@@ -1480,6 +1498,58 @@ exit;
 	echo( '<hr>' );
 
 	//
+	// Get referenced objects and tags count.
+	//
+	echo( '<h4>Get referenced objects and tags count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TAG [:unit:domain]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Tag( $wrapper, ":unit:domain" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:domain:unit]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":domain:unit" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:ref:term]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:ref:term" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:int]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:int" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
 	// Load object.
 	//
 	echo( '<h4>Load object</h4>' );
@@ -1499,6 +1569,78 @@ exit;
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	var_dump( $test->getArrayCopy() );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Delete object.
+	//
+	echo( '<h4>Delete object</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'MyClass::Delete( $wrapper, $id );'.kSTYLE_HEAD_POS );
+	MyClass::Delete( $wrapper, $id );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
+	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
+	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
+	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Get referenced objects and tags count.
+	//
+	echo( '<h4>Get referenced objects and tags count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TAG [:unit:domain]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Tag( $wrapper, ":unit:domain" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:domain:unit]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":domain:unit" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:ref:term]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:ref:term" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'TERM [:type:int]' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":type:int" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

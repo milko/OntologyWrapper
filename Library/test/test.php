@@ -111,6 +111,7 @@
 	
 /******************************************************************************/
 	
+/*
 	//
 	// Test nested offsets match.
 	//
@@ -140,5 +141,105 @@
 
 	echo( 'preg_match( $pat, "1..11" );<br />' );
 	var_dump( preg_match( $pat, "1..11" ) );
+*/	
+
+/******************************************************************************/
+	
+/*
+	//
+	// Test numeric index arrays.
+	//
+	
+	echo( 'array( "test" => 1, 22 => 2 ):<br />' );
+	$array = array( "test" => 1, 22 => 2 );
+	var_dump( $array );
+	
+	echo( 'array( "test" => 1, "22" => 2 ):<br />' );
+	$array = array( "test" => 1, "22" => 2 );
+	var_dump( $array );
+	
+	$x = (string) "22";
+	echo( 'array( "test" => 1, $x => 2 ):<br />' );
+	$array = array( "test" => 1, $x => 2 );
+	var_dump( $array );
+	
+	echo( '$object = new StdClass();<br />' );
+	$object = new StdClass();
+	echo( '$object->_id = 1;<br />' );
+	$object->_id = 1;
+	echo( '$object->22 = 2;<br />' );
+	$object->22 = 2;
+	var_dump( $object );
+*/
+
+/******************************************************************************/
+	
+/*
+	//
+	// Connect.
+	//
+	$m = new MongoClient();
+	$d = $m->selectDB( 'TEST' );
+	$c = $d->selectCollection( 'bubu' );
+	$c->drop();
+	
+	//
+	// Insert object.
+	//
+	$c->insert( array( "_id" => 1, "22" => "twentytwo" ) );
+	
+	//
+	// It works.
+	//
+	
+	//
+	// Set index.
+	//
+	$c->createIndex( array( "22" => 1 ) );
+	
+	//
+	// Find object.
+	//
+	$fields = new ArrayObject();
+	$fields[ '22' ] = TRUE;
+	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
+var_dump( $x->count() );
+	
+	//
+	// Find object.
+	//
+	$fields = array( 22 => 1 );
+	$fields = new ArrayObject( $fields );
+	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
+var_dump( $x->count() );
+	
+	//
+	// Find object.
+	//
+	$fields = array( "22" => 1 );
+	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
+	
+	//
+	// This posts the error:
+	// "MongoException: field names must be strings"
+	//
+*/
+
+/******************************************************************************/
+	
+	//
+	// Connect.
+	//
+	$m = new MongoClient();
+	$d = $m->selectDB( 'USERS' );
+	$c = $d->selectCollection( 'CUser' );
+	
+	//
+	// Find object.
+	//
+	$criteria = array( '$and' => array( array( '46' => 'admin' ), array( '52' => 'TIP' ) ) );
+var_dump( $criteria );
+	$x = $c->findOne( $criteria );
+var_dump( $x );
 
 ?>
