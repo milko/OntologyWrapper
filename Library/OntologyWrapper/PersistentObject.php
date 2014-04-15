@@ -726,7 +726,6 @@ abstract class PersistentObject extends OntologyObject
 		// Select fields.
 		//
 		$fields = static::DeleteFieldsSelection();
-var_dump( $fields );
 		
 		//
 		// Resolve object.
@@ -850,20 +849,10 @@ var_dump( $fields );
 	 */
 	static function DeleteFieldsSelection()
 	{
-		//
-		// Init list.
-		//
-		$list = array( kTAG_NID => TRUE );
-		
-		//
-		// Add other tags.
-		//
-		$x = (string) kTAG_OBJECT_OFFSETS;
-		$list[ $x ] = TRUE;
-		$x = (string) kTAG_OBJECT_REFERENCES;
-		$list[ $x ] = TRUE;
-		
-		return $list;																// ==>
+		return array( kTAG_NID => TRUE,
+					  kTAG_CLASS => TRUE,
+					  kTAG_OBJECT_OFFSETS => TRUE,
+					  kTAG_OBJECT_REFERENCES => TRUE );								// ==>
 	
 	} // DeleteFieldsSelection.
 
@@ -1753,7 +1742,7 @@ var_dump( $fields );
 			//
 			// Prepare object.
 			//
-			if( ! $this->preDelete( $tags, $refs ) )
+			if( ! $this->preDelete() )
 				return FALSE;														// ==>
 		
 			//
@@ -1761,7 +1750,7 @@ var_dump( $fields );
 			//
 			$ok = $collection->delete( $this );
 			if( $ok !== NULL )
-				$this->postDelete( $tags, $refs );
+				$this->postDelete();
 	
 			//
 			// Set object status.
@@ -1769,7 +1758,7 @@ var_dump( $fields );
 			$this->isDirty( FALSE );
 			$this->isCommitted( FALSE );
 		
-			return $id;																// ==>
+			return $this->offsetGet( kTAG_NID );									// ==>
 		
 		} // Clean and committed.
 		
@@ -1809,6 +1798,9 @@ var_dump( $fields );
 	 * {@link modifyObjectDel()} method if removing.
 	 *
 	 * The method will return the number of elements affected by the operation (1 or 0).
+	 *
+	 * <em>Note that this method is called by the static {@link Modify()} method, the
+	 * current object was just loaded from the persistent store.</em>
 	 *
 	 * @param mixed					$theOffsets			Offsets to be modified.
 	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
@@ -2599,6 +2591,13 @@ var_dump( $fields );
 	 *		base class incremented.
 	 * </ul>
 	 *
+	 * The method will use the current object's {@link kTAG_OBJECT_OFFSETS} and
+	 * {@link kTAG_OBJECT_REFERENCES} properties to update respectively the tag offsets and
+	 * counts, and the referenced objects counts.
+	 *
+	 * This method is identical to the {@link postDelete()} method, except that in this case
+	 * offsets will be added and reference counts will be incremented.
+	 *
 	 * @access protected
 	 *
 	 * @see kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
@@ -2681,7 +2680,7 @@ var_dump( $fields );
 	 * @uses preDeleteTraverse()
 	 * @uses preDeleteFinalise()
 	 */
-	protected function preDelete( &$theTags, &$theRefs )
+	protected function preDelete()
 	{
 		//
 		// Prepare object.
@@ -2814,7 +2813,16 @@ var_dump( $fields );
 	 *		base class decremented.
 	 * </ul>
 	 *
+	 * The method will use the current object's {@link kTAG_OBJECT_OFFSETS} and
+	 * {@link kTAG_OBJECT_REFERENCES} properties to update respectively the tag offsets and
+	 * counts, and the referenced objects counts.
+	 *
+	 * This method is identical to the {@link postCommit()} method, except that in this case
+	 * offsets will be removed and reference counts will be decremented.
+	 *
 	 * @access protected
+	 *
+	 * @see kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
 	 *
 	 * @uses updateObjectTagReferences()
 	 * @uses updateObjectReferenceCount()
@@ -4362,7 +4370,7 @@ var_dump( $fields );
 				// Filter existing tags.
 				//
 				$tags = $theTags;
-				$this->filterExistingOffsets( $collection, $offsets );
+				$this->filterExistingOffsets( $collection, $tags );
 				
 				//
 				// Update reference count.

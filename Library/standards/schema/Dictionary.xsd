@@ -127,19 +127,9 @@
 						of a term: if provided, it means that the properties of the current block
 						will be added or replace those in the term corresponding to the native
 						identifier provided in this attribute. This should be the only attribute
-						of this element.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			
-			<xs:attribute name="del" type="xs:string">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						Modification reference. This attribute must hold the persistent identifier
-						of a term: if provided, it means that the properties of the current block
-						will be removed from the term corresponding to the native identifier
-						provided in this attribute. This should be the only attribute of this
-						element. The values of these properties are irrelevant.
+						of this element. Note that the block properties are assumed to be at the
+						root level, this means that to modify a nested property you must provide
+						the full root level enclosing property.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -206,19 +196,9 @@
 						of a node: if provided, it means that the properties of the current block
 						will be added or replace those in the node corresponding to the native
 						identifier provided in this attribute. This should be the only attribute
-						of this element.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			
-			<xs:attribute name="del" type="xs:string">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						Modification reference. This attribute must hold the persistent identifier
-						of a node: if provided, it means that the properties of the current block
-						will be removed from the node corresponding to the native identifier
-						provided in this attribute. This should be the only attribute of this
-						element. The values of these properties are irrelevant.
+						of this element. Note that the block properties are assumed to be at the
+						root level, this means that to modify a nested property you must provide
+						the full root level enclosing property.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -256,18 +236,6 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			
-			<xs:attribute name="del" type="xs:string">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						Modification reference. This attribute must hold the persistent identifier
-						of an edge: if provided, it means that the properties of the current block
-						will be removed from the edge corresponding to the native identifier
-						provided in this attribute. This should be the only attribute of this
-						element. The values of these properties are irrelevant.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 
@@ -298,19 +266,9 @@
 						of a tag: if provided, it means that the properties of the current block
 						will be added or replace those in the tag corresponding to the native
 						identifier provided in this attribute. This should be the only attribute
-						of this element.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			
-			<xs:attribute name="del" type="xs:string">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						Modification reference. This attribute must hold the persistent identifier
-						of a tag: if provided, it means that the properties of the current block
-						will be removed from the tag corresponding to the native identifier
-						provided in this attribute. This should be the only attribute of this
-						element. The values of these properties are irrelevant.
+						of this element. Note that the block properties are assumed to be at the
+						root level, this means that to modify a nested property you must provide
+						the full root level enclosing property.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>

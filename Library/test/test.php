@@ -174,7 +174,6 @@
 
 /******************************************************************************/
 	
-/*
 	//
 	// Connect.
 	//
@@ -186,7 +185,7 @@
 	//
 	// Insert object.
 	//
-	$c->insert( array( "_id" => 1, "22" => "twentytwo" ) );
+	$c->insert( array( "_id" => 1, "22" => "twentytwo", "33" => "Thirtythree" ) );
 	
 	//
 	// It works.
@@ -203,7 +202,7 @@
 	$fields = new ArrayObject();
 	$fields[ '22' ] = TRUE;
 	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
-var_dump( $x->count() );
+var_dump( iterator_to_array( $x ) );
 	
 	//
 	// Find object.
@@ -211,22 +210,23 @@ var_dump( $x->count() );
 	$fields = array( 22 => 1 );
 	$fields = new ArrayObject( $fields );
 	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
-var_dump( $x->count() );
+var_dump( iterator_to_array( $x ) );
 	
 	//
 	// Find object.
 	//
 	$fields = array( "22" => 1 );
 	$x = $c->find( array( "_id" => 1, "22" => "twentytwo" ), $fields );
+var_dump( iterator_to_array( $x ) );
 	
 	//
 	// This posts the error:
 	// "MongoException: field names must be strings"
 	//
-*/
 
 /******************************************************************************/
 	
+/*
 	//
 	// Connect.
 	//
@@ -241,5 +241,108 @@ var_dump( $x->count() );
 var_dump( $criteria );
 	$x = $c->findOne( $criteria );
 var_dump( $x );
+*/
 
+/******************************************************************************/
+	
+/*
+	//
+	// Test geo.
+	//
+	
+	//
+	// Connect.
+	//
+	$m = new MongoClient( 'mongodb://mongo1.grinfo.private:27017' );
+	$d = $m->selectDB( 'GEO' );
+	$c = $d->selectCollection( 'LAYERS-30' );
+	
+	//
+	// Test near.
+	//
+	$criteria = array
+	(
+		'geoNear' => 'LAYERS-30',
+		'near' => array
+		(
+			'type' => 'Point',
+			'coordinates' => array( 7.456, 46.302 )
+		),
+		'spherical' => TRUE,
+		'maxDistance' => 200000,
+		'query' => array( 'elev' => array( '$gte' => 2000, '$lte' => 3000 ) )
+	);
+	$rs = $d->command( $criteria, array( 'socketTimeoutMS' => 60000 ) );
+	var_dump( $rs );
+*/
+	
+/******************************************************************************/
+	
+/*
+	//
+	// Test map server clustering.
+	//
+	
+	//
+	// Init local storage.
+	//
+	$lonmin = -180;
+	$latnmin = -90;
+	$lonmax = 180;
+	$latnmax = 90;
+	$delta = ( $lonmax - $lonmin ) / 16;
+	
+	//
+	// Connect.
+	//
+	$m = new MongoClient( 'mongodb://192.168.181.1:27017' );
+	$d = $m->selectDB( 'DATA' );
+	$c = $d->selectCollection( ':_units' );
+	
+	//
+	// QUery stages.
+	//
+	$match = array
+	(
+//		"9" => "FRA144",
+		
+		"57.75" => array
+		(
+			'$geoWithin' => array
+			(
+				'$box' => array
+				(
+					array( $lonmin, $latnmin ),
+					array( $lonmax, $latnmax )
+				)
+			)
+		)
+	);
+
+	
+	//
+	// Test get points in pane.
+	//
+	$rs = $c->find
+	(
+		array
+		(
+			"9" => "FRA144",
+			
+			"57.75" => array
+			(
+				'$geoWithin' => array
+				(
+					'$box' => array
+					(
+						array( $lonmin, $latnmin ),
+						array( $lonmax, $latnmax )
+					)
+				)
+			)
+		)
+	);
+	echo( $rs->count() );
+*/
+	
 ?>

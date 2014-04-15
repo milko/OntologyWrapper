@@ -633,7 +633,7 @@ class MongoCollection extends CollectionObject
 		// Check if connected.
 		//
 		if( $this->isConnected() )
-			$this->mConnection->ensureIndex( $theIndex, $theOptions );
+			$this->mConnection->createIndex( $theIndex, $theOptions );
 		
 		else
 			throw new \Exception(

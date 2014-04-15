@@ -129,13 +129,22 @@ define( "kDOMAIN_FOREST",						':domain:forest' );
 define( "kDOMAIN_LANDRACE",						':domain:landrace' );
 
 /**
- * Crop wild relative unit.
+ * Crop wild relative checklist unit.
  *
- * A crop wild relative unit.
+ * A crop wild relative checklist unit.
  *
- * This represents a crop wild relative unit.
+ * This represents a crop wild relative checklist unit.
  */
-define( "kDOMAIN_CROP_WILD_RELATIVE",			':domain:crop-wil-relative' );
+define( "kDOMAIN_CWR_CHECKLIST",				':domain:cwr-checklist' );
+
+/**
+ * Crop wild relative inventory unit.
+ *
+ * A crop wild relative inventory unit.
+ *
+ * This represents a crop wild relative inventory unit.
+ */
+define( "kDOMAIN_CWR_INVENTORY",				':domain:cwr-inventory' );
 
 
 ?>

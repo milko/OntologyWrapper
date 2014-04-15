@@ -202,18 +202,34 @@
 			</item>
 		</TERM>
 		
-		<!-- kDOMAIN_CROP_WILD_RELATIVE -->
-		<TERM ns=":domain" lid="crop-wild-relative">
+		<!-- kDOMAIN_CWR_CHECKLIST -->
+		<TERM ns=":domain" lid="cwr-checklist">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Crop wild relative</item>
+					<item const="kTAG_TEXT">Crop wild relative checklist</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing crop wild relatives</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing crop wild relative checklists</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kDOMAIN_CWR_INVENTORY -->
+		<TERM ns=":domain" lid="cwr-inventory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Crop wild relative inventory</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing crop wild relative inventories</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
