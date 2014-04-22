@@ -195,6 +195,17 @@ try
 			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
+	// Drop database.
+	//
+	$meta->drop();
+	
+	//
+	// Load database.
+	//
+	$command = 'mongorestore --directoryperdb /Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	exec( $command );
+	
+	//
 	// Load data dictionary.
 	//
 	$wrapper->loadTagCache();
@@ -1464,6 +1475,12 @@ try
 	var_dump( $x[ kTAG_UNIT_COUNT ] );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":connection:port" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 
@@ -1546,6 +1563,12 @@ try
 	var_dump( $x[ kTAG_UNIT_COUNT ] );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":connection:port" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 
@@ -1556,7 +1579,8 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper, $id );'.kSTYLE_HEAD_POS );
-	$test = new MyClass( $wrapper, $id );
+//	$test = new MyClass( $wrapper, $id );
+	$test = new MyClass( $wrapper, 'ID' );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1640,6 +1664,12 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	$x = new OntologyWrapper\Term( $wrapper, ":type:int" );
+	var_dump( $x[ kTAG_UNIT_COUNT ] );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$x = new OntologyWrapper\Term( $wrapper, ":connection:port" );
 	var_dump( $x[ kTAG_UNIT_COUNT ] );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
