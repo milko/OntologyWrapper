@@ -242,7 +242,8 @@ abstract class CollectionObject extends ConnectionObject
 			 	//
 			 	// Set class.
 			 	//
-			 	if( is_object( $theObject ) )
+			 	if( is_object( $theObject )
+			 	 && (! $theObject->offsetExists( kTAG_CLASS )) )
 				 	$theObject[ kTAG_CLASS ]
 				 		= get_class( $theObject );
 			 	

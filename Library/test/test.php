@@ -173,7 +173,8 @@
 */
 
 /******************************************************************************/
-	
+
+/*	
 	//
 	// Connect.
 	//
@@ -223,6 +224,7 @@ var_dump( iterator_to_array( $x ) );
 	// This posts the error:
 	// "MongoException: field names must be strings"
 	//
+*/
 
 /******************************************************************************/
 	
@@ -344,5 +346,43 @@ var_dump( $x );
 	);
 	echo( $rs->count() );
 */
+	
+/******************************************************************************/
+	
+	//
+	// Test array keys.
+	//
+	
+	//
+	// Init local storage.
+	//
+	$array = [ "-1" => "meno uno", "1" => "uno", "3" => "tre" ];
+	
+	//
+	// View keys.
+	//
+	var_dump( array_keys( $array ) );
+	
+	//
+	// Test intersect.
+	//
+	var_dump( array_intersect( array_keys( $array ), array_keys( $array ) ) );
+	
+	echo( '<hr>' );
+	
+	//
+	// Init local storage.
+	//
+	$array = [ "-1" => "meno uno", "1.2" => "uno", "3.3" => "tre" ];
+	
+	//
+	// View keys.
+	//
+	var_dump( array_keys( $array ) );
+	
+	//
+	// Test intersect.
+	//
+	var_dump( array_intersect( array_keys( $array ), array_keys( $array ) ) );
 	
 ?>

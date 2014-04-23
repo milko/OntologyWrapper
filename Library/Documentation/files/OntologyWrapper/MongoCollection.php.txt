@@ -397,13 +397,19 @@ class MongoCollection extends CollectionObject
 		$criteria = ( is_array( $theIdent ) )
 				  ? array( (string) $theIdentOffset => array( '$in' => $theIdent ) )
 				  : array( (string) $theIdentOffset => $theIdent );
-	
+		
+		//
+		// Set options.
+		//
+		$options = array( 'multiple' => is_array( $theIdent ),
+						  'upsert' => FALSE );
+		
 		//
 		// Init modifications.
 		//
 		$modifications = ( $doAdd )
 					   ? array( '$addToSet' => Array() )
-					   : array( '$pull' => Array() );
+					   : array( '$pullAll' => Array() );
 		
 		//
 		// Reference actions.
@@ -411,22 +417,23 @@ class MongoCollection extends CollectionObject
 		if( $doAdd )
 			$ref = & $modifications[ '$addToSet' ];
 		else
-			$ref = & $modifications[ '$pull' ];
+			$ref = & $modifications[ '$pullAll' ];
 		
 		//
 		// Add elements.
 		//
 		foreach( $theElements as $offset => $value )
-			$ref[ (string) $offset ] = ( is_array( $value ) )
-									 ? array( '$each' => $value )
-									 : $value;
+		{
+			if( $doAdd )
+				$ref[ (string) $offset ] = ( is_array( $value ) )
+										 ? array( '$each' => $value )
+										 : $value;
+			elseif( ! is_array( $value ) )
+				$ref[ (string) $offset ] = array( $value );
+			else
+				$ref[ (string) $offset ] = $value;
+		}
 	
-		//
-		// Set options.
-		//
-		$options = array( 'multiple' => is_array( $theIdent ),
-						  'upsert' => FALSE );
-		
 		//
 		// Update.
 		//

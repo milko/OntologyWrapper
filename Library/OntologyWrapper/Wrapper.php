@@ -1656,21 +1656,12 @@ class Wrapper extends Dictionary
 	protected function loadXMLTag( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if replacing or deleting.
+		// Instantiate object.
 		//
 		if( isset( $theXML[ 'set' ] ) )
-			$mod = TRUE;
-		elseif( isset( $theXML[ 'del' ] ) )
-			$mod = FALSE;
-		if( isset( $mod ) )
-			$id = ( $mod )
-				? (string) $theXML[ 'set' ]
-				: (string) $theXML[ 'del' ];
-		
-		//
-		// Instantiate tag.
-		//
-		$object = new Tag( $this );
+			$object = new Tag( $this, (string) $theXML[ 'set' ] );
+		else
+			$object = new Tag( $this );
 		
 		//
 		// Load properties.
@@ -1679,28 +1670,16 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Modify object.
+		// Commit.
 		//
-		if( isset( $mod ) )
-			Tag::Modify( $this, $id, $object, $mod );
-		
+		$object->commit();
+	
 		//
-		// Commit object.
+		// Load cache.
 		//
-		else
-		{
-			//
-			// Commit.
-			//
-			$object->commit();
-		
-			//
-			// Load cache.
-			//
-			if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
-				$theCache[ Tag::kSEQ_NAME ] = Array();
-			$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
-		}
+		if( ! array_key_exists( Tag::kSEQ_NAME, $theCache ) )
+			$theCache[ Tag::kSEQ_NAME ] = Array();
+		$theCache[ Tag::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLTag.
 
@@ -1724,38 +1703,23 @@ class Wrapper extends Dictionary
 	protected function loadXMLTerm( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if replacing or deleting.
+		// Instantiate object.
 		//
 		if( isset( $theXML[ 'set' ] ) )
-			$mod = TRUE;
-		elseif( isset( $theXML[ 'del' ] ) )
-			$mod = FALSE;
-		if( isset( $mod ) )
-			$id = ( $mod )
-				? (string) $theXML[ 'set' ]
-				: (string) $theXML[ 'del' ];
+			$object = new Term( $this, (string) $theXML[ 'set' ] );
+		else
+			$object = new Term( $this );
 		
 		//
-		// Instantiate term.
+		// Load attributes.
 		//
-		$object = new Term( $this );
-		
-		//
-		// Handle commit.
-		//
-		if( ! isset( $mod ) )
+		$tmp = array( 'ns' => kTAG_NAMESPACE,
+					  'lid' => kTAG_ID_LOCAL,
+					  'pid' => kTAG_NID );
+		foreach( $tmp as $key => $tag )
 		{
-			//
-			// Load attributes.
-			//
-			$tmp = array( 'ns' => kTAG_NAMESPACE,
-						  'lid' => kTAG_ID_LOCAL,
-						  'pid' => kTAG_NID );
-			foreach( $tmp as $key => $tag )
-			{
-				if( isset( $theXML[ $key ] ) )
-					$object[ $tag ] = (string) $theXML[ $key ];
-			}
+			if( isset( $theXML[ $key ] ) )
+				$object[ $tag ] = (string) $theXML[ $key ];
 		}
 		
 		//
@@ -1765,28 +1729,16 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Modify object.
+		// Commit.
 		//
-		if( isset( $mod ) )
-			Term::Modify( $this, $id, $object, $mod );
-		
+		$object->commit();
+	
 		//
-		// Commit object.
+		// Load cache.
 		//
-		else
-		{
-			//
-			// Commit.
-			//
-			$object->commit();
-		
-			//
-			// Load cache.
-			//
-			if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
-				$theCache[ Term::kSEQ_NAME ] = Array();
-			$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
-		}
+		if( ! array_key_exists( Term::kSEQ_NAME, $theCache ) )
+			$theCache[ Term::kSEQ_NAME ] = Array();
+		$theCache[ Term::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLTerm.
 
@@ -1810,66 +1762,51 @@ class Wrapper extends Dictionary
 	protected function loadXMLNode( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if replacing or deleting.
+		// Instantiate object.
 		//
 		if( isset( $theXML[ 'set' ] ) )
-			$mod = TRUE;
-		elseif( isset( $theXML[ 'del' ] ) )
-			$mod = FALSE;
-		if( isset( $mod ) )
-			$id = ( $mod )
-				? (string) $theXML[ 'set' ]
-				: (string) $theXML[ 'del' ];
+			$object = new Node( $this, (int) (string) $theXML[ 'set' ] );
+		else
+			$object = new Node( $this );
 		
 		//
-		// Instantiate node.
+		// Get tag or term from attributes.
 		//
-		$object = new Node( $this );
-		
+		$tmp = array( 'tag' => kTAG_TAG,
+					  'term' => kTAG_TERM,
+					  'pid' => kTAG_ID_PERSISTENT );
+		foreach( $tmp as $key => $tag )
+		{
+			if( isset( $theXML[ $key ] ) )
+				$object[ $tag ] = (string) $theXML[ $key ];
+		}
+	
 		//
-		// Handle commit.
+		// Get tag or term from cache.
 		//
-		if( ! isset( $mod ) )
+		if( (! $object->offsetExists( kTAG_TAG ))
+		 && (! $object->offsetExists( kTAG_TERM )) )
 		{
 			//
-			// Get tag or term from attributes.
+			// Check term.
 			//
-			$tmp = array( 'tag' => kTAG_TAG,
-						  'term' => kTAG_TERM,
-						  'pid' => kTAG_ID_PERSISTENT );
-			foreach( $tmp as $key => $tag )
-			{
-				if( isset( $theXML[ $key ] ) )
-					$object[ $tag ] = (string) $theXML[ $key ];
-			}
-		
+			if( array_key_exists( Term::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_TERM ] = key( $theCache[ Term::kSEQ_NAME ] );
+	
 			//
-			// Get tag or term from cache.
+			// Check tag.
 			//
-			if( (! $object->offsetExists( kTAG_TAG ))
-			 && (! $object->offsetExists( kTAG_TERM )) )
-			{
-				//
-				// Check term.
-				//
-				if( array_key_exists( Term::kSEQ_NAME, $theCache )
-				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
-					$object[ kTAG_TERM ] = key( $theCache[ Term::kSEQ_NAME ] );
+			elseif( array_key_exists( Tag::kSEQ_NAME, $theCache )
+				 && (count( $theCache[ Tag::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_TAG ] = key( $theCache[ Tag::kSEQ_NAME ] );
 		
-				//
-				// Check tag.
-				//
-				elseif( array_key_exists( Tag::kSEQ_NAME, $theCache )
-					 && (count( $theCache[ Tag::kSEQ_NAME ] ) == 1) )
-					$object[ kTAG_TAG ] = key( $theCache[ Tag::kSEQ_NAME ] );
-			
-				else
-					throw new \Exception(
-						"Unable to create node: "
-					   ."missing tag and term." );								// !@! ==>
-		
-			} // Not provided with attributes.
-		}
+			else
+				throw new \Exception(
+					"Unable to create node: "
+				   ."missing tag and term." );									// !@! ==>
+	
+		} // Not provided with attributes.
 		
 		//
 		// Load properties.
@@ -1878,28 +1815,16 @@ class Wrapper extends Dictionary
 			$this->loadXMLElement( $element, $object );
 		
 		//
-		// Modify object.
+		// Commit.
 		//
-		if( isset( $mod ) )
-			Node::Modify( $this, $id, $object, $mod );
-		
+		$object->commit();
+	
 		//
-		// Commit object.
+		// Load cache.
 		//
-		else
-		{
-			//
-			// Commit.
-			//
-			$object->commit();
-		
-			//
-			// Load cache.
-			//
-			if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
-				$theCache[ Node::kSEQ_NAME ] = Array();
-			$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
-		}
+		if( ! array_key_exists( Node::kSEQ_NAME, $theCache ) )
+			$theCache[ Node::kSEQ_NAME ] = Array();
+		$theCache[ Node::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLNode.
 
@@ -1923,21 +1848,12 @@ class Wrapper extends Dictionary
 	protected function loadXMLEdge( \SimpleXMLElement $theXML, &$theCache )
 	{
 		//
-		// Check if replacing or deleting.
+		// Instantiate object.
 		//
 		if( isset( $theXML[ 'set' ] ) )
-			$mod = TRUE;
-		elseif( isset( $theXML[ 'del' ] ) )
-			$mod = FALSE;
-		if( isset( $mod ) )
-			$id = ( $mod )
-				? (string) $theXML[ 'set' ]
-				: (string) $theXML[ 'del' ];
-		
-		//
-		// Instantiate edge.
-		//
-		$object = new Edge( $this );
+			$object = new Edge( $this, (string) $theXML[ 'set' ] );
+		else
+			$object = new Edge( $this );
 		
 		//
 		// Load properties.
@@ -1964,88 +1880,70 @@ class Wrapper extends Dictionary
 		}
 		
 		//
-		// Handle commit.
+		// Load predicate from cache.
 		//
-		if( ! isset( $mod ) )
+		if( ! $object->offsetExists( kTAG_PREDICATE ) )
 		{
 			//
-			// Load predicate from cache.
+			// Check node.
 			//
-			if( ! $object->offsetExists( kTAG_PREDICATE ) )
-			{
-				//
-				// Check node.
-				//
-				if( array_key_exists( Term::kSEQ_NAME, $theCache )
-				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
-					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
-			
-				else
-					throw new \Exception(
-						"Unable to create edge: "
-					   ."missing predicate." );									// !@! ==>
-			}
+			if( array_key_exists( Term::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
 		
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing predicate." );										// !@! ==>
+		}
+	
+		//
+		// Load predicate from cache.
+		//
+		if( ! $object->offsetExists( kTAG_PREDICATE ) )
+		{
 			//
-			// Load predicate from cache.
+			// Check term.
 			//
-			if( ! $object->offsetExists( kTAG_PREDICATE ) )
-			{
-				//
-				// Check term.
-				//
-				if( array_key_exists( Term::kSEQ_NAME, $theCache )
-				 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
-					$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
-			
-				else
-					throw new \Exception(
-						"Unable to create edge: "
-					   ."missing predicate." );									// !@! ==>
-			}
+			if( array_key_exists( Term::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Term::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_PREDICATE ] = key( $theCache[ Term::kSEQ_NAME ] );
 		
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing predicate." );										// !@! ==>
+		}
+	
+		//
+		// Load object from cache.
+		//
+		if( ! $object->offsetExists( kTAG_OBJECT ) )
+		{
 			//
-			// Load object from cache.
+			// Check node.
 			//
-			if( ! $object->offsetExists( kTAG_OBJECT ) )
-			{
-				//
-				// Check node.
-				//
-				if( array_key_exists( Node::kSEQ_NAME, $theCache )
-				 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
-					$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
-			
-				else
-					throw new \Exception(
-						"Unable to create edge: "
-					   ."missing object." );									// !@! ==>
-			}
+			if( array_key_exists( Node::kSEQ_NAME, $theCache )
+			 && (count( $theCache[ Node::kSEQ_NAME ] ) == 1) )
+				$object[ kTAG_OBJECT ] = key( $theCache[ Node::kSEQ_NAME ] );
+		
+			else
+				throw new \Exception(
+					"Unable to create edge: "
+				   ."missing object." );										// !@! ==>
 		}
 		
 		//
-		// Modify object.
+		// Commit.
 		//
-		if( isset( $mod ) )
-			Edge::Modify( $this, $id, $object, $mod );
-		
+		$object->commit();
+	
 		//
-		// Commit object.
+		// Load cache.
 		//
-		else
-		{
-			//
-			// Commit.
-			//
-			$object->commit();
-		
-			//
-			// Load cache.
-			//
-			if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
-				$theCache[ Edge::kSEQ_NAME ] = Array();
-			$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
-		}
+		if( ! array_key_exists( Edge::kSEQ_NAME, $theCache ) )
+			$theCache[ Edge::kSEQ_NAME ] = Array();
+		$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLEdge.
 
