@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	NODE STRUCTURE
+	StructNode.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- NODE -->
+	
+	<!-- _nodes -->
+	<META>
+		 <TERM lid="_nodes">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A node is a <em>vertex in a graph structure</em>, nodes reference <em>term</em> and <em>tag</em> instances, when referencing a term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data structures</em>, <em>input and output templates</em> and <em>search forms</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:root</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of node objects.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- PROPERTIES -->
+	
+	<!-- kTAG_NID -->
+	<META>
+		<NODE term="_id" pid="_nodes:_id">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute holds an <em>integer serial number</em>, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or tag. The native identifier is assigned automatically.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ID_PERSISTENT -->
+	<META>
+		<NODE tag=":id-persistent" pid="_nodes::id-persistent">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This optional attribute holds a string which represents a unique persitent identifier, this value must be unique among all nodes and is optional. The main duty of this attribute is to disambiguate nodes pointing to the same term or tag.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_TERM -->
+	<META>
+		<NODE tag=":term" pid="_nodes::term">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>term object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the tag offset must be omitted.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_TAG -->
+	<META>
+		<NODE tag=":tag" pid="_nodes::tag">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>tag object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the term offset must be omitted.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_NODE_TYPE -->
+	<META>
+		<NODE tag=":type:node" pid="_nodes::type:node">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_ROOT -->
+	<META>
+		<NODE term=":type:node:root">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_ONTOLOGY -->
+	<META>
+		<NODE term=":type:node:ontology">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_TYPE -->
+	<META>
+		<NODE term=":type:node:type">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_VIEW -->
+	<META>
+		<NODE term=":type:node:view">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_TEMPLATE -->
+	<META>
+		<NODE term=":type:node:template">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_FORM -->
+	<META>
+		<NODE term=":type:node:form">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_STRUCT -->
+	<META>
+		<NODE term=":type:node:struct">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_SCHEMA -->
+	<META>
+		<NODE term=":type:node:schema">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_FEATURE -->
+	<META>
+		<NODE term=":type:node:feature">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_METHOD -->
+	<META>
+		<NODE term=":type:node:method">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_SCALE -->
+	<META>
+		<NODE term=":type:node:scale">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_PROPERTY -->
+	<META>
+		<NODE term=":type:node:property">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_NODE_ENUMERATION -->
+	<META>
+		<NODE term=":type:node:enumeration">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_nodes::type:node</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_MASTER -->
+	<META>
+		<NODE tag=":master" pid="_nodes::master">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property is featured by alias nodes, it <em>references</em> the <em>master node</em>. This property is handled automatically by the object.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_nodes</item>
+		</EDGE>
+	</META>
+</METADATA>

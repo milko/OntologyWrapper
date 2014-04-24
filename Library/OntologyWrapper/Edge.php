@@ -51,6 +51,11 @@ use OntologyWrapper\CollectionObject;
  *		<em>destination of the relationship</em>, it is an <em>integer</em> value
  *		representing the <em>reference to a {@link Node} instance</em>. This attribute
  *		must be managed with its offset.
+ *	<li><tt>{@link kTAG_NAME}</tt>: <em>Path name</em>. This attribute represents the edge
+ *		<em>path</em> represented by the <em>persistent identifiers</em> of the referenced
+ *		objects; this property is equivalent to the native identifier, except that the
+ *		subject and object terms are represented by the native identifier of the referenced
+ *		ovjects.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the native identifier,
@@ -183,6 +188,114 @@ class Edge extends PersistentObject
 	 * @access public
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC OBJECT REFERENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getSubject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get subject object
+	 *
+	 * This method will return the subject node object if any is set; if none are set,
+	 * the method will return <tt>NULL</tt>; if the subject object cannot be found, the
+	 * method will raise an exception.
+	 *
+	 * The parameter is the wrapper in which the current object is, or will be, stored: if
+	 * the current object has the {@link dictionary()}, this parameter may be omitted; if
+	 * the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 *
+	 * @access public
+	 * @return Node					Subject node or <tt>NULL</tt>
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_SUBJECT
+	 *
+	 * @uses getReferenced()
+	 */
+	public function getSubject( $theWrapper = NULL )
+	{
+		return $this->getReferenced( kTAG_SUBJECT, $theWrapper );					// ==>
+	
+	} // getSubject.
+
+	 
+	/*===================================================================================
+	 *	getPredicate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get predicate object
+	 *
+	 * This method will return the predicate term object if any is set; if none are set,
+	 * the method will return <tt>NULL</tt>; if the predicate object cannot be found, the
+	 * method will raise an exception.
+	 *
+	 * The parameter is the wrapper in which the current object is, or will be, stored: if
+	 * the current object has the {@link dictionary()}, this parameter may be omitted; if
+	 * the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 *
+	 * @access public
+	 * @return Term					Predicate term or <tt>NULL</tt>
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_PREDICATE
+	 *
+	 * @uses getReferenced()
+	 */
+	public function getPredicate( $theWrapper = NULL )
+	{
+		return $this->getReferenced( kTAG_PREDICATE, $theWrapper );					// ==>
+	
+	} // getPredicate.
+
+	 
+	/*===================================================================================
+	 *	getObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get object object
+	 *
+	 * This method will return the object node object if any is set; if none are set,
+	 * the method will return <tt>NULL</tt>; if the object object cannot be found, the
+	 * method will raise an exception.
+	 *
+	 * The parameter is the wrapper in which the current object is, or will be, stored: if
+	 * the current object has the {@link dictionary()}, this parameter may be omitted; if
+	 * the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 *
+	 * @access public
+	 * @return Node					Object node or <tt>NULL</tt>
+	 *
+	 * @throws Exception
+	 *
+	 * @see kTAG_OBJECT
+	 *
+	 * @uses getReferenced()
+	 */
+	public function getObject( $theWrapper = NULL )
+	{
+		return $this->getReferenced( kTAG_OBJECT, $theWrapper );					// ==>
+	
+	} // getObject.
 
 		
 
@@ -515,7 +628,7 @@ class Edge extends PersistentObject
 		// Init local storage.
 		//
 		$id = $this->__toString();
-		$dictionary = $this->dictionary();
+		$dictionary = $this->mDictionary;
 		$graph = $dictionary->Graph();
 		
 		//
@@ -537,6 +650,12 @@ class Edge extends PersistentObject
 		//
 		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
 			\ArrayObject::offsetSet( kTAG_NID, $id );
+		
+		//
+		// Set path name.
+		//
+		if( ! \ArrayObject::offsetExists( kTAG_NAME ) )
+			\ArrayObject::offsetSet( kTAG_NAME, $this->getPathName() );
 		
 		//
 		// Handle graph.
@@ -637,6 +756,157 @@ class Edge extends PersistentObject
 								   kTAG_PREDICATE ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getReferenced																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get referenced object
+	 *
+	 * This method will return either the {@link kTAG_SUBJECT}, {@link kTAG_PREDICATE}, or
+	 * the {@link kTAG_OBJECT} objects. If the requested property is not set, the method
+	 * will return <tt>NULL</tt>; if the property is set as an object, the method will
+	 * return it; if the referenced object cannot be found, the method will raise an
+	 * exception.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter expects one of the following:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_SUBJECT}</tt>: The edge subject.
+	 *		<li><tt>{@link kTAG_PREDICATE}</tt>: The edge predicate.
+	 *		<li><tt>{@link kTAG_OBJECT}</tt>: The edge object.
+	 *	 </ul>
+	 *		Any other value will trigger an exception.
+	 *	<li><b>$theWrapper</b>: This parameter is the object's wrapper, if the current
+	 *		object has the {@link dictionary()}, this parameter may be omitted; if the
+	 *		wrapper cannot be resolved, the method will raise an exception.
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Subject, predicate or object offset.
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 *
+	 * @access protected
+	 * @return PersistentObject		Subject or object node, predicate term or <tt>NULL</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function getReferenced( $theOffset, $theWrapper = NULL )
+	{
+		//
+		// Resolve wrapper.
+		//
+		if( $theWrapper === NULL )
+		{
+			//
+			// Get current object's wrapper.
+			//
+			$theWrapper = $this->mDictionary;
+			
+			//
+			// Check wrapper.
+			//
+			if( ! ($theWrapper instanceof Wrapper) )
+				throw new \Exception(
+					"Unable to resolve referenced: "
+				   ."missing wrapper." );										// !@! ==>
+		
+		} // Wrapper not provided.
+		
+		//
+		// Resolve reference.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_SUBJECT:
+			case kTAG_PREDICATE:
+			case kTAG_OBJECT:
+				$object = $this->offsetGet( $theOffset );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid offset [$theOffset]." );							// !@! ==>
+		
+		} // Parsing offset.
+		
+		//
+		// Handle unset.
+		//
+		if( $object === NULL )
+			return NULL;															// ==>
+		
+		//
+		// Handle object.
+		//
+		if( $object instanceof PersistentObject )
+			return $object;															// ==>
+		
+		//
+		// Resolve collection.
+		//
+		switch( $theOffset )
+		{
+			case kTAG_PREDICATE:
+				$collection = Term::ResolveCollection(
+								Term::ResolveDatabase( $theWrapper, TRUE ) );
+				break;
+				
+			case kTAG_SUBJECT:
+			case kTAG_OBJECT:
+				$collection = Node::ResolveCollection(
+								Node::ResolveDatabase( $theWrapper, TRUE ) );
+				break;
+		}
+		
+		return $collection->matchOne( array( kTAG_NID => $object ),
+									  kQUERY_ASSERT | kQUERY_OBJECT );				// ==>
+	
+	} // getReferenced.
+
+	 
+	/*===================================================================================
+	 *	getPathName																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get path name
+	 *
+	 * The edge persistent identifier represents the edge path in which the subject and
+	 * object references are represented by their native identifier; this method returns an
+	 * equivalent path, except that in this case the subject and object references are
+	 * represented by the persistent identifiers of the node's referenced objects.
+	 *
+	 * It is assumed the current object has its {@link dictionary()} set.
+	 *
+	 * @access protected
+	 * @return string				Edge path using referenced persistent identifiers.
+	 */
+	protected function getPathName()
+	{
+		//
+		// Get edge term references.
+		//
+		$terms = Array();
+		$terms[] = $this->getSubject()->getReferenced()[ kTAG_NID ];
+		$terms[] = $this->getPredicate()[ kTAG_NID ];
+		$terms[] = $this->getObject()->getReferenced()[ kTAG_NID ];
+		
+		return implode( kTOKEN_INDEX_SEPARATOR, $terms );							// ==>
+	
+	} // getPathName.
 
 	 
 

@@ -37,8 +37,8 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_NID}</tt>: <em>Native identifier</em>. This required attribute holds
  *		the term global identifier. By convention this value is the combination of the
  *		namespace, {@link kTAG_NAMESPACE}, and the local identifier, {@link kTAG_ID_LOCAL},
- *		separated by the {@link kTOKEN_NAMESPACE_SEPARATOR} token. In practice, the global
- *		identifier may be manually set. This attribute must be managed with its offset.
+ *		separated by the {@link kTOKEN_NAMESPACE_SEPARATOR} token; this identifier may also
+ *		be manually set. This attribute must be managed with its offset.
  *	<li><tt>{@link kTAG_NAMESPACE}</tt>: <em>Namespace</em>. This optional attribute is a
  *		reference to another term object that represents the namespace of the current term.
  *		It is by definition the global identifier of the namespace term. This attribute must

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TERM STRUCTURE
+	StructTerm.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- TERM -->
+	
+	<!-- _terms -->
+	<META>
+		 <TERM lid="_terms">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A term object holds the necessary information to <i>uniquely identify</i>, <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related to a specific context</i>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:root</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of term objects.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- PROPERTIES -->
+	
+	<!-- kTAG_NID -->
+	<META>
+		<NODE term="_id" pid="_terms:_id">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute holds the term global identifier. By convention this value is the combination of the namespace and the local identifier, separated by a colon token; this identifier may also be manually set.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_NAMESPACE -->
+	<META>
+		<NODE tag=":namespace" pid="_terms::namespace">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property is a reference to another term which represents the namespace of the current term.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ID_LOCAL -->
+	<META>
+		<NODE tag=":id-local" pid="_terms::id-local">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the identifier of the term within its namespace.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_LABEL -->
+	<META>
+		<NODE tag=":label" pid="_terms::label">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's label.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_DEFINITION -->
+	<META>
+		<NODE tag=":definition" pid="_terms::definition">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's definition.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_SYNONYM -->
+	<META>
+		<NODE tag=":synonym" pid="_terms::synonym">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's synonyms list.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_TERM_TYPE -->
+	<META>
+		<NODE tag=":type:term" pid="_terms::type:term">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's types list.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	<!-- kTYPE_TERM_INSTANCE -->
+	<META>
+		<NODE term=":type:term:instance">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">_terms::type:term</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_MASTER -->
+	<META>
+		<NODE tag=":master" pid="_terms::master">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents a reference to the term which represents the master copy of the current term, this property is managed automatically and should not be set by clients.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+</METADATA>

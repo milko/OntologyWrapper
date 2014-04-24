@@ -8,7 +8,7 @@
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	<META>
 	
-	    <!-- ISO 3166 RELATIONSHIPS -->
+	    <!-- ISO 3166 VALID & LEGACY RELATIONSHIPS -->
 
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3:ATB</item>
@@ -390,7 +390,7 @@
 			<item const="kTAG_OBJECT" node="term">iso:3166:3:alpha-3:DEU</item>
 		</EDGE>
     
-	    <!-- ISO 3166 SUBSETS -->
+	    <!-- ISO 3166 CONTINENT & COUNTRY SUBSETS -->
 
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3:ABW</item>

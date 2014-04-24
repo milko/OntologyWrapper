@@ -26,7 +26,7 @@ use OntologyWrapper\CollectionObject;
  * Node object
  *
  * A node is a <em>vertex in a graph structure</em>, nodes reference
- * <em>{@link Term}</em> and <em>{@link Tag</em> instances, when referencing a
+ * <em>{@link Term}</em> and <em>{@link Tag}</em> instances, when referencing a
  * term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and
  * <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data
  * structures</em>, <em>input and output templates</em> and <em>search forms</em>.

@@ -342,9 +342,7 @@ class ResultAggregator
 				//
 				// Store identifier.
 				//
-				$this->mResults[ self::kDICT ]
-							   [ self::kIDs ]
-							   [] = $key;
+				$this->identify( $key );
 		
 				//
 				// Process object.
@@ -379,6 +377,32 @@ class ResultAggregator
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	identify																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load identifier
+	 *
+	 * This method will load the provided identifier in the main identifiers list.
+	 *
+	 * In this class we set the provided value in the {@link kIDs} element of the
+	 * {@link kDICT} block; derived classes may overload this method to build a custom
+	 * identifiers structure.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 */
+	protected function identify( $theIdentifier )
+	{
+		$this->mResults[ self::kDICT ]
+					   [ self::kIDs ]
+					   [] = $theIdentifier;
+		
+	} // identify.
 
 	 
 	/*===================================================================================
@@ -585,7 +609,7 @@ class ResultAggregator
 			//
 			// Handle structure.
 			//
-			if( in_array( kTYPE_STRUCT, $type ) )
+			if( $type == kTYPE_STRUCT )
 			{
 				//
 				// Init new object property.
@@ -666,7 +690,7 @@ class ResultAggregator
 				// Handle language strings.
 				//
 				if( ($theLanguage !== NULL)
-				 && in_array( kTYPE_LANGUAGE_STRINGS, $type ) )
+				 && ($type == kTYPE_LANGUAGE_STRINGS) )
 					$property = $this->selectLanguageString( $property, $theLanguage );
 				
 				//

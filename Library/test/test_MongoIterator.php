@@ -77,21 +77,27 @@ try
 	//
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	$entities = $wrapper->Entities(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	$units = $wrapper->Units(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	$units->drop();
-//	$graph = $wrapper->Graph(
-//		new OntologyWrapper\Neo4jGraph(
-//			"neo4j://localhost:7474" ) );
-//	$graph->drop( '/Volumes/Data/Neo4j/*' );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
-	// Load cache.
+	// Drop database.
+	//
+	$meta->drop();
+	
+	//
+	// Load database.
+	//
+	$command = 'mongorestore --directoryperdb /Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	exec( $command );
+	
+	//
+	// Load data dictionary.
 	//
 	$wrapper->loadTagCache();
 	

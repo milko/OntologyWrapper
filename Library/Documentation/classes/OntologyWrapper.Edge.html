@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-461390934"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-43159223"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-461390934" class="accordion-body collapse in">
+            <div id="namespace-43159223" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-376643820"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1669385186"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-376643820" class="accordion-body collapse ">
+            <div id="namespace-1669385186" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-920666448"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2262959"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-920666448" class="accordion-body collapse ">
+            <div id="namespace-2262959" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -274,6 +274,11 @@ instance reference.</p>
     <em>destination of the relationship</em>, it is an <em>integer</em> value
     representing the <em>reference to a {@link Node} instance</em>. This attribute
     must be managed with its offset.
+<li><tt>{@link kTAG_NAME}</tt>: <em>Path name</em>. This attribute represents the edge
+    <em>path</em> represented by the <em>persistent identifiers</em> of the referenced
+    objects; this property is equivalent to the native identifier, except that the
+    subject and object terms are represented by the native identifier of the referenced
+    ovjects.
 </ul>
 <p>The {@link __toString()} method will return the value stored in the native identifier,
 if set, or the computed native identifier, which is the concatenation of the subject,
@@ -307,6 +312,9 @@ predicate and object references.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method___construct" class="">__construct()</a><br />
                                                                     <a href="../classes/OntologyWrapper.OntologyObject.html#method___toString" class="">__toString()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_setAlias" class="">setAlias()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Edge.html#method_getSubject" class="">getSubject()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Edge.html#method_getPredicate" class="">getPredicate()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Edge.html#method_getObject" class="">getObject()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_ResolveDatabase" class="">ResolveDatabase()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_CreateIndexes" class="">CreateIndexes()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_commit" class="">commit()</a><br />
@@ -355,6 +363,8 @@ predicate and object references.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitObjectIdentifiers" class="">preCommitObjectIdentifiers()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_isReady" class="">isReady()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_lockedOffsets" class="">lockedOffsets()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Edge.html#method_getReferenced" class="">getReferenced()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Edge.html#method_getPathName" class="">getPathName()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetUnset" class="">preOffsetUnset()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_insertObject" class="">insertObject()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_updateObject" class="">updateObject()</a><br />
@@ -730,6 +740,174 @@ method in derived classes that do not implement the concept of master and alias.
                                                                                                 <dt>Uses</dt>
                                                                 <dd>isAlias()</dd>
                                             <dd>isCommitted()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSubject" name="method_getSubject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSubject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSubject(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>) : \OntologyWrapper\Node</pre>
+                <p><em>Get subject object</em></p>
+                <p>This method will return the subject node object if any is set; if none are set,
+the method will return <tt>NULL</tt>; if the subject object cannot be found, the
+method will raise an exception.</p>
+<p>The parameter is the wrapper in which the current object is, or will be, stored: if
+the current object has the {@link dictionary()}, this parameter may be omitted; if
+the wrapper cannot be resolved, the method will raise an exception.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Wrapper.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.Node.html">\OntologyWrapper\Node</a>
+                                            &mdash; <p>Subject node or <tt>NULL</tt></p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>getReferenced()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPredicate" name="method_getPredicate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPredicate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPredicate(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>) : \OntologyWrapper\Term</pre>
+                <p><em>Get predicate object</em></p>
+                <p>This method will return the predicate term object if any is set; if none are set,
+the method will return <tt>NULL</tt>; if the predicate object cannot be found, the
+method will raise an exception.</p>
+<p>The parameter is the wrapper in which the current object is, or will be, stored: if
+the current object has the {@link dictionary()}, this parameter may be omitted; if
+the wrapper cannot be resolved, the method will raise an exception.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Wrapper.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.Term.html">\OntologyWrapper\Term</a>
+                                            &mdash; <p>Predicate term or <tt>NULL</tt></p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>getReferenced()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getObject" name="method_getObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getObject(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>) : \OntologyWrapper\Node</pre>
+                <p><em>Get object object</em></p>
+                <p>This method will return the object node object if any is set; if none are set,
+the method will return <tt>NULL</tt>; if the object object cannot be found, the
+method will raise an exception.</p>
+<p>The parameter is the wrapper in which the current object is, or will be, stored: if
+the current object has the {@link dictionary()}, this parameter may be omitted; if
+the wrapper cannot be resolved, the method will raise an exception.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Wrapper.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.Node.html">\OntologyWrapper\Node</a>
+                                            &mdash; <p>Object node or <tt>NULL</tt></p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>getReferenced()</dd>
                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -2916,6 +3094,113 @@ cannot be modified once the object has been committed.</p>
                                                                                                 <dt>Uses</dt>
                                                                 <dd>InternalOffsets()</dd>
                                                 </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getReferenced" name="method_getReferenced" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getReferenced()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getReferenced(string <span class="argument">$theOffset</span>, \OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>) : \OntologyWrapper\PersistentObject</pre>
+                <p><em>Get referenced object</em></p>
+                <p>This method will return either the {@link kTAG_SUBJECT}, {@link kTAG_PREDICATE}, or
+the {@link kTAG_OBJECT} objects. If the requested property is not set, the method
+will return <tt>NULL</tt>; if the property is set as an object, the method will
+return it; if the referenced object cannot be found, the method will raise an
+exception.</p>
+<p>The method expects the following parameters:</p>
+<ul>
+<li><b>$theOffset</b>: This parameter expects one of the following:
+ <ul>
+    <li><tt>{@link kTAG_SUBJECT}</tt>: The edge subject.
+    <li><tt>{@link kTAG_PREDICATE}</tt>: The edge predicate.
+    <li><tt>{@link kTAG_OBJECT}</tt>: The edge object.
+ </ul>
+    Any other value will trigger an exception.
+<li><b>$theWrapper</b>: This parameter is the object's wrapper, if the current
+    object has the {@link dictionary()}, this parameter may be omitted; if the
+    wrapper cannot be resolved, the method will raise an exception.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theOffset</td>
+                                <td><p>Subject, predicate or object offset.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper</td>
+                                <td><p>Wrapper.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.PersistentObject.html">\OntologyWrapper\PersistentObject</a>
+                                            &mdash; <p>Subject or object node, predicate term or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPathName" name="method_getPathName" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getPathName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPathName() : string</pre>
+                <p><em>Get path name</em></p>
+                <p>The edge persistent identifier represents the edge path in which the subject and
+object references are represented by their native identifier; this method returns an
+equivalent path, except that in this case the subject and object references are
+represented by the persistent identifiers of the node's referenced objects.</p>
+<p>It is assumed the current object has its {@link dictionary()} set.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Edge path using referenced persistent identifiers.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -5273,7 +5558,7 @@ the {@link kTYPE_LIST} in its data kind, or if the root element is an array.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 23rd, 2014 at 19:23.
+                    on April 24th, 2014 at 19:24.
                 </section>
             </section>
         </section>

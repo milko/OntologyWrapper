@@ -97,32 +97,41 @@ session_start();
 try
 {
 	//
-	// Instantiate main tag cache.
+	// Instantiate data dictionary.
 	//
-	$_SESSION[ kSESSION_DDICT ]
-		= new OntologyWrapper\TagCache(
+	$wrapper
+		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Init cache.
+	// Set databases.
 	//
-	$_SESSION[ kSESSION_DDICT ]->init();
+	$meta = $wrapper->Metadata(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
+	$wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/TEST?connect=1" ) );
 	
 	//
-	// Instantiate wrapper.
+	// Drop database.
 	//
-	$wrapper = new OntologyWrapper\Wrapper();
-	$wrapper->Metadata( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Entities( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->Units( new OntologyWrapper\MongoDatabase( "mongodb://localhost:27017/TEST?connect=1" ) );
-	$wrapper->openConnections();
-	$wrapper->resetOntology();
-
+	$meta->drop();
+	
 	//
-	// Instantiate database.
+	// Load database.
 	//
-	$database = $wrapper->Metadata();
+	$command = 'mongorestore --directoryperdb /Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	exec( $command );
+	
+	//
+	// Load data dictionary.
+	//
+	$wrapper->loadTagCache();
 	
 	//
 	// Test parent class.
@@ -288,8 +297,8 @@ try
 		echo( '<h4>Set offset by global identifier<br /><i>should use kTAG_LABEL</i></h4>' );
 		echo( kSTYLE_TABLE_PRE );
 		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'$test = new MyClass();'.kSTYLE_HEAD_POS );
-		$test = new MyClass();
+		echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper );'.kSTYLE_HEAD_POS );
+		$test = new MyClass( $wrapper );
 		echo( kSTYLE_ROW_POS );
 		echo( kSTYLE_ROW_PRE );
 		echo( kSTYLE_HEAD_PRE.'$test[ ":label" ] = "LABEL";'.kSTYLE_HEAD_POS );
@@ -853,17 +862,17 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$subject = new OntologyWrapper\Node();'.'<br \>' );
-	echo( '$subject[ kTAG_TERM ] = ":pid";'.'<br \>' );
-	echo( '$subject->commit( $database );'.'<br \>' );
+	echo( '$subject[ kTAG_TERM ] = ":id-persistent";'.'<br \>' );
+	echo( '$subject->commit( $wrapper );'.'<br \>' );
 	$subject = new OntologyWrapper\Node();
-	$subject[ kTAG_TERM ] = ":pid";
-	$subject->commit( $database );
+	$subject[ kTAG_TERM ] = ":id-persistent";
+	$subject->commit( $wrapper );
 	echo( '$object = new OntologyWrapper\Node();'.'<br \>' );
-	echo( '$object[ kTAG_TERM ] = ":lid";'.'<br \>' );
-	echo( '$object->commit( $database );'.'<br \>' );
+	echo( '$object[ kTAG_TERM ] = ":id-local";'.'<br \>' );
+	echo( '$object->commit( $wrapper );'.'<br \>' );
 	$object = new OntologyWrapper\Node();
-	$object[ kTAG_TERM ] = ":lid";
-	$object->commit( $database );
+	$object[ kTAG_TERM ] = ":id-local";
+	$object->commit( $wrapper );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -949,8 +958,8 @@ try
 	echo( '<h4>Commit object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $database );'.kSTYLE_HEAD_POS );
-	$id = $test->commit( $database );
+	echo( kSTYLE_HEAD_PRE.'$id = $test->commit( $wrapper );'.kSTYLE_HEAD_POS );
+	$id = $test->commit( $wrapper );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -982,8 +991,8 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$data = $test->getArrayCopy();<br />' );
 	$data = $test->getArrayCopy();
-	echo( '$test = new MyClass( $database, $data );' );
-	$test = new MyClass( $database, $data );
+	echo( '$test = new MyClass( $wrapper, $data );' );
+	$test = new MyClass( $wrapper, $data );
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
@@ -1001,32 +1010,23 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+
 	//
 	// Insert again.
 	//
-	echo( '<h4>Insert again<br /><i>will raise an exception if inserted (should not)</i></h4>' );
+	echo( '<h4>Insert again<br /><i>should raise an exception</i></h4>' );
 	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'$id = $test->commit();'.kSTYLE_HEAD_POS );
-	$id = $test->commit();
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Inited: <input type="checkbox" disabled="true" '.$test->Inited().'>&nbsp;' );
-	echo( 'Dirty: <input type="checkbox" disabled="true" '.$test->Dirty().'>&nbsp;' );
-	echo( 'Committed: <input type="checkbox" disabled="true" '.$test->Committed().'>&nbsp;' );
-	echo( 'Alias: <input type="checkbox" disabled="true" '.$test->Alias().'>' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	var_dump( $id );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	try
+	{
+		$id = $test->commit();
+	}
+	catch( \Exception $error )
+	{
+		echo( $error->xdebug_message );
+	}
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1038,12 +1038,12 @@ try
 	echo( '<h4>Load subject</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadSubject();'.kSTYLE_HEAD_POS );
-	$ns = $test->loadSubject();
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->getSubject();'.kSTYLE_HEAD_POS );
+	$ns = $test->getSubject();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $ns->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
@@ -1055,16 +1055,15 @@ try
 	echo( '<h4>Load predicate</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadPredicate();'.kSTYLE_HEAD_POS );
-	$ns = $test->loadPredicate();
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->getPredicate();'.kSTYLE_HEAD_POS );
+	$ns = $test->getPredicate();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $ns->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//
@@ -1073,12 +1072,12 @@ try
 	echo( '<h4>Load object</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$ns = $test->loadObject();'.kSTYLE_HEAD_POS );
-	$ns = $test->loadObject();
+	echo( kSTYLE_HEAD_PRE.'$ns = $test->getObject();'.kSTYLE_HEAD_POS );
+	$ns = $test->getObject();
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $ns ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( $ns->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

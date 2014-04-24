@@ -3267,7 +3267,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTYPE_LANGUAGE_STRINGS:
 				if( ! is_array( $theProperty ) )
 					throw new \Exception(
-						"Invalid offset value in [$thePath]: "
+						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."the value is not an array." );							// !@! ==>
 				
 				break;
@@ -3275,14 +3275,14 @@ abstract class PersistentObject extends OntologyObject
 			case kTYPE_SHAPE:
 				if( ! is_array( $theProperty ) )
 					throw new \Exception(
-						"Invalid offset value in [$thePath]: "
+						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."the value is not an array." );							// !@! ==>
 				
 				if( (! array_key_exists( kTAG_SHAPE_TYPE, $theProperty ))
 				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theProperty ))
 				 || (! is_array( $theProperty[ kTAG_SHAPE_GEOMETRY ] )) )
 					throw new \Exception(
-						"Invalid offset value in [$thePath]: "
+						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."invalid shape geometry." );							// !@! ==>
 				
 				break;
@@ -3290,7 +3290,7 @@ abstract class PersistentObject extends OntologyObject
 			default:
 				if( is_array( $theProperty ) )
 					throw new \Exception(
-						"Invalid offset value in [$thePath]: "
+						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."array not expected." );								// !@! ==>
 				
 				break;

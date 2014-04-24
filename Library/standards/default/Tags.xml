@@ -11,7 +11,7 @@
 	
 	<META>
 		<!-- kTAG_NID -->
-	   <TERM lid="_id">
+		<TERM lid="_id">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -102,7 +102,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The namespace is a <em>term reference</em> which <em>groups related identifiers</em>, prepended to the local identifier it constitutes the object <em>global persistent identifier.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The namespace is a <em>term reference</em> which <em>groups related identifiers</em>, prepended to the local identifier it constitutes the object <em>global persistent identifier</em>.]]></item>
 				</item>
 			</item>
 		</TAG>

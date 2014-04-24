@@ -688,7 +688,29 @@ class Wrapper extends Dictionary
 		// Set sequence number.
 		//
 		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
+		
+		//
+		// Load XML structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading default XML structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/StructTag.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 	
+		$file = kPATH_STANDARDS_ROOT.'/default/StructTerm.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+		$file = kPATH_STANDARDS_ROOT.'/default/StructNode.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+		$file = kPATH_STANDARDS_ROOT.'/default/StructEdge.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 	} // resetOntology.
 
 	 
