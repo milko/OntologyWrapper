@@ -1183,22 +1183,6 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		//
-		// Populate the ISO 3166 alpha-3 aggregated countries.
-		//
-		if( $doLog )
-			echo( "    - Merge ISO:3166:alpha-3 enumerations\n" );
-		$this->copyRelationships(
-			array( Node::GetTermMaster( $this,
-										'iso:3166:1:alpha-3',
-										kQUERY_ASSERT | kQUERY_NID ),
-				   Node::GetTermMaster( $this,
-				   						'iso:3166:3:alpha-3',
-				   						kQUERY_ASSERT | kQUERY_NID ) ),
-			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN,
-			Node::GetTermMaster( $this, 'iso:3166:alpha-3', kQUERY_ASSERT | kQUERY_NID ),
-			kPREDICATE_INSTANCE_OF, kTYPE_RELATIONSHIP_IN );
-		
-		//
 		// Load generated ISO4217 XML files.
 		//
 		if( $doLog )
