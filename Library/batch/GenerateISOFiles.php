@@ -184,8 +184,10 @@ if( kOPTION_VERBOSE )
 		// The order is important!!!
 		//
 		$_SESSION[ kISO_FILES ]
-			= array( kISO_FILE_639_3, kISO_FILE_639, kISO_FILE_3166,
-					 kISO_FILE_3166_2, kISO_FILE_4217, kISO_FILE_15924 );
+			= array( kISO_FILE_639_3, kISO_FILE_639, kISO_FILE_639_5,
+					 kISO_FILE_3166, kISO_FILE_3166_2,
+					 kISO_FILE_4217,
+					 kISO_FILE_15924 );
 		
 		//
 		// Point to MO files.
@@ -320,6 +322,7 @@ if( kOPTION_VERBOSE )
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-2B.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-2T.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-3.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-5.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-xref.xml' );
 		
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml' );
@@ -354,6 +357,13 @@ if( kOPTION_VERBOSE )
 		if( kOPTION_VERBOSE )
 			echo( "      ".kISO_FILE_639."\n" );
 		ISOGenerate639XML( $theDirectory );
+		
+		//
+		// Generate ISO part 5 standard.
+		//
+		if( kOPTION_VERBOSE )
+			echo( "      ".kISO_FILE_639_5."\n" );
+		ISOGenerate6395XML( $theDirectory );
 		
 		//
 		// Generate ISO 3166 standards.
@@ -668,7 +678,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -743,7 +753,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_1 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -841,7 +851,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1149,7 +1159,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2b );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1282,7 +1292,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_2t );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1451,6 +1461,214 @@ if( kOPTION_VERBOSE )
 				  kERROR_STATE );												// !@! ==>
 		
 	} // ISOGenerate639XML.
+
+	 
+	/*===================================================================================
+	 *	ISOGenerate6395XML																*
+	 *==================================================================================*/
+
+	/**
+	 * Generate ISO 639-5 XML files
+	 *
+	 * This method will generate the XML ISO 639 part5 file.
+	 *
+	 * The method will load the information from the iso-codes processed files and write
+	 * the following files in the provided directory:
+	 *
+	 * <ul>
+	 *	<li><tt>ISO639-5.xml</tt>: Part 5 codes.
+	 * </ul>
+	 *
+	 * @param string				$theDirectory		Files container directory.
+	 *
+	 * @throws Exception
+	 */
+	function ISOGenerate6395XML( $theDirectory )
+	{
+		//
+		// Load XML file.
+		//
+		$file_in = kISO_CODES_PATH.kISO_CODES_PATH_XML.'/'.kISO_FILE_639_5.'.xml';
+		$xml_in = simplexml_load_file( $file_in  );
+		if( $xml_in instanceof SimpleXMLElement )
+		{
+			//
+			// Inform.
+			//
+			if( kOPTION_VERBOSE )
+				echo( "        • ISO 639 5\n" );
+			
+			//
+			// Set default namespaces.
+			//
+			$ns_5 = 'iso:639:5';
+			
+			//
+			// Open XML structures.
+			//
+			$xml_5 = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			
+			//
+			// Set target files name.
+			//
+			$file_5 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-5.xml';
+			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso639-xref.xml';
+			
+			//
+			// Open XML structures.
+			//
+			$xml_xref = simplexml_load_file( $file_xref );
+			
+			//
+			// Create cross reference unit.
+			//
+			$unit_xref = $xml_xref->addChild( 'META' );
+			
+			//
+			// Load elements.
+			//
+			foreach( $xml_in->{'iso_639_5_entry'} as $record )
+			{
+				//
+				// Check identifier.
+				//
+				if( $record[ 'id' ] !== NULL )
+				{
+					//
+					// Save identifier.
+					//
+					$id5 = (string) $record[ 'id' ];
+					$gid5 = $ns_5.kTOKEN_NAMESPACE_SEPARATOR.$id5;
+					
+					//
+					// Create unit.
+					//
+					$unit = $xml_5->addChild( 'META' );
+					
+					//
+					// Create term.
+					//
+					$term = $unit->addChild( 'TERM' );
+					$term->addAttribute( 'ns', $ns_5 );
+					$term->addAttribute( 'lid', $id5 );
+					
+					//
+					// Set term instance.
+					//
+					$element = $term->addChild( 'item' );
+					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					
+					//
+					// Set term synonyms.
+					//
+					$element_syn_5 = $term->addChild( 'item' );
+					$element_syn_5->addAttribute( 'const', 'kTAG_SYNONYM' );
+					$item = $element_syn_5->addChild( 'item', $id5 );
+					
+					//
+					// Init term names.
+					//
+					$names = Array();
+					
+					//
+					// Set term english name.
+					//
+					if( $record[ 'name' ] !== NULL )
+					{
+						$tmp = (string) $record[ 'name' ];
+						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
+					}
+					
+					//
+					// Collect language strings.
+					//
+					ISOCollectLanguageElements( $names, kISO_FILE_639_5 );
+					
+					//
+					// Set language strings.
+					//
+					foreach( $names as $tag => $strings )
+						AddLanguageStrings( $term, $tag, $strings );
+					
+					//
+					// Create node.
+					//
+					$node = $unit->addChild( 'NODE' );
+					
+					//
+					// Set node type.
+					//
+					$element = $node->addChild( 'item' );
+					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					
+					//
+					// Relate to class.
+					//
+					$edge = $unit->addChild( 'EDGE' );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					$element = $edge->addChild( 'item', $ns_5 );
+					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
+					
+					//
+					// Handle parent.
+					//
+					if( $record[ 'parents' ] !== NULL )
+					{
+						//
+						// Iterate parents.
+						//
+						$parents = explode( ',', (string) $record[ 'parents' ] );
+						foreach( $parents as $parent )
+						{
+							//
+							// Trim identifier.
+							//
+							$parent = trim( $parent );
+						
+							//
+							// Save parent identifier.
+							//
+							$gid5parent = $ns_5.kTOKEN_NAMESPACE_SEPARATOR.$parent;
+					
+							//
+							// Relate to parent.
+							//
+							$edge = $unit_xref->addChild( 'EDGE' );
+							$element = $edge->addChild( 'item', $gid5 );
+							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+							$element->addAttribute( 'node', 'term' );
+							$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
+							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+							$element = $edge->addChild( 'item', $gid5parent );
+							$element->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element->addAttribute( 'node', 'term' );
+							
+						} // Iterating parents.
+					
+					} // Has parent.
+				
+				} // Has record identifier.
+			
+			} // Iterating entries.
+			
+			//
+			// Write files.
+			//
+			@unlink( $file_5 ); $xml_5->asXML( $file_5 );
+			@unlink( $file_xref ); $xml_xref->asXML( $file_xref );
+		
+		} // Loaded file.
+		
+		else
+			throw new Exception
+				( "Unable to load XML file [$file_in]",
+				  kERROR_STATE );												// !@! ==>
+		
+	} // ISOGenerate6395XML.
 	
 	 
 	/*===================================================================================
@@ -1621,7 +1839,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1690,7 +1908,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_2 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -1787,7 +2005,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2081,7 +2299,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2150,7 +2368,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_4 );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2247,7 +2465,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -2587,7 +2805,7 @@ if( kOPTION_VERBOSE )
 									//
 									$edge = $unit->addChild( 'EDGE' );
 									$element = $edge->addChild(
-										'item', kPREDICATE_INSTANCE_OF );
+										'item', kPREDICATE_ENUM_OF );
 									$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 									$element = $edge->addChild( 'item', $ns_sub );
 									$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3158,7 +3376,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_al );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3227,7 +3445,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_an );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3364,7 +3582,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_hl );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3433,7 +3651,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_hn );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3635,7 +3853,7 @@ if( kOPTION_VERBOSE )
 					// Relate to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 					$element = $edge->addChild( 'item', $ns_4 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
@@ -3704,7 +3922,7 @@ if( kOPTION_VERBOSE )
 							// Relate to parent.
 							//
 							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_INSTANCE_OF );
+							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 							$element = $edge->addChild( 'item', $ns_n );
 							$element->addAttribute( 'const', 'kTAG_OBJECT' );

@@ -7,8 +7,27 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
+	<!-- Entity type -->
+	
+	<!-- :type:entity -->
+	<META>
+		<NODE term=":type:entity">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all entity types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Entity type enumerations -->
 	
+	<!-- :type:entity:100 -->
 	<META>
 		<TERM ns=":type:entity" lid="100">
 			<item const="kTAG_LABEL">
@@ -24,7 +43,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+		</EDGE>
+	</META>
 		
+	<!-- :type:entity:110 -->
+	<META>
 		<TERM ns=":type:entity" lid="110">
 			<item const="kTAG_LABEL">
 				<item>
@@ -33,7 +64,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:100</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:120 -->
+	<META>
 		<TERM ns=":type:entity" lid="120">
 			<item const="kTAG_LABEL">
 				<item>
@@ -48,7 +91,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:100</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:121 -->
+	<META>
 		<TERM ns=":type:entity" lid="121">
 			<item const="kTAG_LABEL">
 				<item>
@@ -63,7 +118,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:120</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:122 -->
+	<META>
 		<TERM ns=":type:entity" lid="122">
 			<item const="kTAG_LABEL">
 				<item>
@@ -78,7 +145,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:120</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:123 -->
+	<META>
 		<TERM ns=":type:entity" lid="123">
 			<item const="kTAG_LABEL">
 				<item>
@@ -93,7 +172,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:120</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:124 -->
+	<META>
 		<TERM ns=":type:entity" lid="124">
 			<item const="kTAG_LABEL">
 				<item>
@@ -108,7 +199,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:120</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:125 -->
+	<META>
 		<TERM ns=":type:entity" lid="125">
 			<item const="kTAG_LABEL">
 				<item>
@@ -123,7 +226,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:120</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:200 -->
+	<META>
 		<TERM ns=":type:entity" lid="200">
 			<item const="kTAG_LABEL">
 				<item>
@@ -138,7 +253,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:210 -->
+	<META>
 		<TERM ns=":type:entity" lid="210">
 			<item const="kTAG_LABEL">
 				<item>
@@ -153,7 +280,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:211 -->
+	<META>
 		<TERM ns=":type:entity" lid="211">
 			<item const="kTAG_LABEL">
 				<item>
@@ -168,7 +307,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:210</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:220 -->
+	<META>
 		<TERM ns=":type:entity" lid="220">
 			<item const="kTAG_LABEL">
 				<item>
@@ -183,7 +334,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:230 -->
+	<META>
 		<TERM ns=":type:entity" lid="230">
 			<item const="kTAG_LABEL">
 				<item>
@@ -198,7 +361,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:240 -->
+	<META>
 		<TERM ns=":type:entity" lid="240">
 			<item const="kTAG_LABEL">
 				<item>
@@ -213,7 +388,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:250 -->
+	<META>
 		<TERM ns=":type:entity" lid="250">
 			<item const="kTAG_LABEL">
 				<item>
@@ -228,7 +415,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:251 -->
+	<META>
 		<TERM ns=":type:entity" lid="251">
 			<item const="kTAG_LABEL">
 				<item>
@@ -243,7 +442,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:250</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:252 -->
+	<META>
 		<TERM ns=":type:entity" lid="252">
 			<item const="kTAG_LABEL">
 				<item>
@@ -258,7 +469,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:250</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:253 -->
+	<META>
 		<TERM ns=":type:entity" lid="253">
 			<item const="kTAG_LABEL">
 				<item>
@@ -273,7 +496,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:250</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:254 -->
+	<META>
 		<TERM ns=":type:entity" lid="254">
 			<item const="kTAG_LABEL">
 				<item>
@@ -288,7 +523,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:250</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:255 -->
+	<META>
 		<TERM ns=":type:entity" lid="255">
 			<item const="kTAG_LABEL">
 				<item>
@@ -303,7 +550,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:250</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:260 -->
+	<META>
 		<TERM ns=":type:entity" lid="260">
 			<item const="kTAG_LABEL">
 				<item>
@@ -318,7 +577,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:270 -->
+	<META>
 		<TERM ns=":type:entity" lid="270">
 			<item const="kTAG_LABEL">
 				<item>
@@ -333,7 +604,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:280 -->
+	<META>
 		<TERM ns=":type:entity" lid="280">
 			<item const="kTAG_LABEL">
 				<item>
@@ -348,7 +631,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:200</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:281 -->
+	<META>
 		<TERM ns=":type:entity" lid="281">
 			<item const="kTAG_LABEL">
 				<item>
@@ -363,7 +658,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity:280</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:300 -->
+	<META>
 		<TERM ns=":type:entity" lid="300">
 			<item const="kTAG_LABEL">
 				<item>
@@ -378,7 +685,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+		</EDGE>
+	</META>
 
+	<!-- :type:entity:400 -->
+	<META>
 		<TERM ns=":type:entity" lid="400">
 			<item const="kTAG_LABEL">
 				<item>
@@ -393,5 +712,14 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+		</EDGE>
 	</META>
 </METADATA>

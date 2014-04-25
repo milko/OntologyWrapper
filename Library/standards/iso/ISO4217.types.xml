@@ -48,6 +48,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -74,6 +75,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -104,7 +106,11 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE  />
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+			</item>
+		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217</item>
@@ -123,6 +129,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -149,6 +156,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

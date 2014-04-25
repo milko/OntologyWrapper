@@ -74,6 +74,22 @@
 			</item>
 		</TERM>
 		
+		<!-- kPREDICATE_TYPE_OF -->
+		<TERM ns=":relationship:predicate" lid="TYPE-OF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type of</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship represents the type of the object of the relationship. This predicate can also be as a group and a proxy: it may define a formal group by collecting all elements that relate to it, and it acts as a proxy, because this relationship type implies that all the elements related to the group will relate directly to the object of the current relationship.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kPREDICATE_FUNCTION_OF -->
 		<TERM ns=":relationship:predicate" lid="FUNCTION-OF">
 			<item const="kTAG_LABEL">

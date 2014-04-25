@@ -1084,7 +1084,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Loading generated ISO639 XML files.\n" );
-
+		
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-3.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -1102,6 +1102,10 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-2T.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso639-5.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

@@ -7,10 +7,28 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
+	<!-- Node type -->
+	
+	<!-- :type:entity -->
+	<META>
+		<NODE term=":type:node">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all node types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Node type enumerations -->
 	
+	<!-- kTYPE_NODE_ROOT -->
 	<META>
-		<!-- kTYPE_NODE_ROOT -->
 		<TERM ns=":type:node" lid="root">
 			<item const="kTAG_LABEL">
 				<item>
@@ -25,8 +43,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 
-		<!-- kTYPE_NODE_ONTOLOGY -->
+	<!-- kTYPE_NODE_ONTOLOGY -->
+	<META>
 		<TERM ns=":type:node" lid="ontology">
 			<item const="kTAG_LABEL">
 				<item>
@@ -41,8 +70,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_TYPE -->
+	<!-- kTYPE_NODE_TYPE -->
+	<META>
 		<TERM ns=":type:node" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
@@ -57,8 +97,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 		
-		<!-- kTYPE_NODE_VIEW -->
+	<!-- kTYPE_NODE_VIEW -->
+	<META>
 		<TERM ns=":type:node" lid="view">
 			<item const="kTAG_LABEL">
 				<item>
@@ -73,8 +124,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 		
-		<!-- kTYPE_NODE_TEMPLATE -->
+	<!-- kTYPE_NODE_TEMPLATE -->
+	<META>
 		<TERM ns=":type:node" lid="template">
 			<item const="kTAG_LABEL">
 				<item>
@@ -89,8 +151,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_FORM -->
+	<!-- kTYPE_NODE_FORM -->
+	<META>
 		<TERM ns=":type:node" lid="form">
 			<item const="kTAG_LABEL">
 				<item>
@@ -105,8 +178,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_STRUCT -->
+	<!-- kTYPE_NODE_STRUCT -->
+	<META>
 		<TERM ns=":type:node" lid="struct">
 			<item const="kTAG_LABEL">
 				<item>
@@ -121,8 +205,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_SCHEMA -->
+	<!-- kTYPE_NODE_SCHEMA -->
+	<META>
 		<TERM ns=":type:node" lid="schema">
 			<item const="kTAG_LABEL">
 				<item>
@@ -137,8 +232,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_FEATURE -->
+	<!-- kTYPE_NODE_FEATURE -->
+	<META>
 		<TERM ns=":type:node" lid="feature">
 			<item const="kTAG_LABEL">
 				<item>
@@ -153,8 +259,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_METHOD -->
+	<!-- kTYPE_NODE_METHOD -->
+	<META>
 		<TERM ns=":type:node" lid="method">
 			<item const="kTAG_LABEL">
 				<item>
@@ -169,8 +286,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_SCALE -->
+	<!-- kTYPE_NODE_SCALE -->
+	<META>
 		<TERM ns=":type:node" lid="scale">
 			<item const="kTAG_LABEL">
 				<item>
@@ -185,8 +313,19 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_PROPERTY -->
+	<!-- kTYPE_NODE_PROPERTY -->
+	<META>
 		<TERM ns=":type:node" lid="property">
 			<item const="kTAG_LABEL">
 				<item>
@@ -201,21 +340,68 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
 	
-		<!-- kTYPE_NODE_ENUMERATION -->
-		<TERM ns=":type:node" lid="enumeration">
+	<!-- kTYPE_NODE_ENUMERATED -->
+	<META>
+		<TERM ns=":type:node" lid="enumerated">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumeration</item>
+					<item const="kTAG_TEXT">Enumerated set</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An item of a controlled vocabulary</em>. This kind describes a controlled vocabulary item. Objects of this kind derive from scale nodes and represent the valid choices of enumeration and enumerated set scale nodes. An ISO 3166 country code could be considered an enumeration node.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>controlled vocabulary</em> or an <em>enumerated set subset</em>. This kind describes a set of values representing an enumerated set, the element itself is not considered as an element of the set, it defines a formal controlled vocabulary.The ISO 3166 country codes could be considered an enumerated set.]]></item>
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_NODE_ENUMERATION -->
+	<META>
+		<TERM ns=":type:node" lid="enumeration">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumerated value</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>element/em> of a <em>controlled vocabulary</em>. This kind describes an item belonging to an enumerated set, the item may also be nested. An ISO 3166 country code could be considered an enumeration node.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
 	</META>
 </METADATA>

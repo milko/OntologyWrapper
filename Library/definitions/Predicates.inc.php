@@ -133,6 +133,18 @@ define( "kPREDICATE_SUBSET_OF",					':relationship:predicate:SUBSET-OF' );
 define( "kPREDICATE_PART_OF",					':relationship:predicate:PART-OF' );
 
 /**
+ * Type of.
+ *
+ * This predicate indicates that the subject of the relationship represents the type of the
+ * object of the relationship. This predicate is used as a group and a proxy: it can be used
+ * to define a group of elements which can then be related as a whole to other objects; it
+ * acts as a proxy, because the group holder is not related to the object of the
+ * relationship, the elements of the groupo are. This predicate is used to define controlled
+ * vocabularies and relate these to tags, without gaving to duplicate the set elements.
+ */
+define( "kPREDICATE_TYPE_OF",					':relationship:predicate:TYPE-OF' );
+
+/**
  * Function of.
  *
  * This predicate indicates that the subject of the relationship represents a function or

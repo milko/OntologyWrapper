@@ -82,6 +82,14 @@ define( "kISO_FILE_639",					'iso_639' );
 define( "kISO_FILE_639_3",					'iso_639_3' );
 
 /**
+ * ISO 639-5 filename.
+ *
+ * This defines the filename of the ISO 639-5 files; notice that this does not include the
+ * file extension.
+ */
+define( "kISO_FILE_639_5",					'iso_639_5' );
+
+/**
  * ISO 3166 filename.
  *
  * This defines the filename of the ISO 3166 files; notice that this does not include the

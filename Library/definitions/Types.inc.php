@@ -389,6 +389,19 @@ define( "kTYPE_NODE_SCALE",						':type:node:scale' );
 define( "kTYPE_NODE_PROPERTY",					':type:node:property' );
 
 /**
+ * Enumerated.
+ *
+ * A controlled vocabulary.
+ *
+ * This kind of node describes a controlled vocabulary, it has implicitly the
+ * {@link kTYPE_NODE_TYPE} type holding an enumerated set of values. This kind of node can
+ * be used to define a specific controlled vocabulary, its elements are related to this node
+ * by the {@link kPREDICATE_ENUM_OF} predicate and this node can define a tag referring to
+ * the latter using the kPREDICATE_TYPE_OF} predicate.
+ */
+define( "kTYPE_NODE_ENUMERATED",				':type:node:enumerated' );
+
+/**
  * Enumeration.
  *
  * An element of a controlled vocabulary.

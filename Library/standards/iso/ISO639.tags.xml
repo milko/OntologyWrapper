@@ -25,15 +25,10 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>iso:639:scope</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-		</TAG>
-		<NODE term="iso:639:scope">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -42,26 +37,8 @@
 				</item>
 			</item>
 		</NODE>
-		<NODE tag="iso:639:scope">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:feature</item>
-				<item>:type:node:scale</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language scope.]]></item>
-				</item>
-			</item>
-		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:scope</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639</item>
 		</EDGE>
 	</META>
@@ -81,20 +58,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:I">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:I</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:I</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:scope:M -->
@@ -113,20 +84,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:M">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:M</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:M</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:scope:C -->
@@ -145,20 +110,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:C">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:C</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:C</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:scope:D -->
@@ -177,20 +136,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:D">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:D</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:D</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:scope:R -->
@@ -209,20 +162,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:R">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:R</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:R</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:scope:S -->
@@ -241,19 +188,44 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:scope:S">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:S</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:scope</item>
 		</EDGE>
+	</META>
+	<!-- Tag: iso:639:scope -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>iso:639:scope</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+		</TAG>
+		<NODE tag="iso:639:scope">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language scope.]]></item>
+				</item>
+			</item>
+		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:scope:S</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_SUBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:639</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
 		</EDGE>
 	</META>
@@ -274,15 +246,10 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>iso:639:type</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
-		</TAG>
-		<NODE term="iso:639:type">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -291,26 +258,8 @@
 				</item>
 			</item>
 		</NODE>
-		<NODE tag="iso:639:type">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:feature</item>
-				<item>:type:node:scale</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language type.]]></item>
-				</item>
-			</item>
-		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:type</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639</item>
 		</EDGE>
 	</META>
@@ -330,20 +279,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:L">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:L</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:L</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:E -->
@@ -362,20 +305,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:E">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:E</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:E</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:A -->
@@ -394,20 +331,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:A">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:A</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:A</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:H -->
@@ -426,20 +357,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:H">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:H</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:H</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:C -->
@@ -458,20 +383,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:C">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:C</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:C</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:S -->
@@ -490,20 +409,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:S">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:S</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:S</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:Genetic -->
@@ -522,20 +435,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:Genetic">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:Genetic-like -->
@@ -554,20 +461,14 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:Genetic-like">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic-like</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Genetic-like</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	<!-- iso:639:type:Geographic -->
@@ -586,20 +487,45 @@
 				</item>
 			</item>
 		</TERM>
-		<NODE term="iso:639:type:Geographic">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Geographic</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
+	</META>
+	<!-- Tag: iso:639:type -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>iso:639:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+		</TAG>
+		<NODE tag="iso:639:type">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:feature</item>
+				<item>:type:node:scale</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language type.]]></item>
+				</item>
+			</item>
+		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:639:type:Geographic</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_SUBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:639</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	

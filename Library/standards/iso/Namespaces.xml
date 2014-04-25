@@ -31,6 +31,12 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:root</item>
+				<item>:type:node:ontology</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- iso:639 -->
@@ -51,7 +57,6 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
 				<item>:type:node:type</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -61,6 +66,10 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso</item>
+		</EDGE>
 	</META>
 	
 	<!-- iso:3166 -->
@@ -81,7 +90,6 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
 				<item>:type:node:type</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -91,6 +99,10 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso</item>
+		</EDGE>
 	</META>
 	
 	<!-- iso:4217 -->
@@ -111,7 +123,6 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
 				<item>:type:node:type</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -121,6 +132,10 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso</item>
+		</EDGE>
 	</META>
 	
 	<!-- iso:15924 -->
@@ -141,7 +156,6 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
 				<item>:type:node:type</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -151,5 +165,9 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso</item>
+		</EDGE>
 	</META>
 </METADATA>

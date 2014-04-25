@@ -1,0 +1,126 @@
+Enumerated sets
+---------------
+
+Enumerated sets define a controlled vocabulary, their elements are by definition terms and
+these terms, by necessity, are instantiated with nodes.
+
+Tags do not have any direct relationship with nodes, a node may relate to a tag only through
+edge objects, since tags only reference terms directly.
+
+The obvious way of indicating that a tag uses an enumerated set is to relate nodes which
+instantiate an enumerated set element to a tag. This approach is straightforward and it
+allows loading the controlled vocabulary by traversing recursively all edges which point to
+the tag with the kPREDICATE_ENUM_OF predicate.
+
+The problem with this approach is that we would need to duplicate the enumerated set for
+each tag which uses it: the ideal solution would be to define a node type that represents an
+enumerated set and have it point to all tags which use it as a data type.
+
+We already have a node type which represents an enumerated set element,
+kTYPE_NODE_ENUMERATION, to allow this dual workflow we need to define a node type,
+kTYPE_NODE_ENUMERATED,  which represents the full enumerated set. This type would also imply
+that the node is a type, kTYPE_NODE_TYPE, and could represent the full enumerated set as a
+data type with its elements pointing to it via the kPREDICATE_ENUM_OF predicate.
+
+With this approach such a node may point to a tag via the kPREDICATE_ENUM_OF predicate along
+with single controlled vocabulary elements, allowing to mix enumerated set types and custom
+enumerated set elements.
+
+The workflow of traversing a controlled vocabulary would be the following:
+
+	1.	Locate all nodes which point to the tag via the kPREDICATE_ENUM_OF predicate.
+	2.	With all nodes of type kTYPE_NODE_ENUMERATION:
+		2.1.	Add the node as an enumerated set element.
+		2.2.	Recurse with the node.
+	3.	With all nodes of type kTYPE_NODE_ENUMERATED:
+		3.1.	Recurse with node.
+
+An alternative way of implementing this behaviour, which might also be used for other
+purposes, is to create a new predicate, kPREDICATE_TYPE_OF, which indicates that the node
+is used as a type indication of the tag it points to. In this case the workflow would be
+as follows:
+
+	1.	Locate all nodes which point to the tag via the kPREDICATE_ENUM_OF and
+		kPREDICATE_TYPE_OF predicates.
+	2.	With all nodes related via kPREDICATE_ENUM_OF:
+		2.1.	Add the node as an enumerated set element.
+		2.2.	Recurse with the node.
+	3.	With all nodes related via kPREDICATE_TYPE_OF:
+		3.1.	Recurse with node.
+
+The advantage of the second strategy is that the node does not need to be read in order to
+determine its type, the discrimination between types and instances is performed by parsing
+the predicate which is available in the edge. The other advantage is that this mechanism
+could be used to implement custom types, without the need to make changes to existing
+structures.
+
+The kPREDICATE_TYPE_OF predicate should be reserved exclusively for the purpose of providing
+a reference to a node which represents a data type and this predicate should only be used
+to point to tags.
+
+Another problem that must be solved is how to manage nested enumerated sets. There should
+be the possibility to select a subset of an enumerated set by clicking on the checkbox of
+an element representing a super-set and this checkbox should have three states: unselected;
+selected, which means that only those elements matching that enumeration should be chosen;
+combined, which means that both the current element and all its subset elements should be
+included in the filter. This can be easily implemented by traversing the enumerated set
+tree; if the element has children, the checkbox should have three states, if it does not
+have children, the checkbox should have two states.
+
+The other option which is needed is to allow nested subsets in which the container element
+does not represent a valid choice, but only a category or group. In that case the element
+acts as a divider or grouping category which provides the ability to distinguish different
+sets of choices available at the same sub-level. This feature could be implemented in two
+ways: by using the node type and by using a specific predicate.
+
+In the first case, when a node which points to a parent using the kPREDICATE_ENUM_OF
+predicate does not have the kTYPE_NODE_ENUMERATION type, it is considered a group and should
+not feature the selection checkbox. In the second case a specific predicate,
+kPREDICATE_ENUM_GROUP_OF, can be used to distinguish a group from a subset.
+
+The advantage of the first strategy is that all kPREDICATE_ENUM_OF relationships will
+generate an entry in the controlled vocabulary, the disadvantage is that nodes must be read
+to determine whether these are enumerated values or groups. The advantage of the second
+solution is that nodes do not need to be read, the predicate indicates whether the element
+is an enumeration or a group; the disadvantage is that another predicate is necessary and
+that it probably serves only the purpose of this case.
+
+Since nodes must be opened at some stage to retrieve the enumeration label, the furst
+solution seems the best, since the kPREDICATE_TYPE_OF predicate indicates a data type, thus
+a subset, while the kPREDICATE_ENUM_OF indicates an element, regardless whether it is an
+enumerated value or group.
+
+Conclusion:
+-----------
+
+We will choose the second strategy regarding the definition of enumerated sets, while we
+will use the first strategy to define enumerated set values and groups.
+
+Rules:
+------
+
+	1.	Enumerated sets are defined by a node of kTYPE_NODE_TYPE type, the node should also
+		feature the kTYPE_NODE_ENUMERATED type.
+	2.	Enumerated set elements are defined by a node of kTYPE_NODE_ENUMERATION type.
+	3.	Enumerated sets can only relate to a tag via the kPREDICATE_TYPE_OF predicate.
+	4.	Enumerated set elements can only relate to a tag via the kPREDICATE_ENUM_OF
+		predicate.
+	5.	Nodes not holding the kTYPE_NODE_ENUMERATION type, related via the
+		kPREDICATE_ENUM_OF predicate are considered categories or subsets of enumerated
+		sets, but do not represent enumerated set values.
+
+Workflow:
+---------
+
+	1.	Locate all nodes which point to the element via the kPREDICATE_ENUM_OF and
+		kPREDICATE_TYPE_OF predicates.
+	2.	With kPREDICATE_ENUM_OF relationship elements:
+		2.1.	Add the element to the controlled vocabulary.
+		2.2.	If it is of type kTYPE_NODE_ENUMERATION:
+			2.2.1.	Add checkbox.
+			2.2.2.	If it has children:
+				2.2.2.1.	Set checkbox to three states.
+				2.2.2.2.	Recurse to 1 with current element.
+	3.	With kPREDICATE_TYPE_OF relationship elements:
+		3.1.	Recurse to 1 using the current element as the proxy of the current root.
+

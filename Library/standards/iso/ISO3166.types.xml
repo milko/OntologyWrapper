@@ -28,6 +28,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -60,7 +61,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -83,7 +84,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -106,7 +107,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -129,7 +130,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -152,7 +153,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -175,7 +176,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -198,7 +199,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -254,6 +255,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -286,6 +288,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -318,6 +321,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -351,6 +355,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -413,6 +418,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -445,6 +451,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -477,6 +484,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -488,41 +496,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
-		</EDGE>
-	</META>
-	
-	<!-- CUSTOM TYPES -->
-	
-	<!-- iso:3166:alpha-3 -->
-	<META>
-		<TERM ns="iso:3166" lid="alpha-3">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Aggregated alpha-3 country code</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 alpha-3 codes, this set includes all the <i>valid</i> and <i>obsolete</i> country codes by aggregating the <code>iso:3166:1:alpha-3</code> and <code>iso:3166:3:alpha-3</code> enumerated sets.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This set should be used whenever one needs to refer to countries also in a historical context.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
 </METADATA>
