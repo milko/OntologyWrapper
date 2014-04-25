@@ -151,17 +151,9 @@
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_terms</item>
 		</EDGE>
-	</META>
-	<!-- kTYPE_TERM_INSTANCE -->
-	<META>
-		<NODE term=":type:term:instance">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="pid">_terms::type:term</item>
+			<item const="kTAG_SUBJECT" node="term">:type:term</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
 	

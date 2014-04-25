@@ -7,23 +7,36 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
+	<!-- Term type -->
+	
+	<!-- :type:term -->
+	<META>
+		<NODE term=":type:term">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all term types.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Term type enumerations -->
 	
 	<META>
 		<!-- kTYPE_TERM_INSTANCE -->
-		<TERM ns=":type:term" lid="instance">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Instance</item>
-				</item>
+		<NODE term=":type:term:instance">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
 			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An instance</em> term can be considered as an instance of the <em>object it defines</em>. This type of terms will hold data, in addition to the metadata, regarding what it defines. In general, this kind of term will be an element of an enumerated set which can be used in place of what the element represents.]]></item>
-				</item>
-			</item>
-		</TERM>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:term</item>
+		</EDGE>
 	</META>
 </METADATA>

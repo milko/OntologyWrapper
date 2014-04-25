@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT DATA KINDS
+	DataKinds.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Data kind -->
+	
+	<!-- :type:kind -->
+	<META>
+		<NODE term=":type:kind">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all data kinds.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Data kind enumerations -->
+	
+	<!-- kTYPE_LIST -->
+	<META>
+		<NODE term=":type:list">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_PRIVATE_IN -->
+	<META>
+		<NODE term=":type:private-in">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_PRIVATE_OUT -->
+	<META>
+		<NODE term=":type:private-out">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -643,28 +643,53 @@ class Wrapper extends Dictionary
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
-		// Load XML files.
+		// Load XML base files.
 		//
 		if( $doLog )
-			echo( "  • Loading default XML files.\n" );
+			echo( "  • Loading XML term files.\n" );
 		
 		$file = kPATH_STANDARDS_ROOT.'/default/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/Predicates.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/default/Types.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
+		//
+		// Load XML tag files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML tag files.\n" );
+		
 		
 		$file = kPATH_STANDARDS_ROOT.'/default/Tags.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/Domains.xml';
+		//
+		// Set tags sequence number.
+		//
+		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
+		
+		//
+		// Load XML enumerated files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML type files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/DataTypes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/Predicates.xml';
+		$file = kPATH_STANDARDS_ROOT.'/default/DataKinds.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -684,10 +709,13 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		//
-		// Set sequence number.
-		//
-		$this->Metadata()->setSequenceNumber( Tag::kSEQ_NAME, kTAG_SEQUENCE_START );
+		$file = kPATH_STANDARDS_ROOT.'/default/DomainTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/PredicateTypes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 		
 		//
 		// Load XML structure files.

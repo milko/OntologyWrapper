@@ -9,7 +9,7 @@
 	
 	<!-- Entity kind -->
 	
-	<!-- :type:entity -->
+	<!-- :kind:entity -->
 	<META>
 		<NODE term=":kind:entity">
 			<item const="kTAG_NODE_TYPE">

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT PREDICATE TYPES
+	PredicateTypes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Predicate type -->
+	
+	<!-- :relationship:predicate -->
+	<META>
+		<NODE term=":relationship:predicate">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all predicates.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Predicate type enumerations -->
+	
+	<!-- kPREDICATE_SUBCLASS_OF -->
+	<META>
+		<NODE term=":relationship:predicate:SUBCLASS-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_SUBRANK_OF -->
+	<META>
+		<NODE term=":relationship:predicate:SUBRANK-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_SUBSET_OF -->
+	<META>
+		<NODE term=":relationship:predicate:SUBSET-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_PART_OF -->
+	<META>
+		<NODE term=":relationship:predicate:PART-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_TYPE_OF -->
+	<META>
+		<NODE term=":relationship:predicate:TYPE-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_FUNCTION_OF -->
+	<META>
+		<NODE term=":relationship:predicate:FUNCTION-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_COLLECTION_OF -->
+	<META>
+		<NODE term=":relationship:predicate:COLLECTION-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_ATTRIBUTE_OF -->
+	<META>
+		<NODE term=":relationship:predicate:ATTRIBUTE-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_PROPERTY_OF -->
+	<META>
+		<NODE term=":relationship:predicate:PROPERTY-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_TRAIT_OF -->
+	<META>
+		<NODE term=":relationship:predicate:TRAIT-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_METHOD_OF -->
+	<META>
+		<NODE term=":relationship:predicate:METHOD-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_SCALE_OF -->
+	<META>
+		<NODE term=":relationship:predicate:SCALE-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_ENUM_OF -->
+	<META>
+		<NODE term=":relationship:predicate:ENUM-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_INSTANCE_OF -->
+	<META>
+		<NODE term=":relationship:predicate:INSTANCE-OF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_AGGREGATE -->
+	<META>
+		<NODE term=":relationship:predicate:AGGREGATE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_PREFERRED -->
+	<META>
+		<NODE term=":relationship:predicate:PREFERRED">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_VALID -->
+	<META>
+		<NODE term=":relationship:predicate:VALID">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_LEGACY -->
+	<META>
+		<NODE term=":relationship:predicate:LEGACY">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_XREF -->
+	<META>
+		<NODE term=":relationship:predicate:XREF">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+		
+	<!-- kPREDICATE_XREF_EXACT -->
+	<META>
+		<NODE term=":relationship:predicate:XREF-EXACT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:relationship:predicate</item>
+		</EDGE>
+	</META>
+</METADATA>
