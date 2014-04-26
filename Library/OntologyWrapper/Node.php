@@ -961,9 +961,7 @@ class Node extends PersistentObject
 			//
 			// Create node default properties.
 			//
-			$properties = array( 'pid' => ( $this->offsetExists( kTAG_TAG ) )
-										? $this->offsetGet( kTAG_TAG )
-										: $this->offsetGet( kTAG_TERM ) );
+			$properties = $this->graphProperties();
 			
 			//
 			// Create default labels.
@@ -1070,6 +1068,39 @@ class Node extends PersistentObject
 							array( kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED GRAPH PROPERTIES INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	graphProperties																	*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph properties
+	 *
+	 * This method will return an array constituting the graph node properties. In this
+	 * class we use the node's term or tag reference.
+	 *
+	 * @access protected
+	 * @return array				Graph node properties.
+	 *
+	 * @see kTAG_TAG kTAG_TERM
+	 */
+	protected function graphProperties()
+	{
+		return ( $this->offsetExists( kTAG_TAG ) )
+			 ? array( kTAG_TAG => $this->offsetGet( kTAG_TAG ) )					// ==>
+			 : array( kTAG_TERM => $this->offsetGet( kTAG_TERM ) );					// ==>
+	
+	} // graphProperties.
 
 	 
 

@@ -76,9 +76,13 @@ try
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	$units->drop();
-//	$graph = $wrapper->Graph(
-//		new OntologyWrapper\Neo4jGraph(
-//			"neo4j://localhost:7474" ) );
+	
+	//
+	// Set graph database.
+	//
+	$graph = $wrapper->Graph(
+		new OntologyWrapper\Neo4jGraph(
+			"neo4j://localhost:7474" ) );
 //	$graph->drop( '/Volumes/Data/Neo4j/*' );
 	
 	//
