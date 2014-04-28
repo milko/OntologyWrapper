@@ -369,6 +369,78 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	getMaster																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get master object
+	 *
+	 * This method will return the master object, if the current object is already a master,
+	 * the method will return it; if the master cannot be located, the method will raise an
+	 * exception.
+	 *
+	 * The first parameter is the wrapper in which the current object is, or will be,
+	 * stored: if the current object has the {@link dictionary()}, this parameter may be
+	 * omitted; if the wrapper cannot be resolved, the method will raise an exception.
+	 *
+	 * <em>This method assumes that the {@link kTAG_MASTER} property is correctly set, if
+	 * that is not the case, the method will return the current object, which may not be
+	 * what you want</em>.
+	 *
+	 * <em>Note that this method should only be called on objects that are
+	 * {@link isCommitted()}, if that is not the case, the method will raise an
+	 * exception</em>.
+	 *
+	 * @param Wrapper				$theWrapper			Wrapper.
+	 *
+	 * @access public
+	 * @return PersistentObject		Master node.
+	 *
+	 * @throws Exception
+	 */
+	public function getMaster( $theWrapper = NULL )
+	{
+		//
+		// Handle master.
+		//
+		if( ! $this->offsetExists( kTAG_MASTER ) )
+			return $this;															// ==>
+		
+		//
+		// Resolve wrapper.
+		//
+		if( $theWrapper === NULL )
+		{
+			//
+			// Get current object's wrapper.
+			//
+			$theWrapper = $this->mDictionary;
+			
+			//
+			// Check wrapper.
+			//
+			if( ! ($theWrapper instanceof Wrapper) )
+				throw new \Exception(
+					"Unable to resolve referenced: "
+				   ."missing wrapper." );										// !@! ==>
+		
+		} // Wrapper not provided.
+	
+		//
+		// Resolve collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper, TRUE ) );
+		
+		return $collection->matchOne(
+			array( kTAG_NID => $this->offsetGet( kTAG_MASTER ) ),
+			kQUERY_ASSERT | kQUERY_OBJECT );										// ==>
+	
+	} // getMaster.
+
+	 
+	/*===================================================================================
 	 *	setAlias																		*
 	 *==================================================================================*/
 
@@ -2063,6 +2135,13 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$this->preCommitObjectIdentifiers();
 	
+		//
+		// Handle graph references.
+		//
+		if( (! $this->isCommitted())
+		 && (($graph = $this->mDictionary->Graph()) !== NULL) )
+			$this->preCommitGraphReferences( $graph );
+	
 	} // preCommitFinalise.
 
 	 
@@ -2178,9 +2257,62 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we do not handle identifiers, derived classes should overload this
 	 * method if they need to compute identifiers.
 	 *
+	 * This method should only be called if the object is not committed, since it is here
+	 * that all immutable identifiers are set: in derived classes be sure to make this
+	 * check.
+	 *
 	 * @access protected
 	 */
 	protected function preCommitObjectIdentifiers()										   {}
+
+	 
+	/*===================================================================================
+	 *	preCommitGraphReferences														*
+	 *==================================================================================*/
+
+	/**
+	 * Load object in graph
+	 *
+	 * This method is called by the {@link preCommitFinalise()} method, its duty is to
+	 * load the object into the eventual graph
+	 *
+	 * The method will be called only if the object is not committed and if the current
+	 * object's wrapper features a graph.
+	 *
+	 * Derived classes should not overload this method, but rather the methods it calls;
+	 * the only exception is if the object should not be stored in the graph.
+	 *
+	 * If the method returns an integer, it means that the value represents the graph node
+	 * identifier; if the method returns <tt>FALSE</tt>, it means that there will be no
+	 * graph node.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return mixed				The node identifier or <tt>FALSE</tt>.
+	 */
+	protected function preCommitGraphReferences( DatabaseGraph $theGraph )
+	{
+		//
+		// Create graph node.
+		//
+		$id = $this->createGraphNode( $theGraph );
+		if( $id === FALSE )
+			return FALSE;															// ==>
+		
+		//
+		// Set object offset.
+		//
+		$this->offsetSet( kTAG_ID_GRAPH, $id );
+		
+		//
+		// Create related graph nodes.
+		//
+		$this->createRelatedGraphNodes( $theGraph );
+		
+		return $id;																	// ==>
+	
+	} // preCommitGraphReferences.
 
 		
 
@@ -4151,6 +4283,125 @@ abstract class PersistentObject extends OntologyObject
 		$collection->updateReferenceCount($theIdent, $theIdentOffset, $tag, $theCount );
 	
 	} // updateObjectReferenceCount.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createGraphNode																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create graph node
+	 *
+	 * The responsibiliuty of this method is to create the current object's graph node and
+	 * to return its identifier. If the object already has a related node, the method will
+	 * only return its identifier.
+	 *
+	 * If the object should not be stored in the graph, the method should return
+	 * <tt>FALSE</tt>.
+	 *
+	 * This method is called by the {@link preCommitGraphReferences()} method which will
+	 * only call it if the current object is not committed and if the current object's
+	 * wrapper features a graph connection.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 */
+	protected function createGraphNode( DatabaseGraph $theGraph )
+	{
+		//
+		// Check if object is already referenced.
+		//
+		if( $this->offsetExists( kTAG_ID_GRAPH ) )
+			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
+		
+		//
+		// Init graph parameters.
+		//
+		$this->createGraphProperties( $labels, $properties );
+		
+		return $theGraph->setNode( $properties, $labels );							// ==>
+		
+	} // createGraphNode.
+
+	 
+	/*===================================================================================
+	 *	createRelatedGraphNodes															*
+	 *==================================================================================*/
+
+	/**
+	 * Create related graph nodes
+	 *
+	 * The responsibility of this method is to create eventual related graph nodes, the
+	 * method expects the graph connection and the current object's graph node reference
+	 * must have been set in the {@link kTAG_ID_GRAPH} property.
+	 *
+	 * If In thyis class we do nothing.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 */
+	protected function createRelatedGraphNodes( DatabaseGraph $theGraph )				   {} 
+
+	 
+	/*===================================================================================
+	 *	createGraphProperties															*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * This method should compute the current object's graph labels and properties, these
+	 * should be set in the reference parameters.
+	 *
+	 * The method returns the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>integer</tt>: An integer indicates that the object is already referenced in
+	 *		the graph.
+	 *	<li><tt>TRUE</tt>: This value indicates that the properties have been set.
+	 *	<li><tt>FALSE</tt>: This value indicates that the object should not be set in the
+	 *		graph.
+	 * </ul>
+	 *
+	 * In this class we set the label to the current class default domain and set the
+	 * native identifier property.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 */
+	protected function createGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init graph parameters.
+		//
+		$theLabels = $theProperties = Array();
+	
+		//
+		// Set domain label.
+		//
+		$theLabels[] = static::kDEFAULT_DOMAIN;
+	
+		//
+		// Set node identifier.
+		//
+		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
+	
+	} // createGraphProperties.
 
 		
 

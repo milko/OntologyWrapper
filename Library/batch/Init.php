@@ -54,6 +54,12 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 try
 {
 	//
+	// Inform.
+	//
+	echo( "\n==> Connecting.\n" );
+	echo( "  • Creating wrapper.\n" );
+	
+	//
 	// Instantiate data dictionary.
 	//
 	$wrapper
@@ -64,14 +70,17 @@ try
 	//
 	// Set databases.
 	//
+	echo( "  • Setting metadata.\n" );
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	$meta->drop();
+	echo( "  • Setting entities.\n" );
 	$entities = $wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	$entities->drop();
+	echo( "  • Setting units.\n" );
 	$units = $wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
@@ -80,10 +89,15 @@ try
 	//
 	// Set graph database.
 	//
+	echo( "  • Setting graph.\n" );
 	$graph = $wrapper->Graph(
 		new OntologyWrapper\Neo4jGraph(
 			"neo4j://localhost:7474" ) );
-//	$graph->drop( '/Volumes/Data/Neo4j/*' );
+	
+	//
+	// Drop graph database.
+	//
+	$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
 	
 	//
 	// Reset ontology.

@@ -1472,15 +1472,16 @@ class Neo4jGraph extends DatabaseGraph
 	 * In this class we stop the server, delete the data directory and restart the server.
 	 *
 	 * @param string				$theDirectory		Data directory path.
+	 * @param string				$theService			Service file path.
 	 *
 	 * @access public
 	 */
-	public function drop( $theDirectory )
+	public function drop( $theDirectory, $theService )
 	{
 		//
 		// Stop server.
 		//
-		exec( 'launchctl unload -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		exec( "launchctl unload -w $theService" );
 		
 		//
 		// Wait a bit.
@@ -1495,7 +1496,7 @@ class Neo4jGraph extends DatabaseGraph
 		//
 		// Restart server.
 		//
-		exec( 'launchctl load -w /Users/milko/Library/LaunchAgents/org.neo4j.server.plist' );
+		exec( "launchctl load -w $theService" );
 		
 		//
 		// Wait a bit.

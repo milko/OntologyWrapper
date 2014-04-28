@@ -1,0 +1,71 @@
+Mongo & Graphs
+--------------
+
+The main database handling both the metadata and the data is Mongo, both the ontology and
+the data are stored in documents, having a set of relationships resolved as sub-documents
+and another set resolved by node and edge objects.
+
+Originally, the graph database was supposed to mirror the document based metadata structure.
+While having a one to one relationship with document-based node and edge objects might still
+be useful for traversing the graph more efficiently, this doesn't really create a real
+synergy between these two technologies, I believe something more can be done, letting each
+technology take care of the aspects better handled by them.
+
+The first thing that could be handled by the graph is relationships between units.
+Originally, it was planned that only the metadata would be stored in the graph: since it may
+be very useful to relate units, why not store unit references in the graph? For starters
+this should not be a difficult task and, as the understanding of how to take advantage of
+these relationships becomes more clear in time, it would not be difficult to add this
+functionality in stages.
+
+The second thing that might be useful is to include sub-document based relationships in the
+graph: for instance, tags represent a path of terms, this path may never be defined at the
+metadata level, but it could be automatically stored in the graph. This could provide a more
+granular definition of the metadata mode, providing more leverage to inference using the
+graph database.
+
+In order to implement this strategy we need to first define what are the properties that
+graph vertices need to store. Considering that we are currently using Neo4j, this means that
+we need to decide what goes into the LABELS and what goes into the PROPERTIES.
+
+LABELS are typically used to define the nature or domain of objects. In Cypher one refers
+to a node as (xx:label) in which xx represents the variable and label represents the label:
+a statement such as (joe:person) is unambiguous: joe is a variable representing a person,
+whenever this form is used it is obvious that we are looking for people. The Domain property
+is therefore suitable to be used as a label.
+
+==>	Use domain as label, this also means that nodes need a domain: term for terms and tag
+	for tags.
+
+PROPERTIES: each object may need to store specific properties in a vertex, or maybe these
+should not be stored in the graph. What makes the graph powerful is weighting a path with
+values, either from vertices or from relationships. The choice of what properties go in
+a node and what properties go in an edge depends on what one wants to do with the graph.
+This means that it might be better to add the properties after, depending on whether it
+is possible to modify specific elements, as with Mongo.
+
+The fact that graph functionalities and document store structures complete each other, but
+do not necessarily depend from each other, suggests that we change the way identifiers are
+assigned. Originally, node identifiers were either assigned by sequence numbers, if no graph
+was indicated, or by retrieving the graph node number, if a graph was declared: this
+approach is no longer suitable nor advisable. We need to have a specific tag which indicates
+the relative identifier in the graph for edges, nodes, entities and units. Node and tag
+identifiers should be assigned via the sequence numbering scheme of collections, while graph
+references should only be assigned if needed. In the first case we will not be tied to an
+integer sequencing scheme, and in the second case graph referencing becomes independent.
+
+==>	kTAG_ID_SEQUENCE becomes the offset for sequence identifiers, which means that we remove
+	it from edges, since these already implement a unique identifier scheme with their path.
+
+==>	kTAG_ID_GRAPH becomes the graph item reference: nodes, entities and units use it to
+	reference their vertices in the graph; edges use it to reference their placeholders in
+	the graph.
+
+The other aspect that could be modified is that graph nodes might need to be created when
+edges are created, not necessarily when nodes are created. This is because the graph should
+not have the concept of master and alias nodes, the graph should represent the comprehensive
+ontology which can then be used for inference, while the nodes and edges of the document
+store can be used to define views, forms and structures.
+
+==>	Graph nodes are created only when an edge is created.
+==>	The kTAG_ID_GRAPH attribute is set via update when edges are stored in Mongo.

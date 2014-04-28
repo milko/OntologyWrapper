@@ -258,10 +258,11 @@ abstract class DatabaseGraph extends ConnectionObject
 	 * This method should delete all graph elements or drop the graph database.
 	 *
 	 * @param string				$theDirectory		Data directory path.
+	 * @param string				$theService			Service file path.
 	 *
 	 * @access public
 	 */
-	abstract public function drop( $theDirectory );
+	abstract public function drop( $theDirectory, $theService );
 		
 
 

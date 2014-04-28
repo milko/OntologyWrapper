@@ -56,6 +56,9 @@ use OntologyWrapper\CollectionObject;
  *		objects; this property is equivalent to the native identifier, except that the
  *		subject and object terms are represented by the native identifier of the referenced
  *		ovjects.
+ *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: <em>Persistent identifier</em>. This attribute
+ *		represents the graph edge path, it is automatically managed and clients should not
+ *		change it. This property is used to determine unique edges in the graph.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the native identifier,
@@ -625,68 +628,49 @@ class Edge extends PersistentObject
 	protected function preCommitObjectIdentifiers()	
 	{
 		//
-		// Init local storage.
+		// Check if committed.
 		//
-		$id = $this->__toString();
-		$dictionary = $this->mDictionary;
-		$graph = $dictionary->Graph();
-		
-		//
-		// Resolve collection.
-		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $dictionary, TRUE ) );
-		
-		//
-		// Check for duplicates.
-		//
-		if( $collection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
-			throw new \Exception(
-				"Duplicate edge object [$id]." );								// !@! ==>
-		
-		//
-		// Set native identifier.
-		//
-		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-			\ArrayObject::offsetSet( kTAG_NID, $id );
-		
-		//
-		// Set path name.
-		//
-		if( ! \ArrayObject::offsetExists( kTAG_NAME ) )
-			\ArrayObject::offsetSet( kTAG_NAME, $this->getPathName() );
-		
-		//
-		// Handle graph.
-		//
-		if( $graph !== NULL )
+		if( ! $this->isCommitted() )
 		{
 			//
-			// Save edge and set sequence number.
+			// Call parent method.
 			//
-			$this->offsetSet(
-				kTAG_ID_SEQUENCE,
-				$graph->setEdge( $this->offsetGet( kTAG_SUBJECT ),
-								 $this->offsetGet( kTAG_PREDICATE ),
-								 $this->offsetGet( kTAG_OBJECT ) ) );
-		
-		} // Has graph.
-		
-		//
-		// Handle sequence number.
-		//
-		else
-		{
+			parent::preCommitObjectIdentifiers();
+			
 			//
-			// Set sequence number.
+			// Init local storage.
 			//
-			$this->offsetSet(
-				kTAG_ID_SEQUENCE,
-				$collection->getSequenceNumber(
-					static::kSEQ_NAME ) );
+			$id = $this->__toString();
+			$dictionary = $this->mDictionary;
+			$graph = $dictionary->Graph();
 		
-		} // Has no graph.
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $dictionary, TRUE ) );
+		
+			//
+			// Check for duplicates.
+			//
+			if( $collection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
+				throw new \Exception(
+					"Duplicate edge object [$id]." );							// !@! ==>
+		
+			//
+			// Set native identifier.
+			//
+			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+				\ArrayObject::offsetSet( kTAG_NID, $id );
+		
+			//
+			// Set path name.
+			//
+			if( ! \ArrayObject::offsetExists( kTAG_NAME ) )
+				\ArrayObject::offsetSet( kTAG_NAME, $this->getPathName() );
+		
+		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.
 
@@ -907,6 +891,121 @@ class Edge extends PersistentObject
 		return implode( kTOKEN_INDEX_SEPARATOR, $terms );							// ==>
 	
 	} // getPathName.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createGraphNode																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create graph node
+	 *
+	 * In this class we overload this method to create a graph relationship.
+	 *
+	 * We first check if the edge already exists in the graph by matching the edge's
+	 * {@link kTAG_ID_PERSISTENT} property, if that is the case we use the graph edge
+	 * reference.
+	 *
+	 * The method will raise an exception if any of the subject or object nodes do not
+	 * exist in the graph.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 *
+	 * @throws Exception
+	 */
+	protected function createGraphNode( DatabaseGraph $theGraph )
+	{
+		//
+		// Check if object is already referenced.
+		//
+		if( $this->offsetExists( kTAG_ID_GRAPH ) )
+			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
+		
+		//
+		// Get subject graph node reference.
+		//
+		$subject = $this->getSubject()->offsetGet( kTAG_ID_GRAPH );
+		if( $subject === NULL )
+			throw new \Exception(
+				"Subject node ["
+			   .$this->offsetGet( kTAG_SUBJECT )
+			   ."] is not in graph." );											// !@! ==>
+		
+		//
+		// Get object graph node reference.
+		//
+		$object = $this->getObject()->offsetGet( kTAG_ID_GRAPH );
+		if( $object === NULL )
+			throw new \Exception(
+				"Object node ["
+			   .$this->offsetGet( kTAG_SUBJECT )
+			   ."] is not in graph." );											// !@! ==>
+		
+		//
+		// Build edge identifier.
+		//
+		$id = Array();
+		$id[] = $subject;
+		$id[] = $this->offsetGet( kTAG_PREDICATE );
+		$id[] = $object;
+		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
+		
+		//
+		// Check edge.
+		//
+		$edge
+			= static::ResolveCollection(
+				static::ResolveDatabase(
+					$this->mDictionary, TRUE ) )
+						->matchOne(
+							array( kTAG_ID_PERSISTENT => $id ),
+							kQUERY_OBJECT );
+		
+		//
+		// Edge exists.
+		//
+		if( ($edge !== NULL)
+		 && $edge->offsetExists( kTAG_ID_GRAPH ) )
+			return $edge->offsetGet( kTAG_ID_GRAPH );								// ==>
+		
+		//
+		// Init edge properties.
+		//
+		$properties = Array();
+	
+		//
+		// Set node identifier.
+		//
+		$properties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
+	
+		//
+		// Set sequence number.
+		//
+		$properties[ (string) kTAG_ID_SEQUENCE ] = $this->offsetGet( kTAG_ID_SEQUENCE );
+	
+		//
+		// Set persistent identifier.
+		//
+		$properties[ (string) kTAG_ID_PERSISTENT ] = $id;
+		
+		return $theGraph->setEdge( $subject,
+								   $this->offsetGet( kTAG_PREDICATE ),
+								   $object,
+								   $properties );									// ==>
+		
+	} // createGraphNode.
 
 	 
 

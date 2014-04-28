@@ -23,6 +23,13 @@ use OntologyWrapper\CollectionObject;
  *======================================================================================*/
 
 /**
+ * Domains.
+ *
+ * This file contains the domain definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
+
+/**
  * Node object
  *
  * A node is a <em>vertex in a graph structure</em>, nodes reference
@@ -53,12 +60,25 @@ use OntologyWrapper\CollectionObject;
  *		holds a reference to the <em>tag object</em> that the current node <em>represents
  *		in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
  *		be omitted. This attribute must be managed with its offset.
+ *	<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is an enumeration that defines the type of
+ *		the node, it provides information on <em>what</em> the node represents: it can take
+ *		one of two values:
+ *	 <ul>
+ *		<li><tt>{@link kDOMAIN_TERM}</tt>: If the node references a term.
+ *		<li><tt>{@link kDOMAIN_ATTRIBUTE}</tt>: If the node references a tag.
+ *	 </ul>
+ *		This property is automatically managed by the object.
  *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
  *		set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.
  *		The individual elements can be managed with the {@link NodeType()} method.
  *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master node</em>. This property is featured by
  *		alias nodes, it <em>references</em> the <em>master node</em>. This property is
  *		handled automatically by the object.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph node reference</em>. This property is
+ *		is automatically set when the node is inserted, it represents the identifier og the
+ *		graph node which references the current node. This property should not be managed
+ *		by clients. This property is also passed to the referenced term or tag. This value
+ *		will only be handled if the wrapper features a graph connection.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
@@ -223,7 +243,7 @@ class Node extends PersistentObject
 	 * @param boolean				$doAssert			Raise exception if not matched.
 	 *
 	 * @access public
-	 * @return PersistentObject		Master node or <tt>NULL</tt>
+	 * @return PersistentObject		Referenced tag or term or <tt>NULL</tt>.
 	 *
 	 * @throws Exception
 	 */
@@ -243,7 +263,7 @@ class Node extends PersistentObject
 				//
 				// Get current object's wrapper.
 				//
-				$theWrapper = $this->dictionary();
+				$theWrapper = $this->mDictionary;
 				
 				//
 				// Check wrapper.
@@ -906,8 +926,8 @@ class Node extends PersistentObject
 		// Get master.
 		//
 		$master = ( $this->offsetExists( kTAG_TAG ) )
-				? static::GetTagMaster( $this->dictionary(), (int) $ref, kQUERY_NID )
-				: static::GetTermMaster( $this->dictionary(), $ref, kQUERY_NID );
+				? static::GetTagMaster( $this->mDictionary, (int) $ref, kQUERY_NID )
+				: static::GetTermMaster( $this->mDictionary, $ref, kQUERY_NID );
 	
 		//
 		// Handle master object.
@@ -948,62 +968,39 @@ class Node extends PersistentObject
 	protected function preCommitObjectIdentifiers()
 	{
 		//
-		// Init local storage.
+		// Check if committed.
 		//
-		$dictionary = $this->dictionary();
-		$graph = $dictionary->Graph();
-		
-		//
-		// Handle graph.
-		//
-		if( $graph !== NULL )
+		if( ! $this->isCommitted() )
 		{
 			//
-			// Create node default properties.
+			// Call parent method.
 			//
-			$properties = $this->graphProperties();
+			parent::preCommitObjectIdentifiers();
 			
 			//
-			// Create default labels.
+			// Init local storage.
 			//
-			$labels = ( $this->offsetExists( kTAG_TAG ) )
-					? array( 'tag' )
-					: array( 'term' );
-			$labels[] = ( $this->offsetExists( kTAG_MASTER ) )
-					  ? 'alias'
-					  : 'master';
-			
-			//
-			// Save node and set sequence number.
-			//
-			$this->offsetSet(
-				kTAG_NID,
-				$graph->setNode( $properties, $labels ) );
+			$graph = $this->mDictionary->Graph();
 		
-		} // Has graph.
-		
-		//
-		// Handle sequence number.
-		//
-		else
-		{
 			//
-			// Resolve collection.
+			// Set domain.
 			//
-			$collection
-				= static::ResolveCollection(
-					static::ResolveDatabase( $dictionary, TRUE ) );
-		
+			$this->offsetSet( kTAG_DOMAIN, ( $this->offsetExists( kTAG_TAG ) )
+										 ? kDOMAIN_PROPERTY
+										 : kDOMAIN_TERM );
+	
 			//
 			// Set sequence number.
 			//
 			$this->offsetSet(
 				kTAG_NID,
-				$collection->getSequenceNumber(
-					static::kSEQ_NAME ) );
+				static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary, TRUE ) )
+						->getSequenceNumber(
+							static::kSEQ_NAME ) );
 		
-		} // Has no graph.
-		
+		} // Not committed.
+	
 	} // preCommitObjectIdentifiers.
 
 		
@@ -1073,34 +1070,115 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *							PROTECTED GRAPH PROPERTIES INTERFACE						*
+ *								PROTECTED GRAPH UTILITIES								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	graphProperties																	*
+	 *	createGraphNode																	*
 	 *==================================================================================*/
 
 	/**
-	 * Compute graph properties
+	 * Create graph node
 	 *
-	 * This method will return an array constituting the graph node properties. In this
-	 * class we use the node's term or tag reference.
+	 * In this class we overload this method to set the current graph node identifier in the
+	 * referenced term (tags are already handled).
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
 	 *
 	 * @access protected
-	 * @return array				Graph node properties.
-	 *
-	 * @see kTAG_TAG kTAG_TERM
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
 	 */
-	protected function graphProperties()
+	protected function createGraphNode( DatabaseGraph $theGraph )
 	{
-		return ( $this->offsetExists( kTAG_TAG ) )
-			 ? array( kTAG_TAG => $this->offsetGet( kTAG_TAG ) )					// ==>
-			 : array( kTAG_TERM => $this->offsetGet( kTAG_TERM ) );					// ==>
+		//
+		// Check if object is already referenced.
+		//
+		if( $this->offsetExists( kTAG_ID_GRAPH ) )
+			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
+		
+		//
+		// Get referenced object.
+		//
+		$referenced = $this->getReferenced();
+		if( $referenced->offsetExists( kTAG_ID_GRAPH ) )
+			return $referenced->offsetGet( kTAG_ID_GRAPH );							// ==>
+		
+		//
+		// Note that we should only get here if the referenced object is a term
+		// and if the referenced object was not already set in another node.
+		//
+		
+		//
+		// Init graph parameters.
+		//
+		$this->createGraphProperties( $labels, $properties );
+		
+		//
+		// Create graph node.
+		//
+		$id = $theGraph->setNode( $properties, $labels );
+		
+		//
+		// Set node reference in term.
+		//
+		if( $this->offsetExists( kTAG_TERM ) )
+			Term::ResolveCollection(
+				Term::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->replaceOffsets(
+						$this->offsetGet( kTAG_TERM ),
+						array( kTAG_ID_GRAPH => $id ) );
+		
+		return $id;																	// ==>
+		
+	} // createGraphNode.
+
+	 
+	/*===================================================================================
+	 *	createGraphProperties															*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * In this class we set the domain to the current object's domain, the identifier to
+	 * the referenced term's native identifier and the sequence identifier to the current
+	 * node's sequence number.
+	 *
+	 * Note that this method will only be called if the referenced object is a term; this
+	 * may happen if the referenced tag has no graph node, but this should not happen, since
+	 * tags store their graph node.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 */
+	protected function createGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init graph parameters.
+		//
+		$theLabels = $theProperties = Array();
 	
-	} // graphProperties.
+		//
+		// Set domain label.
+		//
+		$theLabels[] = $this->offsetGet( kTAG_DOMAIN );
+	
+		//
+		// Set term identifier.
+		//
+		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_TERM );
+	
+		//
+		// Set node identifier.
+		//
+		$theProperties[ kTAG_ID_SEQUENCE ] = $this->offsetGet( kTAG_NID );
+	
+	} // createGraphProperties.
 
 	 
 

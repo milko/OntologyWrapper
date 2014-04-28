@@ -157,6 +157,22 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_ID_GRAPH -->
+		<TERM ns="" lid="id-graph">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Graph reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>graph reference</em> is an <em>identifier</em> which <em>relates the current object with an element of a graph or ontology</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Unit identification attributes -->

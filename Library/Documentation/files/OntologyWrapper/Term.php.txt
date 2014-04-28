@@ -642,10 +642,22 @@ class Term extends PersistentObject
 	protected function preCommitObjectIdentifiers()
 	{
 		//
-		// Set native identifier.
+		// Check if committed.
 		//
-		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-			\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
+		if( ! $this->isCommitted() )
+		{
+			//
+			// Call parent method.
+			//
+			parent::preCommitObjectIdentifiers();
+			
+			//
+			// Set native identifier.
+			//
+			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+				\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
+		
+		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.
 
@@ -742,6 +754,33 @@ class Term extends PersistentObject
 								   kTAG_ID_LOCAL ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createGraphNode																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create graph node
+	 *
+	 * This class does not handle graph nodes directly, it is through nodes that terms are
+	 * stored in the graph.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 */
+	protected function createGraphNode( DatabaseGraph $theGraph )		{	return FALSE;	}
 
 	 
 

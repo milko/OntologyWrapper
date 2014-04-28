@@ -227,6 +227,15 @@ class Tag extends PersistentObject
 	use	traits\DataKind;
 
 	/**
+	 * Default domain.
+	 *
+	 * This constant holds the <i>default domain</i> of the object.
+	 *
+	 * @var string
+	 */
+	const kDEFAULT_DOMAIN = kDOMAIN_PROPERTY;
+
+	/**
 	 * Sequences selector.
 	 *
 	 * This constant holds the <i>sequences</i> name for tags; this constant is also used as
@@ -341,8 +350,6 @@ class Tag extends PersistentObject
 	 *
 	 * @access public
 	 * @return mixed				The object's native identifier.
-	 *
-	 * @uses dictionary()
 	 */
 	public final function commit( $theWrapper = NULL )
 	{
@@ -354,7 +361,7 @@ class Tag extends PersistentObject
 		//
 		// Set cache.
 		//
-		$this->dictionary()->setTag( $this, 0 );
+		$this->mDictionary->setTag( $this, 0 );
 		
 		return $id;																	// ==>
 	
@@ -702,8 +709,6 @@ class Tag extends PersistentObject
 	 *
 	 * @access protected
 	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
-	 *
-	 * @uses dictionary()
 	 */
 	protected final function deleteObject()
 	{
@@ -717,7 +722,7 @@ class Tag extends PersistentObject
 		//
 		// Reset cache.
 		//
-		$this->dictionary()->delTag( $this, 0 );
+		$this->mDictionary->delTag( $this, 0 );
 		
 		return $id;																	// ==>
 	
@@ -751,7 +756,7 @@ class Tag extends PersistentObject
 		//
 		// Set cache.
 		//
-		$this->dictionary()->setTag( $this, 0 );
+		$this->mDictionary->setTag( $this, 0 );
 		
 		return $ok;																	// ==>
 	
@@ -827,7 +832,7 @@ class Tag extends PersistentObject
 					//
 					// Instantiate term.
 					//
-					$term = new Term( $this->dictionary(), $term );
+					$term = new Term( $this->mDictionary, $term );
 					
 					//
 					// Set label.
@@ -892,31 +897,46 @@ class Tag extends PersistentObject
 	 * number, {@link kTAG_ID_SEQUENCE}, if it is not yet set, by requesting it from the
 	 * database of the current object's container.
 	 *
+	 * We only perform the above operations if the object is not committed.
+	 *
 	 * @access protected
 	 */
 	protected function preCommitObjectIdentifiers()
 	{
 		//
-		// Resolve collection.
+		// Check if committed.
 		//
-		$collection
-			= static::ResolveCollection(
-				static::ResolveDatabase( $this->dictionary() ) );
+		if( ! $this->isCommitted() )
+		{
+			//
+			// Call parent method.
+			//
+			parent::preCommitObjectIdentifiers();
+			
+			//
+			// Init local storage.
+			//
+			$graph = $this->mDictionary->Graph();
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $this->mDictionary ) );
 		
-		//
-		// Set native identifier.
-		//
-		if( ! \ArrayObject::offsetExists( kTAG_NID ) )
-			\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
+			//
+			// Set native identifier.
+			//
+			if( ! \ArrayObject::offsetExists( kTAG_NID ) )
+				\ArrayObject::offsetSet( kTAG_NID, $this->__toString() );
 		
-		//
-		// Set sequence number.
-		//
-		if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
-			$this->offsetSet(
-				kTAG_ID_SEQUENCE,
-				$collection->getSequenceNumber(
-					static::kSEQ_NAME ) );
+			//
+			// Set sequence number.
+			//
+			if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
+				$this->offsetSet(
+					kTAG_ID_SEQUENCE,
+					$collection->getSequenceNumber(
+						static::kSEQ_NAME ) );
+		
+		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.
 
@@ -987,6 +1007,138 @@ class Tag extends PersistentObject
 								   kTAG_DATA_TYPE, kTAG_DATA_KIND ) );				// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	createRelatedGraphNodes															*
+	 *==================================================================================*/
+
+	/**
+	 * Create related graph nodes
+	 *
+	 * In this class we create or reference all terms used in the tag path, the first term
+	 * will be related to the current node via the {@link kPREDICATE_TRAIT_OF} predicate,
+	 * the last term via the {@link kPREDICATE_SCALE_OF} and the eventual middle terms via
+	 * the {@link kPREDICATE_METHOD_OF} predicate.
+	 *
+	 * Note that the terms we use are the odd ones, the even ones, the predicates, are not
+	 * considered.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 */
+	protected function createRelatedGraphNodes( DatabaseGraph $theGraph )
+	{
+		//
+		// Get current graph node reference.
+		//
+		$id = $this->offsetGet( kTAG_ID_GRAPH );
+		
+		//
+		// Get terms collection.
+		//
+		$collection
+			= Term::ResolveCollection(
+				Term::ResolveDatabase( $this->mDictionary, TRUE ) );
+		
+		//
+		// Iterate tag terms.
+		//
+		$path = $this->offsetGet( kTAG_TERMS );
+		for( $i = 0; $i < count( $path ); $i += 2 )
+		{
+			//
+			// Get term object.
+			//
+			$term
+				= $collection->matchOne(
+					array( kTAG_NID => $path[ $i ] ),
+					kQUERY_ASSERT | kQUERY_OBJECT );
+			
+			//
+			// Create node.
+			//
+			if( ! $term->offsetExists( kTAG_ID_GRAPH ) )
+			{
+				//
+				// Create node.
+				//
+				$labels = array( kDOMAIN_ATTRIBUTE );
+				$properties = array( (string) kTAG_ID_PERSISTENT => $path[ $i ] );
+				$term_id = $theGraph->setNode( $properties, $labels );
+				
+				//
+				// Update term.
+				//
+				$collection->replaceOffsets(
+					$path[ $i ],
+					array( kTAG_ID_GRAPH => $term_id ) );
+			
+			} // Term not in graph.
+			
+			else
+				$term_id = $term->offsetGet( kTAG_ID_GRAPH );
+		
+			//
+			// Handle feature.
+			//
+			if( ! $i )
+				$theGraph->setEdge( $term_id, kPREDICATE_TRAIT_OF, $id );
+		
+			//
+			// Handle method.
+			//
+			elseif( $i < (count( $path ) - 1) )
+				$theGraph->setEdge( $term_id, kPREDICATE_METHOD_OF, $id );
+		
+			//
+			// Handle scale.
+			//
+			if( $i == (count( $path ) - 1) )
+				$theGraph->setEdge( $term_id, kPREDICATE_SCALE_OF, $id );
+		
+		} // Iterating tag terms.
+	
+	} // createRelatedGraphNodes.
+
+	 
+	/*===================================================================================
+	 *	createGraphProperties															*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * In this class we call the parent method, then we set the data type.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 */
+	protected function createGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init parameters.
+		//
+		$id = parent::createGraphProperties( $theLabels, $theProperties );
+	
+		//
+		// Set data type.
+		//
+		$theProperties[ (string) kTAG_DATA_TYPE ] = $this->offsetGet( kTAG_DATA_TYPE );
+	
+	} // createGraphProperties.
 
 	 
 

@@ -21,6 +21,33 @@
  *======================================================================================*/
 
 /**
+ * Term.
+ *
+ * A term.
+ *
+ * This represents the domain of terms.
+ */
+define( "kDOMAIN_TERM",							':domain:term' );
+
+/**
+ * Attribute.
+ *
+ * An attribute.
+ *
+ * This represents the domain of attributes.
+ */
+define( "kDOMAIN_ATTRIBUTE",					':domain:attribute' );
+
+/**
+ * Property.
+ *
+ * A property.
+ *
+ * This represents the domain of properties.
+ */
+define( "kDOMAIN_PROPERTY",						':domain:property' );
+
+/**
  * Unit.
  *
  * A generic unit.
