@@ -120,8 +120,8 @@
 			<item const="kTAG_OBJECT" node="term">_nodes</item>
 		</EDGE>
 		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:type:node</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:node</item>
 		</EDGE>
 	</META>
 	

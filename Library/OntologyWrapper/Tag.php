@@ -515,51 +515,43 @@ class Tag extends PersistentObject
 		//
 		// Set tags count index.
 		//
-	/*
 		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
-								  array( "name" => "TAGS",
+								  array( "name" => "TAGS_COUNT",
 								  		 "sparse" => TRUE ) );
-	*/
 		
 		//
 		// Set terms count index.
 		//
-	/*
 		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
-								  array( "name" => "TERMS",
+								  array( "name" => "TERMS_COUNT",
 								  		 "sparse" => TRUE ) );
-	*/
 		
 		//
 		// Set nodes count index.
 		//
-	/*
 		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
-								  array( "name" => "NODES",
+								  array( "name" => "NODES_COUNT",
 								  		 "sparse" => TRUE ) );
-	*/
 		
 		//
 		// Set edges count index.
 		//
-	/*
 		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
-								  array( "name" => "EDGES",
+								  array( "name" => "EDGES_COUNT",
 								  		 "sparse" => TRUE ) );
-	*/
 		
 		//
 		// Set units count index.
 		//
 		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNITS",
+								  array( "name" => "UNITS_COUNT",
 								  		 "sparse" => TRUE ) );
 		
 		//
 		// Set entities count index.
 		//
 		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITIES",
+								  array( "name" => "ENTITIES_COUNT",
 								  		 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
@@ -1074,7 +1066,7 @@ class Tag extends PersistentObject
 				// Create node.
 				//
 				$labels = array( kDOMAIN_ATTRIBUTE );
-				$properties = array( (string) kTAG_ID_PERSISTENT => $path[ $i ] );
+				$properties = array( (string) kTAG_NID => $path[ $i ] );
 				$term_id = $theGraph->setNode( $properties, $labels );
 				
 				//

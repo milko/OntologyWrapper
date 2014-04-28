@@ -332,7 +332,8 @@ class Term extends PersistentObject
 		// Set label index.
 		//
 		$collection->createIndex( array( kTAG_LABEL => 1 ),
-								  array( "name" => "LABEL" ) );
+								  array( "name" => "LABEL",
+										 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
 	

@@ -7,7 +7,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
-	<!-- WBI -->
+	<!-- wbi -->
 	<META>
 		<TERM lid="wbi">
 			<item const="kTAG_LABEL">
@@ -23,5 +23,11 @@
 				</item>
 			</item>
 		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:root</item>
+				<item>:type:node:ontology</item>
+			</item>
+		</NODE>
 	</META>
 </METADATA>

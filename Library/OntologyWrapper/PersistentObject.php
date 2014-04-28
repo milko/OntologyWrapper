@@ -662,6 +662,13 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
 								  array( "name" => "OFFSETS" ) );
 		
+		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH",
+										 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.

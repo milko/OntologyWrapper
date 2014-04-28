@@ -34,12 +34,6 @@
 				<item>:type:node:feature</item>
 				<item>:type:node:scale</item>
 			</item>
-		</NODE>
-		<NODE term="wbi:group">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
-				<item>:type:node:type</item>
-			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -47,6 +41,11 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">wbi</item>
+		</EDGE>
 	</META>
 	
 	<!-- wbi:version -->
@@ -77,5 +76,10 @@
 				<item>:type:node:scale</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">wbi:version</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_OBJECT" node="term">wbi</item>
+		</EDGE>
 	</META>
 </METADATA>

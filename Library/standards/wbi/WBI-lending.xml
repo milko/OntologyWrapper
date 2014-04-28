@@ -26,6 +26,7 @@
 		<NODE class="COntologyMasterVertex">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -37,6 +38,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">wbi:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
 		</EDGE>
 	</META>
 	
@@ -56,12 +61,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 	</META>
 	
@@ -81,12 +82,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 	</META>
 	
@@ -106,12 +103,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:lending</item>
 		</EDGE>
 	</META>
 </METADATA>

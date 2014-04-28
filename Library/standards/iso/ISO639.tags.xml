@@ -219,14 +219,12 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:scope</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:scope</item>
+			<item const="kTAG_SUBJECT" node="term">iso:639:scope</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">iso:639:scope</item>
 		</EDGE>
 	</META>
 	
@@ -518,14 +516,12 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:type</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:639</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iso:639:type</item>
+			<item const="kTAG_SUBJECT" node="term">iso:639:type</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="term">iso:639:type</item>
 		</EDGE>
 	</META>
 	

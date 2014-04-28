@@ -26,6 +26,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
+				<item>:type:node:enumerated</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -37,6 +38,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">wbi:group</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
 		</EDGE>
 	</META>
 	
@@ -59,12 +64,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:CAM -->
@@ -86,12 +87,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:CAS -->
@@ -113,12 +110,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:CFR -->
@@ -140,12 +133,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:CRB -->
@@ -167,12 +156,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:CSS -->
@@ -194,12 +179,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:EAP -->
@@ -221,12 +202,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:EAS -->
@@ -248,12 +225,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:ECA -->
@@ -275,12 +248,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:ECS -->
@@ -302,12 +271,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:EER -->
@@ -329,12 +294,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:EMU -->
@@ -356,12 +317,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:ESA -->
@@ -383,12 +340,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:ESS -->
@@ -410,12 +363,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:EUU -->
@@ -437,12 +386,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:HIC -->
@@ -464,12 +409,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:HPC -->
@@ -491,12 +432,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IBB -->
@@ -518,12 +455,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IBD -->
@@ -545,12 +478,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IBT -->
@@ -572,12 +501,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IDA -->
@@ -599,12 +524,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IDB -->
@@ -626,12 +547,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:IDX -->
@@ -653,12 +570,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LAC -->
@@ -680,12 +593,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LCN -->
@@ -707,12 +616,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LDC -->
@@ -734,12 +639,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LIC -->
@@ -761,12 +662,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LMC -->
@@ -788,12 +685,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:LMY -->
@@ -815,12 +708,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:MDE -->
@@ -842,12 +731,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:MEA -->
@@ -869,12 +754,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:MIC -->
@@ -896,12 +777,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:MNA -->
@@ -923,12 +800,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:NAC -->
@@ -950,12 +823,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:NAF -->
@@ -977,12 +846,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:NOC -->
@@ -1004,12 +869,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:OEC -->
@@ -1031,12 +892,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:OED -->
@@ -1058,12 +915,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:OSS -->
@@ -1085,12 +938,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:PAC -->
@@ -1112,12 +961,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:PSS -->
@@ -1139,12 +984,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SAM -->
@@ -1166,12 +1007,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SAS -->
@@ -1193,12 +1030,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SAX -->
@@ -1220,12 +1053,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SEA -->
@@ -1247,12 +1076,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SER -->
@@ -1274,12 +1099,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SSA -->
@@ -1301,12 +1122,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SSF -->
@@ -1328,12 +1145,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:SST -->
@@ -1355,12 +1168,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:UMC -->
@@ -1382,12 +1191,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:WAF -->
@@ -1409,12 +1214,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 	<!-- wbi:income:WLD -->
@@ -1436,12 +1237,8 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:INSTANCE-OF</item>
-			<item const="kTAG_OBJECT" node="term">wbi:income</item>
-		</EDGE>
-		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="tag">wbi:group</item>
+			<item const="kTAG_OBJECT" node="term">wbi:income</item>
 		</EDGE>
 	</META>
 </METADATA>
