@@ -41,13 +41,16 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		to the object, it indicates <em>who</em> is responsible for the object information
  *		and identification.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: The unit collection provides a means for
- *		<em>disambiguation</em> of the object's <em>local identifier</em>, it acta as the
+ *		<em>disambiguation</em> of the object's <em>local identifier</em>, it acts as the
  *		namespace for an identifier, making the combination of local identifier and
  *		collection unique among all units of the same domain and authority.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit local identifier is a code that should
  *		uniquely identify the object within the realm of its authority and collection.
- *	<li><tt>{@link kTAG_VERSION}</tt>: The unit version provides a means to have differnt
+ *	<li><tt>{@link kTAG_VERSION}</tt>: The unit version provides a means to have different
  *		versions of the same formal object.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Unit graph node</em>. If the wrapper uses
+ *		a graph database, this property will be used to reference the graph node which
+ *		represents the current unit; it is an integer value which is automatically managed.
  * </ul>
  *
  * All the above attributes concur in building the object's persistent identifier, which is
@@ -357,6 +360,12 @@ abstract class UnitObject extends PersistentObject
 								  array( "name" => "VERSION",
 								  		 "sparse" => TRUE ) );
 		
+		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH" ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -645,6 +654,45 @@ abstract class UnitObject extends PersistentObject
 			parent::loadObjectTag( $theTag, $theInfo, $theTags, $theIndexes );
 	
 	} // loadObjectTag.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setGraphProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * We overload this method to set the object's default domain.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 */
+	protected function setGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init graph parameters.
+		//
+		parent::setGraphProperties( $theLabels, $theProperties );
+		
+		//
+		// Set label.
+		//
+		$theLabels[] = static::kDEFAULT_DOMAIN;
+	
+	} // setGraphProperties.
 
 	 
 

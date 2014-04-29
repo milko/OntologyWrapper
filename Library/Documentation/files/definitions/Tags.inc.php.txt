@@ -302,6 +302,19 @@ define( "kTAG_TERMS",					16 );
 define( "kTAG_SUBJECT",					17 );
 
 /**
+ * Graph relationship subject (<code>:relationship:graph-subject</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> representing the <em>reference to a graph node</em>.
+ * This tag describes the <em>origin vertex of a directed graph relationship</em> in the
+ * graph, this property is used by edge objects to reference the subject node in the graph.
+ */
+define( "kTAG_GRAPH_SUBJECT",			18 );
+
+/**
  * Relationship predicate (<code>:relationship:predicate</code)
  *
  * <ul>
@@ -312,7 +325,7 @@ define( "kTAG_SUBJECT",					17 );
  * the term <em>native identifier</em>. This tag describes the <em>predicate of a directed
  * graph relationship</em>.
  */
-define( "kTAG_PREDICATE",				18 );
+define( "kTAG_PREDICATE",				19 );
 
 /**
  * Relationship object (<code>:relationship:object</code)
@@ -325,7 +338,21 @@ define( "kTAG_PREDICATE",				18 );
  * a <em>reference to a node object</em> through its <em>sequence number</em>. This tag
  * describes the <em>destination vertex of a directed graph relationship</em>.
  */
-define( "kTAG_OBJECT",					19 );
+define( "kTAG_OBJECT",					20 );
+
+/**
+ * Graph relationship object (<code>:relationship:graph-object</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_INT}
+ * </ul>
+ *
+ * This tag holds an <em>integer</em> representing the <em>reference to a graph node</em>.
+ * This tag describes the <em>destination vertex of a directed graph relationship</em> in
+ * the graph, this property is used by edge objects to reference the subject node in the
+ * graph.
+ */
+define( "kTAG_GRAPH_OBJECT",			21 );
 
 /**
  * Entity reference (<code>:entity</code)
@@ -337,7 +364,7 @@ define( "kTAG_OBJECT",					19 );
  * This tag holds a <em>string</em> representing an <em>entity native identifier</em>, it is
  * a <em>reference to an entity object</em>.
  */
-define( "kTAG_ENTITY",					20 );
+define( "kTAG_ENTITY",					22 );
 
 /**
  * Master (<code>:master</code)
@@ -351,7 +378,7 @@ define( "kTAG_ENTITY",					20 );
  * an object that contains information shared by several alias objects which are those
  * featuring this property.
  */
-define( "kTAG_MASTER",					21 );
+define( "kTAG_MASTER",					23 );
 
 /*=======================================================================================
  *	OBJECT CATEGORY TAGS																*
@@ -367,7 +394,7 @@ define( "kTAG_MASTER",					21 );
  * This tag holds an <em>enumerated set</em> of <em>term object references</em> which
  * represent the <em>different categories to which an object belongs</em>.
  */
-define( "kTAG_CATEGORY",				22 );
+define( "kTAG_CATEGORY",				24 );
 
 /**
  * Data type (<code>:type:data</code)
@@ -380,7 +407,7 @@ define( "kTAG_CATEGORY",				22 );
  * of a data property. This type corresponds to the <em>primitive data representation and
  * structure of a data property</em>.
  */
-define( "kTAG_DATA_TYPE",				23 );
+define( "kTAG_DATA_TYPE",				25 );
 
 /**
  * Data kind (<code>:type:kind</code)
@@ -393,7 +420,7 @@ define( "kTAG_DATA_TYPE",				23 );
  * indicate the <em>cardinality</em> and <em>requirements</em> of a data property. This type
  * corresponds to the <em>attributes of a data property</em>, <em>not to its type</em>.
  */
-define( "kTAG_DATA_KIND",				24 );
+define( "kTAG_DATA_KIND",				26 );
 
 /**
  * term type (<code>:type:term</code)
@@ -406,7 +433,7 @@ define( "kTAG_DATA_KIND",				24 );
  * indicate the <em>type</em> of a term object. This value <em>qualifies the term type</em>,
  * it indicates the <em>context in which the term is used</em>.
  */
-define( "kTAG_TERM_TYPE",				25 );
+define( "kTAG_TERM_TYPE",				27 );
 
 /**
  * Node type (<code>:type:node</code)
@@ -419,7 +446,7 @@ define( "kTAG_TERM_TYPE",				25 );
  * indicate the <em>type</em> of a node object. This value <em>qualifies the node type</em>,
  * it indicates the <em>context in which the node is used</em>.
  */
-define( "kTAG_NODE_TYPE",				26 );
+define( "kTAG_NODE_TYPE",				28 );
 
 /*=======================================================================================
  *	OBJECT DESCRIPTION TAGS																*
@@ -436,7 +463,7 @@ define( "kTAG_NODE_TYPE",				26 );
  * generally the way humans refer to the object and it is <em>not related to a specific
  * language</em>.
  */
-define( "kTAG_NAME",					27 );
+define( "kTAG_NAME",					29 );
 
 /**
  * Label (<code>:label</code)
@@ -449,7 +476,7 @@ define( "kTAG_NAME",					27 );
  * languages</em>. Each element holds the <em>language</em> in which the label is expressed
  * in and the <em>text</em> of the label.
  */
-define( "kTAG_LABEL",					28 );
+define( "kTAG_LABEL",					30 );
 
 /**
  * Definition (<code>:definition</code)
@@ -463,7 +490,7 @@ define( "kTAG_LABEL",					28 );
  * is expressed in and the <em>text</em> of the definition. <em>A definition should provide
  * detailed information on an object without reference to the context</em>.
  */
-define( "kTAG_DEFINITION",				29 );
+define( "kTAG_DEFINITION",				31 );
 
 /**
  * Description (<code>:description</code)
@@ -477,7 +504,7 @@ define( "kTAG_DEFINITION",				29 );
  * is expressed in and the <em>text</em> of the description. <em>A description should add
  * context related information to the definition of the object</em>.
  */
-define( "kTAG_DESCRIPTION",				30 );
+define( "kTAG_DESCRIPTION",				32 );
 
 /**
  * Notes (<code>:notes</code)
@@ -490,7 +517,7 @@ define( "kTAG_DESCRIPTION",				30 );
  * This tag holds a series of <em>notes<em> or <em>comments</em> in a single text unrelated
  * to a specific language.
  */
-define( "kTAG_NOTE",					31 );
+define( "kTAG_NOTE",					33 );
 
 /*=======================================================================================
  *	OBJECT STATISTICAL TAGS																*
@@ -508,7 +535,7 @@ define( "kTAG_NOTE",					31 );
  * featuring a specific property</em>. This is generally used to assess <em>tag usage
  * frequency in unit objects</em>.
  */
-define( "kTAG_UNIT_COUNT",				32 );
+define( "kTAG_UNIT_COUNT",				34 );
 
 /**
  * Entity count (<code>:entity-count</code)
@@ -522,7 +549,7 @@ define( "kTAG_UNIT_COUNT",				32 );
  * featuring a specific property</em>. This is generally used to assess <em>tag usage
  * frequency in entity objects</em>.
  */
-define( "kTAG_ENTITY_COUNT",			33 );
+define( "kTAG_ENTITY_COUNT",			35 );
 
 /**
  * Tag count (<code>:tag-count</code)
@@ -535,7 +562,7 @@ define( "kTAG_ENTITY_COUNT",			33 );
  * This tag holds an <em>integer</em> value representing the <em>number of tag objects
  * that reference the current object</em>.
  */
-define( "kTAG_TAG_COUNT",				34 );
+define( "kTAG_TAG_COUNT",				36 );
 
 /**
  * Term count (<code>:term-count</code)
@@ -548,7 +575,7 @@ define( "kTAG_TAG_COUNT",				34 );
  * This tag holds an <em>integer</em> value representing the <em>number of term objects
  * that reference the current object</em>.
  */
-define( "kTAG_TERM_COUNT",				35 );
+define( "kTAG_TERM_COUNT",				37 );
 
 /**
  * Node count (<code>:node-count</code)
@@ -561,7 +588,7 @@ define( "kTAG_TERM_COUNT",				35 );
  * This tag holds an <em>integer</em> value representing the <em>number of node objects
  * that reference the current object</em>.
  */
-define( "kTAG_NODE_COUNT",				36 );
+define( "kTAG_NODE_COUNT",				38 );
 
 /**
  * Edge count (<code>:node-count</code)
@@ -574,7 +601,7 @@ define( "kTAG_NODE_COUNT",				36 );
  * This tag holds an <em>integer</em> value representing the <em>number of edge objects
  * that reference the current object</em>.
  */
-define( "kTAG_EDGE_COUNT",				37 );
+define( "kTAG_EDGE_COUNT",				39 );
 
 /**
  * Tag offsets (<code>:offset:tag</code)
@@ -589,7 +616,7 @@ define( "kTAG_EDGE_COUNT",				37 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in tag objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_TAG_OFFSETS",				38 );
+define( "kTAG_TAG_OFFSETS",				40 );
 
 /**
  * Term offsets (<code>:offset:term</code)
@@ -604,7 +631,7 @@ define( "kTAG_TAG_OFFSETS",				38 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in term objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_TERM_OFFSETS",			39 );
+define( "kTAG_TERM_OFFSETS",			41 );
 
 /**
  * Node offsets (<code>:offset:node</code)
@@ -619,7 +646,7 @@ define( "kTAG_TERM_OFFSETS",			39 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in node objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_NODE_OFFSETS",			40 );
+define( "kTAG_NODE_OFFSETS",			42 );
 
 /**
  * Edge offsets (<code>:offset:edge</code)
@@ -634,7 +661,7 @@ define( "kTAG_NODE_OFFSETS",			40 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in edge objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_EDGE_OFFSETS",			41 );
+define( "kTAG_EDGE_OFFSETS",			43 );
 
 /**
  * Entity offsets (<code>:offset:entity</code)
@@ -649,7 +676,7 @@ define( "kTAG_EDGE_OFFSETS",			41 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in entity objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_ENTITY_OFFSETS",			42 );
+define( "kTAG_ENTITY_OFFSETS",			44 );
 
 /**
  * Unit offsets (<code>:offset:unit</code)
@@ -664,7 +691,7 @@ define( "kTAG_ENTITY_OFFSETS",			42 );
  * paths</em> in which the tag was referenced <em>as a leaf offset in unit objects</em>.
  * This property is held exclusively by tag objects.
  */
-define( "kTAG_UNIT_OFFSETS",			43 );
+define( "kTAG_UNIT_OFFSETS",			45 );
 
 /**
  * Object tags (<code>:object-tags</code)
@@ -678,7 +705,7 @@ define( "kTAG_UNIT_OFFSETS",			43 );
  * This tag holds an <em>array</em> of <em>elements</em> holding a <em>tag sequence
  * number</em> and all the <em>leaf offset paths</em> where the tag is referenced.
  */
-define( "kTAG_OBJECT_TAGS",				44 );
+define( "kTAG_OBJECT_TAGS",				46 );
 
 /**
  * Object offsets (<code>:object-offsets</code)
@@ -692,7 +719,7 @@ define( "kTAG_OBJECT_TAGS",				44 );
  * as the key and as value the <em>list of offset paths</em> where the tag was used as a
  * leaf offset.
  */
-define( "kTAG_OBJECT_OFFSETS",			45 );
+define( "kTAG_OBJECT_OFFSETS",			47 );
 
 /**
  * Object references (<code>:object-references</code)
@@ -706,7 +733,7 @@ define( "kTAG_OBJECT_OFFSETS",			45 );
  * property is an array, <em>indexed by collection name</em> with as value the references
  * to objects in that collection.
  */
-define( "kTAG_OBJECT_REFERENCES",		46 );
+define( "kTAG_OBJECT_REFERENCES",		48 );
 
 /**
  * Tag container structure (<code>:tag:struct</code)
@@ -722,7 +749,7 @@ define( "kTAG_OBJECT_REFERENCES",		46 );
  * featuring this tag is stored in an object, the container structure must be created if not
  * yet there.
  */
-define( "kTAG_TAG_STRUCT",				47 );
+define( "kTAG_TAG_STRUCT",				49 );
 
 /**
  * Container structure list index (<code>:tag:struct-index</code)
@@ -738,7 +765,7 @@ define( "kTAG_TAG_STRUCT",				47 );
  * structure that represents the structure index or key. No two elements of the list may
  * have an offset, defined by the current attribute, with the same value.
  */
-define( "kTAG_TAG_STRUCT_IDX",			48 );
+define( "kTAG_TAG_STRUCT_IDX",			50 );
 
 /*=======================================================================================
  *	GENERIC TAGS																		*
@@ -753,7 +780,7 @@ define( "kTAG_TAG_STRUCT_IDX",			48 );
  *
  * This tag holds a <em>string</em> which represents a discriminating type or category.
  */
-define( "kTAG_TYPE",					49 );
+define( "kTAG_TYPE",					51 );
 
 /**
  * Language (<code>:language</code)
@@ -766,7 +793,7 @@ define( "kTAG_TYPE",					49 );
  * code</em>, this tag is generally used as an element of a structure for indicating the
  * element's language.
  */
-define( "kTAG_LANGUAGE",				50 );
+define( "kTAG_LANGUAGE",				52 );
 
 /**
  * Text (<code>:text</code)
@@ -778,7 +805,7 @@ define( "kTAG_LANGUAGE",				50 );
  * This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
  * used as an element of a structure for indicating the element's text.
  */
-define( "kTAG_TEXT",					51 );
+define( "kTAG_TEXT",					53 );
 
 /**
  * URL (<code>:url</code)
@@ -790,7 +817,7 @@ define( "kTAG_TEXT",					51 );
  * This tag holds a <em>string</em> which represents an <em>internet address</em>, this tag
  * is generally used to hold an URL.
  */
-define( "kTAG_URL",						52 );
+define( "kTAG_URL",						54 );
 
 /**
  * Minimum (<code>:min</code)
@@ -803,7 +830,7 @@ define( "kTAG_URL",						52 );
  * This tag can be used both as a range limit in validation, or as an indication of the
  * actual range.
  */
-define( "kTAG_MIN",						53 );
+define( "kTAG_MIN",						55 );
 
 /**
  * Maximum (<code>:max</code)
@@ -816,7 +843,7 @@ define( "kTAG_MIN",						53 );
  * This tag can be used both as a range limit in validation, or as an indication of the
  * actual range.
  */
-define( "kTAG_MAX",						54 );
+define( "kTAG_MAX",						56 );
 
 /**
  * Pattern (<code>:grep</code)
@@ -828,7 +855,7 @@ define( "kTAG_MAX",						54 );
  * This tag holds a <em>string</em> representing a <em>regular expression pattern</em>.
  * This tag can be used toprovide a validation pattern for coded strings.
  */
-define( "kTAG_PATTERN",					55 );
+define( "kTAG_PATTERN",					57 );
 
 /**
  * Geographic location (<code>:geo</code)
@@ -840,7 +867,7 @@ define( "kTAG_PATTERN",					55 );
  * This tag holds the <em>geographic location</em> of an object. This value is expressed as
  * a geometric shape that can be a <em>point</em> or a <em>polygon</em>.
  */
-define( "kTAG_GEO_LOCATION",			56 );
+define( "kTAG_GEO_LOCATION",			58 );
 
 /**
  * Public geographic location (<code>:geo-pub</code)
@@ -854,7 +881,7 @@ define( "kTAG_GEO_LOCATION",			56 );
  * This value may not coincide with the actual geographic location, which could be
  * restricted, this value is what is allowed to be displayed to clients.
  */
-define( "kTAG_GEO_PUB_LOCATION",		57 );
+define( "kTAG_GEO_PUB_LOCATION",		59 );
 
 /*=======================================================================================
  *	CONNECTION ATTRIBUTES																*
@@ -870,7 +897,7 @@ define( "kTAG_GEO_PUB_LOCATION",		57 );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>protocol</em> or <em>scheme</em>.
  */
-define( "kTAG_CONN_PROTOCOL",			58 );
+define( "kTAG_CONN_PROTOCOL",			60 );
 
 /**
  * Connection host (<code>:connection:host</code)
@@ -882,7 +909,7 @@ define( "kTAG_CONN_PROTOCOL",			58 );
  * This tag holds a <em>string</em> which identifies a specific network connection
  * <em>domain name</em> or <em>internet address</em>.
  */
-define( "kTAG_CONN_HOST",				59 );
+define( "kTAG_CONN_HOST",				61 );
 
 /**
  * Connection port (<code>:connection:port</code)
@@ -894,7 +921,7 @@ define( "kTAG_CONN_HOST",				59 );
  * This tag holds an <em>integer</em> which identifies a specific network <em>TCP or UDP
  * port number</em>.
  */
-define( "kTAG_CONN_PORT",				60 );
+define( "kTAG_CONN_PORT",				62 );
 
 /**
  * Connection user code (<code>:connection:user</code)
@@ -906,7 +933,7 @@ define( "kTAG_CONN_PORT",				60 );
  * This tag holds a <em>string</em> which identifies a specific <em>user code</em> used to
  * <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_USER",				61 );
+define( "kTAG_CONN_USER",				63 );
 
 /**
  * Connection user password (<code>:connection:password</code)
@@ -918,7 +945,7 @@ define( "kTAG_CONN_USER",				61 );
  * This tag holds a <em>string</em> which identifies a specific <em>user password</em> which
  * allows to <em>authenticate with a service</em>.
  */
-define( "kTAG_CONN_PASS",				62 );
+define( "kTAG_CONN_PASS",				64 );
 
 /**
  * Database name (<code>:connection:database</code)
@@ -929,7 +956,7 @@ define( "kTAG_CONN_PASS",				62 );
  *
  * This tag holds a <em>string</em> which identifies a specific <em>database</em>.
  */
-define( "kTAG_CONN_BASE",				63 );
+define( "kTAG_CONN_BASE",				65 );
 
 /**
  * Collection name (<code>:connection:collection</code)
@@ -941,7 +968,7 @@ define( "kTAG_CONN_BASE",				63 );
  * This tag holds a <em>string</em> which identifies a specific <em>database
  * collection</em>.
  */
-define( "kTAG_CONN_COLL",				64 );
+define( "kTAG_CONN_COLL",				66 );
 
 /**
  * Connection options (<code>:connection:options</code)
@@ -954,7 +981,7 @@ define( "kTAG_CONN_COLL",				64 );
  * network connection</em>. The key part identifies the option, the value part provides the
  * option value.
  */
-define( "kTAG_CONN_OPTS",				65 );
+define( "kTAG_CONN_OPTS",				67 );
 
 /*=======================================================================================
  *	ENTITY ATTRIBUTES																	*
@@ -970,7 +997,7 @@ define( "kTAG_CONN_OPTS",				65 );
  * This tag holds a <em>string</em> representing the <em>first name</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_FNAME",			66 );
+define( "kTAG_ENTITY_FNAME",			68 );
 
 /**
  * Entity last name (<code>:entity:lname</code)
@@ -982,7 +1009,7 @@ define( "kTAG_ENTITY_FNAME",			66 );
  * This tag holds a <em>string</em> representing the <em>surname</em> of an entity, this
  * implies that the entity is an individual.
  */
-define( "kTAG_ENTITY_LNAME",			67 );
+define( "kTAG_ENTITY_LNAME",			69 );
 
 /**
  * Entity type (<code>:type:entity</code)
@@ -994,7 +1021,7 @@ define( "kTAG_ENTITY_LNAME",			67 );
  * This tag holds an <em>enumerated set</em> which describes the <em>types of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_TYPE",				68 );
+define( "kTAG_ENTITY_TYPE",				70 );
 
 /**
  * Entity kind (<code>:kind:entity</code)
@@ -1006,7 +1033,7 @@ define( "kTAG_ENTITY_TYPE",				68 );
  * This tag holds an <em>enumerated set</em> which describes the <em>kinds of an
  * entity</em>.
  */
-define( "kTAG_ENTITY_KIND",				69 );
+define( "kTAG_ENTITY_KIND",				71 );
 
 /**
  * Entity acronym (<code>:entity:acronym</code)
@@ -1019,7 +1046,7 @@ define( "kTAG_ENTITY_KIND",				69 );
  * This tag holds a a <em>list of strings</em> representing the entity <em>acronyms</em> or
  * <em>abbreviations</em>.
  */
-define( "kTAG_ENTITY_ACRONYM",			70 );
+define( "kTAG_ENTITY_ACRONYM",			72 );
 
 /**
  * Entity mail (<code>:entity:mail</code)
@@ -1031,7 +1058,7 @@ define( "kTAG_ENTITY_ACRONYM",			70 );
  * This tag holds a <em>list of mailing addresses discriminated by their type</em>. Each
  * element of the list represents an address which should be used according to its type.
  */
-define( "kTAG_ENTITY_MAIL",				71 );
+define( "kTAG_ENTITY_MAIL",				73 );
 
 /**
  * Entity e-mail (<code>:entity:email</code)
@@ -1043,7 +1070,7 @@ define( "kTAG_ENTITY_MAIL",				71 );
  * This tag holds a <em>list of e-mail addresses discriminated by their type</em>. Each
  * element of the list represents an e-mail which should be used according to its type.
  */
-define( "kTAG_ENTITY_EMAIL",			72 );
+define( "kTAG_ENTITY_EMAIL",			74 );
 
 /**
  * Entity link (<code>:entity:url</code)
@@ -1056,7 +1083,7 @@ define( "kTAG_ENTITY_EMAIL",			72 );
  * element of the list represents an internet link which can be categorised according to its
  * type.
  */
-define( "kTAG_ENTITY_LINK",				73 );
+define( "kTAG_ENTITY_LINK",				75 );
 
 /**
  * Entity phone (<code>:entity:phone</code)
@@ -1068,7 +1095,7 @@ define( "kTAG_ENTITY_LINK",				73 );
  * This tag holds a <em>list of telephone numbers discriminated by their type</em>. Each
  * element of the list represents a phone number which should be used according to its type.
  */
-define( "kTAG_ENTITY_PHONE",			74 );
+define( "kTAG_ENTITY_PHONE",			76 );
 
 /**
  * Entity fax (<code>:entity:fax</code)
@@ -1080,7 +1107,7 @@ define( "kTAG_ENTITY_PHONE",			74 );
  * This tag holds a <em>list of telefax numbers discriminated by their type</em>. Each
  * element of the list represents a fax number which should be used according to its type.
  */
-define( "kTAG_ENTITY_FAX",				75 );
+define( "kTAG_ENTITY_FAX",				77 );
 
 /**
  * Entity affiliation (<code>:entity:affiliation</code)
@@ -1093,7 +1120,7 @@ define( "kTAG_ENTITY_FAX",				75 );
  * element of the list represents an entity object reference which is qualified by the
  * element's type.
  */
-define( "kTAG_ENTITY_AFFILIATION",		76 );
+define( "kTAG_ENTITY_AFFILIATION",		78 );
 
 /**
  * Entity country (<code>:entity:country</code)
@@ -1104,7 +1131,7 @@ define( "kTAG_ENTITY_AFFILIATION",		76 );
  *
  * This tag holds an <em>enumerated value representing the country of the entity</em>.
  */
-define( "kTAG_ENTITY_COUNTRY",			77 );
+define( "kTAG_ENTITY_COUNTRY",			79 );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1117,7 +1144,7 @@ define( "kTAG_ENTITY_COUNTRY",			77 );
  * attribute is used by obsolete or defunct entities for referring to the current substitute
  * or valid entity.
  */
-define( "kTAG_ENTITY_VALID",			78 );
+define( "kTAG_ENTITY_VALID",			80 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

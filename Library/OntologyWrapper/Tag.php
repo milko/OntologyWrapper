@@ -74,6 +74,10 @@ use OntologyWrapper\CollectionObject;
  *		references to this sequence number. This attribute must be managed with its offset;
  *		in derived classes it will be automatically assigned end only available as
  *		read-only.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Property graph node</em>. If the wrapper uses
+ *		a graph database, this property will be used to reference the graph node which
+ *		represents the current tag as a data property; it is an integer value which is
+ *		automatically managed.
  *	<li><tt>{@link kTAG_TERMS}</tt>: <em>Branch</em>. This required attribute holds
  *		the list of terms comprising the current tag: this is an array of term references
  *		provided as an odd sequence of vertices and predicates forming a path of the
@@ -225,15 +229,6 @@ class Tag extends PersistentObject
 	 * We use this trait to handle data kinds.
 	 */
 	use	traits\DataKind;
-
-	/**
-	 * Default domain.
-	 *
-	 * This constant holds the <i>default domain</i> of the object.
-	 *
-	 * @var string
-	 */
-	const kDEFAULT_DOMAIN = kDOMAIN_PROPERTY;
 
 	/**
 	 * Sequences selector.
@@ -499,6 +494,12 @@ class Tag extends PersistentObject
 		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),
 								  array( "name" => "SEQUENCE",
 								  		 "unique" => TRUE ) );
+		
+		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH" ) );
 		
 		//
 		// Set path index.
@@ -1058,15 +1059,28 @@ class Tag extends PersistentObject
 					kQUERY_ASSERT | kQUERY_OBJECT );
 			
 			//
+			// Get node reference.
+			//
+			if( $term->offsetExists( kTAG_ID_GRAPH ) )
+				$term_id = $term->offsetGet( kTAG_ID_GRAPH );
+			
+			//
 			// Create node.
 			//
-			if( ! $term->offsetExists( kTAG_ID_GRAPH ) )
+			else
 			{
+				//
+				// Set node properties.
+				//
+				$labels = $properties = Array();
+				$labels[] = kDOMAIN_ATTRIBUTE;
+				$properties[ 'STORE' ] = Term::kSEQ_NAME;
+				$properties[ 'CLASS' ] = get_class( $term );
+				$properties[ kTAG_NID ] = $path[ $i ];
+				
 				//
 				// Create node.
 				//
-				$labels = array( kDOMAIN_ATTRIBUTE );
-				$properties = array( (string) kTAG_NID => $path[ $i ] );
 				$term_id = $theGraph->setNode( $properties, $labels );
 				
 				//
@@ -1077,9 +1091,6 @@ class Tag extends PersistentObject
 					array( kTAG_ID_GRAPH => $term_id ) );
 			
 			} // Term not in graph.
-			
-			else
-				$term_id = $term->offsetGet( kTAG_ID_GRAPH );
 		
 			//
 			// Handle feature.
@@ -1105,32 +1116,38 @@ class Tag extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	createGraphProperties															*
+	 *	setGraphProperties																*
 	 *==================================================================================*/
 
 	/**
 	 * Compute graph labels and properties
 	 *
-	 * In this class we call the parent method, then we set the data type.
+	 * In this class we call the parent method, then we set the label to
+	 * {@link kDOMAIN_PROPERTY} and set the data type property.
 	 *
 	 * @param array					$theLabels			Labels.
 	 * @param array					$theProperties		Properties.
 	 *
 	 * @access protected
 	 */
-	protected function createGraphProperties( &$theLabels, &$theProperties )
+	protected function setGraphProperties( &$theLabels, &$theProperties )
 	{
 		//
 		// Init parameters.
 		//
-		$id = parent::createGraphProperties( $theLabels, $theProperties );
+		parent::setGraphProperties( $theLabels, $theProperties );
+		
+		//
+		// Set label.
+		//
+		$theLabels[] = kDOMAIN_PROPERTY;
 	
 		//
 		// Set data type.
 		//
 		$theProperties[ (string) kTAG_DATA_TYPE ] = $this->offsetGet( kTAG_DATA_TYPE );
 	
-	} // createGraphProperties.
+	} // setGraphProperties.
 
 	 
 

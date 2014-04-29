@@ -718,6 +718,16 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		//
+		// Load XML schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading default XML schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaRefCount.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
 		// Load XML structure files.
 		//
 		if( $doLog )

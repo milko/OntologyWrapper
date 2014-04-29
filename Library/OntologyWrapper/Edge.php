@@ -39,10 +39,16 @@ use OntologyWrapper\CollectionObject;
  *		a <em>string</em> which represents the <em>combination of the subject, predicate and
  *		object</em> of the relationship. This attribute must be managed with its offset,
  *		although in derived classes it will be set automatically.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph edge reference</em>. If the wrapper uses
+ *		a graph database, this property will be used to reference the graph edge which
+ *		represents the current edge; it is an integer value which is automatically managed.
  *	<li><tt>{@link kTAG_SUBJECT}</tt>: <em>Subject</em>. This attribute represents the
  *		<em>origin of the relationship</em>, it is an <em>integer</em> value representing
  *		the <em>reference to a {@link Node} instance</em>. This attribute must be
  *		managed with its offset.
+ *	<li><tt>{@link kTAG_GRAPH_SUBJECT}</tt>: <em>Graph subject vertex</em>. If the wrapper
+ *		uses a graph database, this property will hold the graph node reference of the
+ *		subject vertex.
  *	<li><tt>{@link kTAG_PREDICATE}</tt>: <em>Predicate</em>. This attribute represents the
  *		<em>type of relationship</em>, it is a <em>string</em> value representing the
  *		<em>reference to a {@link Term} instance</em>. This attribute must be managed
@@ -51,14 +57,14 @@ use OntologyWrapper\CollectionObject;
  *		<em>destination of the relationship</em>, it is an <em>integer</em> value
  *		representing the <em>reference to a {@link Node} instance</em>. This attribute
  *		must be managed with its offset.
+ *	<li><tt>{@link kTAG_GRAPH_OBJECT}</tt>: <em>Graph object vertex</em>. If the wrapper
+ *		uses a graph database, this property will hold the graph node reference of the
+ *		object vertex.
  *	<li><tt>{@link kTAG_NAME}</tt>: <em>Path name</em>. This attribute represents the edge
  *		<em>path</em> represented by the <em>persistent identifiers</em> of the referenced
  *		objects; this property is equivalent to the native identifier, except that the
  *		subject and object terms are represented by the native identifier of the referenced
  *		ovjects.
- *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: <em>Persistent identifier</em>. This attribute
- *		represents the graph edge path, it is automatically managed and clients should not
- *		change it. This property is used to determine unique edges in the graph.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the native identifier,
@@ -396,10 +402,22 @@ class Edge extends PersistentObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH" ) );
+		
+		//
 		// Set subject index.
 		//
 		$collection->createIndex( array( kTAG_SUBJECT => 1 ),
 								  array( "name" => "SUBJECT" ) );
+		
+		//
+		// Set graph subject index.
+		//
+		$collection->createIndex( array( kTAG_GRAPH_SUBJECT => 1 ),
+								  array( "name" => "SUBJECT-VERTEX" ) );
 		
 		//
 		// Set predicate index.
@@ -412,6 +430,12 @@ class Edge extends PersistentObject
 		//
 		$collection->createIndex( array( kTAG_OBJECT => 1 ),
 								  array( "name" => "OBJECT" ) );
+		
+		//
+		// Set graph object index.
+		//
+		$collection->createIndex( array( kTAG_GRAPH_OBJECT => 1 ),
+								  array( "name" => "OBJECT-VERTEX" ) );
 		
 		return $collection;															// ==>
 	
@@ -909,21 +933,17 @@ class Edge extends PersistentObject
 	/**
 	 * Create graph node
 	 *
-	 * In this class we overload this method to create a graph relationship.
+	 * In this class we need to override this method, since we are creating relationships
+	 * instead of nodes.
 	 *
-	 * We first check if the edge already exists in the graph by matching the edge's
-	 * {@link kTAG_ID_PERSISTENT} property, if that is the case we use the graph edge
-	 * reference.
-	 *
-	 * The method will raise an exception if any of the subject or object nodes do not
-	 * exist in the graph.
+	 * The <tt>matchGraphNode()</tt> becomes {@link matchGraphEdge()}, the
+	 * {@link setGraphProperties()} method remains unchanged and the statement in which the
+	 * node is created must be replaced with a statement creating an edge.
 	 *
 	 * @param DatabaseGraph			$theGraph			Graph connection.
 	 *
 	 * @access protected
 	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
-	 *
-	 * @throws Exception
 	 */
 	protected function createGraphNode( DatabaseGraph $theGraph )
 	{
@@ -934,78 +954,108 @@ class Edge extends PersistentObject
 			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
 		
 		//
-		// Get subject graph node reference.
+		// Match existing graph edge.
 		//
-		$subject = $this->getSubject()->offsetGet( kTAG_ID_GRAPH );
-		if( $subject === NULL )
-			throw new \Exception(
-				"Subject node ["
-			   .$this->offsetGet( kTAG_SUBJECT )
-			   ."] is not in graph." );											// !@! ==>
+		$id = $this->matchGraphEdge( $theGraph );
+		if( is_int( $id ) )
+			return $id;																// ==>
 		
 		//
-		// Get object graph node reference.
+		// Init graph parameters.
 		//
-		$object = $this->getObject()->offsetGet( kTAG_ID_GRAPH );
-		if( $object === NULL )
-			throw new \Exception(
-				"Object node ["
-			   .$this->offsetGet( kTAG_SUBJECT )
-			   ."] is not in graph." );											// !@! ==>
+		$this->setGraphProperties( $labels, $properties );
 		
-		//
-		// Build edge identifier.
-		//
-		$id = Array();
-		$id[] = $subject;
-		$id[] = $this->offsetGet( kTAG_PREDICATE );
-		$id[] = $object;
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		
-		//
-		// Check edge.
-		//
-		$edge
-			= static::ResolveCollection(
-				static::ResolveDatabase(
-					$this->mDictionary, TRUE ) )
-						->matchOne(
-							array( kTAG_ID_PERSISTENT => $id ),
-							kQUERY_OBJECT );
-		
-		//
-		// Edge exists.
-		//
-		if( ($edge !== NULL)
-		 && $edge->offsetExists( kTAG_ID_GRAPH ) )
-			return $edge->offsetGet( kTAG_ID_GRAPH );								// ==>
-		
-		//
-		// Init edge properties.
-		//
-		$properties = Array();
-	
-		//
-		// Set node identifier.
-		//
-		$properties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
-	
-		//
-		// Set sequence number.
-		//
-		$properties[ (string) kTAG_ID_SEQUENCE ] = $this->offsetGet( kTAG_ID_SEQUENCE );
-	
-		//
-		// Set persistent identifier.
-		//
-		$properties[ (string) kTAG_ID_PERSISTENT ] = $id;
-		
-		return $theGraph->setEdge( $subject,
+		return $theGraph->setEdge( $this->offsetGet( kTAG_GRAPH_SUBJECT ),
 								   $this->offsetGet( kTAG_PREDICATE ),
-								   $object,
+								   $this->offsetGet( kTAG_GRAPH_OBJECT ),
 								   $properties );									// ==>
 		
 	} // createGraphNode.
+
+	 
+	/*===================================================================================
+	 *	matchGraphEdge																	*
+	 *==================================================================================*/
+
+	/**
+	 * Match graph edge
+	 *
+	 * The responsibility of this method is to check whether an edge already exists in the
+	 * graph, this is done by matching the {@link kTAG_GRAPH_SUBJECT},
+	 * {@link kTAG_GRAPH_OBJECT} and {@link kTAG_PREDICATE} properties.
+	 *
+	 * The subject and object nodes must feature by definition the {@link kTAG_ID_GRAPH}
+	 * property.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return integer				Graph node identifier, or <tt>FALSE</tt>.
+	 */
+	protected function matchGraphEdge( DatabaseGraph $theGraph )
+	{
+		//
+		// Get subject and object graph node references.
+		//
+		$this->offsetSet( kTAG_GRAPH_SUBJECT,
+						  $this->getSubject()->offsetGet( kTAG_ID_GRAPH ) );
+		$this->offsetSet( kTAG_GRAPH_OBJECT,
+						  $this->getObject()->offsetGet( kTAG_ID_GRAPH ) );
+		
+		//
+		// Compile criteria.
+		//
+		$criteria = Array();
+		$criteria[ (string) kTAG_GRAPH_SUBJECT ] = $this->offsetGet( kTAG_GRAPH_SUBJECT );
+		$criteria[ (string) kTAG_PREDICATE ] = $this->offsetGet( kTAG_PREDICATE );
+		$criteria[ (string) kTAG_GRAPH_OBJECT ] = $this->offsetGet( kTAG_GRAPH_OBJECT );
+		
+		//
+		// Match edge.
+		//
+		$edge
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->matchOne( $criteria, kQUERY_OBJECT );
+		
+		//
+		// Return graph node reference.
+		//
+		if( $edge !== NULL )
+			return $edge->offsetGet( kTAG_ID_GRAPH );								// ==>
+		
+		return FALSE;																// ==>
+	
+	} // matchGraphEdge.
+
+	 
+	/*===================================================================================
+	 *	setGraphProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * In this class we overload the parent method to store the {@link kTAG_NAME} property.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 */
+	protected function setGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init parameters.
+		//
+		parent::setGraphProperties( $theLabels, $theProperties );
+	
+		//
+		// Set data type.
+		//
+		$theProperties[ (string) kTAG_NAME ] = $this->offsetGet( kTAG_NAME );
+	
+	} // setGraphProperties.
 
 	 
 

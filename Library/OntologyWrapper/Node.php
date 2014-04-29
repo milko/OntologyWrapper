@@ -52,6 +52,9 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		attribute holds a string which represents a unique persitent identifier, this value
  *		must be unique among all nodes and is optional. The main duty of this attribute is
  *		to disambiguate nodes pointing to the same term or tag.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph node reference</em>. If the wrapper uses
+ *		a graph database, this property will be used to reference the graph node which
+ *		represents the current node; it is an integer value which is automatically managed.
  *	<li><tt>{@link kTAG_TERM}</tt>: <em>Term</em>. This attribute is a <em>string</em> that
  *		holds a reference to the <em>term object</em> that the current node <em>represents
  *		in a graph structure</em>. If this offset is set, the {@link kTAG_TAG} offset must
@@ -60,25 +63,12 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		holds a reference to the <em>tag object</em> that the current node <em>represents
  *		in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
  *		be omitted. This attribute must be managed with its offset.
- *	<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is an enumeration that defines the type of
- *		the node, it provides information on <em>what</em> the node represents: it can take
- *		one of two values:
- *	 <ul>
- *		<li><tt>{@link kDOMAIN_TERM}</tt>: If the node references a term.
- *		<li><tt>{@link kDOMAIN_ATTRIBUTE}</tt>: If the node references a tag.
- *	 </ul>
- *		This property is automatically managed by the object.
  *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
  *		set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.
  *		The individual elements can be managed with the {@link NodeType()} method.
  *	<li><tt>{@link kTAG_MASTER}</tt>: <em>Master node</em>. This property is featured by
  *		alias nodes, it <em>references</em> the <em>master node</em>. This property is
  *		handled automatically by the object.
- *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph node reference</em>. This property is
- *		is automatically set when the node is inserted, it represents the identifier og the
- *		graph node which references the current node. This property should not be managed
- *		by clients. This property is also passed to the referenced term or tag. This value
- *		will only be handled if the wrapper features a graph connection.
  * </ul>
  *
  * The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
@@ -412,6 +402,12 @@ class Node extends PersistentObject
 								  array( "name" => "PID",
 								  		 "unique" => TRUE,
 								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH" ) );
 		
 		//
 		// Set tag index.
@@ -981,13 +977,6 @@ class Node extends PersistentObject
 			// Init local storage.
 			//
 			$graph = $this->mDictionary->Graph();
-		
-			//
-			// Set domain.
-			//
-			$this->offsetSet( kTAG_DOMAIN, ( $this->offsetExists( kTAG_TAG ) )
-										 ? kDOMAIN_PROPERTY
-										 : kDOMAIN_TERM );
 	
 			//
 			// Set sequence number.
@@ -1077,108 +1066,165 @@ class Node extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	createGraphNode																	*
+	 *	matchGraphNode																	*
 	 *==================================================================================*/
 
 	/**
-	 * Create graph node
+	 * Match graph node
 	 *
-	 * In this class we overload this method to set the current graph node identifier in the
-	 * referenced term (tags are already handled).
+	 * In this class we handle graph nodes as follows:
+	 *
+	 * <ul>
+	 *	<li><em>Tag reference</em>: If the node references a tag, we get it and return its
+	 *		{@link kTAG_ID_GRAPH} offset. This is implicit, since tags store their graph
+	 *		nodes.
+	 *	<li><em>Term reference</em>: Term references come in many kinds an colours, to
+	 *		match a node in the graph we need to perform the following query:
+	 *	 <ul>
+	 *		<li><em>Select node type</em>: Node types are enumerated sets, which means that
+	 *			we first need to select which node type to use. This is done by eliminating
+	 *			from the types the {@link kTYPE_NODE_ROOT}, {@link kTYPE_NODE_PROPERTY} and
+	 *			the {@link kTYPE_NODE_ENUMERATED}; this should leave us with a single value.
+	 *			This is performed by the {@link getNodeDomain()} method.
+	 *		<li><em>Match nodes</em>: We query the collection in <tt>AND</tt> as follows:
+	 *		 <ul>
+	 *			<li>Match term identifier.
+	 *			<li>Match node type.
+	 *			<li>Match records that feature the {@link kTAG_ID_GRAPH} property.
+	 *		 </ul>
+	 *			If we get more than one node, we pick the first one; this should not happen,
+	 *			since we match this case.
+	 *	 </ul>
+	 * </ul>
 	 *
 	 * @param DatabaseGraph			$theGraph			Graph connection.
 	 *
 	 * @access protected
-	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 * @return integer				Graph node identifier, or <tt>FALSE</tt>.
 	 */
-	protected function createGraphNode( DatabaseGraph $theGraph )
+	protected function matchGraphNode( DatabaseGraph $theGraph )
 	{
 		//
-		// Check if object is already referenced.
+		// Handle tag reference.
 		//
-		if( $this->offsetExists( kTAG_ID_GRAPH ) )
-			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
+		if( $this->offsetExists( kTAG_TAG ) )
+			return $this->getReferenced()->offsetGet( kTAG_ID_GRAPH );				// ==>
 		
 		//
-		// Get referenced object.
+		// Get node domain.
 		//
-		$referenced = $this->getReferenced();
-		if( $referenced->offsetExists( kTAG_ID_GRAPH ) )
-			return $referenced->offsetGet( kTAG_ID_GRAPH );							// ==>
+		$domain = $this->getNodeDomain();
 		
 		//
-		// Note that we should only get here if the referenced object is a term
-		// and if the referenced object was not already set in another node.
+		// Compile criteria.
 		//
+		$criteria = Array();
+		$criteria[ (string) kTAG_TERM ] = $this->offsetGet( kTAG_TERM );
+		$criteria[ (string) kTAG_ID_GRAPH ] = array( '$exists' => TRUE );
+		$criteria[ (string) kTAG_NODE_TYPE ] = ( $domain == kTYPE_NODE_TERM )
+											 ? array( '$exists' => FALSE )
+											 : $domain;
 		
 		//
-		// Init graph parameters.
+		// Match node.
 		//
-		$this->createGraphProperties( $labels, $properties );
+		$node
+			= static::ResolveCollection(
+				static::ResolveDatabase( $this->mDictionary, TRUE ) )
+					->matchOne( $criteria, kQUERY_OBJECT );
 		
 		//
-		// Create graph node.
+		// Return graph node reference.
 		//
-		$id = $theGraph->setNode( $properties, $labels );
+		if( $node !== NULL )
+			return $node->offsetGet( kTAG_ID_GRAPH );								// ==>
 		
-		//
-		// Set node reference in term.
-		//
-		if( $this->offsetExists( kTAG_TERM ) )
-			Term::ResolveCollection(
-				Term::ResolveDatabase( $this->mDictionary, TRUE ) )
-					->replaceOffsets(
-						$this->offsetGet( kTAG_TERM ),
-						array( kTAG_ID_GRAPH => $id ) );
-		
-		return $id;																	// ==>
-		
-	} // createGraphNode.
+		return FALSE;																// ==>
+	
+	} // matchGraphNode.
 
 	 
 	/*===================================================================================
-	 *	createGraphProperties															*
+	 *	setGraphProperties																*
 	 *==================================================================================*/
 
 	/**
 	 * Compute graph labels and properties
 	 *
-	 * In this class we set the domain to the current object's domain, the identifier to
-	 * the referenced term's native identifier and the sequence identifier to the current
-	 * node's sequence number.
-	 *
-	 * Note that this method will only be called if the referenced object is a term; this
-	 * may happen if the referenced tag has no graph node, but this should not happen, since
-	 * tags store their graph node.
+	 * This method will only be called for nodes that reference terms, in this case we
+	 * overload this method to set the {@link kTAG_ID_LOCAL} to the term's native
+	 * identifier.
 	 *
 	 * @param array					$theLabels			Labels.
 	 * @param array					$theProperties		Properties.
 	 *
 	 * @access protected
 	 */
-	protected function createGraphProperties( &$theLabels, &$theProperties )
+	protected function setGraphProperties( &$theLabels, &$theProperties )
 	{
 		//
-		// Init graph parameters.
+		// Init parameters.
 		//
-		$theLabels = $theProperties = Array();
-	
+		parent::setGraphProperties( $theLabels, $theProperties );
+		
 		//
-		// Set domain label.
+		// Set label.
 		//
-		$theLabels[] = $this->offsetGet( kTAG_DOMAIN );
-	
-		//
-		// Set term identifier.
-		//
-		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_TERM );
+		$theLabels[] = $this->getNodeDomain();
 	
 		//
 		// Set node identifier.
 		//
-		$theProperties[ kTAG_ID_SEQUENCE ] = $this->offsetGet( kTAG_NID );
+		$theProperties[ kTAG_ID_LOCAL ] = $this->offsetGet( kTAG_TERM );
 	
-	} // createGraphProperties.
+	} // setGraphProperties.
+
+	 
+	/*===================================================================================
+	 *	getNodeDomain																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get node domain
+	 *
+	 * The node domain is the node type that characterises the current node, it is the
+	 * element of the {@link kTAG_NODE_TYPE} enumerated set which is not among the
+	 * {@link kTYPE_NODE_ROOT}, {@link kTYPE_NODE_PROPERTY} and the
+	 * {@link kTYPE_NODE_ENUMERATED} node types.
+	 *
+	 * The method will exclude the above values and return the first element left; if there
+	 * are no elements left, it will return the {@link kTYPE_NODE_TERM}.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 */
+	protected function getNodeDomain()
+	{
+		//
+		// Handle missing types.
+		//
+		if( ! $this->offsetExists( kTAG_NODE_TYPE ) )
+			return kTYPE_NODE_TERM;													// ==>
+		
+		//
+		// Reduce types.
+		//
+		$types
+			= array_diff(
+				$this->offsetGet( kTAG_NODE_TYPE ),
+				array( kTYPE_NODE_ROOT, kTYPE_NODE_PROPERTY, kTYPE_NODE_ENUMERATED ) );
+		
+		//
+		// Return first.
+		//
+		if( count( $types ) )
+			return array_shift( $types );											// ==>
+		
+		return kTYPE_NODE_TERM;														// ==>
+	
+	} // getNodeDomain.
 
 	 
 

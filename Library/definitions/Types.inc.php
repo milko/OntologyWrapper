@@ -242,7 +242,7 @@ define( "kTYPE_REF_SELF",						':type:ref:self' );
 define( "kTYPE_TERM_INSTANCE",					':type:term:instance' );
 
 /*=======================================================================================
- *	DEFAULT NODE TYPES																	*
+ *	DEFAULT NODE KINDS																	*
  *======================================================================================*/
 
 /**
@@ -255,7 +255,34 @@ define( "kTYPE_TERM_INSTANCE",					':type:term:instance' );
  * thematic entry point. In general, such objects will have other attributes that will
  * qualify the kind of the structure.
  */
-define( "kTYPE_NODE_ROOT",						':type:node:root' );
+define( "kTYPE_NODE_ROOT",						':kind:root-node' );
+
+/**
+ * Property.
+ *
+ * The full data property definition.
+ *
+ * This kind of node references a {@link Tag} object which contains all the necessary
+ * information to define and describe a data property.
+ */
+define( "kTYPE_NODE_PROPERTY",					':kind:property-node' );
+
+/**
+ * Enumerated.
+ *
+ * A controlled vocabulary.
+ *
+ * This kind of node describes a controlled vocabulary, it has implicitly the
+ * {@link kTYPE_NODE_TYPE} type holding an enumerated set of values. This kind of node can
+ * be used to define a specific controlled vocabulary, its elements are related to this node
+ * by the {@link kPREDICATE_ENUM_OF} predicate and this node can define a tag referring to
+ * the latter using the kPREDICATE_TYPE_OF} predicate.
+ */
+define( "kTYPE_NODE_ENUMERATED",				':kind:enumerated-node' );
+
+/*=======================================================================================
+ *	DEFAULT NODE TYPES																	*
+ *======================================================================================*/
 
 /**
  * Ontology.
@@ -379,29 +406,6 @@ define( "kTYPE_NODE_METHOD",					':type:node:method' );
 define( "kTYPE_NODE_SCALE",						':type:node:scale' );
 
 /**
- * Property.
- *
- * The full data property definition.
- *
- * This kind of node references a {@link Tag} object which contains al the necessary
- * information to define and describe a data property.
- */
-define( "kTYPE_NODE_PROPERTY",					':type:node:property' );
-
-/**
- * Enumerated.
- *
- * A controlled vocabulary.
- *
- * This kind of node describes a controlled vocabulary, it has implicitly the
- * {@link kTYPE_NODE_TYPE} type holding an enumerated set of values. This kind of node can
- * be used to define a specific controlled vocabulary, its elements are related to this node
- * by the {@link kPREDICATE_ENUM_OF} predicate and this node can define a tag referring to
- * the latter using the kPREDICATE_TYPE_OF} predicate.
- */
-define( "kTYPE_NODE_ENUMERATED",				':type:node:enumerated' );
-
-/**
  * Enumeration.
  *
  * An element of a controlled vocabulary.
@@ -411,6 +415,16 @@ define( "kTYPE_NODE_ENUMERATED",				':type:node:enumerated' );
  * nodes. An ISO 3166 country code could be considered an enumeration node.
  */
 define( "kTYPE_NODE_ENUMERATION",				':type:node:enumeration' );
+
+/**
+ * Term.
+ *
+ * A term.
+ *
+ * This kind of node describes a reference to a term with no specific qualification, this
+ * type is only used to qualify a node that has no type.
+ */
+define( "kTYPE_NODE_TERM",						':type:node:term' );
 
 /*=======================================================================================
  *	CARDINALITY TYPES																	*

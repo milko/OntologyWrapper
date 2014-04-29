@@ -34,38 +34,124 @@ a statement such as (joe:person) is unambiguous: joe is a variable representing 
 whenever this form is used it is obvious that we are looking for people. The Domain property
 is therefore suitable to be used as a label.
 
-==>	Use domain as label, this also means that nodes need a domain: term for terms and tag
-	for tags.
+PROPERTIES: each object may need to store specific properties in a vertex, the choice of
+what properties go in a node and what properties go in an edge depends on what one wants to
+do with the graph. Some properties belong to specific domains, but other properties may need
+to be shared across domains: this means that we first need to define what triggers the
+creation of a graph node.
 
-PROPERTIES: each object may need to store specific properties in a vertex, or maybe these
-should not be stored in the graph. What makes the graph powerful is weighting a path with
-values, either from vertices or from relationships. The choice of what properties go in
-a node and what properties go in an edge depends on what one wants to do with the graph.
-This means that it might be better to add the properties after, depending on whether it
-is possible to modify specific elements, as with Mongo.
+TAGS
+----
 
-The fact that graph functionalities and document store structures complete each other, but
-do not necessarily depend from each other, suggests that we change the way identifiers are
-assigned. Originally, node identifiers were either assigned by sequence numbers, if no graph
-was indicated, or by retrieving the graph node number, if a graph was declared: this
-approach is no longer suitable nor advisable. We need to have a specific tag which indicates
-the relative identifier in the graph for edges, nodes, entities and units. Node and tag
-identifiers should be assigned via the sequence numbering scheme of collections, while graph
-references should only be assigned if needed. In the first case we will not be tied to an
-integer sequencing scheme, and in the second case graph referencing becomes independent.
+All tags should be represented by a graph node of domain kDOMAIN_PROPERTY. Each tag should
+store its tag path elements as a branch stemming into the tag node. These term references
+should be graph nodes of domain kDOMAIN_ATTRIBUTE.
 
-==>	kTAG_ID_SEQUENCE becomes the offset for sequence identifiers, which means that we remove
-	it from edges, since these already implement a unique identifier scheme with their path.
+==>	LABEL:				kDOMAIN_PROPERTY
+==>	STORE:				The tags kSEQ_NAME.
+	CLASS:				The object class.
+	kTAG_NID:			The tag kTAG_NID.
+	kTAG_DATA_TYPE:		The tag data type.
 
-==>	kTAG_ID_GRAPH becomes the graph item reference: nodes, entities and units use it to
-	reference their vertices in the graph; edges use it to reference their placeholders in
-	the graph.
+Tag nodes are by definition unique, which means that once the graph node is stored, the tag
+will set its identifier in the kTAG_ID_GRAPH offset; whenever a node referencing a tag is
+created, we only create the node in the graph if the tag does not have that offset.
 
-The other aspect that could be modified is that graph nodes might need to be created when
-edges are created, not necessarily when nodes are created. This is because the graph should
-not have the concept of master and alias nodes, the graph should represent the comprehensive
-ontology which can then be used for inference, while the nodes and edges of the document
-store can be used to define views, forms and structures.
+The tag terms should be stored as graph nodes baring the following properties:
 
-==>	Graph nodes are created only when an edge is created.
-==>	The kTAG_ID_GRAPH attribute is set via update when edges are stored in Mongo.
+==>	LABEL:				kDOMAIN_ATTRIBUTE
+==>	STORE:				The terms kSEQ_NAME.
+	CLASS:				The object class.
+	kTAG_NID:			The term kTAG_NID.
+
+Tag terms are also unique, which means that once the tag term graph node is stored, we will
+set the tag term graph node identifier in the term's kTAG_ID_GRAPH offset; whenever we
+create a tag graph node, when setting its terms in the graph we should first check if the
+term already has that offset, in which case we do not need to create the graph node.
+
+NODES
+-----
+
+Nodes may reference tags or terms.
+
+In the first case the tag solves the issue, since the tag will already have a node in the
+graph: in this case we simply copy the graph node identifier into the node's kTAG_ID_GRAPH
+offset. This also solves the problem of alias nodes, since all aliases will be effectively
+pointing to the same graph node.
+
+In the second case, the term may be used in different contexts: as an ontology, type,
+enumeration, view, etc. and the same term may have also been used as an attribute of a tag.
+This poses the problem of where to store the graph node references. Attribute terms already
+store their graph node reference in their kTAG_ID_GRAPH offset, which means that terms
+cannot be used to reference graph nodes for nodes, this means that we need to store the
+graph reference in the node itself: this poses a problem when creating alias nodes. In order
+to identify a specific node in the graph, we need to match the term and the node type: if
+found, it means that we should use that node; if not, we create the node in the graph.
+
+Assuming that graph nodes will only be created if the node references a term:
+
+==>	LABEL:				Use the node type excluding:
+						- kTYPE_NODE_ROOT: This is not a type, but a function.
+						- kTYPE_NODE_PROPERTY: Tags are already handled.
+						- kTYPE_NODE_ENUMERATED: This is a type qualifier.
+						There should not be more than one option left.
+==>	STORE:				The nodes kSEQ_NAME.
+	CLASS:				The object class.
+	kTAG_NID:			The node's kTAG_TERM.
+	kTAG_ID_SEQUENCE:	The node's kTAG_ID_SEQUENCE.
+
+Nodes that reference a tag already have a node in the graph, in that case we match the tag
+and copy its kTAG_ID_GRAPH offset in the node.
+
+Nodes that reference terms can be uniquely identified by the selected node type and by the
+term native identifier: if there is a match we copy the found node's kTAG_ID_GRAPH offset in
+the node; if there is no match we create the node.
+
+EDGES
+-----
+
+Edges should all be stored in the graph. The edge relationship terms can easily be
+determined with their kTAG_ID_GRAPH offset, this allows us to create an offset in the edge
+objects that can be used to identify the graph edge reference. This is necessary, since
+edges may reference the same nodes via aliases, for instance two nodes pointing to the same
+tag. To ensure we do not duplicate graph edges we need to add two new tags:
+	- kTAG_GRAPH_SUBJECT:	The graph subject node reference.
+	- kTAG_GRAPH_OBJECT:	The graph object node reference.
+We already have the graph edge type in the predicate.
+
+==>	STORE:				The edges kSEQ_NAME.
+	CLASS:				The object class.
+	kTAG_NID:			The edge's kTAG_NID, this means that the graph edge will only
+						relate to the first edge, we may consider it a master edge.
+						(This property may be omitted after some thought.)
+	kTAG_ID_SEQUENCE:	The edge's kTAG_ID_SEQUENCE.
+
+When storing an edge, we first match the edge's kTAG_GRAPH_SUBJECT with the subject's
+kTAG_ID_GRAPH offset, the kTAG_GRAPH_OBJECT with the object's kTAG_ID_GRAPH offset and the
+kTAG_PREDICATE to check if there is already an edge in the graph, in that case we copy the
+kTAG_GRAPH_SUBJECT, kTAG_GRAPH_OBJECT and the kTAG_ID_GRAPH in the current edge; if there
+is not a match, we create a graph edge with the kTAG_GRAPH_SUBJECT, kTAG_PREDICATE and
+kTAG_GRAPH_OBJECT.
+
+UNITS
+-----
+
+Units will be represented by nodes in the graph, these will be related by client procedures
+which are not yet determined. The properties of the graph node are:
+
+==>	LABEL:				Use the kTAG_DOMAIN.
+==>	STORE:				The unit kSEQ_NAME.
+	CLASS:				The unit class.
+	kTAG_NID:			The unit's kTAG_TERM.
+
+When a unit is inserted, we store the graph node reference in the kTAG_ID_GRAPH offset.
+There is no need to check whether the node exists, since the graph node is created when the
+unit is inserted.
+
+============================================================================================
+
+DELETING
+--------
+
+Deleting is not going to be an easy affair: we need to determine what gets deleted from the
+document store and what gets deleted from the graph. Let's do this later...

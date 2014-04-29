@@ -28,7 +28,7 @@
 		<NODE term="iso:639:1">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -62,7 +62,7 @@
 		<NODE term="iso:639:2">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -96,7 +96,7 @@
 		<NODE term="iso:639:2T">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -130,7 +130,7 @@
 		<NODE term="iso:639:2B">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -164,7 +164,7 @@
 		<NODE term="iso:639:3">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -198,7 +198,7 @@
 		<NODE term="iso:639:5">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

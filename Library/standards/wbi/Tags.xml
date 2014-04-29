@@ -9,20 +9,6 @@
 	
 	<!-- wbi:group -->
 	<META>
-		 <TERM ns="wbi" lid="group">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">World Bank Institute classification group</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">For operational and analytical purposes, the World Bank’s main criterion for classifying economies is gross national income (GNI) per capita. In previous editions of our publications, this term was referred to as gross national product, or GNP. Based on its GNI per capita, every economy is classified as low income, middle income (subdivided into lower middle and upper middle), or high income. Other analytical groups based on geographic regions are also used.</item>
-				</item>
-			</item>
-		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>wbi:group</item>

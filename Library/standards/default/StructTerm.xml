@@ -27,7 +27,7 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
+				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -80,6 +80,22 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This property represents the identifier of the term within its namespace.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_ID_GRAPH -->
+	<META>
+		<NODE tag=":id-graph" pid="_terms::id-graph">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database, this property is only present if the term was used as a tag property attribute.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -169,6 +185,15 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">_terms</item>
+		</EDGE>
+	</META>
+	
+	<!-- SCHEMAS -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:ref:count</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_terms</item>
 		</EDGE>
 	</META>

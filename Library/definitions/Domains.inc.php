@@ -21,20 +21,11 @@
  *======================================================================================*/
 
 /**
- * Term.
- *
- * A term.
- *
- * This represents the domain of terms.
- */
-define( "kDOMAIN_TERM",							':domain:term' );
-
-/**
  * Attribute.
  *
  * An attribute.
  *
- * This represents the domain of attributes.
+ * This represents the domain of data property attributes.
  */
 define( "kDOMAIN_ATTRIBUTE",					':domain:attribute' );
 
@@ -43,7 +34,7 @@ define( "kDOMAIN_ATTRIBUTE",					':domain:attribute' );
  *
  * A property.
  *
- * This represents the domain of properties.
+ * This represents the domain of data properties.
  */
 define( "kDOMAIN_PROPERTY",						':domain:property' );
 

@@ -14,7 +14,7 @@
 		<NODE term=":type:node">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -29,7 +29,7 @@
 	
 	<!-- kTYPE_NODE_ROOT -->
 	<META>
-		<NODE term=":type:node:root">
+		<NODE term=":kind:root-node">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -172,7 +172,7 @@
 	
 	<!-- kTYPE_NODE_PROPERTY -->
 	<META>
-		<NODE term=":type:node:property">
+		<NODE term=":kind:property-node">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -185,7 +185,7 @@
 	
 	<!-- kTYPE_NODE_ENUMERATED -->
 	<META>
-		<NODE term=":type:node:enumerated">
+		<NODE term=":kind:enumerated-node">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -199,6 +199,19 @@
 	<!-- kTYPE_NODE_ENUMERATION -->
 	<META>
 		<NODE term=":type:node:enumeration">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:type:node</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_NODE_TERM -->
+	<META>
+		<NODE term=":type:node:term">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>

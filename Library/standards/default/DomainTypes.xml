@@ -14,7 +14,7 @@
 		<NODE term=":domain">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -26,33 +26,6 @@
 	</META>
 	
 	<!-- Domain type enumerations -->
-	
-	<!-- kDOMAIN_TERM -->
-	<META>
-		<TERM ns=":domain" lid="term">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>terms</em>.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:domain</item>
-		</EDGE>
-	</META>
 	
 	<!-- kDOMAIN_ATTRIBUTE -->
 	<META>
@@ -66,7 +39,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>attributes</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The domain of <em>data property attributes</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -93,7 +66,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>properties</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The domain of <em>data properties</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

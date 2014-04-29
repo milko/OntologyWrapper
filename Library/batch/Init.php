@@ -97,6 +97,7 @@ try
 	//
 	// Drop graph database.
 	//
+	echo( "  • Resetting graph.\n" );
 	$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
 	
 	//

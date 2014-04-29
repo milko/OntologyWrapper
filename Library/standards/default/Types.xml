@@ -435,11 +435,11 @@
 		</TERM>
 	</META>
 	
-	<!-- Node types -->
+	<!-- Node kinds -->
 	
 	<META>
 		<!-- kTYPE_NODE_ROOT -->
-		<TERM ns=":type:node" lid="root">
+		<TERM ns=":kind" lid="root-node">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -453,7 +453,43 @@
 				</item>
 			</item>
 		</TERM>
-
+	
+		<!-- kTYPE_NODE_PROPERTY -->
+		<TERM ns=":kind" lid="property-node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Property</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>data property</em>. The node features a <em>reference to the tag</em> which contains all the information defining and describing a data property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_ENUMERATED -->
+		<TERM ns=":kind" lid="enumerated-node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Enumerated set</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>controlled vocabulary</em> or an <em>enumerated set subset</em>. This kind describes a set of values representing an enumerated set, the element itself is not considered as an element of the set, it defines a formal controlled vocabulary.The ISO 3166 country codes could be considered an enumerated set.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Node types -->
+	
+	<META>
 		<!-- kTYPE_NODE_ONTOLOGY -->
 		<TERM ns=":type:node" lid="ontology">
 			<item const="kTAG_LABEL">
@@ -561,7 +597,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A data schema</em>. This is a view that represents a data <em>schema or sub-structure</em>, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define common schemas that will be used in data structures.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[<em>A data schema</em>. This is a view that represents a data <em>schema or sub-structure</em>, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define common schemas that will be related to data structures.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -614,38 +650,6 @@
 			</item>
 		</TERM>
 	
-		<!-- kTYPE_NODE_PROPERTY -->
-		<TERM ns=":type:node" lid="property">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Property</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>data property</em>. The node features a <em>reference to the tag</em> which contains all the information defining and describing a data property.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- kTYPE_NODE_ENUMERATED -->
-		<TERM ns=":type:node" lid="enumerated">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumerated set</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>controlled vocabulary</em> or an <em>enumerated set subset</em>. This kind describes a set of values representing an enumerated set, the element itself is not considered as an element of the set, it defines a formal controlled vocabulary.The ISO 3166 country codes could be considered an enumerated set.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- kTYPE_NODE_ENUMERATION -->
 		<TERM ns=":type:node" lid="enumeration">
 			<item const="kTAG_LABEL">
@@ -658,6 +662,22 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[An <em>element/em> of a <em>controlled vocabulary</em>. This kind describes an item belonging to an enumerated set, the item may also be nested. An ISO 3166 country code could be considered an enumeration node.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTYPE_NODE_TERM -->
+		<TERM ns=":type:node" lid="term">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>term reference</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

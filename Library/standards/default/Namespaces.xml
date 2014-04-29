@@ -122,6 +122,22 @@
 			</item>
 		</TERM>
 		
+		<!-- Reference count -->
+		<TERM ns=":type:ref" lid="count">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Reference count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>reference count</em> keeps track of <em>how many objects reference the current object</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- Connection -->
 		<TERM ns="" lid="connection">
 			<item const="kTAG_LABEL">

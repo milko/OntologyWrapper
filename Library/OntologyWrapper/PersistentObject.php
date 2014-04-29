@@ -662,13 +662,6 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
 								  array( "name" => "OFFSETS" ) );
 		
-		//
-		// Set graph node identifier index.
-		//
-		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
-								  array( "name" => "GRAPH",
-										 "sparse" => TRUE ) );
-		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -2287,7 +2280,8 @@ abstract class PersistentObject extends OntologyObject
 	 * object's wrapper features a graph.
 	 *
 	 * Derived classes should not overload this method, but rather the methods it calls;
-	 * the only exception is if the object should not be stored in the graph.
+	 * the only exception is if the object should not be stored in the graph: in that case
+	 * overload the method to return <tt>FALSE</tt>.
 	 *
 	 * If the method returns an integer, it means that the value represents the graph node
 	 * identifier; if the method returns <tt>FALSE</tt>, it means that there will be no
@@ -4333,9 +4327,16 @@ abstract class PersistentObject extends OntologyObject
 			return $this->offsetGet( kTAG_ID_GRAPH );								// ==>
 		
 		//
+		// Match existing graph node.
+		//
+		$id = $this->matchGraphNode( $theGraph );
+		if( is_int( $id ) )
+			return $id;																// ==>
+		
+		//
 		// Init graph parameters.
 		//
-		$this->createGraphProperties( $labels, $properties );
+		$this->setGraphProperties( $labels, $properties );
 		
 		return $theGraph->setNode( $properties, $labels );							// ==>
 		
@@ -4363,7 +4364,30 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	createGraphProperties															*
+	 *	matchGraphNode																	*
+	 *==================================================================================*/
+
+	/**
+	 * Match graph node
+	 *
+	 * The responsibility of this method is to check whether a node already exists in the
+	 * graph, in that case the method should return its identifier, if not, it should
+	 * return <tt>FALSE</tt>.
+	 *
+	 * The caller determines a match if the returned falue is an integer.
+	 *
+	 * In this class we return <tt>FALSE</tt> by default.
+	 *
+	 * @param DatabaseGraph			$theGraph			Graph connection.
+	 *
+	 * @access protected
+	 * @return integer				Graph node identifier, or <tt>FALSE</tt>.
+	 */
+	protected function matchGraphNode( DatabaseGraph $theGraph )		{	return FALSE;	}
+
+	 
+	/*===================================================================================
+	 *	setGraphProperties																*
 	 *==================================================================================*/
 
 	/**
@@ -4382,8 +4406,18 @@ abstract class PersistentObject extends OntologyObject
 	 *		graph.
 	 * </ul>
 	 *
-	 * In this class we set the label to the current class default domain and set the
-	 * native identifier property.
+	 * In this class we reset the labels, the default properties are set as:
+	 *
+	 * <ul>
+	 *	<li><tt>STORE</tt>: We set the current object's kSEQ_NAME constant.
+	 *	<li><tt>CLASS</tt>: We set the current object's class name. (We cannot use the
+	 *		{@link kTAG_CLASS} offset, since it is set by the collection object when
+	 *		committing.)
+	 *	<li><tt>{@link kTAG_NID}</tt>: We set the object's {@link kTAG_NID}.
+	 * </ul>
+	 *
+	 * Derived classes can call the parent method, then set the labels and eventual other
+	 * properties.
 	 *
 	 * @param array					$theLabels			Labels.
 	 * @param array					$theProperties		Properties.
@@ -4391,7 +4425,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @access protected
 	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
 	 */
-	protected function createGraphProperties( &$theLabels, &$theProperties )
+	protected function setGraphProperties( &$theLabels, &$theProperties )
 	{
 		//
 		// Init graph parameters.
@@ -4399,16 +4433,21 @@ abstract class PersistentObject extends OntologyObject
 		$theLabels = $theProperties = Array();
 	
 		//
-		// Set domain label.
+		// Set data store.
 		//
-		$theLabels[] = static::kDEFAULT_DOMAIN;
+		$theProperties[ 'STORE' ] = static::kSEQ_NAME;
 	
 		//
-		// Set node identifier.
+		// Set object class.
+		//
+		$theProperties[ 'CLASS' ] = get_class( $this );
+	
+		//
+		// Set native identifier.
 		//
 		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
 	
-	} // createGraphProperties.
+	} // setGraphProperties.
 
 		
 

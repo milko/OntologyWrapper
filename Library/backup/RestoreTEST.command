@@ -7,4 +7,4 @@
 #
 # Run command.
 #
-mongorestore --directoryperdb '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/'
+mongorestore --directoryperdb '/Library/WebServer/Library/OntologyWrapper/Library/backup/data/TEST/'

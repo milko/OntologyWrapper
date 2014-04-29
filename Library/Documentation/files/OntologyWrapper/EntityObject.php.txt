@@ -530,6 +530,56 @@ abstract class EntityObject extends UnitObject
 	
 	} // postOffsetUnset.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED GRAPH UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setGraphProperties																*
+	 *==================================================================================*/
+
+	/**
+	 * Compute graph labels and properties
+	 *
+	 * We overload this method to set the entity type and kind.
+	 *
+	 * @param array					$theLabels			Labels.
+	 * @param array					$theProperties		Properties.
+	 *
+	 * @access protected
+	 * @return mixed				Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.
+	 *
+	 * @see kTAG_ENTITY_TYPE kTAG_ENTITY_KIND
+	 */
+	protected function setGraphProperties( &$theLabels, &$theProperties )
+	{
+		//
+		// Init graph parameters.
+		//
+		parent::setGraphProperties( $theLabels, $theProperties );
+		
+		//
+		// Set Entity type.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_TYPE ) )
+			$theProperties[ (string) kTAG_ENTITY_TYPE ]
+				= $this->offsetGet( kTAG_ENTITY_TYPE );
+		
+		//
+		// Set Entity kind.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_KIND ) )
+			$theProperties[ (string) kTAG_ENTITY_KIND ]
+				= $this->offsetGet( kTAG_ENTITY_KIND );
+	
+	} // setGraphProperties.
+
 	 
 
 } // class EntityObject.

@@ -1,0 +1,36 @@
+Structures & Schemas
+--------------------
+
+Structures and schemas both refer to data structures, structures represent the physical
+data structure, while schemas represent logical data structures.
+
+A structure, kTYPE_NODE_STRUCT, is a type, kTYPE_NODE_TYPE, which represents a data
+structure. It is instantiated by a node that references a term, nodes that reference tags
+may point to these structures via the kPREDICATE_PROPERTY_OF predicate.
+
+Different structures may share the same properties, in this case, if the property behaviour
+is different, depending in which structure it is used, an alias node for that property can
+be created, featuring a description that explains the specific behaviour. Note that
+although there will be several property nodes in the document store, in the graph there will
+only be a single node, the one created when the tag was inserted in the document store; that
+is correct, since what makes the document store different is the description, which is not
+included in the graph.
+
+Properties which are shared by different structures, but that feature the same behaviour
+may be stored in a single structure which can then be included in other structures via the
+kPREDICATE_SUBCLASS_OF predicate. This way we can equate the structure to a class, mirroring
+the logical structure into the physical structure.
+
+So what is a schema then? We can differentiate it from the schema by applying the following
+rules:
+
+	- A structure represents a full set of properties, that is, it must include a complete
+	  set which can be used to store an object.
+	- A schema may include a subset of a structure, which means that it may not be suitable
+	  as a complete object structure.
+	
+This distinction allows us to traverse a structure in order to have a comprehensive schema
+of an object, while we can traverse a schema to get standard sub-structures.
+
+If we adopt this strategy we could say that kTYPE_NODE_SCHEMA is a kTYPE_NODE_TYPE, while
+the kTYPE_NODE_STRUCT is not a kTYPE_NODE_TYPE.

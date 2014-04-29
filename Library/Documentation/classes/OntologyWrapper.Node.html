@@ -139,28 +139,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1494954657"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1236691997"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1494954657" class="accordion-body collapse in">
+            <div id="namespace-1236691997" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-835028207"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-824117776"></a>
                                 <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
             </div>
-            <div id="namespace-835028207" class="accordion-body collapse ">
+            <div id="namespace-824117776" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1339164854"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-79028419"></a>
                                 <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
             </div>
-            <div id="namespace-1339164854" class="accordion-body collapse ">
+            <div id="namespace-79028419" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -267,6 +267,9 @@ users compose and consult network structures through these objects.</p>
     attribute holds a string which represents a unique persitent identifier, this value
     must be unique among all nodes and is optional. The main duty of this attribute is
     to disambiguate nodes pointing to the same term or tag.
+<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph node reference</em>. If the wrapper uses
+    a graph database, this property will be used to reference the graph node which
+    represents the current node; it is an integer value which is automatically managed.
 <li><tt>{@link kTAG_TERM}</tt>: <em>Term</em>. This attribute is a <em>string</em> that
     holds a reference to the <em>term object</em> that the current node <em>represents
     in a graph structure</em>. If this offset is set, the {@link kTAG_TAG} offset must
@@ -275,25 +278,12 @@ users compose and consult network structures through these objects.</p>
     holds a reference to the <em>tag object</em> that the current node <em>represents
     in a graph structure</em>. If this offset is set, the {@link kTAG_TERM} offset must
     be omitted. This attribute must be managed with its offset.
-<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is an enumeration that defines the type of
-    the node, it provides information on <em>what</em> the node represents: it can take
-    one of two values:
- <ul>
-    <li><tt>{@link kDOMAIN_TERM}</tt>: If the node references a term.
-    <li><tt>{@link kDOMAIN_ATTRIBUTE}</tt>: If the node references a tag.
- </ul>
-    This property is automatically managed by the object.
 <li><tt>{@link kTAG_NODE_TYPE}</tt>: <em>Type</em>. This attribute is an <em>enumerated
     set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.
     The individual elements can be managed with the {@link NodeType()} method.
 <li><tt>{@link kTAG_MASTER}</tt>: <em>Master node</em>. This property is featured by
     alias nodes, it <em>references</em> the <em>master node</em>. This property is
     handled automatically by the object.
-<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Graph node reference</em>. This property is
-    is automatically set when the node is inserted, it represents the identifier og the
-    graph node which references the current node. This property should not be managed
-    by clients. This property is also passed to the referenced term or tag. This value
-    will only be handled if the wrapper features a graph connection.
 </ul>
 <p>The {@link __toString()} method will return the value stored in the {@link kTAG_TERM} or
 the {@link kTAG_TAG} offset, this value is not used as an identifier.</p>
@@ -389,8 +379,9 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_preCommitObjectIdentifiers" class="">preCommitObjectIdentifiers()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_isReady" class="">isReady()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_lockedOffsets" class="">lockedOffsets()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_createGraphNode" class="">createGraphNode()</a><br />
-                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_createGraphProperties" class="">createGraphProperties()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_matchGraphNode" class="">matchGraphNode()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_setGraphProperties" class="">setGraphProperties()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Node.html#method_getNodeDomain" class="">getNodeDomain()</a><br />
                                                                     <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetUnset" class="">preOffsetUnset()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_insertObject" class="">insertObject()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_updateObject" class="">updateObject()</a><br />
@@ -418,6 +409,7 @@ reference, {@link kTAG_TERM}, or the tag reference, {@link kTAG_TAG}.</p>
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_filterExistingOffsets" class="">filterExistingOffsets()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_castShapeGeometry" class="">castShapeGeometry()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_updateObjectReferenceCount" class="">updateObjectReferenceCount()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.PersistentObject.html#method_createGraphNode" class="">createGraphNode()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_createRelatedGraphNodes" class="">createRelatedGraphNodes()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_resolveWrapper" class="">resolveWrapper()</a><br />
                                                                     <a href="../classes/OntologyWrapper.PersistentObject.html#method_compareObjectOffsets" class="">compareObjectOffsets()</a><br />
@@ -3402,20 +3394,17 @@ cannot be modified once the object has been committed.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_createGraphNode" name="method_createGraphNode" class="anchor"></a>
+            <a id="method_matchGraphNode" name="method_matchGraphNode" class="anchor"></a>
             <article class="method">
-                <h3 class="protected ">createGraphNode()</h3>
+                <h3 class="protected ">matchGraphNode()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createGraphNode(\OntologyWrapper\DatabaseGraph <span class="argument">$theGraph</span>) : mixed</pre>
-                <p><em>Create graph node</em></p>
-                <p>The responsibiliuty of this method is to create the current object's graph node and
-to return its identifier. If the object already has a related node, the method will
-only return its identifier.</p>
-<p>If the object should not be stored in the graph, the method should return
-<tt>FALSE</tt>.</p>
-<p>This method is called by the {@link preCommitGraphReferences()} method which will
-only call it if the current object is not committed and if the current object's
-wrapper features a graph connection.</p>
+                <pre class="signature" style="margin-right: 54px;">matchGraphNode(\OntologyWrapper\DatabaseGraph <span class="argument">$theGraph</span>) : integer</pre>
+                <p><em>Match graph node</em></p>
+                <p>The responsibility of this method is to check whether a node already exists in the
+graph, in that case the method should return its identifier, if not, it should
+return <tt>FALSE</tt>.</p>
+<p>The caller determines a match if the returned falue is an integer.</p>
+<p>In this class we return <tt>FALSE</tt> by default.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -3423,6 +3412,74 @@ wrapper features a graph connection.</p>
                                 <td><a href="../classes/OntologyWrapper.DatabaseGraph.html">\OntologyWrapper\DatabaseGraph</a></td>
                                 <td>$theGraph</td>
                                 <td><p>Graph connection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>Graph node identifier, or <tt>FALSE</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setGraphProperties" name="method_setGraphProperties" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setGraphProperties()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setGraphProperties(array <span class="argument">$theLabels</span>, array <span class="argument">$theProperties</span>) : mixed</pre>
+                <p><em>Compute graph labels and properties</em></p>
+                <p>This method should compute the current object's graph labels and properties, these
+should be set in the reference parameters.</p>
+<p>The method returns the following values:</p>
+<ul>
+<li><tt>integer</tt>: An integer indicates that the object is already referenced in
+    the graph.
+<li><tt>TRUE</tt>: This value indicates that the properties have been set.
+<li><tt>FALSE</tt>: This value indicates that the object should not be set in the
+    graph.
+</ul>
+<p>In this class we reset the labels, the default properties are set as:</p>
+<ul>
+<li><tt>STORE</tt>: We set the current object's kSEQ_NAME constant.
+<li><tt>CLASS</tt>: We set the current object's class name. (We cannot use the
+    {@link kTAG_CLASS} offset, since it is set by the collection object when
+    committing.)
+<li><tt>{@link kTAG_NID}</tt>: We set the object's {@link kTAG_NID}.
+</ul>
+<p>Derived classes can call the parent method, then set the labels and eventual other
+properties.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theLabels</td>
+                                <td><p>Labels.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theProperties</td>
+                                <td><p>Properties.</p></td>
                             </tr>
                                             </table>
                 
@@ -3453,51 +3510,27 @@ wrapper features a graph connection.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_createGraphProperties" name="method_createGraphProperties" class="anchor"></a>
+            <a id="method_getNodeDomain" name="method_getNodeDomain" class="anchor"></a>
             <article class="method">
-                <h3 class="protected ">createGraphProperties()</h3>
+                <h3 class="protected ">getNodeDomain()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createGraphProperties(array <span class="argument">$theLabels</span>, array <span class="argument">$theProperties</span>) : mixed</pre>
-                <p><em>Compute graph labels and properties</em></p>
-                <p>This method should compute the current object's graph labels and properties, these
-should be set in the reference parameters.</p>
-<p>The method returns the following values:</p>
-<ul>
-<li><tt>integer</tt>: An integer indicates that the object is already referenced in
-    the graph.
-<li><tt>TRUE</tt>: This value indicates that the properties have been set.
-<li><tt>FALSE</tt>: This value indicates that the object should not be set in the
-    graph.
-</ul>
-<p>In this class we set the label to the current class default domain and set the
-native identifier property.</p>
+                <pre class="signature" style="margin-right: 54px;">getNodeDomain()</pre>
+                <p><em>Get node domain</em></p>
+                <p>The node domain is the node type that characterises the current node, it is the
+element of the {@link kTAG_NODE_TYPE} enumerated set which is not among the
+{@link kTYPE_NODE_ROOT}, {@link kTYPE_NODE_PROPERTY} and the
+{@link kTYPE_NODE_ENUMERATED} node types.</p>
+<p>The method will exclude the above values and return the first element left; if there
+are no elements left, it will return the {@link kTYPE_NODE_TERM}.</p>
 
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>array</td>
-                                <td>$theLabels</td>
-                                <td><p>Labels.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>array</td>
-                                <td>$theProperties</td>
-                                <td><p>Properties.</p></td>
-                            </tr>
-                                            </table>
                 
                 
-                                    <h4>Returns</h4>
-                    mixed
-                                            &mdash; <p>Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
-                                                </article>
+                            </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
-                                                            </dl>
+                                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -4165,7 +4198,8 @@ load the object into the eventual graph</p>
 <p>The method will be called only if the object is not committed and if the current
 object's wrapper features a graph.</p>
 <p>Derived classes should not overload this method, but rather the methods it calls;
-the only exception is if the object should not be stored in the graph.</p>
+the only exception is if the object should not be stored in the graph: in that case
+overload the method to return <tt>FALSE</tt>.</p>
 <p>If the method returns an integer, it means that the value represents the graph node
 identifier; if the method returns <tt>FALSE</tt>, it means that there will be no
 graph node.</p>
@@ -5348,6 +5382,57 @@ provided in the last parameter.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_createGraphNode" name="method_createGraphNode" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">createGraphNode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createGraphNode(\OntologyWrapper\DatabaseGraph <span class="argument">$theGraph</span>) : mixed</pre>
+                <p><em>Create graph node</em></p>
+                <p>The responsibiliuty of this method is to create the current object's graph node and
+to return its identifier. If the object already has a related node, the method will
+only return its identifier.</p>
+<p>If the object should not be stored in the graph, the method should return
+<tt>FALSE</tt>.</p>
+<p>This method is called by the {@link preCommitGraphReferences()} method which will
+only call it if the current object is not committed and if the current object's
+wrapper features a graph connection.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.DatabaseGraph.html">\OntologyWrapper\DatabaseGraph</a></td>
+                                <td>$theGraph</td>
+                                <td><p>Graph connection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Node identifier, <tt>TRUE</tt> or <tt>FALSE</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.PersistentObject.html"><div class="path-wrapper">\OntologyWrapper\PersistentObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_createRelatedGraphNodes" name="method_createRelatedGraphNodes" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">createRelatedGraphNodes()</h3>
@@ -5893,7 +5978,7 @@ the {@link kTYPE_LIST} in its data kind, or if the root element is an array.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 28th, 2014 at 19:57.
+                    on April 29th, 2014 at 19:34.
                 </section>
             </section>
         </section>

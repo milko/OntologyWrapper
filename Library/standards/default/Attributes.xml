@@ -358,6 +358,22 @@
 			</item>
 		</TERM>
 	
+		<!-- kTAG_GRAPH_SUBJECT -->
+		<TERM ns=":relationship" lid="graph-subject">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Graph subject vertex</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The reference to the <em>origin vertex of a directed graph relationship</em> in the graph.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- kTAG_PREDICATE -->
 		<TERM ns=":relationship" lid="predicate">
 			<item const="kTAG_LABEL">
@@ -386,6 +402,22 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The <em>destination vertex of a directed graph relationship</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GRAPH_OBJECT -->
+		<TERM ns=":relationship" lid="graph-object">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Graph object vertex</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The reference to the <em>destination vertex of a directed graph relationship</em> in the graph.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -579,7 +611,7 @@
 	
 	<META>
 		<!-- kTAG_UNIT_COUNT -->
-		<TERM ns="" lid="unit-count">
+		<TERM ns=":ref:count" lid="unit">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -595,7 +627,7 @@
 		</TERM>
 	
 		<!-- kTAG_ENTITY_COUNT -->
-		<TERM ns="" lid="entity-count">
+		<TERM ns=":ref:count" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -611,7 +643,7 @@
 		</TERM>
 	
 		<!-- kTAG_TAG_COUNT -->
-		<TERM ns="" lid="tag-count">
+		<TERM ns=":ref:count" lid="tag">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -627,7 +659,7 @@
 		</TERM>
 	
 		<!-- kTAG_TERM_COUNT -->
-		<TERM ns="" lid="term-count">
+		<TERM ns=":ref:count" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -643,7 +675,7 @@
 		</TERM>
 	
 		<!-- kTAG_NODE_COUNT -->
-		<TERM ns="" lid="node-count">
+		<TERM ns=":ref:count" lid="node">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -659,7 +691,7 @@
 		</TERM>
 	
 		<!-- kTAG_EDGE_COUNT -->
-		<TERM ns="" lid="edge-count">
+		<TERM ns=":ref:count" lid="edge">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

@@ -47,6 +47,10 @@ use OntologyWrapper\CollectionObject;
  *		is a string that represents the current term unique identifier within its namespace.
  *		The combination of the current term's namespace and this attribute form the term's
  *		global identifier. This attribute must be managed with its offset.
+ *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Attribute graph node</em>. If the wrapper uses
+ *		a graph database, this property will be used to reference the graph node which
+ *		represents the current term as a data attribute of a tag; it is an integer value
+ *		which is automatically managed.
  *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
  *		short description</i> of the term that the current object defines. All terms
  *		<em>should</em> have a label, since this is how human users will be able to identify
@@ -329,10 +333,18 @@ class Term extends PersistentObject
 										 "sparse" => TRUE ) );
 		
 		//
+		// Set graph node identifier index.
+		//
+		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
+								  array( "name" => "GRAPH",
+										 "sparse" => TRUE ) );
+		
+		//
 		// Set label index.
 		//
 		$collection->createIndex( array( kTAG_LABEL => 1 ),
-								  array( "name" => "LABEL" ) );
+								  array( "name" => "LABEL",
+										 "sparse" => TRUE ) );
 		
 		return $collection;															// ==>
 	

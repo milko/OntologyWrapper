@@ -28,7 +28,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -255,7 +255,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -288,7 +288,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -321,7 +321,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -355,7 +355,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -418,7 +418,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -451,7 +451,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -484,7 +484,7 @@
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
-				<item>:type:node:enumerated</item>
+				<item>:kind:enumerated-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

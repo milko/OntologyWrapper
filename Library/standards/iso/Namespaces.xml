@@ -33,7 +33,7 @@
 		</TERM>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:root</item>
+				<item>:kind:root-node</item>
 				<item>:type:node:ontology</item>
 			</item>
 		</NODE>
