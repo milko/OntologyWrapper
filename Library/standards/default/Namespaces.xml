@@ -123,7 +123,7 @@
 		</TERM>
 		
 		<!-- Reference count -->
-		<TERM ns=":type:ref" lid="count">
+		<TERM ns="" lid="ref-count">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

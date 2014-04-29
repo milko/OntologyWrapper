@@ -77,9 +77,9 @@ use OntologyWrapper\CollectionObject;
  *		enumerated value that represents the ISO country code.
  *	<li><tt>{@link kTAG_ENTITY_AFFILIATION}</tt>: <em>Affiliation</em>. This optional
  *		attribute contains the list of entities to which the current entity is affiliated.
- *		The attribute is a list of elements in containing two items: the type of affiliation
- *		and the affiliated entity native identifier. The elements of this list can be
- *		managed with the {@link EntityAffiliation()} method.
+ *		The attribute is a list of elements each containing two items: the type of
+ *		affiliation and the affiliated entity native identifier. The elements of this list
+ *		can be managed with the {@link EntityAffiliation()} method.
  *	<li><tt>{@link kTAG_ENTITY_VALID}</tt>: <em>Valid entity</em>. This optional attribute
  *		represents a reference to the entity that is currently in use or that is preferred.
  *		This attribute is featured by obsolete or replaced entities and points to the

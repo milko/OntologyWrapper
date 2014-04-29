@@ -11,7 +11,7 @@
 	
 	<!-- :type:entity -->
 	<META>
-		<NODE term=":type:entity">
+		<NODE term=":type:entity" pid="enum::type:entity">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
@@ -50,7 +50,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:entity</item>
 		</EDGE>
 	</META>
 		
@@ -260,7 +260,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:entity</item>
 		</EDGE>
 	</META>
 
@@ -692,7 +692,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:entity</item>
 		</EDGE>
 	</META>
 
@@ -719,7 +719,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:entity</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:entity</item>
 		</EDGE>
 	</META>
 </METADATA>

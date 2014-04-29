@@ -301,6 +301,10 @@
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
 		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
+		</EDGE>
 	</META>
 	<!-- iso:3166:1:numeric -->
 	<META>
@@ -430,6 +434,10 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
 		</EDGE>
 	</META>
 	<!-- iso:3166:3:alpha-4 -->

@@ -60,6 +60,9 @@
 	<!-- kTAG_NAMESPACE -->
 	<META>
 		<NODE tag=":namespace" pid="_terms::namespace">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -76,6 +79,9 @@
 	<!-- kTAG_ID_LOCAL -->
 	<META>
 		<NODE tag=":id-local" pid="_terms::id-local">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -92,6 +98,9 @@
 	<!-- kTAG_ID_GRAPH -->
 	<META>
 		<NODE tag=":id-graph" pid="_terms::id-graph">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -108,6 +117,9 @@
 	<!-- kTAG_LABEL -->
 	<META>
 		<NODE tag=":label" pid="_terms::label">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -124,6 +136,9 @@
 	<!-- kTAG_DEFINITION -->
 	<META>
 		<NODE tag=":definition" pid="_terms::definition">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -140,6 +155,9 @@
 	<!-- kTAG_SYNONYM -->
 	<META>
 		<NODE tag=":synonym" pid="_terms::synonym">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -156,6 +174,9 @@
 	<!-- kTAG_TERM_TYPE -->
 	<META>
 		<NODE tag=":type:term" pid="_terms::type:term">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -168,7 +189,7 @@
 			<item const="kTAG_OBJECT" node="term">_terms</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:type:term</item>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:term</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
@@ -176,6 +197,9 @@
 	<!-- kTAG_MASTER -->
 	<META>
 		<NODE tag=":master" pid="_terms::master">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -189,10 +213,10 @@
 		</EDGE>
 	</META>
 	
-	<!-- SCHEMAS -->
+	<!-- :ref-count -->
 	<META>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:ref:count</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_terms</item>
 		</EDGE>

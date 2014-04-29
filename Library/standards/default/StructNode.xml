@@ -60,6 +60,9 @@
 	<!-- kTAG_ID_PERSISTENT -->
 	<META>
 		<NODE tag=":id-persistent" pid="_nodes::id-persistent">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -76,6 +79,9 @@
 	<!-- kTAG_ID_GRAPH -->
 	<META>
 		<NODE tag=":id-graph" pid="_nodes::id-graph">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -92,6 +98,9 @@
 	<!-- kTAG_TERM -->
 	<META>
 		<NODE tag=":term" pid="_nodes::term">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -108,6 +117,9 @@
 	<!-- kTAG_TAG -->
 	<META>
 		<NODE tag=":tag" pid="_nodes::tag">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -124,6 +136,9 @@
 	<!-- kTAG_NODE_TYPE -->
 	<META>
 		<NODE tag=":type:node" pid="_nodes::type:node">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -136,7 +151,7 @@
 			<item const="kTAG_OBJECT" node="term">_nodes</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:type:node</item>
+			<item const="kTAG_SUBJECT" node="pid">enum::type:node</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
@@ -144,6 +159,9 @@
 	<!-- kTAG_MASTER -->
 	<META>
 		<NODE tag=":master" pid="_nodes::master">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -157,10 +175,10 @@
 		</EDGE>
 	</META>
 	
-	<!-- SCHEMAS -->
+	<!-- :ref-count -->
 	<META>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:ref:count</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_nodes</item>
 		</EDGE>

@@ -60,6 +60,9 @@
 	<!-- kTAG_ID_SEQUENCE -->
 	<META>
 		<NODE tag=":id-sequence" pid="_tags::id-sequence">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -76,6 +79,9 @@
 	<!-- kTAG_ID_GRAPH -->
 	<META>
 		<NODE tag=":id-graph" pid="_tags::id-graph">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -92,6 +98,9 @@
 	<!-- kTAG_TERMS -->
 	<META>
 		<NODE tag=":terms" pid="_tags::terms">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -108,6 +117,9 @@
 	<!-- kTAG_DATA_TYPE -->
 	<META>
 		<NODE tag=":type:data" pid="_tags::type:data">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -128,6 +140,9 @@
 	<!-- kTAG_DATA_KIND -->
 	<META>
 		<NODE tag=":type:kind" pid="_tags::type:kind">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -148,6 +163,9 @@
 	<!-- kTAG_LABEL -->
 	<META>
 		<NODE tag=":label" pid="_tags::label">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -164,6 +182,9 @@
 	<!-- kTAG_DEFINITION -->
 	<META>
 		<NODE tag=":definition" pid="_tags::definition">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -180,6 +201,9 @@
 	<!-- kTAG_SYNONYM -->
 	<META>
 		<NODE tag=":synonym" pid="_tags::synonym">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -196,6 +220,9 @@
 	<!-- kTAG_MIN -->
 	<META>
 		<NODE tag=":min" pid="_tags::min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -212,6 +239,9 @@
 	<!-- kTAG_MAX -->
 	<META>
 		<NODE tag=":max" pid="_tags::max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -228,6 +258,9 @@
 	<!-- kTAG_PATTERN -->
 	<META>
 		<NODE tag=":grep" pid="_tags::grep">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -244,6 +277,9 @@
 	<!-- kTAG_TAG_OFFSETS -->
 	<META>
 		<NODE tag=":offset:tag" pid="_tags::offset:tag">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -260,6 +296,9 @@
 	<!-- kTAG_TERM_OFFSETS -->
 	<META>
 		<NODE tag=":offset:term" pid="_tags::offset:term">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -276,6 +315,9 @@
 	<!-- kTAG_NODE_OFFSETS -->
 	<META>
 		<NODE tag=":offset:node" pid="_tags::offset:node">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -292,6 +334,9 @@
 	<!-- kTAG_EDGE_OFFSETS -->
 	<META>
 		<NODE tag=":offset:edge" pid="_tags::offset:edge">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -308,6 +353,9 @@
 	<!-- kTAG_UNIT_OFFSETS -->
 	<META>
 		<NODE tag=":offset:unit" pid="_tags::offset:unit">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -324,6 +372,9 @@
 	<!-- kTAG_ENTITY_OFFSETS -->
 	<META>
 		<NODE tag=":offset:entity" pid="_tags::offset:entity">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -340,6 +391,9 @@
 	<!-- kTAG_TAG_STRUCT -->
 	<META>
 		<NODE tag=":tag:struct" pid="_tags::tag:struct">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -356,6 +410,9 @@
 	<!-- kTAG_TAG_STRUCT_IDX -->
 	<META>
 		<NODE tag=":tag:struct-index" pid="_tags::tag:struct-index">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -369,10 +426,10 @@
 		</EDGE>
 	</META>
 	
-	<!-- SCHEMAS -->
+	<!-- :ref-count -->
 	<META>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:ref:count</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_tags</item>
 		</EDGE>

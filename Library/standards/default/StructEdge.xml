@@ -60,6 +60,9 @@
 	<!-- kTAG_ID_GRAPH -->
 	<META>
 		<NODE tag=":id-graph" pid="_edges::id-graph">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -76,6 +79,9 @@
 	<!-- kTAG_SUBJECT -->
 	<META>
 		<NODE tag=":relationship:subject" pid="_edges::relationship:subject">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -92,6 +98,9 @@
 	<!-- kTAG_GRAPH_SUBJECT -->
 	<META>
 		<NODE tag=":relationship:graph-subject" pid="_edges::relationship:graph-subject">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -108,6 +117,9 @@
 	<!-- kTAG_PREDICATE -->
 	<META>
 		<NODE tag=":relationship:predicate" pid="_edges::relationship:predicate">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -124,6 +136,9 @@
 	<!-- kTAG_OBJECT -->
 	<META>
 		<NODE tag=":relationship:object" pid="_edges::relationship:object">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -140,6 +155,9 @@
 	<!-- kTAG_GRAPH_OBJECT -->
 	<META>
 		<NODE tag=":relationship:graph-object" pid="_edges::relationship:graph-object">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -153,10 +171,10 @@
 		</EDGE>
 	</META>
 	
-	<!-- SCHEMAS -->
+	<!-- :ref-count -->
 	<META>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:ref:count</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
 			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>

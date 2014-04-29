@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	REFERENCE COUNT SCHEMA
-	SchemaRefCount.xml
+	UNIT IDENTIFICATION SCHEMA
+	SchemaUnitIdentification.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,16 +9,24 @@
 	
 	<!-- SCHEMA -->
 	
-	<!-- :ref-count -->
+	<!-- :unit:identification -->
 	<META>
-		<NODE term=":ref-count" pid="schema::ref-count">
+		<TERM ns=":unit" lid="identification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit identification schema</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":unit:identification" pid="schema::unit:identification">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:schema</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which count object references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which are used to identify objects derived from the unit class.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -26,81 +34,72 @@
 	
 	<!-- PROPERTIES -->
 	
-	<!-- kTAG_TAG_COUNT -->
+	<!-- kTAG_DOMAIN -->
 	<META>
-		<NODE tag=":ref-count:tag">
+		<NODE tag=":unit:domain">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">enum::domain</item>
+			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_TERM_COUNT -->
+	<!-- kTAG_AUTHORITY -->
 	<META>
-		<NODE tag=":ref-count:term">
+		<NODE tag=":unit:authority">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_NODE_COUNT -->
+	<!-- kTAG_COLLECTION -->
 	<META>
-		<NODE tag=":ref-count:node">
+		<NODE tag=":unit:collection">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_EDGE_COUNT -->
+	<!-- kTAG_IDENTIFIER -->
 	<META>
-		<NODE tag=":ref-count:node">
+		<NODE tag=":unit:identifier">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_UNIT_COUNT -->
+	<!-- kTAG_VERSION -->
 	<META>
-		<NODE tag=":ref-count:unit">
+		<NODE tag=":unit:version">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
-		</EDGE>
-	</META>
-	
-	<!-- kTAG_ENTITY_COUNT -->
-	<META>
-		<NODE tag=":ref-count:entity">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">schema::ref-count</item>
+			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
 </METADATA>

@@ -92,6 +92,9 @@
 				<item>:id-graph</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -114,7 +117,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated value</em> which represents the <em>unit domain</em>, it indicates the <em>type</em> or <em>nature</em> of a unit object. This property is used to <em>disambiguate objects of different domains within a single collection<e/em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated value</em> which represents the <em>unit domain</em>, it indicates the <em>type</em> or <em>nature</em> of a unit object. This property is used to <em>disambiguate objects of different domains within a single collection</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -319,6 +322,9 @@
 				<item>:relationship:graph-subject</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -382,6 +388,9 @@
 				<item>:relationship:graph-object</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:private-in</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -610,7 +619,7 @@
 		<!-- kTAG_UNIT_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:unit</item>
+				<item>:ref-count:unit</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -634,7 +643,7 @@
 		<!-- kTAG_ENTITY_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:entity</item>
+				<item>:ref-count:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -658,7 +667,7 @@
 		<!-- kTAG_TAG_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:tag</item>
+				<item>:ref-count:tag</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -682,7 +691,7 @@
 		<!-- kTAG_TERM_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:term</item>
+				<item>:ref-count:term</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -706,7 +715,7 @@
 		<!-- kTAG_NODE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:node</item>
+				<item>:ref-count:node</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -730,7 +739,7 @@
 		<!-- kTAG_EDGE_COUNT -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:ref:count:edge</item>
+				<item>:ref-count:edge</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
@@ -1531,7 +1540,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity telefax numbers</item>
+					<item const="kTAG_TEXT">Entity country</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">

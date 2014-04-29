@@ -11,7 +11,7 @@
 	
 	<!-- :type:kind -->
 	<META>
-		<NODE term=":type:kind">
+		<NODE term=":type:kind" pid="enum::type:kind">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
@@ -36,7 +36,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
 		</EDGE>
 	</META>
 	
@@ -49,7 +49,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
 		</EDGE>
 	</META>
 	
@@ -62,7 +62,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:type:kind</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
 		</EDGE>
 	</META>
 </METADATA>
