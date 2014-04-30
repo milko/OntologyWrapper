@@ -2907,16 +2907,7 @@ if( kOPTION_VERBOSE )
 								// Handle alpha-3.
 								//
 								else
-								{
 									$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$syn;
-									
-									$id3 = $syn;
-									$gid_loc = $ns_location
-											  .kTOKEN_NAMESPACE_SEPARATOR
-											  ."1"
-											  .kTOKEN_NAMESPACE_SEPARATOR
-											  .$id3;
-								}
 							
 							} // Not alpha-2 code.
 						
@@ -2938,6 +2929,12 @@ if( kOPTION_VERBOSE )
 							// Save subset type.
 							//
 							$type = (string) $subset[ 'type' ];
+							
+							//
+							// Save subdivision identifier.
+							//
+							$id_subset = $id2.kTOKEN_NAMESPACE_SEPARATOR.$type;
+							$gid_subset = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_subset;
 							
 							//
 							// Iterate subset entries.
@@ -3051,13 +3048,13 @@ if( kOPTION_VERBOSE )
 									$element->addAttribute( 'node', 'term' );
 									
 									//
-									// Relate location to parent.
+									// Relate location to subset.
 									//
 									$edge_sub = $unit_sub->addChild( 'EDGE' );
 									$element_sub = $edge_sub->addChild(
 										'item', kPREDICATE_ENUM_OF );
 									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$element_sub = $edge_sub->addChild( 'item', $gid_loc );
+									$element_sub = $edge_sub->addChild( 'item', $id_subset );
 									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
 									$element_sub->addAttribute( 'node', 'term' );
 			
