@@ -49,7 +49,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -76,7 +76,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -103,7 +103,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -130,7 +130,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -157,7 +157,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:domain:entity</item>
 		</EDGE>
 	</META>
@@ -184,7 +184,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:domain:entity</item>
 		</EDGE>
 	</META>
@@ -211,7 +211,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -238,7 +238,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:domain:occurrence</item>
 		</EDGE>
 	</META>
@@ -265,7 +265,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:domain:occurrence</item>
 		</EDGE>
 	</META>
@@ -292,7 +292,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -319,7 +319,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">:domain:specimen</item>
 		</EDGE>
 	</META>
@@ -346,7 +346,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -373,7 +373,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -400,7 +400,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -427,7 +427,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>
@@ -454,7 +454,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
 		</EDGE>
 	</META>

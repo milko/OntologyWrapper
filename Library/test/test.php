@@ -18,7 +18,7 @@
 					'16' => 42 ),
 				array(
 					'18' => 42 ) ),
-			'17' => ":relationship:predicate:SUBCLASS-OF" );
+			'17' => ":predicate:SUBCLASS-OF" );
 	
 	//
 	// Show.

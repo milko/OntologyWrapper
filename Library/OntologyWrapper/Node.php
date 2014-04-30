@@ -1173,9 +1173,9 @@ class Node extends PersistentObject
 		$theLabels[] = $this->getNodeDomain();
 	
 		//
-		// Set node identifier.
+		// Set identifier.
 		//
-		$theProperties[ kTAG_ID_LOCAL ] = $this->offsetGet( kTAG_TERM );
+		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_TERM );
 	
 	} // setGraphProperties.
 

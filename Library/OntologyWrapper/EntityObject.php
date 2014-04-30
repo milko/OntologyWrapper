@@ -565,18 +565,25 @@ abstract class EntityObject extends UnitObject
 		parent::setGraphProperties( $theLabels, $theProperties );
 		
 		//
-		// Set Entity type.
+		// Set entity type.
 		//
 		if( $this->offsetExists( kTAG_ENTITY_TYPE ) )
 			$theProperties[ (string) kTAG_ENTITY_TYPE ]
 				= $this->offsetGet( kTAG_ENTITY_TYPE );
 		
 		//
-		// Set Entity kind.
+		// Set entity kind.
 		//
 		if( $this->offsetExists( kTAG_ENTITY_KIND ) )
 			$theProperties[ (string) kTAG_ENTITY_KIND ]
 				= $this->offsetGet( kTAG_ENTITY_KIND );
+		
+		//
+		// Set entity affiliation.
+		//
+		if( $this->offsetExists( kTAG_ENTITY_AFFILIATION ) )
+			$theProperties[ (string) kTAG_ENTITY_AFFILIATION ]
+				= $this->offsetGet( kTAG_ENTITY_AFFILIATION );
 	
 	} // setGraphProperties.
 

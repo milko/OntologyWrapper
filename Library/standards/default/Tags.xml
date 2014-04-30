@@ -343,7 +343,7 @@
 		<!-- kTAG_PREDICATE -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:relationship:predicate</item>
+				<item>:predicate</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:term</item>
 			<item const="kTAG_LABEL">

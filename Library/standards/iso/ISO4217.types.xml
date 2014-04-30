@@ -31,7 +31,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217</item>
 		</EDGE>
 	</META>
@@ -58,7 +58,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217:A</item>
 		</EDGE>
 	</META>
@@ -85,7 +85,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217:A</item>
 		</EDGE>
 	</META>
@@ -112,7 +112,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217</item>
 		</EDGE>
 	</META>
@@ -139,7 +139,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217:H</item>
 		</EDGE>
 	</META>
@@ -166,7 +166,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217:H</item>
 		</EDGE>
 	</META>

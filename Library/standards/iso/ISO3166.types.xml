@@ -9,6 +9,201 @@
 	
 	<!-- TYPES -->
 	
+	<!-- iso:3166:location -->
+	<META>
+		 <TERM ns="iso:3166" lid="location">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location code</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location codes comprising continents, countries and country subdivisions.</item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a nested enumerated set of ISO 3166 location codes covering continents, countries and country subdivisions.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:AF -->
+	<META>
+		<TERM ns="iso:3166:location" lid="AF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Africa</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AF</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:AN -->
+	<META>
+		<TERM ns="iso:3166:location" lid="AN">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Antarctica</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AN</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:AS -->
+	<META>
+		<TERM ns="iso:3166:location" lid="AS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Asia</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>AS</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:EU -->
+	<META>
+		<TERM ns="iso:3166:location" lid="EU">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Europe</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>EU</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:NA -->
+	<META>
+		<TERM ns="iso:3166:location" lid="NA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">North America</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NA</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:SA -->
+	<META>
+		<TERM ns="iso:3166:location" lid="SA">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">South America</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SA</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	<!-- iso:3166:location:OC -->
+	<META>
+		<TERM ns="iso:3166:location" lid="OC">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Oceania</item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>OC</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">iso:3166:location</item>
+		</EDGE>
+	</META>
+	
 	<!-- iso:3166:continent -->
 	<META>
 		 <TERM ns="iso:3166" lid="continent">
@@ -38,7 +233,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
@@ -61,7 +256,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -84,7 +279,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -107,7 +302,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -130,7 +325,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -153,7 +348,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -176,7 +371,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -199,7 +394,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ENUM-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:continent</item>
 		</EDGE>
 	</META>
@@ -232,7 +427,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
@@ -265,7 +460,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
 		</EDGE>
 	</META>
@@ -298,11 +493,11 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
 		</EDGE>
 	</META>
@@ -335,7 +530,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:1</item>
 		</EDGE>
 	</META>
@@ -369,7 +564,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
@@ -399,7 +594,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
@@ -432,11 +627,11 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
 		</EDGE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
 		</EDGE>
 	</META>
@@ -469,7 +664,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
 		</EDGE>
 	</META>
@@ -502,7 +697,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:3</item>
 		</EDGE>
 	</META>

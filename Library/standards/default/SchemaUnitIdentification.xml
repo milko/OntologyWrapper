@@ -42,12 +42,12 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">enum::domain</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
 	
@@ -59,7 +59,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
@@ -72,7 +72,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
@@ -85,7 +85,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>
@@ -98,7 +98,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">schema::unit:identification</item>
 		</EDGE>
 	</META>

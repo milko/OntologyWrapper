@@ -52,7 +52,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -61,7 +61,7 @@
 	<META>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::unit:identification</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -70,7 +70,7 @@
 	<META>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -89,7 +89,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -110,7 +110,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -129,12 +129,12 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">enum::type:entity</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
 	
@@ -152,12 +152,12 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">enum::kind:entity</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:TYPE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
 	
@@ -175,7 +175,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -194,7 +194,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -213,7 +213,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -232,7 +232,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -251,7 +251,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -270,7 +270,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>
@@ -289,7 +289,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_entities</item>
 		</EDGE>
 	</META>

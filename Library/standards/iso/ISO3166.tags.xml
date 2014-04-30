@@ -39,7 +39,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iso:3166:common_name</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 	</META>
@@ -56,7 +56,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Type or kind of the subdivision.</item>
+					<item const="kTAG_TEXT">Type or kind of the country subdivision.</item>
 				</item>
 			</item>
 		</TERM>
@@ -74,7 +74,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iso:3166:2:type</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166:2</item>
 		</EDGE>
 	</META>

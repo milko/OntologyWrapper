@@ -11,7 +11,7 @@
 	
 	<META>
 		<!-- kPREDICATE_SUBCLASS_OF -->
-		<TERM ns=":relationship:predicate" lid="SUBCLASS-OF">
+		<TERM ns=":predicate" lid="SUBCLASS-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -27,7 +27,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_SUBRANK_OF -->
-		<TERM ns=":relationship:predicate" lid="SUBRANK-OF">
+		<TERM ns=":predicate" lid="SUBRANK-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -43,7 +43,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_SUBSET_OF -->
-		<TERM ns=":relationship:predicate" lid="SUBSET-OF">
+		<TERM ns=":predicate" lid="SUBSET-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -59,7 +59,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_PART_OF -->
-		<TERM ns=":relationship:predicate" lid="PART-OF">
+		<TERM ns=":predicate" lid="PART-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -75,7 +75,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_TYPE_OF -->
-		<TERM ns=":relationship:predicate" lid="TYPE-OF">
+		<TERM ns=":predicate" lid="TYPE-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -91,7 +91,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_FUNCTION_OF -->
-		<TERM ns=":relationship:predicate" lid="FUNCTION-OF">
+		<TERM ns=":predicate" lid="FUNCTION-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -107,7 +107,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_COLLECTION_OF -->
-		<TERM ns=":relationship:predicate" lid="COLLECTION-OF">
+		<TERM ns=":predicate" lid="COLLECTION-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -123,7 +123,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_ATTRIBUTE_OF -->
-		<TERM ns=":relationship:predicate" lid="ATTRIBUTE-OF">
+		<TERM ns=":predicate" lid="ATTRIBUTE-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -139,7 +139,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_PROPERTY_OF -->
-		<TERM ns=":relationship:predicate" lid="PROPERTY-OF">
+		<TERM ns=":predicate" lid="PROPERTY-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -155,7 +155,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_TRAIT_OF -->
-		<TERM ns=":relationship:predicate" lid="TRAIT-OF">
+		<TERM ns=":predicate" lid="TRAIT-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -171,7 +171,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_METHOD_OF -->
-		<TERM ns=":relationship:predicate" lid="METHOD-OF">
+		<TERM ns=":predicate" lid="METHOD-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -187,7 +187,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_SCALE_OF -->
-		<TERM ns=":relationship:predicate" lid="SCALE-OF">
+		<TERM ns=":predicate" lid="SCALE-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -203,7 +203,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_ENUM_OF -->
-		<TERM ns=":relationship:predicate" lid="ENUM-OF">
+		<TERM ns=":predicate" lid="ENUM-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -219,7 +219,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_INSTANCE_OF -->
-		<TERM ns=":relationship:predicate" lid="INSTANCE-OF">
+		<TERM ns=":predicate" lid="INSTANCE-OF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -235,7 +235,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_AGGREGATE -->
-		<TERM ns=":relationship:predicate" lid="AGGREGATE">
+		<TERM ns=":predicate" lid="AGGREGATE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -251,7 +251,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_PREFERRED -->
-		<TERM ns=":relationship:predicate" lid="PREFERRED">
+		<TERM ns=":predicate" lid="PREFERRED">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -267,7 +267,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_VALID -->
-		<TERM ns=":relationship:predicate" lid="VALID">
+		<TERM ns=":predicate" lid="VALID">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -283,7 +283,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_LEGACY -->
-		<TERM ns=":relationship:predicate" lid="LEGACY">
+		<TERM ns=":predicate" lid="LEGACY">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -299,7 +299,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_XREF -->
-		<TERM ns=":relationship:predicate" lid="XREF">
+		<TERM ns=":predicate" lid="XREF">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -315,7 +315,7 @@
 		</TERM>
 		
 		<!-- kPREDICATE_XREF_EXACT -->
-		<TERM ns=":relationship:predicate" lid="XREF-EXACT">
+		<TERM ns=":predicate" lid="XREF-EXACT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

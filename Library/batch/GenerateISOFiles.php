@@ -331,6 +331,7 @@ if( kOPTION_VERBOSE )
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha3.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha4.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-numeric.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2-subset.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml' );
 		
@@ -343,6 +344,12 @@ if( kOPTION_VERBOSE )
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-alpha4.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-numeric.xml' );
 		@unlink( $theDirectory."/".kDIR_STANDARDS_ISO.'/iso15924-xref.xml' );
+		
+		//
+		// Drop default generated XML files.
+		//
+		@unlink( $theDirectory."/".kDIR_STANDARDS_DEFAULT.'/iso-locations-country.xml' );
+		@unlink( $theDirectory."/".kDIR_STANDARDS_DEFAULT.'/iso-locations-subset.xml' );
 		
 		//
 		// Generate ISO parts 1, 2 and 3 standards.
@@ -1716,6 +1723,7 @@ if( kOPTION_VERBOSE )
 			$ns_3 = 'iso:3166:1:alpha-3';
 			$ns_n = 'iso:3166:1:numeric';
 			$ns_common_name = 'iso:3166:common_name';
+			$ns_location = 'iso:3166:location';
 			
 			//
 			// Set target files name.
@@ -1723,7 +1731,10 @@ if( kOPTION_VERBOSE )
 			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml';
 			$file_3 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha3.xml';
 			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-numeric.xml';
+			$file_sub = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2-subset.xml';
 			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
+			$file_location = $theDirectory."/".kDIR_STANDARDS_DEFAULT
+														.'/iso-locations-country.xml';
 			
 			//
 			// Open XML structures.
@@ -1731,7 +1742,16 @@ if( kOPTION_VERBOSE )
 			$xml_2 = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_3 = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_n = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_sub = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_location = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			
+			//
+			// Load counry subsets file.
+			//
+			$xml_sub_in
+				= simplexml_load_file(
+					kISO_CODES_PATH.kISO_CODES_PATH_XML.'/'.kISO_FILE_3166_2.'.xml' );
 			
 			//
 			// Iterate XML file.
@@ -1755,9 +1775,16 @@ if( kOPTION_VERBOSE )
 					$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$id3;
 					
 					//
+					// Save location identifier.
+					//
+					$id_loc = "1".kTOKEN_NAMESPACE_SEPARATOR.$id3;
+					$gid_loc = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_loc;
+					
+					//
 					// Create unit.
 					//
 					$unit = $xml_3->addChild( 'META' );
+					$loc_unit = $xml_location->addChild( 'META' );
 					
 					//
 					// Create term.
@@ -1767,6 +1794,13 @@ if( kOPTION_VERBOSE )
 					$term->addAttribute( 'lid', $id3 );
 					
 					//
+					// Create location term.
+					//
+					$loc_term = $loc_unit->addChild( 'TERM' );
+					$loc_term->addAttribute( 'ns', $ns_location );
+					$loc_term->addAttribute( 'lid', $id_loc );
+					
+					//
 					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
@@ -1774,15 +1808,30 @@ if( kOPTION_VERBOSE )
 					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
+					// Set location instance.
+					//
+					$loc_element = $loc_term->addChild( 'item' );
+					$loc_element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$loc_element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					
+					//
 					// Set term synonyms.
 					//
 					$element_syn_3 = $term->addChild( 'item' );
 					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$item = $element_syn_3->addChild( 'item', $id3 );
+					$element_syn_3->addChild( 'item', $id3 );
+					
+					//
+					// Set location synonyms.
+					//
+					$element_syn_loc = $loc_term->addChild( 'item' );
+					$element_syn_loc->addAttribute( 'const', 'kTAG_SYNONYM' );
+					$element_syn_loc->addChild( 'item', $id3 );
 					
 					//
 					// Init term names.
 					//
+					$country_name = NULL;
 					$names = Array();
 					
 					//
@@ -1792,6 +1841,7 @@ if( kOPTION_VERBOSE )
 					{
 						$tmp = (string) $record[ 'name' ];
 						$names[ kTAG_LABEL ][ 'en' ] = $tmp;
+						$country_name = $tmp;
 					}
 					
 					//
@@ -1801,6 +1851,8 @@ if( kOPTION_VERBOSE )
 					{
 						$tmp = (string) $record[ 'official_name' ];
 						$names[ kTAG_DEFINITION ][ 'en' ] = $tmp;
+						if( $country_name === NULL )
+							$country_name = $tmp;
 					}
 					
 					//
@@ -1810,6 +1862,8 @@ if( kOPTION_VERBOSE )
 					{
 						$tmp = (string) $record[ 'common_name' ];
 						$names[ $ns_common_name ][ 'en' ] = $tmp;
+						if( $country_name === NULL )
+							$country_name = $tmp;
 					}
 					
 					//
@@ -1821,7 +1875,17 @@ if( kOPTION_VERBOSE )
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
+					{
+						//
+						// Set country.
+						//
 						AddLanguageStrings( $term, $tag, $strings );
+						
+						//
+						// Set location.
+						//
+						AddLanguageStrings( $loc_term, $tag, $strings );
+					}
 					
 					//
 					// Create node.
@@ -1829,11 +1893,23 @@ if( kOPTION_VERBOSE )
 					$node = $unit->addChild( 'NODE' );
 					
 					//
+					// Create location node.
+					//
+					$loc_node = $loc_unit->addChild( 'NODE' );
+					
+					//
 					// Set node type.
 					//
 					$element = $node->addChild( 'item' );
 					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					
+					//
+					// Set location node type.
+					//
+					$loc_element = $loc_node->addChild( 'item' );
+					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
@@ -1844,6 +1920,16 @@ if( kOPTION_VERBOSE )
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
 					$element->addAttribute( 'node', 'term' );
+			
+					//
+					// Xref location to alpha 3 element.
+					//
+					$loc_edge = $loc_unit->addChild( 'EDGE' );
+					$loc_element = $loc_edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+					$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					$loc_element = $loc_edge->addChild( 'item', $gid3 );
+					$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$loc_element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 2.
@@ -1855,6 +1941,76 @@ if( kOPTION_VERBOSE )
 						//
 						$id2 = (string) $record[ 'alpha_2_code' ];
 						$gid2 = $ns_2.kTOKEN_NAMESPACE_SEPARATOR.$id2;
+						
+						//
+						// Iterate subdivisions.
+						//
+						foreach(
+							$xml_sub_in->xpath(
+								"//iso_3166_country[@code='$id2']//iso_3166_subset" )
+								as $subset )
+						{
+							//
+							// Save subdivision name.
+							//
+							$name = (string) $subset[ 'type' ];
+							$sub_name = "$country_name $name";
+							
+							//
+							// Save identifier.
+							//
+							$id_sub = $id2.kTOKEN_NAMESPACE_SEPARATOR.$name;
+							$gid_sub = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_sub;
+					
+							//
+							// Create unit.
+							//
+							$unit_sub = $xml_sub->addChild( 'META' );
+					
+							//
+							// Create term.
+							//
+							$term_sub = $unit_sub->addChild( 'TERM' );
+							$term_sub->addAttribute( 'ns', $ns_location );
+							$term_sub->addAttribute( 'lid', $id_sub );
+					
+							//
+							// Set label.
+							//
+							$element_sub = $term_sub->addChild( 'item' );
+							$element_sub->addAttribute( 'const', 'kTAG_LABEL' );
+							$element_sub = $element_sub->addChild( 'item' );
+							$item_sub = $element_sub->addChild( 'item', 'en' );
+							$item_sub->addAttribute( 'const', 'kTAG_LANGUAGE' );
+							$item_sub = $element_sub->addChild( 'item', $sub_name );
+							$item_sub->addAttribute( 'const', 'kTAG_TEXT' );
+					
+							//
+							// Set synonyms.
+							//
+							$element_syn_sub = $term_sub->addChild( 'item' );
+							$element_syn_sub->addAttribute( 'const', 'kTAG_SYNONYM' );
+							$element_syn_sub->addChild( 'item', $id_sub );
+					
+							//
+							// Create node.
+							//
+							$node_sub = $unit_sub->addChild( 'NODE' );
+							$element_sub = $node_sub->addChild( 'item' );
+							$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+							$element_sub->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					
+							//
+							// Relate to parent.
+							//
+							$edge_sub = $unit_sub->addChild( 'EDGE' );
+							$element_sub = $edge_sub->addChild( 'item', kPREDICATE_ENUM_OF );
+							$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
+							$element_sub = $edge_sub->addChild( 'item', $gid_loc );
+							$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
+							$element_sub->addAttribute( 'node', 'term' );
+						
+						} // Iterating subdivisions.
 					
 						//
 						// Add term synonym.
@@ -2118,7 +2274,9 @@ if( kOPTION_VERBOSE )
 			@unlink( $file_2 ); $xml_2->asXML( $file_2 );
 			@unlink( $file_3 ); $xml_3->asXML( $file_3 );
 			@unlink( $file_n ); $xml_n->asXML( $file_n );
+			@unlink( $file_sub ); $xml_sub->asXML( $file_sub );
 			@unlink( $file_xref ); $xml_xref->asXML( $file_xref );
+			@unlink( $file_location ); $xml_location->asXML( $file_location );
 		
 		} // Loaded file.
 		
@@ -2175,6 +2333,7 @@ if( kOPTION_VERBOSE )
 			$ns_4 = 'iso:3166:3:alpha-4';
 			$ns_n = 'iso:3166:3:numeric';
 			$ns_date_witdrawn = 'iso:date_withdrawn';
+			$ns_location = 'iso:3166:location';
 			
 			//
 			// Set target files name.
@@ -2183,6 +2342,8 @@ if( kOPTION_VERBOSE )
 			$file_4 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-alpha4.xml';
 			$file_n = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-3-numeric.xml';
 			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
+			$file_location = $theDirectory."/".kDIR_STANDARDS_DEFAULT
+													.'/iso-locations-country.xml';
 			
 			//
 			// Open XML structures.
@@ -2191,6 +2352,7 @@ if( kOPTION_VERBOSE )
 			$xml_4 = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_n = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_xref = simplexml_load_file( $file_xref );
+			$xml_location = simplexml_load_file( $file_location );
 			
 			//
 			// Iterate XML file.
@@ -2213,10 +2375,14 @@ if( kOPTION_VERBOSE )
 					$id3 = (string) $record[ 'alpha_3_code' ];
 					$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$id3;
 					
+					$id_loc = "3".kTOKEN_NAMESPACE_SEPARATOR.$id3;
+					$gid_loc = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_loc;
+					
 					//
 					// Create unit.
 					//
 					$unit = $xml_3->addChild( 'META' );
+					$loc_unit = $xml_location->addChild( 'META' );
 					
 					//
 					// Create term.
@@ -2225,6 +2391,10 @@ if( kOPTION_VERBOSE )
 					$term->addAttribute( 'ns', $ns_3 );
 					$term->addAttribute( 'lid', $id3 );
 					
+					$loc_term = $loc_unit->addChild( 'TERM' );
+					$loc_term->addAttribute( 'ns', $ns_location );
+					$loc_term->addAttribute( 'lid', $id_loc );
+					
 					//
 					// Set term instance.
 					//
@@ -2232,12 +2402,20 @@ if( kOPTION_VERBOSE )
 					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
 					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
+					$loc_element = $loc_term->addChild( 'item' );
+					$loc_element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
+					$loc_element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					
 					//
 					// Set term synonyms.
 					//
 					$element_syn_3 = $term->addChild( 'item' );
 					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
 					$element_syn_3->addChild( 'item', $id3 );
+					
+					$element_syn_loc = $loc_term->addChild( 'item' );
+					$element_syn_loc->addAttribute( 'const', 'kTAG_SYNONYM' );
+					$element_syn_loc->addChild( 'item', $id3 );
 					
 					//
 					// Init term names.
@@ -2271,7 +2449,10 @@ if( kOPTION_VERBOSE )
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
+					{
 						AddLanguageStrings( $term, $tag, $strings );
+						AddLanguageStrings( $loc_term, $tag, $strings );
+					}
 					
 					//
 					// Set date withdrawn.
@@ -2281,12 +2462,17 @@ if( kOPTION_VERBOSE )
 						$tmp = (string) $record[ 'date_withdrawn' ];
 						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
 						$element->addAttribute( 'tag', $ns_date_witdrawn );
+
+						$tmp = (string) $record[ 'date_withdrawn' ];
+						$loc_element = $loc_term->addChild( 'item', htmlspecialchars( $tmp ) );
+						$loc_element->addAttribute( 'tag', $ns_date_witdrawn );
 					}
 					
 					//
 					// Create node.
 					//
 					$node = $unit->addChild( 'NODE' );
+					$loc_node = $loc_unit->addChild( 'NODE' );
 					
 					//
 					// Set node type.
@@ -2294,6 +2480,10 @@ if( kOPTION_VERBOSE )
 					$element = $node->addChild( 'item' );
 					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					
+					$loc_element = $loc_node->addChild( 'item' );
+					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
@@ -2304,6 +2494,19 @@ if( kOPTION_VERBOSE )
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
 					$element->addAttribute( 'node', 'term' );
+			
+					//
+					// Relate location to alpha 3 element.
+					//
+					$loc_edge = $loc_unit->addChild( 'EDGE' );
+					$loc_element = $loc_edge->addChild( 'item', $gid_loc );
+					$loc_element->addAttribute( 'const', 'kTAG_SUBJECT' );
+					$loc_element->addAttribute( 'node', 'term' );
+					$loc_element = $loc_edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+					$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					$loc_element = $loc_edge->addChild( 'item', $gid3 );
+					$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$loc_element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 4.
@@ -2579,6 +2782,7 @@ if( kOPTION_VERBOSE )
 			@unlink( $file_4 ); $xml_4->asXML( $file_4 );
 			@unlink( $file_n ); $xml_n->asXML( $file_n );
 			@unlink( $file_xref ); $xml_xref->asXML( $file_xref );
+			@unlink( $file_location ); $xml_location->asXML( $file_location );
 		
 		} // Loaded file.
 		
@@ -2634,6 +2838,7 @@ if( kOPTION_VERBOSE )
 			$ns_n = 'iso:3166:1:numeric';
 			$ns_sub = 'iso:3166:2';
 			$ns_type = 'iso:3166:2:type';
+			$ns_location = 'iso:3166:location';
 			
 			//
 			// Set target files name.
@@ -2641,6 +2846,8 @@ if( kOPTION_VERBOSE )
 			$file_2 = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-1-alpha2.xml';
 			$file_sub = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-2.xml';
 			$file_xref = $theDirectory."/".kDIR_STANDARDS_ISO.'/iso3166-xref.xml';
+			$file_location = $theDirectory."/".kDIR_STANDARDS_DEFAULT
+														.'/iso-locations-subset.xml';
 			
 			//
 			// Open XML structures.
@@ -2648,6 +2855,7 @@ if( kOPTION_VERBOSE )
 			$xml_2 = simplexml_load_file( $file_2 );
 			$xml_sub = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			$xml_xref = simplexml_load_file( $file_xref );
+			$xml_location = new SimpleXMLElement( kXML_STANDARDS_BASE );
 			
 			//
 			// Iterate XML file.
@@ -2673,6 +2881,7 @@ if( kOPTION_VERBOSE )
 					//
 					// Get country synonyms.
 					//
+					$id3 = NULL;
 					$term_2 = $xml_2->xpath( "//TERM[@lid='$id_2']" )[ 0 ];
 					$syns = $term_2->xpath( "item[@const='kTAG_SYNONYM']" );
 					if( count( $syns ) )
@@ -2698,9 +2907,18 @@ if( kOPTION_VERBOSE )
 								// Handle alpha-3.
 								//
 								else
+								{
 									$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$syn;
+									
+									$id3 = $syn;
+									$gid_loc = $ns_location
+											  .kTOKEN_NAMESPACE_SEPARATOR
+											  ."1"
+											  .kTOKEN_NAMESPACE_SEPARATOR
+											  .$id3;
+								}
 							
-							} // Not alpha-s code.
+							} // Not alpha-2 code.
 						
 						} // Iterating synonyms.
 					
@@ -2741,6 +2959,7 @@ if( kOPTION_VERBOSE )
 									// Create unit.
 									//
 									$unit = $xml_sub->addChild( 'META' );
+									$unit_sub = $xml_location->addChild( 'META' );
 					
 									//
 									// Create term.
@@ -2749,11 +2968,18 @@ if( kOPTION_VERBOSE )
 									$term->addAttribute( 'ns', $ns_sub );
 									$term->addAttribute( 'lid', $idsub );
 					
+									$term_sub = $unit_sub->addChild( 'TERM' );
+									$term_sub->addAttribute( 'ns', $ns_location );
+									$term_sub->addAttribute( 'lid', $idsub );
+					
 									//
-									// Set term type.
+									// Set type property.
 									//
 									$element = $term->addChild( 'item', $type );
 									$element->addAttribute( 'tag', $ns_type );
+					
+									$element_sub = $term_sub->addChild( 'item', $type );
+									$element_sub->addAttribute( 'tag', $ns_type );
 					
 									//
 									// Set term synonyms.
@@ -2761,6 +2987,10 @@ if( kOPTION_VERBOSE )
 									$element = $term->addChild( 'item' );
 									$element->addAttribute( 'const', 'kTAG_SYNONYM' );
 									$element->addChild( 'item', $idsub );
+					
+									$element_sub = $term_sub->addChild( 'item' );
+									$element_sub->addAttribute( 'const', 'kTAG_SYNONYM' );
+									$element_sub->addChild( 'item', $idsub );
 					
 									//
 									// Init term names.
@@ -2785,12 +3015,16 @@ if( kOPTION_VERBOSE )
 									// Set language strings.
 									//
 									foreach( $names as $tag => $strings )
+									{
 										AddLanguageStrings( $term, $tag, $strings );
+										AddLanguageStrings( $term_sub, $tag, $strings );
+									}
 					
 									//
 									// Create node.
 									//
 									$node = $unit->addChild( 'NODE' );
+									$node_sub = $unit_sub->addChild( 'NODE' );
 					
 									//
 									// Set node type.
@@ -2798,6 +3032,11 @@ if( kOPTION_VERBOSE )
 									$element = $node->addChild( 'item' );
 									$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 									$item = $element->addChild( 'item',
+																kTYPE_NODE_ENUMERATION );
+					
+									$element_sub = $node_sub->addChild( 'item' );
+									$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+									$element_sub->addChild( 'item',
 																kTYPE_NODE_ENUMERATION );
 					
 									//
@@ -2810,6 +3049,29 @@ if( kOPTION_VERBOSE )
 									$element = $edge->addChild( 'item', $ns_sub );
 									$element->addAttribute( 'const', 'kTAG_OBJECT' );
 									$element->addAttribute( 'node', 'term' );
+									
+									//
+									// Relate location to parent.
+									//
+									$edge_sub = $unit_sub->addChild( 'EDGE' );
+									$element_sub = $edge_sub->addChild(
+										'item', kPREDICATE_ENUM_OF );
+									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
+									$element_sub = $edge_sub->addChild( 'item', $gid_loc );
+									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
+									$element_sub->addAttribute( 'node', 'term' );
+			
+									//
+									// Xref location.
+									//
+									$loc_edge = $loc_unit->addChild( 'EDGE' );
+									$loc_element = $loc_edge->addChild(
+										'item', kPREDICATE_XREF_EXACT );
+									$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
+									$loc_element = $loc_edge->addChild( 'item', $gidsub );
+									$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
+									$loc_element->addAttribute( 'node', 'term' );
+									$loc_element->addAttribute( 'node', 'term' );
 									
 									//
 									// Determine supersets.
@@ -2875,6 +3137,7 @@ if( kOPTION_VERBOSE )
 			// Write files.
 			//
 			@unlink( $file_sub ); $xml_sub->asXML( $file_sub );
+			@unlink( $file_location ); $xml_location->asXML( $file_location );
 			@unlink( $file_xref ); $xml_xref->asXML( $file_xref );
 		
 		} // Loaded file.

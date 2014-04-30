@@ -37,12 +37,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iso:date_withdrawn</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:3166</item>
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">iso:date_withdrawn</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">iso:4217</item>
 		</EDGE>
 	</META>

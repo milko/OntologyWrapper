@@ -29,7 +29,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">wbi:group</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">wbi</item>
 		</EDGE>
 	</META>
@@ -64,7 +64,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">wbi:version</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">wbi</item>
 		</EDGE>
 	</META>

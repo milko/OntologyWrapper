@@ -52,7 +52,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:ATTRIBUTE-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:ATTRIBUTE-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -71,7 +71,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -90,7 +90,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -109,14 +109,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
 	
 	<!-- kTAG_PREDICATE -->
 	<META>
-		<NODE tag=":relationship:predicate" pid="_edges::relationship:predicate">
+		<NODE tag=":predicate" pid="_edges::predicate">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -128,7 +128,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -147,7 +147,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -166,7 +166,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:relationship:predicate:PROPERTY-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>
@@ -175,7 +175,7 @@
 	<META>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="pid">schema::ref-count</item>
-			<item const="kTAG_PREDICATE">:relationship:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="term">_edges</item>
 		</EDGE>
 	</META>

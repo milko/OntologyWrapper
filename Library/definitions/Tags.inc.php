@@ -315,7 +315,7 @@ define( "kTAG_SUBJECT",					17 );
 define( "kTAG_GRAPH_SUBJECT",			18 );
 
 /**
- * Relationship predicate (<code>:relationship:predicate</code)
+ * Relationship predicate (<code>:predicate</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_REF_TERM}
