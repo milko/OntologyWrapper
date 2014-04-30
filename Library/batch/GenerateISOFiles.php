@@ -2933,7 +2933,7 @@ if( kOPTION_VERBOSE )
 							//
 							// Save subdivision identifier.
 							//
-							$id_subset = $id2.kTOKEN_NAMESPACE_SEPARATOR.$type;
+							$id_subset = $id_2.kTOKEN_NAMESPACE_SEPARATOR.$type;
 							$gid_subset = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_subset;
 							
 							//
