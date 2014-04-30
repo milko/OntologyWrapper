@@ -1188,10 +1188,6 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
-		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2-subset.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -1219,6 +1215,10 @@ class Wrapper extends Dictionary
 			echo( "  • Loading location XML files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/default/iso-locations-country.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2-subset.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 
