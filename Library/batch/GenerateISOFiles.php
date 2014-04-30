@@ -3054,21 +3054,20 @@ if( kOPTION_VERBOSE )
 									$element_sub = $edge_sub->addChild(
 										'item', kPREDICATE_ENUM_OF );
 									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$element_sub = $edge_sub->addChild( 'item', $id_subset );
+									$element_sub = $edge_sub->addChild( 'item', $gid_subset );
 									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
 									$element_sub->addAttribute( 'node', 'term' );
 			
 									//
 									// Xref location.
 									//
-									$loc_edge = $loc_unit->addChild( 'EDGE' );
-									$loc_element = $loc_edge->addChild(
+									$edge_sub = $unit_sub->addChild( 'EDGE' );
+									$element_sub = $edge_sub->addChild(
 										'item', kPREDICATE_XREF_EXACT );
-									$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$loc_element = $loc_edge->addChild( 'item', $gidsub );
-									$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
-									$loc_element->addAttribute( 'node', 'term' );
-									$loc_element->addAttribute( 'node', 'term' );
+									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
+									$element_sub = $edge_sub->addChild( 'item', $gidsub );
+									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
+									$element_sub->addAttribute( 'node', 'term' );
 									
 									//
 									// Determine supersets.
