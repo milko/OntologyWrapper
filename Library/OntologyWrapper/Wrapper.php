@@ -636,6 +636,10 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collections.\n" );
+		
+		//
+		// Reset Metadata.
+		//
 		$this->mMetadata->drop();
 		Tag::CreateIndexes( $this->mMetadata );
 		Term::CreateIndexes( $this->mMetadata );
@@ -780,13 +784,21 @@ class Wrapper extends Dictionary
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
 	 * @access public
 	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
-	public function resetEntities()
+	public function resetEntities( $doLog = FALSE )
 	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting ontology.\n" );
+		
 		//
 		// Check if object is connected.
 		//
@@ -796,13 +808,24 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Resety entity collection.
+		// Reset collections.
+		//
+		if( $doLog )
+			echo( "  • Resetting entities.\n" );
+		
+		//
+		// Reset entity collection.
 		//
 		FAOInstitute::ResetCollection( $this->mEntities );
+		Individual::CreateIndexes( $this->mEntities );
+		Institution::CreateIndexes( $this->mEntities );
 		
 		//
 		// Load FAO institutes.
 		//
+		if( $doLog )
+			echo( "  • Loading FAO Institutes.\n" );
+		
 		return FAOInstitute::Maintain( $this );										// ==>
 	
 	} // resetEntities.
@@ -1353,7 +1376,7 @@ class Wrapper extends Dictionary
 	/**
 	 * Load default entities
 	 *
-	 * This method can be used to load the default entities.
+	 * This method can be used to reset and load the default entities.
 	 *
 	 * @param boolean				$doLog				Log operations.
 	 *
