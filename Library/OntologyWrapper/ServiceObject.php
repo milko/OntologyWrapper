@@ -415,16 +415,6 @@ abstract class ServiceObject extends ContainerObject
 		//
 		switch( $theKey )
 		{
-			case kAPI_PARAM_COLLECTION:
-				$this->parseCollection( $theValue );
-				$this->offsetSet( $theKey, $theValue );
-				break;
-				
-			case kAPI_PARAM_PROPERTY:
-				$this->parseProperty( $theValue );
-				$this->offsetSet( $theKey, $theValue );
-				break;
-				
 			case kAPI_PAGING_LIMIT:
 				$theValue = (int) $theValue;
 				$this->offsetSet( $theKey, $theValue );
@@ -432,104 +422,6 @@ abstract class ServiceObject extends ContainerObject
 		}
 	
 	} // parseParameter.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PARSING UTILITIES								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	parseCollection																	*
-	 *==================================================================================*/
-
-	/**
-	 * Parse collection.
-	 *
-	 * This method will parse the provided collection parameter replacing the provided
-	 * value with the related collection name.
-	 *
-	 * @access protected
-	 *
-	 * @param mixed					$theValue			Parameter value.
-	 *
-	 * @throws Exception
-	 */
-	protected function parseCollection( &$theValue )
-	{
-		//
-		// Check operation.
-		//
-		switch( $theValue )
-		{
-			case 'tag':
-				$theValue = Tag::kSEQ_NAME;
-				break;
-				
-			case 'term':
-				$theValue = Term::kSEQ_NAME;
-				break;
-				
-			case 'node':
-				$theValue = Node::kSEQ_NAME;
-				break;
-				
-			case 'edge':
-				$theValue = Edge::kSEQ_NAME;
-				break;
-				
-			case 'unit':
-				$theValue = UnitObject::kSEQ_NAME;
-				break;
-				
-			case 'entity':
-				$theValue = EntityObject::kSEQ_NAME;
-				break;
-			
-			default:
-				throw new \Exception(
-					"Invalid collection parameter: "
-				   ."[$theValue]." );											// !@! ==>
-		}
-		
-	} // parseCollection.
-
-	 
-	/*===================================================================================
-	 *	parseProperty																	*
-	 *==================================================================================*/
-
-	/**
-	 * Parse property.
-	 *
-	 * This method will parse the provided property parameter replacing the provided
-	 * value with the related tag object.
-	 *
-	 * @access protected
-	 *
-	 * @param mixed					$theValue			Parameter value.
-	 *
-	 * @throws Exception
-	 */
-	protected function parseProperty( &$theValue )
-	{
-		//
-		// Get tag sequence number.
-		//
-		if( (! is_int( $theValue ))
-		 && (! ctype_digit( $theValue )) )
-			$theValue = $this->mWrapper->getSerial( $theValue, TRUE );
-		
-		//
-		// Get tag object.
-		//
-		$theValue = $this->mWrapper->getObject( (int) $theValue, TRUE );
-		
-	} // parseProperty.
 
 		
 

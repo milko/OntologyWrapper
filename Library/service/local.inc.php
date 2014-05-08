@@ -89,6 +89,6 @@ define( "kSTANDARDS_LANGUAGE",			'en' );
  *
  * This tag indicates the default strings list limit.
  */
-define( "kSTANDARDS_STRINGS_LIMIT",		25 );
+define( "kSTANDARDS_STRINGS_LIMIT",		100 );
 
 ?>

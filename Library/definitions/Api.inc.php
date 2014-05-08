@@ -102,37 +102,6 @@ define( "kAPI_STATUS_CODE",						'code' );
 define( "kAPI_STATUS_MESSAGE",					'message' );
 
 /*=======================================================================================
- *	STATE																				*
- *======================================================================================*/
-
-/**
- * Idle.
- *
- * Idle state.
- *
- * The service has not yet parsed the request.
- */
-define( "kAPI_STATE_IDLE",						'idle' );
-
-/**
- * OK.
- *
- * Success state.
- *
- * The service has no errors.
- */
-define( "kAPI_STATE_OK",						'ok' );
-
-/**
- * Error.
- *
- * Error state.
- *
- * The service encountered an error.
- */
-define( "kAPI_STATE_ERROR",						'error' );
-
-/*=======================================================================================
  *	PAGING																				*
  *======================================================================================*/
 
@@ -165,7 +134,38 @@ define( "kAPI_PAGING_ACTUAL",					'actual' );
 define( "kAPI_PAGING_AFFECTED",					'affected' );
 
 /*=======================================================================================
- *	GENERIC OPERATIONS																	*
+ *	STATE																				*
+ *======================================================================================*/
+
+/**
+ * Idle.
+ *
+ * Idle state.
+ *
+ * The service has not yet parsed the request.
+ */
+define( "kAPI_STATE_IDLE",						'idle' );
+
+/**
+ * OK.
+ *
+ * Success state.
+ *
+ * The service has no errors.
+ */
+define( "kAPI_STATE_OK",						'ok' );
+
+/**
+ * Error.
+ *
+ * Error state.
+ *
+ * The service encountered an error.
+ */
+define( "kAPI_STATE_ERROR",						'error' );
+
+/*=======================================================================================
+ *	OPERATIONS																			*
  *======================================================================================*/
 
 /**
@@ -178,35 +178,17 @@ define( "kAPI_PAGING_AFFECTED",					'affected' );
  */
 define( "kAPI_OP_PING",							'ping' );
 
-/*=======================================================================================
- *	LIST OPERATIONS																		*
- *======================================================================================*/
-
 /**
- * String list.
+ * Match tag labels.
  *
- * This tag defines the string list operation.
+ * This tag defines the match tag labels operation.
  *
- * This operation will return a list of strings corresponding to the provided target
- * collection, property, match pattern, language, operator and limit.
+ * The service will return a list of tag label strings corresponding to the provided
+ * pattern, language, operator and limit.
  *
  * This operation expects the following parameters:
  *
  * <ul>
- *	<li><tt>{ @link kAPI_PARAM_COLLECTION}</tt>: <em>Collection</em>. This required
- *		parameter is an enumerated set that determines which collection will be searched, it
- *		features the following choices:
- *	 <ul>
- *		<li><tt>tag</tt>: Tag objects.
- *		<li><tt>term</tt>: Term objects.
- *		<li><tt>node</tt>: Node objects.
- *		<li><tt>edge</tt>: Edge objects.
- *		<li><tt>unit</tt>: All unit class of objects.
- *		<li><tt>entity</tt>: All entity class of objects.
- *	 </ul>
- *	<li><tt>{ @link kAPI_PARAM_PROPERTY}</tt>: <em>Property</em>. This required parameter
- *		represents the property or field to be searched in the provided collection. It can
- *		either hold a tag's native identifier or sequence number.
  *	<li><tt>{ @link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
  *		contains the match pattern.
  *	<li><tt>{ @link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
@@ -239,43 +221,11 @@ define( "kAPI_OP_PING",							'ping' );
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
  * </ul>
  */
-define( "kAPI_OP_STRING_LIST",					'string-list' );
+define( "kAPI_OP_MATCH_TAG_LABELS",				'matchTagLabels' );
 
 /*=======================================================================================
  *	PARAMETERS																			*
  *======================================================================================*/
-
-/**
- * Collection (string).
- *
- * This tag defines the requested collection.
- *
- * This parameter is used to determine which object class and collection we want to operate
- * on. For instance, if we are reauesting a list of labels corresponding to an autocomplete
- * string, this parameter will determine which collection will be used for searching.
- *
- * This parameter is an enumerated set:
- *
- * <ul>
- *	<li><tt>tag</tt>: Tag objects.
- *	<li><tt>term</tt>: Term objects.
- *	<li><tt>node</tt>: Node objects.
- *	<li><tt>edge</tt>: Edge objects.
- *	<li><tt>unit</tt>: All unit class of objects.
- *	<li><tt>entity</tt>: All entity class of objects.
- * </ul>
- */
-define( "kAPI_PARAM_COLLECTION",				'collection' );
-
-/**
- * Property (string).
- *
- * This tag defines the requested property.
- *
- * This parameter represents the target property, it should either be a tag native
- * identifier, or sequence number.
- */
-define( "kAPI_PARAM_PROPERTY",					'property' );
 
 /**
  * Pattern (string).
