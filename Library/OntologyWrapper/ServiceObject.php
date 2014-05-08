@@ -25,6 +25,13 @@ use OntologyWrapper\ContainerObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 /**
+ * Operators.
+ *
+ * This file contains the match operators definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Operators.inc.php" );
+
+/**
  * Functions.
  *
  * This file contains common function definitions.
@@ -133,7 +140,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// CATCH BLOCK.
 		//
-		catch( Exception $error )
+		catch( \Exception $error )
 		{
 			$this->handleException( $error );										// ==>
 		}
@@ -179,15 +186,10 @@ abstract class ServiceObject extends ContainerObject
 							[ kAPI_STATUS_STATE ] = kAPI_STATE_OK;
 			
 			//
-			// Parse by operation.
+			// Execute request.
 			//
-			switch( $op = $this->offsetGet( kAPI_REQUEST_OPERATION ) )
-			{
-				case kAPI_OP_PING:
-					$this->executePing()
-					break;
-			}
-		
+			$this->executeRequest();
+			
 			//
 			// Send header.
 			//
@@ -199,7 +201,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// CATCH BLOCK.
 		//
-		catch( Exception $error )
+		catch( \Exception $error )
 		{
 			$this->handleException( $error );										// ==>
 		}
@@ -234,9 +236,21 @@ abstract class ServiceObject extends ContainerObject
 	protected function parseRequest()
 	{
 		//
+		// Check operation.
+		//
+		if( ! array_key_exists( kAPI_REQUEST_OPERATION, $_REQUEST ) )
+			throw new \Exception(
+				"Missing service operation." );									// !@! ==>
+	
+		//
 		// Parse operation.
 		//
 		$this->parseOperation();
+	
+		//
+		// Parse language.
+		//
+		$this->parseLanguage();
 		
 		//
 		// Parse parameters.
@@ -258,8 +272,14 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * If no operation was provided, the method will raise an exception.
 	 *
-	 * Derived classes should overload this method by first calling the parent method, then
-	 * check whether the provided operation is valid.
+	 * In this class we assert the following operations:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
+	 * </ul>
+	 *
+	 * Derived classes should overload this method by asserting custom operations or calling
+	 * the parent method.
 	 *
 	 * @access protected
 	 *
@@ -268,18 +288,54 @@ abstract class ServiceObject extends ContainerObject
 	protected function parseOperation()
 	{
 		//
-		// Check operation.
+		// Parse operation.
 		//
-		if( ! array_key_exists( kAPI_REQUEST_OPERATION, $_REQUEST ) )
-			throw new \Exception(
-				"Missing service operation." );									// !@! ==>
-	
-		//
-		// Set operation.
-		//
-		$this->offsetSet( kAPI_REQUEST_OPERATION, $_REQUEST[ kAPI_REQUEST_OPERATION ] );
+		switch( $op = $_REQUEST[ kAPI_REQUEST_OPERATION ] )
+		{
+			case kAPI_OP_PING:
+				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid or unsupported operation: "
+				   ."[$op]." );													// !@! ==>
+		}
 		
 	} // parseOperation.
+
+	 
+	/*===================================================================================
+	 *	parseLanguage																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse language.
+	 *
+	 * The duty of this method is to parse the provided requested language, or set the
+	 * default language.
+	 *
+	 * This parameter affects only language string list parameters, those of type
+	 * {@link kTYPE_LANGUAGE_STRINGS}: all properties of that type will only hold the string
+	 * of that language.
+	 *
+	 * @access protected
+	 */
+	protected function parseLanguage()
+	{
+		//
+		// Set provided language.
+		//
+		if( array_key_exists( kAPI_REQUEST_LANGUAGE, $_REQUEST ) )
+			$this->offsetSet( kAPI_REQUEST_LANGUAGE, $_REQUEST[ kAPI_REQUEST_LANGUAGE ] );
+		
+		//
+		// Set default language.
+		//
+		else
+			$this->offsetSet( kAPI_REQUEST_LANGUAGE, kSTANDARDS_LANGUAGE );
+		
+	} // parseLanguage.
 
 	 
 	/*===================================================================================
@@ -342,12 +398,10 @@ abstract class ServiceObject extends ContainerObject
 	 * The duty of this method is to parse the provided single parameter, the method expects
 	 * the parameter key and value.
 	 *
-	 * This class will simply store the parameter and its value in the current object's
-	 * array, derived classes may overload this method to skip or format parameters, then
-	 * call the parent method if the parameter is to be considered.
-	 *
 	 * Both the key and the value are provided as references, this may allow derived classes
 	 * to transform parameters.
+	 *
+	 * In this class we handle the common parameters.
 	 *
 	 * @param string				$theKey				Parameter key.
 	 * @param mixed					$theValue			Parameter value.
@@ -357,11 +411,125 @@ abstract class ServiceObject extends ContainerObject
 	protected function parseParameter( &$theKey, &$theValue )
 	{
 		//
-		// Store parameter.
+		// Parse parameter.
 		//
-		$this->offsetSet( $theKey, $theValue );
-		
+		switch( $theKey )
+		{
+			case kAPI_PARAM_COLLECTION:
+				$this->parseCollection( $theValue );
+				$this->offsetSet( $theKey, $theValue );
+				break;
+				
+			case kAPI_PARAM_PROPERTY:
+				$this->parseProperty( $theValue );
+				$this->offsetSet( $theKey, $theValue );
+				break;
+				
+			case kAPI_PAGING_LIMIT:
+				$theValue = (int) $theValue;
+				$this->offsetSet( $theKey, $theValue );
+				break;
+		}
+	
 	} // parseParameter.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PARSING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	parseCollection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse collection.
+	 *
+	 * This method will parse the provided collection parameter replacing the provided
+	 * value with the related collection name.
+	 *
+	 * @access protected
+	 *
+	 * @param mixed					$theValue			Parameter value.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseCollection( &$theValue )
+	{
+		//
+		// Check operation.
+		//
+		switch( $theValue )
+		{
+			case 'tag':
+				$theValue = Tag::kSEQ_NAME;
+				break;
+				
+			case 'term':
+				$theValue = Term::kSEQ_NAME;
+				break;
+				
+			case 'node':
+				$theValue = Node::kSEQ_NAME;
+				break;
+				
+			case 'edge':
+				$theValue = Edge::kSEQ_NAME;
+				break;
+				
+			case 'unit':
+				$theValue = UnitObject::kSEQ_NAME;
+				break;
+				
+			case 'entity':
+				$theValue = EntityObject::kSEQ_NAME;
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid collection parameter: "
+				   ."[$theValue]." );											// !@! ==>
+		}
+		
+	} // parseCollection.
+
+	 
+	/*===================================================================================
+	 *	parseProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse property.
+	 *
+	 * This method will parse the provided property parameter replacing the provided
+	 * value with the related tag object.
+	 *
+	 * @access protected
+	 *
+	 * @param mixed					$theValue			Parameter value.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseProperty( &$theValue )
+	{
+		//
+		// Get tag sequence number.
+		//
+		if( (! is_int( $theValue ))
+		 && (! ctype_digit( $theValue )) )
+			$theValue = $this->mWrapper->getSerial( $theValue, TRUE );
+		
+		//
+		// Get tag object.
+		//
+		$theValue = $this->mWrapper->getObject( (int) $theValue, TRUE );
+		
+	} // parseProperty.
 
 		
 
@@ -383,13 +551,7 @@ abstract class ServiceObject extends ContainerObject
 	 * This method will be called once all parameters have been parsed and set in the
 	 * object, its duty is to validate the request.
 	 *
-	 * In this class we validate the following operations:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
-	 * </ul>
-	 *
-	 * Derived classes should first match custom operations or call the parent method.
+	 * Derived classes should match custom operations or call the parent method.
 	 *
 	 * @access protected
 	 *
@@ -421,6 +583,34 @@ abstract class ServiceObject extends ContainerObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	executeRequest																	*
+	 *==================================================================================*/
+
+	/**
+	 * Execute request.
+	 *
+	 * This method will parse the request operation and execute the appropriate method.
+	 *
+	 * Derived classes can parse their custom operations or call the parent method.
+	 *
+	 * @access protected
+	 */
+	protected function executeRequest()
+	{
+		//
+		// Parse by operation.
+		//
+		switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
+		{
+			case kAPI_OP_PING:
+				$this->executePing();
+				break;
+		}
+		
+	} // executeRequest.
 
 	 
 	/*===================================================================================
@@ -482,7 +672,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Set status code.
 		//
-		if( ($tmp = $theException->getCode()) !== NULL )
+		if( $tmp = $theException->getCode() )
 			$this->mResponse[ kAPI_RESPONSE_STATUS ]
 							[ kAPI_STATUS_CODE ] = $tmp;
 		

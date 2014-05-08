@@ -632,18 +632,35 @@ class Wrapper extends Dictionary
 		$this->dictionaryFlush( 0 );
 		
 		//
-		// Reset collections.
+		// Reset tags.
 		//
 		if( $doLog )
-			echo( "  • Resetting collections.\n" );
+			echo( "  • Resetting tags.\n" );
+		$this->mMetadata->Collection( Tag::kSEQ_NAME, TRUE )->drop();
+		Tag::CreateIndexes( $this->mMetadata );
 		
 		//
-		// Reset Metadata.
+		// Reset terms.
 		//
-		$this->mMetadata->drop();
-		Tag::CreateIndexes( $this->mMetadata );
+		if( $doLog )
+			echo( "  • Resetting terms.\n" );
+		$this->mMetadata->Collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
+		
+		//
+		// Reset nodes.
+		//
+		if( $doLog )
+			echo( "  • Resetting nodes.\n" );
+		$this->mMetadata->Collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
+		
+		//
+		// Reset edges.
+		//
+		if( $doLog )
+			echo( "  • Resetting edges.\n" );
+		$this->mMetadata->Collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -797,7 +814,7 @@ class Wrapper extends Dictionary
 		// Inform.
 		//
 		if( $doLog )
-			echo( "\n==> Resetting ontology.\n" );
+			echo( "\n==> Resetting entities.\n" );
 		
 		//
 		// Check if object is connected.
@@ -808,15 +825,11 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Reset collections.
+		// Reset entity collection.
 		//
 		if( $doLog )
 			echo( "  • Resetting entities.\n" );
-		
-		//
-		// Reset entity collection.
-		//
-		FAOInstitute::ResetCollection( $this->mEntities );
+		$this->mEntities->Collection( EntityObject::kSEQ_NAME, TRUE )->drop();
 		Individual::CreateIndexes( $this->mEntities );
 		Institution::CreateIndexes( $this->mEntities );
 		

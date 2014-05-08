@@ -27,6 +27,13 @@
 define( "kAPI_REQUEST_OPERATION",				'op' );
 
 /**
+ * Language.
+ *
+ * This tag identifies the service default language.
+ */
+define( "kAPI_REQUEST_LANGUAGE",				'lang' );
+
+/**
  * Parameters.
  *
  * This tag identifies the service parameters.
@@ -158,7 +165,7 @@ define( "kAPI_PAGING_ACTUAL",					'actual' );
 define( "kAPI_PAGING_AFFECTED",					'affected' );
 
 /*=======================================================================================
- *	OPERATIONS																			*
+ *	GENERIC OPERATIONS																	*
  *======================================================================================*/
 
 /**
@@ -170,6 +177,146 @@ define( "kAPI_PAGING_AFFECTED",					'affected' );
  * message field.
  */
 define( "kAPI_OP_PING",							'ping' );
+
+/*=======================================================================================
+ *	LIST OPERATIONS																		*
+ *======================================================================================*/
+
+/**
+ * String list.
+ *
+ * This tag defines the string list operation.
+ *
+ * This operation will return a list of strings corresponding to the provided target
+ * collection, property, match pattern, language, operator and limit.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{ @link kAPI_PARAM_COLLECTION}</tt>: <em>Collection</em>. This required
+ *		parameter is an enumerated set that determines which collection will be searched, it
+ *		features the following choices:
+ *	 <ul>
+ *		<li><tt>tag</tt>: Tag objects.
+ *		<li><tt>term</tt>: Term objects.
+ *		<li><tt>node</tt>: Node objects.
+ *		<li><tt>edge</tt>: Edge objects.
+ *		<li><tt>unit</tt>: All unit class of objects.
+ *		<li><tt>entity</tt>: All entity class of objects.
+ *	 </ul>
+ *	<li><tt>{ @link kAPI_PARAM_PROPERTY}</tt>: <em>Property</em>. This required parameter
+ *		represents the property or field to be searched in the provided collection. It can
+ *		either hold a tag's native identifier or sequence number.
+ *	<li><tt>{ @link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+ *		contains the match pattern.
+ *	<li><tt>{ @link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{ @link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+ *		indicates what kind of match should be applied to the searched strings, it is an
+ *		array that must contain one of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+ *			equal.
+ *		<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+ *			must be different.
+ *		<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+ *			contain the query pattern.
+ *		<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+ *			expected to contain a regular expression string.
+ *	 </ul>
+ *		and any of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+ *			means that the matching operation is case and accent insensitive.
+ *	 </ul>
+ *	<li><tt>{ @link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. If omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+ * </ul>
+ */
+define( "kAPI_OP_STRING_LIST",					'string-list' );
+
+/*=======================================================================================
+ *	PARAMETERS																			*
+ *======================================================================================*/
+
+/**
+ * Collection (string).
+ *
+ * This tag defines the requested collection.
+ *
+ * This parameter is used to determine which object class and collection we want to operate
+ * on. For instance, if we are reauesting a list of labels corresponding to an autocomplete
+ * string, this parameter will determine which collection will be used for searching.
+ *
+ * This parameter is an enumerated set:
+ *
+ * <ul>
+ *	<li><tt>tag</tt>: Tag objects.
+ *	<li><tt>term</tt>: Term objects.
+ *	<li><tt>node</tt>: Node objects.
+ *	<li><tt>edge</tt>: Edge objects.
+ *	<li><tt>unit</tt>: All unit class of objects.
+ *	<li><tt>entity</tt>: All entity class of objects.
+ * </ul>
+ */
+define( "kAPI_PARAM_COLLECTION",				'collection' );
+
+/**
+ * Property (string).
+ *
+ * This tag defines the requested property.
+ *
+ * This parameter represents the target property, it should either be a tag native
+ * identifier, or sequence number.
+ */
+define( "kAPI_PARAM_PROPERTY",					'property' );
+
+/**
+ * Pattern (string).
+ *
+ * This tag defines the requested pattern.
+ *
+ * This parameter represents a string match pattern, it is used to match strings.
+ */
+define( "kAPI_PARAM_PATTERN",					'pattern' );
+
+/**
+ * Match operator (strings array).
+ *
+ * This tag defines the requested string match operator.
+ *
+ * These are the required choices:
+ *
+ * <ul>
+ *	<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+ *		equal.
+ *	<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms must
+ *		be different.
+ *	<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+ *		with the query pattern.
+ *	<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+ *		contain the query pattern.
+ *	<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end with
+ *		the query pattern.
+ *	<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+ *		expected to contain a regular expression string.
+ * </ul>
+ *
+ * The parameter must be an array which contains one of the above choices and optionally any
+ * number of modifiers from the following list:
+ *
+ * <ul>
+ *	<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it means
+ *		that the matching operation is case and accent insensitive.
+ * </ul>
+ */
+define( "kAPI_PARAM_OPERATOR",					'operator' );
 
 
 ?>

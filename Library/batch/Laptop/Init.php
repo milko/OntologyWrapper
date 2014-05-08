@@ -118,7 +118,7 @@ try
 	//
 	// Load entities.
 	//
-	$wrapper->initEntities( TRUE );
+	$wrapper->resetEntities( TRUE );
 }
 
 //

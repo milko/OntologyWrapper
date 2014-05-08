@@ -38,6 +38,13 @@ require_once( 'local.inc.php' );
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
+/**
+ * Session definition.
+ *
+ * This include file contains session definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
+
 
 /*=======================================================================================
  *	WRAPPER DEFINITION																	*

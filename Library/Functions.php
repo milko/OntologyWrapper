@@ -150,14 +150,12 @@
 	 *
 	 * @see JSON_ERROR_DEPTH JSON_ERROR_STATE_MISMATCH
 	 * @see JSON_ERROR_CTRL_CHAR JSON_ERROR_SYNTAX JSON_ERROR_UTF8
-	 * @see kERROR_ENCODE kERROR_DECODE
 	 */
 	function JsonError( $doEncode )
 	{
 		//
 		// Init local storage.
 		//
-		$code = ( $doEncode )? kERROR_ENCODE : kERROR_DECODE;
 		$sense = ( $doEncode )? 'encode' : 'decode';
 		
 		//
@@ -167,29 +165,24 @@
 		{
 			case JSON_ERROR_DEPTH:
 				throw new Exception
-					( "JSON $sense error: maximum stack depth exceeded",
-					  $code );													// !@! ==>
+					( "JSON $sense error: maximum stack depth exceeded" );		// !@! ==>
 
 			case JSON_ERROR_STATE_MISMATCH:
 				throw new Exception
-					( "JSON $sense error: invalid or malformed JSON",
-					  $code );													// !@! ==>
+					( "JSON $sense error: invalid or malformed JSON" );			// !@! ==>
 
 			case JSON_ERROR_CTRL_CHAR:
 				throw new Exception
-					( "JSON $sense error: unexpected control character found",
-					  $code );													// !@! ==>
+					( "JSON $sense error: unexpected control character found" );// !@! ==>
 
 			case JSON_ERROR_SYNTAX:
 				throw new Exception
-					( "JSON $sense error: syntax error, malformed JSON",
-					  $code );													// !@! ==>
+					( "JSON $sense error: syntax error, malformed JSON" );		// !@! ==>
 
 			case JSON_ERROR_UTF8:
 				throw new Exception
 					( "JSON $sense error: malformed UTF-8 characters, "
-					 ."possibly incorrectly encoded",
-					  $code );													// !@! ==>
+					 ."possibly incorrectly encoded" );							// !@! ==>
 		}
 	
 	} // JsonError.

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link ServiceObject} test suite.
+ * {@link Service} test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * {@link ServiceObject} class.
+ * {@link Service} class.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Test
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_ServiceObject.php									*
+ *									test_Service.php									*
  *																						*
  *======================================================================================*/
 
@@ -44,6 +44,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
+//
+// API.
+//
+require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
+
 
 /*=======================================================================================
  *	RUNTIME SETTINGS																	*
@@ -56,20 +61,15 @@ define( 'kDEBUG_PARENT', FALSE );
 
 
 /*=======================================================================================
- *	CLASS SETTINGS																		*
- *======================================================================================*/
- 
-//
-// Cast current class.
-//
-class MyClass extends OntologyWrapper\ServiceObject{}
-
-
-/*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
 
 session_start();
+
+//
+// Init local storage.
+//
+$base_url = 'http://localhost/weblib/OntologyWrapper/Library/service/Service.php';
  
 //
 // Test class.
@@ -96,7 +96,7 @@ try
 	$wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/TEST?connect=1" ) );
-	
+/*	
 	//
 	// Drop database.
 	//
@@ -105,14 +105,21 @@ try
 	//
 	// Load database.
 	//
-	$command = 'mongorestore --directoryperdb /Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	$command = 'unzip '
+			  .'/Library/WebServer/Library/OntologyWrapper/Library/backup/data/TEST.zip '
+			  .'-d /Library/WebServer/Library/OntologyWrapper/Library/backup/data';
+	exec( $command );
+	$command = 'mongorestore --directoryperdb '
+			  .'/Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	exec( $command );
+	$command = 'rm -r /Library/WebServer/Library/OntologyWrapper/Library/backup/data/TEST';
 	exec( $command );
 	
 	//
 	// Load data dictionary.
 	//
 	$wrapper->loadTagCache();
-	
+*/	
 	//
 	// Test parent class.
 	//
@@ -128,17 +135,78 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
-	// Instantiate empty object.
+	// Try empty URL.
 	//
-	echo( '<h4>Instantiate object</h4>' );
+	echo( '<h4>Try empty URL</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$test = new MyClass( $wrapper );'.kSTYLE_HEAD_POS );
-	$test = new MyClass( $wrapper );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = $base_url;
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try wrong command.
+	//
+	echo( '<h4>Try wrong command</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=unknown";
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try ping.
+	//
+	echo( '<h4>Try ping</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_PING;
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

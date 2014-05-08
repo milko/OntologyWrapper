@@ -73,4 +73,22 @@ define( "kSTANDARDS_ENTITIES_DB",		'mongodb://localhost:27017/PGRDG?connect=1' )
  */
 define( "kSTANDARDS_UNITS_DB",			'mongodb://localhost:27017/PGRDG?connect=1' );
 
+/*=======================================================================================
+ *	DEFAULT VALUES																		*
+ *======================================================================================*/
+
+/**
+ * Default language.
+ *
+ * This tag indicates the default language.
+ */
+define( "kSTANDARDS_LANGUAGE",			'en' );
+
+/**
+ * Default string list limit.
+ *
+ * This tag indicates the default strings list limit.
+ */
+define( "kSTANDARDS_STRINGS_LIMIT",		25 );
+
 ?>

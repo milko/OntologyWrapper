@@ -93,7 +93,13 @@ try
 	//
 	// Load database.
 	//
+	$command = 'unzip '
+			  .'/Library/WebServer/Library/OntologyWrapper/Library/backup/data/TEST.zip '
+			  .'-d /Library/WebServer/Library/OntologyWrapper/Library/backup/data';
+	exec( $command );
 	$command = 'mongorestore --directoryperdb /Library/WebServer/Library/OntologyWrapper/Library/backup/data/';
+	exec( $command );
+	$command = 'rm -r /Library/WebServer/Library/OntologyWrapper/Library/backup/data/TES';
 	exec( $command );
 	
 	//
