@@ -50,6 +50,7 @@ class Service extends ServiceObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 * </ul>
 	 *
 	 * @access protected
@@ -62,6 +63,8 @@ class Service extends ServiceObject
 		switch( $op = $_REQUEST[ kAPI_REQUEST_OPERATION ] )
 		{
 			case kAPI_OP_MATCH_TAG_LABELS:
+			case kAPI_OP_MATCH_TERM_LABELS:
+				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
 			default:
@@ -83,12 +86,15 @@ class Service extends ServiceObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 * </ul>
 	 *
 	 * @param string				$theKey				Parameter key.
 	 * @param mixed					$theValue			Parameter value.
 	 *
 	 * @access protected
+	 *
+	 * @uses parseStringMatchOperator()
 	 */
 	protected function parseParameter( &$theKey, &$theValue )
 	{
@@ -101,21 +107,18 @@ class Service extends ServiceObject
 			// Strings list.
 			//
 			case kAPI_OP_MATCH_TAG_LABELS:
+			case kAPI_OP_MATCH_TERM_LABELS:
 				//
 				// Parse parameter.
 				//
 				switch( $theKey )
 				{
-					case kAPI_PARAM_PATTERN:
-						$this->offsetSet( $theKey, $theValue );
-						break;
-
 					case kAPI_PARAM_OPERATOR:
 						$this->parseStringMatchOperator( $theValue );
 						$this->offsetSet( $theKey, $theValue );
 						break;
 				
-					case kAPI_PAGING_LIMIT:
+					default:
 						parent::parseParameter( $theKey, $theValue );
 						break;
 				}
@@ -145,8 +148,11 @@ class Service extends ServiceObject
 	/**
 	 * Parse string match operator.
 	 *
-	 * This method will parse the provided string match operator casting the provided value
-	 * to an array.
+	 * This method will parse the provided string match operator converting the provided
+	 * value to an array using the comma as a separator.
+	 *
+	 * If the resiulting array is empty, the method will set by default the operator to
+	 * "contains case and accent insensitive".
 	 *
 	 * @access protected
 	 *
@@ -198,6 +204,7 @@ class Service extends ServiceObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 * </ul>
 	 *
 	 * @access protected
@@ -210,7 +217,8 @@ class Service extends ServiceObject
 		switch( $op = $this->offsetGet( kAPI_REQUEST_OPERATION ) )
 		{
 			case kAPI_OP_MATCH_TAG_LABELS:
-				$this->validateMatchTagLabels();
+			case kAPI_OP_MATCH_TERM_LABELS:
+				$this->validateMatchLabelStrings();
 				break;
 				
 			default:
@@ -219,60 +227,6 @@ class Service extends ServiceObject
 		}
 		
 	} // validateRequest.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED VALIDATION UTILITIES							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	validateMatchTagLabels															*
-	 *==================================================================================*/
-
-	/**
-	 * Validate natch tag labels service.
-	 *
-	 * We check whether all the required parameters are there and set eventual default
-	 * parameters.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 */
-	protected function validateMatchTagLabels()
-	{
-		//
-		// Check language.
-		//
-		if( ! $this->offsetExists( kAPI_REQUEST_LANGUAGE ) )
-			$this->offsetSet( kAPI_REQUEST_LANGUAGE, kSTANDARDS_LANGUAGE );
-		
-		//
-		// Check operator.
-		//
-		if( ! $this->offsetExists( kAPI_PARAM_PATTERN ) )
-			$this->offsetSet( kAPI_PARAM_PATTERN,
-							  array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ) );
-		
-		//
-		// Check limit.
-		//
-		if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
-			$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_STRINGS_LIMIT );
-		
-		//
-		// Check pattern.
-		//
-		if( ! $this->offsetExists( kAPI_PARAM_PATTERN ) )
-			throw new \Exception(
-				"Missing required pattern parameter." );						// !@! ==>
-		
-	} // validateMatchTagLabels.
 
 		
 
@@ -295,9 +249,14 @@ class Service extends ServiceObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 * </ul>
 	 *
 	 * @access protected
+	 *
+	 * @uses executeMatchTagLabels()
+	 * @uses executeMatchTermLabels()
+	 * @uses executeMatchNodeLabels()
 	 */
 	protected function executeRequest()
 	{
@@ -308,6 +267,10 @@ class Service extends ServiceObject
 		{
 			case kAPI_OP_MATCH_TAG_LABELS:
 				$this->executeMatchTagLabels();
+				break;
+				
+			case kAPI_OP_MATCH_TERM_LABELS:
+				$this->executeMatchTermLabels();
 				break;
 				
 			default:
@@ -323,68 +286,51 @@ class Service extends ServiceObject
 	 *==================================================================================*/
 
 	/**
-	 * Execute request.
+	 * Match tag labels.
 	 *
-	 * In this class we handle the following operations:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
-	 * </ul>
+	 * The method will resolve the appropriate collection and pass it to the
+	 * {@link executeMatchLabelStrings()} method.
 	 *
 	 * @access protected
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses executeMatchLabelStrings()
 	 */
 	protected function executeMatchTagLabels()
 	{
-		//
-		// Init local storage.
-		//
-		$property = (string) kTAG_LABEL;
-		$collection = Tag::ResolveCollection( Tag::ResolveDatabase( $this->mWrapper ) );
+		$this->executeMatchLabelStrings(
+			Tag::ResolveCollection(
+				Tag::ResolveDatabase(
+					$this->mWrapper ) ) );
 		
 	} // executeMatchTagLabels.
 
-		
-
-/*=======================================================================================
- *																						*
- *									PROTECTED UTILITIES									*
- *																						*
- *======================================================================================*/
-
-
 	 
 	/*===================================================================================
-	 *	executeRequest																	*
+	 *	executeMatchTermLabels															*
 	 *==================================================================================*/
 
 	/**
-	 * Execute request.
+	 * Match term labels.
 	 *
-	 * In this class we handle the following operations:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
-	 * </ul>
+	 * The method will resolve the appropriate collection and pass it to the
+	 * {@link executeMatchLabelStrings()} method.
 	 *
 	 * @access protected
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses executeMatchLabelStrings()
 	 */
-	protected function executeRequest()
+	protected function executeMatchTermLabels()
 	{
-		//
-		// Parse by operation.
-		//
-		switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
-		{
-			case kAPI_OP_MATCH_TAG_LABELS:
-				$this->executeMatchTagLabels();
-				break;
-				
-			default:
-				parent::executeRequest();
-				break;
-		}
+		$this->executeMatchLabelStrings(
+			Term::ResolveCollection(
+				Term::ResolveDatabase(
+					$this->mWrapper ) ) );
 		
-	} // executeRequest.
+	} // executeMatchTermLabels.
 
 	 
 

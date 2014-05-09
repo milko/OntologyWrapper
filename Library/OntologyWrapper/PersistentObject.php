@@ -662,6 +662,28 @@ abstract class PersistentObject extends OntologyObject
 		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
 								  array( "name" => "OFFSETS" ) );
 		
+		//
+		// Set reference counts.
+		//
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAG-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERM-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNIT-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITY-REFS",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
