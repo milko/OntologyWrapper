@@ -776,6 +776,37 @@ abstract class ServiceObject extends ContainerObject
 	 * This method will match all label strings from objects stored in the provided
 	 * collection.
 	 *
+	 * The method uses the {@link executeMatchLabelStringsQuery()} method to produce the
+	 * query cursor and the {@link executeMatchLabelStringsResults()} method to compile the
+	 * results.
+	 *
+	 * @param CollectionObject		$theCollection		Data collection.
+	 *
+	 * @access protected
+	 *
+	 * @uses executeMatchLabelStringsQuery()
+	 * @uses executeMatchLabelStringsResults()
+	 */
+	protected function executeMatchLabelStrings( CollectionObject $theCollection )
+	{
+		$this->executeMatchLabelStringsResults(
+			$this->executeMatchLabelStringsQuery(
+				$theCollection,
+				array( (string) kTAG_LABEL => TRUE ) ) );
+		
+	} // executeMatchLabelStrings.
+
+
+	/*===================================================================================
+	 *	executeMatchLabelStringsQuery													*
+	 *==================================================================================*/
+
+	/**
+	 * Query label strings.
+	 *
+	 * This method will match all label strings from objects stored in the provided
+	 * collection and return a recordset.
+	 *
 	 * The method expects the following parameters to have been set:
 	 *
 	 * <ul>
@@ -802,24 +833,26 @@ abstract class ServiceObject extends ContainerObject
 	 *		only those objects which are or are not referenced by entity objects.
 	 * </ul>
 	 *
+	 * The last parameter represents the fields selection.
+	 *
 	 * @param CollectionObject		$theCollection		Data collection.
+	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access protected
+	 * @return IteratorObject		Matched data or <tt>NULL</tt>.
 	 *
 	 * @uses stringMatchPattern()
 	 */
-	protected function executeMatchLabelStrings( CollectionObject $theCollection )
+	protected function executeMatchLabelStringsQuery( CollectionObject $theCollection,
+																	   $theFields = Array() )
 	{
 		//
 		// Init local storage.
 		//
-		$limit = (int) $this->offsetGet( kAPI_PAGING_LIMIT );
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-		
-		//
-		// Init results.
-		//
 		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$filter = $this->stringMatchPattern( $this->offsetGet( kAPI_PARAM_PATTERN ),
+											 $this->offsetGet( kAPI_PARAM_OPERATOR ) );
 		
 		//
 		// Set property.
@@ -827,12 +860,6 @@ abstract class ServiceObject extends ContainerObject
 		$property = (string) ( $language == '*' )
 				  ? (kTAG_LABEL.'.'.kTAG_TEXT)
 				  : kTAG_TEXT;
-		
-		//
-		// Init criteria.
-		//
-		$filter = $this->stringMatchPattern( $this->offsetGet( kAPI_PARAM_PATTERN ),
-											 $this->offsetGet( kAPI_PARAM_OPERATOR ) );
 		
 		//
 		// Init criteria.
@@ -906,80 +933,116 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Execute query.
 		//
-		$rs = $theCollection->matchAll(
-			$criteria, kQUERY_ARRAY, array( (string) kTAG_LABEL => TRUE ) );
-		
-		//
-		// Add affected count to paging.
-		//
-		$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
-			= $rs->count( FALSE );
-		
-		//
-		// Skip records.
-		//
-		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-			$rs->skip( $tmp );
-		
-		//
-		// Iterate results.
-		//
-		$actual = 0;
-		foreach( $rs as $record )
+		$rs = $theCollection->matchAll( $criteria, kQUERY_ARRAY, $theFields );
+		if( $rs !== NULL )
 		{
 			//
-			// Increment actual count.
+			// Add affected count to paging.
 			//
-			$actual++;
-			
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
+				= $rs->count( FALSE );
+		
 			//
-			// Locate language.
+			// Skip records.
 			//
-			foreach( $record[ kTAG_LABEL ] as $element )
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+				$rs->skip( $tmp );
+		
+		} // Has results.
+		
+		else
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ] = 0;
+	
+		return $rs;																	// ==>
+	
+	} // executeMatchLabelStringsQuery.
+
+
+	/*===================================================================================
+	 *	executeMatchLabelStringsResults													*
+	 *==================================================================================*/
+
+	/**
+	 * Build label strings results.
+	 *
+	 * This method will use the provided cursor to fill the service results with the
+	 * requested label strings.
+	 *
+	 * @param IteratorObject		$theIterator		Iterator object.
+	 *
+	 * @access protected
+	 */
+	protected function executeMatchLabelStringsResults( $theIterator )
+	{
+		//
+		// Handle results.
+		//
+		if( $theIterator !== NULL )
+		{
+			//
+			// Iterate results.
+			//
+			$actual = 0;
+			$limit = (int) $this->offsetGet( kAPI_PAGING_LIMIT );
+			$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+			foreach( $theIterator as $record )
 			{
 				//
-				// Match language.
+				// Increment actual count.
 				//
-				if( $element[ kTAG_LANGUAGE ] == $language )
+				$actual++;
+			
+				//
+				// Locate language.
+				//
+				foreach( $record[ kTAG_LABEL ] as $element )
 				{
 					//
-					// Skip duplicates.
+					// Match language.
 					//
-					if( ! in_array( $element[ kTAG_TEXT ],
-									$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
+					if( $element[ kTAG_LANGUAGE ] == $language )
 					{
 						//
-						// Add to results.
+						// Skip duplicates.
 						//
-						$this->mResponse[ kAPI_RESPONSE_RESULTS ][] = $element[ kTAG_TEXT ];
+						if( ! in_array( $element[ kTAG_TEXT ],
+										$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
+						{
+							//
+							// Add to results.
+							//
+							$this->mResponse[ kAPI_RESPONSE_RESULTS ][]
+								= $element[ kTAG_TEXT ];
 						
-						//
-						// Decrement limits.
-						//
-						$limit--;
+							//
+							// Decrement limits.
+							//
+							$limit--;
 					
-					} // Not duplicate.
+						} // Not duplicate.
 					
-					break;													// =>
+						break;												// =>
 				
-				} // Matched.
+					} // Matched.
 			
-			} // Iterating languages.
+				} // Iterating languages.
 			
+				//
+				// Check limit.
+				//
+				if( $limit <= 0 )
+					break;													// =>
+		
+			} // Iterating results.
+		
 			//
-			// Check limit.
+			// Add actual counts to paging.
 			//
-			if( $limit <= 0 )
-				break;														// =>
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_ACTUAL ] = $actual;
 		
-		} // Iterating results.
+		} // Has results.
 		
-		//
-		// Add actual counts to paging.
-		//
-		$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_ACTUAL ] = $actual;
-		
-	} // executeMatchLabelStrings.
+	} // executeMatchLabelStringsResults.
 
 		
 

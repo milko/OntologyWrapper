@@ -322,12 +322,11 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	echo( '<hr>' );
 
 	//
-	// Try matchTermLabels containing "france".
+	// Try matchTermLabels containing "italia".
 	//
-	echo( '<h4>Try matchTermLabels containing "france"</h4>' );
+	echo( '<h4>Try matchTermLabels containing "italia"</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -338,8 +337,8 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 5,
-		kAPI_PARAM_PATTERN => 'france',
+		kAPI_PAGING_LIMIT => 6,
+		kAPI_PARAM_PATTERN => 'italia',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TERM_LABELS;
