@@ -208,14 +208,14 @@ define( "kAPI_DICTIONARY_COLLECTION",			'collection' );
  *
  * This tag indicates the dictionary tags cross references.
  */
-define( "kAPI_DICTIONARY_XREF",					'xref' );
+define( "kAPI_DICTIONARY_TAGS",					'tags' );
 
 /**
  * IDs list.
  *
  * This tag indicates the dictionary list of identifiers.
  */
-define( "kAPI_DICTIONARY_IDs",					'ids' );
+define( "kAPI_DICTIONARY_IDS",					'ids' );
 
 /*=======================================================================================
  *	OPERATIONS																			*

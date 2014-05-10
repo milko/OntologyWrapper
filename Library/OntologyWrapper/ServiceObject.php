@@ -1141,6 +1141,13 @@ abstract class ServiceObject extends ContainerObject
 							[ kAPI_STATUS_CODE ] = $tmp;
 		
 		//
+		// Set status message.
+		//
+		if( ($tmp = $theException->getMessage()) !== NULL )
+			$this->mResponse[ kAPI_RESPONSE_STATUS ]
+							[ kAPI_STATUS_MESSAGE ] = $tmp;
+		
+		//
 		// Set file path.
 		//
 		$this->mResponse[ kAPI_RESPONSE_STATUS ]
@@ -1151,13 +1158,6 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$this->mResponse[ kAPI_RESPONSE_STATUS ]
 						[ kAPI_STATUS_LINE ] = $theException->getLine();
-		
-		//
-		// Set status message.
-		//
-		if( ($tmp = $theException->getMessage()) !== NULL )
-			$this->mResponse[ kAPI_RESPONSE_STATUS ]
-							[ kAPI_STATUS_MESSAGE ] = $tmp;
 		
 		//
 		// Set trace.

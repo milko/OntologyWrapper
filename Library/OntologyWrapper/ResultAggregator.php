@@ -53,10 +53,10 @@ use OntologyWrapper\IteratorObject;
  *	 <ul>
  *		<li><tt>{@link kAPI_DICTIONARY_COLLECTION}</tt>: This element will hold the name of
  *			the iterator's collection.
- *		<li><tt>{@link kAPI_DICTIONARY_XREF}</tt>: This element will hold the list of all
+ *		<li><tt>{@link kAPI_DICTIONARY_TAGS}</tt>: This element will hold the list of all
  *			referenced tags, the key represents the tag sequence number of the value the tag
  *			native identifier. This element makes it easier to select tag objects by offset.
- *		<li><tt>{@link kAPI_DICTIONARY_IDs}</tt>: This element will hold an array listing
+ *		<li><tt>{@link kAPI_DICTIONARY_IDS}</tt>: This element will hold an array listing
  *			the native identifiers of the objects selected by the iterator. This is
  *			necessary to discriminate the actual result set from eventual objects, belonging
  *			to the iterator's collection, referenced by other objects in the set.
@@ -80,7 +80,7 @@ use OntologyWrapper\IteratorObject;
  *	<li><em>Offsets</em>: All offsets of all objects, including tag offsets, are resolved
  *		into tag objects, these are stored in the relative element of the
  *		{@link kAPI_RESPONSE_RESULTS} block and their native and sequence identifiers are
- *		cross referenced in the {@link kAPI_DICTIONARY_XREF} element.
+ *		cross referenced in the {@link kAPI_DICTIONARY_TAGS} element.
  *	<li><em>Object references</em>: All object references are resolved at the first level,
  *		which means that referenced objects will not resolve their references.
  * </ul>
@@ -192,8 +192,8 @@ class ResultAggregator
 		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
 			= array( kAPI_DICTIONARY_COLLECTION
 						=> $theIterator->collection()[ kTAG_CONN_COLL ],
-					 kAPI_DICTIONARY_IDs => Array(),
-					 kAPI_DICTIONARY_XREF => Array() );
+					 kAPI_DICTIONARY_IDS => Array(),
+					 kAPI_DICTIONARY_TAGS => Array() );
 		
 		//
 		// Init results.
@@ -320,7 +320,7 @@ class ResultAggregator
 	 *
 	 * This method will load the provided identifier in the main identifiers list.
 	 *
-	 * In this class we set the provided value in the {@link kAPI_DICTIONARY_IDs} element of
+	 * In this class we set the provided value in the {@link kAPI_DICTIONARY_IDS} element of
 	 * the {@link kAPI_RESULTS_DICTIONARY} block; derived classes may overload this method
 	 * to build a custom identifiers structure.
 	 *
@@ -331,7 +331,7 @@ class ResultAggregator
 	protected function identify( $theIdentifier )
 	{
 		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-					   [ kAPI_DICTIONARY_IDs ]
+					   [ kAPI_DICTIONARY_IDS ]
 					   [] = $theIdentifier;
 		
 	} // identify.
@@ -686,13 +686,13 @@ class ResultAggregator
 			// Skip existing.
 			//
 			if( ! in_array( $key, $this->mResults[ kAPI_RESULTS_DICTIONARY ]
-												 [ kAPI_DICTIONARY_XREF ] ) )
+												 [ kAPI_DICTIONARY_TAGS ] ) )
 			{
 				//
 				// Load xref.
 				//
 				$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-							   [ kAPI_DICTIONARY_XREF ]
+							   [ kAPI_DICTIONARY_TAGS ]
 							   [ $value[ kTAG_ID_SEQUENCE ] ]
 					= $key;
 			
