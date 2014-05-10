@@ -51,6 +51,8 @@ class Service extends ServiceObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 * </ul>
 	 *
 	 * @access protected
@@ -64,6 +66,8 @@ class Service extends ServiceObject
 		{
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
+			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -87,6 +91,8 @@ class Service extends ServiceObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 * </ul>
 	 *
 	 * @param string				$theKey				Parameter key.
@@ -108,6 +114,8 @@ class Service extends ServiceObject
 			//
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
+			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				//
 				// Parse parameter.
 				//
@@ -205,6 +213,8 @@ class Service extends ServiceObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 * </ul>
 	 *
 	 * @access protected
@@ -218,6 +228,8 @@ class Service extends ServiceObject
 		{
 			case kAPI_OP_MATCH_TAG_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
+			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				$this->validateMatchLabelStrings();
 				break;
 				
@@ -250,13 +262,15 @@ class Service extends ServiceObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 * </ul>
 	 *
 	 * @access protected
 	 *
 	 * @uses executeMatchTagLabels()
 	 * @uses executeMatchTermLabels()
-	 * @uses executeMatchNodeLabels()
+	 * @uses executeMatchTagByLabel()
 	 */
 	protected function executeRequest()
 	{
@@ -271,6 +285,14 @@ class Service extends ServiceObject
 				
 			case kAPI_OP_MATCH_TERM_LABELS:
 				$this->executeMatchTermLabels();
+				break;
+				
+			case kAPI_OP_MATCH_TAG_BY_LABEL:
+				$this->executeMatchTagByLabel();
+				break;
+				
+			case kAPI_OP_MATCH_TERM_BY_LABEL:
+				$this->executeMatchTermByLabel();
 				break;
 				
 			default:
@@ -331,6 +353,58 @@ class Service extends ServiceObject
 					$this->mWrapper ) ) );
 		
 	} // executeMatchTermLabels.
+
+	 
+	/*===================================================================================
+	 *	executeMatchTagByLabel															*
+	 *==================================================================================*/
+
+	/**
+	 * Match tag by label.
+	 *
+	 * The method will resolve the appropriate collection and pass it to the
+	 * {@link executeMatchLabelObjects()} method.
+	 *
+	 * @access protected
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses executeMatchLabelObjects()
+	 */
+	protected function executeMatchTagByLabel()
+	{
+		$this->executeMatchLabelObjects(
+			Tag::ResolveCollection(
+				Tag::ResolveDatabase(
+					$this->mWrapper ) ) );
+		
+	} // executeMatchTagByLabel.
+
+	 
+	/*===================================================================================
+	 *	executeMatchTermByLabel															*
+	 *==================================================================================*/
+
+	/**
+	 * Match term by label.
+	 *
+	 * The method will resolve the appropriate collection and pass it to the
+	 * {@link executeMatchLabelObjects()} method.
+	 *
+	 * @access protected
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses executeMatchLabelObjects()
+	 */
+	protected function executeMatchTermByLabel()
+	{
+		$this->executeMatchLabelObjects(
+			Term::ResolveCollection(
+				Term::ResolveDatabase(
+					$this->mWrapper ) ) );
+		
+	} // executeMatchTermByLabel.
 
 	 
 

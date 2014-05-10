@@ -62,6 +62,13 @@ define( "kAPI_RESPONSE_STATUS",					'status' );
 define( "kAPI_RESPONSE_PAGING",					'paging' );
 
 /**
+ * Dictionary.
+ *
+ * This tag indicates the results dictionary.
+ */
+define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
+
+/**
  * Results.
  *
  * This tag identifies the results section which holds the operation result.
@@ -95,11 +102,32 @@ define( "kAPI_STATUS_STATE",					'state' );
 define( "kAPI_STATUS_CODE",						'code' );
 
 /**
+ * File.
+ *
+ * This tag indicates the source filename.
+ */
+define( "kAPI_STATUS_FILE",						'file' );
+
+/**
+ * Line.
+ *
+ * This tag indicates the source file line.
+ */
+define( "kAPI_STATUS_LINE",						'line' );
+
+/**
  * Message.
  *
  * This tag indicates a status message.
  */
 define( "kAPI_STATUS_MESSAGE",					'message' );
+
+/**
+ * Trace.
+ *
+ * This tag indicates the exception trace.
+ */
+define( "kAPI_STATUS_TRACE",					'trace' );
 
 /*=======================================================================================
  *	PAGING																				*
@@ -163,6 +191,31 @@ define( "kAPI_STATE_OK",						'ok' );
  * The service encountered an error.
  */
 define( "kAPI_STATE_ERROR",						'error' );
+
+/*=======================================================================================
+ *	DICTIONARY																			*
+ *======================================================================================*/
+
+/**
+ * Collection.
+ *
+ * This tag indicates the dictionary collection name.
+ */
+define( "kAPI_DICTIONARY_COLLECTION",			'collection' );
+
+/**
+ * Tags cross reference.
+ *
+ * This tag indicates the dictionary tags cross references.
+ */
+define( "kAPI_DICTIONARY_XREF",					'xref' );
+
+/**
+ * IDs list.
+ *
+ * This tag indicates the dictionary list of identifiers.
+ */
+define( "kAPI_DICTIONARY_IDs",					'ids' );
 
 /*=======================================================================================
  *	OPERATIONS																			*
@@ -299,6 +352,128 @@ define( "kAPI_OP_MATCH_TAG_LABELS",				'matchTagLabels' );
  * </ul>
  */
 define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
+
+/**
+ * Match tag by label.
+ *
+ * This tag defines the match tag by label operation.
+ *
+ * The service will return a list of tag objects whose label matches the provided pattern,
+ * language, operator and limit.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+ *		contains the match pattern.
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+ *		indicates what kind of match should be applied to the searched strings, it is an
+ *		array that must contain one of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+ *			equal.
+ *		<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+ *			must be different.
+ *		<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+ *			contain the query pattern.
+ *		<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+ *			expected to contain a regular expression string.
+ *	 </ul>
+ *		and any of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+ *			means that the matching operation is case and accent insensitive.
+ *	 </ul>
+ *	<li><em>Flags</em>: The following optional parameters are flags which will generate
+ *		additional query filters which will be chained in <tt>AND</tt>;
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+ *			those objects which are or are not referenced by tag objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+ *			those objects which are or are not referenced by term objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+ *			those objects which are or are not referenced by node objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+ *			those objects which are or are not referenced by edge objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+ *			those objects which are or are not referenced by unit objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+ *			only those objects which are or are not referenced by entity objects.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. If omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+ * </ul>
+ */
+define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagByLabel' );
+
+/**
+ * Match term by label.
+ *
+ * This tag defines the match term by label operation.
+ *
+ * The service will return a list of term objects whose label matches the provided pattern,
+ * language, operator and limit.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+ *		contains the match pattern.
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+ *		indicates what kind of match should be applied to the searched strings, it is an
+ *		array that must contain one of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+ *			equal.
+ *		<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+ *			must be different.
+ *		<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+ *			contain the query pattern.
+ *		<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+ *			with the query pattern.
+ *		<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+ *			expected to contain a regular expression string.
+ *	 </ul>
+ *		and any of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+ *			means that the matching operation is case and accent insensitive.
+ *	 </ul>
+ *	<li><em>Flags</em>: The following optional parameters are flags which will generate
+ *		additional query filters which will be chained in <tt>AND</tt>;
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+ *			those objects which are or are not referenced by tag objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+ *			those objects which are or are not referenced by term objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+ *			those objects which are or are not referenced by node objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+ *			those objects which are or are not referenced by edge objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+ *			those objects which are or are not referenced by unit objects.
+ *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+ *			only those objects which are or are not referenced by entity objects.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. If omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+ * </ul>
+ */
+define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
 
 /*=======================================================================================
  *	PARAMETERS																			*

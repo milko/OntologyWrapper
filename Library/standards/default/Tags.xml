@@ -573,7 +573,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>definitions of an object in several languages</em>. Each element holds the <em>language</em> in which the definition is expressed in and the <em>text</em> of the definition. <em>A definition should provide detailed information on an object without reference to the context</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts</em> representing <em>definitions of an object in several languages</em>. Each element holds the <em>language</em> in which the definition is expressed in and the <em>text</em> of the definition. <em>A definition should provide detailed information on an object without reference to the context</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -588,7 +588,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts<em> representing <en>descriptions of the object in several languages</em>. Each element holds the <em>language</em> in which the description is expressed in and the <em>text</em> of the description. <em>A description should add context related information to the definition of the object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>list of texts</em> representing <em>descriptions of the object in several languages</em>. Each element holds the <em>language</em> in which the description is expressed in and the <em>text</em> of the description. <em>A description should add context related information to the definition of the object</em>.]]></item>
 				</item>
 			</item>
 		</TAG>

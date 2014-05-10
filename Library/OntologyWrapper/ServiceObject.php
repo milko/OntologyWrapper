@@ -796,6 +796,36 @@ abstract class ServiceObject extends ContainerObject
 		
 	} // executeMatchLabelStrings.
 
+	 
+	/*===================================================================================
+	 *	executeMatchLabelObjects														*
+	 *==================================================================================*/
+
+	/**
+	 * Match label objects.
+	 *
+	 * This method will match all objects in the provided collection matching labels.
+	 *
+	 * The method uses the {@link executeMatchLabelStringsQuery()} method to produce the
+	 * query cursor and the {@link executeMatchLabelObjectsResults()} method to compile the
+	 * results.
+	 *
+	 * @param CollectionObject		$theCollection		Data collection.
+	 *
+	 * @access protected
+	 *
+	 * @uses executeMatchLabelStringsQuery()
+	 * @uses executeMatchLabelObjectsResults()
+	 */
+	protected function executeMatchLabelObjects( CollectionObject $theCollection )
+	{
+		$this->executeMatchLabelObjectsResults(
+			$this->executeMatchLabelStringsQuery(
+				$theCollection,
+				array( (string) kTAG_LABEL => TRUE ) ) );
+		
+	} // executeMatchLabelObjects.
+
 
 	/*===================================================================================
 	 *	executeMatchLabelStringsQuery													*
@@ -834,6 +864,9 @@ abstract class ServiceObject extends ContainerObject
 	 * </ul>
 	 *
 	 * The last parameter represents the fields selection.
+	 *
+	 * The method will set the affected count and will skip eventual records, other cursor
+	 * operations will have to be performed by the caller.
 	 *
 	 * @param CollectionObject		$theCollection		Data collection.
 	 * @param array					$theFields			Fields selection.
@@ -934,24 +967,18 @@ abstract class ServiceObject extends ContainerObject
 		// Execute query.
 		//
 		$rs = $theCollection->matchAll( $criteria, kQUERY_ARRAY, $theFields );
-		if( $rs !== NULL )
-		{
-			//
-			// Add affected count to paging.
-			//
-			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
-				= $rs->count( FALSE );
 		
-			//
-			// Skip records.
-			//
-			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-				$rs->skip( $tmp );
-		
-		} // Has results.
-		
-		else
-			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ] = 0;
+		//
+		// Add affected count to paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
+			= $rs->affectedCount();
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$rs->skip( $tmp );
 	
 		return $rs;																	// ==>
 	
@@ -972,77 +999,104 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * @access protected
 	 */
-	protected function executeMatchLabelStringsResults( $theIterator )
+	protected function executeMatchLabelStringsResults( IteratorObject $theIterator )
 	{
 		//
-		// Handle results.
+		// Iterate results.
 		//
-		if( $theIterator !== NULL )
+		$actual = 0;
+		$limit = (int) $this->offsetGet( kAPI_PAGING_LIMIT );
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		foreach( $theIterator as $record )
 		{
 			//
-			// Iterate results.
+			// Increment actual count.
 			//
-			$actual = 0;
-			$limit = (int) $this->offsetGet( kAPI_PAGING_LIMIT );
-			$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-			foreach( $theIterator as $record )
+			$actual++;
+		
+			//
+			// Locate language.
+			//
+			foreach( $record[ kTAG_LABEL ] as $element )
 			{
 				//
-				// Increment actual count.
+				// Match language.
 				//
-				$actual++;
-			
-				//
-				// Locate language.
-				//
-				foreach( $record[ kTAG_LABEL ] as $element )
+				if( $element[ kTAG_LANGUAGE ] == $language )
 				{
 					//
-					// Match language.
+					// Skip duplicates.
 					//
-					if( $element[ kTAG_LANGUAGE ] == $language )
+					if( ! in_array( $element[ kTAG_TEXT ],
+									$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
 					{
 						//
-						// Skip duplicates.
+						// Add to results.
 						//
-						if( ! in_array( $element[ kTAG_TEXT ],
-										$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
-						{
-							//
-							// Add to results.
-							//
-							$this->mResponse[ kAPI_RESPONSE_RESULTS ][]
-								= $element[ kTAG_TEXT ];
-						
-							//
-							// Decrement limits.
-							//
-							$limit--;
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ][]
+							= $element[ kTAG_TEXT ];
 					
-						} // Not duplicate.
-					
-						break;												// =>
+						//
+						// Decrement limits.
+						//
+						$limit--;
 				
-					} // Matched.
-			
-				} // Iterating languages.
-			
-				//
-				// Check limit.
-				//
-				if( $limit <= 0 )
+					} // Not duplicate.
+				
 					break;													// =>
+			
+				} // Matched.
 		
-			} // Iterating results.
+			} // Iterating languages.
 		
 			//
-			// Add actual counts to paging.
+			// Check limit.
 			//
-			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_ACTUAL ] = $actual;
-		
-		} // Has results.
+			if( $limit <= 0 )
+				break;														// =>
+	
+		} // Iterating results.
+	
+		//
+		// Add actual counts to paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_ACTUAL ] = $actual;
 		
 	} // executeMatchLabelStringsResults.
+
+
+	/*===================================================================================
+	 *	executeMatchLabelObjectsResults													*
+	 *==================================================================================*/
+
+	/**
+	 * Build label objects results.
+	 *
+	 * This method will use the provided cursor to fill the service results with the
+	 * requested label objects.
+	 *
+	 * @param IteratorObject		$theIterator		Iterator object.
+	 *
+	 * @access protected
+	 */
+	protected function executeMatchLabelObjectsResults( IteratorObject $theIterator )
+	{
+		//
+		// Set cursor limit.
+		//
+		$theIterator->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
+		// Instantiate results aggregator.
+		//
+		$aggregator = new ResultAggregator( $theIterator, $this->mResponse );
+		
+		//
+		// Aggregate results.
+		//
+		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
+		
+	} // executeMatchLabelObjectsResults.
 
 		
 
@@ -1087,6 +1141,18 @@ abstract class ServiceObject extends ContainerObject
 							[ kAPI_STATUS_CODE ] = $tmp;
 		
 		//
+		// Set file path.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_FILE ] = $theException->getFile();
+		
+		//
+		// Set file line.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_LINE ] = $theException->getLine();
+		
+		//
 		// Set status message.
 		//
 		if( ($tmp = $theException->getMessage()) !== NULL )
@@ -1094,10 +1160,22 @@ abstract class ServiceObject extends ContainerObject
 							[ kAPI_STATUS_MESSAGE ] = $tmp;
 		
 		//
+		// Set trace.
+		//
+		$this->mResponse[ kAPI_RESPONSE_STATUS ]
+						[ kAPI_STATUS_TRACE ] = $theException->getTrace();
+		
+		//
 		// Remove paging.
 		//
 		if( array_key_exists( kAPI_RESPONSE_PAGING, $this->mResponse ) )
 			unset( $this->mResponse[ kAPI_RESPONSE_PAGING ] );
+		
+		//
+		// Remove dictionary.
+		//
+		if( array_key_exists( kAPI_RESULTS_DICTIONARY, $this->mResponse ) )
+			unset( $this->mResponse[ kAPI_RESULTS_DICTIONARY ] );
 		
 		//
 		// Remove results.
