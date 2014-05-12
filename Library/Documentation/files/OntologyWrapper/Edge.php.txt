@@ -1051,9 +1051,9 @@ class Edge extends PersistentObject
 		parent::setGraphProperties( $theLabels, $theProperties );
 	
 		//
-		// Set data type.
+		// Set identifier.
 		//
-		$theProperties[ (string) kTAG_NAME ] = $this->offsetGet( kTAG_NAME );
+		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_NAME );
 	
 	} // setGraphProperties.
 

@@ -487,7 +487,10 @@ class Service extends ServiceObject
 								   kTAG_PREDICATE
 								   		=> array( '$in'
 								   			=> array( kPREDICATE_TYPE_OF,
-								   					  kPREDICATE_ENUM_OF ) ) ) );
+								   					  kPREDICATE_ENUM_OF ) ) ),
+							kQUERY_OBJECT,
+							array( kTAG_SUBJECT => TRUE,
+								   kTAG_PREDICATE => TRUE ) );
 		
 		//
 		// Load enumerations.

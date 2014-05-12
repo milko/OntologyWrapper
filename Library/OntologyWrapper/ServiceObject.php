@@ -318,8 +318,14 @@ abstract class ServiceObject extends ContainerObject
 	 * current object.
 	 *
 	 * In derived classes you should parse your custom operations or call the parent method,
-	 * in this class we only parse the {@link kAPI_OP_PING} operation; if the operation is
-	 * not recognised, the method will raise an exception.
+	 * in this class we only parse the following operations:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
+	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 * </ul>
+	 *
+	 * If the operation is not recognised, the method will raise an exception.
 	 *
 	 * @access protected
 	 *
@@ -335,6 +341,7 @@ abstract class ServiceObject extends ContainerObject
 		switch( $op = $_REQUEST[ kAPI_REQUEST_OPERATION ] )
 		{
 			case kAPI_OP_PING:
+			case kAPI_OP_LIST_CONSTANTS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -529,10 +536,16 @@ abstract class ServiceObject extends ContainerObject
 	 * object, its duty is to validate the request; this activity involves ensuring all
 	 * required parameters are there and perform eventual other modifications.
 	 *
-	 * In this class we only check the ping operation which needs no validation, derived
-	 * classes should match custom operations or call the parent method.
+	 * In this class we check the following operations:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
+	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
+	 *
+	 * Derived classes should match custom operations or call the parent method.
 	 *
 	 * @access protected
 	 *
@@ -548,6 +561,7 @@ abstract class ServiceObject extends ContainerObject
 		switch( $op = $this->offsetGet( kAPI_REQUEST_OPERATION ) )
 		{
 			case kAPI_OP_PING:
+			case kAPI_OP_LIST_CONSTANTS:
 				break;
 			
 			default:
@@ -782,12 +796,18 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * This method will parse the request operation and execute the appropriate action.
 	 *
-	 * This class handles the {@link kAPI_OP_PING} operation, derived classes can parse
-	 * their custom operations or call the parent method.
+	 * In this class we execute the following operations:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
+	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 * </ul>
+	 *
+	 * Derived classes can parse their custom operations or call the parent method.
 	 *
 	 * @access protected
 	 *
-	 * @see kAPI_OP_PING
+	 * @see kAPI_OP_PING kAPI_OP_LIST_CONSTANTS
 	 */
 	protected function executeRequest()
 	{
@@ -798,6 +818,10 @@ abstract class ServiceObject extends ContainerObject
 		{
 			case kAPI_OP_PING:
 				$this->executePing();
+				break;
+			
+			case kAPI_OP_LIST_CONSTANTS:
+				$this->executeListParameterConstants();
 				break;
 		}
 		
@@ -824,6 +848,122 @@ abstract class ServiceObject extends ContainerObject
 						[ kAPI_STATUS_MESSAGE ] = 'pong';
 		
 	} // executePing.
+
+	 
+	/*===================================================================================
+	 *	executeListParameterConstants													*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list parameter constants request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_CONSTANTS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListParameterConstants()
+	{
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Load request parameters.
+		//
+		$ref[ "kAPI_REQUEST_OPERATION" ] = kAPI_REQUEST_OPERATION;
+		$ref[ "kAPI_REQUEST_LANGUAGE" ] = kAPI_REQUEST_LANGUAGE;
+		$ref[ "kAPI_REQUEST_PARAMETERS" ] = kAPI_REQUEST_PARAMETERS;
+		
+		//
+		// Load response parameters.
+		//
+		$ref[ "kAPI_RESPONSE_STATUS" ] = kAPI_RESPONSE_STATUS;
+		$ref[ "kAPI_RESPONSE_PAGING" ] = kAPI_RESPONSE_PAGING;
+		$ref[ "kAPI_RESPONSE_RESULTS" ] = kAPI_RESPONSE_RESULTS;
+		$ref[ "kAPI_RESULTS_DICTIONARY" ] = kAPI_RESULTS_DICTIONARY;
+		
+		//
+		// Load status parameters.
+		//
+		$ref[ "kAPI_STATUS_STATE" ] = kAPI_STATUS_STATE;
+		$ref[ "kAPI_STATUS_CODE" ] = kAPI_STATUS_CODE;
+		$ref[ "kAPI_STATUS_FILE" ] = kAPI_STATUS_FILE;
+		$ref[ "kAPI_STATUS_LINE" ] = kAPI_STATUS_LINE;
+		$ref[ "kAPI_STATUS_MESSAGE" ] = kAPI_STATUS_MESSAGE;
+		$ref[ "kAPI_STATUS_TRACE" ] = kAPI_STATUS_TRACE;
+		
+		//
+		// Load paging parameters.
+		//
+		$ref[ "kAPI_PAGING_SKIP" ] = kAPI_PAGING_SKIP;
+		$ref[ "kAPI_PAGING_LIMIT" ] = kAPI_PAGING_LIMIT;
+		$ref[ "kAPI_PAGING_ACTUAL" ] = kAPI_PAGING_ACTUAL;
+		$ref[ "kAPI_PAGING_AFFECTED" ] = kAPI_PAGING_AFFECTED;
+		
+		//
+		// Load state constants.
+		//
+		$ref[ "kAPI_STATE_IDLE" ] = kAPI_STATE_IDLE;
+		$ref[ "kAPI_STATE_OK" ] = kAPI_STATE_OK;
+		$ref[ "kAPI_STATE_ERROR" ] = kAPI_STATE_ERROR;
+		
+		//
+		// Load dictionary parameters.
+		//
+		$ref[ "kAPI_DICTIONARY_COLLECTION" ] = kAPI_DICTIONARY_COLLECTION;
+		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
+		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
+		
+		//
+		// Load operations.
+		//
+		$ref[ "kAPI_OP_PING" ] = kAPI_OP_PING;
+		$ref[ "kAPI_OP_LIST_CONSTANTS" ] = kAPI_OP_LIST_CONSTANTS;
+		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
+		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
+		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
+		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
+		$ref[ "kAPI_OP_GET_ENUMERATIONS" ] = kAPI_OP_GET_ENUMERATIONS;
+		
+		//
+		// Load request parameters.
+		//
+		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
+		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
+		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
+		$ref[ "kAPI_PARAM_HAS_TAG_REFS" ] = kAPI_PARAM_HAS_TAG_REFS;
+		$ref[ "kAPI_PARAM_HAS_TERM_REFS" ] = kAPI_PARAM_HAS_TERM_REFS;
+		$ref[ "kAPI_PARAM_HAS_NODE_REFS" ] = kAPI_PARAM_HAS_NODE_REFS;
+		$ref[ "kAPI_PARAM_HAS_EDGE_REFS" ] = kAPI_PARAM_HAS_EDGE_REFS;
+		$ref[ "kAPI_PARAM_HAS_UNIT_REFS" ] = kAPI_PARAM_HAS_UNIT_REFS;
+		$ref[ "kAPI_PARAM_HAS_ENTITY_REFS" ] = kAPI_PARAM_HAS_ENTITY_REFS;
+		
+		//
+		// Load enumeration element parameters.
+		//
+		$ref[ "kAPI_RESULT_ENUM_LABEL" ] = kAPI_RESULT_ENUM_LABEL;
+		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
+		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
+		$ref[ "kAPI_RESULT_ENUM_CHILDREN" ] = kAPI_RESULT_ENUM_CHILDREN;
+		
+		//
+		// Load operators.
+		//
+		$ref[ "kOPERATOR_EQUAL" ] = kOPERATOR_EQUAL;
+		$ref[ "kOPERATOR_EQUAL_NOT" ] = kOPERATOR_EQUAL_NOT;
+		$ref[ "kOPERATOR_PREFIX" ] = kOPERATOR_PREFIX;
+		$ref[ "kOPERATOR_CONTAINS" ] = kOPERATOR_CONTAINS;
+		$ref[ "kOPERATOR_SUFFIX" ] = kOPERATOR_SUFFIX;
+		$ref[ "kOPERATOR_REGEX" ] = kOPERATOR_REGEX;
+		
+		//
+		// Load modifiers.
+		//
+		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
+		
+	} // executeListParameterConstants.
 
 		
 
@@ -1195,19 +1335,7 @@ abstract class ServiceObject extends ContainerObject
 			// Handle enumeration.
 			//
 			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_ENUM_OF )
-			{
-				//
-				// Create entry.
-				//
-				$index = count( $theContainer );
-				$theContainer[ $index ] = Array();
-				
-				//
-				// Load enumeration.
-				//
-				$this->executeLoadEnumeration( $edge, $theContainer[ $index ] );
-			
-			} // Enumeration.
+				$this->executeLoadEnumeration( $edge, $theContainer );
 			
 			//
 			// Handle type.
@@ -1221,12 +1349,15 @@ abstract class ServiceObject extends ContainerObject
 					= Edge::ResolveCollection(
 						Edge::ResolveDatabase(
 							$this->mWrapper ) )
-								->matchAll(
-									array( kTAG_OBJECT => $edge[ kTAG_SUBJECT ],
-										   kTAG_PREDICATE
-												=> array( '$in'
-													=> array( kPREDICATE_TYPE_OF,
-															  kPREDICATE_ENUM_OF ) ) ) );
+							->matchAll(
+								array( kTAG_OBJECT => $edge[ kTAG_SUBJECT ],
+									   kTAG_PREDICATE
+											=> array( '$in'
+												=> array( kPREDICATE_TYPE_OF,
+														  kPREDICATE_ENUM_OF ) ) ),
+								kQUERY_ARRAY,
+								array( kTAG_SUBJECT => TRUE,
+									   kTAG_PREDICATE => TRUE ) );
 				
 				//
 				// Recurse.
@@ -1260,7 +1391,6 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Init local storage.
 		//
-		$label = $descr = NULL;
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
 		
 		//
@@ -1271,69 +1401,62 @@ abstract class ServiceObject extends ContainerObject
 				Node::ResolveDatabase(
 					$this->mWrapper ) )
 						->matchOne(
-							array( kTAG_NID => $theEdge[ kTAG_SUBJECT ] ) );
-		
-		//
-		// Load node label.
-		//
-		if( $node->offsetExists( kTAG_LABEL ) )
-			$label
-				= OntologyObject::SelectLanguageString(
-					$node[ kTAG_LABEL ], $language );
-		
-		//
-		// Load node description.
-		//
-		if( $node->offsetExists( kTAG_DESCRIPTION ) )
-			$descr
-				= OntologyObject::SelectLanguageString(
-					$node[ kTAG_DESCRIPTION ], $language );
+							array( kTAG_NID => $theEdge[ kTAG_SUBJECT ] ),
+							kQUERY_ARRAY,
+							array( kTAG_NODE_TYPE => TRUE,
+								   kTAG_TERM => TRUE,
+								   kTAG_LABEL => TRUE,
+								   kTAG_DESCRIPTION => TRUE ) );
 		
 		//
 		// Load term.
 		//
-		$term = $node->getReferenced();
+		$term
+			= Term::ResolveCollection(
+				Term::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchOne(
+							array( kTAG_NID => $node[ kTAG_TERM ] ),
+							kQUERY_ARRAY,
+							array( kTAG_LABEL => TRUE,
+								   kTAG_DEFINITION => TRUE ) );
 		
 		//
-		// Load term label.
+		// Allocate element.
 		//
-		if( ($label === NULL)
-		 && $term->offsetExists( kTAG_LABEL ) )
-			$label
+		$theContainer[ $term[ kTAG_NID ] ] = Array();
+		$ref = & $theContainer[ $term[ kTAG_NID ] ];
+		
+		//
+		// Load label.
+		//
+		if( array_key_exists( kTAG_LABEL, $node ) )
+			$ref[ kAPI_RESULT_ENUM_LABEL ]
+				= OntologyObject::SelectLanguageString(
+					$node[ kTAG_LABEL ], $language );
+		elseif( array_key_exists( kTAG_LABEL, $term ) )
+			$ref[ kAPI_RESULT_ENUM_LABEL ]
 				= OntologyObject::SelectLanguageString(
 					$term[ kTAG_LABEL ], $language );
 		
 		//
-		// Load node description.
+		// Load description.
 		//
-		if( ($descr === NULL)
-		 && $term->offsetExists( kTAG_DESCRIPTION ) )
-			$descr
+		if( array_key_exists( kTAG_DESCRIPTION, $node ) )
+			$ref[ kAPI_RESULT_ENUM_DESCR ]
 				= OntologyObject::SelectLanguageString(
-					$term[ kTAG_DESCRIPTION ], $language );
-		
-		//
-		// Set term identifier.
-		//
-		$theContainer[ kAPI_RESULT_ENUM_TERM ] = $term[ kTAG_NID ];
-		
-		//
-		// Set term label.
-		//
-		if( $label !== NULL )
-			$theContainer[ kAPI_RESULT_ENUM_LABEL ] = $label;
-		
-		//
-		// Set term description.
-		//
-		if( $descr !== NULL )
-			$theContainer[ kAPI_RESULT_ENUM_DESCR ] = $descr;
+					$node[ kTAG_DESCRIPTION ], $language );
+		elseif( array_key_exists( kTAG_DEFINITION, $term ) )
+			$ref[ kAPI_RESULT_ENUM_DESCR ]
+				= OntologyObject::SelectLanguageString(
+					$term[ kTAG_DEFINITION ], $language );
 		
 		//
 		// Set node kind.
 		//
-		if( ($tmp = $node->offsetGet( kTAG_NODE_TYPE )) !== NULL )
-			$theContainer[ kAPI_RESULT_ENUM_KIND ] = $tmp;
+		if( array_key_exists( kTAG_NODE_TYPE, $node ) )
+			$ref[ kAPI_RESULT_ENUM_VALUE ]
+				= ( in_array( kTYPE_NODE_ENUMERATION, $node[ kTAG_NODE_TYPE ] ) );
 		
 		//
 		// Check for children.
@@ -1342,12 +1465,15 @@ abstract class ServiceObject extends ContainerObject
 			= Edge::ResolveCollection(
 				Edge::ResolveDatabase(
 					$this->mWrapper ) )
-						->matchAll(
-							array( kTAG_OBJECT => $node[ kTAG_NID ],
-								   kTAG_PREDICATE
-										=> array( '$in'
-											=> array( kPREDICATE_TYPE_OF,
-													  kPREDICATE_ENUM_OF ) ) ) );
+					->matchAll(
+						array( kTAG_OBJECT => $node[ kTAG_NID ],
+							   kTAG_PREDICATE
+									=> array( '$in'
+										=> array( kPREDICATE_TYPE_OF,
+												  kPREDICATE_ENUM_OF ) ) ),
+						kQUERY_ARRAY,
+						array( kTAG_SUBJECT => TRUE,
+							   kTAG_PREDICATE => TRUE ) );
 		
 		//
 		// Load enumerations.
@@ -1357,13 +1483,13 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Allocate children element.
 			//
-			$theContainer[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
+			$ref[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
 			
 			//
 			// Recurse.
 			//
 			$this->executeLoadEnumerations( $edges,
-											$theContainer[ kAPI_RESULT_ENUM_CHILDREN ] );
+											$ref[ kAPI_RESULT_ENUM_CHILDREN ] );
 		
 		} // Has children.
 		

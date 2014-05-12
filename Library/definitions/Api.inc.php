@@ -232,6 +232,16 @@ define( "kAPI_DICTIONARY_IDS",					'ids' );
 define( "kAPI_OP_PING",							'ping' );
 
 /**
+ * List parameter constants.
+ *
+ * This tag defines the list parameter constants operation.
+ *
+ * This operation requires no parameters, it will return the key/value list of all parameter
+ * constants.
+ */
+define( "kAPI_OP_LIST_CONSTANTS",				'list-constants' );
+
+/**
  * Match tag labels.
  *
  * This tag defines the match tag labels operation.
@@ -491,10 +501,10 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
- * it will be an array whose elements are structured as follows:
+ * it will be an array whose key represents the term native identifier and the elements are
+ * structured as follows:
  *
  * <ul>
- *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated term native identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
@@ -658,13 +668,6 @@ define( "kAPI_PARAM_HAS_ENTITY_REFS",			'entity-refs' );
  *======================================================================================*/
 
 /**
- * Term (string).
- *
- * This tag is used when returning an enumeration element, it defines a term reference.
- */
-define( "kAPI_RESULT_ENUM_TERM",				'term' );
-
-/**
  * Label (string).
  *
  * This tag is used when returning an enumeration element, it defines the element's label.
@@ -680,12 +683,12 @@ define( "kAPI_RESULT_ENUM_LABEL",				'label' );
 define( "kAPI_RESULT_ENUM_DESCR",				'description' );
 
 /**
- * Kind (array).
+ * Value (boolean).
  *
- * This tag is used when returning an enumeration element, it defines the element's kind,
- * that is, the node kind of the element.
+ * This tag is used when returning an enumeration element, if <tt>TRUE</tt>, the element can
+ * be considered as an enumerated value, if not, the element is a category.
  */
-define( "kAPI_RESULT_ENUM_KIND",				'kind' );
+define( "kAPI_RESULT_ENUM_VALUE",				'value' );
 
 /**
  * Children (array).

@@ -441,7 +441,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access public
-	 * @return IteratorObject		Matched data or <tt>NULL</tt>.
+	 * @return IteratorObject		Matched data iterator.
 	 */
 	abstract public function matchAll( $theCriteria = Array(),
 									   $theResult = kQUERY_DEFAULT,

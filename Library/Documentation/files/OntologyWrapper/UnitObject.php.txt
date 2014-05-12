@@ -692,6 +692,11 @@ abstract class UnitObject extends PersistentObject
 		//
 		$theLabels[] = static::kDEFAULT_DOMAIN;
 	
+		//
+		// Set identifier.
+		//
+		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_NID );
+	
 	} // setGraphProperties.
 
 	 

@@ -24,22 +24,23 @@ use OntologyWrapper\IteratorObject;
  * a single structure in which all the iterator element's tag and other object references
  * are resolved.
  *
- * The object stores this structure in a data member, the structure is divided into three
+ * The object stores this structure in a data member, this data member is set with a
+ * reference to the array that will receive the results. The structure is divided into three
  * main blocks, the first one is structured as follows:
  *
  * <ul>
- *	<li><tt>{@link kPAGE}</tt>: This element holds the iterator counters:
+ *	<li><tt>{@link kAPI_RESPONSE_PAGING}</tt>: This element holds the iterator counters:
  *	 <ul>
- *		<li><tt>{@link kAFFECTED}</tt>: This element will hold an integer indicating the
- *			total number of records affected by the query; this value does not take into
+ *		<li><tt>{@link kAPI_PAGING_AFFECTED}</tt>: This element will hold an integer
+ *			indicating the total number of records affected by the query; this value does not
+ *			take into consideration paging.
+ *		<li><tt>{@link kAPI_PAGING_ACTUAL}</tt>: This element will hold an integer indicating
+ *			the number of records returned by the iterator; this value takes into
  *			consideration paging.
- *		<li><tt>{@link kRETURNED}</tt>: This element will hold an integer indicating the
- *			number of records returned by the iterator; this value takes into consideration
- *			paging.
- *		<li><tt>{@link kSTART}</tt>: This element will hold an integer indicating the
- *			number of records skipped.
- *		<li><tt>{@link kLIMIT}</tt>: This element will hold an integer indicating the
- *			maximum number of requested records.
+ *		<li><tt>{@link kAPI_PAGING_SKIP}</tt>: This element will hold an integer indicating
+ *			the number of records skipped.
+ *		<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: This element will hold an integer indicating
+ *			the maximum number of requested records.
  *	 </ul>
  * </ul>
  *
@@ -47,18 +48,18 @@ use OntologyWrapper\IteratorObject;
  * holds information regarding the contents of the third block:
  *
  * <ul>
- *	<li><tt>{@link kDICT}</tt>: This element holds the cross references needed to access
- *		the elements of the result block:
+ *	<li><tt>{@link kAPI_RESULTS_DICTIONARY}</tt>: This element holds the cross references
+ *		needed to access the elements of the result block:
  *	 <ul>
- *		<li><tt>{@link kCOLLECTION}</tt>: This element will hold the name of the iterator's
- *			collection.
- *		<li><tt>{@link kTAGXREF}</tt>: This element will hold the list of all referenced
- *			tags, the key represents the tag sequence number of the value the tag native
- *			identifier. This element makes it easier to select tag objects by offset.
- *		<li><tt>{@link kIDs}</tt>: This element will hold an array listing the native
- *			identifiers of the objects selected by the iterator. This is necessary to
- *			discriminate the actual result set from eventual objects, belonging to the
- *			iterator's collection, referenced by other objects in the set.
+ *		<li><tt>{@link kAPI_DICTIONARY_COLLECTION}</tt>: This element will hold the name of
+ *			the iterator's collection.
+ *		<li><tt>{@link kAPI_DICTIONARY_TAGS}</tt>: This element will hold the list of all
+ *			referenced tags, the key represents the tag sequence number of the value the tag
+ *			native identifier. This element makes it easier to select tag objects by offset.
+ *		<li><tt>{@link kAPI_DICTIONARY_IDS}</tt>: This element will hold an array listing
+ *			the native identifiers of the objects selected by the iterator. This is
+ *			necessary to discriminate the actual result set from eventual objects, belonging
+ *			to the iterator's collection, referenced by other objects in the set.
  *	 </ul>
  * </ul>
  *
@@ -67,19 +68,19 @@ use OntologyWrapper\IteratorObject;
  * referenced by offsets and all eventual referenced objects belonging to the results set:
  *
  * <ul>
- *	<li><tt>{@link kOBJECTS}</tt>: This element holds the list of names of the collections
- *		featuring objects; each element is also an array holding the list of objects
- *		belonging to that collection indexed by native identifier. The objects are stored as
- *		arrays.
+ *	<li><tt>{@link kAPI_RESPONSE_RESULTS}</tt>: This element holds the list of names of the
+ *		collections featuring objects; each element is also an array holding the list of
+ *		objects belonging to that collection indexed by native identifier. The objects are
+ *		stored as arrays.
  * </ul>
  *
  * Object references are resolved as follows:
  *
  * <ul>
  *	<li><em>Offsets</em>: All offsets of all objects, including tag offsets, are resolved
- *		into tag objects, these are stored in the relative element of the {@link kOBJECTS}
- *		block and their native and sequence identifiers are cross referenced in the
- *		{@link kTAGXREF} element.
+ *		into tag objects, these are stored in the relative element of the
+ *		{@link kAPI_RESPONSE_RESULTS} block and their native and sequence identifiers are
+ *		cross referenced in the {@link kAPI_DICTIONARY_TAGS} element.
  *	<li><em>Object references</em>: All object references are resolved at the first level,
  *		which means that referenced objects will not resolve their references.
  * </ul>
@@ -117,90 +118,6 @@ class ResultAggregator
 	 */
 	protected $mProcessed = FALSE;
 
-	/**
-	 * Page.
-	 *
-	 * This constant references the page block.
-	 *
-	 * @var string
-	 */
-	const kPAGE = 'page';
-
-	/**
-	 * Affected count.
-	 *
-	 * This constant references the affected count, which represents an integer indicating
-	 * the total number of elements affected by the query, without considering paging.
-	 */
-	const kAFFECTED = 'affected';
-
-	/**
-	 * Returned count.
-	 *
-	 * This constant references the returned count, which represents an integer indicating
-	 * the total number of elements returned by the operation; this takes into
-	 * consideration paging.
-	 */
-	const kRETURNED = 'returned';
-
-	/**
-	 * Skipped.
-	 *
-	 * This constant references the number of skipped elements, this represents an integer
-	 * referring to the <tt>start</tt> paging parameter which starts with <tt>0</tt>.
-	 */
-	const kSTART = 'start';
-
-	/**
-	 * Limit.
-	 *
-	 * This constant represents an integer referencing the maximum number of elements to be
-	 * returned by the iterator.
-	 */
-	const kLIMIT = 'limit';
-
-	/**
-	 * Dictionary.
-	 *
-	 * This constant references the block holding the results cross references.
-	 */
-	const kDICT = 'dict';
-
-	/**
-	 * Collection.
-	 *
-	 * This constant represents the iterator's collection name, this will correspond to
-	 * the key of the block holding objects returned by the iterator; and eventual
-	 * referenced objects belonging to the same collection.
-	 */
-	const kCOLLECTION = 'coll';
-
-	/**
-	 * Tag cross references.
-	 *
-	 * This constant references the block holding all tag cross references: this is an
-	 * array indexed by tag sequence number with as value the tag native identifier, this
-	 * is used to resolve object offsets.
-	 */
-	const kTAGXREF = 'tags';
-
-	/**
-	 * Query identifiers.
-	 *
-	 * This constant references the block holding the native identifiers of the objects
-	 * selected by the iterator.
-	 */
-	const kIDs = 'ids';
-
-	/**
-	 * Objects.
-	 *
-	 * This constant references the block holding all the objects referenced by the
-	 * result set, it is an array indexed by collection name, holding the list of objects,
-	 * represented as the object array, belonging to the collection.
-	 */
-	const kOBJECTS = 'objs';
-
 		
 
 /*=======================================================================================
@@ -218,19 +135,33 @@ class ResultAggregator
 	/**
 	 * Instantiate class.
 	 *
-	 * The object should be instantiated with an iterator object, this iterator should have
-	 * been paged by the caller: in this class we do not handle paging and sorting, we
-	 * simply scan the iterator.
+	 * The object should be instantiated with an iterator object and a reference to an array
+	 * that will receive the results.
+	 *
+	 * The iterator should have been paged by the caller: in this class we do not handle
+	 * paging and sorting, we simply scan the iterator.
 	 *
 	 * The constructor will store the iterator and exctract the relevant information from
-	 * it, it will then initialise the standard blocks.
+	 * it, it will then initialise the paging, dictionary and object blocks.
 	 *
 	 * @param IteratorObject		$theIterator		Iterator.
+	 * @param array					$theResults			Results array reference.
 	 *
 	 * @access public
 	 */
-	public function __construct( IteratorObject $theIterator )
+	public function __construct( IteratorObject $theIterator, &$theResults )
 	{
+		//
+		// Check results.
+		//
+		if( ! is_array( $theResults ) )
+			$theResults = Array();
+		
+		//
+		// Set results.
+		//
+		$this->mResults = & $theResults;
+		
 		//
 		// Set results type.
 		//
@@ -249,24 +180,25 @@ class ResultAggregator
 		//
 		// Init page.
 		//
-		$this->mResults[ self::kPAGE ]
-			= array( self::kAFFECTED => $theIterator->affectedCount(),
-					 self::kRETURNED => $theIterator->count(),
-					 self::kSTART => $theIterator->skip(),
-					 self::kLIMIT => $theIterator->limit() );
+		$this->mResults[ kAPI_RESPONSE_PAGING ]
+			= array( kAPI_PAGING_AFFECTED => $theIterator->affectedCount(),
+					 kAPI_PAGING_ACTUAL => $theIterator->count(),
+					 kAPI_PAGING_SKIP => $theIterator->skip(),
+					 kAPI_PAGING_LIMIT => $theIterator->limit() );
 		
 		//
 		// Init dictionary.
 		//
-		$this->mResults[ self::kDICT ]
-			= array( self::kCOLLECTION => $theIterator->collection()[ kTAG_CONN_COLL ],
-					 self::kTAGXREF => Array(),
-					 self::kIDs => Array() );
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+			= array( kAPI_DICTIONARY_COLLECTION
+						=> $theIterator->collection()[ kTAG_CONN_COLL ],
+					 kAPI_DICTIONARY_IDS => Array(),
+					 kAPI_DICTIONARY_TAGS => Array() );
 		
 		//
 		// Init results.
 		//
-		$this->mResults[ self::kOBJECTS ] = Array();
+		$this->mResults[ kAPI_RESPONSE_RESULTS ] = Array();
 
 	} // Constructor.
 
@@ -352,7 +284,7 @@ class ResultAggregator
 				//
 				// Store object.
 				//
-				$this->mResults[ self::kOBJECTS ]
+				$this->mResults[ kAPI_RESPONSE_RESULTS ]
 							   [ $name ]
 							   [ $key ] = $value;
 	
@@ -365,7 +297,7 @@ class ResultAggregator
 	
 		} // Not processed.
 	
-		return $this->mResults;													// ==>
+		return $this->mResults;														// ==>
 	
 	} // aggregate.
 
@@ -388,9 +320,9 @@ class ResultAggregator
 	 *
 	 * This method will load the provided identifier in the main identifiers list.
 	 *
-	 * In this class we set the provided value in the {@link kIDs} element of the
-	 * {@link kDICT} block; derived classes may overload this method to build a custom
-	 * identifiers structure.
+	 * In this class we set the provided value in the {@link kAPI_DICTIONARY_IDS} element of
+	 * the {@link kAPI_RESULTS_DICTIONARY} block; derived classes may overload this method
+	 * to build a custom identifiers structure.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
@@ -398,8 +330,8 @@ class ResultAggregator
 	 */
 	protected function identify( $theIdentifier )
 	{
-		$this->mResults[ self::kDICT ]
-					   [ self::kIDs ]
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+					   [ kAPI_DICTIONARY_IDS ]
 					   [] = $theIdentifier;
 		
 	} // identify.
@@ -691,7 +623,9 @@ class ResultAggregator
 				//
 				if( ($theLanguage !== NULL)
 				 && ($type == kTYPE_LANGUAGE_STRINGS) )
-					$property = $this->selectLanguageString( $property, $theLanguage );
+				 	$property
+				 		= OntologyObject::SelectLanguageString(
+				 			$property, $theLanguage );
 				
 				//
 				// Set new object.
@@ -753,13 +687,14 @@ class ResultAggregator
 			//
 			// Skip existing.
 			//
-			if( ! in_array( $key, $this->mResults[ self::kDICT ][ self::kTAGXREF ] ) )
+			if( ! in_array( $key, $this->mResults[ kAPI_RESULTS_DICTIONARY ]
+												 [ kAPI_DICTIONARY_TAGS ] ) )
 			{
 				//
 				// Load xref.
 				//
-				$this->mResults[ self::kDICT ]
-							   [ self::kTAGXREF ]
+				$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+							   [ kAPI_DICTIONARY_TAGS ]
 							   [ $value[ kTAG_ID_SEQUENCE ] ]
 					= $key;
 			
@@ -771,7 +706,7 @@ class ResultAggregator
 				//
 				// Load object.
 				//
-				$this->mResults[ self::kOBJECTS ]
+				$this->mResults[ kAPI_RESPONSE_RESULTS ]
 							   [ Tag::kSEQ_NAME ]
 							   [ $key ]
 					= $value;
@@ -827,8 +762,8 @@ class ResultAggregator
 			// Create container.
 			//
 			if( $iter->affectedCount()
-			 && (! array_key_exists( $coll, $this->mResults[ self::kOBJECTS ] )) )
-				$this->mResults[ self::kOBJECTS ][ $coll ] = Array();
+			 && (! array_key_exists( $coll, $this->mResults[ kAPI_RESPONSE_RESULTS ] )) )
+				$this->mResults[ kAPI_RESPONSE_RESULTS ][ $coll ] = Array();
 			
 			//
 			// Iterate references.
@@ -838,7 +773,8 @@ class ResultAggregator
 				//
 				// Skip existing.
 				//
-				if( ! array_key_exists( $key, $this->mResults[ self::kOBJECTS ][ $coll ] ) )
+				if( ! array_key_exists( $key, $this->mResults[ kAPI_RESPONSE_RESULTS ]
+															 [ $coll ] ) )
 				{
 					//
 					// Process reference.
@@ -849,7 +785,7 @@ class ResultAggregator
 					//
 					// Load object.
 					//
-					$this->mResults[ self::kOBJECTS ]
+					$this->mResults[ kAPI_RESPONSE_RESULTS ]
 								   [ $coll ]
 								   [ $key ]
 						= $value;
@@ -861,83 +797,6 @@ class ResultAggregator
 		} // Iterating collections.
 	
 	} // loadReferences.
-
-	 
-	/*===================================================================================
-	 *	selectLanguageString																		*
-	 *==================================================================================*/
-
-	/**
-	 * Traverse language strings
-	 *
-	 * This method's duty is to replace the property with the string matching the provided
-	 * language code, the method will perform the following steps:
-	 *
-	 * <ul>
-	 *	<li>If the string matching the code is there, use it.
-	 *	<li>If a code <tt>0</tt> is there, use it.
-	 *	<li>Use the first string.
-	 * </ul>
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theStrings</b>: The property containing the strings.
-	 *	<li><b>$theLanguage</b>: The default language code.
-	 * </ul>
-	 *
-	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
-	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it: it will return <tt>TRUE</tt> by default.
-	 *
-	 * @param array					$theStrings			Language strings property.
-	 * @param string				$theLanguage		Default language code.
-	 *
-	 * @access protected
-	 * @return string				The selected string.
-	 */
-	protected final function selectLanguageString( $theStrings, $theLanguage )
-	{
-		//
-		// Init local storage.
-		//
-		$first = NULL;
-		
-		//
-		// Locate language code.
-		//
-		foreach( $theStrings as $string )
-		{
-			//
-			// Match language code.
-			//
-			if( $string[ kTAG_LANGUAGE ] == $theLanguage )
-				return $string[ kTAG_TEXT ];										// ==>
-			
-			//
-			// Set first.
-			//
-			if( $first === NULL )
-				$first = $string[ kTAG_TEXT ];
-		
-		} // Iterating language strings.
-	
-		//
-		// Locate default string.
-		//
-		foreach( $theStrings as $string )
-		{
-			//
-			// Match default code.
-			//
-			if( $string[ kTAG_LANGUAGE ] == 0 )
-				return $string[ kTAG_TEXT ];										// ==>
-		
-		} // Iterating language strings.
-		
-		return $first;																// ==>
-	
-	} // selectLanguageString.
 
 	 
 

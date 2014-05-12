@@ -1076,6 +1076,7 @@ class Tag extends PersistentObject
 				$labels[] = kDOMAIN_ATTRIBUTE;
 				$properties[ 'STORE' ] = Term::kSEQ_NAME;
 				$properties[ 'CLASS' ] = get_class( $term );
+				$properties[ 'GID' ] = $path[ $i ];
 				$properties[ kTAG_NID ] = $path[ $i ];
 				
 				//
@@ -1143,9 +1144,9 @@ class Tag extends PersistentObject
 		$theLabels[] = kDOMAIN_PROPERTY;
 	
 		//
-		// Set data type.
+		// Set identifier.
 		//
-		$theProperties[ (string) kTAG_DATA_TYPE ] = $this->offsetGet( kTAG_DATA_TYPE );
+		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_NID );
 	
 	} // setGraphProperties.
 

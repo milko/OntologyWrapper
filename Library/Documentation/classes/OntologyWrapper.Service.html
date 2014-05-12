@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-829505027"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-829505027" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1861516429"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-1861516429" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-210872153"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-210872153" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorObject.html">IteratorObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ResultAggregator.html">ResultAggregator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServiceObject.html">ServiceObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\OntologyWrapper</small>Service</h1>
+                    <p><em>Service object</em></p>
+                    <p>A <em>service</em> is an object that can be used to implement a set of web services, the
+current class implements the base functionality, concrete derived classes will extend
+this class to implement specific behaviours.</p>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_handleRequest" class="">handleRequest()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_offsetExists" class="">offsetExists()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_offsetGet" class="">offsetGet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_offsetSet" class="">offsetSet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_offsetUnset" class="">offsetUnset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_arrayKeys" class="">arrayKeys()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_arrayValues" class="">arrayValues()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_Object2Array" class="">Object2Array()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_parseRequest" class="">parseRequest()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_parseOperation" class="">parseOperation()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_parseLanguage" class="">parseLanguage()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_parseParameters" class="">parseParameters()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_parseParameter" class="">parseParameter()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_validateRequest" class="">validateRequest()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_validateMatchLabelStrings" class="">validateMatchLabelStrings()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_validateMatchLabelStringsOperator" class="">validateMatchLabelStringsOperator()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_validateGetEnumerations" class="">validateGetEnumerations()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeRequest" class="">executeRequest()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executePing" class="">executePing()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeListParameterConstants" class="">executeListParameterConstants()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeMatchLabelStrings" class="">executeMatchLabelStrings()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeMatchLabelObjects" class="">executeMatchLabelObjects()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeMatchLabelStringsQuery" class="">executeMatchLabelStringsQuery()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeMatchLabelStringsResults" class="">executeMatchLabelStringsResults()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeMatchLabelObjectsResults" class="">executeMatchLabelObjectsResults()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeLoadEnumerations" class="">executeLoadEnumerations()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_executeLoadEnumeration" class="">executeLoadEnumeration()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_handleException" class="">handleException()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#method_stringMatchPattern" class="">stringMatchPattern()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetExists" class="">preOffsetExists()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetGet" class="">preOffsetGet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetSet" class="">preOffsetSet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_postOffsetSet" class="">postOffsetSet()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_preOffsetUnset" class="">preOffsetUnset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ContainerObject.html#method_postOffsetUnset" class="">postOffsetUnset()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_parseStringMatchOperator" class="">parseStringMatchOperator()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeMatchTagLabels" class="">executeMatchTagLabels()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeMatchTermLabels" class="">executeMatchTermLabels()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeMatchTagByLabel" class="">executeMatchTagByLabel()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeMatchTermByLabel" class="">executeMatchTermByLabel()</a><br />
+                                                                    <a href="../classes/OntologyWrapper.Service.html#method_executeGetEnumerations" class="">executeGetEnumerations()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#property_mWrapper" class="">$mWrapper</a><br />
+                                                                    <a href="../classes/OntologyWrapper.ServiceObject.html#property_mResponse" class="">$mResponse</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/OntologyWrapper.Service.php.html"><div class="path-wrapper">OntologyWrapper/Service.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper"></div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                        <div class="namespace-wrapper">\ArrayObject</div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/OntologyWrapper.ContainerObject.html">\OntologyWrapper\ContainerObject</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/OntologyWrapper.ServiceObject.html">\OntologyWrapper\ServiceObject</a></div>
+                                                                                                    <div class="namespace-wrapper">\OntologyWrapper\Service</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    <p>03/05/2014</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mWrapper" name="property_mWrapper" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mWrapper</h3>
+                <pre class="signature">$mWrapper : \OntologyWrapper\Wrapper</pre>
+                <p><em>Wrapper.</em></p>
+                <p>This data member holds the data wrapper.</p>
+
+                                <h4>Type</h4>
+                <a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mResponse" name="property_mResponse" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$mResponse</h3>
+                <pre class="signature">$mResponse : array</pre>
+                <p><em>Response.</em></p>
+                <p>This data member holds the service response.</p>
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\OntologyWrapper\Wrapper <span class="argument">$theWrapper</span>)</pre>
+                <p><em>Instantiate class.</em></p>
+                <p>The constructor accepts a single parameter which is a {@link Wrapper} instance.</p>
+<p>The method will perform the following steps:</p>
+<ul>
+<li><em>Init response status</em>: The response status state will be set to
+    {@link kAPI_STATE_IDLE}.
+<li><em>Store wrapper</em>: The provided wrapper will be stored in the object.
+<li><em>Parse request</em>: The {@link parseRequest()} method will parse and load
+    the provided parameters.
+<li><em>Validate request</em>: The {@link validateRequest()} method will validate
+    the provided parameters.
+<li><em>Set response status</em>: The response status state will be set to
+    {@link kAPI_STATE_OK}.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.Wrapper.html">\OntologyWrapper\Wrapper</a></td>
+                                <td>$theWrapper </td>
+                                <td><p>Data wrapper.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>parseRequest()</dd>
+                                            <dd>validateRequest()</dd>
+                                            <dd>handleException()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_handleRequest" name="method_handleRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">handleRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">handleRequest()</pre>
+                <p><em>Handle request.</em></p>
+                <p>This method will handle the request and return the result.</p>
+<p>The method will call the protected {@link executeRequest()} method which should
+perform what the current service was requested to do, it will then send a header
+signalling JSON content and send the json-encoded result.</p>
+<p><em>Note that this method will exit the script, which means that you cannot do
+anything after this method; this also means that the caller does not need to set an
+{@link exit()} command</em>.</p>
+<p>The method will initialise the</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>executeRequest()</dd>
+                                            <dd>handleException()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetExists" name="method_offsetExists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetExists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetExists(mixed <span class="argument">$theOffset</span>) : boolean</pre>
+                <p><em>Check if an offset exists</em></p>
+                <p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p><tt>TRUE</tt> the offset exists.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>preOffsetExists()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetGet" name="method_offsetGet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetGet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetGet(mixed <span class="argument">$theOffset</span>) : mixed</pre>
+                <p><em>Return a value at a given offset</em></p>
+                <p>We overload this method to call the preflight method: if it returns <tt>NULL</tt> we
+call the parent method; if not, we return the received value.</p>
+<p>We also overload this method to handle unmatched offsets: we prevent warnings from
+being issued and return <tt>NULL</tt>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>Offset value or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>preOffsetGet()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetSet" name="method_offsetSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetSet(string <span class="argument">$theOffset</span>, mixed <span class="argument">$theValue</span>)</pre>
+                <p><em>Set a value at a given offset</em></p>
+                <p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to handle <tt>NULL</tt> <em>values</em>: in that case we
+delete the offset.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue </td>
+                                <td><p>Value to set at offset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>preOffsetSet()</dd>
+                                            <dd>postOffsetSet()</dd>
+                                            <dd>offsetUnset()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_offsetUnset" name="method_offsetUnset" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">offsetUnset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">offsetUnset(string <span class="argument">$theOffset</span>)</pre>
+                <p><em>Reset a value at a given offset</em></p>
+                <p>We overload this method to call the preflight and postflight methods: if the
+preflight method returns <tt>NULL</tt> we call the parent method; if not, we stop.</p>
+<p>We also overload this method to prevent warnings on unmatched offsets.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>preOffsetUnset()</dd>
+                                            <dd>postOffsetUnset()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_arrayKeys" name="method_arrayKeys" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">arrayKeys()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">arrayKeys() : array</pre>
+                <p><em>Return object&#039;s offsets</em></p>
+                <p>This method has the same function as the PHP function {@link array_keys()}, it will
+return all the object's offset keys as an array.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>List of object offsets.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>getArrayCopy()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_arrayValues" name="method_arrayValues" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">arrayValues()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">arrayValues() : array</pre>
+                <p><em>Return object&#039;s offset values</em></p>
+                <p>This method has the same function as the PHP function {@link array_values()}, it
+will return all the object's offset values as an array.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>List of object offset values.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>getArrayCopy()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Object2Array" name="method_Object2Array" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Object2Array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Object2Array(\OntologyWrapper\reference <span class="argument">$theSource</span>, \OntologyWrapper\reference <span class="argument">$theDestination</span>)</pre>
+                <p><em>&lt;h4&gt;Convert object to array&lt;/h4&gt;</em></p>
+                <p>This method can be used to obtain an array of arrays from a nested structure.</p>
+<p>The method expects as the first parameter a reference to an {@link ArrayObject} or to
+an array, it will convert the provided parameter to an array and traverse it,
+converting recursively any {@link ArrayObject} instance into an array.</p>
+<p>The method accepts the following parameters:</p>
+<ul>
+<li><tt>$theSource</tt>: Source structure reference (<em>read-only</em>).
+<li><tt>$theDestination</tt>: Destination array reference.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theSource </td>
+                                <td><p>Reference to the source structure.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theDestination </td>
+                                <td><p>Reference to the destination array.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseRequest" name="method_parseRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseRequest()</pre>
+                <p><em>Parse request.</em></p>
+                <p>This method will parse the request provided in the $_REQUEST global parameter, it
+will place all recognised parameters in the object's array, ignoring any unknown
+option.</p>
+<p>The method takes advantage of the following protected methods:</p>
+<ul>
+<li><tt>{@link parseOperation()}</tt>: This method is responsible of parsing the
+    operation.
+<li><tt>{@link parseLanguage()}</tt>: This method is responsible of parsing the
+    language.
+<li><tt>{@link parseParameters()}</tt>: This method is responsible of parsing the
+    additional parameters.
+</ul>
+<p>The method will raise an exception if the operation is missing.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>parseOperation()</dd>
+                                            <dd>parseLanguage()</dd>
+                                            <dd>parseParameters()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseOperation" name="method_parseOperation" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseOperation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseOperation()</pre>
+                <p><em>Parse operation.</em></p>
+                <p>In this class we assert the following operations:</p>
+<ul>
+<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
+<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+</ul>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseLanguage" name="method_parseLanguage" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseLanguage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseLanguage()</pre>
+                <p><em>Parse language.</em></p>
+                <p>The duty of this method is to parse the provided language parameter, if the parameter
+was not sent, the method will set the default language, {@link kSTANDARDS_LANGUAGE}.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseParameters" name="method_parseParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseParameters()</pre>
+                <p><em>Parse parameters.</em></p>
+                <p>The duty of this method is to parse the additional parameters provided in the
+{@link kAPI_REQUEST_PARAMETERS} argument of the service.</p>
+<p>Each parameter will be fed to the protected {@link parseParameter()} method which
+derived classes can overload to handle custom values.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>parseParameter()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseParameter" name="method_parseParameter" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseParameter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseParameter(string <span class="argument">$theKey</span>, mixed <span class="argument">$theValue</span>)</pre>
+                <p><em>Parse parameter.</em></p>
+                <p>In this class we handle the following operations:</p>
+<ul>
+<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
+<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+</ul>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$theKey </td>
+                                <td><p>Parameter key.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue </td>
+                                <td><p>Parameter value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>parseStringMatchOperator()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateRequest" name="method_validateRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateRequest()</pre>
+                <p><em>Validate request.</em></p>
+                <p>In this class we handle the following operations:</p>
+<ul>
+<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
+<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+</ul>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateMatchLabelStrings" name="method_validateMatchLabelStrings" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateMatchLabelStrings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateMatchLabelStrings()</pre>
+                <p><em>Validate match label strings services.</em></p>
+                <p>This method will validate all service operations which match label strings, the
+method will perform the following actions:</p>
+<ul>
+<li><em>Validate operator</em>: If the parameter is missing, it will set it by
+    default as "contains case and accent insensitive"; if the parameter is set, it
+    will ensure that it is conformant with the requested operation.
+<li><em>Check limit</em>: If the parameter is missing, the method will raise an
+    exception; if its value is larger than the {@link kSTANDARDS_STRINGS_LIMIT}
+    constant, it will set it to that value.
+<li><em>Check pattern</em>: If the parameter is missing, the method will raise an
+    exception.
+</ul>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">kAPI_PAGING_LIMIT kAPI_PARAM_PATTERN</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">kOPERATOR_NOCASE</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                                                <dt>Uses</dt>
+                                                                <dd>validateMatchLabelStringsOperator()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateMatchLabelStringsOperator" name="method_validateMatchLabelStringsOperator" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateMatchLabelStringsOperator()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateMatchLabelStringsOperator()</pre>
+                <p><em>Validate match tag labels operator.</em></p>
+                <p>This method will validate the operator parameter passed to all service operations
+which match label strings, the method will perform the following operations:</p>
+<ul>
+<li>Assert that the parameter is an array.
+<li>Assert that the array is not empty.
+<li>Assert that the parameter contains no more than one main operator.
+<li>Assert that the parameter contains at least one main operator.
+</ul>
+<p>Any error will raise an exception.</p>
+<p>The method assumes the operator to be set.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">kOPERATOR_EQUAL_NOT kOPERATOR_PREFIX</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">kOPERATOR_SUFFIX kOPERATOR_REGEX</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validateGetEnumerations" name="method_validateGetEnumerations" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">validateGetEnumerations()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validateGetEnumerations()</pre>
+                <p><em>Validate get enumerations service.</em></p>
+                <p>This method will validate all service operations which return enumerated sets, the
+method will perform the following actions:</p>
+<ul>
+<li><em>Check tag</em>: If the parameter is missing, the method will raise an
+    exception.
+<li><em>Validate tag</em>: The method will check whether the provided tag reference
+    is valid, if that is not the case, the method will raise an exception.
+</ul>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\OntologyWrapper\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeRequest" name="method_executeRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeRequest()</pre>
+                <p><em>Execute request.</em></p>
+                <p>In this class we handle the following operations:</p>
+<ul>
+<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
+<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
+<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+</ul>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>executeMatchTagLabels()</dd>
+                                            <dd>executeMatchTermLabels()</dd>
+                                            <dd>executeMatchTagByLabel()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executePing" name="method_executePing" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executePing()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executePing()</pre>
+                <p><em>Execute ping request.</em></p>
+                <p>This method will handle the {@link kAPI_OP_PING} operation.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeListParameterConstants" name="method_executeListParameterConstants" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeListParameterConstants()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeListParameterConstants()</pre>
+                <p><em>Execute list parameter constants request.</em></p>
+                <p>This method will handle the {@link kAPI_OP_LIST_CONSTANTS} operation.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchLabelStrings" name="method_executeMatchLabelStrings" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchLabelStrings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchLabelStrings(\OntologyWrapper\CollectionObject <span class="argument">$theCollection</span>)</pre>
+                <p><em>Match label strings.</em></p>
+                <p>This method will match all label strings from objects stored in the provided
+collection.</p>
+<p>The method uses the {@link executeMatchLabelStringsQuery()} method to produce the
+query cursor and the {@link executeMatchLabelStringsResults()} method to compile the
+results.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a></td>
+                                <td>$theCollection </td>
+                                <td><p>Data collection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>executeMatchLabelStringsQuery()</dd>
+                                            <dd>executeMatchLabelStringsResults()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchLabelObjects" name="method_executeMatchLabelObjects" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchLabelObjects()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchLabelObjects(\OntologyWrapper\CollectionObject <span class="argument">$theCollection</span>)</pre>
+                <p><em>Match label objects.</em></p>
+                <p>This method will match all objects in the provided collection matching labels.</p>
+<p>The method uses the {@link executeMatchLabelStringsQuery()} method to produce the
+query cursor and the {@link executeMatchLabelObjectsResults()} method to compile the
+results.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a></td>
+                                <td>$theCollection </td>
+                                <td><p>Data collection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>executeMatchLabelStringsQuery()</dd>
+                                            <dd>executeMatchLabelObjectsResults()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchLabelStringsQuery" name="method_executeMatchLabelStringsQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchLabelStringsQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchLabelStringsQuery(\OntologyWrapper\CollectionObject <span class="argument">$theCollection</span>, array <span class="argument">$theFields</span>) : \OntologyWrapper\IteratorObject</pre>
+                <p><em>Query label strings.</em></p>
+                <p>This method will match all label strings from objects stored in the provided
+collection and return a recordset.</p>
+<p>The method expects the following parameters to have been set:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: Match pattern.
+<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: Match operator.
+<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: String language.
+<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Limits.
+</ul>
+<p>The method will also consider the following optional parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+    those objects which are or are not referenced by tag objects.
+<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+    those objects which are or are not referenced by term objects.
+<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+    those objects which are or are not referenced by node objects.
+<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+    those objects which are or are not referenced by edge objects.
+<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+    those objects which are or are not referenced by unit objects.
+<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+    only those objects which are or are not referenced by entity objects.
+</ul>
+<p>The last parameter represents the fields selection.</p>
+<p>The method will set the affected count and will skip eventual records, other cursor
+operations will have to be performed by the caller.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.CollectionObject.html">\OntologyWrapper\CollectionObject</a></td>
+                                <td>$theCollection </td>
+                                <td><p>Data collection.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theFields </td>
+                                <td><p>Fields selection.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a>
+                                            &mdash; <p>Matched data or <tt>NULL</tt>.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>stringMatchPattern()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchLabelStringsResults" name="method_executeMatchLabelStringsResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchLabelStringsResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchLabelStringsResults(\OntologyWrapper\IteratorObject <span class="argument">$theIterator</span>)</pre>
+                <p><em>Build label strings results.</em></p>
+                <p>This method will use the provided cursor to fill the service results with the
+requested label strings.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a></td>
+                                <td>$theIterator </td>
+                                <td><p>Iterator object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchLabelObjectsResults" name="method_executeMatchLabelObjectsResults" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchLabelObjectsResults()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchLabelObjectsResults(\OntologyWrapper\IteratorObject <span class="argument">$theIterator</span>)</pre>
+                <p><em>Build label objects results.</em></p>
+                <p>This method will use the provided cursor to fill the service results with the
+requested label objects.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a></td>
+                                <td>$theIterator </td>
+                                <td><p>Iterator object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeLoadEnumerations" name="method_executeLoadEnumerations" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeLoadEnumerations()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeLoadEnumerations(\OntologyWrapper\IteratorObject <span class="argument">$theIterator</span>, array <span class="argument">$theContainer</span>)</pre>
+                <p><em>Load enumerations.</em></p>
+                <p>This method expects an iterator containing a list of enumerations and a reference to
+the results element that will receive the results.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/OntologyWrapper.IteratorObject.html">\OntologyWrapper\IteratorObject</a></td>
+                                <td>$theIterator </td>
+                                <td><p>Iterator object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer </td>
+                                <td><p>Reference to the results container.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeLoadEnumeration" name="method_executeLoadEnumeration" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeLoadEnumeration()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeLoadEnumeration(array <span class="argument">$theEdge</span>, array <span class="argument">$theContainer</span>)</pre>
+                <p><em>Load single enumeration.</em></p>
+                <p>This method expects an iterator containing a list of enumerations and a reference to
+the results element that will receive the results.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theEdge </td>
+                                <td><p>Edge object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theContainer </td>
+                                <td><p>Reference to the results container.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_handleException" name="method_handleException" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">handleException()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">handleException(\OntologyWrapper\Exception <span class="argument">$theException</span>)</pre>
+                <p><em>Handle exception.</em></p>
+                <p>This method should be called whenever an exception is catched, it will load the
+exception arguments in the {@link kAPI_RESPONSE_STATUS} block, delete all other
+blocks and return the JSON encoded result.</p>
+<p><em>Note that the script will exit in this method</em>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\Exception</td>
+                                <td>$theException </td>
+                                <td><p>Exception.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_stringMatchPattern" name="method_stringMatchPattern" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">stringMatchPattern()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">stringMatchPattern(string <span class="argument">$thePattern</span>, array <span class="argument">$theOperator</span>) : array</pre>
+                <p><em>Return string match criteria pattern.</em></p>
+                <p>This method will return the pattern corresponding to the provided operator that
+should be used to match a string.</p>
+<p>The methoid will only consider the following main operators:</p>
+<ul>
+<li><tt>{@link kOPERATOR_EQUAL}</tt>: Equality.
+<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: Inequality.
+<li><tt>{@link kOPERATOR_PREFIX}</tt>: Prefix.
+<li><tt>{@link kOPERATOR_CONTAINS}</tt>: Contains.
+<li><tt>{@link kOPERATOR_SUFFIX}</tt>: Suffix.
+<li><tt>{@link kOPERATOR_REGEX}</tt>: Regular expression.
+</ul>
+<p>If none of the above are present in the operator, the method will raise an exception.</p>
+<p>The method will only return the match value to be used in the filter criteria, it is
+up to the caller to add the property reference.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$thePattern </td>
+                                <td><p>Match pattern.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$theOperator </td>
+                                <td><p>Match operator.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Search criteria.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ServiceObject.html"><div class="path-wrapper">\OntologyWrapper\ServiceObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_preOffsetExists" name="method_preOffsetExists" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">preOffsetExists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">preOffsetExists(\OntologyWrapper\reference <span class="argument">$theOffset</span>) : mixed</pre>
+                <p><em>Handle offset before checking it</em></p>
+                <p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetExists()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetExists()}; if the method returns any other value, this will
+be returned and the inherited {@link ArrayObject::OffsetExists()} will be skipped.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p><tt>NULL</tt> check offset, other, return.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_preOffsetGet" name="method_preOffsetGet" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">preOffsetGet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">preOffsetGet(\OntologyWrapper\reference <span class="argument">$theOffset</span>) : mixed</pre>
+                <p><em>Handle offset before getting it</em></p>
+                <p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetGet()} method.</p>
+<p>The method provides the offset as a reference, if the method returns <tt>NULL</tt>
+it means that the offset must be passed to the inherited
+{@link ArrayObject::OffsetGet()}; if the method returns any other value, this must be
+returned and the inherited {@link ArrayObject::OffsetGet()} skipped.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p><tt>NULL</tt> get offset value, other, return.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_preOffsetSet" name="method_preOffsetSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">preOffsetSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">preOffsetSet(\OntologyWrapper\reference <span class="argument">$theOffset</span>, \OntologyWrapper\reference <span class="argument">$theValue</span>) : mixed</pre>
+                <p><em>Handle offset and value before setting it</em></p>
+                <p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>The method provides the offset and value as references, if the method returns
+<tt>NULL</tt> it means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetSet()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetSet()} should be skipped.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theValue </td>
+                                <td><p>Offset value reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p><tt>NULL</tt> set offset value, other, return.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_postOffsetSet" name="method_postOffsetSet" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">postOffsetSet()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">postOffsetSet(\OntologyWrapper\reference <span class="argument">$theOffset</span>, \OntologyWrapper\reference <span class="argument">$theValue</span>)</pre>
+                <p><em>Handle offset and value after setting it</em></p>
+                <p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetSet()} method.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theValue </td>
+                                <td><p>Offset value reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_preOffsetUnset" name="method_preOffsetUnset" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">preOffsetUnset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">preOffsetUnset(\OntologyWrapper\reference <span class="argument">$theOffset</span>) : mixed</pre>
+                <p><em>Handle offset and value before deleting it</em></p>
+                <p>This method can be used to manage the offset before passing it to the inherited
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>The method provides the offset as reference, if the method returns <tt>NULL</tt> it
+means that the offset and value must be passed to the inherited
+{@link ArrayObject::OffsetUnset()}; if the method returns any other value, this means
+that the inherited {@link ArrayObject::OffsetUnset()} should be skipped.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p><tt>NULL</tt> delete offset value, other, return.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_postOffsetUnset" name="method_postOffsetUnset" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">postOffsetUnset()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">postOffsetUnset(\OntologyWrapper\reference <span class="argument">$theOffset</span>)</pre>
+                <p><em>Handle offset after deleting it</em></p>
+                <p>This method can be used to manage the object after calling the
+{@link ArrayObject::OffsetUnset()} method.</p>
+<p>In this class we do nothing.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\OntologyWrapper\reference</td>
+                                <td>$theOffset </td>
+                                <td><p>Offset reference.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/OntologyWrapper.ContainerObject.html"><div class="path-wrapper">\OntologyWrapper\ContainerObject</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseStringMatchOperator" name="method_parseStringMatchOperator" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseStringMatchOperator()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseStringMatchOperator(mixed <span class="argument">$theValue</span>)</pre>
+                <p><em>Parse string match operator.</em></p>
+                <p>This method will parse the provided string match operator converting the provided
+value to an array using the comma as a separator.</p>
+<p>If the resiulting array is empty, the method will set by default the operator to
+"contains case and accent insensitive".</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$theValue </td>
+                                <td><p>Parameter value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchTagLabels" name="method_executeMatchTagLabels" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchTagLabels()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchTagLabels()</pre>
+                <p><em>Match tag labels.</em></p>
+                <p>The method will resolve the appropriate collection and pass it to the
+{@link executeMatchLabelStrings()} method.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>ResolveDatabase()</dd>
+                                            <dd>ResolveCollection()</dd>
+                                            <dd>executeMatchLabelStrings()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchTermLabels" name="method_executeMatchTermLabels" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchTermLabels()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchTermLabels()</pre>
+                <p><em>Match term labels.</em></p>
+                <p>The method will resolve the appropriate collection and pass it to the
+{@link executeMatchLabelStrings()} method.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>ResolveDatabase()</dd>
+                                            <dd>ResolveCollection()</dd>
+                                            <dd>executeMatchLabelStrings()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchTagByLabel" name="method_executeMatchTagByLabel" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchTagByLabel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchTagByLabel()</pre>
+                <p><em>Match tag by label.</em></p>
+                <p>The method will resolve the appropriate collection and pass it to the
+{@link executeMatchLabelObjects()} method.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>ResolveDatabase()</dd>
+                                            <dd>ResolveCollection()</dd>
+                                            <dd>executeMatchLabelObjects()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeMatchTermByLabel" name="method_executeMatchTermByLabel" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeMatchTermByLabel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeMatchTermByLabel()</pre>
+                <p><em>Match term by label.</em></p>
+                <p>The method will resolve the appropriate collection and pass it to the
+{@link executeMatchLabelObjects()} method.</p>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>ResolveDatabase()</dd>
+                                            <dd>ResolveCollection()</dd>
+                                            <dd>executeMatchLabelObjects()</dd>
+                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_executeGetEnumerations" name="method_executeGetEnumerations" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">executeGetEnumerations()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">executeGetEnumerations()</pre>
+                <p><em>Get enumerations.</em></p>
+                <p>The method will perform the following actions:</p>
+<ul>
+<li>Locate tag node.
+<li>Locate all enumerated types or values pointing to that node.
+<li>Load all found elements.
+<li>Recurse nested enumerations.
+</ul>
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Service.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OntologyWrapper/Service.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 12th, 2014 at 23:20.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

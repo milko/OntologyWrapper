@@ -632,14 +632,35 @@ class Wrapper extends Dictionary
 		$this->dictionaryFlush( 0 );
 		
 		//
-		// Reset collections.
+		// Reset tags.
 		//
 		if( $doLog )
-			echo( "  • Resetting collections.\n" );
-		$this->mMetadata->drop();
+			echo( "  • Resetting tags.\n" );
+		$this->mMetadata->Collection( Tag::kSEQ_NAME, TRUE )->drop();
 		Tag::CreateIndexes( $this->mMetadata );
+		
+		//
+		// Reset terms.
+		//
+		if( $doLog )
+			echo( "  • Resetting terms.\n" );
+		$this->mMetadata->Collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
+		
+		//
+		// Reset nodes.
+		//
+		if( $doLog )
+			echo( "  • Resetting nodes.\n" );
+		$this->mMetadata->Collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
+		
+		//
+		// Reset edges.
+		//
+		if( $doLog )
+			echo( "  • Resetting edges.\n" );
+		$this->mMetadata->Collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -727,6 +748,18 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaUnitIdentification.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaInstitution.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaIndividual.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		//
 		// Load XML structure files.
 		//
@@ -748,6 +781,10 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/default/StructEdge.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
+	
+		$file = kPATH_STANDARDS_ROOT.'/default/StructEntity.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 		
 	} // resetOntology.
 
@@ -764,13 +801,21 @@ class Wrapper extends Dictionary
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
 	 * @access public
 	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
-	public function resetEntities()
+	public function resetEntities( $doLog = FALSE )
 	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting entities.\n" );
+		
 		//
 		// Check if object is connected.
 		//
@@ -780,13 +825,20 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Resety entity collection.
+		// Reset entity collection.
 		//
-		FAOInstitute::ResetCollection( $this->mEntities );
+		if( $doLog )
+			echo( "  • Resetting entities.\n" );
+		$this->mEntities->Collection( EntityObject::kSEQ_NAME, TRUE )->drop();
+		Individual::CreateIndexes( $this->mEntities );
+		Institution::CreateIndexes( $this->mEntities );
 		
 		//
 		// Load FAO institutes.
 		//
+		if( $doLog )
+			echo( "  • Loading FAO Institutes.\n" );
+		
 		return FAOInstitute::Maintain( $this );										// ==>
 	
 	} // resetEntities.
@@ -1187,8 +1239,33 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-3-numeric.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-
+		
 		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-xref.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		//
+		// Load XML location files.
+		//
+		if( $doLog )
+			echo( "  • Loading location XML files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/default/iso-locations-country.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/iso/iso3166-2-subset.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		$file = kPATH_STANDARDS_ROOT.'/default/iso-locations-subset.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+
+		//
+		// Load XML location cross reference files.
+		//
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166-locations.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1312,7 +1389,7 @@ class Wrapper extends Dictionary
 	/**
 	 * Load default entities
 	 *
-	 * This method can be used to load the default entities.
+	 * This method can be used to reset and load the default entities.
 	 *
 	 * @param boolean				$doLog				Log operations.
 	 *

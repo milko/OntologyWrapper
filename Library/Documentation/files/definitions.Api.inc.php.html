@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Ontology Wrapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Ontology Wrapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1512589132"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1512589132" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-277710973"></a>
+                                <a href="../namespaces/OntologyWrapper.html" style="margin-left: 30px; padding-left: 0">OntologyWrapper</a>
+            </div>
+            <div id="namespace-277710973" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1997857282"></a>
+                                <a href="../namespaces/OntologyWrapper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1997857282" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorOffset.html">AccessorOffset</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.AccessorProperty.html">AccessorProperty</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Category.html">Category</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataKind.html">DataKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.DataType.html">DataType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Definition.html">Definition</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Description.html">Description</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAcronym.html">EntityAcronym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityAffiliation.html">EntityAffiliation</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityEmail.html">EntityEmail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityFax.html">EntityFax</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityKind.html">EntityKind</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityLink.html">EntityLink</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityMail.html">EntityMail</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityPhone.html">EntityPhone</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.EntityType.html">EntityType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Label.html">Label</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.MemcachedDictionary.html">MemcachedDictionary</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.NodeType.html">NodeType</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Status.html">Status</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Synonym.html">Synonym</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.Terms.html">Terms</a></li>
+                                                    <li class="trait"><a href="../classes/OntologyWrapper.traits.TermType.html">TermType</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/OntologyWrapper.CollectionObject.html">CollectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ConnectionObject.html">ConnectionObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ContainerObject.html">ContainerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseGraph.html">DatabaseGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DatabaseObject.html">DatabaseObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Dictionary.html">Dictionary</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.DictionaryObject.html">DictionaryObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Edge.html">Edge</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.EntityObject.html">EntityObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.FAOInstitute.html">FAOInstitute</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Individual.html">Individual</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Institution.html">Institution</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.IteratorObject.html">IteratorObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoCollection.html">MongoCollection</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoDatabase.html">MongoDatabase</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoIterator.html">MongoIterator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.MongoServer.html">MongoServer</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Neo4jGraph.html">Neo4jGraph</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Node.html">Node</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.OntologyObject.html">OntologyObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.PersistentObject.html">PersistentObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ResultAggregator.html">ResultAggregator</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServerObject.html">ServerObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Service.html">Service</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.ServiceObject.html">ServiceObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Tag.html">Tag</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Term.html">Term</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.UnitObject.html">UnitObject</a></li>
+                                                    <li class="class"><a href="../classes/OntologyWrapper.Wrapper.html">Wrapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>definitions</small>Api.inc.php</h1>
+                    <p><em>Service application interface.</em></p>
+                    <p>This file contains the definitions for the service application interface,</p>
+
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper"></div></dd>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Milko A. Škofič <a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    version
+                                </th>
+                                <td>
+                                                                            <p>04/05/2014</p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content file">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_REQUEST_OPERATION" name="constant_kAPI_REQUEST_OPERATION" class="anchor"></a>
+            <article id="constant_kAPI_REQUEST_OPERATION" class="constant">
+                <h3 class="">kAPI_REQUEST_OPERATION</h3>
+                <pre class="signature">kAPI_REQUEST_OPERATION</pre>
+                <p><em>Operation.</em></p>
+                <p>This tag identifies the service operation.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_REQUEST_LANGUAGE" name="constant_kAPI_REQUEST_LANGUAGE" class="anchor"></a>
+            <article id="constant_kAPI_REQUEST_LANGUAGE" class="constant">
+                <h3 class="">kAPI_REQUEST_LANGUAGE</h3>
+                <pre class="signature">kAPI_REQUEST_LANGUAGE</pre>
+                <p><em>Language.</em></p>
+                <p>This tag identifies the service default language.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_REQUEST_PARAMETERS" name="constant_kAPI_REQUEST_PARAMETERS" class="anchor"></a>
+            <article id="constant_kAPI_REQUEST_PARAMETERS" class="constant">
+                <h3 class="">kAPI_REQUEST_PARAMETERS</h3>
+                <pre class="signature">kAPI_REQUEST_PARAMETERS</pre>
+                <p><em>Parameters.</em></p>
+                <p>This tag identifies the service parameters.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESPONSE_STATUS" name="constant_kAPI_RESPONSE_STATUS" class="anchor"></a>
+            <article id="constant_kAPI_RESPONSE_STATUS" class="constant">
+                <h3 class="">kAPI_RESPONSE_STATUS</h3>
+                <pre class="signature">kAPI_RESPONSE_STATUS</pre>
+                <p><em>Status.</em></p>
+                <p>This tag identifies the status section which provides information on the outcome of the
+operation, which includes the eventual error message if the operation failed.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESPONSE_PAGING" name="constant_kAPI_RESPONSE_PAGING" class="anchor"></a>
+            <article id="constant_kAPI_RESPONSE_PAGING" class="constant">
+                <h3 class="">kAPI_RESPONSE_PAGING</h3>
+                <pre class="signature">kAPI_RESPONSE_PAGING</pre>
+                <p><em>Paging.</em></p>
+                <p>This tag identifies the paging section which provides information on the number of
+affected records, skipped records, the maximum number of returned records and the actual
+number of returned records.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESPONSE_RESULTS" name="constant_kAPI_RESPONSE_RESULTS" class="anchor"></a>
+            <article id="constant_kAPI_RESPONSE_RESULTS" class="constant">
+                <h3 class="">kAPI_RESPONSE_RESULTS</h3>
+                <pre class="signature">kAPI_RESPONSE_RESULTS</pre>
+                <p><em>Results.</em></p>
+                <p>This tag identifies the results section which holds the operation result.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESULTS_DICTIONARY" name="constant_kAPI_RESULTS_DICTIONARY" class="anchor"></a>
+            <article id="constant_kAPI_RESULTS_DICTIONARY" class="constant">
+                <h3 class="">kAPI_RESULTS_DICTIONARY</h3>
+                <pre class="signature">kAPI_RESULTS_DICTIONARY</pre>
+                <p><em>Dictionary.</em></p>
+                <p>This tag indicates the results dictionary.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_STATE" name="constant_kAPI_STATUS_STATE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_STATE" class="constant">
+                <h3 class="">kAPI_STATUS_STATE</h3>
+                <pre class="signature">kAPI_STATUS_STATE</pre>
+                <p><em>State.</em></p>
+                <p>This tag provides a general indicatrion on the outcome of the operation, it can take two
+values:</p>
+<ul>
+<li><tt>{@link kAPI_STATE_IDLE}</tt>: This indicates that the operation has not yet
+    started.
+<li><tt>{@link kAPI_STATE_OK}</tt>: This indicates that the operation was successful.
+<li><tt>{@link kAPI_STATE_ERROR}</tt>: This indicates that the operation failed.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_CODE" name="constant_kAPI_STATUS_CODE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_CODE" class="constant">
+                <h3 class="">kAPI_STATUS_CODE</h3>
+                <pre class="signature">kAPI_STATUS_CODE</pre>
+                <p><em>Code.</em></p>
+                <p>This tag indicates a status code.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_FILE" name="constant_kAPI_STATUS_FILE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_FILE" class="constant">
+                <h3 class="">kAPI_STATUS_FILE</h3>
+                <pre class="signature">kAPI_STATUS_FILE</pre>
+                <p><em>File.</em></p>
+                <p>This tag indicates the source filename.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_LINE" name="constant_kAPI_STATUS_LINE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_LINE" class="constant">
+                <h3 class="">kAPI_STATUS_LINE</h3>
+                <pre class="signature">kAPI_STATUS_LINE</pre>
+                <p><em>Line.</em></p>
+                <p>This tag indicates the source file line.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_MESSAGE" name="constant_kAPI_STATUS_MESSAGE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_MESSAGE" class="constant">
+                <h3 class="">kAPI_STATUS_MESSAGE</h3>
+                <pre class="signature">kAPI_STATUS_MESSAGE</pre>
+                <p><em>Message.</em></p>
+                <p>This tag indicates a status message.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATUS_TRACE" name="constant_kAPI_STATUS_TRACE" class="anchor"></a>
+            <article id="constant_kAPI_STATUS_TRACE" class="constant">
+                <h3 class="">kAPI_STATUS_TRACE</h3>
+                <pre class="signature">kAPI_STATUS_TRACE</pre>
+                <p><em>Trace.</em></p>
+                <p>This tag indicates the exception trace.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PAGING_SKIP" name="constant_kAPI_PAGING_SKIP" class="anchor"></a>
+            <article id="constant_kAPI_PAGING_SKIP" class="constant">
+                <h3 class="">kAPI_PAGING_SKIP</h3>
+                <pre class="signature">kAPI_PAGING_SKIP</pre>
+                <p><em>Skip.</em></p>
+                <p>This tag indicates the number of skipped records.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PAGING_LIMIT" name="constant_kAPI_PAGING_LIMIT" class="anchor"></a>
+            <article id="constant_kAPI_PAGING_LIMIT" class="constant">
+                <h3 class="">kAPI_PAGING_LIMIT</h3>
+                <pre class="signature">kAPI_PAGING_LIMIT</pre>
+                <p><em>Limit.</em></p>
+                <p>This tag indicates the maximum number of returned records.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PAGING_ACTUAL" name="constant_kAPI_PAGING_ACTUAL" class="anchor"></a>
+            <article id="constant_kAPI_PAGING_ACTUAL" class="constant">
+                <h3 class="">kAPI_PAGING_ACTUAL</h3>
+                <pre class="signature">kAPI_PAGING_ACTUAL</pre>
+                <p><em>Actual.</em></p>
+                <p>This tag indicates the actual number of returned records.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PAGING_AFFECTED" name="constant_kAPI_PAGING_AFFECTED" class="anchor"></a>
+            <article id="constant_kAPI_PAGING_AFFECTED" class="constant">
+                <h3 class="">kAPI_PAGING_AFFECTED</h3>
+                <pre class="signature">kAPI_PAGING_AFFECTED</pre>
+                <p><em>Affected.</em></p>
+                <p>This tag indicates the total number of affected records.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATE_IDLE" name="constant_kAPI_STATE_IDLE" class="anchor"></a>
+            <article id="constant_kAPI_STATE_IDLE" class="constant">
+                <h3 class="">kAPI_STATE_IDLE</h3>
+                <pre class="signature">kAPI_STATE_IDLE</pre>
+                <p><em>Idle.</em></p>
+                <p>Idle state.</p>
+<p>The service has not yet parsed the request.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATE_OK" name="constant_kAPI_STATE_OK" class="anchor"></a>
+            <article id="constant_kAPI_STATE_OK" class="constant">
+                <h3 class="">kAPI_STATE_OK</h3>
+                <pre class="signature">kAPI_STATE_OK</pre>
+                <p><em>OK.</em></p>
+                <p>Success state.</p>
+<p>The service has no errors.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_STATE_ERROR" name="constant_kAPI_STATE_ERROR" class="anchor"></a>
+            <article id="constant_kAPI_STATE_ERROR" class="constant">
+                <h3 class="">kAPI_STATE_ERROR</h3>
+                <pre class="signature">kAPI_STATE_ERROR</pre>
+                <p><em>Error.</em></p>
+                <p>Error state.</p>
+<p>The service encountered an error.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_DICTIONARY_COLLECTION" name="constant_kAPI_DICTIONARY_COLLECTION" class="anchor"></a>
+            <article id="constant_kAPI_DICTIONARY_COLLECTION" class="constant">
+                <h3 class="">kAPI_DICTIONARY_COLLECTION</h3>
+                <pre class="signature">kAPI_DICTIONARY_COLLECTION</pre>
+                <p><em>Collection.</em></p>
+                <p>This tag indicates the dictionary collection name.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_DICTIONARY_TAGS" name="constant_kAPI_DICTIONARY_TAGS" class="anchor"></a>
+            <article id="constant_kAPI_DICTIONARY_TAGS" class="constant">
+                <h3 class="">kAPI_DICTIONARY_TAGS</h3>
+                <pre class="signature">kAPI_DICTIONARY_TAGS</pre>
+                <p><em>Tags cross reference.</em></p>
+                <p>This tag indicates the dictionary tags cross references.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_DICTIONARY_IDS" name="constant_kAPI_DICTIONARY_IDS" class="anchor"></a>
+            <article id="constant_kAPI_DICTIONARY_IDS" class="constant">
+                <h3 class="">kAPI_DICTIONARY_IDS</h3>
+                <pre class="signature">kAPI_DICTIONARY_IDS</pre>
+                <p><em>IDs list.</em></p>
+                <p>This tag indicates the dictionary list of identifiers.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_PING" name="constant_kAPI_OP_PING" class="anchor"></a>
+            <article id="constant_kAPI_OP_PING" class="constant">
+                <h3 class="">kAPI_OP_PING</h3>
+                <pre class="signature">kAPI_OP_PING</pre>
+                <p><em>Ping.</em></p>
+                <p>This tag defines the ping operation.</p>
+<p>This operation requires no parameters, it will return the string "pong" in the status
+message field.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_LIST_CONSTANTS" name="constant_kAPI_OP_LIST_CONSTANTS" class="anchor"></a>
+            <article id="constant_kAPI_OP_LIST_CONSTANTS" class="constant">
+                <h3 class="">kAPI_OP_LIST_CONSTANTS</h3>
+                <pre class="signature">kAPI_OP_LIST_CONSTANTS</pre>
+                <p><em>List parameter constants.</em></p>
+                <p>This tag defines the list parameter constants operation.</p>
+<p>This operation requires no parameters, it will return the key/value list of all parameter
+constants.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_MATCH_TAG_LABELS" name="constant_kAPI_OP_MATCH_TAG_LABELS" class="anchor"></a>
+            <article id="constant_kAPI_OP_MATCH_TAG_LABELS" class="constant">
+                <h3 class="">kAPI_OP_MATCH_TAG_LABELS</h3>
+                <pre class="signature">kAPI_OP_MATCH_TAG_LABELS</pre>
+                <p><em>Match tag labels.</em></p>
+                <p>This tag defines the match tag labels operation.</p>
+<p>The service will return a list of tag label strings corresponding to the provided
+pattern, language, operator and limit.</p>
+<p>This operation expects the following parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+    contains the match pattern.
+<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+    omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+    a language code.
+<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+    indicates what kind of match should be applied to the searched strings, it is an
+    array that must contain one of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+        equal.
+    <li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+        must be different.
+    <li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+        contain the query pattern.
+    <li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+        expected to contain a regular expression string.
+ </ul>
+    and any of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+        means that the matching operation is case and accent insensitive.
+ </ul>
+<li><em>Flags</em>: The following optional parameters are flags which will generate
+    additional query filters which will be chained in <tt>AND</tt>;
+ <ul>
+    <li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+        those objects which are or are not referenced by tag objects.
+    <li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+        those objects which are or are not referenced by term objects.
+    <li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+        those objects which are or are not referenced by node objects.
+    <li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+        those objects which are or are not referenced by edge objects.
+    <li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+        those objects which are or are not referenced by unit objects.
+    <li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+        only those objects which are or are not referenced by entity objects.
+ </ul>
+<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+    indicates the maximum number of elements to be returned. If omitted, it will be
+    set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_MATCH_TERM_LABELS" name="constant_kAPI_OP_MATCH_TERM_LABELS" class="anchor"></a>
+            <article id="constant_kAPI_OP_MATCH_TERM_LABELS" class="constant">
+                <h3 class="">kAPI_OP_MATCH_TERM_LABELS</h3>
+                <pre class="signature">kAPI_OP_MATCH_TERM_LABELS</pre>
+                <p><em>Match term labels.</em></p>
+                <p>This tag defines the match term labels operation.</p>
+<p>The service will return a list of term label strings corresponding to the provided
+pattern, language, operator and limit.</p>
+<p>This operation expects the following parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+    contains the match pattern.
+<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+    omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+    a language code.
+<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+    indicates what kind of match should be applied to the searched strings, it is an
+    array that must contain one of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+        equal.
+    <li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+        must be different.
+    <li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+        contain the query pattern.
+    <li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+        expected to contain a regular expression string.
+ </ul>
+    and any of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+        means that the matching operation is case and accent insensitive.
+ </ul>
+<li><em>Flags</em>: The following optional parameters are flags which will generate
+    additional query filters which will be chained in <tt>AND</tt>;
+ <ul>
+    <li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+        those objects which are or are not referenced by tag objects.
+    <li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+        those objects which are or are not referenced by term objects.
+    <li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+        those objects which are or are not referenced by node objects.
+    <li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+        those objects which are or are not referenced by edge objects.
+    <li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+        those objects which are or are not referenced by unit objects.
+    <li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+        only those objects which are or are not referenced by entity objects.
+ </ul>
+<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+    indicates the maximum number of elements to be returned. If omitted, it will be
+    set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_MATCH_TAG_BY_LABEL" name="constant_kAPI_OP_MATCH_TAG_BY_LABEL" class="anchor"></a>
+            <article id="constant_kAPI_OP_MATCH_TAG_BY_LABEL" class="constant">
+                <h3 class="">kAPI_OP_MATCH_TAG_BY_LABEL</h3>
+                <pre class="signature">kAPI_OP_MATCH_TAG_BY_LABEL</pre>
+                <p><em>Match tag by label.</em></p>
+                <p>This tag defines the match tag by label operation.</p>
+<p>The service will return a list of tag objects whose label matches the provided pattern,
+language, operator and limit.</p>
+<p>This operation expects the following parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+    contains the match pattern.
+<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+    omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+    a language code.
+<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+    indicates what kind of match should be applied to the searched strings, it is an
+    array that must contain one of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+        equal.
+    <li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+        must be different.
+    <li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+        contain the query pattern.
+    <li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+        expected to contain a regular expression string.
+ </ul>
+    and any of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+        means that the matching operation is case and accent insensitive.
+ </ul>
+<li><em>Flags</em>: The following optional parameters are flags which will generate
+    additional query filters which will be chained in <tt>AND</tt>;
+ <ul>
+    <li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+        those objects which are or are not referenced by tag objects.
+    <li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+        those objects which are or are not referenced by term objects.
+    <li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+        those objects which are or are not referenced by node objects.
+    <li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+        those objects which are or are not referenced by edge objects.
+    <li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+        those objects which are or are not referenced by unit objects.
+    <li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+        only those objects which are or are not referenced by entity objects.
+ </ul>
+<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+    indicates the maximum number of elements to be returned. If omitted, it will be
+    set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_MATCH_TERM_BY_LABEL" name="constant_kAPI_OP_MATCH_TERM_BY_LABEL" class="anchor"></a>
+            <article id="constant_kAPI_OP_MATCH_TERM_BY_LABEL" class="constant">
+                <h3 class="">kAPI_OP_MATCH_TERM_BY_LABEL</h3>
+                <pre class="signature">kAPI_OP_MATCH_TERM_BY_LABEL</pre>
+                <p><em>Match term by label.</em></p>
+                <p>This tag defines the match term by label operation.</p>
+<p>The service will return a list of term objects whose label matches the provided pattern,
+language, operator and limit.</p>
+<p>This operation expects the following parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: <em>Pattern</em>. This required parameter
+    contains the match pattern.
+<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+    omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+    a language code.
+<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required parameter
+    indicates what kind of match should be applied to the searched strings, it is an
+    array that must contain one of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+        equal.
+    <li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms
+        must be different.
+    <li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+        contain the query pattern.
+    <li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end
+        with the query pattern.
+    <li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+        expected to contain a regular expression string.
+ </ul>
+    and any of the following:
+ <ul>
+    <li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
+        means that the matching operation is case and accent insensitive.
+ </ul>
+<li><em>Flags</em>: The following optional parameters are flags which will generate
+    additional query filters which will be chained in <tt>AND</tt>;
+ <ul>
+    <li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
+        those objects which are or are not referenced by tag objects.
+    <li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
+        those objects which are or are not referenced by term objects.
+    <li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
+        those objects which are or are not referenced by node objects.
+    <li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
+        those objects which are or are not referenced by edge objects.
+    <li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
+        those objects which are or are not referenced by unit objects.
+    <li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
+        only those objects which are or are not referenced by entity objects.
+ </ul>
+<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+    indicates the maximum number of elements to be returned. If omitted, it will be
+    set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_OP_GET_ENUMERATIONS" name="constant_kAPI_OP_GET_ENUMERATIONS" class="anchor"></a>
+            <article id="constant_kAPI_OP_GET_ENUMERATIONS" class="constant">
+                <h3 class="">kAPI_OP_GET_ENUMERATIONS</h3>
+                <pre class="signature">kAPI_OP_GET_ENUMERATIONS</pre>
+                <p><em>Get enumerations.</em></p>
+                <p>This tag defines the get enumerations operation.</p>
+<p>The service will return the enumerated set related to the provided tag.</p>
+<p>This operation expects the following parameters:</p>
+<ul>
+<li><tt>{@link kAPI_PARAM_TAG}</tt>: <em>Tag</em>. This required parameter can either be
+    an integer referencing the tag sequence number or a string referencing the tag
+    native identifier.
+</ul>
+<p>The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
+it will be an array whose key represents the term native identifier and the elements are
+structured as follows:</p>
+<ul>
+<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
+<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
+<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
+<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
+    sub-elements, this item will contain the elements array.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_PATTERN" name="constant_kAPI_PARAM_PATTERN" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_PATTERN" class="constant">
+                <h3 class="">kAPI_PARAM_PATTERN</h3>
+                <pre class="signature">kAPI_PARAM_PATTERN</pre>
+                <p><em>Pattern (string).</em></p>
+                <p>This tag defines the requested pattern.</p>
+<p>This parameter represents a string match pattern, it is used to match strings.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_TAG" name="constant_kAPI_PARAM_TAG" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_TAG" class="constant">
+                <h3 class="">kAPI_PARAM_TAG</h3>
+                <pre class="signature">kAPI_PARAM_TAG</pre>
+                <p><em>Tag (string/int).</em></p>
+                <p>This tag defines the requested tag.</p>
+<p>This parameter represents either an integer referencing a tag sequence number or a string
+referencing a tag native identifier.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_OPERATOR" name="constant_kAPI_PARAM_OPERATOR" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_OPERATOR" class="constant">
+                <h3 class="">kAPI_PARAM_OPERATOR</h3>
+                <pre class="signature">kAPI_PARAM_OPERATOR</pre>
+                <p><em>Match operator (strings array).</em></p>
+                <p>This tag defines the requested string match operator.</p>
+<p>These are the required choices:</p>
+<ul>
+<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match terms must be
+    equal.
+<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two match terms must
+    be different.
+<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target string must start
+    with the query pattern.
+<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target string must
+    contain the query pattern.
+<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target string must end with
+    the query pattern.
+<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The parameter is
+    expected to contain a regular expression string.
+</ul>
+<p>The parameter must be an array which contains one of the above choices and optionally any
+number of modifiers from the following list:</p>
+<ul>
+<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it means
+    that the matching operation is case and accent insensitive.
+</ul>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_TAG_REFS" name="constant_kAPI_PARAM_HAS_TAG_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_TAG_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_TAG_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_TAG_REFS</pre>
+                <p><em>Has tag references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>tag objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_TAG_COUNT} property <em>greater than zero</em>; if the value
+is <tt>FALSE</tt>, it means that the service should only select objects which have the
+{@link kTAG_TAG_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_TERM_REFS" name="constant_kAPI_PARAM_HAS_TERM_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_TERM_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_TERM_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_TERM_REFS</pre>
+                <p><em>Has term references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>term objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_TERM_COUNT} property <em>greater than zero</em>; if the value
+is <tt>FALSE</tt>, it means that the service should only select objects which have the
+{@link kTAG_TERM_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_NODE_REFS" name="constant_kAPI_PARAM_HAS_NODE_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_NODE_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_NODE_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_NODE_REFS</pre>
+                <p><em>Has node references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>node objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_NODE_COUNT} property <em>greater than zero</em>; if the value
+is <tt>FALSE</tt>, it means that the service should only select objects which have the
+{@link kTAG_NODE_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_EDGE_REFS" name="constant_kAPI_PARAM_HAS_EDGE_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_EDGE_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_EDGE_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_EDGE_REFS</pre>
+                <p><em>Has edge references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>edge objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_EDGE_COUNT} property <em>greater than zero</em>; if the value
+is <tt>FALSE</tt>, it means that the service should only select objects which have the
+{@link kTAG_EDGE_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_UNIT_REFS" name="constant_kAPI_PARAM_HAS_UNIT_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_UNIT_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_UNIT_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_UNIT_REFS</pre>
+                <p><em>Has unit references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>unit objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_UNIT_COUNT} property <em>greater than zero</em>; if the value
+is <tt>FALSE</tt>, it means that the service should only select objects which have the
+{@link kTAG_UNIT_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_PARAM_HAS_ENTITY_REFS" name="constant_kAPI_PARAM_HAS_ENTITY_REFS" class="anchor"></a>
+            <article id="constant_kAPI_PARAM_HAS_ENTITY_REFS" class="constant">
+                <h3 class="">kAPI_PARAM_HAS_ENTITY_REFS</h3>
+                <pre class="signature">kAPI_PARAM_HAS_ENTITY_REFS</pre>
+                <p><em>Has entity references (boolean).</em></p>
+                <p>This parameter adds a filter to the current query selecting all objects which are
+referenced or not by <em>entity objects</em>.</p>
+<p>If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
+which have the {@link kTAG_ENTITY_COUNT} property <em>greater than zero</em>; if the
+value is <tt>FALSE</tt>, it means that the service should only select objects which have
+the {@link kTAG_ENTITY_COUNT} property <em>equal to zero</em>.</p>
+<p>If the parameter is omitted, the filter will not be used.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESULT_ENUM_LABEL" name="constant_kAPI_RESULT_ENUM_LABEL" class="anchor"></a>
+            <article id="constant_kAPI_RESULT_ENUM_LABEL" class="constant">
+                <h3 class="">kAPI_RESULT_ENUM_LABEL</h3>
+                <pre class="signature">kAPI_RESULT_ENUM_LABEL</pre>
+                <p><em>Label (string).</em></p>
+                <p>This tag is used when returning an enumeration element, it defines the element's label.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESULT_ENUM_DESCR" name="constant_kAPI_RESULT_ENUM_DESCR" class="anchor"></a>
+            <article id="constant_kAPI_RESULT_ENUM_DESCR" class="constant">
+                <h3 class="">kAPI_RESULT_ENUM_DESCR</h3>
+                <pre class="signature">kAPI_RESULT_ENUM_DESCR</pre>
+                <p><em>Description (string).</em></p>
+                <p>This tag is used when returning an enumeration element, it defines the element's
+definition or description.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESULT_ENUM_VALUE" name="constant_kAPI_RESULT_ENUM_VALUE" class="anchor"></a>
+            <article id="constant_kAPI_RESULT_ENUM_VALUE" class="constant">
+                <h3 class="">kAPI_RESULT_ENUM_VALUE</h3>
+                <pre class="signature">kAPI_RESULT_ENUM_VALUE</pre>
+                <p><em>Value (boolean).</em></p>
+                <p>This tag is used when returning an enumeration element, if <tt>TRUE</tt>, the element can
+be considered as an enumerated value, if not, the element is a category.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_kAPI_RESULT_ENUM_CHILDREN" name="constant_kAPI_RESULT_ENUM_CHILDREN" class="anchor"></a>
+            <article id="constant_kAPI_RESULT_ENUM_CHILDREN" class="constant">
+                <h3 class="">kAPI_RESULT_ENUM_CHILDREN</h3>
+                <pre class="signature">kAPI_RESULT_ENUM_CHILDREN</pre>
+                <p><em>Children (array).</em></p>
+                <p>This tag is used when returning an enumeration element, it defines the element's subset,
+that is, it will contain all the elements whose parent is the current element.</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper">definitions/Api.inc.php</div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/definitions/Api.inc.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/OntologyWrapper.html">\OntologyWrapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 12th, 2014 at 23:20.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
