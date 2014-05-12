@@ -621,6 +621,84 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC PARSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	SelectLanguageString															*
+	 *==================================================================================*/
+
+	/**
+	 * Return language string
+	 *
+	 * This method expects the value from a property of type {@link kTYPE_LANGUAGE_STRINGS}
+	 * and a language code, its duty is to return the string matching the language code, or
+	 * the default string.
+	 *
+	 * The method will perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>If the string matching the code is there, use it.
+	 *	<li>If a code <tt>0</tt> is there, use it.
+	 *	<li>Use the first string.
+	 * </ul>
+	 *
+	 * @param array					$theStrings			Language strings property.
+	 * @param string				$theLanguage		Selected language code.
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function SelectLanguageString( $theStrings, $theLanguage )
+	{
+		//
+		// Init local storage.
+		//
+		$first = NULL;
+		
+		//
+		// Locate language code.
+		//
+		foreach( $theStrings as $string )
+		{
+			//
+			// Match language code.
+			//
+			if( $string[ kTAG_LANGUAGE ] == $theLanguage )
+				return $string[ kTAG_TEXT ];										// ==>
+			
+			//
+			// Set first.
+			//
+			if( $first === NULL )
+				$first = $string[ kTAG_TEXT ];
+		
+		} // Iterating language strings.
+	
+		//
+		// Locate default string.
+		//
+		foreach( $theStrings as $string )
+		{
+			//
+			// Match default code.
+			//
+			if( $string[ kTAG_LANGUAGE ] == 0 )
+				return $string[ kTAG_TEXT ];										// ==>
+		
+		} // Iterating language strings.
+		
+		return $first;																// ==>
+	
+	} // SelectLanguageString.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

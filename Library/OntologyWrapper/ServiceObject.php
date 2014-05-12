@@ -25,6 +25,13 @@ use OntologyWrapper\ContainerObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 /**
+ * Predicates.
+ *
+ * This file contains the predicates definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
+
+/**
  * Operators.
  *
  * This file contains the match operators definitions.
@@ -694,6 +701,68 @@ abstract class ServiceObject extends ContainerObject
 		
 	} // validateMatchLabelStringsOperator.
 
+	 
+	/*===================================================================================
+	 *	validateGetEnumerations															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get enumerations service.
+	 *
+	 * This method will validate all service operations which return enumerated sets, the
+	 * method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check tag</em>: If the parameter is missing, the method will raise an
+	 *		exception.
+	 *	<li><em>Validate tag</em>: The method will check whether the provided tag reference
+	 *		is valid, if that is not the case, the method will raise an exception.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_TAG
+	 */
+	protected function validateGetEnumerations()
+	{
+		//
+		// Check parameter.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_TAG ) )
+			throw new \Exception(
+				"Missing required tag parameter." );							// !@! ==>
+		
+		//
+		// Get parameter.
+		//
+		$tag = $this->offsetGet( kAPI_PARAM_TAG );
+		
+		//
+		// Handle string offsets.
+		//
+		if( (! is_int( $tag ))
+		 && (! ctype_digit( $tag )) )
+			$tag = $this->mWrapper->getSerial( $tag, TRUE );
+		
+		//
+		// Get tag object.
+		//
+		$object = $this->mWrapper->getObject( $tag, TRUE );
+		
+		//
+		// Get tag native identifier.
+		//
+		$tag = $object[ kTAG_NID ];
+		
+		//
+		// Set parameter.
+		//
+		$this->offsetSet( kAPI_PARAM_TAG, $tag );
+		
+	} // validateGetEnumerations.
+
 		
 
 /*=======================================================================================
@@ -1097,6 +1166,208 @@ abstract class ServiceObject extends ContainerObject
 		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
 		
 	} // executeMatchLabelObjectsResults.
+
+
+	/*===================================================================================
+	 *	executeLoadEnumerations															*
+	 *==================================================================================*/
+
+	/**
+	 * Load enumerations.
+	 *
+	 * This method expects an iterator containing a list of enumerations and a reference to
+	 * the results element that will receive the results.
+	 *
+	 * @param IteratorObject		$theIterator		Iterator object.
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeLoadEnumerations( IteratorObject $theIterator,
+															  &$theContainer )
+	{
+		//
+		// Iterate results.
+		//
+		foreach( $theIterator as $edge )
+		{
+			//
+			// Handle enumeration.
+			//
+			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_ENUM_OF )
+			{
+				//
+				// Create entry.
+				//
+				$index = count( $theContainer );
+				$theContainer[ $index ] = Array();
+				
+				//
+				// Load enumeration.
+				//
+				$this->executeLoadEnumeration( $edge, $theContainer[ $index ] );
+			
+			} // Enumeration.
+			
+			//
+			// Handle type.
+			//
+			elseif( $edge[ kTAG_PREDICATE ] == kPREDICATE_TYPE_OF )
+			{
+				//
+				// Locate enumerations.
+				//
+				$edges
+					= Edge::ResolveCollection(
+						Edge::ResolveDatabase(
+							$this->mWrapper ) )
+								->matchAll(
+									array( kTAG_OBJECT => $edge[ kTAG_SUBJECT ],
+										   kTAG_PREDICATE
+												=> array( '$in'
+													=> array( kPREDICATE_TYPE_OF,
+															  kPREDICATE_ENUM_OF ) ) ) );
+				
+				//
+				// Recurse.
+				//
+				$this->executeLoadEnumerations( $edges, $theContainer );
+			
+			} // Found type.
+		
+		} // Iterating edges.
+		
+	} // executeLoadEnumerations.
+
+
+	/*===================================================================================
+	 *	executeLoadEnumeration															*
+	 *==================================================================================*/
+
+	/**
+	 * Load single enumeration.
+	 *
+	 * This method expects an iterator containing a list of enumerations and a reference to
+	 * the results element that will receive the results.
+	 *
+	 * @param array					$theEdge			Edge object.
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeLoadEnumeration( &$theEdge, &$theContainer )
+	{
+		//
+		// Init local storage.
+		//
+		$label = $descr = NULL;
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		
+		//
+		// Load node.
+		//
+		$node
+			= Node::ResolveCollection(
+				Node::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchOne(
+							array( kTAG_NID => $theEdge[ kTAG_SUBJECT ] ) );
+		
+		//
+		// Load node label.
+		//
+		if( $node->offsetExists( kTAG_LABEL ) )
+			$label
+				= OntologyObject::SelectLanguageString(
+					$node[ kTAG_LABEL ], $language );
+		
+		//
+		// Load node description.
+		//
+		if( $node->offsetExists( kTAG_DESCRIPTION ) )
+			$descr
+				= OntologyObject::SelectLanguageString(
+					$node[ kTAG_DESCRIPTION ], $language );
+		
+		//
+		// Load term.
+		//
+		$term = $node->getReferenced();
+		
+		//
+		// Load term label.
+		//
+		if( ($label === NULL)
+		 && $term->offsetExists( kTAG_LABEL ) )
+			$label
+				= OntologyObject::SelectLanguageString(
+					$term[ kTAG_LABEL ], $language );
+		
+		//
+		// Load node description.
+		//
+		if( ($descr === NULL)
+		 && $term->offsetExists( kTAG_DESCRIPTION ) )
+			$descr
+				= OntologyObject::SelectLanguageString(
+					$term[ kTAG_DESCRIPTION ], $language );
+		
+		//
+		// Set term identifier.
+		//
+		$theContainer[ kAPI_RESULT_ENUM_TERM ] = $term[ kTAG_NID ];
+		
+		//
+		// Set term label.
+		//
+		if( $label !== NULL )
+			$theContainer[ kAPI_RESULT_ENUM_LABEL ] = $label;
+		
+		//
+		// Set term description.
+		//
+		if( $descr !== NULL )
+			$theContainer[ kAPI_RESULT_ENUM_DESCR ] = $descr;
+		
+		//
+		// Set node kind.
+		//
+		if( ($tmp = $node->offsetGet( kTAG_NODE_TYPE )) !== NULL )
+			$theContainer[ kAPI_RESULT_ENUM_KIND ] = $tmp;
+		
+		//
+		// Check for children.
+		//
+		$edges
+			= Edge::ResolveCollection(
+				Edge::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							array( kTAG_OBJECT => $node[ kTAG_NID ],
+								   kTAG_PREDICATE
+										=> array( '$in'
+											=> array( kPREDICATE_TYPE_OF,
+													  kPREDICATE_ENUM_OF ) ) ) );
+		
+		//
+		// Load enumerations.
+		//
+		if( $edges->count() )
+		{
+			//
+			// Allocate children element.
+			//
+			$theContainer[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
+			
+			//
+			// Recurse.
+			//
+			$this->executeLoadEnumerations( $edges,
+											$theContainer[ kAPI_RESULT_ENUM_CHILDREN ] );
+		
+		} // Has children.
+		
+	} // executeLoadEnumeration.
 
 		
 

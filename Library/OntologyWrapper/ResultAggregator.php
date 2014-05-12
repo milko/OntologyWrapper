@@ -623,7 +623,9 @@ class ResultAggregator
 				//
 				if( ($theLanguage !== NULL)
 				 && ($type == kTYPE_LANGUAGE_STRINGS) )
-					$property = $this->selectLanguageString( $property, $theLanguage );
+				 	$property
+				 		= OntologyObject::SelectLanguageString(
+				 			$property, $theLanguage );
 				
 				//
 				// Set new object.
@@ -795,83 +797,6 @@ class ResultAggregator
 		} // Iterating collections.
 	
 	} // loadReferences.
-
-	 
-	/*===================================================================================
-	 *	selectLanguageString																		*
-	 *==================================================================================*/
-
-	/**
-	 * Traverse language strings
-	 *
-	 * This method's duty is to replace the property with the string matching the provided
-	 * language code, the method will perform the following steps:
-	 *
-	 * <ul>
-	 *	<li>If the string matching the code is there, use it.
-	 *	<li>If a code <tt>0</tt> is there, use it.
-	 *	<li>Use the first string.
-	 * </ul>
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theStrings</b>: The property containing the strings.
-	 *	<li><b>$theLanguage</b>: The default language code.
-	 * </ul>
-	 *
-	 * This method is used by the PHP {@link iterator_apply()} method, which means that it
-	 * should return <tt>TRUE</tt> to continue the object traversal, or <tt>FALSE</tt> to
-	 * stop it: it will return <tt>TRUE</tt> by default.
-	 *
-	 * @param array					$theStrings			Language strings property.
-	 * @param string				$theLanguage		Default language code.
-	 *
-	 * @access protected
-	 * @return string				The selected string.
-	 */
-	protected final function selectLanguageString( $theStrings, $theLanguage )
-	{
-		//
-		// Init local storage.
-		//
-		$first = NULL;
-		
-		//
-		// Locate language code.
-		//
-		foreach( $theStrings as $string )
-		{
-			//
-			// Match language code.
-			//
-			if( $string[ kTAG_LANGUAGE ] == $theLanguage )
-				return $string[ kTAG_TEXT ];										// ==>
-			
-			//
-			// Set first.
-			//
-			if( $first === NULL )
-				$first = $string[ kTAG_TEXT ];
-		
-		} // Iterating language strings.
-	
-		//
-		// Locate default string.
-		//
-		foreach( $theStrings as $string )
-		{
-			//
-			// Match default code.
-			//
-			if( $string[ kTAG_LANGUAGE ] == 0 )
-				return $string[ kTAG_TEXT ];										// ==>
-		
-		} // Iterating language strings.
-		
-		return $first;																// ==>
-	
-	} // selectLanguageString.
 
 	 
 

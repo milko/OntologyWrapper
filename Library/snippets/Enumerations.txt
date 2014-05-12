@@ -112,7 +112,8 @@ Rules:
 Workflow:
 ---------
 
-	1.	Locate all nodes which point to the element via the kPREDICATE_ENUM_OF and
+	0.	Locate tag node.
+	1.	Locate all nodes which point to the element via the kPREDICATE_ENUM_OF or
 		kPREDICATE_TYPE_OF predicates.
 	2.	With kPREDICATE_ENUM_OF relationship elements:
 		2.1.	Add the element to the controlled vocabulary.

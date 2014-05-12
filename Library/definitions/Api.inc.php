@@ -62,18 +62,18 @@ define( "kAPI_RESPONSE_STATUS",					'status' );
 define( "kAPI_RESPONSE_PAGING",					'paging' );
 
 /**
- * Dictionary.
- *
- * This tag indicates the results dictionary.
- */
-define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
-
-/**
  * Results.
  *
  * This tag identifies the results section which holds the operation result.
  */
 define( "kAPI_RESPONSE_RESULTS",				'results' );
+
+/**
+ * Dictionary.
+ *
+ * This tag indicates the results dictionary.
+ */
+define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
 
 /*=======================================================================================
  *	STATUS																				*
@@ -475,8 +475,37 @@ define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagByLabel' );
  */
 define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
 
+/**
+ * Get enumerations.
+ *
+ * This tag defines the get enumerations operation.
+ *
+ * The service will return the enumerated set related to the provided tag.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_TAG}</tt>: <em>Tag</em>. This required parameter can either be
+ *		an integer referencing the tag sequence number or a string referencing the tag
+ *		native identifier.
+ * </ul>
+ *
+ * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
+ * it will be an array whose elements are structured as follows:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated term native identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
+ *		sub-elements, this item will contain the elements array.
+ * </ul>
+ */
+define( "kAPI_OP_GET_ENUMERATIONS",				'getEnumerations' );
+
 /*=======================================================================================
- *	PARAMETERS																			*
+ *	REQUEST PARAMETERS																	*
  *======================================================================================*/
 
 /**
@@ -487,6 +516,16 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  * This parameter represents a string match pattern, it is used to match strings.
  */
 define( "kAPI_PARAM_PATTERN",					'pattern' );
+
+/**
+ * Tag (string/int).
+ *
+ * This tag defines the requested tag.
+ *
+ * This parameter represents either an integer referencing a tag sequence number or a string
+ * referencing a tag native identifier.
+ */
+define( "kAPI_PARAM_TAG",						'tag' );
 
 /**
  * Match operator (strings array).
@@ -521,7 +560,7 @@ define( "kAPI_PARAM_PATTERN",					'pattern' );
 define( "kAPI_PARAM_OPERATOR",					'operator' );
 
 /*=======================================================================================
- *	FLAG PARAMETERS																		*
+ *	REQUEST FLAG PARAMETERS																*
  *======================================================================================*/
 
 /**
@@ -613,6 +652,48 @@ define( "kAPI_PARAM_HAS_UNIT_REFS",				'unit-refs' );
  * If the parameter is omitted, the filter will not be used.
  */
 define( "kAPI_PARAM_HAS_ENTITY_REFS",			'entity-refs' );
+
+/*=======================================================================================
+ *	ENUMERATION RESULT PARAMETERS														*
+ *======================================================================================*/
+
+/**
+ * Term (string).
+ *
+ * This tag is used when returning an enumeration element, it defines a term reference.
+ */
+define( "kAPI_RESULT_ENUM_TERM",				'term' );
+
+/**
+ * Label (string).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's label.
+ */
+define( "kAPI_RESULT_ENUM_LABEL",				'label' );
+
+/**
+ * Description (string).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's
+ * definition or description.
+ */
+define( "kAPI_RESULT_ENUM_DESCR",				'description' );
+
+/**
+ * Kind (array).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's kind,
+ * that is, the node kind of the element.
+ */
+define( "kAPI_RESULT_ENUM_KIND",				'kind' );
+
+/**
+ * Children (array).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's subset,
+ * that is, it will contain all the elements whose parent is the current element.
+ */
+define( "kAPI_RESULT_ENUM_CHILDREN",			'children' );
 
 
 ?>

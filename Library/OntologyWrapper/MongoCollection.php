@@ -243,6 +243,13 @@ class MongoCollection extends CollectionObject
 		if( $this->isConnected() )
 		{
 			//
+			// Convert fields to object.
+			// This is necessary since PHP treats numeric indexes as integers.
+			//
+			if( count( $theFields ) )
+				$theFields = new \ArrayObject( $theFields );
+					
+			//
 			// Make query.
 			//
 			$cursor
