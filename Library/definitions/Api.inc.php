@@ -242,6 +242,16 @@ define( "kAPI_OP_PING",							'ping' );
 define( "kAPI_OP_LIST_CONSTANTS",				'list-constants' );
 
 /**
+ * List operator parameters.
+ *
+ * This tag defines the list operator parameters operation.
+ *
+ * This operation requires no parameters, it will return the label/key list of all operator
+ * parameters.
+ */
+define( "kAPI_OP_LIST_OPERATORS",				'list-operators' );
+
+/**
  * Match tag labels.
  *
  * This tag defines the match tag labels operation.

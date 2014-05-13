@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXONOMY TAGS
+	TaxonomyTags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Taxonomy attributes -->
+	
+	<META>
+		<!-- Rank -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:rank</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>rank</em> or <em>position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		
+		<!-- Domain -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Kingdom -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:regnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subkingdom -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Infrakingdom -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Superphylum -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Phylum -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:phylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subphylum -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Infraphylum -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Microphylum -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:microphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Superclass -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Class -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:classis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subclass -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Infraclass -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Parvclass -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:parvclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Legion -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:legio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Cohort -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:cohors</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Magnorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:magnordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Superorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Grandorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:grandordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Mirorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:mirordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Order -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:ordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Suborder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Infraorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Parvorder -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:parvordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Superfamily -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superfamilia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Family -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:familia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subfamily -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subfamilia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Supertribe -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:supertribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Tribe -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:tribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subtribe -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subtribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Genus -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:genus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subgenus -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subgenus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Section -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:sectio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Series -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:series</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Superspecies -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Species -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:species</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Subspecies -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Infraspecies -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Variety -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:varietas</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		
+		<!-- Form -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:forma</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+	</META>
+</METADATA>

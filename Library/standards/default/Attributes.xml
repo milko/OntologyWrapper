@@ -605,6 +605,22 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_EXAMPLE -->
+		<TERM ns="" lid="examples">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Examples</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This represents a collection of <em>examples</em> or <em>instances</em> illustrating various uses of a property.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Statistical attributes -->

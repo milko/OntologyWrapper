@@ -91,6 +91,7 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
 		</EDGE>
 	</META>
+	
 	<!-- kTYPE_ARRAY -->
 	<META>
 		<NODE term=":type:array">

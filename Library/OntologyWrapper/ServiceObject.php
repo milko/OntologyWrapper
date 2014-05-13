@@ -323,6 +323,7 @@ abstract class ServiceObject extends ContainerObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -342,6 +343,7 @@ abstract class ServiceObject extends ContainerObject
 		{
 			case kAPI_OP_PING:
 			case kAPI_OP_LIST_CONSTANTS:
+			case kAPI_OP_LIST_OPERATORS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -541,6 +543,7 @@ abstract class ServiceObject extends ContainerObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -562,6 +565,7 @@ abstract class ServiceObject extends ContainerObject
 		{
 			case kAPI_OP_PING:
 			case kAPI_OP_LIST_CONSTANTS:
+			case kAPI_OP_LIST_OPERATORS:
 				break;
 			
 			default:
@@ -801,6 +805,7 @@ abstract class ServiceObject extends ContainerObject
 	 * <ul>
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
+	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -822,6 +827,10 @@ abstract class ServiceObject extends ContainerObject
 			
 			case kAPI_OP_LIST_CONSTANTS:
 				$this->executeListParameterConstants();
+				break;
+			
+			case kAPI_OP_LIST_OPERATORS:
+				$this->executeListParameterOperators();
 				break;
 		}
 		
@@ -921,6 +930,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$ref[ "kAPI_OP_PING" ] = kAPI_OP_PING;
 		$ref[ "kAPI_OP_LIST_CONSTANTS" ] = kAPI_OP_LIST_CONSTANTS;
+		$ref[ "kAPI_OP_LIST_OPERATORS" ] = kAPI_OP_LIST_OPERATORS;
 		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
 		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
@@ -964,6 +974,60 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
 		
 	} // executeListParameterConstants.
+
+	 
+	/*===================================================================================
+	 *	executeListParameterOperators													*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list operator parameters request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_OPERATORS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListParameterOperators()
+	{
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Parse by language.
+		//
+		switch( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) )
+		{
+			case 'en':
+			default:
+				$ref[ 'title' ] = "Search data properties by label:";
+				$ref[ 'placeholder' ] = "Data property label pattern...";
+				$ref[ kOPERATOR_EQUAL ] = array( 'key' => kOPERATOR_EQUAL,
+												 'label' => 'Equals',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_EQUAL_NOT ] = array( 'key' => kOPERATOR_EQUAL_NOT,
+												 'label' => 'Not equals',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_PREFIX ] = array( 'key' => kOPERATOR_PREFIX,
+												 'label' => 'Starts with',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_CONTAINS ] = array( 'key' => kOPERATOR_CONTAINS,
+												 'label' => 'Contains',
+												 'selected' => TRUE );
+				$ref[ kOPERATOR_SUFFIX ] = array( 'key' => kOPERATOR_SUFFIX,
+												 'label' => 'Ends with',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_REGEX ] = array( 'key' => kOPERATOR_REGEX,
+												 'label' => 'Regular expression',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_NOCASE ] = array( 'key' => kOPERATOR_NOCASE,
+												 'label' => 'Case and accent insensitive',
+												 'selected' => TRUE );
+		}
+		
+	} // executeListParameterOperators.
 
 		
 
