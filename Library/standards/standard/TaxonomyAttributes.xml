@@ -2307,7 +2307,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 		</TAG>
-		<NODE tag=":taxon:infraspecies:author">
+		<NODE tag=":taxon:author">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
