@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION SCHEMA
+	SchemaLocation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :location -->
+	<META>
+		<NODE term=":location" pid="schema::location">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing location properties of an object.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Enumerated administrative units -->
+		
+		<!-- Continent -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:continent</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Country subdivision -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:subcountry</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Administrative unit names -->
+		
+		<!-- Primary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Secondary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Lowest administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Locality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Elevation -->
+		
+		<!-- Elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Minimum elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Maximum elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation:max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Elevation uncertainty -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Coordinates -->
+	
+		<!-- Decimal latitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Latitude degrees -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Latitude minutes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Latitude seconds -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Latitude hemisphere -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Latitude uncertainty -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Decimal longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Longitude degrees -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Longitude minutes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Longitude seconds -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Longitude hemisphere -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Longitude uncertainty -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

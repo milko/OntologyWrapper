@@ -1168,8 +1168,8 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar floats.
 			//
-			case kTAG_MIN:
-			case kTAG_MAX:
+			case kTAG_MIN_VAL:
+			case kTAG_MAX_VAL:
 				$theType = kTYPE_FLOAT;
 				$theKind = Array();
 				return TRUE;														// ==>
@@ -4333,8 +4333,8 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * The method will cycle all object's tag offsets and with all those of type integer,
 	 * {@link kTYPE_INT}, or float, {@link kTYPE_FLOAT}, it will collect the minimum and
-	 * maximum values and update the related tag object's  minimum, {@link kTAG_MIN}, and
-	 * maximum {@link kTAG_MAX}, properties.
+	 * maximum values and update the related tag object's  minimum, {@link kTAG_MIN_VAL},
+	 * and maximum {@link kTAG_MAX_VAL}, properties.
 	 *
 	 * The method assumes the current object has its {@link dictionary()} set and the
 	 * {@link kTAG_OBJECT_OFFSETS} property updated.
@@ -4429,13 +4429,13 @@ abstract class PersistentObject extends OntologyObject
 							// Compute minimum modification.
 							//
 							if( $min !== NULL )
-								$min = array( kTAG_MIN => $min );
+								$min = array( kTAG_MIN_VAL => $min );
 						
 							//
 							// Compute maximum modification.
 							//
 							if( $max !== NULL )
-								$max = array( kTAG_MAX => $max );
+								$max = array( kTAG_MAX_VAL => $max );
 						
 							//
 							// Update tag.

@@ -217,16 +217,16 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_MIN -->
+	<!-- kTAG_MIN_VAL -->
 	<META>
-		<NODE tag=":min" pid="_tags::min">
+		<NODE tag=":min-val" pid="_tags::min-val">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>minimum</em> of the <em>range of values</em> identified by this tag.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>minimum featured value</em> of the property.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -236,16 +236,16 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTAG_MAX -->
+	<!-- kTAG_MAX_VAL -->
 	<META>
-		<NODE tag=":max" pid="_tags::max">
+		<NODE tag=":max-val" pid="_tags::max-val">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>maximum</em> of the <em>range of values</em> identified by this tag.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>maximum featured value</em> of the property.]]></item>
 				</item>
 			</item>
 		</NODE>

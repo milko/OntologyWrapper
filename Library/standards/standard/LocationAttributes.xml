@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION ATTRIBUTES
+	LocationAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Enumerated administrative units -->
+	
+	<!-- Continent -->
+	<META>
+		<TERM ns=":location" lid="continent">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Continent</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:continent</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>continent</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:continent">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:continent</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:continent</item>
+		</EDGE>
+	</META>
+	
+	<!-- Country -->
+	<META>
+		<TERM ns=":location" lid="country">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:country</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>country</em>. For historical reasons legacy countries are included.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:country">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+		</EDGE>
+	</META>
+	
+	<!-- Country subdivision -->
+	<META>
+		<TERM ns=":location" lid="subcountry">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country subdivision</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:subcountry</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>country subdivision</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:subcountry">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:2</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:subcountry</item>
+		</EDGE>
+	</META>
+	
+	<!-- Administrative unit -->
+	<META>
+		<TERM ns=":location" lid="admin">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Administrative unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location administrative unit comprising continents, countries and country subdivisions.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:admin</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>administrative unit</em> of the location, the code can describe either a <em>continent</em>, <em>country</em> or <em>country subdivision</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:admin">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:location</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:admin</item>
+		</EDGE>
+	</META>
+	
+	<!-- Administrative unit names -->
+	
+	<!-- Primary administrative unit -->
+	<META>
+		<TERM ns=":location" lid="admin-1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Primary administrative unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the primary administrative subdivision of the location's country.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:admin-1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the primary administrative unit</em> below the country.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:admin-1">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Secondary administrative unit -->
+	<META>
+		<TERM ns=":location" lid="admin-2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Secondary administrative unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the secondary administrative subdivision of the location's primary administrative unit.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:admin-2</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the secondary administrative unit</em> below the primary administrative unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:admin-2">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Lowest administrative unit -->
+	<META>
+		<TERM ns=":location" lid="admin-3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Lowest administrative unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the lowest administrative subdivision of the location, or its local name.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:admin-3</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the lowest administrative unit</em>, or <em>local name</em> of the location.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:admin-3">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Locality -->
+	<META>
+		<TERM ns=":location" lid="locality">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Locality</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Description or name of the location.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:locality</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>description</em> or <em>name</em> of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:locality">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Geographic units -->
+	
+	<!-- Elevation -->
+	
+	<!-- Elevation -->
+	<META>
+		<TERM ns=":location" lid="elevation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Elevation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location elevation or mean elevation.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:elevation</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level. For areas, this attribute should hold the <em>mean elevation</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:elevation">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Minimum elevation -->
+	<META>
+		<TERM ns=":location:elevation" lid="min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minimum elevation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location minimum elevation.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:elevation:min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>minimum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:elevation:min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Maximum elevation -->
+	<META>
+		<TERM ns=":location:elevation" lid="max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Maximum elevation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location maximum elevation.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:elevation:max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>maximum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:elevation:max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Elevation uncertainty -->
+	<META>
+		<TERM ns=":location:elevation" lid="error">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Elevation uncertainty</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location elevation uncertainty.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:elevation:error</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation uncertainty in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:elevation:error">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Coordinates -->
+	
+	<!-- Decimal latitude -->
+	<META>
+		<TERM ns=":location" lid="latitude">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Decimal latitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude in decimal degrees.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude in decimal degrees</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">-90</item>
+			<item const="kTAG_MAX_RANGE">90</item>
+		</TAG>
+		<NODE tag=":location:latitude">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Latitude degrees -->
+	<META>
+		<TERM ns=":location:latitude" lid="deg">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Degrees of latitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude degrees.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude:deg</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude degrees</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">90</item>
+		</TAG>
+		<NODE tag=":location:latitude:deg">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Latitude minutes -->
+	<META>
+		<TERM ns=":location:latitude" lid="min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minutes of latitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude minutes.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude:min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude minutes</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">59</item>
+		</TAG>
+		<NODE tag=":location:latitude:min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Latitude seconds -->
+	<META>
+		<TERM ns=":location:latitude" lid="sec">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Seconds of latitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude seconds.</item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">60</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude:sec</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude seconds</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:latitude:sec">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Latitude hemisphere -->
+	<META>
+		<TERM ns=":location:latitude" lid="hem">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Latitude hemisphere</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude hemisphere.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude:hem</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude hemisphere</em>, accepted values are <tt>N</tt> for <em>North</em> and <tt>S</tt> for <em>South</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_PATTERN"><![CDATA[[NS]{1}]]></item>
+		</TAG>
+		<NODE tag=":location:latitude:hem">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Latitude uncertainty -->
+	<META>
+		<TERM ns=":location:latitude" lid="error">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Latitude uncertainty</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude uncertainty.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:latitude:error</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude uncertainty in meters</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:latitude:error">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Decimal longitude -->
+	<META>
+		<TERM ns=":location" lid="longitude">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Decimal longitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude in decimal degrees.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude in decimal degrees</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">-180</item>
+			<item const="kTAG_MAX_RANGE">180</item>
+		</TAG>
+		<NODE tag=":location:longitude">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Longitude degrees -->
+	<META>
+		<TERM ns=":location:longitude" lid="deg">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Degrees of longitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude degrees.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude:deg</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude degrees</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">180</item>
+		</TAG>
+		<NODE tag=":location:longitude:deg">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Longitude minutes -->
+	<META>
+		<TERM ns=":location:longitude" lid="min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minutes of longitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude minutes.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude:min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude minutes</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">59</item>
+		</TAG>
+		<NODE tag=":location:longitude:min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Longitude seconds -->
+	<META>
+		<TERM ns=":location:longitude" lid="sec">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Seconds of longitude</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude seconds.</item>
+				</item>
+			</item>
+			<item const="kTAG_MIN_RANGE">0</item>
+			<item const="kTAG_MAX_RANGE">60</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude:sec</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude seconds</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:longitude:sec">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Longitude hemisphere -->
+	<META>
+		<TERM ns=":location:longitude" lid="hem">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Longitude hemisphere</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude hemisphere.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude:hem</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude hemisphere</em>, accepted values are <tt>E</tt> for <em>East</em> and <tt>W</tt> for <em>West</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_PATTERN"><![CDATA[[EW]{1}]]></item>
+		</TAG>
+		<NODE tag=":location:longitude:hem">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Longitude uncertainty -->
+	<META>
+		<TERM ns=":location:longitude" lid="error">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Longitude uncertainty</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude uncertainty.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:longitude:error</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude uncertainty in meters</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:longitude:error">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

@@ -21,8 +21,8 @@ may be stored in a single structure which can then be included in other structur
 kPREDICATE_SUBCLASS_OF predicate. This way we can equate the structure to a class, mirroring
 the logical structure into the physical structure.
 
-So what is a schema then? We can differentiate it from the schema by applying the following
-rules:
+So what is a schema then? We can differentiate it from the structure by applying the
+following rules:
 
 	- A structure represents a full set of properties, that is, it must include a complete
 	  set which can be used to store an object.

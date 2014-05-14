@@ -1030,10 +1030,89 @@
 		</TAG>
 	</META>
 	
-	<!-- Generic attributes -->
+	<!-- Property description attributes -->
 	
 	<META>
 		<!-- 52 -->
+		<!-- kTAG_MIN_VAL -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:min-val</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>minimum featured value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 53 -->
+		<!-- kTAG_MIN_RANGE -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:min-range</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>minimum range value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 54 -->
+		<!-- kTAG_MAX_VAL -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:max-val</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>maximum featured value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 55 -->
+		<!-- kTAG_MAX_RANGE -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:max-range</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>maximum range value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 56 -->
+		<!-- kTAG_PATTERN -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:grep</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>regular expression string</em> which represents the <em>validation of a string</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Generic attributes -->
+	
+	<META>
+		<!-- 57 -->
 		<!-- kTAG_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1048,7 +1127,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 53 -->
+		<!-- 58 -->
 		<!-- kTAG_LANGUAGE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1063,7 +1142,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 54 -->
+		<!-- 59 -->
 		<!-- kTAG_TEXT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1078,7 +1157,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 55 -->
+		<!-- 60 -->
 		<!-- kTAG_URL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1093,53 +1172,8 @@
 			</item>
 		</TAG>
 	
-		<!-- 56 -->
-		<!-- kTAG_MIN -->
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:min</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>lower boundary of a range</em>.]]></item>
-				</item>
-			</item>
-		</TAG>
-	
-		<!-- 57 -->
-		<!-- kTAG_MAX -->
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:max</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>floating point number</em> which represents the <em>upper boundary of a range</em>.]]></item>
-				</item>
-			</item>
-		</TAG>
-	
-		<!-- 58 -->
-		<!-- kTAG_PATTERN -->
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:grep</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>regular expression string</em> which represents the <em>validation of a string</em>.]]></item>
-				</item>
-			</item>
-		</TAG>
-	
-		<!-- 59 -->
-		<!-- kTAG_GEO_LOCATION -->
+		<!-- 61 -->
+		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:geo</item>
@@ -1152,27 +1186,12 @@
 				</item>
 			</item>
 		</TAG>
-	
-		<!-- 60 -->
-		<!-- kTAG_GEO_LOCATION -->
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:geo-pub</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:shape</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>geometric shape</em> which represents the <em>available geographic location and geometry of an object</em>. This may not coincide with the actual location and shape of the object, due to restrictions or approximations.]]></item>
-				</item>
-			</item>
-		</TAG>
 	</META>
 	
 	<!-- Connection attributes -->
 	
 	<META>
-		<!-- 61 -->
+		<!-- 62 -->
 		<!-- kTAG_CONN_PROTOCOL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1193,7 +1212,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 62 -->
+		<!-- 63 -->
 		<!-- kTAG_CONN_HOST -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1214,7 +1233,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 63 -->
+		<!-- 64 -->
 		<!-- kTAG_CONN_PORT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1235,7 +1254,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 64 -->
+		<!-- 65 -->
 		<!-- kTAG_CONN_USER -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1256,7 +1275,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 65 -->
+		<!-- 66 -->
 		<!-- kTAG_CONN_PASS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1277,7 +1296,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 66 -->
+		<!-- 67 -->
 		<!-- kTAG_CONN_BASE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1298,7 +1317,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 67 -->
+		<!-- 68 -->
 		<!-- kTAG_CONN_COLL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1319,7 +1338,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 68 -->
+		<!-- 69 -->
 		<!-- kTAG_CONN_OPTS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1344,7 +1363,7 @@
 	<!-- Entity attributes -->
 	
 	<META>
-		<!-- 69 -->
+		<!-- 70 -->
 		<!-- kTAG_ENTITY_FNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1359,7 +1378,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 70 -->
+		<!-- 71 -->
 		<!-- kTAG_ENTITY_LNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1374,7 +1393,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 71 -->
+		<!-- 72 -->
 		<!-- kTAG_ENTITY_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1389,7 +1408,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 72 -->
+		<!-- 73 -->
 		<!-- kTAG_ENTITY_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1404,7 +1423,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 73 -->
+		<!-- 74 -->
 		<!-- kTAG_ENTITY_ACRONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1428,7 +1447,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 74 -->
+		<!-- 75 -->
 		<!-- kTAG_ENTITY_MAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1449,7 +1468,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 75 -->
+		<!-- 76 -->
 		<!-- kTAG_ENTITY_EMAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1470,7 +1489,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 76 -->
+		<!-- 77 -->
 		<!-- kTAG_ENTITY_LINK -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1491,7 +1510,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 77 -->
+		<!-- 78 -->
 		<!-- kTAG_ENTITY_PHONE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1512,7 +1531,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 78 -->
+		<!-- 79 -->
 		<!-- kTAG_ENTITY_FAX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1533,7 +1552,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 79 -->
+		<!-- 80 -->
 		<!-- kTAG_ENTITY_AFFILIATION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1548,7 +1567,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 80 -->
+		<!-- 81 -->
 		<!-- kTAG_ENTITY_COUNTRY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1569,7 +1588,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 81 -->
+		<!-- 82 -->
 		<!-- kTAG_ENTITY_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">

@@ -901,6 +901,90 @@
 		</TERM>
 	</META>
 	
+	<!-- Property description attributes -->
+	
+	<META>
+		<!-- kTAG_MIN_VAL -->
+		<TERM ns="" lid="min-val">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minimum value</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>minimum featured value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_MIN_RANGE -->
+		<TERM ns="" lid="min-range">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minimum range</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>minimum range value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_MAX_VAL -->
+		<TERM ns="" lid="max-val">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Maximum value</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>maximum featured value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_MAX_RANGE -->
+		<TERM ns="" lid="max-range">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Maximum range</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>maximum range value</em> of a property.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_PATTERN -->
+		<TERM ns="" lid="grep">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Pattern</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>regular expression</em> that validates a string.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- Generic attributes -->
 	
 	<META>
@@ -952,82 +1036,18 @@
 			</item>
 		</TERM>
 	
-		<!-- kTAG_MIN -->
-		<TERM ns="" lid="min">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Minimum</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>lower boundary</em> of a range.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- kTAG_MAX -->
-		<TERM ns="" lid="max">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Maximum</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>upper boundary</em> of a range.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- kTAG_PATTERN -->
-		<TERM ns="" lid="grep">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Pattern</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>regular expression</em> that validates a string.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- kTAG_GEO_LOCATION -->
+		<!-- kTAG_GEO_SHAPE -->
 		<TERM ns="" lid="geo">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Geographic location</item>
+					<item const="kTAG_TEXT">Geographic location shape</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>geographic location and geometry</em> of an object.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- kTAG_GEO_LOCATION -->
-		<TERM ns="" lid="geo-pub">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Available geographic location</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>available geographic location and geometry</em> of an object.]]></item>
 				</item>
 			</item>
 		</TERM>

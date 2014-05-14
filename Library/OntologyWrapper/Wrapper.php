@@ -898,6 +898,24 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
 	
 	} // LoadStandards.
 
