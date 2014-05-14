@@ -116,6 +116,11 @@ try
 	$wrapper->initWBIStandards( TRUE );
 	
 	//
+	// Load standards.
+	//
+	$wrapper->loadStandards( TRUE );
+	
+	//
 	// Load entities.
 	//
 	$wrapper->resetEntities( TRUE );

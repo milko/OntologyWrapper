@@ -44,11 +44,18 @@ define( "kGRAPH_DIR",							'/Volumes/Data/Neo4j/' );
  *======================================================================================*/
 
 /**
- * Default standards.
+ * Defaults.
  *
  * This tag indicates the directory name where the default standards XML files are stored.
  */
 define( "kDIR_STANDARDS_DEFAULT",				'default' );
+
+/**
+ * Standards.
+ *
+ * This tag indicates the directory name where the standards XML files are stored.
+ */
+define( "kDIR_STANDARDS_STANDARDS",				'standards' );
 
 /**
  * ISO standards.

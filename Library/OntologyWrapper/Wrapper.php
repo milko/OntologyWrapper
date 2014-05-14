@@ -796,8 +796,8 @@ class Wrapper extends Dictionary
 	/**
 	 * Reset entities
 	 *
-	 * This method can be used to reset the entities database, it will <b>erase the current
-	 * entities collection</em> and load the FAO insatitutes.
+	 * This method can be used to reset the entities database, it will erase the current
+	 * entities collection and load the FAO insatitutes.
 	 *
 	 * The method will take care of setting the necessary indexes.
 	 *
@@ -842,6 +842,64 @@ class Wrapper extends Dictionary
 		return FAOInstitute::Maintain( $this );										// ==>
 	
 	} // resetEntities.
+
+	 
+	/*===================================================================================
+	 *	LoadStandards																	*
+	 *==================================================================================*/
+
+	/**
+	 * Reset standards
+	 *
+	 * This method can be used to reset the standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function LoadStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset entities: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // LoadStandards.
 
 	 
 	/*===================================================================================

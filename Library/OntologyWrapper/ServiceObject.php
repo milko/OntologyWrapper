@@ -216,6 +216,13 @@ abstract class ServiceObject extends ContainerObject
 		try
 		{
 			//
+			// Log request.
+			//
+			if( $this->offsetGet( kAPI_PARAM_LOG_REQUEST ) )
+				$this->mResponse[ kAPI_RESPONSE_REQUEST ]
+					= $this->getArrayCopy();
+			
+			//
 			// Execute request.
 			//
 			$this->executeRequest();
@@ -454,6 +461,7 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: String match pattern.
 	 *	<li><tt>{@link kAPI_PAGING_SKIP}</tt>: Recordset skip value.
 	 *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Recordset limits value.
+	 *	<li><tt>{@link kAPI_PARAM_LOG_REQUEST}</tt>: Log request.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: Tag reference count flag.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: Term reference count flag.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: Node reference count flag.
@@ -469,11 +477,6 @@ abstract class ServiceObject extends ContainerObject
 	 * @param mixed					$theValue			Parameter value.
 	 *
 	 * @access protected
-	 *
-	 * @see kAPI_PARAM_PATTERN kAPI_PAGING_SKIP kAPI_PAGING_LIMIT
-	 * @see kAPI_PARAM_HAS_TAG_REFS kAPI_PARAM_HAS_TERM_REFS
-	 * @see kAPI_PARAM_HAS_NODE_REFS kAPI_PARAM_HAS_EDGE_REFS
-	 * @see kAPI_PARAM_HAS_UNIT_REFS kAPI_PARAM_HAS_ENTITY_REFS
 	 */
 	protected function parseParameter( &$theKey, &$theValue )
 	{
@@ -504,6 +507,7 @@ abstract class ServiceObject extends ContainerObject
 				}
 				break;
 
+			case kAPI_PARAM_LOG_REQUEST:
 			case kAPI_PARAM_HAS_TAG_REFS:
 			case kAPI_PARAM_HAS_TERM_REFS:
 			case kAPI_PARAM_HAS_NODE_REFS:
@@ -890,6 +894,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$ref[ "kAPI_RESPONSE_STATUS" ] = kAPI_RESPONSE_STATUS;
 		$ref[ "kAPI_RESPONSE_PAGING" ] = kAPI_RESPONSE_PAGING;
+		$ref[ "kAPI_RESPONSE_REQUEST" ] = kAPI_RESPONSE_REQUEST;
 		$ref[ "kAPI_RESPONSE_RESULTS" ] = kAPI_RESPONSE_RESULTS;
 		$ref[ "kAPI_RESULTS_DICTIONARY" ] = kAPI_RESULTS_DICTIONARY;
 		
@@ -943,6 +948,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
+		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
 		$ref[ "kAPI_PARAM_HAS_TAG_REFS" ] = kAPI_PARAM_HAS_TAG_REFS;
 		$ref[ "kAPI_PARAM_HAS_TERM_REFS" ] = kAPI_PARAM_HAS_TERM_REFS;
 		$ref[ "kAPI_PARAM_HAS_NODE_REFS" ] = kAPI_PARAM_HAS_NODE_REFS;
@@ -967,6 +973,8 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kOPERATOR_CONTAINS" ] = kOPERATOR_CONTAINS;
 		$ref[ "kOPERATOR_SUFFIX" ] = kOPERATOR_SUFFIX;
 		$ref[ "kOPERATOR_REGEX" ] = kOPERATOR_REGEX;
+		$ref[ "kOPERATOR_IRANGE" ] = kOPERATOR_IRANGE;
+		$ref[ "kOPERATOR_ERANGE" ] = kOPERATOR_ERANGE;
 		
 		//
 		// Load modifiers.
@@ -1019,8 +1027,14 @@ abstract class ServiceObject extends ContainerObject
 				$ref[ kOPERATOR_SUFFIX ] = array( 'key' => kOPERATOR_SUFFIX,
 												 'label' => 'Ends with',
 												 'selected' => FALSE );
-				$ref[ kOPERATOR_REGEX ] = array( 'key' => kOPERATOR_REGEX,
+				$ref[ kOPERATOR_SUFFIX ] = array( 'key' => kOPERATOR_REGEX,
 												 'label' => 'Regular expression',
+												 'selected' => FALSE );
+				$ref[ kOPERATOR_IRANGE ] = array( 'key' => kOPERATOR_IRANGE,
+												 'label' => 'Range inclusive',
+												 'selected' => TRUE );
+				$ref[ kOPERATOR_ERANGE ] = array( 'key' => kOPERATOR_ERANGE,
+												 'label' => 'Range exclusive',
 												 'selected' => FALSE );
 				$ref[ kOPERATOR_NOCASE ] = array( 'key' => kOPERATOR_NOCASE,
 												 'label' => 'Case and accent insensitive',

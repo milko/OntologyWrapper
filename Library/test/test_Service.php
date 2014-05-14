@@ -288,6 +288,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -322,6 +323,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
@@ -357,6 +359,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
@@ -394,6 +397,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 6,
 		kAPI_PARAM_PATTERN => 'italia',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -429,6 +433,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -463,6 +468,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
@@ -498,6 +504,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
@@ -535,6 +542,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 6,
 		kAPI_PARAM_PATTERN => 'italia',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -571,6 +579,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_TAG => $term
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_ENUMERATIONS;
@@ -604,6 +613,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_TAG => $term
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_ENUMERATIONS;

@@ -567,6 +567,7 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we return:
 	 *
 	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: Tag property references.
 	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
 	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
 	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
@@ -591,6 +592,7 @@ abstract class PersistentObject extends OntologyObject
 	{
 		return array
 		(
+			kTAG_ID_GRAPH,
 			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
 			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
 			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
@@ -1285,6 +1287,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			case kTAG_NOTE:
 			case kTAG_SYNONYM:
+			case kTAG_EXAMPLE:
 			case kTAG_ENTITY_ACRONYM:
 				$theType = kTYPE_STRING;
 				$theKind = array( kTYPE_LIST );
@@ -1671,11 +1674,16 @@ abstract class PersistentObject extends OntologyObject
 			$this->offsetSet( kTAG_NID, $id );
 	
 		//
-		// Update references.
+		// Update tag offsets and object references.
 		//
 		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
 		$refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
 		$this->postInsert( $tags, $refs );
+		
+		//
+		// Handle tag value ranges.
+		//
+		$this->updateTagRanges();
 	
 		return $id;																	// ==>
 	
@@ -1751,6 +1759,11 @@ abstract class PersistentObject extends OntologyObject
 		$tags = $object[ kTAG_OBJECT_OFFSETS ];
 		$refs = $object[ kTAG_OBJECT_REFERENCES ];
 		$this->postUpdate( $tags, $refs );
+		
+		//
+		// Handle tag value ranges.
+		//
+		$this->updateTagRanges();
 	
 		return $id;																	// ==>
 	
@@ -4306,6 +4319,141 @@ abstract class PersistentObject extends OntologyObject
 		$collection->updateReferenceCount($theIdent, $theIdentOffset, $tag, $theCount );
 	
 	} // updateObjectReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	updateTagRanges																	*
+	 *==================================================================================*/
+
+	/**
+	 * Update tag ranges
+	 *
+	 * This method will update all tag objects range values according to the current object
+	 * tag values.
+	 *
+	 * The method will cycle all object's tag offsets and with all those of type integer,
+	 * {@link kTYPE_INT}, or float, {@link kTYPE_FLOAT}, it will collect the minimum and
+	 * maximum values and update the related tag object's  minimum, {@link kTAG_MIN}, and
+	 * maximum {@link kTAG_MAX}, properties.
+	 *
+	 * The method assumes the current object has its {@link dictionary()} set and the
+	 * {@link kTAG_OBJECT_OFFSETS} property updated.
+	 *
+	 * @access protected
+	 */
+	protected function updateTagRanges()
+	{
+		//
+		// Save and check offsets.
+		//
+		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		if( ($offsets !== NULL)
+		 && count( $offsets ) )
+		{
+			//
+			// Get private offsets.
+			//
+			$private = static::PrivateOffsets();
+			
+			//
+			// Resolve tag collection.
+			//
+			$collection
+				= Tag::ResolveCollection(
+					Tag::ResolveDatabase( $this->mDictionary ) );
+			
+			//
+			// Iterate offsets.
+			//
+			foreach( $offsets as $tag => $offsets )
+			{
+				//
+				// Skip private offsets.
+				//
+				if( ! in_array( $tag, $private ) )
+				{
+					//
+					// Get tag.
+					//
+					static::OffsetTypes(
+						$this->mDictionary,
+						$tag, $type, $kind, TRUE );
+				
+					//
+					// Handle numeric types.
+					//
+					if( ($type == kTYPE_INT)
+					 || ($type == kTYPE_FLOAT) )
+					{
+						//
+						// Init limits.
+						//
+						$min = $max = NULL;
+						
+						//
+						// Iterate offsets.
+						//
+						foreach( $offsets as $offset )
+						{
+							//
+							// Get value.
+							//
+							$value = $this->offsetGet( $offset );
+							if( $value !== NULL )
+							{
+								//
+								// Handle minimum.
+								//
+								if( ($min === NULL)
+								 || ($value < $min) )
+									$min = $value;
+								
+								//
+								// Handle maximum.
+								//
+								if( ($max === NULL)
+								 || ($value > $max) )
+									$max = $value;
+							
+							} // Has value.
+						
+						} // Iterating offsets.
+						
+						//
+						// Check limits.
+						//
+						if( ($min !== NULL)
+						 || ($max !== NULL) )
+						{
+							//
+							// Compute minimum modification.
+							//
+							if( $min !== NULL )
+								$min = array( kTAG_MIN => $min );
+						
+							//
+							// Compute maximum modification.
+							//
+							if( $max !== NULL )
+								$max = array( kTAG_MAX => $max );
+						
+							//
+							// Update tag.
+							//
+							$collection->limitsOffsets(
+								array( kTAG_ID_SEQUENCE => (int) $tag ), $min, $max );
+						
+						} // Has at least a limit.
+						
+					} // Numeric tag.
+				
+				} // Not a private offset.
+			
+			} // Iterating offsets.
+		
+		} // Has offsets.
+		
+	} // updateTagRanges.
 
 		
 

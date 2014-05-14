@@ -62,6 +62,13 @@ define( "kAPI_RESPONSE_STATUS",					'status' );
 define( "kAPI_RESPONSE_PAGING",					'paging' );
 
 /**
+ * Request.
+ *
+ * This tag identifies the results section which holds the eventual service request.
+ */
+define( "kAPI_RESPONSE_REQUEST",				'request' );
+
+/**
  * Results.
  *
  * This tag identifies the results section which holds the operation result.
@@ -582,6 +589,18 @@ define( "kAPI_PARAM_OPERATOR",					'operator' );
 /*=======================================================================================
  *	REQUEST FLAG PARAMETERS																*
  *======================================================================================*/
+
+/**
+ * Log request (boolean).
+ *
+ * This parameter determines whether the request should be returned by the service.
+ *
+ * If the parameter is <tt>TRUE</tt>, the service will return the request in the
+ * {@link kAPI_RESPONSE_REQUEST} section of the response.
+ *
+ * If the parameter is <tt>FALSE</tt> or omitted, the request will not be returned.
+ */
+define( "kAPI_PARAM_LOG_REQUEST",				'log-request' );
 
 /**
  * Has tag references (boolean).

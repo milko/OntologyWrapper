@@ -1,0 +1,2356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TAXONOMY ATTRIBUTES
+	TaxonomyAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Taxonomy rank -->
+	
+	<!-- Rank -->
+	<META>
+		<TERM ns=":taxon" lid="rank">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxonomic rank</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>level</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:rank</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>rank</em> or <em>position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:rank">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:rank">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all taxonomic ranks.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:rank</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Kingdom ranks -->
+	
+	<!-- Domain -->
+	<META>
+		<TERM ns=":taxon" lid="superregnum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superregnum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>highest taxonomic rank</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>superkingdom</item>
+				<item>empire</item>
+				<item>regio</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Bacteria</item>
+				<item>Archaea</item>
+				<item>Eukarya</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Kingdom -->
+	<META>
+		<TERM ns=":taxon" lid="regnum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Kingdom</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">regnum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>second highest taxonomic rank</em> below <em>domain</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>regna</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Plantae</item>
+				<item>Animalia</item>
+				<item>Protista</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:regnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:regnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:regnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:regnum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:regnum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:superregnum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Subkingdom -->
+	<META>
+		<TERM ns=":taxon" lid="subregnum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subkingdom</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subregnum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:regnum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Infrakingdom -->
+	<META>
+		<TERM ns=":taxon" lid="infraregnum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infrakingdom or Branch</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraregnum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraregnum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:infraregnum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraregnum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subregnum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Phylum & Division ranks -->
+	
+	<!-- Superphylum -->
+	<META>
+		<TERM ns=":taxon" lid="superphylum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superphylum or Superdivision</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superphylum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above phylum or division and below kingdom</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>superdivision</em> is used in place of <em>superphylum</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Phylum -->
+	<META>
+		<TERM ns=":taxon" lid="phylum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Phylum or Division</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">phylum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below kingdom and above class</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>division</em> is used in place of <em>phylum</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Division</item>
+				<item>Phyla</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Acanthocephala</item>
+				<item>Hepatophyta</item>
+				<item>Echiura</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:phylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:phylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:phylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:phylum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:phylum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:superphylum</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:phylum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:regnum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Subphylum -->
+	<META>
+		<TERM ns=":taxon" lid="subphylum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subphylum</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subphylum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below phylum or division and above infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:phylum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Infraphylum -->
+	<META>
+		<TERM ns=":taxon" lid="infraphylum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraphylum</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraphylum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subphylum and above microphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:infraphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subphylum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Microphylum -->
+	<META>
+		<TERM ns=":taxon" lid="microphylum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Microphylum</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">microphylum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:microphylum</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:microphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:microphylum">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:microphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:microphylum</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:infraphylum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Class ranks -->
+	
+	<!-- Superclass -->
+	<META>
+		<TERM ns=":taxon" lid="superclassis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superclass</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superclassis</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above class</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Class -->
+	<META>
+		<TERM ns=":taxon" lid="classis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Class</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">classis</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superclass and above subclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>Division</item>
+				<item>Phyla</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Mammalia</item>
+				<item>Hepatophyta</item>
+				<item>Echiura</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:classis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:classis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:classis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:classis</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:classis</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:regnum</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:classis</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:phylum</item>
+		</EDGE>
+	</META>
+	
+	<!-- Subclass -->
+	<META>
+		<TERM ns=":taxon" lid="subclassis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subclass</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subclassis</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:classis</item>
+		</EDGE>
+	</META>
+	
+	<!-- Infraclass -->
+	<META>
+		<TERM ns=":taxon" lid="infraclassis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraclass</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraclassis</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subclass and above parvclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:infraclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subclassis</item>
+		</EDGE>
+	</META>
+	
+	<!-- Parvclass -->
+	<META>
+		<TERM ns=":taxon" lid="parvclassis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parvclass</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">oarvclassis</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:parvclassis</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:parvclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:parvclassis">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:parvclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:parvclassis</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:infraclassis</item>
+		</EDGE>
+	</META>
+	
+	<!-- Legion ranks -->
+	
+	<!-- Legion -->
+	<META>
+		<TERM ns=":taxon" lid="legio">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Legion</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">legio</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above cohort</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:legio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:legio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:legio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:legio</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:legio</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:classis</item>
+		</EDGE>
+	</META>
+	
+	<!-- Cohort -->
+	<META>
+		<TERM ns=":taxon" lid="cohors">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cohort</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">cohors</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below legion</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:cohors</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:cohors">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:cohors">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:cohors</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:cohors</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:legio</item>
+		</EDGE>
+	</META>
+	
+	<!-- Order ranks -->
+	
+	<!-- Magnorder -->
+	<META>
+		<TERM ns=":taxon" lid="magnordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Magnorder or Megaorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">magnordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Boreoeutheria</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:magnordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:magnordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:magnordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:magnordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Superorder -->
+	<META>
+		<TERM ns=":taxon" lid="superordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above grandorder and below magnorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Euarchontoglires</item>
+				<item>Parareptilia</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:magnordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- Grandorder -->
+	<META>
+		<TERM ns=":taxon" lid="grandordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Grandorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">grandordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above mirorder and below superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Euarchonta</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:grandordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:grandordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:grandordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:grandordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:grandordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:superordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- Mirorder -->
+	<META>
+		<TERM ns=":taxon" lid="mirordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Grandorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">mirordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above order and below grandorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Primatomorpha</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:mirordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:mirordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:mirordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:mirordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:mirordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:grandordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- Order -->
+	<META>
+		<TERM ns=":taxon" lid="ordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Order</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">ordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above suborder and below mirorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Primates</item>
+				<item>Procolophonomorpha</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:ordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:ordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:ordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:ordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:ordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:mirordo</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:ordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:legio</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:ordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:classis</item>
+		</EDGE>
+	</META>
+	
+	<!-- Suborder -->
+	<META>
+		<TERM ns=":taxon" lid="subordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Suborder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above infraorder and below order</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Brachycera</item>
+				<item>Haplorrhini</item>
+				<item>Fabineae</item>
+				<item>Agaricineae</item>
+				<item>Procolophonia</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:ordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- Infraorder -->
+	<META>
+		<TERM ns=":taxon" lid="infraordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above parvorder and below suborder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Simiiformes</item>
+				<item>Hallucicrania</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:infraordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- Parvorder -->
+	<META>
+		<TERM ns=":taxon" lid="parvordo">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parvorder</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">parvordo</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>and below infraorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Catarrhini</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:parvordo</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:parvordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:parvordo">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:parvordo</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:parvordo</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:infraordo</item>
+		</EDGE>
+	</META>
+	
+	<!-- FAMILY RANKS -->
+	
+	<!-- Superfamily -->
+	<META>
+		<TERM ns=":taxon" lid="superfamilia">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superfamily</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superfamilia</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superfamilia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superfamilia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superfamilia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superfamilia</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Family -->
+	<META>
+		<TERM ns=":taxon" lid="familia">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Family</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">familia</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superfamily and above subfamily</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Drosophilidae</item>
+				<item>Hominidae</item>
+				<item>Fabaceae</item>
+				<item>Amanitaceae</item>
+				<item>Enterobacteriaceae</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:familia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:familia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:familia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:familia</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:familia</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:superfamilia</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:familia</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:ordo</item>
+		</EDGE>
+	</META>
+	<!-- Family authority -->
+	<META>
+		<TERM ns=":taxon:familia" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Family authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the family epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:familia:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:familia:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Subfamily -->
+	<META>
+		<TERM ns=":taxon" lid="subfamilia">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subfamily</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subfamilia</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Drosophilinae</item>
+				<item>Homininae</item>
+				<item>Faboideae</item>
+				<item>Amanitoideae</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subfamilia</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subfamilia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subfamilia">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subfamilia</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subfamilia</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:familia</item>
+		</EDGE>
+	</META>
+	
+	<!-- Tribe ranks -->
+	
+	<!-- Supertribe -->
+	<META>
+		<TERM ns=":taxon" lid="supertribus">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Supertribe</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">supertribus</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above tribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:supertribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:supertribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:supertribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:supertribus</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Tribe -->
+	<META>
+		<TERM ns=":taxon" lid="tribus">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tribe</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">tribus</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below supertribe and above subtribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:tribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:tribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:tribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:tribus</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:tribus</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:supertribus</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:tribus</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:familia</item>
+		</EDGE>
+	</META>
+	
+	<!-- Subtribe -->
+	<META>
+		<TERM ns=":taxon" lid="subtribus">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subtribe</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subtribus</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below tribe/em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subtribus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subtribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subtribus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subtribus</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subtribus</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:tribus</item>
+		</EDGE>
+	</META>
+	
+	<!-- Genus ranks -->
+	
+	<!-- Genus -->
+	<META>
+		<TERM ns=":taxon" lid="genus">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Genus</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">genus</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above subgenus</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Drosophila</item>
+				<item>Homo</item>
+				<item>Pisum</item>
+				<item>Amanita</item>
+				<item>Escherichia</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:genus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:genus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:genus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:genus</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:genus</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:familia</item>
+		</EDGE>
+	</META>
+	<!-- Genus authority -->
+	<META>
+		<TERM ns=":taxon:genus" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Genus authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the genus epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:genus:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:genus:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Subgenus -->
+	<META>
+		<TERM ns=":taxon" lid="subgenus">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subgenus</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subgenus</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below genus and above section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subgenus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subgenus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subgenus">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subgenus</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subgenus</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:genus</item>
+		</EDGE>
+	</META>
+	
+	<!-- Section -->
+	<META>
+		<TERM ns=":taxon" lid="sectio">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Section</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">sectio</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subgenus and above series</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:sectio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:sectio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:sectio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:sectio</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:sectio</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subgenus</item>
+		</EDGE>
+	</META>
+	
+	<!-- Series -->
+	<META>
+		<TERM ns=":taxon" lid="series">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Series</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">series</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:series</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:series">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:series">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:series</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:series</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:sectio</item>
+		</EDGE>
+	</META>
+	
+	<!-- Species ranks -->
+	
+	<!-- Superspecies -->
+	<META>
+		<TERM ns=":taxon" lid="superspecies">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superspecies</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superspecies</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:superspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:superspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:superspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:superspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+	</META>
+	
+	<!-- Species -->
+	<META>
+		<TERM ns=":taxon" lid="species">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Species</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">species</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superspecies and above subspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+			<item const="kTAG_EXAMPLE">
+				<item>Drosophila melanogaster</item>
+				<item>Homo sapiens</item>
+				<item>Pisum sativum</item>
+				<item>Amanita muscaria</item>
+				<item>Escherichia coli</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:species</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:species">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:species">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:species</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:species</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:superspecies</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:species</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:genus</item>
+		</EDGE>
+	</META>
+	<!-- Species authority -->
+	<META>
+		<TERM ns=":taxon:species" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Species authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the species epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:species:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:species:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Subspecies -->
+	<META>
+		<TERM ns=":taxon" lid="subspecies">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subspecies</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subspecies</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below species and above infraspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:subspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:subspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:species</item>
+		</EDGE>
+	</META>
+	<!-- Subspecies authority -->
+	<META>
+		<TERM ns=":taxon:subspecies" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subspecies authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the subspecies epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:subspecies:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:subspecies:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Variety -->
+	<META>
+		<TERM ns=":taxon" lid="varietas">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Variety</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">varietas</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subspecies and above form</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:varietas</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:varietas">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:varietas">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:varietas</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:varietas</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:subspecies</item>
+		</EDGE>
+	</META>
+	<!-- Variety authority -->
+	<META>
+		<TERM ns=":taxon:varietas" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Variety authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the variety epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:varietas:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:varietas:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Form -->
+	<META>
+		<TERM ns=":taxon" lid="forma">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Form</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">forma</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below variety</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:forma</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:forma">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:forma">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:forma</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:forma</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:varietas</item>
+		</EDGE>
+	</META>
+	<!-- Form authority -->
+	<META>
+		<TERM ns=":taxon:forma" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Form authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the form epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:forma:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:forma:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Taxonomic aggregation attributes -->
+	
+	<!-- Scientific name epithets -->
+	<META>
+		<TERM ns=":taxon" lid="epithet">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon epithet</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraspecies</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The full scientific name comprising epithets and rank abbreviations, excluding authorship. Unless of higher rank, the name should start at the genus rank and provide the most specific infraspecies rank.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:epithet</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:epithet">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Scientific name authority -->
+	<META>
+		<TERM ns=":taxon" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The scientific name authority at the lowest taxonomic rank.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraspecies:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Infraspecies -->
+	<META>
+		<TERM ns=":taxon" lid="infraspecies">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraspecific epithet</item>
+				</item>
+				<item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraspecies</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic epithet <em>comprising all elements below the rank of species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraspecies</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:infraspecies">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:rank</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:infraspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBRANK-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:species</item>
+		</EDGE>
+	</META>
+	
+	<!-- Infraspecies author -->
+	<META>
+		<TERM ns=":taxon:infraspecies" lid="author">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraspecific authority</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the <em>lowest rank epithet</em> in the <em>taxonomic hierarchy</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:infraspecies:author</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+		</TAG>
+		<NODE tag=":taxon:infraspecies:author">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

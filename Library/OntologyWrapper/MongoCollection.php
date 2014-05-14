@@ -563,6 +563,66 @@ class MongoCollection extends CollectionObject
 	
 	} // deleteOffsets.
 
+	 
+	/*===================================================================================
+	 *	limitsOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set offsets minimum and maximum
+	 *
+	 * In this class we use the <tt>$min</tt> and <tt>$max</tt> update operators.
+	 *
+	 * @param array					$theCriteria		Object selection criteria.
+	 * @param array					$theMinOffset		Minimum offset and value.
+	 * @param array					$theMaxOffset		Maximum offset and value.
+	 *
+	 * @access public
+	 * @return integer				Number of objects affected (1 or 0).
+	 */
+	public function limitsOffsets( $theCriteria, $theMinOffset = NULL,
+												 $theMaxOffset = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
+		$modifications = Array();
+		
+		//
+		// Handle minimum value.
+		//
+		if( is_array( $theMinOffset )
+		 && count( $theMinOffset ) )
+			$modifications[ '$min' ] = $theMinOffset;
+		
+		//
+		// Handle maximum value.
+		//
+		if( is_array( $theMaxOffset )
+		 && count( $theMaxOffset ) )
+			$modifications[ '$max' ] = $theMaxOffset;
+		
+		//
+		// Update.
+		//
+		if( count( $modifications ) )
+		{
+			//
+			// Update.
+			//
+			$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
+			if( ! $ok[ 'ok' ] )
+				throw new Exception( $ok[ 'err' ] );							// !@! ==>
+		
+			return $ok[ 'n' ];														// ==>
+		
+		} // Provided limits.
+		
+		return NULL;																// ==>
+	
+	} // limitsOffsets.
+
 		
 
 /*=======================================================================================
