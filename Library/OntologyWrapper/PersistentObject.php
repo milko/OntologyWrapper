@@ -1250,7 +1250,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Scalar shapes.
 			//
-			case kTAG_GEO_LOCATION:
+			case kTAG_GEO_SHAPE:
 			case kTAG_GEO_PUB_LOCATION:
 				$theType = kTYPE_SHAPE;
 				$theKind = Array();
