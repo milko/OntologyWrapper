@@ -489,8 +489,8 @@ try
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'$value = $test->Collection( "collection" );'.kSTYLE_HEAD_POS );
-	$value = $test->Collection( "collection" );
+	echo( kSTYLE_HEAD_PRE.'$value = $test->collection( "collection" );'.kSTYLE_HEAD_POS );
+	$value = $test->collection( "collection" );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );

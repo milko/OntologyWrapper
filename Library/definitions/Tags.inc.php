@@ -541,7 +541,7 @@ define( "kTAG_EXAMPLE",					34 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of unit objects
@@ -555,7 +555,7 @@ define( "kTAG_UNIT_COUNT",				35 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of entity objects
@@ -569,7 +569,7 @@ define( "kTAG_ENTITY_COUNT",			36 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of tag objects
@@ -582,7 +582,7 @@ define( "kTAG_TAG_COUNT",				37 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of term objects
@@ -595,7 +595,7 @@ define( "kTAG_TERM_COUNT",				38 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of node objects
@@ -608,7 +608,7 @@ define( "kTAG_NODE_COUNT",				39 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}
  * </ul>
  *
  * This tag holds an <em>integer</em> value representing the <em>number of edge objects
@@ -622,7 +622,7 @@ define( "kTAG_EDGE_COUNT",				40 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -637,7 +637,7 @@ define( "kTAG_TAG_OFFSETS",				41 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -652,7 +652,7 @@ define( "kTAG_TERM_OFFSETS",			42 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -667,7 +667,7 @@ define( "kTAG_NODE_OFFSETS",			43 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -682,7 +682,7 @@ define( "kTAG_EDGE_OFFSETS",			44 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -697,7 +697,7 @@ define( "kTAG_ENTITY_OFFSETS",			45 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_STRING}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>strings</em> representing the <em>set of offset
@@ -712,7 +712,7 @@ define( "kTAG_UNIT_OFFSETS",			46 );
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_INT}
  *	<li><em>Kind</em>: {@link kTYPE_LIST},
- *					   {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *					   {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds an <em>array</em> of <em>elements</em> holding a <em>tag sequence
@@ -725,7 +725,7 @@ define( "kTAG_OBJECT_TAGS",				47 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_ARRAY}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds a <em>list of elements/em> holding a <em>tag sequence number</em>
@@ -739,7 +739,7 @@ define( "kTAG_OBJECT_OFFSETS",			48 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_ARRAY}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag holds the <em>list of object references/em> featured by the current object, the
@@ -753,7 +753,7 @@ define( "kTAG_OBJECT_REFERENCES",		49 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_REF_TAG}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag is used to provide the <em>the current tag's container</em>. If set, it
@@ -769,7 +769,7 @@ define( "kTAG_TAG_STRUCT",				50 );
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_REF_TAG}
- *	<li><em>Kind</em>: {@link kTYPE_PRIVATE_IN}, {@link kTYPE_PRIVATE_OUT}
+ *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
  * This tag indicates <em>which offset in the current structure acts as the index</em>.

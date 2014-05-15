@@ -136,7 +136,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':id-graph',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
 		),
 		7 => array
 		(
@@ -208,7 +208,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':relationship:graph-subject',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
 		),
 		19 => array
 		(
@@ -226,7 +226,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':relationship:graph-object',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
 		),
 		22 => array
 		(
@@ -238,7 +238,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':master',
 			kTAG_DATA_TYPE	=> ':type:ref:self',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
 		),
 		24 => array
 		(
@@ -310,103 +310,103 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':ref-count:unit',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		36 => array
 		(
 			kTAG_NID	=> ':ref-count:entity',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		37 => array
 		(
 			kTAG_NID	=> ':ref-count:tag',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		38 => array
 		(
 			kTAG_NID	=> ':ref-count:term',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		39 => array
 		(
 			kTAG_NID	=> ':ref-count:node',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		40 => array
 		(
 			kTAG_NID	=> ':ref-count:edge',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
 		),
 		41 => array
 		(
 			kTAG_NID	=> ':offset:tag',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		42 => array
 		(
 			kTAG_NID	=> ':offset:term',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		43 => array
 		(
 			kTAG_NID	=> ':offset:node',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		44 => array
 		(
 			kTAG_NID	=> ':offset:edge',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		45 => array
 		(
 			kTAG_NID	=> ':offset:entity',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		46 => array
 		(
 			kTAG_NID	=> ':offset:unit',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		47 => array
 		(
 			kTAG_NID	=> ':object-tags',
 			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		48 => array
 		(
 			kTAG_NID	=> ':object-offsets',
 			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		49 => array
 		(
 			kTAG_NID	=> ':object-references',
 			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
 		),
 		50 => array
 		(
 			kTAG_NID	=> ':tag:struct',
 			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
 		),
 		51 => array
 		(
 			kTAG_NID	=> ':tag:struct-index',
 			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
 		),
 		52 => array
 		(
@@ -466,7 +466,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':geo',
 			kTAG_DATA_TYPE	=> ':type:shape',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
 		),
 		62 => array
 		(
@@ -490,13 +490,13 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':connection:user',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
 		),
 		66 => array
 		(
 			kTAG_NID	=> ':connection:pass',
 			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
 		),
 		67 => array
 		(
@@ -1049,67 +1049,6 @@ abstract class PersistentObject extends OntologyObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	PrivateOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return private offsets
-	 *
-	 * This method will return the current object list of private offsets, these offsets
-	 * are managed internally by the class and should not be handled by clients or be part
-	 * of the tag and offset paths statistics.
-	 *
-	 * In this class we return:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: Tag property references.
-	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
-	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
-	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
-	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offset path references.
-	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Node property references.
-	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offset path references.
-	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edge property references.
-	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offset path references.
-	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Unit property references.
-	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offset path references.
-	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities property references.
-	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offset path references.
-	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: Object tags list.
-	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: Object offsets list.
-	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: Object object references list.
-	 * </ul>
-	 *
-	 * @static
-	 * @return array				List of default offsets.
-	 */
-	static function PrivateOffsets()
-	{
-		return array
-		(
-			kTAG_ID_GRAPH,
-			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
-			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
-			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
-			kTAG_EDGE_COUNT, kTAG_EDGE_OFFSETS,
-			kTAG_UNIT_COUNT, kTAG_UNIT_OFFSETS,
-			kTAG_ENTITY_COUNT, kTAG_ENTITY_OFFSETS,
-			kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
-		);																			// ==>
-	
-	} // PrivateOffsets.
-
-		
-
-/*=======================================================================================
- *																						*
  *								STATIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -1145,7 +1084,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Get and open collection.
 		//
-		$collection = $theDatabase->Collection( static::kSEQ_NAME );
+		$collection = $theDatabase->collection( static::kSEQ_NAME );
 		
 		//
 		// Set master.
@@ -1382,7 +1321,7 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	static function ResolveCollection( DatabaseObject $theDatabase, $doOpen = TRUE )
 	{
-		return $theDatabase->Collection( static::kSEQ_NAME, $doOpen );				// ==>
+		return $theDatabase->collection( static::kSEQ_NAME, $doOpen );				// ==>
 	
 	} // ResolveCollection.
 
@@ -1577,6 +1516,66 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	LocalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return local offsets
+	 *
+	 * This method will return the current object list of local offsets, these offsets are
+	 * managed internally by the class.
+	 *
+	 * This class of offsets have the following characteristics:
+	 *
+	 * <ul>
+	 *	<li>The offsets are managed internally by the object.
+	 *	<li>Clients must not modify these offsets.
+	 *	<li>These offsets will not be part of the object's {@link kTAG_OBJECT_TAGS} and the
+	 *		{@link kTAG_OBJECT_OFFSETS} properties.
+	 * </ul>
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: Graph identifier references.
+	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
+	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
+	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
+	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offset path references.
+	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Node property references.
+	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offset path references.
+	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edge property references.
+	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offset path references.
+	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Unit property references.
+	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offset path references.
+	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities property references.
+	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offset path references.
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: Object tags list.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: Object offsets list.
+	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: Object object references list.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function LocalOffsets()
+	{
+		return array
+		(
+			kTAG_ID_GRAPH,
+			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
+			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
+			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
+			kTAG_EDGE_COUNT, kTAG_EDGE_OFFSETS,
+			kTAG_UNIT_COUNT, kTAG_UNIT_OFFSETS,
+			kTAG_ENTITY_COUNT, kTAG_ENTITY_OFFSETS,
+			kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
+		);																			// ==>
+	
+	} // LocalOffsets.
+
+		
+	/*===================================================================================
 	 *	OffsetTypes																		*
 	 *==================================================================================*/
 
@@ -1697,6 +1696,29 @@ abstract class PersistentObject extends OntologyObject
 					  kTYPE_ENUM, kTYPE_SET );										// ==>
 	
 	} // GetReferenceTypes.
+
+		
+	/*===================================================================================
+	 *	GetReferenceCounts																*
+	 *==================================================================================*/
+
+	/**
+	 * Get reference counts
+	 *
+	 * This method will return the list of tags that represent an object reference counts.
+	 *
+	 * @static
+	 * @return array				List of reference counts.
+	 */
+	static function GetReferenceCounts()
+	{
+		return array
+		(
+			kTAG_TAG_COUNT, kTAG_TERM_COUNT, kTAG_NODE_COUNT,
+			kTAG_EDGE_COUNT, kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT
+		);																			// ==>
+	
+	} // GetReferenceCounts.
 
 		
 
@@ -2388,8 +2410,8 @@ abstract class PersistentObject extends OntologyObject
 	 * In this class we perform the following actions:
 	 *
 	 * <ul>
-	 *	<li><em>Clear private offsets</em>: The method will delete all offsets returned by
-	 *		the {@link PrivateOffsets()} static method, this is to ensure these propèerties
+	 *	<li><em>Clear local offsets</em>: The method will delete all offsets returned by
+	 *		the {@link LocalOffsets()} static method, this is to ensure these properties
 	 *		are filled with current data.
 	 *	<li><em>Parse object</em>: The method will call the {@link parseObject()} method
 	 *		that will perform the following actions:
@@ -2415,7 +2437,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @access protected
 	 *
-	 * @uses PrivateOffsets()
+	 * @uses LocalOffsets()
 	 * @uses parseObject()
 	 */
 	protected function preCommitTraverse( &$theTags, &$theRefs, $doValidate = TRUE )
@@ -2423,7 +2445,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Remove private offsets.
 		//
-		foreach( static::PrivateOffsets() as $offset )
+		foreach( static::LocalOffsets() as $offset )
 			$this->offsetUnset( $offset );
 	
 		//
@@ -4751,11 +4773,6 @@ abstract class PersistentObject extends OntologyObject
 		if( ($offsets !== NULL)
 		 && count( $offsets ) )
 		{
-			//
-			// Get private offsets.
-			//
-			$private = static::PrivateOffsets();
-			
 			//
 			// Resolve tag collection.
 			//

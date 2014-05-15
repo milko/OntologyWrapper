@@ -521,7 +521,8 @@ class ResultAggregator
 		//
 		// Handle published tags.
 		//
-		if( in_array( $offset = $theIterator->key(), $theTags ) )
+		if( in_array( $offset = $theIterator->key(),
+					  array_merge( $theTags, PersistentObject::GetReferenceCounts() ) ) )
 		{
 			//
 			// Init local storage.

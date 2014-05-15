@@ -763,6 +763,54 @@ class MongoCollection extends CollectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC INFORMATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return collection name
+	 *
+	 * In this class we return the collection name, if the connection is set, or call the
+	 * parent method.
+	 *
+	 * @access public
+	 * @return string				Collection name.
+	 */
+	public function getName()
+	{
+		//
+		// Check connection.
+		//
+		if( $this->mConnection instanceof \MongoCollection )
+		{
+			//
+			// Get full name.
+			//
+			$name = $this->mConnection->getName();
+			
+			//
+			// Separate namespaces.
+			//
+			$name = explode( '.', $name );
+			
+			return $name[ count( $name ) - 1 ];										// ==>
+		
+		} // Has connection.
+		
+		return parent::getName();													// ==>
+
+	} // getName.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED CONNECTION INTERFACE							*
  *																						*
  *======================================================================================*/

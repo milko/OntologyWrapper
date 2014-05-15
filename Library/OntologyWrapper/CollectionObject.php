@@ -827,6 +827,32 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC INFORMATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return collection name
+	 *
+	 * This method should return the collection name:
+	 *
+	 * We implement the method in this class as a fall-back.
+	 *
+	 * @access public
+	 * @return string				Collection name.
+	 */
+	public function getName()											{	return NULL;	}
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC OFFSET INTERFACE									*
  *																						*
  *======================================================================================*/

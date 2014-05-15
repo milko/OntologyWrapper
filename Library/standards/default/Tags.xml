@@ -109,7 +109,7 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -367,7 +367,7 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -440,7 +440,7 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -489,7 +489,7 @@
 			<item const="kTAG_DATA_TYPE">:type:ref:self</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -725,8 +725,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -750,8 +750,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -775,8 +775,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -800,8 +800,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -825,8 +825,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -850,8 +850,8 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:private-in</item>
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -877,8 +877,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -904,8 +905,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -931,8 +933,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -958,8 +961,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -985,8 +989,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1012,8 +1017,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1039,8 +1045,9 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1059,8 +1066,9 @@
 			<item const="kTAG_DATA_TYPE">:type:array</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1079,8 +1087,9 @@
 			<item const="kTAG_DATA_TYPE">:type:array</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-modify</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1099,8 +1108,8 @@
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1119,8 +1128,8 @@
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:private-in</item>
-				<item>:type:private-out</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1309,6 +1318,8 @@
 			<item const="kTAG_DATA_TYPE">:type:shape</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1403,6 +1414,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1427,6 +1440,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:private-search</item>
+				<item>:type:private-display</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>

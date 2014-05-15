@@ -636,7 +636,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting tags.\n" );
-		$this->mMetadata->Collection( Tag::kSEQ_NAME, TRUE )->drop();
+		$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
 		Tag::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -644,7 +644,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting terms.\n" );
-		$this->mMetadata->Collection( Term::kSEQ_NAME, TRUE )->drop();
+		$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -652,7 +652,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting nodes.\n" );
-		$this->mMetadata->Collection( Node::kSEQ_NAME, TRUE )->drop();
+		$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -660,7 +660,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting edges.\n" );
-		$this->mMetadata->Collection( Edge::kSEQ_NAME, TRUE )->drop();
+		$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -829,7 +829,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting entities.\n" );
-		$this->mEntities->Collection( EntityObject::kSEQ_NAME, TRUE )->drop();
+		$this->mEntities->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
 		Individual::CreateIndexes( $this->mEntities );
 		Institution::CreateIndexes( $this->mEntities );
 		
@@ -961,7 +961,7 @@ class Wrapper extends Dictionary
 			//
 			// Get tags collection.
 			//
-			$collection = $this->mMetadata->Collection( Tag::kSEQ_NAME );
+			$collection = $this->mMetadata->collection( Tag::kSEQ_NAME );
 		
 			//
 			// Load all tags.

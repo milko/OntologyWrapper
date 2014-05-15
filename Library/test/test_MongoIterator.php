@@ -130,8 +130,8 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$database = OntologyWrapper\Term::ResolveDatabase( $wrapper, TRUE, TRUE );<br/>' );
 	$database = OntologyWrapper\Term::ResolveDatabase( $wrapper, TRUE, TRUE );
-	echo( '$collection = $database->Collection( OntologyWrapper\Term::kSEQ_NAME, TRUE );<br/>' );
-	$collection = $database->Collection( OntologyWrapper\Term::kSEQ_NAME, TRUE );
+	echo( '$collection = $database->collection( OntologyWrapper\Term::kSEQ_NAME, TRUE );<br/>' );
+	$collection = $database->collection( OntologyWrapper\Term::kSEQ_NAME, TRUE );
 	echo( '$test = $collection->matchAll();' );
 	$test = $collection->matchAll();
 	echo( kSTYLE_HEAD_POS );

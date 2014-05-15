@@ -79,9 +79,9 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_PRIVATE_IN -->
+	<!-- kTAG_PRIVATE_SEARCH -->
 	<META>
-		<NODE term=":type:private-in">
+		<NODE term=":type:private-search">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>
@@ -92,9 +92,22 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_PRIVATE_OUT -->
+	<!-- kTAG_PRIVATE_MODIFY -->
 	<META>
-		<NODE term=":type:private-out">
+		<NODE term=":type:private-modify">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_PRIVATE_DISPLAY -->
+	<META>
+		<NODE term=":type:private-display">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>

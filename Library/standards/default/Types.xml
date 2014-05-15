@@ -662,34 +662,50 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_PRIVATE_IN -->
-		<TERM ns=":type" lid="private-in">
+		<!-- kTAG_PRIVATE_SEARCH -->
+		<TERM ns=":type" lid="private-search">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Private input</item>
+					<item const="kTAG_TEXT">Private search</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in input</em>, which means that it is automatically managed by the class and should not be explicitly set by clients.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>should not be available to clients for searching</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_PRIVATE_OUT -->
-		<TERM ns=":type" lid="private-out">
+		<!-- kTAG_PRIVATE_MODIFY -->
+		<TERM ns=":type" lid="private-modify">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Private output</item>
+					<item const="kTAG_TEXT">Private modify</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in output</em>, which means that it is internal and should not be displayed to clients.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>reserved by the object</em>, which means that it is automatically managed by the class and should not be explicitly set or modified by clients.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_PRIVATE_DISPLAY -->
+		<TERM ns=":type" lid="private-display">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Private display</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property <em>should not be displayed to clients</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

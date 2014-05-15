@@ -1197,6 +1197,13 @@ abstract class ServiceObject extends ContainerObject
 		);
 		
 		//
+		// Filter hidden tags.
+		//
+		if( $theCollection->getName() == Tag::kSEQ_NAME )
+			$criteria[ (string) kTAG_DATA_KIND ]
+				= array( '$ne' => kTAG_PRIVATE_SEARCH );
+		
+		//
 		// Add tag reference count to criteria.
 		//
 		if( $this->offsetExists( kAPI_PARAM_HAS_TAG_REFS ) )

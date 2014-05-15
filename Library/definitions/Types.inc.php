@@ -463,20 +463,27 @@ define( "kTYPE_QUANTITATIVE",					':type:quantitative' );
 define( "kTYPE_DISCRETE",						':type:discrete' );
 
 /**
- * Private input.
+ * Private search.
  *
- * A <i>private input</i> cardinality type indicates that the referred property is handled
- * internally and it must not be set by clients.
+ * This kind indicates that the referred property should not be available to clients for
+ * searching.
  */
-define( "kTYPE_PRIVATE_IN",						':type:private-in' );
+define( "kTAG_PRIVATE_SEARCH",					':type:private-search' );
 
 /**
- * Private output.
+ * Private modify.
  *
- * A <i>private output</i> cardinality type indicates that the referred property internal
- * and it should not be displayed to clients.
+ * This kind indicates that the referred property is handled internally and it must not be
+ * modified by clients.
  */
-define( "kTYPE_PRIVATE_OUT",					':type:private-out' );
+define( "kTAG_PRIVATE_MODIFY",					':type:private-modify' );
+
+/**
+ * Private display.
+ *
+ * This kind indicates that the referred property should not be displayed to clients.
+ */
+define( "kTYPE_PRIVATE_DISPLAY",				':type:private-display' );
 
 /*=======================================================================================
  *	RELATIONSHIP TYPES																	*

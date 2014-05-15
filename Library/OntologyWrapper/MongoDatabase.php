@@ -157,6 +157,32 @@ class MongoDatabase extends DatabaseObject
 	
 	} // getCollections.
 
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return database name
+	 *
+	 * In this class we return the database name, if the connection is set, or call the
+	 * parent method.
+	 *
+	 * @access public
+	 * @return string				Database name.
+	 */
+	public function getName()
+	{
+		//
+		// Check connection.
+		//
+		if( $this->mConnection instanceof \MongoDB )
+			return (string) $this->mConnection;										// ==>
+		
+		return parent::getName();													// ==>
+
+	} // getName.
+
 		
 
 /*=======================================================================================
