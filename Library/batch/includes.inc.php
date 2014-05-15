@@ -55,7 +55,7 @@ define( "kPATH_DEFINITIONS_ROOT",	kPATH_LIBRARY_ROOT."/definitions" );
  *
  * This value defines the <b><i>absolute</i></b> path to the library standards directory.
  */
-define( "kPATH_STANDARDS_ROOT",	kPATH_LIBRARY_ROOT."/standards" );
+define( "kPATH_STANDARDS_ROOT",		kPATH_LIBRARY_ROOT."/standards" );
 
 /*=======================================================================================
  *	EXTERNAL LIBRARY PATHS																*

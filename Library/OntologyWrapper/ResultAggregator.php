@@ -536,7 +536,8 @@ class ResultAggregator
 			//
 			// Collect offset data types.
 			//
-			PersistentObject::OffsetTypes( $theWrapper, $offset, $type, $kind );
+			PersistentObject::OffsetTypes(
+				$theWrapper, $offset, $type, $kind, $min, $max, $pattern );
 			
 			//
 			// Handle structure.

@@ -118,9 +118,10 @@ class MyClass extends OntologyWrapper\PersistentObject
 	
 	public function __toString()						{	return "hello!";	}
 	
-	static function OffsetTypes( OntologyWrapper\DictionaryObject $theDictionary,
+	static function OffsetTypes( DictionaryObject $theDictionary,
 												  $theOffset,
 												 &$theType, &$theKind,
+												 &$theMin, &$theMax, &$thePattern,
 												  $doAssert = TRUE )
 	{
 		switch( $theOffset )
@@ -128,21 +129,33 @@ class MyClass extends OntologyWrapper\PersistentObject
 			case -1:
 				$theType = kTYPE_FLOAT;
 				$theKind = array( kTYPE_LIST );
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 			
 			case -2:
 				$theType = kTYPE_STRUCT;
 				$theKind = array( kTYPE_LIST );
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 			
 			case -3:
 				$theType = kTYPE_STRUCT;
 				$theKind = Array();
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 			
 			case -4:
 				$theType = kTYPE_SHAPE;
 				$theKind = Array();
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 		}
 

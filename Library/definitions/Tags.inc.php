@@ -400,7 +400,7 @@ define( "kTAG_CATEGORY",				24 );
  * Data type (<code>:type:data</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_SET}
+ *	<li><em>Type</em>: {@link kTYPE_ENUM}
  * </ul>
  *
  * This tag holds a <em>term object references</em> which indicate the <em>data type</em>

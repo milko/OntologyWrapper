@@ -182,7 +182,7 @@
 	<!-- Enumerated data types -->
 	
 	<META>
-		<!-- Enumeration -->
+		<!-- kTYPE_ENUM -->
 		<TERM ns=":type" lid="enum">
 			<item const="kTAG_LABEL">
 				<item>
@@ -198,7 +198,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Enumerated set -->
+		<!-- kTYPE_SET -->
 		<TERM ns=":type" lid="enum-set">
 			<item const="kTAG_LABEL">
 				<item>
@@ -218,7 +218,7 @@
 	<!-- Object reference data types -->
 	
 	<META>
-		<!-- Term reference -->
+		<!-- kTYPE_REF_TAG -->
 		<TERM ns=":type:ref" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
@@ -234,7 +234,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Tag reference -->
+		<!-- kTYPE_REF_TERM -->
 		<TERM ns=":type:ref" lid="tag">
 			<item const="kTAG_LABEL">
 				<item>
@@ -250,7 +250,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Node reference -->
+		<!-- kTYPE_REF_NODE -->
 		<TERM ns=":type:ref" lid="node">
 			<item const="kTAG_LABEL">
 				<item>
@@ -266,7 +266,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Edge reference -->
+		<!-- kTYPE_REF_EDGE -->
 		<TERM ns=":type:ref" lid="edge">
 			<item const="kTAG_LABEL">
 				<item>
@@ -282,7 +282,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Entity reference -->
+		<!-- kTYPE_REF_ENTITY -->
 		<TERM ns=":type:ref" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
@@ -298,7 +298,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Unit reference -->
+		<!-- kTYPE_REF_UNIT -->
 		<TERM ns=":type:ref" lid="unit">
 			<item const="kTAG_LABEL">
 				<item>
@@ -314,7 +314,7 @@
 			</item>
 		</TERM>
 		
-		<!-- Self reference -->
+		<!-- kTYPE_REF_SELF -->
 		<TERM ns=":type:ref" lid="self">
 			<item const="kTAG_LABEL">
 				<item>
@@ -331,105 +331,21 @@
 		</TERM>
 	</META>
 	
-	<!-- Cardinality types -->
+	<!-- Term types -->
 	
 	<META>
-		<!-- List -->
-		<TERM ns=":type" lid="list">
+		<!-- kTYPE_TERM_INSTANCE -->
+		<TERM ns=":type:term" lid="instance">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">List</item>
+					<item const="kTAG_TEXT">Instance</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- Private input -->
-		<TERM ns=":type" lid="private-in">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Private input</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in input</em>, which means that it is automatically managed by the class and should not be explicitly set by clients.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- Private output -->
-		<TERM ns=":type" lid="private-out">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Private output</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in output</em>, which means that it is internal and should not be displayed to clients.]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Relationship types -->
-	
-	<META>
-		<!-- Incoming -->
-		<TERM ns=":relationship" lid="in">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Incoming</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>incoming relationship</em> indicates that the relationship is <em>originating</em> from an <em>external vertex</em> directed to the current vertex.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- Outgoing -->
-		<TERM ns=":relationship" lid="out">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Outgoing</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>outgoing relationship</em> indicates that the relationship is <em>originating</em> from the <em>current vertex</em> directed to an external vertex.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- Bi-directional -->
-		<TERM ns=":relationship" lid="all">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Bi-directional</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>bi-directional relationship</em> indicates that it is <em>both incoming and outgoing</em>, it <em>originates</em> from both the <em>current and external</em> vertices.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[<em>An instance</em> term can be considered as an instance of the <em>object it defines</em>. This type of terms will hold data, in addition to the metadata, regarding what it defines. In general, this kind of term will be an element of an enumerated set which can be used in place of what the element represents.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -485,11 +401,7 @@
 				</item>
 			</item>
 		</TERM>
-	</META>
-	
-	<!-- Node types -->
-	
-	<META>
+		
 		<!-- kTYPE_NODE_ONTOLOGY -->
 		<TERM ns=":type:node" lid="ontology">
 			<item const="kTAG_LABEL">
@@ -683,21 +595,153 @@
 		</TERM>
 	</META>
 	
-	<!-- Term types -->
+	<!-- Cardinality types -->
 	
 	<META>
-		<!-- kTYPE_TERM_INSTANCE -->
-		<TERM ns=":type:term" lid="instance">
+		<!-- kTYPE_LIST -->
+		<TERM ns=":type" lid="list">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Instance</item>
+					<item const="kTAG_TEXT">List</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An instance</em> term can be considered as an instance of the <em>object it defines</em>. This type of terms will hold data, in addition to the metadata, regarding what it defines. In general, this kind of term will be an element of an enumerated set which can be used in place of what the element represents.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_CATEGORICAL -->
+		<TERM ns=":type" lid="categorical">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Categorical</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property can take on <em>one or more of a limited, and usually fixed, number of possible values</em>. In general, properties which take their values from an <em>enumerated set</em> of choices are of this kind.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_QUANTITATIVE -->
+		<TERM ns=":type" lid="quantitative">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Quantitative</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one whose type of information is based in <em>quantities or quantifiable data</em> which is <em>continuous</em>. In general numerical values which can be aggregated in ranges fall under this category.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_DISCRETE -->
+		<TERM ns=":type" lid="discrete">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Discrete</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one which may <em>take an indefinite number of values</em>, which <em>differentiates it from a categorical</em> property, and whose values are <em>not continuous</em>, which <em>differentiates it from a quantitative property</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_PRIVATE_IN -->
+		<TERM ns=":type" lid="private-in">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Private input</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in input</em>, which means that it is automatically managed by the class and should not be explicitly set by clients.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_PRIVATE_OUT -->
+		<TERM ns=":type" lid="private-out">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Private output</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>private in output</em>, which means that it is internal and should not be displayed to clients.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Relationship types -->
+	
+	<META>
+		<!-- kTYPE_RELATIONSHIP_IN -->
+		<TERM ns=":relationship" lid="in">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Incoming</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>incoming relationship</em> indicates that the relationship is <em>originating</em> from an <em>external vertex</em> directed to the current vertex.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_RELATIONSHIP_OUT -->
+		<TERM ns=":relationship" lid="out">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Outgoing</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An <em>outgoing relationship</em> indicates that the relationship is <em>originating</em> from the <em>current vertex</em> directed to an external vertex.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_RELATIONSHIP_ALL -->
+		<TERM ns=":relationship" lid="all">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Bi-directional</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>bi-directional relationship</em> indicates that it is <em>both incoming and outgoing</em>, it <em>originates</em> from both the <em>current and external</em> vertices.]]></item>
 				</item>
 			</item>
 		</TERM>

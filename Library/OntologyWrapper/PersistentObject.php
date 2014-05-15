@@ -95,6 +95,508 @@ require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
 abstract class PersistentObject extends OntologyObject
 {
 	/**
+	 * Default tags table.
+	 *
+	 * This static member holds the type and kind information regarding all default tags.
+	 */
+	public static $sDefaultTags = array
+	(
+
+		1 => array
+		(
+			kTAG_NID	=> ':namespace',
+			kTAG_DATA_TYPE	=> ':type:ref:term',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		2 => array
+		(
+			kTAG_NID	=> ':id-local',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		3 => array
+		(
+			kTAG_NID	=> ':id-persistent',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		4 => array
+		(
+			kTAG_NID	=> ':id-valid',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		5 => array
+		(
+			kTAG_NID	=> ':id-sequence',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		6 => array
+		(
+			kTAG_NID	=> ':id-graph',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		7 => array
+		(
+			kTAG_NID	=> ':unit:domain',
+			kTAG_DATA_TYPE	=> ':type:enum',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		8 => array
+		(
+			kTAG_NID	=> ':unit:authority',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		9 => array
+		(
+			kTAG_NID	=> ':unit:collection',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		10 => array
+		(
+			kTAG_NID	=> ':unit:identifier',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		11 => array
+		(
+			kTAG_NID	=> ':unit:version',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		12 => array
+		(
+			kTAG_NID	=> ':synonym',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+		),
+		13 => array
+		(
+			kTAG_NID	=> ':tag',
+			kTAG_DATA_TYPE	=> ':type:ref:tag',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		14 => array
+		(
+			kTAG_NID	=> ':tags',
+			kTAG_DATA_TYPE	=> ':type:ref:tag',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+		),
+		15 => array
+		(
+			kTAG_NID	=> ':term',
+			kTAG_DATA_TYPE	=> ':type:ref:term',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		16 => array
+		(
+			kTAG_NID	=> ':terms',
+			kTAG_DATA_TYPE	=> ':type:ref:term',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+		),
+		17 => array
+		(
+			kTAG_NID	=> ':relationship:subject',
+			kTAG_DATA_TYPE	=> ':type:ref:node',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		18 => array
+		(
+			kTAG_NID	=> ':relationship:graph-subject',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		19 => array
+		(
+			kTAG_NID	=> ':predicate',
+			kTAG_DATA_TYPE	=> ':type:ref:term',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		20 => array
+		(
+			kTAG_NID	=> ':relationship:object',
+			kTAG_DATA_TYPE	=> ':type:ref:node',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		21 => array
+		(
+			kTAG_NID	=> ':relationship:graph-object',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		22 => array
+		(
+			kTAG_NID	=> ':entity',
+			kTAG_DATA_TYPE	=> ':type:ref:entity',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		23 => array
+		(
+			kTAG_NID	=> ':master',
+			kTAG_DATA_TYPE	=> ':type:ref:self',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		24 => array
+		(
+			kTAG_NID	=> ':category',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		25 => array
+		(
+			kTAG_NID	=> ':type:data',
+			kTAG_DATA_TYPE	=> ':type:enum',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		26 => array
+		(
+			kTAG_NID	=> ':type:kind',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		27 => array
+		(
+			kTAG_NID	=> ':type:term',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		28 => array
+		(
+			kTAG_NID	=> ':type:node',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		29 => array
+		(
+			kTAG_NID	=> ':name',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		30 => array
+		(
+			kTAG_NID	=> ':label',
+			kTAG_DATA_TYPE	=> ':type:language-strings',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		31 => array
+		(
+			kTAG_NID	=> ':definition',
+			kTAG_DATA_TYPE	=> ':type:language-strings',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		32 => array
+		(
+			kTAG_NID	=> ':description',
+			kTAG_DATA_TYPE	=> ':type:language-strings',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		33 => array
+		(
+			kTAG_NID	=> ':notes',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+		),
+		34 => array
+		(
+			kTAG_NID	=> ':examples',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+		),
+		35 => array
+		(
+			kTAG_NID	=> ':ref-count:unit',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		36 => array
+		(
+			kTAG_NID	=> ':ref-count:entity',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		37 => array
+		(
+			kTAG_NID	=> ':ref-count:tag',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		38 => array
+		(
+			kTAG_NID	=> ':ref-count:term',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		39 => array
+		(
+			kTAG_NID	=> ':ref-count:node',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		40 => array
+		(
+			kTAG_NID	=> ':ref-count:edge',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in' )
+		),
+		41 => array
+		(
+			kTAG_NID	=> ':offset:tag',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		42 => array
+		(
+			kTAG_NID	=> ':offset:term',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		43 => array
+		(
+			kTAG_NID	=> ':offset:node',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		44 => array
+		(
+			kTAG_NID	=> ':offset:edge',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		45 => array
+		(
+			kTAG_NID	=> ':offset:entity',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		46 => array
+		(
+			kTAG_NID	=> ':offset:unit',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		47 => array
+		(
+			kTAG_NID	=> ':object-tags',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		48 => array
+		(
+			kTAG_NID	=> ':object-offsets',
+			kTAG_DATA_TYPE	=> ':type:array',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		49 => array
+		(
+			kTAG_NID	=> ':object-references',
+			kTAG_DATA_TYPE	=> ':type:array',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		50 => array
+		(
+			kTAG_NID	=> ':tag:struct',
+			kTAG_DATA_TYPE	=> ':type:ref:tag',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		51 => array
+		(
+			kTAG_NID	=> ':tag:struct-index',
+			kTAG_DATA_TYPE	=> ':type:ref:tag',
+			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-in', ':type:private-out' )
+		),
+		52 => array
+		(
+			kTAG_NID	=> ':min-val',
+			kTAG_DATA_TYPE	=> ':type:float',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		53 => array
+		(
+			kTAG_NID	=> ':min-range',
+			kTAG_DATA_TYPE	=> ':type:float',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		54 => array
+		(
+			kTAG_NID	=> ':max-val',
+			kTAG_DATA_TYPE	=> ':type:float',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		55 => array
+		(
+			kTAG_NID	=> ':max-range',
+			kTAG_DATA_TYPE	=> ':type:float',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		56 => array
+		(
+			kTAG_NID	=> ':grep',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		57 => array
+		(
+			kTAG_NID	=> ':type',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		58 => array
+		(
+			kTAG_NID	=> ':language',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		59 => array
+		(
+			kTAG_NID	=> ':text',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		60 => array
+		(
+			kTAG_NID	=> ':url',
+			kTAG_DATA_TYPE	=> ':type:url',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		61 => array
+		(
+			kTAG_NID	=> ':geo',
+			kTAG_DATA_TYPE	=> ':type:shape',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		62 => array
+		(
+			kTAG_NID	=> ':connection:protocol',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		63 => array
+		(
+			kTAG_NID	=> ':connection:host',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		64 => array
+		(
+			kTAG_NID	=> ':connection:port',
+			kTAG_DATA_TYPE	=> ':type:int',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		65 => array
+		(
+			kTAG_NID	=> ':connection:user',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		66 => array
+		(
+			kTAG_NID	=> ':connection:pass',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		67 => array
+		(
+			kTAG_NID	=> ':connection:database',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		68 => array
+		(
+			kTAG_NID	=> ':connection:collection',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		69 => array
+		(
+			kTAG_NID	=> ':connection:options',
+			kTAG_DATA_TYPE	=> ':type:array',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		70 => array
+		(
+			kTAG_NID	=> ':entity:fname',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		71 => array
+		(
+			kTAG_NID	=> ':entity:lname',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		72 => array
+		(
+			kTAG_NID	=> ':type:entity',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		73 => array
+		(
+			kTAG_NID	=> ':kind:entity',
+			kTAG_DATA_TYPE	=> ':type:enum-set',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		74 => array
+		(
+			kTAG_NID	=> ':entity:acronym',
+			kTAG_DATA_TYPE	=> ':type:string',
+			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete' )
+		),
+		75 => array
+		(
+			kTAG_NID	=> ':entity:mail',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		76 => array
+		(
+			kTAG_NID	=> ':entity:email',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		77 => array
+		(
+			kTAG_NID	=> ':entity:url',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		78 => array
+		(
+			kTAG_NID	=> ':entity:phone',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		79 => array
+		(
+			kTAG_NID	=> ':entity:fax',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		80 => array
+		(
+			kTAG_NID	=> ':entity:affiliation',
+			kTAG_DATA_TYPE	=> ':type:typed-list',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		),
+		81 => array
+		(
+			kTAG_NID	=> ':entity:country',
+			kTAG_DATA_TYPE	=> ':type:enum',
+			kTAG_DATA_KIND	=> array( ':type:categorical' )
+		),
+		82 => array
+		(
+			kTAG_NID	=> ':entity:valid',
+			kTAG_DATA_TYPE	=> ':type:ref:entity',
+			kTAG_DATA_KIND	=> array( ':type:discrete' )
+		)
+	);
+
+	/**
 	 * Status trait.
 	 *
 	 * In this class we handle the {@link is_committed()} flag.
@@ -1081,8 +1583,9 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Resolve offset types
 	 *
-	 * In this class we hard-code the data types and kinds of the default tags, this is to
-	 * allow loading the data dictionary on a pristine system.
+	 * In this class we hard-code the data of the default tags using the static
+	 * {@link $sDefaultTags} member, this is to allow loading the data dictionary on a
+	 * pristine system.
 	 *
 	 * If the provided offset is not among the ones handled in this method, it will call
 	 * the parent method.
@@ -1091,6 +1594,9 @@ abstract class PersistentObject extends OntologyObject
 	 * @param mixed					$theOffset			Offset.
 	 * @param string				$theType			Receives data type.
 	 * @param array					$theKind			Receives data kind.
+	 * @param mixed					$theMin				Receives minimum data range.
+	 * @param mixed					$theMax				Receives maximum data range.
+	 * @param string				$thePattern			Receives data pattern.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
 	 *
 	 * @static
@@ -1099,245 +1605,55 @@ abstract class PersistentObject extends OntologyObject
 	static function OffsetTypes( DictionaryObject $theDictionary,
 												  $theOffset,
 												 &$theType, &$theKind,
+												 &$theMin, &$theMax, &$thePattern,
 												  $doAssert = TRUE )
 	{
 		//
 		// Handle default tags.
 		//
-		switch( $theOffset )
+		if( array_key_exists( $theOffset, self::$sDefaultTags ) )
 		{
 			//
-			// Scalar strings.
+			// Set type.
 			//
-			case kTAG_AUTHORITY:
-			case kTAG_COLLECTION:
-			case kTAG_IDENTIFIER:
-			case kTAG_ID_LOCAL:
-			case kTAG_ID_PERSISTENT:
-			case kTAG_ID_VALID:
-			case kTAG_VERSION:
-			case kTAG_NAME:
-			case kTAG_TYPE:
-			case kTAG_LANGUAGE:
-			case kTAG_TEXT:
-			case kTAG_PATTERN:
-			case kTAG_ENTITY_FNAME:
-			case kTAG_ENTITY_LNAME:
-			case kTAG_CONN_PROTOCOL:
-			case kTAG_CONN_HOST:
-			case kTAG_CONN_USER:
-			case kTAG_CONN_PASS:
-			case kTAG_CONN_BASE:
-			case kTAG_CONN_COLL:
-				$theType = kTYPE_STRING;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
+			$theType = self::$sDefaultTags[ $theOffset ][ kTAG_DATA_TYPE ];
+
 			//
-			// Enumerations.
+			// Set kind.
 			//
-			case kTAG_DOMAIN:
-			case kTAG_DATA_TYPE:
-			case kTAG_ENTITY_COUNTRY:
-				$theType = kTYPE_ENUM;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
+			$theKind = ( array_key_exists( kTAG_DATA_KIND,
+										   self::$sDefaultTags[ $theOffset ] ) )
+					 ? self::$sDefaultTags[ $theOffset ][ kTAG_DATA_KIND ]
+					 : Array();
+
 			//
-			// Enumerated sets.
+			// Set range.
 			//
-			case kTAG_CATEGORY:
-			case kTAG_DATA_KIND:
-			case kTAG_TERM_TYPE:
-			case kTAG_NODE_TYPE:
-			case kTAG_ENTITY_TYPE:
-			case kTAG_ENTITY_KIND:
-				$theType = kTYPE_SET;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
+			$theMin  = ( array_key_exists( kTAG_MIN_RANGE,
+										   self::$sDefaultTags[ $theOffset ] ) )
+					 ? self::$sDefaultTags[ $theOffset ][ kTAG_MIN_RANGE ]
+					 : NULL;
+			$theMax  = ( array_key_exists( kTAG_MAX_RANGE,
+										   self::$sDefaultTags[ $theOffset ] ) )
+					 ? self::$sDefaultTags[ $theOffset ][ kTAG_MAX_RANGE ]
+					 : NULL;
+
 			//
-			// Scalar integers.
+			// Set pattern.
 			//
-			case kTAG_ID_SEQUENCE:
-			case kTAG_CONN_PORT:
-				$theType = kTYPE_INT;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar floats.
-			//
-			case kTAG_MIN_VAL:
-			case kTAG_MAX_VAL:
-				$theType = kTYPE_FLOAT;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar URLs.
-			//
-			case kTAG_URL:
-				$theType = kTYPE_URL;
-				$theKind = Array();
-				return TRUE;														// ==>
+			$thePattern = ( array_key_exists( kTAG_PATTERN,
+										   self::$sDefaultTags[ $theOffset ] ) )
+					 ? self::$sDefaultTags[ $theOffset ][ kTAG_PATTERN ]
+					 : NULL;
 			
-			//
-			// Scalar term references.
-			//
-			case kTAG_NAMESPACE:
-			case kTAG_TERM:
-			case kTAG_PREDICATE:
-				$theType = kTYPE_REF_TERM;
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar tag references.
-			//
-			case kTAG_TAG:
-				$theType = kTYPE_REF_TAG;
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar node references.
-			//
-			case kTAG_SUBJECT:
-			case kTAG_OBJECT:
-				$theType = kTYPE_REF_NODE;
-				$theKind = Array();
-				return TRUE;														// ==>
-			
-			//
-			// Scalar entity references.
-			//
-			case kTAG_ENTITY:
-			case kTAG_ENTITY_VALID:
-				$theType = kTYPE_REF_ENTITY;
-				$theKind = Array();
-				return TRUE;														// ==>
+			return TRUE;															// ==>
 		
-			//
-			// Scalar array references.
-			//
-			case kTAG_CONN_OPTS:
-				$theType = kTYPE_ARRAY;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar self references.
-			//
-			case kTAG_MASTER:
-				$theType = kTYPE_REF_SELF;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar typed lists.
-			//
-			case kTAG_ENTITY_MAIL:
-			case kTAG_ENTITY_EMAIL:
-			case kTAG_ENTITY_LINK:
-			case kTAG_ENTITY_PHONE:
-			case kTAG_ENTITY_FAX:
-			case kTAG_ENTITY_AFFILIATION:
-				$theType = kTYPE_TYPED_LIST;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar shapes.
-			//
-			case kTAG_GEO_SHAPE:
-				$theType = kTYPE_SHAPE;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Scalar language string references.
-			//
-			case kTAG_LABEL:
-			case kTAG_DEFINITION:
-			case kTAG_DESCRIPTION:
-				$theType = kTYPE_LANGUAGE_STRINGS;
-				$theKind = Array();
-				return TRUE;														// ==>
-		
-			//
-			// Term reference lists.
-			//
-			case kTAG_TERMS:
-				$theType = kTYPE_REF_TERM;
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// Tag reference lists.
-			//
-			case kTAG_TAGS:
-				$theType = kTYPE_REF_TAG;
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// String lists.
-			//
-			case kTAG_NOTE:
-			case kTAG_SYNONYM:
-			case kTAG_EXAMPLE:
-			case kTAG_ENTITY_ACRONYM:
-				$theType = kTYPE_STRING;
-				$theKind = array( kTYPE_LIST );
-				return TRUE;														// ==>
-		
-			//
-			// Private string lists.
-			//
-			case kTAG_TAG_OFFSETS:
-			case kTAG_TERM_OFFSETS:
-			case kTAG_NODE_OFFSETS:
-			case kTAG_EDGE_OFFSETS:
-			case kTAG_ENTITY_OFFSETS:
-			case kTAG_UNIT_OFFSETS:
-				$theType = kTYPE_STRING;
-				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-			//
-			// Private integers.
-			//
-			case kTAG_UNIT_COUNT:
-			case kTAG_ENTITY_COUNT:
-			case kTAG_TAG_COUNT:
-			case kTAG_TERM_COUNT:
-			case kTAG_NODE_COUNT:
-			case kTAG_EDGE_COUNT:
-				$theType = kTYPE_INT;
-				$theKind = array( kTYPE_PRIVATE_IN );
-				return TRUE;														// ==>
-		
-			//
-			// Private integer lists.
-			//
-			case kTAG_OBJECT_TAGS:
-				$theType = kTYPE_INT;
-				$theKind = array( kTYPE_LIST, kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-			//
-			// Private scalar arrays.
-			//
-			case kTAG_OBJECT_OFFSETS:
-				$theType = kTYPE_ARRAY;
-				$theKind = array( kTYPE_PRIVATE_IN, kTYPE_PRIVATE_OUT );
-				return TRUE;														// ==>
-		
-		} // Parsing default tags.
+		} // Default offset.
 		
 		return parent::OffsetTypes(
-					$theDictionary, $theOffset, $theType, $theKind, $doAssert );	// ==>
+					$theDictionary, $theOffset,
+					$theType, $theKind, $theMin, $theMax, $thePattern,
+					$doAssert );													// ==>
 		
 	} // OffsetTypes.
 
@@ -3014,12 +3330,12 @@ abstract class PersistentObject extends OntologyObject
 	 *		<li><tt>key</tt>: The element key represents the tag sequence numbers referenced
 	 *			by the offset. Each element is an array structured as follows:
 	 *		 <ul>
-	 +			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
+	 *			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
 	 *				tag data type.
-	 +			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
+	 *			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
 	 *				tag data kind; if the tag has no data kind, this item will be an empty
 	 *				array.
-	 +			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
+	 *			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
 	 *				contain the list of offset paths in which the current tag is referenced
 	 *				as a leaf offset (an offset holding a value, not a structure).
 	 *		 </ul>
@@ -3093,14 +3409,24 @@ abstract class PersistentObject extends OntologyObject
 					$type = $theTags[ $tag ][ kTAG_DATA_TYPE ];
 					$kind = $theTags[ $tag ][ kTAG_DATA_KIND ];
 	
+					//
+					// Copy data validation info.
+					//
+					$min = $theTags[ $tag ][ kTAG_MIN_RANGE ];
+					$max = $theTags[ $tag ][ kTAG_MAX_RANGE ];
+					$pattern = $theTags[ $tag ][ kTAG_PATTERN ];
+	
 				} // Already parsed.
 	
 				//
-				// Determine type and kind.
+				// Determine tag information.
 				//
 				else
 					static::OffsetTypes(
-						$this->mDictionary, $tag, $type, $kind, TRUE );
+						$this->mDictionary, $tag,
+						$type, $kind,
+						$min, $max, $pattern,
+						TRUE );
 				
 				//
 				// Handle lists.
@@ -3158,13 +3484,18 @@ abstract class PersistentObject extends OntologyObject
 							//
 							$class
 								= $this->parseProperty(
-									$element_ref, $type, $offset, $doValidate );
+									$element_ref, $type,
+									$min, $max, $pattern,
+									$offset, $doValidate );
 						
 							//
 							// Load tag information.
 							//
 							$this->loadTagInformation(
-								$theTags, $kind, $type, $offset, $tag );
+								$theTags,
+								$kind, $type,
+								$min, $max, $pattern,
+								$offset, $tag );
 				
 							//
 							// Load reference information.
@@ -3210,13 +3541,18 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$class
 						= $this->parseProperty(
-							$property_ref, $type, $offset, $doValidate );
+							$property_ref, $type,
+							$min, $max, $pattern,
+							$offset, $doValidate );
 				
 					//
 					// Load tag information.
 					//
 					$this->loadTagInformation(
-						$theTags, $kind, $type, $offset, $tag );
+						$theTags,
+						$kind, $type,
+						$min, $max, $pattern,
+						$offset, $tag );
 				
 					//
 					// Load reference information.
@@ -3269,6 +3605,9 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param mixed					$theMin				Minimum data range.
+	 * @param mixed					$theMax				Maximum data range.
+	 * @param string				$thePattern			Data pattern.
 	 * @param string				$thePath			Offset path.
 	 * @param boolean				$doValidate			<tt>TRUE</tt> validate.
 	 *
@@ -3282,14 +3621,15 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses castProperty()
 	 */
 	protected function parseProperty( &$theProperty,
-									   $theType, $thePath, $doValidate )
+									   $theType, $theMin, $theMax, $thePattern,
+									   $thePath, $doValidate )
 	{
 		//
 		// Validate scalar.
 		//
 		if( $doValidate )
 			$this->validateProperty(
-				$theProperty, $theType, $thePath );
+				$theProperty, $theType, $theMin, $theMax, $thePattern, $thePath );
 		
 		//
 		// Get reference class.
@@ -3414,17 +3754,21 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param mixed					$theMin				Receives minimum data range.
+	 * @param mixed					$theMax				Receives maximum data range.
+	 * @param string				$thePattern			Receives data pattern.
 	 * @param string				$thePath			Offset path.
 	 *
 	 * @access protected
 	 *
 	 * @throws Exception
 	 */
-	protected function validateProperty( &$theProperty,
-										  $theType, $thePath )
+	protected function validateProperty( &$theProperty, $theType,
+										  $theMin, $theMax, $thePattern,
+										  $thePath )
 	{
 		//
-		// Validate property.
+		// Validate by type.
 		//
 		switch( $theType )
 		{
@@ -3463,6 +3807,45 @@ abstract class PersistentObject extends OntologyObject
 				break;
 		
 		} // Parsed data type.
+		
+		//
+		// Validate range.
+		//
+		if( ($theMin !== NULL)
+		 && ($theMax !== NULL) )
+		{
+			//
+			// Handle minimum.
+			//
+			if( $theProperty < $theMin )
+				throw new \Exception(
+					"Value out of range in offset [$thePath] type [$theType]: "
+				   ."[$theProperty] smaller than [$theMin]." );					// !@! ==>
+		
+			//
+			// Handle maximum.
+			//
+			if( $theProperty > $theMax )
+				throw new \Exception(
+					"Value out of range in offset [$thePath] type [$theType]: "
+				   ."[$theProperty] greater than [$theMax]." );					// !@! ==>
+		
+		} // Has range.
+		
+		//
+		// Validate pattern.
+		//
+		if( $thePattern !== NULL )
+		{
+			//
+			// Check pattern.
+			//
+			if( ! preg_match( $thePattern, (string) $theProperty ) )
+				throw new \Exception(
+					"Invalid data pattern in offset [$thePath] type [$theType]: "
+				   ."[$theProperty] mismatches [$thePattern]." );				// !@! ==>
+		
+		} // Has pattern.
 	
 	} // validateProperty.
 
@@ -3712,12 +4095,18 @@ abstract class PersistentObject extends OntologyObject
 	 *		<li><tt>key</tt>: The element key represents the tag sequence number, the value
 	 *			is an array structured as follows:
 	 *		 <ul>
-	 +			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
+	 *			<li>{@link kTAG_DATA_TYPE}</tt>: The item holding this key will contain the
 	 *				tag data type.
-	 +			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
+	 *			<li>{@link kTAG_DATA_KIND}</tt>: The item holding this key will contain the
 	 *				tag data kind; if the tag has no data kind, this item will be an empty
 	 *				array.
-	 +			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
+	 *			<li>{@link kTAG_MIN_RANGE}</tt>: The item holding this key will contain the
+	 *				tag minimum range value.
+	 *			<li>{@link kTAG_MAX_RANGE}</tt>: The item holding this key will contain the
+	 *				tag maximum range value.
+	 *			<li>{@link kTAG_PATTERN}</tt>: The item holding this key will contain the
+	 *				tag data pattern.
+	 *			<li>{@link kTAG_OBJECT_OFFSETS}</tt>: The item holding this key will
 	 *				contain the list of offset paths in which the current tag is referenced
 	 *				as a leaf offset (an offset holding a value, not a structure).
 	 *		 </ul>
@@ -3733,12 +4122,18 @@ abstract class PersistentObject extends OntologyObject
 	 * @param array					$theTags			Receives tag information.
 	 * @param array					$theKind			Data kind.
 	 * @param string				$theType			Data type.
+	 * @param mixed					$theMin				Receives minimum data range.
+	 * @param mixed					$theMax				Receives maximum data range.
+	 * @param string				$thePattern			Receives data pattern.
 	 * @param string				$thePath			Offset path.
 	 * @param string				$theTag				Tag sequence number.
 	 *
 	 * @access protected
 	 */
-	public function loadTagInformation( &$theTags, &$theKind, $theType, $thePath, $theTag )
+	public function loadTagInformation( &$theTags,
+										&$theKind, $theType,
+										$theMin, $theMax, $thePattern,
+										$thePath, $theTag )
 	{
 		//
 		// Copy tag information.
@@ -3763,6 +4158,13 @@ abstract class PersistentObject extends OntologyObject
 			//
 			$theTags[ $theTag ][ kTAG_DATA_TYPE ] = $theType;
 			$theTags[ $theTag ][ kTAG_DATA_KIND ] = $theKind;
+	
+			//
+			// Set data validation information.
+			//
+			$theTags[ $theTag ][ kTAG_MIN_RANGE ] = $theMin;
+			$theTags[ $theTag ][ kTAG_MAX_RANGE ] = $theMax;
+			$theTags[ $theTag ][ kTAG_PATTERN ] = $thePattern;
 	
 			//
 			// Set offset path.
@@ -4330,10 +4732,10 @@ abstract class PersistentObject extends OntologyObject
 	 * This method will update all tag objects range values according to the current object
 	 * tag values.
 	 *
-	 * The method will cycle all object's tag offsets and with all those of type integer,
-	 * {@link kTYPE_INT}, or float, {@link kTYPE_FLOAT}, it will collect the minimum and
-	 * maximum values and update the related tag object's  minimum, {@link kTAG_MIN_VAL},
-	 * and maximum {@link kTAG_MAX_VAL}, properties.
+	 * The method will cycle all object's tag offsets and with all those of kind continuous,
+	 * {@link kTYPE_QUANTITATIVE}, it will collect the minimum and maximum values and update
+	 * the related tag object's  minimum, {@link kTAG_MIN_VAL},and maximum
+	 * {@link kTAG_MAX_VAL}, properties.
 	 *
 	 * The method assumes the current object has its {@link dictionary()} set and the
 	 * {@link kTAG_OBJECT_OFFSETS} property updated.
@@ -4367,86 +4769,80 @@ abstract class PersistentObject extends OntologyObject
 			foreach( $offsets as $tag => $offsets )
 			{
 				//
-				// Skip private offsets.
+				// Get type and kind.
 				//
-				if( ! in_array( $tag, $private ) )
+				static::OffsetTypes(
+					$this->mDictionary, $tag,
+					$type, $kind,
+					$min, $max, $pattern,
+					TRUE );
+			
+				//
+				// Handle quantitative kinds.
+				//
+				if( in_array( kTYPE_QUANTITATIVE, $kind ) )
 				{
 					//
-					// Get tag.
+					// Init limits.
 					//
-					static::OffsetTypes(
-						$this->mDictionary,
-						$tag, $type, $kind, TRUE );
-				
+					$min = $max = NULL;
+					
 					//
-					// Handle numeric types.
+					// Iterate offsets.
 					//
-					if( ($type == kTYPE_INT)
-					 || ($type == kTYPE_FLOAT) )
+					foreach( $offsets as $offset )
 					{
 						//
-						// Init limits.
+						// Get value.
 						//
-						$min = $max = NULL;
-						
-						//
-						// Iterate offsets.
-						//
-						foreach( $offsets as $offset )
+						$value = $this->offsetGet( $offset );
+						if( $value !== NULL )
 						{
 							//
-							// Get value.
+							// Handle minimum.
 							//
-							$value = $this->offsetGet( $offset );
-							if( $value !== NULL )
-							{
-								//
-								// Handle minimum.
-								//
-								if( ($min === NULL)
-								 || ($value < $min) )
-									$min = $value;
-								
-								//
-								// Handle maximum.
-								//
-								if( ($max === NULL)
-								 || ($value > $max) )
-									$max = $value;
+							if( ($min === NULL)
+							 || ($value < $min) )
+								$min = $value;
 							
-							} // Has value.
+							//
+							// Handle maximum.
+							//
+							if( ($max === NULL)
+							 || ($value > $max) )
+								$max = $value;
 						
-						} // Iterating offsets.
-						
+						} // Has value.
+					
+					} // Iterating offsets.
+					
+					//
+					// Check limits.
+					//
+					if( ($min !== NULL)
+					 || ($max !== NULL) )
+					{
 						//
-						// Check limits.
+						// Compute minimum modification.
 						//
-						if( ($min !== NULL)
-						 || ($max !== NULL) )
-						{
-							//
-							// Compute minimum modification.
-							//
-							if( $min !== NULL )
-								$min = array( kTAG_MIN_VAL => $min );
-						
-							//
-							// Compute maximum modification.
-							//
-							if( $max !== NULL )
-								$max = array( kTAG_MAX_VAL => $max );
-						
-							//
-							// Update tag.
-							//
-							$collection->limitsOffsets(
-								array( kTAG_ID_SEQUENCE => (int) $tag ), $min, $max );
-						
-						} // Has at least a limit.
-						
-					} // Numeric tag.
-				
-				} // Not a private offset.
+						if( $min !== NULL )
+							$min = array( kTAG_MIN_VAL => $min );
+					
+						//
+						// Compute maximum modification.
+						//
+						if( $max !== NULL )
+							$max = array( kTAG_MAX_VAL => $max );
+					
+						//
+						// Update tag.
+						//
+						$collection->limitsOffsets(
+							array( kTAG_ID_SEQUENCE => (int) $tag ), $min, $max );
+					
+					} // Has at least a limit.
+					
+				} // Quantitative tag.
 			
 			} // Iterating offsets.
 		

@@ -40,6 +40,45 @@
 		</EDGE>
 	</META>
 	
+	<!-- kTYPE_CATEGORICAL -->
+	<META>
+		<NODE term=":type:categorical">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_QUANTITATIVE -->
+	<META>
+		<NODE term=":type:quantitative">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_DISCRETE -->
+	<META>
+		<NODE term=":type:discrete">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
 	<!-- kTYPE_PRIVATE_IN -->
 	<META>
 		<NODE term=":type:private-in">

@@ -17,6 +17,9 @@
 				<item>:namespace</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:term</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -32,6 +35,9 @@
 				<item>:id-local</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -47,6 +53,9 @@
 				<item>:id-persistent</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -62,6 +71,9 @@
 				<item>:id-valid</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -77,6 +89,9 @@
 				<item>:id-sequence</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -93,6 +108,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -114,6 +130,9 @@
 				<item>:unit:domain</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -129,6 +148,9 @@
 				<item>:unit:authority</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -144,6 +166,9 @@
 				<item>:unit:collection</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -159,6 +184,9 @@
 				<item>:unit:identifier</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -174,6 +202,9 @@
 				<item>:unit:version</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -190,6 +221,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -211,6 +243,9 @@
 				<item>:tag</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -233,6 +268,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -256,6 +292,9 @@
 				<item>:term</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:term</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -278,6 +317,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:term</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -301,6 +341,9 @@
 				<item>:relationship:subject</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:node</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -323,6 +366,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -346,6 +390,9 @@
 				<item>:predicate</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:term</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -367,6 +414,9 @@
 				<item>:relationship:object</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:node</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -389,6 +439,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -412,6 +463,9 @@
 				<item>:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:entity</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -434,6 +488,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:self</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -461,6 +516,9 @@
 				<item>:category</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -475,7 +533,10 @@
 			<item const="kTAG_TERMS">
 				<item>:type:data</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -491,6 +552,9 @@
 				<item>:type:kind</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -506,6 +570,9 @@
 				<item>:type:term</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -521,6 +588,9 @@
 				<item>:type:node</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -540,6 +610,9 @@
 				<item>:name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -555,6 +628,9 @@
 				<item>:label</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -570,6 +646,9 @@
 				<item>:definition</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -585,6 +664,9 @@
 				<item>:description</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -601,6 +683,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -619,6 +702,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -641,6 +725,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -665,6 +750,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -689,6 +775,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -713,6 +800,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -737,6 +825,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -761,6 +850,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 			</item>
 			<item const="kTAG_LABEL">
@@ -786,6 +876,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -812,6 +903,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -838,6 +930,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -864,6 +957,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -890,6 +984,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -916,6 +1011,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -942,6 +1038,7 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -961,6 +1058,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:array</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -980,6 +1078,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:array</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -999,6 +1098,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -1018,6 +1118,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:tag</item>
 			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
 				<item>:type:private-in</item>
 				<item>:type:private-out</item>
 			</item>
@@ -1040,6 +1141,9 @@
 				<item>:min-val</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1055,6 +1159,9 @@
 				<item>:min-range</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1070,6 +1177,9 @@
 				<item>:max-val</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1085,6 +1195,9 @@
 				<item>:max-range</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1099,7 +1212,10 @@
 			<item const="kTAG_TERMS">
 				<item>:grep</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1119,6 +1235,9 @@
 				<item>:type</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1134,6 +1253,9 @@
 				<item>:language</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1149,6 +1271,9 @@
 				<item>:text</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1164,6 +1289,9 @@
 				<item>:url</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1179,6 +1307,9 @@
 				<item>:geo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:shape</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1198,6 +1329,9 @@
 				<item>:connection:protocol</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1219,6 +1353,9 @@
 				<item>:connection:host</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1240,6 +1377,9 @@
 				<item>:connection:port</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1261,6 +1401,9 @@
 				<item>:connection:user</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1282,6 +1425,9 @@
 				<item>:connection:pass</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1303,6 +1449,9 @@
 				<item>:connection:database</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1324,6 +1473,9 @@
 				<item>:connection:collection</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1345,6 +1497,9 @@
 				<item>:connection:options</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:array</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1370,6 +1525,9 @@
 				<item>:entity:fname</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1385,6 +1543,9 @@
 				<item>:entity:lname</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1400,6 +1561,9 @@
 				<item>:type:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1415,6 +1579,9 @@
 				<item>:kind:entity</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1432,6 +1599,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:discrete</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1454,6 +1622,9 @@
 				<item>:entity:mail</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1475,6 +1646,9 @@
 				<item>:entity:email</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1496,6 +1670,9 @@
 				<item>:entity:url</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1517,6 +1694,9 @@
 				<item>:entity:phone</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1538,6 +1718,9 @@
 				<item>:entity:fax</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1559,6 +1742,9 @@
 				<item>:entity:affiliation</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:typed-list</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1574,6 +1760,9 @@
 				<item>:entity:country</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1595,6 +1784,9 @@
 				<item>:entity:valid</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:entity</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

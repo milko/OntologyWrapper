@@ -30,6 +30,9 @@
 				<item>:taxon:url</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -67,6 +70,9 @@
 				<item>:taxon:rank</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -135,6 +141,9 @@
 				<item>:taxon:superregnum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superregnum">
 			<item const="kTAG_NODE_TYPE">
@@ -186,6 +195,9 @@
 				<item>:taxon:regnum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:regnum">
 			<item const="kTAG_NODE_TYPE">
@@ -234,6 +246,9 @@
 				<item>:taxon:subregnum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subregnum">
 			<item const="kTAG_NODE_TYPE">
@@ -282,6 +297,9 @@
 				<item>:taxon:infraregnum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraregnum">
 			<item const="kTAG_NODE_TYPE">
@@ -332,6 +350,9 @@
 				<item>:taxon:superphylum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superphylum">
 			<item const="kTAG_NODE_TYPE">
@@ -384,6 +405,9 @@
 				<item>:taxon:phylum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:phylum">
 			<item const="kTAG_NODE_TYPE">
@@ -437,6 +461,9 @@
 				<item>:taxon:subphylum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subphylum">
 			<item const="kTAG_NODE_TYPE">
@@ -485,6 +512,9 @@
 				<item>:taxon:infraphylum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraphylum">
 			<item const="kTAG_NODE_TYPE">
@@ -533,6 +563,9 @@
 				<item>:taxon:microphylum</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:microphylum">
 			<item const="kTAG_NODE_TYPE">
@@ -583,6 +616,9 @@
 				<item>:taxon:superclassis</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superclassis">
 			<item const="kTAG_NODE_TYPE">
@@ -635,6 +671,9 @@
 				<item>:taxon:classis</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:classis">
 			<item const="kTAG_NODE_TYPE">
@@ -688,6 +727,9 @@
 				<item>:taxon:subclassis</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subclassis">
 			<item const="kTAG_NODE_TYPE">
@@ -736,6 +778,9 @@
 				<item>:taxon:infraclassis</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraclassis">
 			<item const="kTAG_NODE_TYPE">
@@ -784,6 +829,9 @@
 				<item>:taxon:parvclassis</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:parvclassis">
 			<item const="kTAG_NODE_TYPE">
@@ -834,6 +882,9 @@
 				<item>:taxon:legio</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:legio">
 			<item const="kTAG_NODE_TYPE">
@@ -882,6 +933,9 @@
 				<item>:taxon:cohors</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:cohors">
 			<item const="kTAG_NODE_TYPE">
@@ -935,6 +989,9 @@
 				<item>:taxon:magnordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:magnordo">
 			<item const="kTAG_NODE_TYPE">
@@ -982,6 +1039,9 @@
 				<item>:taxon:superordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1033,6 +1093,9 @@
 				<item>:taxon:grandordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:grandordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1084,6 +1147,9 @@
 				<item>:taxon:mirordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:mirordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1136,6 +1202,9 @@
 				<item>:taxon:ordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:ordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1201,6 +1270,9 @@
 				<item>:taxon:subordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1253,6 +1325,9 @@
 				<item>:taxon:infraordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1304,6 +1379,9 @@
 				<item>:taxon:parvordo</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:parvordo">
 			<item const="kTAG_NODE_TYPE">
@@ -1354,6 +1432,9 @@
 				<item>:taxon:superfamilia</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superfamilia">
 			<item const="kTAG_NODE_TYPE">
@@ -1404,6 +1485,9 @@
 				<item>:taxon:familia</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:familia">
 			<item const="kTAG_NODE_TYPE">
@@ -1452,6 +1536,9 @@
 				<item>:taxon:familia:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:familia:author">
 			<item const="kTAG_NODE_TYPE">
@@ -1491,6 +1578,9 @@
 				<item>:taxon:subfamilia</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subfamilia">
 			<item const="kTAG_NODE_TYPE">
@@ -1541,6 +1631,9 @@
 				<item>:taxon:supertribus</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:supertribus">
 			<item const="kTAG_NODE_TYPE">
@@ -1584,6 +1677,9 @@
 				<item>:taxon:tribus</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:tribus">
 			<item const="kTAG_NODE_TYPE">
@@ -1637,6 +1733,9 @@
 				<item>:taxon:subtribus</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subtribus">
 			<item const="kTAG_NODE_TYPE">
@@ -1694,6 +1793,9 @@
 				<item>:taxon:genus</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:genus">
 			<item const="kTAG_NODE_TYPE">
@@ -1737,6 +1839,9 @@
 				<item>:taxon:genus:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:genus:author">
 			<item const="kTAG_NODE_TYPE">
@@ -1770,6 +1875,9 @@
 				<item>:taxon:subgenus</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subgenus">
 			<item const="kTAG_NODE_TYPE">
@@ -1818,6 +1926,9 @@
 				<item>:taxon:sectio</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:sectio">
 			<item const="kTAG_NODE_TYPE">
@@ -1866,6 +1977,9 @@
 				<item>:taxon:series</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:series">
 			<item const="kTAG_NODE_TYPE">
@@ -1916,6 +2030,9 @@
 				<item>:taxon:superspecies</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:superspecies">
 			<item const="kTAG_NODE_TYPE">
@@ -1966,6 +2083,9 @@
 				<item>:taxon:species</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:species">
 			<item const="kTAG_NODE_TYPE">
@@ -2014,6 +2134,9 @@
 				<item>:taxon:species:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:species:author">
 			<item const="kTAG_NODE_TYPE">
@@ -2047,6 +2170,9 @@
 				<item>:taxon:subspecies</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subspecies">
 			<item const="kTAG_NODE_TYPE">
@@ -2090,6 +2216,9 @@
 				<item>:taxon:subspecies:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:subspecies:author">
 			<item const="kTAG_NODE_TYPE">
@@ -2123,6 +2252,9 @@
 				<item>:taxon:varietas</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:varietas">
 			<item const="kTAG_NODE_TYPE">
@@ -2166,6 +2298,9 @@
 				<item>:taxon:varietas:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:varietas:author">
 			<item const="kTAG_NODE_TYPE">
@@ -2199,6 +2334,9 @@
 				<item>:taxon:forma</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:forma">
 			<item const="kTAG_NODE_TYPE">
@@ -2242,6 +2380,9 @@
 				<item>:taxon:forma:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:forma:author">
 			<item const="kTAG_NODE_TYPE">
@@ -2277,6 +2418,9 @@
 				<item>:taxon:epithet</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:epithet">
 			<item const="kTAG_NODE_TYPE">
@@ -2306,6 +2450,9 @@
 				<item>:taxon:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:author">
 			<item const="kTAG_NODE_TYPE">
@@ -2339,6 +2486,9 @@
 				<item>:taxon:valid</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:valid">
 			<item const="kTAG_NODE_TYPE">
@@ -2372,6 +2522,9 @@
 				<item>:taxon:infraspecies</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraspecies">
 			<item const="kTAG_NODE_TYPE">
@@ -2416,6 +2569,9 @@
 				<item>:taxon:infraspecies:author</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag=":taxon:infraspecies:author">
 			<item const="kTAG_NODE_TYPE">

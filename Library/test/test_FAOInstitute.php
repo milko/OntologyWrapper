@@ -78,27 +78,43 @@ class MyClass extends OntologyWrapper\FAOInstitute
 	public function AccessorProperty( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{	return $this->manageProperty( $theMember, $theValue, $getOld );			}
 	
-	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
+	static function OffsetTypes( DictionaryObject $theDictionary,
+												  $theOffset,
+												 &$theType, &$theKind,
+												 &$theMin, &$theMax, &$thePattern,
+												  $doAssert = TRUE )
 	{
 		switch( $theOffset )
 		{
 			case -1:
-				$theType = array( kTYPE_FLOAT );
+				$theType = kTYPE_FLOAT;
 				$theKind = array( kTYPE_LIST );
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 			
 			case -2:
-				$theType = array( kTYPE_STRUCT );
+				$theType = kTYPE_STRUCT;
 				$theKind = array( kTYPE_LIST );
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 			
 			case -3:
-				$theType = array( kTYPE_STRUCT );
+				$theType = kTYPE_STRUCT;
 				$theKind = Array();
+				$theMin = NULL;
+				$theMax = NULL;
+				$thePattern = NULL;
 				return TRUE;
 		}
 
-		return parent::getOffsetTypes( $theOffset, $theType, $theKind );
+		return parent::OffsetTypes( $theDictionary,
+									$theOffset,
+									$theType, $theKind, $theRange, $thePattern,
+									$doAssert );
 	}
 	
 	public function Inited()	{	return ( $this->isInited() ) ? 'checked="1"' : '';	}

@@ -28,6 +28,9 @@
 				<item>iso:date_withdrawn</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:date_withdrawn">
 			<item const="kTAG_NODE_TYPE">

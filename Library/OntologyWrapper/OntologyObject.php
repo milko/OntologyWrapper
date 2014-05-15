@@ -495,8 +495,8 @@ abstract class OntologyObject extends ContainerObject
 	 * Resolve offset types
 	 *
 	 * This method will resolve the provided offset into a {@link Tag} object and return in
-	 * the provided reference parameters the data type and kind; this is done by using the
-	 * provided {@link Dictionary} object.
+	 * the provided reference parameters the data type, kind, range and pattern; this is
+	 * done by using the provided {@link Dictionary} object.
 	 *
 	 * The method expects the following parameters: 
 	 *
@@ -504,10 +504,21 @@ abstract class OntologyObject extends ContainerObject
 	 *	<li><b>$theDictionary</b>: This parameter represents the data dictionary.
 	 *	<li><b>$theOffset</b>: This parameter represents the offset.
 	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
-	 *		tag, if the tag could not be resolved, the value will be an empty array.
+	 *		tag, if the tag could not be resolved, the value will be <tt>NULL</tt>.
 	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
 	 *		tag, if the tag could not be resolved, the value will be an empty array; if the
 	 *		tag has no data kind, the parameter will hold an empty array.
+	 *	<li><b>$theMin</b>: This parameter will receive the data minimum range of the
+	 *		referenced tag, if the tag could not be resolved, the value will be
+	 *		<tt>NULL</tt>; if the tag has no minimum data range, the parameter will hold
+	 *		<tt>NULL</tt>.
+	 *	<li><b>$theMax</b>: This parameter will receive the data maximum range of the
+	 *		referenced tag, if the tag could not be resolved, the value will be
+	 *		<tt>NULL</tt>; if the tag has no maximum data range, the parameter will hold
+	 *		<tt>NULL</tt>.
+	 *	<li><b>$thePattern</b>: This parameter will receive the data pattern of the
+	 *		referenced tag, if the tag could not be resolved, or if the pattern is not set,
+	 *		the value will be <tt>NULL</tt>.
 	 *	<li><b>$doAssert</b>: If <tt>TRUE</tt> and either the offset or the tag could not
 	 *		be resolved, the method will raise an exception; the default is <tt>TRUE</tt>.
 	 * </ul>
@@ -523,6 +534,9 @@ abstract class OntologyObject extends ContainerObject
 	 * @param mixed					$theOffset			Offset.
 	 * @param string				$theType			Receives data type.
 	 * @param array					$theKind			Receives data kind.
+	 * @param mixed					$theMin				Receives minimum data range.
+	 * @param mixed					$theMax				Receives maximum data range.
+	 * @param string				$thePattern			Receives data pattern.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert offset.
 	 *
 	 * @static
@@ -531,6 +545,7 @@ abstract class OntologyObject extends ContainerObject
 	static function OffsetTypes( DictionaryObject $theDictionary,
 												  $theOffset,
 												 &$theType, &$theKind,
+												 &$theMin, &$theMax, &$thePattern,
 												  $doAssert = TRUE )
 	{
 		//
@@ -538,6 +553,9 @@ abstract class OntologyObject extends ContainerObject
 		//
 		$theType = NULL;
 		$theKind = Array();
+		$theMin = NULL;
+		$theMax = NULL;
+		$thePattern = NULL;
 
 		//
 		// Resolve offset.
@@ -554,8 +572,12 @@ abstract class OntologyObject extends ContainerObject
 			//
 			// Get types.
 			//
-			if( $theDictionary->getTypes( $theOffset, $theType, $theKind, $doAssert ) )
-				return TRUE;															// ==>
+			if( $theDictionary->getTypes(
+				$theOffset,
+				$theType, $theKind,
+				$theMin, $theMax, $thePattern,
+				$doAssert ) )
+				return TRUE;														// ==>
 		
 		} // Have tag.
 		
@@ -1266,73 +1288,7 @@ abstract class OntologyObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	getOffsetTypes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve offset types
-	 *
-	 * This method can be used to resolve the provided offset's data types and kinds,
-	 * returning them in the provided reference parameters.
-	 *
-	 * The method will only consider offsets not belonging to the {@link InternalOffsets()}
-	 * set, if that is the case, the method will return <tt>NULL</tt>; if the offset was
-	 * resolved, the method will return <tt>TRUE</tt>.
-	 *
-	 * The method expects the following parameters: 
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: This parameter represents the offset.
-	 *	<li><b>$theType</b>: This parameter will receive the data type of the referenced
-	 *		tag.
-	 *	<li><b>$theKind</b>: This parameter will receive the data kind of the referenced
-	 *		tag, if the tag has no data kind, the parameter will hold an empty array.
-	 * </ul>
-	 *
-	 * @param string				$theOffset			Current offset.
-	 * @param string				$theType			Receives data type.
-	 * @param array					$theKind			Receives data kind.
-	 *
-	 * @access protected
-	 * @return mixed				<tt>TRUE</tt> if the tag was resolved or <tt>NULL</tt>.
-	 *
-	 * @throws Exception
-	 *
-	 * @uses OffsetTypes()
-	 */
-	protected function getOffsetTypes( $theOffset, &$theType, &$theKind )
-	{
-		//
-		// Skip internal tags.
-		//
-		if( ! in_array( (string) $theOffset, static::InternalOffsets() ) )
-		{
-			//
-			// Check cache.
-			//
-			if( ! ($this->mDictionary instanceof Dictionary) )
-				throw new \Exception(
-					"Missing data dictionary." );								// !@! ==>
-	
-			return static::OffsetTypes(
-						$this->mDictionary,
-						$theOffset, $theType, $theKind, TRUE );						// ==>
-		
-		} // Not an internal offset.
-		
-		//
-		// Init parameters.
-		//
-		$theType = NULL;
-		$theKind = Array();
-		
-		return NULL;																// ==>
-	
-	} // getOffsetTypes.
-
-	 
-	/*===================================================================================
-	 *	isOffsetListType																	*
+	 *	isOffsetListType																*
 	 *==================================================================================*/
 
 	/**
@@ -1358,9 +1314,18 @@ abstract class OntologyObject extends ContainerObject
 		if( ! in_array( (string) $theOffset, static::InternalOffsets() ) )
 		{
 			//
+			// Check cache.
+			//
+			if( ! ($this->mDictionary instanceof Dictionary) )
+				throw new \Exception(
+					"Missing data dictionary." );								// !@! ==>
+	
+			//
 			// Get offset types.
 			//
-			$this->getOffsetTypes( $theOffset, $type, $kind );
+			static::OffsetTypes( $this->mDictionary,
+								 $theOffset,
+								 $type, $kind, $min, $max, $pattern );
 			
 			//
 			// Check data type and kind.

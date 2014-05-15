@@ -205,6 +205,9 @@
 				<item>iso:639:scope</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:639:scope">
 			<item const="kTAG_NODE_TYPE">
@@ -502,6 +505,9 @@
 				<item>iso:639:type</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:639:type">
 			<item const="kTAG_NODE_TYPE">
@@ -546,6 +552,9 @@
 				<item>iso:639:status</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:639:status">
 			<item const="kTAG_NODE_TYPE">
@@ -581,6 +590,9 @@
 				<item>iso:639:inverted_name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:639:inverted_name">
 			<item const="kTAG_NODE_TYPE">
@@ -616,6 +628,9 @@
 				<item>iso:639:common_name</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag="iso:639:common_name">
 			<item const="kTAG_NODE_TYPE">

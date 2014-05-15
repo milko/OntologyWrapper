@@ -267,19 +267,21 @@ abstract class DictionaryObject extends ContainerObject
 	/**
 	 * Get tag types
 	 *
-	 * This method should return the tag data type and kind in the provided reference
-	 * parameters, the method expects the identifier to be a tag sequence number, it will
-	 * be cast to an integer.
+	 * This method should return the tag data type, kind, range and pattern in the provided
+	 * reference parameters, the method expects the identifier to be a tag sequence number,
+	 * it will be cast to an integer.
 	 *
 	 * The last parameter represents a boolean flag: if <tt>TRUE</tt> and the provided
 	 * identifier is not matched, the method will raise an exception; if <tt>FALSE</tt>, the
-	 * method will set the data type to <tt>NULL</tt> and the data kind to an empty array;
-	 * if the tag has no data kind, the method will set the relative parameter to an empty
-	 * array.
+	 * method will set the data type to <tt>NULL</tt>, the data kind to an empty array, the
+	 * range to an empty array and the pattern to <tt>NULL</tt>.
 	 *
 	 * @param integer				$theIdentifier		Serial identifier.
 	 * @param string				$theType			Receives data type.
 	 * @param array					$theKind			Receives data kind.
+	 * @param mixed					$theMin				Receives minimum data range.
+	 * @param mixed					$theMax				Receives maximum data range.
+	 * @param string				$thePattern			Receives data pattern.
 	 * @param boolean				$doAssert			If <tt>TRUE</tt> assert match.
 	 *
 	 * @access public
@@ -289,13 +291,18 @@ abstract class DictionaryObject extends ContainerObject
 	 *
 	 * @uses getEntry()
 	 */
-	public function getTypes( $theIdentifier, &$theType, &$theKind, $doAssert = TRUE )
+	public function getTypes( $theIdentifier, &$theType, &$theKind,
+											  &$theMin, &$theMax, &$thePattern,
+											  $doAssert = TRUE )
 	{
 		//
 		// Init parameters.
 		//
 		$theType = NULL;
 		$theKind = Array();
+		$theMin = NULL;
+		$theMax = NULL;
+		$thePattern = NULL;
 		
 		//
 		// Match offset.
@@ -309,6 +316,12 @@ abstract class DictionaryObject extends ContainerObject
 			$theType = $object[ kTAG_DATA_TYPE ];
 			if( array_key_exists( kTAG_DATA_KIND, $object ) )
 				$theKind = $object[ kTAG_DATA_KIND ];
+			if( array_key_exists( kTAG_MIN_RANGE, $object ) )
+				$theMin = $object[ kTAG_MIN_RANGE ];
+			if( array_key_exists( kTAG_MAX_RANGE, $object ) )
+				$theMax = $object[ kTAG_MAX_RANGE ];
+			if( array_key_exists( kTAG_PATTERN, $object ) )
+				$thePattern = $object[ kTAG_PATTERN ];
 			
 			return TRUE;															// ==>
 		

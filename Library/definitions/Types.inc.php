@@ -280,10 +280,6 @@ define( "kTYPE_NODE_PROPERTY",					':kind:property-node' );
  */
 define( "kTYPE_NODE_ENUMERATED",				':kind:enumerated-node' );
 
-/*=======================================================================================
- *	DEFAULT NODE TYPES																	*
- *======================================================================================*/
-
 /**
  * Ontology.
  *
@@ -438,6 +434,33 @@ define( "kTYPE_NODE_TERM",						':type:node:term' );
  * property.
  */
 define( "kTYPE_LIST",							':type:list' );
+
+/**
+ * Categorical.
+ *
+ * A <i>categorical</i> property is one which can take on one of a limited, and usually
+ * fixed, number of possible values. In general, properties which take their values from an
+ * enumerated set of choices are of this kind.
+ */
+define( "kTYPE_CATEGORICAL",					':type:categorical' );
+
+/**
+ * Quantitative.
+ *
+ * A <i>quantitative</i> property is one whose type of information based in quantities or
+ * else quantifiable data. In general numerical values which can be aggregated in ranges
+ * fall under this category.
+ */
+define( "kTYPE_QUANTITATIVE",					':type:quantitative' );
+
+/**
+ * Discrete.
+ *
+ * A <i>discrete</i> property is one which may <em>take an indefinite number of values</em>,
+ * which <em>differentiates it from a categorical</em> property, and whose values are
+ * <em>not continuous</em>, which <em>differentiates it from a quantitative property</em>.
+ */
+define( "kTYPE_DISCRETE",						':type:discrete' );
 
 /**
  * Private input.
