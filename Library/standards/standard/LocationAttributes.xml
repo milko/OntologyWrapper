@@ -46,6 +46,25 @@
 		</EDGE>
 	</META>
 	
+	<!-- Former country -->
+	<META>
+		<TERM ns=":location" lid="country-former">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former country</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A country which <em>no longer exists</em> or whose <em>code is no longer in use</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE />
+	</META>
+	
 	<!-- Country -->
 	<META>
 		<TERM ns=":location" lid="country">
@@ -82,9 +101,14 @@
 			<item const="kTAG_OBJECT" node="tag">:location:country</item>
 		</EDGE>
 		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country-former</item>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+		</EDGE>
+		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+			<item const="kTAG_OBJECT" node="tag">:location:country-former</item>
 		</EDGE>
 	</META>
 	

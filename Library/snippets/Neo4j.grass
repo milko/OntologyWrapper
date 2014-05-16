@@ -1,0 +1,130 @@
+node {
+  diameter: 40px;
+  color: #DFE1E3;
+  border-color: #D4D6D7;
+  border-width: 2px;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  caption: '{id}';
+  font-size: 10px;
+}
+
+relationship {
+  color: #D4D6D7;
+  shaft-width: 1px;
+  font-size: 8px;
+  padding: 3px;
+  text-color-internal: #000000;
+}
+
+node.master {
+  color: #F25A29;
+  border-color: #DC4717;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+}
+
+node.term {
+  color: #AD62CE;
+  border-color: #9453B1;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+}
+
+node.:domain:organisation {
+  color: #7ae573;
+  border-color: #7ae573;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:ontology {
+  color: #fb7e81;
+  border-color: #fb7e81;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:struct {
+  color: #fead7f;
+  border-color: #fead7f;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:domain:property {
+  color: #fec87f;
+  border-color: #fec87f;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:domain:attribute {
+  color: #fee27f;
+  border-color: #fee27f;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:schema {
+  color: #fefb7f;
+  border-color: #fefb7f;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:type {
+  color: #72a5e4;
+  border-color: #72a5e4;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:enumeration {
+  color: #72d6e4;
+  border-color: #72d6e4;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:type:node:term {
+  color: #cdf2f8;
+  border-color: #cdf2f8;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}

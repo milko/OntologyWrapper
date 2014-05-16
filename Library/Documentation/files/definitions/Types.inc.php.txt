@@ -280,10 +280,6 @@ define( "kTYPE_NODE_PROPERTY",					':kind:property-node' );
  */
 define( "kTYPE_NODE_ENUMERATED",				':kind:enumerated-node' );
 
-/*=======================================================================================
- *	DEFAULT NODE TYPES																	*
- *======================================================================================*/
-
 /**
  * Ontology.
  *
@@ -440,20 +436,54 @@ define( "kTYPE_NODE_TERM",						':type:node:term' );
 define( "kTYPE_LIST",							':type:list' );
 
 /**
- * Private input.
+ * Categorical.
  *
- * A <i>private input</i> cardinality type indicates that the referred property is handled
- * internally and it must not be set by clients.
+ * A <i>categorical</i> property is one which can take on one of a limited, and usually
+ * fixed, number of possible values. In general, properties which take their values from an
+ * enumerated set of choices are of this kind.
  */
-define( "kTYPE_PRIVATE_IN",						':type:private-in' );
+define( "kTYPE_CATEGORICAL",					':type:categorical' );
 
 /**
- * Private output.
+ * Quantitative.
  *
- * A <i>private output</i> cardinality type indicates that the referred property internal
- * and it should not be displayed to clients.
+ * A <i>quantitative</i> property is one whose type of information based in quantities or
+ * else quantifiable data. In general numerical values which can be aggregated in ranges
+ * fall under this category.
  */
-define( "kTYPE_PRIVATE_OUT",					':type:private-out' );
+define( "kTYPE_QUANTITATIVE",					':type:quantitative' );
+
+/**
+ * Discrete.
+ *
+ * A <i>discrete</i> property is one which may <em>take an indefinite number of values</em>,
+ * which <em>differentiates it from a categorical</em> property, and whose values are
+ * <em>not continuous</em>, which <em>differentiates it from a quantitative property</em>.
+ */
+define( "kTYPE_DISCRETE",						':type:discrete' );
+
+/**
+ * Private search.
+ *
+ * This kind indicates that the referred property should not be available to clients for
+ * searching.
+ */
+define( "kTAG_PRIVATE_SEARCH",					':type:private-search' );
+
+/**
+ * Private modify.
+ *
+ * This kind indicates that the referred property is handled internally and it must not be
+ * modified by clients.
+ */
+define( "kTAG_PRIVATE_MODIFY",					':type:private-modify' );
+
+/**
+ * Private display.
+ *
+ * This kind indicates that the referred property should not be displayed to clients.
+ */
+define( "kTYPE_PRIVATE_DISPLAY",				':type:private-display' );
 
 /*=======================================================================================
  *	RELATIONSHIP TYPES																	*

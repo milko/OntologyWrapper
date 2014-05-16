@@ -116,12 +116,12 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_SYNONYM}</tt>: <em>Synonyms</em>. This attribute is a <em>set of
  *		strings</em> representing <em>alternate identifiers of this tag</em>, not formally
  *		defined in the current data set.
- *	<li><tt>{@link kTAG_MIN}</tt>: <em>Range minimum</em>. This attribute is a floating
+ *	<li><tt>{@link kTAG_MIN_VAL}</tt>: <em>Minimum value</em>. This attribute is a floating
  *		point value representing the <em>minimum</em> of the <em>range of values</em>
- *		identified by this tag.
- *	<li><tt>{@link kTAG_MAX}</tt>: <em>Range maximum</em>. This attribute is a floating
+ *		featured by the tag.
+ *	<li><tt>{@link kTAG_MAX_VAL}</tt>: <em>Maximum value</em>. This attribute is a floating
  *		point value representing the <em>maximum</em> of the <em>range of values</em>
- *		identified by this tag.
+ *		featured by the tag.
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.

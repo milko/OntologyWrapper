@@ -126,7 +126,7 @@ abstract class DatabaseObject extends ConnectionObject
 
 	 
 	/*===================================================================================
-	 *	Collection																		*
+	 *	collection																		*
 	 *==================================================================================*/
 
 	/**
@@ -145,7 +145,7 @@ abstract class DatabaseObject extends ConnectionObject
 	 *
 	 * @uses newCollection()
 	 */
-	public function Collection( $theName, $doOpen = TRUE )
+	public function collection( $theName, $doOpen = TRUE )
 	{
 		//
 		// Get current database parameters.
@@ -169,7 +169,7 @@ abstract class DatabaseObject extends ConnectionObject
 		
 		return $collection;															// ==>
 	
-	} // Collection.
+	} // collection.
 
 	 
 	/*===================================================================================
@@ -194,6 +194,23 @@ abstract class DatabaseObject extends ConnectionObject
 	 * @return array				Server statistics or <tt>NULL</tt> if unsupported.
 	 */
 	public function getCollections()									{	return NULL;	}
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return database name
+	 *
+	 * This method should return the database name:
+	 *
+	 * We implement the method in this class as a fall-back.
+	 *
+	 * @access public
+	 * @return string				Database name.
+	 */
+	public function getName()											{	return NULL;	}
 
 		
 

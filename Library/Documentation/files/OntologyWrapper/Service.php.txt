@@ -53,7 +53,8 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
-	 *	<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 * </ul>
 	 *
 	 * @access protected
@@ -69,7 +70,8 @@ class Service extends ServiceObject
 			case kAPI_OP_MATCH_TERM_LABELS:
 			case kAPI_OP_MATCH_TAG_BY_LABEL:
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
-			case kAPI_OP_GET_ENUMERATIONS:
+			case kAPI_OP_GET_TAG_ENUMERATIONS:
+			case kAPI_OP_GET_NODE_ENUMERATIONS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -95,7 +97,8 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
-	 *	<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 * </ul>
 	 *
 	 * @param string				$theKey				Parameter key.
@@ -136,9 +139,9 @@ class Service extends ServiceObject
 				break;
 				
 			//
-			// Get enumerations.
+			// Get tag enumerations.
 			//
-			case kAPI_OP_GET_ENUMERATIONS:
+			case kAPI_OP_GET_TAG_ENUMERATIONS:
 				//
 				// Parse parameter.
 				//
@@ -146,6 +149,25 @@ class Service extends ServiceObject
 				{
 					case kAPI_PARAM_TAG:
 						$this->offsetSet( $theKey, $theValue );
+						break;
+				
+					default:
+						parent::parseParameter( $theKey, $theValue );
+						break;
+				}
+				break;
+				
+			//
+			// Get node enumerations.
+			//
+			case kAPI_OP_GET_NODE_ENUMERATIONS:
+				//
+				// Parse parameter.
+				//
+				switch( $theKey )
+				{
+					case kAPI_PARAM_NODE:
+						$this->offsetSet( $theKey, (int) $theValue );
 						break;
 				
 					default:
@@ -237,7 +259,8 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
-	 *	<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 * </ul>
 	 *
 	 * @access protected
@@ -256,8 +279,12 @@ class Service extends ServiceObject
 				$this->validateMatchLabelStrings();
 				break;
 				
-			case kAPI_OP_GET_ENUMERATIONS:
-				$this->validateGetEnumerations();
+			case kAPI_OP_GET_TAG_ENUMERATIONS:
+				$this->validateGetTagEnumerations();
+				break;
+				
+			case kAPI_OP_GET_NODE_ENUMERATIONS:
+				$this->validateGetNodeEnumerations();
 				break;
 				
 			default:
@@ -291,7 +318,8 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
-	 *	<li><tt>{@link kAPI_OP_GET_ENUMERATIONS}</tt>: Get enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 * </ul>
 	 *
 	 * @access protected
@@ -323,8 +351,12 @@ class Service extends ServiceObject
 				$this->executeMatchTermByLabel();
 				break;
 				
-			case kAPI_OP_GET_ENUMERATIONS:
-				$this->executeGetEnumerations();
+			case kAPI_OP_GET_TAG_ENUMERATIONS:
+				$this->executeGetTagEnumerations();
+				break;
+				
+			case kAPI_OP_GET_NODE_ENUMERATIONS:
+				$this->executeGetNodeEnumerations();
 				break;
 				
 			default:
@@ -440,11 +472,11 @@ class Service extends ServiceObject
 
 	 
 	/*===================================================================================
-	 *	executeGetEnumerations															*
+	 *	executeGetTagEnumerations														*
 	 *==================================================================================*/
 
 	/**
-	 * Get enumerations.
+	 * Get tag enumerations.
 	 *
 	 * The method will perform the following actions:
 	 *
@@ -457,7 +489,7 @@ class Service extends ServiceObject
 	 *
 	 * @access protected
 	 */
-	protected function executeGetEnumerations()
+	protected function executeGetTagEnumerations()
 	{
 		//
 		// Init local storage.
@@ -510,7 +542,75 @@ class Service extends ServiceObject
 		
 		} // has enumerations.
 		
-	} // executeGetEnumerations.
+	} // executeGetTagEnumerations.
+
+	 
+	/*===================================================================================
+	 *	executeGetNodeEnumerations														*
+	 *==================================================================================*/
+
+	/**
+	 * Get node enumerations.
+	 *
+	 * The method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li>Locate all enumerated types or values pointing to node parameter.
+	 *	<li>Load all found elements.
+	 *	<li>Recurse nested enumerations.
+	 * </ul>
+	 *
+	 * @access protected
+	 */
+	protected function executeGetNodeEnumerations()
+	{
+		//
+		// Locate root node.
+		//
+		$node
+			= Node::ResolveCollection(
+				Node::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchOne(
+							array( kTAG_NID => $this->offsetGet( kAPI_PARAM_NODE ) ),
+							kQUERY_ASSERT | kQUERY_NID );
+		
+		//
+		// Locate enumerations.
+		//
+		$edges
+			= Edge::ResolveCollection(
+				Edge::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							array( kTAG_OBJECT => $node,
+								   kTAG_PREDICATE
+								   		=> array( '$in'
+								   			=> array( kPREDICATE_TYPE_OF,
+								   					  kPREDICATE_ENUM_OF ) ) ),
+							kQUERY_OBJECT,
+							array( kTAG_SUBJECT => TRUE,
+								   kTAG_PREDICATE => TRUE ) );
+		
+		//
+		// Load enumerations.
+		//
+		if( $edges->count() )
+		{
+			//
+			// Allocate results.
+			//
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+			
+			//
+			// Load enumerations.
+			//
+			$this->executeLoadEnumerations( $edges,
+											$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+		
+		} // has enumerations.
+		
+	} // executeGetNodeEnumerations.
 
 	 
 

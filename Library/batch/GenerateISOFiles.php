@@ -1996,9 +1996,9 @@ if( kOPTION_VERBOSE )
 							// Create node.
 							//
 							$node_sub = $unit_sub->addChild( 'NODE' );
-							$element_sub = $node_sub->addChild( 'item' );
-							$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$element_sub->addChild( 'item', kTYPE_NODE_ENUMERATION );
+						//	$element_sub = $node_sub->addChild( 'item' );
+						//	$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+						//	$element_sub->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.

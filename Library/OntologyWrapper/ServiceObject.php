@@ -331,6 +331,7 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -351,6 +352,7 @@ abstract class ServiceObject extends ContainerObject
 			case kAPI_OP_PING:
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
+			case kAPI_OP_LIST_REF_COUNTS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -462,6 +464,8 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_PAGING_SKIP}</tt>: Recordset skip value.
 	 *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Recordset limits value.
 	 *	<li><tt>{@link kAPI_PARAM_LOG_REQUEST}</tt>: Log request.
+	 *	<li><tt>{@link kAPI_PARAM_LOG_TRACE}</tt>: Log trace.
+	 *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: Recurse structures.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: Tag reference count flag.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: Term reference count flag.
 	 *	<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: Node reference count flag.
@@ -508,6 +512,8 @@ abstract class ServiceObject extends ContainerObject
 				break;
 
 			case kAPI_PARAM_LOG_REQUEST:
+			case kAPI_PARAM_LOG_TRACE:
+			case kAPI_PARAM_RECURSE:
 			case kAPI_PARAM_HAS_TAG_REFS:
 			case kAPI_PARAM_HAS_TERM_REFS:
 			case kAPI_PARAM_HAS_NODE_REFS:
@@ -548,6 +554,7 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -570,6 +577,7 @@ abstract class ServiceObject extends ContainerObject
 			case kAPI_OP_PING:
 			case kAPI_OP_LIST_CONSTANTS:
 			case kAPI_OP_LIST_OPERATORS:
+			case kAPI_OP_LIST_REF_COUNTS:
 				break;
 			
 			default:
@@ -725,14 +733,14 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	validateGetEnumerations															*
+	 *	validateGetTagEnumerations														*
 	 *==================================================================================*/
 
 	/**
-	 * Validate get enumerations service.
+	 * Validate get tag enumerations service.
 	 *
-	 * This method will validate all service operations which return enumerated sets, the
-	 * method will perform the following actions:
+	 * This method will validate all service operations which return tag enumerated sets,
+	 * the method will perform the following actions:
 	 *
 	 * <ul>
 	 *	<li><em>Check tag</em>: If the parameter is missing, the method will raise an
@@ -747,7 +755,7 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_TAG
 	 */
-	protected function validateGetEnumerations()
+	protected function validateGetTagEnumerations()
 	{
 		//
 		// Check parameter.
@@ -783,7 +791,40 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$this->offsetSet( kAPI_PARAM_TAG, $tag );
 		
-	} // validateGetEnumerations.
+	} // validateGetTagEnumerations.
+
+	 
+	/*===================================================================================
+	 *	validateGetNodeEnumerations														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get node enumerations service.
+	 *
+	 * This method will validate all service operations which return node enumerated sets,
+	 * the method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check node</em>: If the parameter is missing, the method will raise an
+	 *		exception.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateGetNodeEnumerations()
+	{
+		//
+		// Check parameter.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_NODE ) )
+			throw new \Exception(
+				"Missing required node parameter." );							// !@! ==>
+		
+	} // validateGetNodeEnumerations.
 
 		
 
@@ -810,6 +851,7 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_PING}</tt>: Ping.
 	 *	<li><tt>{@link kAPI_OP_LIST_CONSTANTS}</tt>: List parameter constants.
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
+	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -835,6 +877,10 @@ abstract class ServiceObject extends ContainerObject
 			
 			case kAPI_OP_LIST_OPERATORS:
 				$this->executeListParameterOperators();
+				break;
+			
+			case kAPI_OP_LIST_REF_COUNTS:
+				$this->executeListReferenceCountParameters();
 				break;
 		}
 		
@@ -936,19 +982,32 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_PING" ] = kAPI_OP_PING;
 		$ref[ "kAPI_OP_LIST_CONSTANTS" ] = kAPI_OP_LIST_CONSTANTS;
 		$ref[ "kAPI_OP_LIST_OPERATORS" ] = kAPI_OP_LIST_OPERATORS;
+		$ref[ "kAPI_OP_LIST_REF_COUNTS" ] = kAPI_OP_LIST_REF_COUNTS;
 		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
 		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
-		$ref[ "kAPI_OP_GET_ENUMERATIONS" ] = kAPI_OP_GET_ENUMERATIONS;
+		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
+		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		
 		//
 		// Load request parameters.
 		//
 		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
+		$ref[ "kAPI_PARAM_NODE" ] = kAPI_PARAM_NODE;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
+		
+		//
+		// Load generic request flag parameters.
+		//
 		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
+		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
+		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
+		
+		//
+		// Load reference count request flag parameters.
+		//
 		$ref[ "kAPI_PARAM_HAS_TAG_REFS" ] = kAPI_PARAM_HAS_TAG_REFS;
 		$ref[ "kAPI_PARAM_HAS_TERM_REFS" ] = kAPI_PARAM_HAS_TERM_REFS;
 		$ref[ "kAPI_PARAM_HAS_NODE_REFS" ] = kAPI_PARAM_HAS_NODE_REFS;
@@ -959,6 +1018,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load enumeration element parameters.
 		//
+		$ref[ "kAPI_RESULT_ENUM_NODE" ] = kAPI_RESULT_ENUM_NODE;
 		$ref[ "kAPI_RESULT_ENUM_LABEL" ] = kAPI_RESULT_ENUM_LABEL;
 		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
 		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
@@ -1012,36 +1072,102 @@ abstract class ServiceObject extends ContainerObject
 			default:
 				$ref[ 'title' ] = "Search data properties by label:";
 				$ref[ 'placeholder' ] = "Data property label pattern...";
-				$ref[ kOPERATOR_EQUAL ] = array( 'key' => kOPERATOR_EQUAL,
-												 'label' => 'Equals',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_EQUAL_NOT ] = array( 'key' => kOPERATOR_EQUAL_NOT,
-												 'label' => 'Not equals',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_PREFIX ] = array( 'key' => kOPERATOR_PREFIX,
-												 'label' => 'Starts with',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_CONTAINS ] = array( 'key' => kOPERATOR_CONTAINS,
-												 'label' => 'Contains',
-												 'selected' => TRUE );
-				$ref[ kOPERATOR_SUFFIX ] = array( 'key' => kOPERATOR_SUFFIX,
-												 'label' => 'Ends with',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_SUFFIX ] = array( 'key' => kOPERATOR_REGEX,
-												 'label' => 'Regular expression',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_IRANGE ] = array( 'key' => kOPERATOR_IRANGE,
-												 'label' => 'Range inclusive',
-												 'selected' => TRUE );
-				$ref[ kOPERATOR_ERANGE ] = array( 'key' => kOPERATOR_ERANGE,
-												 'label' => 'Range exclusive',
-												 'selected' => FALSE );
-				$ref[ kOPERATOR_NOCASE ] = array( 'key' => kOPERATOR_NOCASE,
-												 'label' => 'Case and accent insensitive',
-												 'selected' => TRUE );
+				$ref[ kOPERATOR_EQUAL ]
+					= array( 'key' => kOPERATOR_EQUAL,
+							 'label' => 'Equals',
+							 'title' => 'Equals @pattern@',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_EQUAL_NOT ]
+					= array( 'key' => kOPERATOR_EQUAL_NOT,
+							 'label' => 'Not equals',
+							 'title' => 'Not equals @pattern@',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_PREFIX ]
+					= array( 'key' => kOPERATOR_PREFIX,
+							 'label' => 'Starts with',
+							 'title' => 'Starts with @pattern@',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_CONTAINS ]
+					= array( 'key' => kOPERATOR_CONTAINS,
+							 'label' => 'Contains',
+							 'title' => 'Contains @pattern@',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => TRUE );
+				$ref[ kOPERATOR_SUFFIX ]
+					= array( 'key' => kOPERATOR_SUFFIX,
+							 'label' => 'Ends with',
+							 'title' => 'Ends with @pattern@',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_REGEX ]
+					= array( 'key' => kOPERATOR_REGEX,
+							 'label' => 'Regular expression',
+							 'title' => 'Regular expression [@pattern@]',
+							 'type' => 'string',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_IRANGE ]
+					= array( 'key' => kOPERATOR_IRANGE,
+							 'label' => 'Range inclusive',
+							 'type' => 'range',
+							 'main' => TRUE,
+							 'selected' => TRUE );
+				$ref[ kOPERATOR_ERANGE ]
+					= array( 'key' => kOPERATOR_ERANGE,
+							 'label' => 'Range exclusive',
+							 'type' => 'range',
+							 'main' => TRUE,
+							 'selected' => FALSE );
+				$ref[ kOPERATOR_NOCASE ]
+					= array( 'key' => kOPERATOR_NOCASE,
+							 'label' => 'Case and accent insensitive',
+							 'title' => 'case and accent insensitive',
+							 'type' => 'string',
+							 'main' => FALSE,
+							 'selected' => TRUE );
 		}
 		
 	} // executeListParameterOperators.
+
+	 
+	/*===================================================================================
+	 *	executeListReferenceCountParameters												*
+	 *==================================================================================*/
+
+	/**
+	 * Execute list operator parameters request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_OPERATORS} operation.
+	 *
+	 * @access protected
+	 */
+	protected function executeListReferenceCountParameters()
+	{
+		//
+		// Initialise results.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		$ref = & $this->mResponse[ kAPI_RESPONSE_RESULTS ];
+		
+		//
+		// Load results.
+		//
+		$ref[ kAPI_PARAM_HAS_TAG_REFS ] = kTAG_TAG_COUNT;
+		$ref[ kAPI_PARAM_HAS_TERM_REFS ] = kTAG_TERM_COUNT;
+		$ref[ kAPI_PARAM_HAS_NODE_REFS ] = kTAG_NODE_COUNT;
+		$ref[ kAPI_PARAM_HAS_EDGE_REFS ] = kTAG_EDGE_COUNT;
+		$ref[ kAPI_PARAM_HAS_UNIT_REFS ] = kTAG_UNIT_COUNT;
+		$ref[ kAPI_PARAM_HAS_ENTITY_REFS ] = kTAG_ENTITY_COUNT;
+		
+	} // executeListReferenceCountParameters.
 
 		
 
@@ -1513,6 +1639,11 @@ abstract class ServiceObject extends ContainerObject
 		$ref = & $theContainer[ $term[ kTAG_NID ] ];
 		
 		//
+		// Load node.
+		//
+		$ref[ kAPI_RESULT_ENUM_NODE ] = $node[ kTAG_NID ];
+		
+		//
 		// Load label.
 		//
 		if( array_key_exists( kTAG_LABEL, $node ) )
@@ -1561,20 +1692,33 @@ abstract class ServiceObject extends ContainerObject
 							   kTAG_PREDICATE => TRUE ) );
 		
 		//
-		// Load enumerations.
+		// Handle children.
 		//
 		if( $edges->count() )
 		{
 			//
-			// Allocate children element.
-			//
-			$ref[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
-			
-			//
 			// Recurse.
 			//
-			$this->executeLoadEnumerations( $edges,
-											$ref[ kAPI_RESULT_ENUM_CHILDREN ] );
+			if( $this->offsetGet( kAPI_PARAM_RECURSE ) )
+			{
+				//
+				// Allocate children element.
+				//
+				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
+	
+				//
+				// Recurse.
+				//
+				$this->executeLoadEnumerations( $edges,
+												$ref[ kAPI_RESULT_ENUM_CHILDREN ] );
+		
+			} // Recurse enumerations.
+			
+			//
+			// Save count.
+			//
+			else
+				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = TRUE;
 		
 		} // Has children.
 		
@@ -1644,8 +1788,9 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Set trace.
 		//
-		$this->mResponse[ kAPI_RESPONSE_STATUS ]
-						[ kAPI_STATUS_TRACE ] = $theException->getTrace();
+		if( $this->offsetGet( kAPI_PARAM_LOG_TRACE ) )
+			$this->mResponse[ kAPI_RESPONSE_STATUS ]
+							[ kAPI_STATUS_TRACE ] = $theException->getTrace();
 		
 		//
 		// Remove paging.

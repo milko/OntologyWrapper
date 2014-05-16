@@ -16,7 +16,7 @@
  */
 
 /*=======================================================================================
- *	OPERATORS																			*
+ *	STRING OPERATORS																	*
  *======================================================================================*/
 
 /**
@@ -60,6 +60,24 @@ define( "kOPERATOR_SUFFIX",				'$SX' );			// Ends with.
  * This enumeration represents a regular expression (for strings).
  */
 define( "kOPERATOR_REGEX",				'$RE' );			// Regular expression.
+
+/*=======================================================================================
+ *	RANGE OPERATORS																		*
+ *======================================================================================*/
+
+/**
+ * Range inclusive.
+ *
+ * This enumeration represents a range including limits.
+ */
+define( "kOPERATOR_IRANGE",				'$IRG' );			// Range inclusive.
+
+/**
+ * Range exclusive.
+ *
+ * This enumeration represents a range excluding limits.
+ */
+define( "kOPERATOR_ERANGE",				'$ERG' );			// Range exclusive.
 
 /*=======================================================================================
  *	MODIFIERS																			*
