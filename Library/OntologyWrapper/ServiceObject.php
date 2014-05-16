@@ -1718,7 +1718,7 @@ abstract class ServiceObject extends ContainerObject
 			// Save count.
 			//
 			else
-				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = TRUE;
+				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = (int) $edges->count();
 		
 		} // Has children.
 		

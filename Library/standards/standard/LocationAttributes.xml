@@ -81,10 +81,33 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">:location:country</item>
 		</EDGE>
+	</META>
+	
+	<!-- Legacy country -->
+	<META>
+		<TERM ns=":location" lid="country-legacy">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Legacy countries</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A legacy country is one <em>which does not exist any more</em> or a <em>country code no more in use</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE term=":location:country-legacy" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+		</EDGE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">iso:3166:3:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:location:country</item>
+			<item const="kTAG_OBJECT" node="term">:location:country-legacy</item>
 		</EDGE>
 	</META>
 	

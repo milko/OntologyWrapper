@@ -1,6 +1,6 @@
 node {
-  diameter: 40px;
-  color: #DFE1E3;
+  diameter: 60px;
+  color: #dfe1e3;
   border-color: #D4D6D7;
   border-width: 2px;
   text-color-external: #FFFFFF;
@@ -10,7 +10,7 @@ node {
 }
 
 relationship {
-  color: #D4D6D7;
+  color: #d4d6d7;
   shaft-width: 1px;
   font-size: 8px;
   padding: 3px;
@@ -18,8 +18,8 @@ relationship {
 }
 
 node.master {
-  color: #F25A29;
-  border-color: #DC4717;
+  color: #a9aeb3;
+  border-color: #c4c7cb;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
 }
@@ -32,8 +32,8 @@ node.term {
 }
 
 node.:domain:organisation {
-  color: #7ae573;
-  border-color: #7ae573;
+  color: #affbc5;
+  border-color: #affbc5;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
@@ -43,8 +43,8 @@ node.:domain:organisation {
 }
 
 node.:type:node:ontology {
-  color: #fb7e81;
-  border-color: #fb7e81;
+  color: #e7a7f0;
+  border-color: #e7a7f0;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
@@ -54,30 +54,8 @@ node.:type:node:ontology {
 }
 
 node.:type:node:struct {
-  color: #fead7f;
-  border-color: #fead7f;
-  text-color-external: #FFFFFF;
-  text-color-internal: #000000;
-  diameter: 40px;
-  border-width: 2px;
-  caption: '{GID}';
-  font-size: 10px;
-}
-
-node.:domain:property {
-  color: #fec87f;
-  border-color: #fec87f;
-  text-color-external: #FFFFFF;
-  text-color-internal: #000000;
-  diameter: 40px;
-  border-width: 2px;
-  caption: '{GID}';
-  font-size: 10px;
-}
-
-node.:domain:attribute {
-  color: #fee27f;
-  border-color: #fee27f;
+  color: #f5abc7;
+  border-color: #f5abc7;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
@@ -87,8 +65,29 @@ node.:domain:attribute {
 }
 
 node.:type:node:schema {
-  color: #fefb7f;
-  border-color: #fefb7f;
+  color: #ffb9b2;
+  border-color: #ffb9b2;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+
+node.:domain:property {
+  color: #ffd4b2;
+  border-color: #ffd4b2;
+  text-color-external: #FFFFFF;
+  text-color-internal: #000000;
+  diameter: 40px;
+  border-width: 2px;
+  caption: '{GID}';
+  font-size: 10px;
+}
+
+node.:domain:attribute {
+  color: #ffe4b2;
+  border-color: #ffe4b2;
+  text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
   border-width: 2px;
@@ -97,8 +96,8 @@ node.:type:node:schema {
 }
 
 node.:type:node:type {
-  color: #72a5e4;
-  border-color: #72a5e4;
+  color: #bca7f0;
+  border-color: #bca7f0;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
@@ -108,8 +107,8 @@ node.:type:node:type {
 }
 
 node.:type:node:enumeration {
-  color: #72d6e4;
-  border-color: #72d6e4;
+  color: #a7baf0;
+  border-color: #a7baf0;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;
@@ -119,8 +118,8 @@ node.:type:node:enumeration {
 }
 
 node.:type:node:term {
-  color: #cdf2f8;
-  border-color: #cdf2f8;
+  color: #f9fdb0;
+  border-color: #f9fdb0;
   text-color-external: #FFFFFF;
   text-color-internal: #000000;
   diameter: 40px;

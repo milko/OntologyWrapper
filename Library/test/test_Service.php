@@ -629,8 +629,7 @@ try
 	// Try getTagEnumerations for ":type:entity" recursed.
 	//
 	echo( '<h4>Try getTagEnumerations for ":type:entity" recursed</h4>' );
-	$term = ':location:admin';
-//	$term = ':type:entity';
+	$term = ':type:entity';
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
