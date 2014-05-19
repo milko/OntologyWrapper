@@ -88,7 +88,7 @@ try
 		= new OntologyWrapper\Wrapper(
 			kSESSION_DDICT,
 			array( array( 'localhost', 11211 ) ) );
-	
+
 	//
 	// Set databases.
 	//
@@ -665,7 +665,7 @@ try
 	// Try getNodeEnumerations for ":type:entity:100".
 	//
 	echo( '<h4>Try getTagEnumerations for ":type:entity:100"</h4>' );
-	$node = $result[ kAPI_RESPONSE_RESULTS ][ ':type:entity:100' ][ kAPI_RESULT_ENUM_NODE ];
+	$node = $result[ kAPI_RESPONSE_RESULTS ][ 0 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -699,7 +699,7 @@ try
 	// Try getNodeEnumerations for ":type:entity:120".
 	//
 	echo( '<h4>Try getTagEnumerations for ":type:entity:120"</h4>' );
-	$node = $result[ kAPI_RESPONSE_RESULTS ][ ':type:entity:120' ][ kAPI_RESULT_ENUM_NODE ];
+	$node = $result[ kAPI_RESPONSE_RESULTS ][ 1 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );

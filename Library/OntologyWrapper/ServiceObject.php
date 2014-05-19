@@ -1018,6 +1018,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load enumeration element parameters.
 		//
+		$ref[ "kAPI_RESULT_ENUM_TERM" ] = kAPI_RESULT_ENUM_TERM;
 		$ref[ "kAPI_RESULT_ENUM_NODE" ] = kAPI_RESULT_ENUM_NODE;
 		$ref[ "kAPI_RESULT_ENUM_LABEL" ] = kAPI_RESULT_ENUM_LABEL;
 		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
@@ -1635,8 +1636,14 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Allocate element.
 		//
-		$theContainer[ $term[ kTAG_NID ] ] = Array();
-		$ref = & $theContainer[ $term[ kTAG_NID ] ];
+		$index = count( $theContainer );
+		$theContainer[ $index ] = Array();
+		$ref = & $theContainer[ $index ];
+		
+		//
+		// Load term.
+		//
+		$ref[ kAPI_RESULT_ENUM_TERM ] = $term[ kTAG_NID ];
 		
 		//
 		// Load node.

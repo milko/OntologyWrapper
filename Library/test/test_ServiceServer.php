@@ -175,6 +175,87 @@ try
 	echo( '<hr>' );
 
 	//
+	// Try list parameters.
+	//
+	echo( '<h4>Try list parameters</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_LIST_CONSTANTS;
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try list operators.
+	//
+	echo( '<h4>Try list operators</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_LIST_OPERATORS;
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try list reference counts.
+	//
+	echo( '<h4>Try list reference counts</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$request = "$base_url?op=".kAPI_OP_LIST_REF_COUNTS;
+	echo( $request );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// Try matchTagLabels containing "count".
 	//
 	echo( '<h4>Try matchTagLabels containing "count"</h4>' );
@@ -188,6 +269,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -222,6 +304,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
@@ -257,6 +340,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
@@ -294,6 +378,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 6,
 		kAPI_PARAM_PATTERN => 'italia',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -329,6 +414,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
@@ -363,6 +449,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
@@ -398,6 +485,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
@@ -435,11 +523,151 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 6,
 		kAPI_PARAM_PATTERN => 'italia',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TERM_BY_LABEL;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try getTagEnumerations for ":type:entity".
+	//
+	echo( '<h4>Try getTagEnumerations for ":type:entity"</h4>' );
+	$term = ':type:entity';
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_TAG => $term
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_TAG_ENUMERATIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try getTagEnumerations for ":type:entity" recursed.
+	//
+	echo( '<h4>Try getTagEnumerations for ":type:entity" recursed</h4>' );
+	$term = ':type:entity';
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_RECURSE => TRUE,
+		kAPI_PARAM_TAG => $term
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_TAG_ENUMERATIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try getNodeEnumerations for ":type:entity:100".
+	//
+	echo( '<h4>Try getTagEnumerations for ":type:entity:100"</h4>' );
+	$node = $result[ kAPI_RESPONSE_RESULTS ][ ':type:entity:100' ][ kAPI_RESULT_ENUM_NODE ];
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_NODE => $node
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_NODE_ENUMERATIONS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try getNodeEnumerations for ":type:entity:120".
+	//
+	echo( '<h4>Try getTagEnumerations for ":type:entity:120"</h4>' );
+	$node = $result[ kAPI_RESPONSE_RESULTS ][ ':type:entity:120' ][ kAPI_RESULT_ENUM_NODE ];
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_NODE => $node
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_NODE_ENUMERATIONS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );

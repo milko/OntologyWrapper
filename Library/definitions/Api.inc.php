@@ -552,10 +552,10 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
- * it will be an array whose key represents the term native identifier and the elements are
- * structured as follows:
+ * it will be an array whose elements are structured as follows:
  *
  * <ul>
+ *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
@@ -581,10 +581,10 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
- * it will be an array whose key represents the term native identifier and the elements are
- * structured as follows:
+ * it will be an array whose elements are structured as follows:
  *
  * <ul>
+ *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
@@ -794,6 +794,13 @@ define( "kAPI_PARAM_HAS_ENTITY_REFS",			'entity-refs' );
 /*=======================================================================================
  *	ENUMERATION RESULT PARAMETERS														*
  *======================================================================================*/
+
+/**
+ * Term (string).
+ *
+ * This tag is used when returning an enumeration element, it defines the element's term.
+ */
+define( "kAPI_RESULT_ENUM_TERM",				'term' );
 
 /**
  * Node (int).
