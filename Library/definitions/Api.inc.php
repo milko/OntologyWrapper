@@ -330,22 +330,25 @@ define( "kAPI_OP_LIST_REF_COUNTS",				'list-ref-counts' );
  *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
  *			means that the matching operation is case and accent insensitive.
  *	 </ul>
- *	<li><em>Flags</em>: The following optional parameters are flags which will generate
- *		additional query filters which will be chained in <tt>AND</tt>;
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter may be provided as a string or an array, it will add a filter selecting
+ *		only those tags which have values in the provided collection(s):
  *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
- *			those objects which are or are not referenced by tag objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
- *			those objects which are or are not referenced by term objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
- *			those objects which are or are not referenced by node objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
- *			those objects which are or are not referenced by edge objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
- *			those objects which are or are not referenced by unit objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
- *			only those objects which are or are not referenced by entity objects.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
  *	 </ul>
+ *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -391,22 +394,25 @@ define( "kAPI_OP_MATCH_TAG_LABELS",				'matchTagLabels' );
  *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
  *			means that the matching operation is case and accent insensitive.
  *	 </ul>
- *	<li><em>Flags</em>: The following optional parameters are flags which will generate
- *		additional query filters which will be chained in <tt>AND</tt>;
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter may be provided as a string or an array, it will add a filter selecting
+ *		only those tags which have values in the provided collection(s):
  *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
- *			those objects which are or are not referenced by tag objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
- *			those objects which are or are not referenced by term objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
- *			those objects which are or are not referenced by node objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
- *			those objects which are or are not referenced by edge objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
- *			those objects which are or are not referenced by unit objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
- *			only those objects which are or are not referenced by entity objects.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
  *	 </ul>
+ *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -452,22 +458,25 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
  *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
  *			means that the matching operation is case and accent insensitive.
  *	 </ul>
- *	<li><em>Flags</em>: The following optional parameters are flags which will generate
- *		additional query filters which will be chained in <tt>AND</tt>;
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter may be provided as a string or an array, it will add a filter selecting
+ *		only those tags which have values in the provided collection(s):
  *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
- *			those objects which are or are not referenced by tag objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
- *			those objects which are or are not referenced by term objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
- *			those objects which are or are not referenced by node objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
- *			those objects which are or are not referenced by edge objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
- *			those objects which are or are not referenced by unit objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
- *			only those objects which are or are not referenced by entity objects.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
  *	 </ul>
+ *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -513,22 +522,25 @@ define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagByLabel' );
  *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If provided, it
  *			means that the matching operation is case and accent insensitive.
  *	 </ul>
- *	<li><em>Flags</em>: The following optional parameters are flags which will generate
- *		additional query filters which will be chained in <tt>AND</tt>;
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter may be provided as a string or an array, it will add a filter selecting
+ *		only those tags which have values in the provided collection(s):
  *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
- *			those objects which are or are not referenced by tag objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
- *			those objects which are or are not referenced by term objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
- *			those objects which are or are not referenced by node objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
- *			those objects which are or are not referenced by edge objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
- *			those objects which are or are not referenced by unit objects.
- *		<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
- *			only those objects which are or are not referenced by entity objects.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
  *	 </ul>
+ *		The filter will be chained in <tt>AND</tt>.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -549,6 +561,14 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  *	<li><tt>{@link kAPI_PARAM_TAG}</tt>: <em>Tag</em>. This required parameter can either be
  *		an integer referencing the tag sequence number or a string referencing the tag
  *		native identifier.
+ *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse nested enumerations</em>. This
+ *		flag parameter indicates that the response should contain all nested levels of the
+ *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
+ *		parameter will be ignored.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
+ *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
+ *		indicates the maximum number of elements to be returned; if omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_ENUMS_LIMIT}.
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
@@ -578,6 +598,51 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  * <ul>
  *	<li><tt>{@link kAPI_PARAM_NODE}</tt>: <em>Node</em>. This required parameter is an
  *		integer referencing the node native identifier.
+ *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse nested enumerations</em>. This
+ *		flag parameter indicates that the response should contain all nested levels of the
+ *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
+ *		parameter will be ignored.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
+ *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
+ *		indicates the maximum number of elements to be returned; if omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_ENUMS_LIMIT}.
+ * </ul>
+ *
+ * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
+ * it will be an array whose elements are structured as follows:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
+ *		sub-elements, this item will contain the elements array.
+ * </ul>
+ */
+define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
+
+/**
+ * Get objects.
+ *
+ * This tag defines the get node enumerations operation.
+ *
+ * The service will return the enumerated set related to the provided node.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_NODE}</tt>: <em>Node</em>. This required parameter is an
+ *		integer referencing the node native identifier.
+ *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse nested enumerations</em>. This
+ *		flag parameter indicates that the response should contain all nested levels of the
+ *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
+ *		parameter will be ignored.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
+ *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
+ *		indicates the maximum number of elements to be returned; if omitted, it will be
+ *		set to the default constant {@link kSTANDARDS_ENUMS_LIMIT}.
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
@@ -607,6 +672,28 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  * This parameter represents a string match pattern, it is used to match strings.
  */
 define( "kAPI_PARAM_PATTERN",					'pattern' );
+
+/**
+ * Reference count (string/array).
+ *
+ * This tag defines the requested reference count collection.
+ *
+ * This parameter is a flag that indicates the collection or collections in which the
+ * requested tag must have values. The parameter may either be a string or an array from
+ * the following enumerated set:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: Tags.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Terms.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Nodes.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edges.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
+ * </ul>
+ *
+ * The service will only select those tags which have values in the provided collections.
+ */
+define( "kAPI_PARAM_REF_COUNT",					'ref-count' );
 
 /**
  * Tag (string/int).
@@ -698,100 +785,6 @@ define( "kAPI_PARAM_LOG_TRACE",					'log-trace' );
 define( "kAPI_PARAM_RECURSE",					'recurse' );
 
 /*=======================================================================================
- *	REFERENCE COUNT FLAG REQUEST PARAMETERS												*
- *======================================================================================*/
-
-/**
- * Has tag references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>tag objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_TAG_COUNT} property <em>greater than zero</em>; if the value
- * is <tt>FALSE</tt>, it means that the service should only select objects which have the
- * {@link kTAG_TAG_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_TAG_REFS",				'tag-refs' );
-
-/**
- * Has term references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>term objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_TERM_COUNT} property <em>greater than zero</em>; if the value
- * is <tt>FALSE</tt>, it means that the service should only select objects which have the
- * {@link kTAG_TERM_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_TERM_REFS",				'term-refs' );
-
-/**
- * Has node references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>node objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_NODE_COUNT} property <em>greater than zero</em>; if the value
- * is <tt>FALSE</tt>, it means that the service should only select objects which have the
- * {@link kTAG_NODE_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_NODE_REFS",				'node-refs' );
-
-/**
- * Has edge references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>edge objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_EDGE_COUNT} property <em>greater than zero</em>; if the value
- * is <tt>FALSE</tt>, it means that the service should only select objects which have the
- * {@link kTAG_EDGE_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_EDGE_REFS",				'edge-refs' );
-
-/**
- * Has unit references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>unit objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_UNIT_COUNT} property <em>greater than zero</em>; if the value
- * is <tt>FALSE</tt>, it means that the service should only select objects which have the
- * {@link kTAG_UNIT_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_UNIT_REFS",				'unit-refs' );
-
-/**
- * Has entity references (boolean).
- *
- * This parameter adds a filter to the current query selecting all objects which are
- * referenced or not by <em>entity objects</em>.
- *
- * If the parameter is <tt>TRUE</tt>, it means that the service should only select objects
- * which have the {@link kTAG_ENTITY_COUNT} property <em>greater than zero</em>; if the
- * value is <tt>FALSE</tt>, it means that the service should only select objects which have
- * the {@link kTAG_ENTITY_COUNT} property <em>equal to zero</em>.
- *
- * If the parameter is omitted, the filter will not be used.
- */
-define( "kAPI_PARAM_HAS_ENTITY_REFS",			'entity-refs' );
-
-/*=======================================================================================
  *	ENUMERATION RESULT PARAMETERS														*
  *======================================================================================*/
 
@@ -839,6 +832,52 @@ define( "kAPI_RESULT_ENUM_VALUE",				'value' );
  * that is, it will contain all the elements whose parent is the current element.
  */
 define( "kAPI_RESULT_ENUM_CHILDREN",			'children' );
+
+/*=======================================================================================
+ *	COLLECTION REFERENCE ENUMERATED SET													*
+ *======================================================================================*/
+
+/**
+ * Tags (string).
+ *
+ * This parameter indicates a reference to the tags collection.
+ */
+define( "kAPI_PARAM_COLLECTION_TAG",			'_tags' );
+
+/**
+ * Terms (string).
+ *
+ * This parameter indicates a reference to the terms collection.
+ */
+define( "kAPI_PARAM_COLLECTION_TERM",			'_terms' );
+
+/**
+ * Nodes (string).
+ *
+ * This parameter indicates a reference to the nodes collection.
+ */
+define( "kAPI_PARAM_COLLECTION_NODE",			'_nodes' );
+
+/**
+ * Edges (string).
+ *
+ * This parameter indicates a reference to the edges collection.
+ */
+define( "kAPI_PARAM_COLLECTION_EDGE",			'_edges' );
+
+/**
+ * Units (string).
+ *
+ * This parameter indicates a reference to the units collection.
+ */
+define( "kAPI_PARAM_COLLECTION_UNIT",			'_units' );
+
+/**
+ * Entities (string).
+ *
+ * This parameter indicates a reference to the entities collection.
+ */
+define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
 
 
 ?>

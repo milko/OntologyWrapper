@@ -68,22 +68,42 @@ try
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
-	// Set databases.
+	// Set metadata.
 	//
 	echo( "  • Setting metadata.\n" );
 	$meta = $wrapper->Metadata(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	
+	//
+	// Drop metadata.
+	//
 	$meta->drop();
+	
+	//
+	// Set entities.
+	//
 	echo( "  • Setting entities.\n" );
 	$entities = $wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	
+	//
+	// Drop entities.
+	//
 	$entities->drop();
+	
+	//
+	// Set units.
+	//
 	echo( "  • Setting units.\n" );
 	$units = $wrapper->Units(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	
+	//
+	// Drop units.
+	//
 	$units->drop();
 	
 	//

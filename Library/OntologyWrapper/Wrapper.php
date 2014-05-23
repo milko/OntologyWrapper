@@ -1339,9 +1339,9 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		//
-		// Load XML location cross reference files.
+		// Load XML location region cross reference files.
 		//
-		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166-locations.xml';
+		$file = kPATH_STANDARDS_ROOT.'/iso/ISO3166-regions.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

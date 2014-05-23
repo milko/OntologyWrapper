@@ -4,11 +4,11 @@
 <dict>
 	<key>HierarchyData</key>
 	<array>
-		<string>8C4D3317-5D84-4713-82AE-7A81A44730B0</string>
+		<string>1BEA2828-40C1-42BB-8F89-318E4B18CC4C</string>
 	</array>
 	<key>ProjectItems</key>
 	<dict>
-		<key>8C4D3317-5D84-4713-82AE-7A81A44730B0</key>
+		<key>1BEA2828-40C1-42BB-8F89-318E4B18CC4C</key>
 		<dict>
 			<key>ItemData</key>
 			<dict>
@@ -26,11 +26,11 @@
 				AAAABAMAAAAAf7joAAAACAAAAAAEAABBsZ2uYgAAACQA
 				AAABAQAAOEFFQkIyREQtRDg2My0zOUVELTk2NzktRTE2
 				QzhCNzk1QTIxGAAAAAECAACBAAAAAQAIAO8/AAABAAgA
-				AAAAAAAAAAABAAAAAQEAAC8AAACqAAAAAQIAADQyZWMy
-				OTAzODRlNzkwNjk0YzRlNjdmNGUwZDk3NjAxOTc1NzEx
-				MDE7MDAwMDAwMDA7MDAwMDAwMjA7Y29tLmFwcGxlLmFw
+				AAAAAAAAAAABAAAAAQEAAC8AAACqAAAAAQIAADgwM2U0
+				YzA1MzU4MWIzMTRjN2UwY2UzYTA3MWM2ODM1MWYwODY1
+				ZmM7MDAwMDAwMDA7MDAwMDAwMjA7Y29tLmFwcGxlLmFw
 				cC1zYW5kYm94LnJlYWQtd3JpdGU7MDAwMDAwMDE7MGUw
-				MDAwMTE7MDAwMDAwMDAwMjgzYzQ0ZDsvbGlicmFyeS93
+				MDAwMTA7MDAwMDAwMDAwMjgzYzQ0ZDsvbGlicmFyeS93
 				ZWJzZXJ2ZXIvbGlicmFyeS9vbnRvbG9neXdyYXBwZXIA
 				AACoAAAA/v///wEAAAAAAAAADQAAAAQQAABAAAAAAAAA
 				AAUQAACYAAAAAAAAABAQAACwAAAAAAAAAFQQAADYAAAA
@@ -52,8 +52,6 @@
 			<string>OntologyWrapper</string>
 			<key>ItemType</key>
 			<string>FolderReference</string>
-			<key>UserOverrideItemName</key>
-			<true/>
 		</dict>
 	</dict>
 	<key>com.barebones.DocumentFormatVersion</key>

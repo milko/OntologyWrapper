@@ -525,9 +525,24 @@ class Service extends ServiceObject
 								   kTAG_PREDICATE => TRUE ) );
 		
 		//
+		// Skip records.
+		//
+		if( $this->offsetExists( kAPI_PAGING_SKIP ) )
+		{
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+				$rs->skip( $tmp );
+		}
+		
+		//
+		// Set limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
 		// Load enumerations.
 		//
-		if( $edges->count() )
+		if( $edges->count( TRUE ) )
 		{
 			//
 			// Allocate results.
@@ -593,9 +608,24 @@ class Service extends ServiceObject
 								   kTAG_PREDICATE => TRUE ) );
 		
 		//
+		// Skip records.
+		//
+		if( $this->offsetExists( kAPI_PAGING_SKIP ) )
+		{
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+				$rs->skip( $tmp );
+		}
+		
+		//
+		// Set limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
 		// Load enumerations.
 		//
-		if( $edges->count() )
+		if( $edges->count( TRUE ) )
 		{
 			//
 			// Allocate results.

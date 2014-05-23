@@ -37,12 +37,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Country subdivision -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:subcountry</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- Administrative unit -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>

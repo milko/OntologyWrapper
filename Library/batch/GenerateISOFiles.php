@@ -1769,19 +1769,18 @@ if( kOPTION_VERBOSE )
 				if( $record[ 'alpha_3_code' ] !== NULL )
 				{
 					//
-					// Save identifier.
+					// Save country identifier.
 					//
 					$id3 = (string) $record[ 'alpha_3_code' ];
 					$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$id3;
 					
 					//
-					// Save location identifier.
+					// Save location pid.
 					//
-					$id_loc = "1".kTOKEN_NAMESPACE_SEPARATOR.$id3;
-					$gid_loc = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_loc;
+					$pid_loc = ":location:".$gid3;
 					
 					//
-					// Create unit.
+					// Create units.
 					//
 					$unit = $xml_3->addChild( 'META' );
 					$loc_unit = $xml_location->addChild( 'META' );
@@ -1794,13 +1793,6 @@ if( kOPTION_VERBOSE )
 					$term->addAttribute( 'lid', $id3 );
 					
 					//
-					// Create location term.
-					//
-					$loc_term = $loc_unit->addChild( 'TERM' );
-					$loc_term->addAttribute( 'ns', $ns_location );
-					$loc_term->addAttribute( 'lid', $id_loc );
-					
-					//
 					// Set term instance.
 					//
 					$element = $term->addChild( 'item' );
@@ -1808,25 +1800,11 @@ if( kOPTION_VERBOSE )
 					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
 					//
-					// Set location instance.
-					//
-					$loc_element = $loc_term->addChild( 'item' );
-					$loc_element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$loc_element->addChild( 'item', kTYPE_TERM_INSTANCE );
-					
-					//
 					// Set term synonyms.
 					//
 					$element_syn_3 = $term->addChild( 'item' );
 					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
 					$element_syn_3->addChild( 'item', $id3 );
-					
-					//
-					// Set location synonyms.
-					//
-					$element_syn_loc = $loc_term->addChild( 'item' );
-					$element_syn_loc->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_loc->addChild( 'item', $id3 );
 					
 					//
 					// Init term names.
@@ -1875,44 +1853,28 @@ if( kOPTION_VERBOSE )
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
-						//
-						// Set country.
-						//
 						AddLanguageStrings( $term, $tag, $strings );
-						
-						//
-						// Set location.
-						//
-						AddLanguageStrings( $loc_term, $tag, $strings );
-					}
 					
 					//
-					// Create node.
+					// Create country node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					
-					//
-					// Create location node.
-					//
-					$loc_node = $loc_unit->addChild( 'NODE' );
-					
-					//
-					// Set node type.
-					//
 					$element = $node->addChild( 'item' );
 					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
-					// Set location node type.
+					// Create location node.
 					//
+					$loc_node = $loc_unit->addChild( 'NODE' );
+					$loc_node->addAttribute( 'term', $gid3 );
+					$loc_node->addAttribute( 'pid', $pid_loc );
 					$loc_element = $loc_node->addChild( 'item' );
 					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
-					// Relate to parent.
+					// Relate country to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
 					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
@@ -1920,16 +1882,6 @@ if( kOPTION_VERBOSE )
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
 					$element->addAttribute( 'node', 'term' );
-			
-					//
-					// Xref location to alpha 3 element.
-					//
-					$loc_edge = $loc_unit->addChild( 'EDGE' );
-					$loc_element = $loc_edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-					$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$loc_element = $loc_edge->addChild( 'item', $gid3 );
-					$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$loc_element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 2.
@@ -1996,9 +1948,6 @@ if( kOPTION_VERBOSE )
 							// Create node.
 							//
 							$node_sub = $unit_sub->addChild( 'NODE' );
-						//	$element_sub = $node_sub->addChild( 'item' );
-						//	$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-						//	$element_sub->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
@@ -2006,9 +1955,9 @@ if( kOPTION_VERBOSE )
 							$edge_sub = $unit_sub->addChild( 'EDGE' );
 							$element_sub = $edge_sub->addChild( 'item', kPREDICATE_ENUM_OF );
 							$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element_sub = $edge_sub->addChild( 'item', $gid_loc );
+							$element_sub = $edge_sub->addChild( 'item', $pid_loc );
 							$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element_sub->addAttribute( 'node', 'term' );
+							$element_sub->addAttribute( 'node', 'pid' );
 						
 						} // Iterating subdivisions.
 					
@@ -2088,6 +2037,23 @@ if( kOPTION_VERBOSE )
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
+						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						
+						//
+						// Cross-reference location.
+						//
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', $gid2 );
+						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$element = $edge->addChild( 'item', $gid2 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
 						$element->addAttribute( 'node', 'term' );
 					
@@ -2185,6 +2151,23 @@ if( kOPTION_VERBOSE )
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
+						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						
+						//
+						// Cross-reference location.
+						//
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', $gidn );
+						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
 						$element->addAttribute( 'node', 'term' );
 					
@@ -2375,11 +2358,13 @@ if( kOPTION_VERBOSE )
 					$id3 = (string) $record[ 'alpha_3_code' ];
 					$gid3 = $ns_3.kTOKEN_NAMESPACE_SEPARATOR.$id3;
 					
-					$id_loc = "3".kTOKEN_NAMESPACE_SEPARATOR.$id3;
-					$gid_loc = $ns_location.kTOKEN_NAMESPACE_SEPARATOR.$id_loc;
+					//
+					// Save location pid.
+					//
+					$pid_loc = ":location:".$gid3;
 					
 					//
-					// Create unit.
+					// Create units.
 					//
 					$unit = $xml_3->addChild( 'META' );
 					$loc_unit = $xml_location->addChild( 'META' );
@@ -2391,10 +2376,6 @@ if( kOPTION_VERBOSE )
 					$term->addAttribute( 'ns', $ns_3 );
 					$term->addAttribute( 'lid', $id3 );
 					
-					$loc_term = $loc_unit->addChild( 'TERM' );
-					$loc_term->addAttribute( 'ns', $ns_location );
-					$loc_term->addAttribute( 'lid', $id_loc );
-					
 					//
 					// Set term instance.
 					//
@@ -2402,20 +2383,12 @@ if( kOPTION_VERBOSE )
 					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
 					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
 					
-					$loc_element = $loc_term->addChild( 'item' );
-					$loc_element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$loc_element->addChild( 'item', kTYPE_TERM_INSTANCE );
-					
 					//
 					// Set term synonyms.
 					//
 					$element_syn_3 = $term->addChild( 'item' );
 					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
 					$element_syn_3->addChild( 'item', $id3 );
-					
-					$element_syn_loc = $loc_term->addChild( 'item' );
-					$element_syn_loc->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_loc->addChild( 'item', $id3 );
 					
 					//
 					// Init term names.
@@ -2449,10 +2422,7 @@ if( kOPTION_VERBOSE )
 					// Set language strings.
 					//
 					foreach( $names as $tag => $strings )
-					{
 						AddLanguageStrings( $term, $tag, $strings );
-						AddLanguageStrings( $loc_term, $tag, $strings );
-					}
 					
 					//
 					// Set date withdrawn.
@@ -2462,31 +2432,28 @@ if( kOPTION_VERBOSE )
 						$tmp = (string) $record[ 'date_withdrawn' ];
 						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
 						$element->addAttribute( 'tag', $ns_date_witdrawn );
-
-						$tmp = (string) $record[ 'date_withdrawn' ];
-						$loc_element = $loc_term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$loc_element->addAttribute( 'tag', $ns_date_witdrawn );
 					}
 					
 					//
-					// Create node.
+					// Create country node.
 					//
 					$node = $unit->addChild( 'NODE' );
-					$loc_node = $loc_unit->addChild( 'NODE' );
-					
-					//
-					// Set node type.
-					//
 					$element = $node->addChild( 'item' );
 					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
+					//
+					// Create location node.
+					//
+					$loc_node = $loc_unit->addChild( 'NODE' );
+					$loc_node->addAttribute( 'term', $gid3 );
+					$loc_node->addAttribute( 'pid', $pid_loc );
 					$loc_element = $loc_node->addChild( 'item' );
 					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
 					
 					//
-					// Relate to parent.
+					// Relate country to parent.
 					//
 					$edge = $unit->addChild( 'EDGE' );
 					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
@@ -2494,19 +2461,6 @@ if( kOPTION_VERBOSE )
 					$element = $edge->addChild( 'item', $ns_3 );
 					$element->addAttribute( 'const', 'kTAG_OBJECT' );
 					$element->addAttribute( 'node', 'term' );
-			
-					//
-					// Relate location to alpha 3 element.
-					//
-					$loc_edge = $loc_unit->addChild( 'EDGE' );
-					$loc_element = $loc_edge->addChild( 'item', $gid_loc );
-					$loc_element->addAttribute( 'const', 'kTAG_SUBJECT' );
-					$loc_element->addAttribute( 'node', 'term' );
-					$loc_element = $loc_edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-					$loc_element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$loc_element = $loc_edge->addChild( 'item', $gid3 );
-					$loc_element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$loc_element->addAttribute( 'node', 'term' );
 					
 					//
 					// Handle alpha 4.
@@ -2595,6 +2549,23 @@ if( kOPTION_VERBOSE )
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
+						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						
+						//
+						// Cross-reference location.
+						//
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', $gid4 );
+						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$element = $edge->addChild( 'item', $gid4 );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
 						$element->addAttribute( 'node', 'term' );
 					
@@ -2692,6 +2663,23 @@ if( kOPTION_VERBOSE )
 						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
 						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
 						$element = $edge->addChild( 'item', $gid3 );
+						$element->addAttribute( 'const', 'kTAG_OBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						
+						//
+						// Cross-reference location.
+						//
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', $gidn );
+						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
+						$element->addAttribute( 'node', 'term' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					
+						$edge = $loc_unit->addChild( 'EDGE' );
+						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
+						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$element = $edge->addChild( 'item', $gidn );
 						$element->addAttribute( 'const', 'kTAG_OBJECT' );
 						$element->addAttribute( 'node', 'term' );
 					
@@ -2953,6 +2941,11 @@ if( kOPTION_VERBOSE )
 									$gidsub = $ns_sub.kTOKEN_NAMESPACE_SEPARATOR.$idsub;
 					
 									//
+									// Save location pid.
+									//
+									$pid_loc = ":location:".$gidsub;
+					
+									//
 									// Create unit.
 									//
 									$unit = $xml_sub->addChild( 'META' );
@@ -2965,18 +2958,11 @@ if( kOPTION_VERBOSE )
 									$term->addAttribute( 'ns', $ns_sub );
 									$term->addAttribute( 'lid', $idsub );
 					
-									$term_sub = $unit_sub->addChild( 'TERM' );
-									$term_sub->addAttribute( 'ns', $ns_location );
-									$term_sub->addAttribute( 'lid', $idsub );
-					
 									//
 									// Set type property.
 									//
 									$element = $term->addChild( 'item', $type );
 									$element->addAttribute( 'tag', $ns_type );
-					
-									$element_sub = $term_sub->addChild( 'item', $type );
-									$element_sub->addAttribute( 'tag', $ns_type );
 					
 									//
 									// Set term synonyms.
@@ -2984,10 +2970,6 @@ if( kOPTION_VERBOSE )
 									$element = $term->addChild( 'item' );
 									$element->addAttribute( 'const', 'kTAG_SYNONYM' );
 									$element->addChild( 'item', $idsub );
-					
-									$element_sub = $term_sub->addChild( 'item' );
-									$element_sub->addAttribute( 'const', 'kTAG_SYNONYM' );
-									$element_sub->addChild( 'item', $idsub );
 					
 									//
 									// Init term names.
@@ -3012,32 +2994,30 @@ if( kOPTION_VERBOSE )
 									// Set language strings.
 									//
 									foreach( $names as $tag => $strings )
-									{
 										AddLanguageStrings( $term, $tag, $strings );
-										AddLanguageStrings( $term_sub, $tag, $strings );
-									}
 					
 									//
-									// Create node.
+									// Create subdivision node.
 									//
 									$node = $unit->addChild( 'NODE' );
-									$node_sub = $unit_sub->addChild( 'NODE' );
-					
-									//
-									// Set node type.
-									//
 									$element = $node->addChild( 'item' );
 									$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 									$item = $element->addChild( 'item',
 																kTYPE_NODE_ENUMERATION );
-					
-									$element_sub = $node_sub->addChild( 'item' );
-									$element_sub->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-									$element_sub->addChild( 'item',
+									
+									//
+									// Create location node.
+									//
+									$node_sub = $unit_sub->addChild( 'NODE' );
+									$node_sub->addAttribute( 'term', $gidsub );
+									$node_sub->addAttribute( 'pid', $pid_loc );
+									$loc_element = $node_sub->addChild( 'item' );
+									$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
+									$loc_item = $loc_element->addChild( 'item',
 																kTYPE_NODE_ENUMERATION );
 					
 									//
-									// Relate to parent.
+									// Relate subdivision to parent.
 									//
 									$edge = $unit->addChild( 'EDGE' );
 									$element = $edge->addChild(
@@ -3055,17 +3035,6 @@ if( kOPTION_VERBOSE )
 										'item', kPREDICATE_ENUM_OF );
 									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
 									$element_sub = $edge_sub->addChild( 'item', $gid_subset );
-									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
-									$element_sub->addAttribute( 'node', 'term' );
-			
-									//
-									// Xref location.
-									//
-									$edge_sub = $unit_sub->addChild( 'EDGE' );
-									$element_sub = $edge_sub->addChild(
-										'item', kPREDICATE_XREF_EXACT );
-									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$element_sub = $edge_sub->addChild( 'item', $gidsub );
 									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
 									$element_sub->addAttribute( 'node', 'term' );
 									

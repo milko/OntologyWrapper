@@ -24,6 +24,11 @@
 require_once( 'includes.inc.php' );
 
 //
+// Local includes.
+//
+require_once( 'local.inc.php' );
+
+//
 // Tag definitions.
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
@@ -63,6 +68,11 @@ EOT;
 //
 try
 {
+	//
+	// Init local storage.
+	//
+	$path = kPATH_STANDARDS_ROOT."/".kDIR_STANDARDS_ISO.'/ISO3166-regions.xml';
+	
 	//
 	// Connect.
 	//
@@ -185,22 +195,15 @@ try
 	foreach( $countries as $country => $region )
 	{
 		//
-		// Convert namespace.
+		// Skip world.
 		//
-		if( substr( $country, 0, 18 ) == 'iso:3166:1:alpha-3' )
-			$country = 'iso:3166:location:1'.substr( $country, 18 );
-		else
-			$country = 'iso:3166:location:3'.substr( $country, 18 );
-		
-		//
-		// Open edge.
-		//
-		$xml_out .= ("\t\t<EDGE>\r\t\t\t<item const=\"kTAG_SUBJECT\" node=\"term\">"
-					."$country</item>\r"
-					."\t\t\t<item cont=\"kTAG_PREDICATE\">:predicate:ENUM-OF</item>\r"
-					."\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">"
-					."iso:3166:location:$region</item>\r"
-					."\t\t</EDGE>\r");
+		if( $region != '001' )
+			$xml_out .= ("\t\t<EDGE>\r\t\t\t<item const=\"kTAG_SUBJECT\" node=\"pid\">"
+						.":location:$country</item>\r"
+						."\t\t\t<item const=\"kTAG_PREDICATE\">:predicate:ENUM-OF</item>\r"
+						."\t\t\t<item const=\"kTAG_OBJECT\" node=\"term\">"
+						."iso:3166:location:$region</item>\r"
+						."\t\t</EDGE>\r");
 	}
 	
 	//
@@ -211,7 +214,7 @@ try
 	//
 	// Write file.
 	//
-	file_put_contents( 'ISO3166-regions.xml', $xml_out );
+	file_put_contents( $path, $xml_out );
 }
 
 //

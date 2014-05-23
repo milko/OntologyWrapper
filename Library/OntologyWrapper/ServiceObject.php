@@ -466,12 +466,12 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_PARAM_LOG_REQUEST}</tt>: Log request.
 	 *	<li><tt>{@link kAPI_PARAM_LOG_TRACE}</tt>: Log trace.
 	 *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: Recurse structures.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: Tag reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: Term reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: Node reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: Edge reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: Unit reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: Entity reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: Tag reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Term reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Node reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edge reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Unit reference count flag.
+	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entity reference count flag.
 	 * </ul>
 	 *
 	 * Derived classes should handle their custom parameters or call the parent method, any
@@ -494,6 +494,16 @@ abstract class ServiceObject extends ContainerObject
 					$this->offsetSet( $theKey, $theValue );
 				break;
 
+			case kAPI_PARAM_REF_COUNT:
+				if( is_array( $theValue ) )
+					$this->offsetSet( $theKey, $theValue );
+				elseif( strlen( $theValue ) )
+				{
+					$tmp = explode( ',', $theValue );
+					$this->offsetSet( $theKey, $tmp );
+				}
+				break;
+
 			case kAPI_PAGING_SKIP:
 				$theValue = (int) $theValue;
 				$this->offsetSet( $theKey, $theValue );
@@ -514,12 +524,12 @@ abstract class ServiceObject extends ContainerObject
 			case kAPI_PARAM_LOG_REQUEST:
 			case kAPI_PARAM_LOG_TRACE:
 			case kAPI_PARAM_RECURSE:
-			case kAPI_PARAM_HAS_TAG_REFS:
-			case kAPI_PARAM_HAS_TERM_REFS:
-			case kAPI_PARAM_HAS_NODE_REFS:
-			case kAPI_PARAM_HAS_EDGE_REFS:
-			case kAPI_PARAM_HAS_UNIT_REFS:
-			case kAPI_PARAM_HAS_ENTITY_REFS:
+			case kAPI_PARAM_COLLECTION_TAG:
+			case kAPI_PARAM_COLLECTION_TERM:
+			case kAPI_PARAM_COLLECTION_NODE:
+			case kAPI_PARAM_COLLECTION_EDGE:
+			case kAPI_PARAM_COLLECTION_UNIT:
+			case kAPI_PARAM_COLLECTION_ENTITY:
 				$theValue = (boolean) $theValue;
 				$this->offsetSet( $theKey, $theValue );
 				break;
@@ -660,6 +670,24 @@ abstract class ServiceObject extends ContainerObject
 			throw new \Exception(
 				"Missing required pattern parameter." );						// !@! ==>
 		
+		//
+		// Check reference count.
+		//
+		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
+		{
+			$collections
+				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
+						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
+						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+			foreach( $this->offsetGet( kAPI_PARAM_REF_COUNT ) as $collection )
+			{
+				if( ! in_array( $collection, $collections ) )
+					throw new \Exception(
+						"Invalid or unsupported collection reference "
+					   ."[$collection]." );										// !@! ==>
+			}
+		}
+		
 	} // validateMatchLabelStrings.
 
 	 
@@ -747,6 +775,9 @@ abstract class ServiceObject extends ContainerObject
 	 *		exception.
 	 *	<li><em>Validate tag</em>: The method will check whether the provided tag reference
 	 *		is valid, if that is not the case, the method will raise an exception.
+	 *	<li><em>Check limit</em>: The limit will be reset if the recurse parameter is
+	 *		provided, if not, the limit is required and will be set to the
+	 *		{@link kSTANDARDS_ENUMS_LIMIT} constant if larger.
 	 * </ul>
 	 *
 	 * @access protected
@@ -791,6 +822,24 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$this->offsetSet( kAPI_PARAM_TAG, $tag );
 		
+		//
+		// Check limit.
+		//
+		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
+		{
+			$this->offsetUnset( kAPI_PAGING_SKIP );
+			$this->offsetUnset( kAPI_PAGING_LIMIT );
+		}
+		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+		{
+			if( ($tmp = (int) $this->offsetGet( kAPI_PAGING_LIMIT ))
+					> kSTANDARDS_ENUMS_LIMIT )
+				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_ENUMS_LIMIT );
+		}
+		else
+			throw new \Exception(
+				"Missing required limits parameter." );							// !@! ==>
+		
 	} // validateGetTagEnumerations.
 
 	 
@@ -807,6 +856,9 @@ abstract class ServiceObject extends ContainerObject
 	 * <ul>
 	 *	<li><em>Check node</em>: If the parameter is missing, the method will raise an
 	 *		exception.
+	 *	<li><em>Check limit</em>: The limit will be reset if the recurse parameter is
+	 *		provided, if not, the limit is required and will be set to the
+	 *		{@link kSTANDARDS_ENUMS_LIMIT} constant if larger.
 	 * </ul>
 	 *
 	 * @access protected
@@ -823,6 +875,24 @@ abstract class ServiceObject extends ContainerObject
 		if( ! $this->offsetExists( kAPI_PARAM_NODE ) )
 			throw new \Exception(
 				"Missing required node parameter." );							// !@! ==>
+		
+		//
+		// Check limit.
+		//
+		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
+		{
+			$this->offsetUnset( kAPI_PAGING_SKIP );
+			$this->offsetUnset( kAPI_PAGING_LIMIT );
+		}
+		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+		{
+			if( ($tmp = (int) $this->offsetGet( kAPI_PAGING_LIMIT ))
+					> kSTANDARDS_ENUMS_LIMIT )
+				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_ENUMS_LIMIT );
+		}
+		else
+			throw new \Exception(
+				"Missing required limits parameter." );							// !@! ==>
 		
 	} // validateGetNodeEnumerations.
 
@@ -994,6 +1064,7 @@ abstract class ServiceObject extends ContainerObject
 		// Load request parameters.
 		//
 		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
+		$ref[ "kAPI_PARAM_REF_COUNT" ] = kAPI_PARAM_REF_COUNT;
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
 		$ref[ "kAPI_PARAM_NODE" ] = kAPI_PARAM_NODE;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
@@ -1004,16 +1075,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
 		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
-		
-		//
-		// Load reference count request flag parameters.
-		//
-		$ref[ "kAPI_PARAM_HAS_TAG_REFS" ] = kAPI_PARAM_HAS_TAG_REFS;
-		$ref[ "kAPI_PARAM_HAS_TERM_REFS" ] = kAPI_PARAM_HAS_TERM_REFS;
-		$ref[ "kAPI_PARAM_HAS_NODE_REFS" ] = kAPI_PARAM_HAS_NODE_REFS;
-		$ref[ "kAPI_PARAM_HAS_EDGE_REFS" ] = kAPI_PARAM_HAS_EDGE_REFS;
-		$ref[ "kAPI_PARAM_HAS_UNIT_REFS" ] = kAPI_PARAM_HAS_UNIT_REFS;
-		$ref[ "kAPI_PARAM_HAS_ENTITY_REFS" ] = kAPI_PARAM_HAS_ENTITY_REFS;
 		
 		//
 		// Load enumeration element parameters.
@@ -1041,6 +1102,16 @@ abstract class ServiceObject extends ContainerObject
 		// Load modifiers.
 		//
 		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
+		
+		//
+		// Load collection reference enumerated set.
+		//
+		$ref[ "kAPI_PARAM_COLLECTION_TAG" ] = kAPI_PARAM_COLLECTION_TAG;
+		$ref[ "kAPI_PARAM_COLLECTION_TERM" ] = kAPI_PARAM_COLLECTION_TERM;
+		$ref[ "kAPI_PARAM_COLLECTION_NODE" ] = kAPI_PARAM_COLLECTION_NODE;
+		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = kAPI_PARAM_COLLECTION_EDGE;
+		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = kAPI_PARAM_COLLECTION_UNIT;
+		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = kAPI_PARAM_COLLECTION_ENTITY;
 		
 	} // executeListParameterConstants.
 
@@ -1161,12 +1232,12 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load results.
 		//
-		$ref[ kAPI_PARAM_HAS_TAG_REFS ] = kTAG_TAG_COUNT;
-		$ref[ kAPI_PARAM_HAS_TERM_REFS ] = kTAG_TERM_COUNT;
-		$ref[ kAPI_PARAM_HAS_NODE_REFS ] = kTAG_NODE_COUNT;
-		$ref[ kAPI_PARAM_HAS_EDGE_REFS ] = kTAG_EDGE_COUNT;
-		$ref[ kAPI_PARAM_HAS_UNIT_REFS ] = kTAG_UNIT_COUNT;
-		$ref[ kAPI_PARAM_HAS_ENTITY_REFS ] = kTAG_ENTITY_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_TAG ] = kTAG_TAG_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_TERM ] = kTAG_TERM_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_NODE ] = kTAG_NODE_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_EDGE ] = kTAG_EDGE_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_UNIT ] = kTAG_UNIT_COUNT;
+		$ref[ kAPI_PARAM_COLLECTION_ENTITY ] = kTAG_ENTITY_COUNT;
 		
 	} // executeListReferenceCountParameters.
 
@@ -1255,26 +1326,10 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: Match pattern.
+	 *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: Collection reference count.
 	 *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: Match operator.
 	 *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: String language.
 	 *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Limits.
-	 * </ul>
-	 *
-	 * The method will also consider the following optional parameters:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_PARAM_HAS_TAG_REFS}</tt>: <em>Tag references</em>. Select only
-	 *		those objects which are or are not referenced by tag objects.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_TERM_REFS}</tt>: <em>Term references</em>. Select only
-	 *		those objects which are or are not referenced by term objects.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_NODE_REFS}</tt>: <em>Node references</em>. Select only
-	 *		those objects which are or are not referenced by node objects.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_EDGE_REFS}</tt>: <em>Edge references</em>. Select only
-	 *		those objects which are or are not referenced by edge objects.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_UNIT_REFS}</tt>: <em>Unit references</em>. Select only
-	 *		those objects which are or are not referenced by unit objects.
-	 *	<li><tt>{@link kAPI_PARAM_HAS_ENTITY_REFS}</tt>: <em>Entity references</em>. Select
-	 *		only those objects which are or are not referenced by entity objects.
 	 * </ul>
 	 *
 	 * The last parameter represents the fields selection.
@@ -1331,58 +1386,43 @@ abstract class ServiceObject extends ContainerObject
 				= array( '$ne' => kTAG_PRIVATE_SEARCH );
 		
 		//
-		// Add tag reference count to criteria.
+		// Add collection reference count.
 		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_TAG_REFS ) )
-			$criteria[ (string) kTAG_TAG_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_TAG_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
-		
-		//
-		// Add term reference count to criteria.
-		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_TERM_REFS ) )
-			$criteria[ (string) kTAG_TERM_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_TERM_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
-		
-		//
-		// Add node reference count to criteria.
-		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_NODE_REFS ) )
-			$criteria[ (string) kTAG_NODE_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_NODE_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
-		
-		//
-		// Add edge reference count to criteria.
-		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_EDGE_REFS ) )
-			$criteria[ (string) kTAG_EDGE_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_EDGE_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
-		
-		//
-		// Add unit reference count to criteria.
-		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_UNIT_REFS ) )
-			$criteria[ (string) kTAG_UNIT_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_UNIT_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
-		
-		//
-		// Add entity reference count to criteria.
-		//
-		if( $this->offsetExists( kAPI_PARAM_HAS_ENTITY_REFS ) )
-			$criteria[ (string) kTAG_ENTITY_COUNT ]
-				= ( $this->offsetGet( kAPI_PARAM_HAS_ENTITY_REFS ) )
-				? array( '$gt' => 0 )
-				: 0;
+		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
+		{
+			//
+			// Iterate collections.
+			//
+			foreach( $this->offsetGet( kAPI_PARAM_REF_COUNT ) as $collection )
+			{
+				switch( $collection )
+				{
+					case kAPI_PARAM_COLLECTION_TAG:
+						$criteria[ (string) kTAG_TAG_COUNT ] = array( '$gt' => 0 );
+						break;
+					
+					case kAPI_PARAM_COLLECTION_TERM:
+						$criteria[ (string) kTAG_TERM_COUNT ] = array( '$gt' => 0 );
+						break;
+					
+					case kAPI_PARAM_COLLECTION_NODE:
+						$criteria[ (string) kTAG_NODE_COUNT ] = array( '$gt' => 0 );
+						break;
+					
+					case kAPI_PARAM_COLLECTION_EDGE:
+						$criteria[ (string) kTAG_EDGE_COUNT ] = array( '$gt' => 0 );
+						break;
+					
+					case kAPI_PARAM_COLLECTION_UNIT:
+						$criteria[ (string) kTAG_UNIT_COUNT ] = array( '$gt' => 0 );
+						break;
+					
+					case kAPI_PARAM_COLLECTION_ENTITY:
+						$criteria[ (string) kTAG_ENTITY_COUNT ] = array( '$gt' => 0 );
+						break;
+				}
+			}
+		}
 		
 		//
 		// Execute query.
@@ -1725,7 +1765,7 @@ abstract class ServiceObject extends ContainerObject
 			// Save count.
 			//
 			else
-				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = (int) $edges->count();
+				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = (int) $edges->count( FALSE );
 		
 		} // Has children.
 		

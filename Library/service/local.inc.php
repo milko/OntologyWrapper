@@ -91,4 +91,11 @@ define( "kSTANDARDS_LANGUAGE",			'en' );
  */
 define( "kSTANDARDS_STRINGS_LIMIT",		100 );
 
+/**
+ * Default enumerated list limit.
+ *
+ * This tag indicates the default enumerated list limit.
+ */
+define( "kSTANDARDS_ENUMS_LIMIT",		360 );
+
 ?>

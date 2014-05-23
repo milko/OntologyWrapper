@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Location codes comprising continents, countries and country subdivisions.</item>
+					<item const="kTAG_TEXT">Location codes comprising regions, countries and country subdivisions.</item>
 				</item>
 			</item>
 		</TERM>
@@ -33,7 +33,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines a nested enumerated set of ISO 3166 location codes covering continents, countries and country subdivisions.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a nested enumerated set of ISO 3166 location codes covering regions, countries and country subdivisions.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -600,7 +600,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Australia & New Zealand</item>
+					<item const="kTAG_TEXT"><![CDATA[Australia & New Zealand]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
