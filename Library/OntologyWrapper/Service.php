@@ -525,19 +525,26 @@ class Service extends ServiceObject
 								   kTAG_PREDICATE => TRUE ) );
 		
 		//
+		// Reset affected count.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_RECURSE ) )
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
+				= 0;
+		
+		//
 		// Skip records.
 		//
 		if( $this->offsetExists( kAPI_PAGING_SKIP ) )
 		{
 			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-				$rs->skip( $tmp );
+				$edges->skip( $tmp );
 		}
 		
 		//
 		// Set limit.
 		//
 		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+			$edges->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
 		
 		//
 		// Load enumerations.
@@ -608,19 +615,26 @@ class Service extends ServiceObject
 								   kTAG_PREDICATE => TRUE ) );
 		
 		//
+		// Reset affected count.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_RECURSE ) )
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]
+				= 0;
+		
+		//
 		// Skip records.
 		//
 		if( $this->offsetExists( kAPI_PAGING_SKIP ) )
 		{
 			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-				$rs->skip( $tmp );
+				$edges->skip( $tmp );
 		}
 		
 		//
 		// Set limit.
 		//
 		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+			$edges->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
 		
 		//
 		// Load enumerations.

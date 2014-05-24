@@ -75,6 +75,15 @@ abstract class ServiceObject extends ContainerObject
 	 */
 	protected $mResponse = Array();
 
+	/**
+	 * Counter.
+	 *
+	 * This data member holds a counter.
+	 *
+	 * @var int
+	 */
+	protected $mCounter = 0;
+
 		
 
 /*=======================================================================================
@@ -1720,6 +1729,12 @@ abstract class ServiceObject extends ContainerObject
 		if( array_key_exists( kTAG_NODE_TYPE, $node ) )
 			$ref[ kAPI_RESULT_ENUM_VALUE ]
 				= ( in_array( kTYPE_NODE_ENUMERATION, $node[ kTAG_NODE_TYPE ] ) );
+		
+		//
+		// Update affected count.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_RECURSE ) )
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ]++;
 		
 		//
 		// Check for children.

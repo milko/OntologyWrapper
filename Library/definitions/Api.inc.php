@@ -623,43 +623,6 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  */
 define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
 
-/**
- * Get objects.
- *
- * This tag defines the get node enumerations operation.
- *
- * The service will return the enumerated set related to the provided node.
- *
- * This operation expects the following parameters:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_NODE}</tt>: <em>Node</em>. This required parameter is an
- *		integer referencing the node native identifier.
- *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: <em>Recurse nested enumerations</em>. This
- *		flag parameter indicates that the response should contain all nested levels of the
- *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
- *		parameter will be ignored.
- *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
- *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
- *		indicates the maximum number of elements to be returned; if omitted, it will be
- *		set to the default constant {@link kSTANDARDS_ENUMS_LIMIT}.
- * </ul>
- *
- * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
- * it will be an array whose elements are structured as follows:
- *
- * <ul>
- *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
- *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
- *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
- *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
- *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
- *	<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
- *		sub-elements, this item will contain the elements array.
- * </ul>
- */
-define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
-
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/

@@ -354,7 +354,7 @@ try
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
-		kAPI_PARAM_COLLECTION_ENTITY => TRUE
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_ENTITY
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_LABELS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -390,8 +390,8 @@ try
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
-		kAPI_PARAM_COLLECTION_TERM => TRUE,
-		kAPI_PARAM_COLLECTION_NODE => TRUE
+		kAPI_PARAM_REF_COUNT => array( kAPI_PARAM_COLLECTION_TERM,
+									   kAPI_PARAM_COLLECTION_NODE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_LABELS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -499,7 +499,7 @@ try
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
-		kAPI_PARAM_COLLECTION_ENTITY => TRUE
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_ENTITY
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_LABEL;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -535,8 +535,8 @@ try
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'name',
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_SUFFIX, kOPERATOR_NOCASE ),
-		kAPI_PARAM_COLLECTION_TERM => TRUE,
-		kAPI_PARAM_COLLECTION_NODE => TRUE
+		kAPI_PARAM_REF_COUNT => array( kAPI_PARAM_COLLECTION_TERM,
+									   kAPI_PARAM_COLLECTION_NODE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_LABEL;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -606,6 +606,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PAGING_LIMIT => 300,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_TAG => $term
 	);
@@ -676,6 +677,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PAGING_LIMIT => 300,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_NODE => $node
 	);
@@ -710,6 +712,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PAGING_LIMIT => 300,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_NODE => $node
 	);
