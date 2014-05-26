@@ -651,14 +651,27 @@ class MongoCollection extends CollectionObject
 	/**
 	 * Get index
 	 *
-	 * This method will return the list of indexed offsets, each element of the returned
-	 * array will contain the list of offsets used in the index: an array for multi offset
-	 * indexes and a string for a single index.
+	 * In this class we use the getIndexInfo() Mongo function.
+	 *
+	 * @access public
+	 * @return array				The collection index information.
+	 */
+	public function getIndex()				{	return $this->mConnection->getIndexInfo();	}
+
+	 
+	/*===================================================================================
+	 *	getIndexedOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Get index
+	 *
+	 * In this class we parse the getIndexInfo() array.
 	 *
 	 * @access public
 	 * @return array				The list of indexed offsets.
 	 */
-	public function getIndex()
+	public function getIndexedOffsets()
 	{
 		//
 		// Init local storage.
@@ -666,33 +679,41 @@ class MongoCollection extends CollectionObject
 		$index = Array();
 		
 		//
-		// Iterate collection index records.
+		// Iterate index information.
 		//
-		$list = $this->mConnection->getIndexInfo();
-		foreach( $list as $info )
+		foreach( $this->mConnection->getIndexInfo() as $info )
 		{
 			//
-			// Get index offsets.
+			// Skip native identifier.
 			//
-			$offsets = array_keys( $info );
+			if( (count( $info[ 'key' ] ) == 1)
+			 && (($key = key( $info[ 'key' ] )) != kTAG_NID) )
+			{
+				//
+				// Explode offsets.
+				//
+				$offsets = explode( '.', $key );
+				
+				//
+				// Handle new tag.
+				//
+				$offset = $offsets[ count( $offsets ) - 1 ];
+				if( ! array_key_exists( $offset, $index ) )
+					$index[ $offset ] = array( $key );
+				
+				//
+				// Handle existing tag.
+				//
+				elseif( ! in_array( $key, $index[ $offset ] ) )
+					$index[ $offset ][] = $key;
 			
-			//
-			// Handle multiple offsets.
-			//
-			if( count( $offsets > 0 ) )
-				$index[] = $offsets;
-			
-			//
-			// Handle single offset.
-			//
-			else
-				$index[] = $offsets[ 0 ];
+			} // Not native identifier.
 		
-		} // Iterating index info.
+		} // Iterating indexes.
 		
 		return $index;																// ==>
 	
-	} // getIndex.
+	} // getIndexedOffsets.
 
 	 
 	/*===================================================================================

@@ -11,12 +11,13 @@ $base_url = 'http://pgrdg.grinfo.private/Service.php';
 echo( "<h3>L'utente sta cercando il campo <em>entity type</em></h3>" );
 echo( "URL:" );
 $url = "$base_url?op=matchTagLabels&lang=en&param=...";
-var_dump( $url );
 echo( "Parametri:" );
 $param = array( 'limit' => 100,
 				'pattern' => 'entity type',
 				'operator' => array( '$CX', '$i' ) );
 var_dump( $param );
+$url = "$base_url?op=matchTagLabels&lang=en&param=".urlencode( json_encode( $param ) );
+var_dump( $url );
 echo( "Risposta:" );
 $response = file_get_contents( "$base_url?op=matchTagLabels&lang=en&param=".urlencode( json_encode( $param ) ) );
 $response = json_decode( $response, TRUE );
@@ -65,7 +66,7 @@ var_dump( $type );
 //
 // Recupera le enumerazioni.
 //
-echo( "<h3>Il tipo è enumerazione: bisogna recuperare le enumerazioni</h3>" );
+echo( "<h3>Il tipo essere enumerazione: bisogna recuperare le enumerazioni</h3>" );
 echo( 'Il tag da inviare al servizio recuperi enumerazioni:' );
 $id = $response[ 'dictionary' ][ 'ids' ][ 0 ];	// Questo è il primo.
 var_dump( $id );
@@ -73,7 +74,7 @@ echo( "URL:" );
 $url = "$base_url?op=getTagEnumerations&lang=en&param=...";
 var_dump( $url );
 echo( "Parametri:" );
-$param = array( 'tag' => $id );
+$param = array( 'tag' => $id, 'limit' => 300 );
 var_dump( $param );
 echo( "Risposta:" );
 $response = file_get_contents( "$base_url?op=getTagEnumerations&lang=en&param=".urlencode( json_encode( $param ) ) );
@@ -84,7 +85,7 @@ var_dump( $response );
 // Cosa fare con le enumerazioni?
 //
 echo( "<h3>Hai ricevuto le enumerazioni a livello root: sono 4 elementi:</h3>" );
-echo( "<h3>La select va costruita così:<ul><li>Se l'elemento ha 'children' maggiore di zero:"
+echo( "<h3>La select va costruita cosi:<ul><li>Se l'elemento ha 'children' maggiore di zero:"
 	 ."<ul><li>Mettere triangolo (accordeon)</ul><li>Se l'elemento ha 'value' TRUE:"
 	 ."<ul><li>Mettere la checkbox</ul></ul></h3>" );
 echo( "<h3>Se l'utente apre il triangolo:</h3>" );
@@ -95,7 +96,7 @@ echo( "URL:" );
 $url = "$base_url?op=getNodeEnumerations&lang=en&param=...";
 var_dump( $url );
 echo( "Parametri:" );
-$param = array( 'node' => $node );
+$param = array( 'node' => $node, 'limit' => 300 );
 var_dump( $param );
 echo( "Risposta:" );
 $response = file_get_contents( "$base_url?op=getNodeEnumerations&lang=en&param=".urlencode( json_encode( $param ) ) );
@@ -105,6 +106,6 @@ var_dump( $response );
 //
 // Cosa fare con le enumerazioni delle enumerazioni?
 //
-echo( "<h3>E così via...</h3>" );
+echo( "<h3>E cosi via...</h3>" );
 
 ?>

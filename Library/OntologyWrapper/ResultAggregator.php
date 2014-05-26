@@ -289,6 +289,12 @@ class ResultAggregator
 							   [ $key ] = $value;
 	
 			} // Iterating iterator.
+			
+			//
+			// Cluster tags.
+			//
+			if( $name == Tag::kSEQ_NAME )
+			$this->clusterTags();
 		
 			//
 			// Signal processed.
@@ -300,6 +306,38 @@ class ResultAggregator
 		return $this->mResults;														// ==>
 	
 	} // aggregate.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC CLUSTER INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetTagClusterKey																*
+	 *==================================================================================*/
+
+	/**
+	 * Get tag cluster key
+	 *
+	 * This method will return the tag cluster key associated to the provided terms list.
+	 *
+	 * By default we cluster tags by feature term.
+	 *
+	 * @param array					$theTerms			Tag terms.
+	 *
+	 * @static
+	 * @return string				Tag cluster key.
+	 */
+	static function GetTagClusterKey( &$theTerms )
+	{
+		return $theTerms[ 0 ];														// ==>
+	
+	} // GetTagClusterKey.
 
 	 
 
@@ -799,6 +837,68 @@ class ResultAggregator
 		} // Iterating collections.
 	
 	} // loadReferences.
+
+	 
+	/*===================================================================================
+	 *	clusterTags																		*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster tags
+	 *
+	 * This method will update the response dictionary cluster.
+	 *
+	 * This method should only be called on tags query collections.
+	 *
+	 * @access protected
+	 */
+	protected function clusterTags()
+	{
+		//
+		// Init local storage.
+		//
+		if( $this->mIterator->collection()[ kTAG_CONN_COLL ] == Tag::kSEQ_NAME )
+		{
+			//
+			// Reference dictionary cluster.
+			//
+			$ref = & $this->mResults[ kAPI_RESULTS_DICTIONARY ];
+			$ref[ kAPI_DICTIONARY_CLUSTER ] = Array();
+			$ref = & $ref[ kAPI_DICTIONARY_CLUSTER ];
+			
+			//
+			// Iterate result identifiers.
+			//
+			foreach( $this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_IDS ]
+						as $id )
+			{
+				//
+				// Get cluster.
+				//
+				$cluster
+					= static::GetTagClusterKey(
+						$this->mResults[ kAPI_RESPONSE_RESULTS ]
+									   [ Tag::kSEQ_NAME ]
+									   [ $id ]
+									   [ kTAG_TERMS ] );
+				
+				//
+				// Create cluster.
+				//
+				if( ! array_key_exists( $cluster, $ref ) )
+					$ref[ $cluster ] = array( $id );
+				
+				//
+				// Update cluster.
+				//
+				elseif( ! array_key_exists( $id, $ref[ $cluster ] ) )
+					$ref[ $cluster ][] = $id;
+			
+			} // Iterating identifiers.
+		
+		} // Tags collection.
+	
+	} // clusterTags.
 
 	 
 

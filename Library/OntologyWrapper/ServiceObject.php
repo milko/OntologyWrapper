@@ -84,6 +84,15 @@ abstract class ServiceObject extends ContainerObject
 	 */
 	protected $mCounter = 0;
 
+	/**
+	 * Offsets.
+	 *
+	 * This data member holds the offsets tag reference.
+	 *
+	 * @var int
+	 */
+	protected $mOffsets = NULL;
+
 		
 
 /*=======================================================================================
@@ -475,12 +484,6 @@ abstract class ServiceObject extends ContainerObject
 	 *	<li><tt>{@link kAPI_PARAM_LOG_REQUEST}</tt>: Log request.
 	 *	<li><tt>{@link kAPI_PARAM_LOG_TRACE}</tt>: Log trace.
 	 *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: Recurse structures.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: Tag reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Term reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Node reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edge reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Unit reference count flag.
-	 *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entity reference count flag.
 	 * </ul>
 	 *
 	 * Derived classes should handle their custom parameters or call the parent method, any
@@ -499,7 +502,13 @@ abstract class ServiceObject extends ContainerObject
 		switch( $theKey )
 		{
 			case kAPI_PARAM_PATTERN:
+			case kAPI_PARAM_COLLECTION:
 				if( strlen( $theValue ) )
+					$this->offsetSet( $theKey, $theValue );
+				break;
+
+			case kAPI_PARAM_CRITERIA:
+				if( is_array( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
 				break;
 
@@ -533,12 +542,6 @@ abstract class ServiceObject extends ContainerObject
 			case kAPI_PARAM_LOG_REQUEST:
 			case kAPI_PARAM_LOG_TRACE:
 			case kAPI_PARAM_RECURSE:
-			case kAPI_PARAM_COLLECTION_TAG:
-			case kAPI_PARAM_COLLECTION_TERM:
-			case kAPI_PARAM_COLLECTION_NODE:
-			case kAPI_PARAM_COLLECTION_EDGE:
-			case kAPI_PARAM_COLLECTION_UNIT:
-			case kAPI_PARAM_COLLECTION_ENTITY:
 				$theValue = (boolean) $theValue;
 				$this->offsetSet( $theKey, $theValue );
 				break;
@@ -646,18 +649,16 @@ abstract class ServiceObject extends ContainerObject
 	 * @see kOPERATOR_CONTAINS kOPERATOR_NOCASE
 	 * @see kSTANDARDS_STRINGS_LIMIT
 	 *
-	 * @uses validateMatchLabelStringsOperator()
+	 * @uses validateStringMatchOperator()
 	 */
 	protected function validateMatchLabelStrings()
 	{
 		//
 		// Check operator.
 		//
-		if( $this->offsetExists( kAPI_PARAM_OPERATOR ) )
-			$this->validateMatchLabelStringsOperator();
-		else
-			$this->offsetSet( kAPI_PARAM_OPERATOR,
-							  array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ) );
+		$tmp = $this->offsetGet( kAPI_PARAM_OPERATOR );
+		$this->validateStringMatchOperator( $tmp );
+		$this->offsetSet( kAPI_PARAM_OPERATOR, $tmp );
 		
 		//
 		// Check limit.
@@ -683,90 +684,9 @@ abstract class ServiceObject extends ContainerObject
 		// Check reference count.
 		//
 		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
-		{
-			$collections
-				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
-						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
-						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
-			foreach( $this->offsetGet( kAPI_PARAM_REF_COUNT ) as $collection )
-			{
-				if( ! in_array( $collection, $collections ) )
-					throw new \Exception(
-						"Invalid or unsupported collection reference "
-					   ."[$collection]." );										// !@! ==>
-			}
-		}
+			$this->validateReferenceCount( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
 		
 	} // validateMatchLabelStrings.
-
-	 
-	/*===================================================================================
-	 *	validateMatchLabelStringsOperator												*
-	 *==================================================================================*/
-
-	/**
-	 * Validate match tag labels operator.
-	 *
-	 * This method will validate the operator parameter passed to all service operations
-	 * which match label strings, the method will perform the following operations:
-	 *
-	 * <ul>
-	 *	<li>Assert that the parameter is an array.
-	 *	<li>Assert that the array is not empty.
-	 *	<li>Assert that the parameter contains no more than one main operator.
-	 *	<li>Assert that the parameter contains at least one main operator.
-	 * </ul>
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * The method assumes the operator to be set.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kOPERATOR_EQUAL kOPERATOR_EQUAL_NOT kOPERATOR_PREFIX
-	 * @see kOPERATOR_CONTAINS kOPERATOR_SUFFIX kOPERATOR_REGEX
-	 */
-	protected function validateMatchLabelStringsOperator()
-	{
-		//
-		// Init local storage.
-		//
-		$op = $this->offsetGet( kAPI_PARAM_OPERATOR );
-		
-		//
-		// Check format.
-		//
-		if( ! is_array( $op ) )
-			throw new \Exception(
-				"Invalid operator parameter format." );							// !@! ==>
-		
-		//
-		// Check count.
-		//
-		if( ! count( $op ) )
-			throw new \Exception(
-				"Empty operator parameter." );									// !@! ==>
-		
-		//
-		// Init local storage.
-		//
-		$opts = array( kOPERATOR_EQUAL, kOPERATOR_EQUAL_NOT, kOPERATOR_PREFIX,
-					   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX, kOPERATOR_REGEX );
-		
-		//
-		// Check operator.
-		//
-		$main = array_intersect( $opts, $op );
-		if( count( $main ) > 1 )
-			throw new \Exception(
-				"Too many operator options." );									// !@! ==>
-		if( ! count( $main ) )
-			throw new \Exception(
-				"Missing main operator option in parameter." );					// !@! ==>
-		
-	} // validateMatchLabelStringsOperator.
 
 	 
 	/*===================================================================================
@@ -832,22 +752,9 @@ abstract class ServiceObject extends ContainerObject
 		$this->offsetSet( kAPI_PARAM_TAG, $tag );
 		
 		//
-		// Check limit.
+		// Check recursion and limits.
 		//
-		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
-		{
-			$this->offsetUnset( kAPI_PAGING_SKIP );
-			$this->offsetUnset( kAPI_PAGING_LIMIT );
-		}
-		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-		{
-			if( ($tmp = (int) $this->offsetGet( kAPI_PAGING_LIMIT ))
-					> kSTANDARDS_ENUMS_LIMIT )
-				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_ENUMS_LIMIT );
-		}
-		else
-			throw new \Exception(
-				"Missing required limits parameter." );							// !@! ==>
+		$this->validateRecurseFlag( kSTANDARDS_ENUMS_LIMIT );
 		
 	} // validateGetTagEnumerations.
 
@@ -886,24 +793,641 @@ abstract class ServiceObject extends ContainerObject
 				"Missing required node parameter." );							// !@! ==>
 		
 		//
-		// Check limit.
+		// Check recursion and limits.
+		//
+		$this->validateRecurseFlag( kSTANDARDS_ENUMS_LIMIT );
+		
+	} // validateGetNodeEnumerations.
+
+	 
+	/*===================================================================================
+	 *	validateSearchWithCriteria														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate collection search service.
+	 *
+	 * This method will validate all service operations which search a collection usinf a
+	 * list of criteria, the method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check collection</em>: If the parameter is missing, the method will raise an
+	 *		exception; the method will check if the provided collection is valid.
+	 *	<li><em>Check criteria parameters</em>: The method will check whether all the
+	 *		required criteria parameters are therew.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateSearchWithCriteria()
+	{
+		//
+		// Check collection.
+		//
+		$this->validateSearchCollection( $tmp = $this->offsetGet( kAPI_PARAM_COLLECTION ) );
+		
+		//
+		// Resolve offsets tag identifier.
+		//
+		$this->mOffsets = PersistentObject::ResolveOffsetsTag( $tmp );
+		
+		//
+		// Check criteria.
+		//
+		$tmp = $this->offsetGet( kAPI_PARAM_CRITERIA );
+		$this->validateSearchCriteria( $tmp );
+		$this->offsetSet( kAPI_PARAM_CRITERIA, $tmp );
+		
+	} // validateSearchWithCriteria.
+
+	 
+	/*===================================================================================
+	 *	validateStringMatchOperator														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate string match operator.
+	 *
+	 * This method will validate the operator parameter passed to all service operations
+	 * which match strings, the method will perform the following operations:
+	 *
+	 * <ul>
+	 *	<li>Assert that the parameter is an array.
+	 *	<li>Assert that the array is not empty.
+	 *	<li>Assert that the parameter contains no more than one main operator.
+	 *	<li>Assert that the parameter contains at least one main operator.
+	 * </ul>
+	 *
+	 * If the operator is missing we will assume by default contains case and accent
+	 * insensitive.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param string				$theValue			Operator value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kOPERATOR_EQUAL kOPERATOR_EQUAL_NOT kOPERATOR_PREFIX
+	 * @see kOPERATOR_CONTAINS kOPERATOR_SUFFIX kOPERATOR_REGEX
+	 */
+	protected function validateStringMatchOperator( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid operator parameter format." );						// !@! ==>
+		
+			//
+			// Check count.
+			//
+			if( ! count( $theValue ) )
+				throw new \Exception(
+					"Empty operator parameter." );								// !@! ==>
+		
+			//
+			// Init local storage.
+			//
+			$opts = array( kOPERATOR_EQUAL, kOPERATOR_EQUAL_NOT, kOPERATOR_PREFIX,
+						   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX, kOPERATOR_REGEX );
+		
+			//
+			// Check operator.
+			//
+			$main = array_intersect( $opts, $theValue );
+			if( count( $main ) > 1 )
+				throw new \Exception(
+					"Too many operator options." );								// !@! ==>
+			if( ! count( $main ) )
+				throw new \Exception(
+					"Missing main operator option in parameter." );				// !@! ==>
+		
+		} // Provided.
+		
+		//
+		// Set default operator.
+		//
+		else
+			$theValue = array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE );
+		
+	} // validateStringMatchOperator.
+
+	 
+	/*===================================================================================
+	 *	validateRangeMatchOperator														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate range match operator.
+	 *
+	 * This method will validate the operator parameter passed to all service operations
+	 * which match ranges, the method will perform the following operations:
+	 *
+	 * <ul>
+	 *	<li>Assert that the parameter is an array.
+	 *	<li>Assert that the array is not empty.
+	 *	<li>Assert that the parameter contains no more than one main operator.
+	 *	<li>Assert that the parameter contains at least one main operator.
+	 * </ul>
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param string				$theValue			Operator value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kOPERATOR_IRANGE kOPERATOR_ERANGE
+	 */
+	protected function validateRangeMatchOperator( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid operator parameter format." );						// !@! ==>
+		
+			//
+			// Check count.
+			//
+			if( ! count( $theValue ) )
+				throw new \Exception(
+					"Empty operator parameter." );								// !@! ==>
+		
+			//
+			// Init local storage.
+			//
+			$opts = array( kOPERATOR_IRANGE, kOPERATOR_ERANGE );
+		
+			//
+			// Check operator.
+			//
+			$main = array_intersect( $opts, $theValue );
+			if( count( $main ) > 1 )
+				throw new \Exception(
+					"Too many operator options." );								// !@! ==>
+			if( ! count( $main ) )
+				throw new \Exception(
+					"Missing main operator option in parameter." );				// !@! ==>
+		
+		} // Provided.
+		
+		//
+		// Set default operator.
+		//
+		else
+			$theValue = array( kOPERATOR_IRANGE );
+		
+	} // validateRangeMatchOperator.
+
+	 
+	/*===================================================================================
+	 *	validateReferenceCount															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate reference count reference.
+	 *
+	 * This method will validate the reference count parameter passed to all service
+	 * operations which select tags and requuire only tags with values, the method will
+	 * check whether the provided parameter value(s) is valid.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * This method expects the reference count parameter to be an array if provided.
+	 *
+	 * @param array					$theValue			Reference count enums.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_COLLECTION_TAG kAPI_PARAM_COLLECTION_TERM
+	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
+	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
+	 */
+	protected function validateReferenceCount( $theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Init local storage.
+			//
+			$collections
+				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
+						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
+						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+			
+			//
+			// Iterate values.
+			//
+			foreach( $theValue as $collection )
+			{
+				if( ! in_array( $collection, $collections ) )
+					throw new \Exception(
+						"Invalid or unsupported collection reference count "
+					   ."[$collection]." );										// !@! ==>
+			}
+		
+		} // Provided.
+		
+	} // validateReferenceCount.
+
+	 
+	/*===================================================================================
+	 *	validateSearchCollection														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate search collection reference.
+	 *
+	 * This method will validate the search collection parameter passed to all service
+	 * operations which perform a search criteria on a specific collection.
+	 *
+	 * The method assumes the collection to be required.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param string				$theValue			Search collection.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
+	 */
+	protected function validateSearchCollection( $theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Init local storage.
+			//
+			$collections
+				= array( kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+			
+			//
+			// Check value.
+			//
+			if( ! in_array( $theValue, $collections ) )
+				throw new \Exception(
+					"Invalid or unsupported collection reference "
+				   ."[$theValue]." );											// !@! ==>
+		
+		} // Provided.
+		
+		//
+		// Require collection parameter.
+		//
+		else
+			throw new \Exception(
+				"Missing required collection parameter." );						// !@! ==>
+		
+	} // validateSearchCollection.
+
+	 
+	/*===================================================================================
+	 *	validateRecurseFlag																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate recurse flag.
+	 *
+	 * This method will validate the recurse flag parameter passed to all service
+	 * operations which may recursively traverse structures.
+	 *
+	 * The method will remove paging if the {@link kAPI_PARAM_RECURSE} flag was provided;
+	 * if the flag was not provided, the method will set the default limits to the provided
+	 * maximum value, or raise an exception if both the flag and limits are missing.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param int					$theLimit			Default limits.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateRecurseFlag( $theLimit )
+	{
+		//
+		// Handle flag.
 		//
 		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
 		{
+			//
+			// Reset paging.
+			//
 			$this->offsetUnset( kAPI_PAGING_SKIP );
 			$this->offsetUnset( kAPI_PAGING_LIMIT );
 		}
+		
+		//
+		// Handle missing limits.
+		//
 		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
 		{
-			if( ($tmp = (int) $this->offsetGet( kAPI_PAGING_LIMIT ))
-					> kSTANDARDS_ENUMS_LIMIT )
-				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_ENUMS_LIMIT );
+			//
+			// Handle limits overflow.
+			//
+			if( ((int) $this->offsetGet( kAPI_PAGING_LIMIT )) > $theLimit )
+				$this->offsetSet( kAPI_PAGING_LIMIT, $theLimit );
 		}
+		
+		//
+		// Require limits.
+		//
 		else
 			throw new \Exception(
 				"Missing required limits parameter." );							// !@! ==>
 		
-	} // validateGetNodeEnumerations.
+	} // validateRecurseFlag.
+
+	 
+	/*===================================================================================
+	 *	validateSearchCriteria															*
+	 *==================================================================================*/
+
+	/**
+	 * Validate search criteria.
+	 *
+	 * This method will validate the provided search criteria, if the criteria is missing,
+	 * the method will raise an exception.
+	 *
+	 * The method expects the {@link kAPI_PARAM_COLLECTION} parameter to have been set.
+	 *
+	 * @param array					$theValue			Search criteria.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_INPUT_STRING kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
+	 */
+	protected function validateSearchCriteria( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid search criteria format." );						// !@! ==>
+			
+			//
+			// Get indexes.
+			//
+			$indexes
+				= PersistentObject::ResolveCollectionByName(
+					$this->mWrapper,
+					$this->offsetGet( kAPI_PARAM_COLLECTION ) )
+						->getIndexedOffsets();
+			
+			//
+			// Iterate criteria.
+			//
+			foreach( $theValue as $tag => $criteria )
+			{
+				//
+				// Resolve offset.
+				//
+				$offset = ( (! is_int( $tag )) && (! ctype_digit( $tag )) )
+						? $this->mWrapper->getSerial( $tag, TRUE )
+						: (int) $tag;
+				
+				//
+				// Get tag object.
+				//
+				$tag_object = $this->mWrapper->getObject( $offset, TRUE );
+				
+				//
+				// Add tag sequence number to criteria.
+				//
+				$criteria[ kTAG_ID_SEQUENCE ] = $offset;
+				
+				//
+				// Add tag data type criteria.
+				//
+				$criteria[ kTAG_DATA_TYPE ] = $tag_object[ kTAG_DATA_TYPE ];
+				
+				//
+				// Add tag terms to criteria.
+				//
+				$criteria[ kTAG_TERMS ] = $tag_object[ kTAG_TERMS ];
+				
+				//
+				// Add tag data kind to criteria.
+				//
+				if( array_key_exists( kTAG_DATA_KIND, $tag_object ) )
+					$criteria[ kTAG_DATA_KIND ]
+						= $tag_object[ kTAG_DATA_KIND ];
+				
+				//
+				// Add tag offsets to criteria.
+				//
+				if( array_key_exists( $this->mOffsets, $tag_object ) )
+					$criteria[ $this->mOffsets ]
+						= $tag_object[ $this->mOffsets ];
+				
+				//
+				// Add index flag to criteria.
+				//
+				if( array_key_exists( $offset, $indexes ) )
+					$criteria[ kAPI_PARAM_INDEX ]
+						= $indexes[ $offset ];
+				
+				//
+				// Check required fields.
+				//
+				if( array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria ) )
+				{
+					//
+					// Parse by input type.
+					//
+					switch( $tmp = $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+					{
+						//
+						// Strings.
+						//
+						case kAPI_PARAM_INPUT_STRING:
+							//
+							// Consider only criteria with values.
+							//
+							if( count( $criteria ) > 1 )
+							{
+								//
+								// Require search pattern.
+								//
+								if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+									throw new \Exception(
+										"Missing search pattern for tag "
+										   ."[$tag]." );						// !@! ==>
+								
+								//
+								// Cast pattern.
+								//
+								$criteria[ kAPI_PARAM_PATTERN ]
+									= (string) $criteria[ kAPI_PARAM_PATTERN ];
+							
+								//
+								// Check operator.
+								//
+								if( array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
+									$this->validateStringMatchOperator(
+										$criteria[ kAPI_PARAM_OPERATOR ] );
+								
+								//
+								// Update criteria.
+								//
+								$theValue[ $tag ] = $criteria;
+							}
+							
+							break;
+						
+						//
+						// Ranges.
+						//
+						case kAPI_PARAM_INPUT_RANGE:
+							//
+							// Consider only criteria with values.
+							//
+							if( count( $criteria ) > 1 )
+							{
+								//
+								// Require minimum.
+								//
+								if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
+									throw new \Exception(
+										"Missing minimum range for tag "
+									   ."[$tag]." );							// !@! ==>
+								
+								//
+								// Cast minimum.
+								//
+								OntologyObject::CastScalar(
+									$criteria[ kAPI_PARAM_RANGE_MIN ], $type );
+							
+								//
+								// Require maximum.
+								//
+								if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
+									throw new \Exception(
+										"Missing maximum range for tag "
+									   ."[$tag]." );							// !@! ==>
+								
+								//
+								// Cast maximum.
+								//
+								OntologyObject::CastScalar(
+									$criteria[ kAPI_PARAM_RANGE_MAX ], $type );
+							
+								//
+								// Check operator.
+								//
+								if( ! array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
+									$criteria[ kAPI_PARAM_OPERATOR ] = NULL;
+								$this->validateRangeMatchOperator(
+									$criteria[ kAPI_PARAM_OPERATOR ] );
+								
+								//
+								// Update criteria.
+								//
+								$theValue[ $tag ] = $criteria;
+							}
+							
+							break;
+						
+						//
+						// Enum.
+						//
+						case kAPI_PARAM_INPUT_ENUM:
+							//
+							// Consider only criteria with values.
+							//
+							if( count( $criteria ) > 1 )
+							{
+								//
+								// Require tags.
+								//
+								if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
+									throw new \Exception(
+										"Missing enumerated values "
+									   ."[$tag]." );							// !@! ==>
+								
+								//
+								// Cast enumerations.
+								//
+								if( ! is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
+									$criteria[ kAPI_RESULT_ENUM_TERM ]
+										= array( $criteria[ kAPI_RESULT_ENUM_TERM ] );
+								foreach( $criteria[ kAPI_RESULT_ENUM_TERM ] as $k => $v )
+									$criteria[ kAPI_RESULT_ENUM_TERM ][ $k ]
+										= (string) $v;
+								
+								//
+								// Update criteria.
+								//
+								$theValue[ $tag ] = $criteria;
+							}
+							
+							break;
+						
+						default:
+							throw new \Exception(
+								"Invalid or unsupported input type [$tmp]." );	// !@! ==>
+					
+					} // Parsed input type.
+				
+				} // Has input type.
+				
+				//
+				// Require input type.
+				//
+				else
+					throw new \Exception(
+						"Missing input type for tag [$tag]." );					// !@! ==>
+			
+			} // Iterating criteria.
+		
+		} // Provided.
+		
+		//
+		// Set default operator.
+		//
+		else
+			throw new \Exception(
+				"Missing search criteria." );									// !@! ==>
+		
+	} // validateSearchCriteria.
 
 		
 
@@ -1054,6 +1578,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_DICTIONARY_COLLECTION" ] = kAPI_DICTIONARY_COLLECTION;
 		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
 		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
+		$ref[ "kAPI_DICTIONARY_CLUSTER" ] = kAPI_DICTIONARY_CLUSTER;
 		
 		//
 		// Load operations.
@@ -1068,15 +1593,21 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
+		$ref[ "kAPI_OP_MATCH_DOMAINS" ] = kAPI_OP_MATCH_DOMAINS;
 		
 		//
 		// Load request parameters.
 		//
 		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
 		$ref[ "kAPI_PARAM_REF_COUNT" ] = kAPI_PARAM_REF_COUNT;
+		$ref[ "kAPI_PARAM_COLLECTION" ] = kAPI_PARAM_COLLECTION;
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
 		$ref[ "kAPI_PARAM_NODE" ] = kAPI_PARAM_NODE;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
+		$ref[ "kAPI_PARAM_RANGE_MIN" ] = kAPI_PARAM_RANGE_MIN;
+		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
+		$ref[ "kAPI_PARAM_INPUT_TYPE" ] = kAPI_PARAM_INPUT_TYPE;
+		$ref[ "kAPI_PARAM_CRITERIA" ] = kAPI_PARAM_CRITERIA;
 		
 		//
 		// Load generic request flag parameters.
@@ -1084,6 +1615,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
 		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
+		$ref[ "kAPI_PARAM_INDEXED" ] = kAPI_PARAM_INDEXED;
 		
 		//
 		// Load enumeration element parameters.
@@ -1121,6 +1653,13 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = kAPI_PARAM_COLLECTION_EDGE;
 		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = kAPI_PARAM_COLLECTION_UNIT;
 		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = kAPI_PARAM_COLLECTION_ENTITY;
+		
+		//
+		// Load form input enumerated set.
+		//
+		$ref[ "kAPI_PARAM_INPUT_STRING" ] = kAPI_PARAM_INPUT_STRING;
+		$ref[ "kAPI_PARAM_INPUT_RANGE" ] = kAPI_PARAM_INPUT_RANGE;
+		$ref[ "kAPI_PARAM_INPUT_ENUM" ] = kAPI_PARAM_INPUT_ENUM;
 		
 	} // executeListParameterConstants.
 
@@ -1930,7 +2469,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		if( in_array( kOPERATOR_EQUAL, $theOperator ) )
 			return ( in_array( kOPERATOR_NOCASE, $theOperator ) )
-				 ? new \MongoRegex( '/^'.$thePattern.'$/i' )							// ==>
+				 ? new \MongoRegex( '/^'.$thePattern.'$/i' )						// ==>
 				 : $thePattern;														// ==>
 		
 		//
@@ -1975,6 +2514,119 @@ abstract class ServiceObject extends ContainerObject
 			"Missing string pattern match operator." );							// !@! ==>
 		
 	} // stringMatchPattern.
+
+	 
+	/*===================================================================================
+	 *	clusterSearchCriteria															*
+	 *==================================================================================*/
+
+	/**
+	 * Return clustered search criteria.
+	 *
+	 * This method will cluster the current search criteria, the method will return an
+	 * array of clustered criteria structured as follows:
+	 *
+	 * <ul>
+	 *	<li><em>index</em>: The cluster term identifier.
+	 *	<li><em>value</em>: The criteria elements belonging to that cluster.
+	 * </ul>
+	 *
+	 * The method expects the {@link kAPI_PARAM_CRITERIA} parameter to be set.
+	 *
+	 * @access protected
+	 */
+	protected function clusterSearchCriteria()
+	{
+		//
+		// Init local storage.
+		//
+		$cluster = Array();
+		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
+		
+		//
+		// Iterate criteria.
+		//
+		foreach( $criteria as $key => $value )
+			$cluster[ ResultAggregator::GetTagClusterKey( $value[ kTAG_TERMS ] ) ]
+					[ $key ]
+				= $value;
+		
+		//
+		// Update criteria.
+		//
+		$this->offsetSet( kAPI_PARAM_CRITERIA, $cluster );
+		
+	} // clusterSearchCriteria.
+
+	 
+	/*===================================================================================
+	 *	getQueryCriteria																*
+	 *==================================================================================*/
+
+	/**
+	 * Return search criteria.
+	 *
+	 * This method will build and return the query criteria based on the provided search
+	 * criteria.
+	 *
+	 * The query builder will follow these rules:
+	 *
+	 * <ul>
+	 *	<li>For each clause;
+	 *	 <ul>
+	 *		<li>If the clause has values:
+	 *		 <ul>
+	 *			<li>Build value clause,
+	 *			<li>If the tag is not indexed:
+	 *			 <ul>
+	 *				<li>Add tags search clause
+	 *			 </ul>
+	 *		 </ul>
+	 *		<li>Replace the clause with the query.
+	 *	 </ul>
+	 *	<li>For each cluster:
+	 *	 <ul>
+	 *		<li>If the cluster has more than one element:
+	 *		 <ul>
+	 *			<li>Transform the cluster in an OR clause
+	 *		 </ul>
+	 *		<li>If the cluster has one element:
+	 *		 <ul>
+	 *			<li>Replace cluster with query.
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method expects the {@link kAPI_PARAM_CRITERIA} parameter to be set.
+	 *
+	 * @access protected
+	 */
+	protected function getQueryCriteria()
+	{
+		//
+		// Init local storage.
+		//
+		$query = Array();
+		$search = $this->offsetGet( kAPI_PARAM_CRITERIA );
+		
+		//
+		// Iterate clusters.
+		//
+		foreach( $search as $cluster => $element )
+		{
+			//
+			// Iterate cluster tags.
+			//
+			foreach( $element as $tag => $criteria )
+			{
+			
+			} // Iterating cluster tags.
+		
+		} // Iterating clusters.
+		
+		return $query;																// ==>
+		
+	} // getQueryCriteria.
 
 	 
 

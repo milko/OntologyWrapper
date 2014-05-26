@@ -45,6 +45,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  */
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
+/**
+ * Functions definition.
+ *
+ * This include file contains functions definitions.
+ */
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
 
 /*=======================================================================================
  *	WRAPPER DEFINITION																	*

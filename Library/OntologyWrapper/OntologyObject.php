@@ -721,6 +721,216 @@ abstract class OntologyObject extends ContainerObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC CASTING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CastScalar																		*
+	 *==================================================================================*/
+
+	/**
+	 * Cast scalar
+	 *
+	 * The duty of this method is to cast the provided scalar property to the provided data
+	 * type.
+	 *
+	 * @param mixed					$theProperty		Property.
+	 * @param string				$theType			Data type.
+	 *
+	 * @static
+	 */
+	static function CastScalar( &$theProperty, $theType )
+	{
+		//
+		// Cast property.
+		//
+		switch( $theType )
+		{
+			//
+			// Strings.
+			//
+			case kTYPE_STRING:
+			case kTYPE_ENUM:
+			case kTYPE_URL:
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_UNIT:
+			case kTYPE_REF_ENTITY:
+				$theProperty = (string) $theProperty;
+				break;
+			
+			//
+			// Integers.
+			//
+			case kTYPE_INT:
+			case kTYPE_REF_NODE:
+				$theProperty = (int) $theProperty;
+				break;
+	
+			//
+			// Floats.
+			//
+			case kTYPE_FLOAT:
+				$theProperty = (double) $theProperty;
+				break;
+	
+			//
+			// Enumerated sets.
+			//
+			case kTYPE_SET:
+				//
+				// Iterate set.
+				//
+				$idxs = array_keys( $theProperty );
+				foreach( $idxs as $idx )
+					$theProperty[ $idx ] = (string) $theProperty[ $idx ];
+				break;
+	
+			//
+			// Language strings.
+			//
+			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRINGS:
+				//
+				// To DO.
+				//
+				break;
+	
+			//
+			// Shapes.
+			//
+			case kTYPE_SHAPE:
+				//
+				// Cast geometry.
+				//
+				static::CastShapeGeometry( $theProperty );
+				break;
+	
+		} // Parsed type.
+	
+	} // CastScalar.
+
+
+	/*===================================================================================
+	 *	CastShapeGeometry																*
+	 *==================================================================================*/
+
+	/**
+	 * Cast shape geometry
+	 *
+	 * The duty of this method is to verify and cast the geometry of the provided shape.
+	 * The method expects the shape to have a correct root structure, that is, it must have
+	 * the shape type and geometry array, this method will traverse the geometry and
+	 * its structure.
+	 *
+	 * @param reference				$theShape			Shape.
+	 *
+	 * @static
+	 */
+	static function CastShapeGeometry( &$theShape )
+	{
+		//
+		// Init local storage.
+		//
+		$type = & $theShape[ kTAG_SHAPE_TYPE ];
+		$geom = & $theShape[ kTAG_SHAPE_GEOMETRY ];
+		
+		//
+		// Parse by type.
+		//
+		switch( $type )
+		{
+			case 'Point':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Check if both are there.
+					//
+					if( count( $geom ) == 2 )
+					{
+						$geom[ 0 ] = (double) $geom[ 0 ];
+						$geom[ 1 ] = (double) $geom[ 1 ];
+					}
+					else
+						throw new \Exception(
+							"Invalid point shape structure." );					// !@! ==>
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
+			case 'LineString':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Iterate coordinates.
+					//
+					$idxs = array_keys( $geom );
+					foreach( $idxs as $idx )
+					{
+						//
+						// Recurse with points.
+						//
+						$shape = array( kTAG_SHAPE_TYPE => 'Point',
+										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
+						static::CastShapeGeometry( $shape );
+						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
+					}
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
+			case 'Polygon':
+				//
+				// Check geometry.
+				//
+				if( is_array( $geom ) )
+				{
+					//
+					// Iterate rings.
+					//
+					$idxs = array_keys( $geom );
+					foreach( $idxs as $idx )
+					{
+						//
+						// Recurse with line strings.
+						//
+						$shape = array( kTAG_SHAPE_TYPE => 'LineString',
+										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
+						static::CastShapeGeometry( $shape );
+						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
+					}
+				}
+				else
+					throw new \Exception(
+						"Invalid shape structure." );							// !@! ==>
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid or unsupported shape type [$type]." );				// !@! ==>
+		
+		} // Parsed type.
+	
+	} // CastShapeGeometry.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

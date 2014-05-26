@@ -36,7 +36,7 @@ define( "kAPI_REQUEST_LANGUAGE",				'lang' );
 /**
  * Parameters.
  *
- * This tag identifies the service parameters.
+ * This tag identifies the service request parameters.
  */
 define( "kAPI_REQUEST_PARAMETERS",				'param' );
 
@@ -49,6 +49,21 @@ define( "kAPI_REQUEST_PARAMETERS",				'param' );
  *
  * This tag identifies the status section which provides information on the outcome of the
  * operation, which includes the eventual error message if the operation failed.
+ *
+ * This block may contain the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_STATUS_STATE}</tt>: This element indicates the operation state.
+ *	<li><tt>{@link kAPI_STATUS_CODE}</tt>: This element will hold the eventual status code.
+ *	<li><tt>{@link kAPI_STATUS_CODE}</tt>: This element will hold the eventual status
+ *		message.
+ *	<li><tt>{@link kAPI_STATUS_FILE}</tt>: This element will hold the eventual exception
+ *		source file path.
+ *	<li><tt>{@link kAPI_STATUS_FILE}</tt>: This element will hold the eventual exception
+ *		file line.
+ *	<li><tt>{@link kAPI_STATUS_TRACE}</tt>: This element will hold the eventual exception
+ *		trace.
+ * </ul>
  */
 define( "kAPI_RESPONSE_STATUS",					'status' );
 
@@ -58,6 +73,15 @@ define( "kAPI_RESPONSE_STATUS",					'status' );
  * This tag identifies the paging section which provides information on the number of
  * affected records, skipped records, the maximum number of returned records and the actual
  * number of returned records.
+ *
+ * This block may contain the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PAGING_SKIP}</tt>: Paging start.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Paging limit.
+ *	<li><tt>{@link kAPI_PAGING_ACTUAL}</tt>: Number of actual returned records.
+ *	<li><tt>{@link kAPI_PAGING_AFFECTED}</tt>: Number of affected records.
+ * </ul>
  */
 define( "kAPI_RESPONSE_PAGING",					'paging' );
 
@@ -79,6 +103,19 @@ define( "kAPI_RESPONSE_RESULTS",				'results' );
  * Dictionary.
  *
  * This tag indicates the results dictionary.
+ *
+ * This block may contain the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_DICTIONARY_COLLECTION}</tt>: The working collection name.
+ *	<li><tt>{@link kAPI_DICTIONARY_TAGS}</tt>: Tags cross reference indexed by sequence
+ *		number, having the tag identifier as value.
+ *	<li><tt>{@link kAPI_DICTIONARY_IDS}</tt>: List of returned identifiers.
+ *	<li><tt>{@link kAPI_DICTIONARY_CLUSTER}</tt>: List of clustered identifiers: an array
+ *		indexed by cluster identifier (a term identifier), with as values the tag
+ *		identifiers, featured in the {@link kAPI_DICTIONARY_IDS} list, belonging to that
+ *		cluster.
+ * </ul>
  */
 define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
 
@@ -89,7 +126,7 @@ define( "kAPI_RESULTS_DICTIONARY",				'dictionary' );
 /**
  * State.
  *
- * This tag provides a general indicatrion on the outcome of the operation, it can take two
+ * This tag provides a general indication on the outcome of the operation, it can take two
  * values:
  *
  * <ul>
@@ -223,6 +260,13 @@ define( "kAPI_DICTIONARY_TAGS",					'tags' );
  * This tag indicates the dictionary list of identifiers.
  */
 define( "kAPI_DICTIONARY_IDS",					'ids' );
+
+/**
+ * Cluster.
+ *
+ * This tag indicates the dictionary cluster.
+ */
+define( "kAPI_DICTIONARY_CLUSTER",				'cluster' );
 
 /*=======================================================================================
  *	OPERATIONS																			*
@@ -623,6 +667,94 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  */
 define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
 
+/**
+ * Match domains.
+ *
+ * This tag defines the match domains operation.
+ *
+ * The service will use the provided criteria to search the provided collection returning
+ * the list of matching domains, {@link kTAG_DOMAIN}, along with their record count.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION}</tt>: <em>Collection</em>. This required parameter
+ *		indicates the collection in which we are searching, the parameter may take one of
+ *		the following values:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_CRITERIA}</tt>: <em>Criteria</em>. This required parameter
+ *		holds the search criteria, it is an array of elements structured as follows:
+ *	 <ul>
+ *		<li><em>index</em>: The index of the item must contain the tag's native identifier.
+ *		<li><em>value</em>: The value of the item will contain the search criteria for the
+ *			tag provided in the index, the following parameters are expected:
+ *		 <ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_TYPE}</tt>: <em>Input type</em>. This string
+ *				identifies the kind of form input control, the value is taken from an
+ *				enumerated set and it determines which other items are to be expected:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: String search:
+ *				 <ul>
+ *					<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list.
+ *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required
+ *						parameter indicates what kind of match should be applied to the searched
+ *						strings, it is an array that must contain one of the following:
+ *					 <ul>
+ *						<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match
+ *							terms must be equal.
+ *						<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two
+ *							match terms must be different.
+ *						<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target
+ *							string must start with the pattern.
+ *						<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target
+ *							string must contain the pattern.
+ *						<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target
+ *							string must end with the pattern.
+ *						<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The
+ *							parameter is expected to contain a regular expression string.
+ *					 </ul>
+ *						and any of the following:
+ *					 <ul>
+ *						<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If
+ *							provided, it means that the matching operation is case and accent
+ *							insensitive.
+ *					 </ul>
+ *				 </ul>
+ *				<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: Value range search:
+ *				 <ul>
+ *					<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: The minimum value of the range.
+ *					<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: The maximum value of the range.
+ *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This optionsl
+ *						parameter indicates what kind of range match should be applied, it is a
+ *						string that can take one of the following values:
+ *					 <ul>
+ *						<li><tt>{@link kOPERATOR_IRANGE}</tt>: <em>Range inclusive</em>. The
+ *							provided minimum and maximum are included in the matched range.
+ *						<li><tt>{@link kOPERATOR_ERANGE}</tt>: <em>Range exclusive</em>. The
+ *							provided minimum and maximum are excluded from the matched range.
+ *					 </ul>
+ *						If the parameter is omitted, the {@link kOPERATOR_IRANGE} operator is
+ *						used by default.
+ *				 </ul>
+ *				<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: Enumerated set search:
+ *				 <ul>
+ *					<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: An array containing the list of
+ *						term native identifiers corresponding to the enumerated values to be
+ *						matched.
+ *				 </ul>
+ *			 </ul>
+ *		 </ul>
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_OP_MATCH_DOMAINS",				'matchDomains' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/
@@ -657,6 +789,25 @@ define( "kAPI_PARAM_PATTERN",					'pattern' );
  * The service will only select those tags which have values in the provided collections.
  */
 define( "kAPI_PARAM_REF_COUNT",					'ref-count' );
+
+/**
+ * Search collection (string).
+ *
+ * This tag defines the requested search collection.
+ *
+ * This parameter is a string which indicates which collection we intend to search, the
+ * value must be taken from the following enumerated set:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: Tags.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Terms.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Nodes.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edges.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
+ *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
+ * </ul>
+ */
+define( "kAPI_PARAM_COLLECTION",				'collection' );
 
 /**
  * Tag (string/int).
@@ -709,6 +860,117 @@ define( "kAPI_PARAM_NODE",						'node' );
  */
 define( "kAPI_PARAM_OPERATOR",					'operator' );
 
+/**
+ * Minimum value (int/float).
+ *
+ * This tag defines the range minimum value.
+ *
+ * The parameter is an integer or floating point value signalling the minimum value of a
+ * range.
+ */
+define( "kAPI_PARAM_RANGE_MIN",					'min' );
+
+/**
+ * Maximum value (int/float).
+ *
+ * This tag defines the range maximum value.
+ *
+ * The parameter is an integer or floating point value signalling the maximum value of a
+ * range.
+ */
+define( "kAPI_PARAM_RANGE_MAX",					'max' );
+
+/**
+ * Input type (string).
+ *
+ * This tag defines the criteria input type.
+ *
+ * The parameter will be sent along with the search criteria to identify the specific input
+ * control associated with the current criteria element. This value is a string which can
+ * take one of the following values:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: A string search control.
+ *	<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: A range search control.
+ *	<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: An enumerated set selection control.
+ * </ul>
+ */
+define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
+
+/**
+ * Search criteria (array).
+ *
+ * This tag defines the search criteria list.
+ *
+ * The parameter is an array containing the list of tags and relative match values to be
+ * used in a search.
+ *
+ * Each element is structured as follows:
+ *
+ * <ul>
+ *	<li><em>index</em>: The index of the item must contain the tag's native identifier.
+ *	<li><em>value</em>: The value of the item will contain the search criteria for the tag
+ *		provided in the index, it is an array fraturing the following elements:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_INPUT_TYPE}</tt>: <em>Input type</em>. This string
+ *			identifies the kind of form input control, the value is taken from an enumerated
+ *			set and it determines which other items are to be expected:
+ *		 <ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: String search:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list.
+ *				<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required
+ *					parameter indicates what kind of match should be applied to the searched
+ *					strings, it is an array that must contain one of the following:
+ *				 <ul>
+ *					<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match
+ *						terms must be equal.
+ *					<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two
+ *						match terms must be different.
+ *					<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target
+ *						string must start with the pattern.
+ *					<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target
+ *						string must contain the pattern.
+ *					<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target
+ *						string must end with the pattern.
+ *					<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The
+ *						parameter is expected to contain a regular expression string.
+ *				 </ul>
+ *					and any of the following:
+ *				 <ul>
+ *					<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If
+ *						provided, it means that the matching operation is case and accent
+ *						insensitive.
+ *				 </ul>
+ *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: Value range search:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: The minimum value of the range.
+ *				<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: The maximum value of the range.
+ *				<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This optionsl
+ *					parameter indicates what kind of range match should be applied, it is a
+ *					string that can take one of the following values:
+ *				 <ul>
+ *					<li><tt>{@link kOPERATOR_IRANGE}</tt>: <em>Range inclusive</em>. The
+ *						provided minimum and maximum are included in the matched range.
+ *					<li><tt>{@link kOPERATOR_ERANGE}</tt>: <em>Range exclusive</em>. The
+ *						provided minimum and maximum are excluded from the matched range.
+ *				 </ul>
+ *					If the parameter is omitted, the {@link kOPERATOR_IRANGE} operator is
+ *					used by default.
+ *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: Enumerated set search:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: An array containing the list of
+ *					term native identifiers corresponding to the enumerated values to be
+ *					matched.
+ *			 </ul>
+ *		 </ul>
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_PARAM_CRITERIA",					'criteria' );
+
 /*=======================================================================================
  *	GENERIC REQUEST FLAG PARAMETERS														*
  *======================================================================================*/
@@ -748,13 +1010,27 @@ define( "kAPI_PARAM_LOG_TRACE",					'log-trace' );
 define( "kAPI_PARAM_RECURSE",					'recurse' );
 
 /*=======================================================================================
- *	ENUMERATION RESULT PARAMETERS														*
+ *	CRITERIA RESPONSE PARAMETERS														*
+ *======================================================================================*/
+
+/**
+ * Index (array).
+ *
+ * This parameter will hold the list of indexes for the criteria tag.
+ */
+define( "kAPI_PARAM_INDEX",						'index' );
+
+/*=======================================================================================
+ *	ENUMERATION LIST PARAMETERS															*
  *======================================================================================*/
 
 /**
  * Term (string).
  *
  * This tag is used when returning an enumeration element, it defines the element's term.
+ *
+ * This parameter is also used to provide an enumerated value search element, in that case
+ * the parameter is an array.
  */
 define( "kAPI_RESULT_ENUM_TERM",				'term' );
 
@@ -841,6 +1117,31 @@ define( "kAPI_PARAM_COLLECTION_UNIT",			'_units' );
  * This parameter indicates a reference to the entities collection.
  */
 define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
+
+/*=======================================================================================
+ *	FORM INPUT TYPE ENUMERATED SET														*
+ *======================================================================================*/
+
+/**
+ * String input (string).
+ *
+ * This parameter indicates a form string input.
+ */
+define( "kAPI_PARAM_INPUT_STRING",				'input-string' );
+
+/**
+ * Range input (string).
+ *
+ * This parameter indicates a form range input.
+ */
+define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
+
+/**
+ * Enumeration input (string).
+ *
+ * This parameter indicates a form enumneration input.
+ */
+define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
 
 
 ?>

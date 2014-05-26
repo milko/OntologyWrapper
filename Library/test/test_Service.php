@@ -732,6 +732,54 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+
+	//
+	// Try matchDomains with string search on ":name" contains "olive".
+	//
+	echo( '<h4>Try matchDomains with string search on ":name" contains "olive"</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PAGING_LIMIT => 10,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_COLLECTION => kAPI_PARAM_COLLECTION_ENTITY,
+		kAPI_PARAM_CRITERIA => array
+		(
+			':name' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'olive',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			)
+		)
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_DOMAINS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
 }
 
 //

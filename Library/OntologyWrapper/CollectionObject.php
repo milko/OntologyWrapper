@@ -797,14 +797,33 @@ abstract class CollectionObject extends ConnectionObject
 	/**
 	 * Get index
 	 *
-	 * This method should return the list of indexed offsets.
+	 * This method should return the collection indexes information, the output format is
+	 * dependent on the database engine.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @access public
+	 * @return array				The collection index information.
+	 */
+	abstract public function getIndex();
+
+	 
+	/*===================================================================================
+	 *	getIndexedOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Get indexed offsets
+	 *
+	 * This method should return the list of indexed offsets, the method will return an
+	 * array indexed by tag sequence number, with as value the list of indexed offsets.
 	 *
 	 * Derived classes must implement this method.
 	 *
 	 * @access public
 	 * @return array				The list of indexed offsets.
 	 */
-	abstract public function getIndex();
+	abstract public function getIndexedOffsets();
 
 	 
 	/*===================================================================================
