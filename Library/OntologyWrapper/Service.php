@@ -189,9 +189,10 @@ class Service extends ServiceObject
 				switch( $theKey )
 				{
 					case kAPI_PARAM_CRITERIA:
+					case kAPI_PARAM_COLLECTION:
 						$this->offsetSet( $theKey, $theValue );
 						break;
-				
+
 					default:
 						parent::parseParameter( $theKey, $theValue );
 						break;
@@ -311,8 +312,6 @@ class Service extends ServiceObject
 				break;
 				
 			case kAPI_OP_MATCH_DOMAINS:
-var_dump( $this->offsetGet( kAPI_PARAM_CRITERIA ) );
-echo( '<hr>' );
 				$this->validateSearchWithCriteria();
 				break;
 				
@@ -725,15 +724,6 @@ echo( '<hr>' );
 		// Reduce criteria.
 		//
 		$criteria = $this->buildSearchQuery( $criteria );
-		
-		//
-		// Save criteria.
-		//
-		if( $this->offsetExists( kAPI_RESPONSE_REQUEST ) )
-		{
-			$tmp = $this->offsetGet( kAPI_RESPONSE_REQUEST );
-			$tmp[ kAPI_PARAM_QUERY ] = $criteria;
-		}
 var_dump(  $criteria );
 exit;
 		

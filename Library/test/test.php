@@ -407,28 +407,100 @@ var_dump( $x );
 	<li>Each cluster is an element of the root <b><tt>\$and</tt></b> clause array.
 	<li>For each cluster:
 	 <ul>
+	 	<li>Create an array element at the root level and reference it <em>REF</em>.
 	 	<li>If the cluster has one element:
 	 	 <ul>
 	 	 	<li>If the cluster element has a match value:
 	 	 	 <ul>
-				<li>If the cluster element is indexed:
-				 <ul>
-					<li>Add the element clause to the root.
-				 </ul>
-				<li>If the cluster element is not indexed:
-				 <ul>
-					<li>Create an <b><tt>\$or</tt></b> clause array.
-					<li>Add the <b><tt>kTAG_TAGS</tt></b> clause.
-					<li>Add the statement clause.
-				 </ul>
+	 	 	 	<li>If the cluster element is indexed:
+	 	 	 	 <ul>
+	 	 	 	 	<li>If the cluster element has more than one offset:
+	 	 	 	 	 <ul>
+	 	 	 	 	 	<li>Create an <tt>\$or</tt> clause in <em>REF</em>.
+	 	 	 	 	 	<li>For each offset:
+	 	 	 	 	 	 <ul>
+	 	 	 	 	 	 	<li>Create an array element in the <tt>\$or</tt> clause.
+	 	 	 	 	 	 	<li>Load the offset clause in this element.
+	 	 	 	 	 	 </ul>
+	 	 	 	 	 </ul>
+	 	 	 	 	<li>If the cluster element has one offset:
+	 	 	 	 	 <ul>
+	 	 	 	 	 	<li>Create an array element in the <em>REF</em> clause.
+	 	 	 	 	 	<li>Load the offset clause in the element.
+	 	 	 	 	 </ul>
+	 	 	 	 </ul>
+	 	 	 	<li>If the cluster element is not indexed:
+	 	 	 	 <ul>
+	 	 	 	 	<li>Create an array element in the <em>REF</em> clause.
+	 	 	 	 	<li>Add the <tt>kTAG_TAGS</tt> clause in the element.
+	 	 	 	 	<li>If the cluster element has more than one offset:
+	 	 	 	 	 <ul>
+	 	 	 	 	 	<li>Create an <tt>\$or</tt> clause in <em>REF</em>.
+	 	 	 	 	 	<li>For each offset:
+	 	 	 	 	 	 <ul>
+	 	 	 	 	 	 	<li>Create an array element in the <tt>\$or</tt> clause.
+	 	 	 	 	 	 	<li>Load the offset clause in this element.
+	 	 	 	 	 	 </ul>
+	 	 	 	 	 </ul>
+	 	 	 	 	<li>If the cluster element has one offset:
+	 	 	 	 	 <ul>
+	 	 	 	 	 	<li>Load the offset clause in <em>REF</em>.
+	 	 	 	 	 </ul>
+	 	 	 	 </ul>
 	 	 	 </ul>
 	 	 	<li>If the cluster element has no match value:
 	 	 	 <ul>
-				<li>Add/append the <b><tt>kTAG_TAGS</tt></b> clause to the root.
+	 	 	 	<li>Add the <tt>kTAG_TAGS</tt> clause in the em>REF</em>.
 	 	 	 </ul>
 	 	 </ul>
+	 	 
 	 	<li>If the cluster has more than one element:
 	 	 <ul>
+	 	 	<li>Create an <tt>\$or</tt> clause in the <em>REF</em>, alias with <em>REF</em>.
+	 	 	<li>For each cluster element:
+	 	 	 <ul>
+				<li>If the cluster element has a match value:
+				 <ul>
+					<li>If the cluster element is indexed:
+					 <ul>
+						<li>If the cluster element has more than one offset:
+						 <ul>
+							<li>For each offset:
+							 <ul>
+								<li>Create an array element in the <em>REF</em>.
+								<li>Load the offset clause in this element.
+							 </ul>
+						 </ul>
+						<li>If the cluster element has one offset:
+						 <ul>
+							<li>Create an array element in the <em>REF</em>.
+							<li>Load the offset clause in this element.
+						 </ul>
+					 </ul>
+					<li>If the cluster element is not indexed:
+					 <ul>
+						<li>Create an <tt>\$and</tt> clause.
+						<li>Load the <tt>\$and</tt> clause with the <tt>kTAG_TAGS</tt> clause.
+						<li>If the cluster element has more than one offset:
+						 <ul>
+							<li>Create an <tt>\$or</tt> clause in the above <tt>\$and</tt> clause.
+							<li>For each offset:
+							 <ul>
+								<li>Create an array element in the <tt>\$or</tt> clause.
+								<li>Load the offset clause in this element.
+							 </ul>
+						 </ul>
+						<li>If the cluster element has one offset:
+						 <ul>
+							<li>Load the offset clause in the above <tt>\$and</tt> clause.
+						 </ul>
+					 </ul>
+				 </ul>
+				<li>If the cluster element has no match value:
+				 <ul>
+					<li>Add the <tt>kTAG_TAGS</tt> clause in the em>REF</em>.
+				 </ul>
+	 	 	 </ul>
 	 	 </ul>
 	 </ul>
 </ul>
@@ -443,5 +515,217 @@ EOT;
 	echo( '<pre>' );
 	print_r( json_decode( $query, TRUE ) );
 	echo( '</pre>' );
+
+/*
+
+	//
+	// Init local storage.
+	//
+	$query = [ '$and' => [] ];
+	$root = & $query[ '$and' ];
+	
+	//
+	// Iterate clusters.
+	//
+	foreach( $clusters as $idx_cluster => $cluster )
+	{
+		//
+		// Allocate cluster element.
+		//
+		$index = count( $root );
+		$root[ $index ] = Array();
+		$cluster_ref = & $root[ $index ];
+		
+		//
+		// Handle multiple element cluster.
+		//
+		if( count( $cluster ) > 1 )
+		{
+			//
+			// Create OR clause.
+			//
+			$cluster_ref[ '$or' ] = Array();
+			$cluster_ref = & $cluster_ref[ '$or' ];
+		
+		} // Multiple element cluster.
+		
+		//
+		// Iterate cluster elements.
+		//
+		foreach( $cluster as $tag => $criteria )
+		{
+			//
+			// Init loop storage.
+			//
+			$is_indexed = array_key_exists( kAPI_PARAM_INDEX, $criteria );
+			$offsets = $criteria[ kOFFSETS ];
+			switch( kINPUT_TYPE )
+			{
+				case RANGE:
+					$has_value = ( array_key_exists( MIN, $criteria ) &&
+								   array_key_exists( MIN, $criteria ) );
+					break;
+				
+				case ENUM:
+					$has_value = array_key_exists( TERM, $criteria );
+					break;
+				
+				case STRING:
+				default:
+					$has_value = array_key_exists( PATTERN, $criteria );
+					break;
+			}
+			
+			//
+			// Handle match value.
+			//
+			if( $has_value )
+			{
+				//
+				// Handle indexed.
+				//
+				if( $is_indexed )
+				{
+					//
+					// Handle one offset.
+					//
+					if( count( $criteria[ OFFSET ] ) == 1 )
+					{
+						//
+						// Create match clause in root.
+						//
+						$cluster_ref[]
+							= array( $tag => $this->makeClause( $offset, $criteria ) );
+					
+					} // One offset.
+					
+					//
+					// Handle many offsets.
+					//
+					else
+					{
+						//
+						// Create OR clause.
+						//
+						if( count( $cluster ) == 1 )
+						{
+							$cluster_ref[ '$or' ] = Array();
+							$ref = & $cluster_ref[ '$or' ];
+						}
+						
+						//
+						// Reference cluster container.
+						//
+						else
+							$ref = & $cluster_ref;
+						
+						//
+						// Load offset clauses.
+						//
+						foreach( $criteria[ OFFSET ] as $offset )
+							$ref[]
+								= array( $tag => $this->makeClause( $offset, $criteria ) );
+					
+					} // More than one offset.
+				
+				} // Is indexed.
+				
+				//
+				// Handle not indexed.
+				//
+				else
+				{
+					//
+					// Handle one offset.
+					//
+					if( count( $criteria[ OFFSET ] ) == 1 )
+					{
+						//
+						// Create AND clause.
+						//
+						if( count( $cluster ) > 1 )
+						{
+							$cluster_ref[ '$and' ] = Array();
+							$ref = & $cluster_ref[ '$and' ];
+						}
+						
+						//
+						// Reference cluster container.
+						//
+						else
+							$ref = & $cluster_ref;
+					
+					} // One offset.
+					
+					//
+					// Handle many offsets.
+					//
+					else
+					{
+					
+					} // More than one offset.
+				
+				} // Not indexed.
+			
+			} // Has match value.
+			
+			//
+			// Handle no match value.
+			//
+			else
+			{
+				//
+				// Handle indexed.
+				//
+				if( $is_indexed )
+				{
+					//
+					// Handle one offset.
+					//
+					if( count( $criteria[ OFFSET ] ) == 1 )
+					{
+					
+					} // One offset.
+					
+					//
+					// Handle many offsets.
+					//
+					else
+					{
+					
+					} // More than one offset.
+				
+				} // Is indexed.
+				
+				//
+				// Handle not indexed.
+				//
+				else
+				{
+					//
+					// Handle one offset.
+					//
+					if( count( $criteria[ OFFSET ] ) == 1 )
+					{
+					
+					} // One offset.
+					
+					//
+					// Handle many offsets.
+					//
+					else
+					{
+					
+					} // More than one offset.
+				
+				} // Not indexed.
+			
+			} // No match value.
+		
+		} // Iterating cluster elements.
+		
+	} // Iterating clusters.
+
+*/
 		
 ?>

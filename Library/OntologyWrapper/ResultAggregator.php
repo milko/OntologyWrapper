@@ -189,9 +189,13 @@ class ResultAggregator
 		//
 		// Init dictionary.
 		//
+		$collection = $theIterator->collection()[ kTAG_CONN_COLL ];
 		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-			= array( kAPI_DICTIONARY_COLLECTION
-						=> $theIterator->collection()[ kTAG_CONN_COLL ],
+			= array( kAPI_DICTIONARY_COLLECTION => $collection,
+					 kAPI_DICTIONARY_OFFSETS_TAG
+					 	=> PersistentObject::ResolveOffsetsTag( $collection ),
+					 kAPI_DICTIONARY_REF_COUNT
+					 	=> PersistentObject::ResolveRefCountTag( $collection ),
 					 kAPI_DICTIONARY_IDS => Array(),
 					 kAPI_DICTIONARY_TAGS => Array() );
 		

@@ -75,33 +75,6 @@ abstract class ServiceObject extends ContainerObject
 	 */
 	protected $mResponse = Array();
 
-	/**
-	 * Counter.
-	 *
-	 * This data member holds a counter.
-	 *
-	 * @var int
-	 */
-	protected $mCounter = 0;
-
-	/**
-	 * Offsets.
-	 *
-	 * This data member holds the offsets tag reference.
-	 *
-	 * @var int
-	 */
-	protected $mOffsets = NULL;
-
-	/**
-	 * Reference count offset.
-	 *
-	 * This data member holds the reference count offset.
-	 *
-	 * @var int
-	 */
-	protected $mRefCountOffset = NULL;
-
 		
 
 /*=======================================================================================
@@ -840,16 +813,6 @@ abstract class ServiceObject extends ContainerObject
 		$this->validateSearchCollection( $tmp = $this->offsetGet( kAPI_PARAM_COLLECTION ) );
 		
 		//
-		// Resolve offsets tag identifier.
-		//
-		$this->mOffsets = PersistentObject::ResolveOffsetsTag( $tmp );
-		
-		//
-		// Resolve reference count tag identifier.
-		//
-		$this->mRefCountOffset = PersistentObject::ResolveRefCountTag( $tmp );
-		
-		//
 		// Check criteria.
 		//
 		$tmp = $this->offsetGet( kAPI_PARAM_CRITERIA );
@@ -1218,6 +1181,18 @@ abstract class ServiceObject extends ContainerObject
 					"Invalid search criteria format." );						// !@! ==>
 			
 			//
+			// Get tag offsets.
+			//
+			$offsets = $this->offsetGet( kAPI_DICTIONARY_OFFSETS_TAG );
+			
+			//
+			// Get reference count offset.
+			//
+			$ref_count_offset
+				= $this->offsetGet(
+					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_REF_COUNT ];
+			
+			//
 			// Get indexes.
 			//
 			$indexes
@@ -1268,16 +1243,16 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Add tag offsets to criteria.
 				//
-				if( array_key_exists( $this->mOffsets, $tag_object ) )
-					$criteria[ $this->mOffsets ]
-						= $tag_object[ $this->mOffsets ];
+				if( array_key_exists( $offsets, $tag_object ) )
+					$criteria[ $offsets ]
+						= $tag_object[ $offsets ];
 				
 				//
 				// Add reference count to criteria.
 				//
-				if( array_key_exists( $this->mRefCountOffset, $tag_object ) )
-					$criteria[ $this->mRefCountOffset ]
-						= $tag_object[ $this->mRefCountOffset ];
+				if( array_key_exists( $ref_count_offset, $tag_object ) )
+					$criteria[ $ref_count_offset ]
+						= $tag_object[ $ref_count_offset ];
 				
 				//
 				// Add index flag to criteria.
@@ -1600,6 +1575,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$ref[ "kAPI_DICTIONARY_COLLECTION" ] = kAPI_DICTIONARY_COLLECTION;
 		$ref[ "kAPI_DICTIONARY_REF_COUNT" ] = kAPI_DICTIONARY_REF_COUNT;
+		$ref[ "kAPI_DICTIONARY_OFFSETS_TAG" ] = kAPI_DICTIONARY_OFFSETS_TAG;
 		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
 		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
 		$ref[ "kAPI_DICTIONARY_CLUSTER" ] = kAPI_DICTIONARY_CLUSTER;
@@ -1644,7 +1620,6 @@ abstract class ServiceObject extends ContainerObject
 		// Load generic response parameters.
 		//
 		$ref[ "kAPI_PARAM_INDEX" ] = kAPI_PARAM_INDEX;
-		$ref[ "kAPI_PARAM_QUERY" ] = kAPI_PARAM_QUERY;
 		
 		//
 		// Load enumeration element parameters.
@@ -2000,15 +1975,6 @@ abstract class ServiceObject extends ContainerObject
 						break;
 				}
 			}
-		}
-		
-		//
-		// Save query.
-		//
-		if( $this->offsetExists( kAPI_RESPONSE_REQUEST ) )
-		{
-			$tmp = $this->offsetGet( kAPI_RESPONSE_REQUEST );
-			$tmp[ kAPI_PARAM_QUERY ] = $criteria;
 		}
 		
 		//
@@ -2623,6 +2589,9 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$cluster = $counts = $result = Array();
 		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
+		$ref_count_offset
+			= $this->offsetGet(
+				kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_REF_COUNT ];
 		
 		//
 		// Create clusters.
@@ -2641,8 +2610,8 @@ abstract class ServiceObject extends ContainerObject
 			{
 				$counts[ $clu ][ $tag ]
 					= ( array_key_exists(
-						$this->mRefCountOffset, $cluster[ $clu ][ $tag ] ) )
-					? $cluster[ $clu ][ $tag ][ $this->mRefCountOffset ]
+						$ref_count_offset, $cluster[ $clu ][ $tag ] ) )
+					? $cluster[ $clu ][ $tag ][ $ref_count_offset ]
 					: 0;
 			}
 			asort( $counts[ $clu ] );
@@ -2771,9 +2740,16 @@ abstract class ServiceObject extends ContainerObject
 		if( array_key_exists( kAPI_PARAM_PATTERN, $theClause ) )
 		{
 			//
+			// Init local storage.
+			//
+			$offsets
+				= $this->offsetGet(
+					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+			
+			//
 			// Check offsets.
 			//
-			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			if( count( $theClause[ $offsets ] ) > 1 )
 			{
 				//
 				// Set OR clause.
@@ -2790,7 +2766,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Set clauses.
 			//
-			foreach( $theClause[ $this->mOffsets ] as $offset )
+			foreach( $theClause[ $offsets ] as $offset )
 				$theQuery[ $offset ]
 					= $this->stringMatchPattern(
 						$theClause[ kAPI_PARAM_PATTERN ],
@@ -2825,9 +2801,16 @@ abstract class ServiceObject extends ContainerObject
 		 && array_key_exists( kAPI_PARAM_RANGE_MAX, $theClause ) )
 		{
 			//
+			// Init local storage.
+			//
+			$offsets
+				= $this->offsetGet(
+					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+			
+			//
 			// Check offsets.
 			//
-			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			if( count( $theClause[ $offsets ] ) > 1 )
 			{
 				//
 				// Set OR clause.
@@ -2844,7 +2827,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Set clauses.
 			//
-			foreach( $theClause[ $this->mOffsets ] as $offset )
+			foreach( $theClause[ $offsets ] as $offset )
 				$theQuery[ $offset ]
 					= $this->rangeMatchPattern(
 						$theClause[ kAPI_PARAM_RANGE_MIN ],
@@ -2879,9 +2862,16 @@ abstract class ServiceObject extends ContainerObject
 		if( array_key_exists( kAPI_RESULT_ENUM_TERM, $theClause ) )
 		{
 			//
+			// Init local storage.
+			//
+			$offsets
+				= $this->offsetGet(
+					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+			
+			//
 			// Check offsets.
 			//
-			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			if( count( $theClause[ $offsets ] ) > 1 )
 			{
 				//
 				// Set OR clause.
@@ -2898,7 +2888,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Set clauses.
 			//
-			foreach( $theClause[ $this->mOffsets ] as $offset )
+			foreach( $theClause[ $offsets ] as $offset )
 				$theQuery[ $offset ] = $theClause[ kAPI_RESULT_ENUM_TERM ];
 		
 		} // Has pattern.
@@ -2928,9 +2918,16 @@ abstract class ServiceObject extends ContainerObject
 		if( array_key_exists( kAPI_PARAM_PATTERN, $theClause ) )
 		{
 			//
+			// Init local storage.
+			//
+			$offsets
+				= $this->offsetGet(
+					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+			
+			//
 			// Check offsets.
 			//
-			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			if( count( $theClause[ $offsets ] ) > 1 )
 			{
 				//
 				// Set OR clause.
@@ -2947,7 +2944,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Set clauses.
 			//
-			foreach( $theClause[ $this->mOffsets ] as $offset )
+			foreach( $theClause[ $offsets ] as $offset )
 				$theQuery[ $offset ]
 					= $this->stringMatchPattern(
 						$theClause[ kAPI_PARAM_PATTERN ],
