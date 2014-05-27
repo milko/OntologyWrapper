@@ -248,6 +248,13 @@ define( "kAPI_STATE_ERROR",						'error' );
 define( "kAPI_DICTIONARY_COLLECTION",			'collection' );
 
 /**
+ * Reference count offset.
+ *
+ * This tag indicates the collection reference count offset.
+ */
+define( "kAPI_DICTIONARY_REF_COUNT",			'ref-count' );
+
+/**
  * Tags cross reference.
  *
  * This tag indicates the dictionary tags cross references.
@@ -1020,6 +1027,13 @@ define( "kAPI_PARAM_RECURSE",					'recurse' );
  */
 define( "kAPI_PARAM_INDEX",						'index' );
 
+/**
+ * Query (array).
+ *
+ * This parameter will hold the service query and be set in the request response parameter.
+ */
+define( "kAPI_PARAM_QUERY",						'query' );
+
 /*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
  *======================================================================================*/
@@ -1142,6 +1156,13 @@ define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
  * This parameter indicates a form enumneration input.
  */
 define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
+
+/**
+ * Default input (string).
+ *
+ * This parameter indicates a form default input.
+ */
+define( "kAPI_PARAM_INPUT_DEFAULT",				'input-default' );
 
 
 ?>

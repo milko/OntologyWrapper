@@ -93,6 +93,15 @@ abstract class ServiceObject extends ContainerObject
 	 */
 	protected $mOffsets = NULL;
 
+	/**
+	 * Reference count offset.
+	 *
+	 * This data member holds the reference count offset.
+	 *
+	 * @var int
+	 */
+	protected $mRefCountOffset = NULL;
+
 		
 
 /*=======================================================================================
@@ -836,6 +845,11 @@ abstract class ServiceObject extends ContainerObject
 		$this->mOffsets = PersistentObject::ResolveOffsetsTag( $tmp );
 		
 		//
+		// Resolve reference count tag identifier.
+		//
+		$this->mRefCountOffset = PersistentObject::ResolveRefCountTag( $tmp );
+		
+		//
 		// Check criteria.
 		//
 		$tmp = $this->offsetGet( kAPI_PARAM_CRITERIA );
@@ -1259,6 +1273,13 @@ abstract class ServiceObject extends ContainerObject
 						= $tag_object[ $this->mOffsets ];
 				
 				//
+				// Add reference count to criteria.
+				//
+				if( array_key_exists( $this->mRefCountOffset, $tag_object ) )
+					$criteria[ $this->mRefCountOffset ]
+						= $tag_object[ $this->mRefCountOffset ];
+				
+				//
 				// Add index flag to criteria.
 				//
 				if( array_key_exists( $offset, $indexes ) )
@@ -1334,7 +1355,8 @@ abstract class ServiceObject extends ContainerObject
 								// Cast minimum.
 								//
 								OntologyObject::CastScalar(
-									$criteria[ kAPI_PARAM_RANGE_MIN ], $type );
+									$criteria[ kAPI_PARAM_RANGE_MIN ],
+									$tag_object[ kTAG_DATA_TYPE ] );
 							
 								//
 								// Require maximum.
@@ -1348,7 +1370,8 @@ abstract class ServiceObject extends ContainerObject
 								// Cast maximum.
 								//
 								OntologyObject::CastScalar(
-									$criteria[ kAPI_PARAM_RANGE_MAX ], $type );
+									$criteria[ kAPI_PARAM_RANGE_MAX ],
+									$tag_object[ kTAG_DATA_TYPE ] );
 							
 								//
 								// Check operator.
@@ -1576,6 +1599,7 @@ abstract class ServiceObject extends ContainerObject
 		// Load dictionary parameters.
 		//
 		$ref[ "kAPI_DICTIONARY_COLLECTION" ] = kAPI_DICTIONARY_COLLECTION;
+		$ref[ "kAPI_DICTIONARY_REF_COUNT" ] = kAPI_DICTIONARY_REF_COUNT;
 		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
 		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
 		$ref[ "kAPI_DICTIONARY_CLUSTER" ] = kAPI_DICTIONARY_CLUSTER;
@@ -1615,7 +1639,12 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
 		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
-		$ref[ "kAPI_PARAM_INDEXED" ] = kAPI_PARAM_INDEXED;
+		
+		//
+		// Load generic response parameters.
+		//
+		$ref[ "kAPI_PARAM_INDEX" ] = kAPI_PARAM_INDEX;
+		$ref[ "kAPI_PARAM_QUERY" ] = kAPI_PARAM_QUERY;
 		
 		//
 		// Load enumeration element parameters.
@@ -1660,6 +1689,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_INPUT_STRING" ] = kAPI_PARAM_INPUT_STRING;
 		$ref[ "kAPI_PARAM_INPUT_RANGE" ] = kAPI_PARAM_INPUT_RANGE;
 		$ref[ "kAPI_PARAM_INPUT_ENUM" ] = kAPI_PARAM_INPUT_ENUM;
+		$ref[ "kAPI_PARAM_INPUT_DEFAULT" ] = kAPI_PARAM_INPUT_DEFAULT;
 		
 	} // executeListParameterConstants.
 
@@ -1970,6 +2000,15 @@ abstract class ServiceObject extends ContainerObject
 						break;
 				}
 			}
+		}
+		
+		//
+		// Save query.
+		//
+		if( $this->offsetExists( kAPI_RESPONSE_REQUEST ) )
+		{
+			$tmp = $this->offsetGet( kAPI_RESPONSE_REQUEST );
+			$tmp[ kAPI_PARAM_QUERY ] = $criteria;
 		}
 		
 		//
@@ -2517,6 +2556,48 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	rangeMatchPattern																*
+	 *==================================================================================*/
+
+	/**
+	 * Return range match criteria pattern.
+	 *
+	 * This method will return the query corresponding to the provided range input type.
+	 *
+	 * Depending on the clause operator:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kOPERATOR_IRANGE}</tt>: Include bounds.
+	 *	<li><tt>{@link kOPERATOR_ERANGE}</tt>: Exclude bounds.
+	 * </ul>
+	 *
+	 * If none of the above are present in the operator, the method will assume range
+	 * inclusive.
+	 *
+	 * The method will only return the match value to be used in the filter criteria, it is
+	 * up to the caller to add the property reference.
+	 *
+	 * @param mixed					$theMin				Minimum bound.
+	 * @param mixed					$theMax				Maximum bound.
+	 * @param array					$theOperator		Match operator.
+	 *
+	 * @access protected
+	 * @return array				Search criteria.
+	 */
+	protected function rangeMatchPattern( $theMin, $theMax, $theOperator )
+	{
+		//
+		// Handle range inclusive.
+		//
+		if( in_array( kOPERATOR_ERANGE, $theOperator ) )
+			return array( '$gt' => $theMin, '$lt' => $theMax );						// ==>
+		
+		return array( '$gte' => $theMin, '$lte' => $theMax );						// ==>
+		
+	} // rangeMatchPattern.
+
+	 
+	/*===================================================================================
 	 *	clusterSearchCriteria															*
 	 *==================================================================================*/
 
@@ -2540,11 +2621,11 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Init local storage.
 		//
-		$cluster = Array();
+		$cluster = $counts = $result = Array();
 		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
 		
 		//
-		// Iterate criteria.
+		// Create clusters.
 		//
 		foreach( $criteria as $key => $value )
 			$cluster[ ResultAggregator::GetTagClusterKey( $value[ kTAG_TERMS ] ) ]
@@ -2552,81 +2633,310 @@ abstract class ServiceObject extends ContainerObject
 				= $value;
 		
 		//
+		// Sort cluster by reference counts.
+		//
+		foreach( $cluster as $clu => $crit )
+		{
+			foreach( $crit as $tag => $crit )
+			{
+				$counts[ $clu ][ $tag ]
+					= ( array_key_exists(
+						$this->mRefCountOffset, $cluster[ $clu ][ $tag ] ) )
+					? $cluster[ $clu ][ $tag ][ $this->mRefCountOffset ]
+					: 0;
+			}
+			asort( $counts[ $clu ] );
+		}
+		
+		//
+		// Update cluster.
+		//
+		$result = Array();
+		foreach( $counts as $clu => $crit )
+		{
+			foreach( $counts[ $clu ] as $tag => $crit )
+				$result[ $clu ][ $tag ]
+					= $cluster[ $clu ][ $tag ];
+		}
+		
+		//
 		// Update criteria.
 		//
-		$this->offsetSet( kAPI_PARAM_CRITERIA, $cluster );
+		$this->offsetSet( kAPI_PARAM_CRITERIA, $result );
 		
 	} // clusterSearchCriteria.
 
 	 
 	/*===================================================================================
-	 *	getQueryCriteria																*
+	 *	resolveQueryClauses																*
 	 *==================================================================================*/
 
 	/**
-	 * Return search criteria.
+	 * Resolve query clauses.
 	 *
-	 * This method will build and return the query criteria based on the provided search
-	 * criteria.
+	 * This method will resolve all the query clauses contained in the
+	 * {@link kAPI_PARAM_CRITERIA} parameter and load them into the provided reference
+	 * parameter.
 	 *
-	 * The query builder will follow these rules:
-	 *
-	 * <ul>
-	 *	<li>For each clause;
-	 *	 <ul>
-	 *		<li>If the clause has values:
-	 *		 <ul>
-	 *			<li>Build value clause,
-	 *			<li>If the tag is not indexed:
-	 *			 <ul>
-	 *				<li>Add tags search clause
-	 *			 </ul>
-	 *		 </ul>
-	 *		<li>Replace the clause with the query.
-	 *	 </ul>
-	 *	<li>For each cluster:
-	 *	 <ul>
-	 *		<li>If the cluster has more than one element:
-	 *		 <ul>
-	 *			<li>Transform the cluster in an OR clause
-	 *		 </ul>
-	 *		<li>If the cluster has one element:
-	 *		 <ul>
-	 *			<li>Replace cluster with query.
-	 *		 </ul>
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The method expects the {@link kAPI_PARAM_CRITERIA} parameter to be set.
+	 * @param array					$theClauses			Receives queries.
 	 *
 	 * @access protected
 	 */
-	protected function getQueryCriteria()
+	protected function resolveQueryClauses( &$theClauses )
+	{
+		//
+		// Init parameter.
+		//
+		$theClauses = Array();
+		
+		//
+		// Iterate clusters.
+		//
+		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
+		foreach( $criteria as $clus => $crit )
+		{
+			//
+			// Load cluster and reference it.
+			//
+			$theClauses[ $clus ] = Array();
+			$ref_clus = & $theClauses[ $clus ];
+			
+			//
+			// Iterate cluster clauses.
+			//
+			foreach( $crit as $tag => $claus )
+			{
+				//
+				// Init clause.
+				//
+				$ref_clus[ $tag ] = Array();
+				$ref = & $ref_clus[ $tag ];
+				
+				//
+				// Handle tags clause.
+				//
+				if( ! array_key_exists( kAPI_PARAM_INDEX, $claus ) )
+					$ref[ kTAG_TAGS ] = $claus[ kTAG_ID_SEQUENCE ];
+				
+				//
+				// Handle clause.
+				//
+				switch( $claus[ kAPI_PARAM_INPUT_TYPE ] )
+				{
+					case kAPI_PARAM_INPUT_STRING:
+						$this->resolveStringQueryClause( $ref, $claus );
+						break;
+					
+					case kAPI_PARAM_INPUT_RANGE:
+						$this->resolveRangeQueryClause( $ref, $claus );
+						break;
+					
+					case kAPI_PARAM_INPUT_ENUM:
+						$this->resolveEnumQueryClause( $ref, $claus );
+						break;
+				
+				} // Parsing input types.
+			
+			} // Iterating clauses.
+		
+		} // Iterating clusters.
+		
+	} // resolveQueryClauses.
+
+	 
+	/*===================================================================================
+	 *	resolveStringQueryClause														*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve string query clauses.
+	 *
+	 * This method will resolve the provided string query clause and set it into the
+	 * provided reference array.
+	 *
+	 * @param array					$theQuery			Receives query.
+	 * @param array					$theClause			Query clause.
+	 * @param int					$theClause			Query clause.
+	 *
+	 * @access protected
+	 */
+	protected function resolveStringQueryClause( &$theQuery, &$theClause )
+	{
+		//
+		// Check pattern.
+		//
+		if( array_key_exists( kAPI_PARAM_PATTERN, $theClause ) )
+		{
+			//
+			// Check offsets.
+			//
+			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			{
+				//
+				// Set OR clause.
+				//
+				$theQuery[ '$or' ] = Array();
+				
+				//
+				// Point to OR clause.
+				//
+				$theQuery = & $theQuery[ '$or' ];
+			
+			} // Multi-offset.
+			
+			//
+			// Set clauses.
+			//
+			foreach( $theClause[ $this->mOffsets ] as $offset )
+				$theQuery[ $offset ]
+					= $this->stringMatchPattern(
+						$theClause[ kAPI_PARAM_PATTERN ],
+						$theClause[ kAPI_PARAM_OPERATOR ] );
+		
+		} // Has pattern.
+		
+	} // resolveStringQueryClause.
+
+	 
+	/*===================================================================================
+	 *	resolveRangeQueryClause															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve range query clauses.
+	 *
+	 * This method will resolve the provided range query clause and set it into the
+	 * provided reference array.
+	 *
+	 * @param array					$theQuery			Receives query.
+	 * @param array					$theClause			Query clause.
+	 *
+	 * @access protected
+	 */
+	protected function resolveRangeQueryClause( &$theQuery, &$theClause )
+	{
+		//
+		// Check pattern.
+		//
+		if( array_key_exists( kAPI_PARAM_RANGE_MIN, $theClause )
+		 && array_key_exists( kAPI_PARAM_RANGE_MAX, $theClause ) )
+		{
+			//
+			// Check offsets.
+			//
+			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			{
+				//
+				// Set OR clause.
+				//
+				$theQuery[ '$or' ] = Array();
+				
+				//
+				// Point to OR clause.
+				//
+				$theQuery = & $theQuery[ '$or' ];
+			
+			} // Multi-offset.
+			
+			//
+			// Set clauses.
+			//
+			foreach( $theClause[ $this->mOffsets ] as $offset )
+				$theQuery[ $offset ]
+					= $this->rangeMatchPattern(
+						$theClause[ kAPI_PARAM_RANGE_MIN ],
+						$theClause[ kAPI_PARAM_RANGE_MAX ],
+						$theClause[ kAPI_PARAM_OPERATOR ] );
+		
+		} // Has pattern.
+		
+	} // resolveRangeQueryClause.
+
+	 
+	/*===================================================================================
+	 *	resolveEnumQueryClause															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve enumeration query clauses.
+	 *
+	 * This method will resolve the provided enumeration query clause and set it into the
+	 * provided reference array.
+	 *
+	 * @param array					$theQuery			Receives query.
+	 * @param array					$theClause			Query clause.
+	 *
+	 * @access protected
+	 */
+	protected function resolveEnumQueryClause( &$theQuery, &$theClause )
+	{
+		//
+		// Check enumerations.
+		//
+		if( array_key_exists( kAPI_RESULT_ENUM_TERM, $theClause ) )
+		{
+			//
+			// Check offsets.
+			//
+			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			{
+				//
+				// Set OR clause.
+				//
+				$theQuery[ '$or' ] = Array();
+				
+				//
+				// Point to OR clause.
+				//
+				$theQuery = & $theQuery[ '$or' ];
+			
+			} // Multi-offset.
+			
+			//
+			// Set clauses.
+			//
+			foreach( $theClause[ $this->mOffsets ] as $offset )
+				$theQuery[ $offset ] = $theClause[ kAPI_RESULT_ENUM_TERM ];
+		
+		} // Has pattern.
+		
+	} // resolveEnumQueryClause.
+
+	 
+	/*===================================================================================
+	 *	buildSearchQuery																*
+	 *==================================================================================*/
+
+	/**
+	 * Build search query.
+	 *
+	 * This method will transform the provided clustered criteria into a query.
+	 *
+	 * @param array					$theCriteria		Query criteria.
+	 *
+	 * @access protected
+	 * @return array				The query.
+	 */
+	protected function buildSearchQuery( &$theCriteria )
 	{
 		//
 		// Init local storage.
 		//
 		$query = Array();
-		$search = $this->offsetGet( kAPI_PARAM_CRITERIA );
 		
 		//
 		// Iterate clusters.
 		//
-		foreach( $search as $cluster => $element )
+		foreach( $theCriteria as $clus => $crit )
 		{
 			//
-			// Iterate cluster tags.
-			//
-			foreach( $element as $tag => $criteria )
-			{
-			
-			} // Iterating cluster tags.
+			// Create 
+		}
 		
-		} // Iterating clusters.
-		
+		return $theCriteria;																// ==>
 		return $query;																// ==>
 		
-	} // getQueryCriteria.
+	} // buildSearchQuery.
 
 	 
 

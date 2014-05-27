@@ -711,12 +711,28 @@ class Service extends ServiceObject
 		// Cluster search criteria.
 		//
 		$this->clusterSearchCriteria();
+var_dump( $this->offsetGet( kAPI_PARAM_CRITERIA ) );
+echo( '<hr>' );
 		
 		//
-		// Build search criteria.
+		// Build criteria clauses.
 		//
-		$criteria = $this->getQueryCriteria();
-var_dump( $criteria );
+		$this->resolveQueryClauses( $criteria );
+		
+		//
+		// Reduce criteria.
+		//
+		$criteria = $this->buildSearchQuery( $criteria );
+		
+		//
+		// Save criteria.
+		//
+		if( $this->offsetExists( kAPI_RESPONSE_REQUEST ) )
+		{
+			$tmp = $this->offsetGet( kAPI_RESPONSE_REQUEST );
+			$tmp[ kAPI_PARAM_QUERY ] = $criteria;
+		}
+var_dump(  $criteria );
 exit;
 		
 	} // executeMatchDomains.
