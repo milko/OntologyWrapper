@@ -2734,6 +2734,10 @@ abstract class ServiceObject extends ContainerObject
 					case kAPI_PARAM_INPUT_ENUM:
 						$this->resolveEnumQueryClause( $ref, $claus );
 						break;
+					
+					default:
+						$this->resolveDefaultQueryClause( $ref, $claus );
+						break;
 				
 				} // Parsing input types.
 			
@@ -2756,7 +2760,6 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * @param array					$theQuery			Receives query.
 	 * @param array					$theClause			Query clause.
-	 * @param int					$theClause			Query clause.
 	 *
 	 * @access protected
 	 */
@@ -2901,6 +2904,58 @@ abstract class ServiceObject extends ContainerObject
 		} // Has pattern.
 		
 	} // resolveEnumQueryClause.
+
+	 
+	/*===================================================================================
+	 *	resolveDefaultQueryClause														*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve default query clauses.
+	 *
+	 * This method will resolve the provided clause into a simple equality query.
+	 *
+	 * @param array					$theQuery			Receives query.
+	 * @param array					$theClause			Query clause.
+	 *
+	 * @access protected
+	 */
+	protected function resolveDefaultQueryClause( &$theQuery, &$theClause )
+	{
+		//
+		// Check pattern.
+		//
+		if( array_key_exists( kAPI_PARAM_PATTERN, $theClause ) )
+		{
+			//
+			// Check offsets.
+			//
+			if( count( $theClause[ $this->mOffsets ] ) > 1 )
+			{
+				//
+				// Set OR clause.
+				//
+				$theQuery[ '$or' ] = Array();
+				
+				//
+				// Point to OR clause.
+				//
+				$theQuery = & $theQuery[ '$or' ];
+			
+			} // Multi-offset.
+			
+			//
+			// Set clauses.
+			//
+			foreach( $theClause[ $this->mOffsets ] as $offset )
+				$theQuery[ $offset ]
+					= $this->stringMatchPattern(
+						$theClause[ kAPI_PARAM_PATTERN ],
+						$theClause[ kAPI_PARAM_OPERATOR ] );
+		
+		} // Has pattern.
+		
+	} // resolveDefaultQueryClause.
 
 	 
 	/*===================================================================================

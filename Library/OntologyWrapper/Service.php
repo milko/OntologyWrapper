@@ -311,6 +311,8 @@ class Service extends ServiceObject
 				break;
 				
 			case kAPI_OP_MATCH_DOMAINS:
+var_dump( $this->offsetGet( kAPI_PARAM_CRITERIA ) );
+echo( '<hr>' );
 				$this->validateSearchWithCriteria();
 				break;
 				

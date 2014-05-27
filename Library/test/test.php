@@ -348,7 +348,8 @@ var_dump( $x );
 */
 	
 /******************************************************************************/
-	
+
+/*	
 	//
 	// Test array keys.
 	//
@@ -384,5 +385,63 @@ var_dump( $x );
 	// Test intersect.
 	//
 	var_dump( array_intersect( array_keys( $array ), array_keys( $array ) ) );
+*/
 	
+/******************************************************************************/
+
+	//
+	// Test json mongo query.
+	//
+	
+	//
+	// Set json query.
+	//
+	$query = '{ "$and" : [ { "$or" : [ { "47" : 165 }, { "47" : 29 } ] }, { "$or" : [ { "$and" : [ { "47" : 73 }, { "$or" : [ { "73" : ":kind:entity:100" }, { "72" : ":type:entity:100" } ] } ] }, { "$and" : [ { "47" : 81 }, { "$or" : [ { "81" : "iso:3166:1:alpha-3:ALB" }, { "165" : "iso:3166:1:alpha-3:ITA" } ] } ] } ] } ] }';
+	
+	//
+	// Show info.
+	//
+	$message = <<<EOT
+<ul>
+	<li>The root clause in an <b><tt>\$and</tt></b> clause array.
+	<li>Each cluster is an element of the root <b><tt>\$and</tt></b> clause array.
+	<li>For each cluster:
+	 <ul>
+	 	<li>If the cluster has one element:
+	 	 <ul>
+	 	 	<li>If the cluster element has a match value:
+	 	 	 <ul>
+				<li>If the cluster element is indexed:
+				 <ul>
+					<li>Add the element clause to the root.
+				 </ul>
+				<li>If the cluster element is not indexed:
+				 <ul>
+					<li>Create an <b><tt>\$or</tt></b> clause array.
+					<li>Add the <b><tt>kTAG_TAGS</tt></b> clause.
+					<li>Add the statement clause.
+				 </ul>
+	 	 	 </ul>
+	 	 	<li>If the cluster element has no match value:
+	 	 	 <ul>
+				<li>Add/append the <b><tt>kTAG_TAGS</tt></b> clause to the root.
+	 	 	 </ul>
+	 	 </ul>
+	 	<li>If the cluster has more than one element:
+	 	 <ul>
+	 	 </ul>
+	 </ul>
+</ul>
+<i>Note that the root <b><tt>kTAG_TAGS</tt></b> clauses are to be added as separate elements: the <b><tt>\$and</tt></b> clause is faster than the <b><tt>\$all</tt></b> clause.</i>
+EOT;
+	echo( $message );
+		 
+	
+	//
+	// View PHP.
+	//
+	echo( '<pre>' );
+	print_r( json_decode( $query, TRUE ) );
+	echo( '</pre>' );
+		
 ?>
