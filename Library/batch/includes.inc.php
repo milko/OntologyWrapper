@@ -77,7 +77,7 @@ define( "kPATH_LIBRARY_NEO4J",	"/Library/WebServer/Library/Neo4jphp" );
  *
  * This tag identifies the FAO/WIEWS URL to download the institutes.
  */
-define( "kFAO_INSTITUTES_URL",	'http://apps3.fao.org/wiews/export.zip' );
+define( "kFAO_INSTITUTES_URL",	'http://apps3.fao.org/wiews/export_c.zip' );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

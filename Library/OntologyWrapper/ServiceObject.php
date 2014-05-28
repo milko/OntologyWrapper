@@ -2639,6 +2639,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Init local storage.
 		//
+		$and = TRUE;
 		$query = [ '$and' => [] ];
 		$root = & $query[ '$and' ];
 		$offsets_tag = PersistentObject::ResolveOffsetsTag( UnitObject::kSEQ_NAME );
@@ -2668,6 +2669,7 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Create OR clause.
 				//
+				$and = FALSE;
 				$cluster_ref[ '$or' ] = Array();
 				$cluster_ref = & $cluster_ref[ '$or' ];
 		

@@ -61,6 +61,9 @@ class MongoCollection extends CollectionObject
 				"Unable to drop collection: "
 			   ."collection is not connected." );								// !@! ==>
 		
+		//
+		// Drop collection.
+		//
 		$this->mConnection->drop();
 	
 	} // drop.

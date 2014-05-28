@@ -564,54 +564,110 @@ class FAOInstitute extends Institution
 								} // Iterating file.
 								
 								//
-								// Commit cached elements.
+								// Recurse ad exhaustion.
 								//
-								foreach( $cache as $cached )
+								$count = count( $cache );
+								while( count( $cache ) )
 								{
 									//
-									// Try loading existing.
+									// Iterate cache.
 									//
-									$id = static::FAOIdentifier(
-												$cached[ kTAG_IDENTIFIER ] );
-									$criteria = array( kTAG_NID => $id );
-									$old = $collection->matchOne(
-												$criteria, kQUERY_OBJECT );
-									
-									//
-									// Handle existing.
-									//
-									if( $old )
+									$keys = array_keys( $cache );
+									foreach( $keys as $key )
 									{
 										//
-										// Replace old.
+										// Init loop storage.
 										//
-										$cached->save();
+										$cached = & $cache[ $key ];
+										
+										//
+										// Try loading existing.
+										//
+										$id = static::FAOIdentifier(
+													$cached[ kTAG_IDENTIFIER ] );
+										$criteria = array( kTAG_NID => $id );
+										$old = $collection->matchOne(
+													$criteria, kQUERY_OBJECT );
 									
 										//
-										// Increment updated.
+										// Handle existing.
 										//
-										$stats[ 'updated' ]++;
+										if( $old )
+										{
+											//
+											// Replace old.
+											//
+											$cached->save();
 									
-									} // Exists.
+											//
+											// Increment updated.
+											//
+											$stats[ 'updated' ]++;
+									
+										} // Exists.
+									
+										//
+										// Handle new.
+										//
+										else
+										{
+											//
+											// Check if valid is there.
+											//
+											if( $cached->offsetExists( kTAG_ENTITY_VALID ) )
+											{
+												//
+												// Check if valid exists.
+												//
+												$criteria = array( kTAG_NID
+													=> $cached[ kTAG_ENTITY_VALID ] );
+												if( ! $collection->matchOne(
+														$criteria, kQUERY_COUNT ) )
+													continue;				// =>
+											
+											} // Has valid reference.
+											
+											//
+											// Insert new.
+											//
+											$cached->commit();
+									
+											//
+											// Increment updated.
+											//
+											$stats[ 'new' ]++;
+									
+										} // New record.
+										
+										//
+										// Pop cache.
+										//
+										unset( $cache[ $key ] );
+									
+									} // Iterating cache.
 									
 									//
-									// Handle new.
+									// Check infinite loop.
 									//
-									else
+									if( count( $cache ) == $count )
 									{
 										//
-										// Insert new.
+										// Dump cache.
 										//
-										$cached->commit();
+										foreach( $cache as $cached )
+											var_dump(
+												array(
+													'NICODE'
+														=> $cached[ kTAG_IDENTIFIER ],
+													'VALID'
+														=> $cached[ kTAG_ENTITY_VALID ] ) );
+										
+										throw new \Exception(
+											"Unreferenced valid institute" );	// !@! ==>
 									
-										//
-										// Increment updated.
-										//
-										$stats[ 'new' ]++;
-									
-									} // New record.
+									} // Unreferenced valid institute.
 								
-								} // Iterating cache.
+								} // Cache not exhausted.
 								
 								//
 								// Reset maximum execution time.
@@ -827,15 +883,6 @@ class FAOInstitute extends Institution
 			$this->importProperty( $key, $value );
 		
 		//
-		// Set country.
-		//
-		$code = substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 );
-		if( $tmp = Term::ResolveCountryCode( $this->dictionary(), $code ) )
-			$this->offsetSet( ':location:country', $tmp );
-		else
-			throw new \Exception( "Invalid country code [$code]." );			// !@! ==>
-		
-		//
 		// Handle address.
 		//
 		$address = Array();
@@ -977,6 +1024,16 @@ class FAOInstitute extends Institution
 				case 'V_INSTCODE':
 					$this->offsetSet( kTAG_ENTITY_VALID,
 									  static::FAOIdentifier( $theValue ) );
+					break;
+			
+				//
+				// ISO code.
+				//
+				case 'ISO3':
+					if( $tmp = Term::ResolveCountryCode( $this->dictionary(), $theValue ) )
+						$this->offsetSet( ':location:country', $tmp );
+					else
+						throw new \Exception( "Invalid country code [$code]." );			// !@! ==>
 					break;
 			
 			} // Parsed offset.

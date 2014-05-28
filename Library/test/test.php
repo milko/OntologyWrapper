@@ -518,213 +518,64 @@ EOT;
 
 /*
 
-	//
-	// Init local storage.
-	//
-	$query = [ '$and' => [] ];
-	$root = & $query[ '$and' ];
-	
-	//
-	// Iterate clusters.
-	//
-	foreach( $clusters as $idx_cluster => $cluster )
+if( clusters many )
+{
+	create AND;
+	if( has value )
 	{
-		//
-		// Allocate cluster element.
-		//
-		$index = count( $root );
-		$root[ $index ] = Array();
-		$cluster_ref = & $root[ $index ];
-		
-		//
-		// Handle multiple element cluster.
-		//
-		if( count( $cluster ) > 1 )
+		if( indexed )
 		{
-			//
-			// Create OR clause.
-			//
-			$cluster_ref[ '$or' ] = Array();
-			$cluster_ref = & $cluster_ref[ '$or' ];
-		
-		} // Multiple element cluster.
-		
-		//
-		// Iterate cluster elements.
-		//
-		foreach( $cluster as $tag => $criteria )
-		{
-			//
-			// Init loop storage.
-			//
-			$is_indexed = array_key_exists( kAPI_PARAM_INDEX, $criteria );
-			$offsets = $criteria[ kOFFSETS ];
-			switch( kINPUT_TYPE )
+			if( many offsets )
 			{
-				case RANGE:
-					$has_value = ( array_key_exists( MIN, $criteria ) &&
-								   array_key_exists( MIN, $criteria ) );
-					break;
-				
-				case ENUM:
-					$has_value = array_key_exists( TERM, $criteria );
-					break;
-				
-				case STRING:
-				default:
-					$has_value = array_key_exists( PATTERN, $criteria );
-					break;
 			}
-			
-			//
-			// Handle match value.
-			//
-			if( $has_value )
-			{
-				//
-				// Handle indexed.
-				//
-				if( $is_indexed )
-				{
-					//
-					// Handle one offset.
-					//
-					if( count( $criteria[ OFFSET ] ) == 1 )
-					{
-						//
-						// Create match clause in root.
-						//
-						$cluster_ref[]
-							= array( $tag => $this->makeClause( $offset, $criteria ) );
-					
-					} // One offset.
-					
-					//
-					// Handle many offsets.
-					//
-					else
-					{
-						//
-						// Create OR clause.
-						//
-						if( count( $cluster ) == 1 )
-						{
-							$cluster_ref[ '$or' ] = Array();
-							$ref = & $cluster_ref[ '$or' ];
-						}
-						
-						//
-						// Reference cluster container.
-						//
-						else
-							$ref = & $cluster_ref;
-						
-						//
-						// Load offset clauses.
-						//
-						foreach( $criteria[ OFFSET ] as $offset )
-							$ref[]
-								= array( $tag => $this->makeClause( $offset, $criteria ) );
-					
-					} // More than one offset.
-				
-				} // Is indexed.
-				
-				//
-				// Handle not indexed.
-				//
-				else
-				{
-					//
-					// Handle one offset.
-					//
-					if( count( $criteria[ OFFSET ] ) == 1 )
-					{
-						//
-						// Create AND clause.
-						//
-						if( count( $cluster ) > 1 )
-						{
-							$cluster_ref[ '$and' ] = Array();
-							$ref = & $cluster_ref[ '$and' ];
-						}
-						
-						//
-						// Reference cluster container.
-						//
-						else
-							$ref = & $cluster_ref;
-					
-					} // One offset.
-					
-					//
-					// Handle many offsets.
-					//
-					else
-					{
-					
-					} // More than one offset.
-				
-				} // Not indexed.
-			
-			} // Has match value.
-			
-			//
-			// Handle no match value.
-			//
 			else
 			{
-				//
-				// Handle indexed.
-				//
-				if( $is_indexed )
-				{
-					//
-					// Handle one offset.
-					//
-					if( count( $criteria[ OFFSET ] ) == 1 )
-					{
-					
-					} // One offset.
-					
-					//
-					// Handle many offsets.
-					//
-					else
-					{
-					
-					} // More than one offset.
-				
-				} // Is indexed.
-				
-				//
-				// Handle not indexed.
-				//
-				else
-				{
-					//
-					// Handle one offset.
-					//
-					if( count( $criteria[ OFFSET ] ) == 1 )
-					{
-					
-					} // One offset.
-					
-					//
-					// Handle many offsets.
-					//
-					else
-					{
-					
-					} // More than one offset.
-				
-				} // Not indexed.
-			
-			} // No match value.
-		
-		} // Iterating cluster elements.
-		
-	} // Iterating clusters.
+			}
+		}
+		else
+		{
+			if( many offsets )
+			{
+			}
+			else
+			{
+			}
+		}
+	}
+	else
+	{
+		if( indexed )
+		{
+			if( many offsets )
+			{
+			}
+			else
+			{
+			}
+		}
+		else
+		{
+			if( many offsets )
+			{
+			}
+			else
+			{
+			}
+		}
+	}
+}
+else
+{
+	if( (! has value)
+	 || (! indexed) )
+		add tag match;
+	
+	if( (has value)
+	 && (many offsets) )
+		add OR;
+	
+	add criteria;
+}
 
 */
 		
