@@ -1364,18 +1364,18 @@
 			</item>
 		</TERM>
 	
-		<!-- kTAG_ENTITY_COUNTRY -->
-		<TERM ns=":entity" lid="country">
+		<!-- kTAG_ENTITY_NATIONALITY -->
+		<TERM ns=":entity" lid="nationality">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity country</item>
+					<item const="kTAG_TEXT">Entity nationality</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>country</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>nationality</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1392,6 +1392,42 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[The <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Record attributes -->
+	
+	<META>
+		<!-- kTAG_RECORD_CREATED -->
+		<TERM ns=":record" lid="created">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Record creation time-stamp</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was created</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_RECORD_MODIFIED -->
+		<TERM ns=":record" lid="modified">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Record modification time-stamp</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was last modified</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

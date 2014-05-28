@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Data initialisation procedure.
+ * Data initialisation procedure (test version).
  *
  * This file contains routines to initialise the data.
  *
@@ -9,12 +9,12 @@
  *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 18/03/2014
+ *	@version	1.00 28/05/2014
  */
 
 /*=======================================================================================
  *																						*
- *										Init.php										*
+ *										Test.php										*
  *																						*
  *======================================================================================*/
 
@@ -78,7 +78,7 @@ try
 	//
 	// Drop metadata.
 	//
-	$meta->drop();
+//	$meta->drop();
 	
 	//
 	// Set units.
@@ -91,7 +91,7 @@ try
 	//
 	// Drop units.
 	//
-	$units->drop();
+//	$units->drop();
 	
 	//
 	// Set entities.
@@ -104,7 +104,7 @@ try
 	//
 	// Drop entities.
 	//
-	$entities->drop();
+//	$entities->drop();
 	
 	//
 	// Check graph database.
@@ -122,41 +122,42 @@ try
 		//
 		// Drop graph database.
 		//
-		echo( "  • Resetting graph.\n" );
-		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+//		echo( "  • Resetting graph.\n" );
+//		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
 	
 	} // Use graph database.
 	
 	//
 	// Reset ontology.
 	//
-	$wrapper->resetOntology( TRUE );
+//	$wrapper->resetOntology( TRUE );
 	
 	//
 	// Load ISO Standards.
 	//
-	$wrapper->initISOStandards( TRUE );
+//	$wrapper->initISOStandards( TRUE );
 	
 	//
 	// Load WBI Standards.
 	//
-	$wrapper->initWBIStandards( TRUE );
+//	$wrapper->initWBIStandards( TRUE );
 	
 	//
 	// Load standards.
 	//
-	$wrapper->loadStandards( TRUE );
+//	$wrapper->loadStandards( TRUE );
 	
 	//
 	// Load units.
 	//
-	$wrapper->resetUnits( TRUE );
+//	$wrapper->resetUnits( TRUE );
 	
 	//
 	// Load entities.
 	//
-	$wrapper->resetEntities( TRUE );
+//	$wrapper->resetEntities( TRUE );
 	
+/*
 	//
 	// Get units collection.
 	//
@@ -175,6 +176,13 @@ try
 	$collection->createIndex(
 		array( $wrapper->getSerial( ':location:admin', TRUE ) => 1 ),
 		array( "name" => "ADMIN" ) );
+*/
+	//
+	// Load FAO institutes.
+	//
+	echo( "  • Loading FAO Institutes.\n" );
+	$ok = OntologyWrapper\FAOInstitute::Maintain( $wrapper );
+	var_dump( $ok );
 }
 
 //

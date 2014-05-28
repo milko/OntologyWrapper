@@ -366,6 +366,13 @@ abstract class UnitObject extends PersistentObject
 		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),
 								  array( "name" => "GRAPH" ) );
 		
+		//
+		// Set geographic unit index.
+		//
+		$collection->createIndex( array( kTAG_GEO_SHAPE => "2dsphere" ),
+								  array( "name" => "SHAPE",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -447,7 +454,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_IDENTIFIER
 	 *
 	 * @uses TermCount()
 	 */
@@ -482,7 +489,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_DATA_TYPE kTAG_LABEL
+	 * @see kTAG_DOMAIN kTAG_AUTHORITY kTAG_IDENTIFIER
 	 *
 	 * @uses TermCount()
 	 */

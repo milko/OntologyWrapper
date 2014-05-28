@@ -812,8 +812,8 @@ try
 		$test->EntityPhone( "home", "+39 06 7118563" );
 		echo( '$test->EntityFax( NULL, "+39 06 7118565" );<br />' );
 		$test->EntityFax( NULL, "+39 06 7118565" );
-		echo( '$test[ kTAG_ENTITY_COUNTRY ] = "ITA";<br />' );
-		$test[ kTAG_ENTITY_COUNTRY ] = "ITA";
+		echo( '$test[ kTAG_ENTITY_NATIONALITY ] = "ITA";<br />' );
+		$test[ kTAG_ENTITY_NATIONALITY ] = "ITA";
 		echo( '$test->EntityAffiliation( "default", ":domain:unit://authority/collection:identifier;" );' );
 		$test->EntityAffiliation( "default", ":domain:unit://authority/collection:identifier;" );
 		echo( kSTYLE_HEAD_POS );

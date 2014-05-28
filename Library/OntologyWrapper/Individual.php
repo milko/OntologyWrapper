@@ -29,12 +29,6 @@ use OntologyWrapper\EntityObject;
  *		represents the individual's first name.
  *	<li><tt>{@link kTAG_ENTITY_LNAME}</tt>: <em>Last name</em>. This optional attribute
  *		represents the individual's surname.
- *	<li><tt>{@link kTAG_CONN_USER}</tt>: <em>User code</em>. This optional attribute can be
- *		set if the individual is also a user of the system, in that case this attribute can
- *		hold the user code credentials.
- *	<li><tt>{@link kTAG_CONN_PASS}</tt>: <em>User password</em>. This optional attribute can
- *		be set if the individual is also a user of the system, in that case this attribute
- *		can hold the user password credentials.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

@@ -72,9 +72,9 @@ use OntologyWrapper\CollectionObject;
  *		attribute represents the telefax numbers of the entity, it is a list of faxes
  *		discriminated by their type. The attribute can be managed with the
  *		@link EntityFax()} method.
- *	<li><tt>{@link kTAG_ENTITY_COUNTRY}</tt>: <em>Country</em>. This required attribute
- *		indicates which is the nationality or operating country of the entity, it is an
- *		enumerated value that represents the ISO country code.
+ *	<li><tt>{@link kTAG_ENTITY_NATIONALITY}</tt>: <em>Netionality</em>. This optional
+ *		attribute indicates which is the nationality of the entity, it is an enumerated
+ *		value that represents the ISO country code.
  *	<li><tt>{@link kTAG_ENTITY_AFFILIATION}</tt>: <em>Affiliation</em>. This optional
  *		attribute contains the list of entities to which the current entity is affiliated.
  *		The attribute is a list of elements each containing two items: the type of
@@ -145,15 +145,6 @@ abstract class EntityObject extends UnitObject
 	 * We use this trait to handle affiliations.
 	 */
 	use	traits\EntityAffiliation;
-
-	/**
-	 * Sequences selector.
-	 *
-	 * This constant holds the <i>default collection</i> name for entities.
-	 *
-	 * @var string
-	 */
-	const kSEQ_NAME = '_entities';
 
 	/**
 	 * Default domain.
@@ -356,7 +347,7 @@ abstract class EntityObject extends UnitObject
 	 *	<li><tt>{@link kTAG_NAME}</tt>: Name.
 	 *	<li><tt>{@link kTAG_ENTITY_TYPE}</tt>: Type.
 	 *	<li><tt>{@link kTAG_ENTITY_KIND}</tt>: Kind.
-	 *	<li><tt>{@link kTAG_ENTITY_COUNTRY}</tt>: Country.
+	 *	<li><tt>{@link kTAG_ENTITY_NATIONALITY}</tt>: Nationality.
 	 *	<li><tt>{@link kTAG_ENTITY_AFFILIATION}</tt>: Affiliation.
 	 *	<li><tt>{@link kTAG_ENTITY_VALID}</tt>: Valid entity reference.
 	 * </ul>
@@ -394,10 +385,10 @@ abstract class EntityObject extends UnitObject
 								  		 "sparse" => TRUE ) );
 		
 		//
-		// Set country index.
+		// Set nationality index.
 		//
-		$collection->createIndex( array( kTAG_ENTITY_COUNTRY => 1 ),
-								  array( "name" => "COUNTRY",
+		$collection->createIndex( array( kTAG_ENTITY_NATIONALITY => 1 ),
+								  array( "name" => "NATIONALITY",
 								  		 "sparse" => TRUE ) );
 		
 		//
@@ -447,7 +438,7 @@ abstract class EntityObject extends UnitObject
 								   kTAG_ENTITY_TYPE, kTAG_ENTITY_KIND,
 								   kTAG_ENTITY_MAIL, kTAG_ENTITY_EMAIL,
 								   kTAG_ENTITY_PHONE, kTAG_ENTITY_FAX,
-								   kTAG_ENTITY_AFFILIATION, kTAG_ENTITY_COUNTRY,
+								   kTAG_ENTITY_AFFILIATION, kTAG_ENTITY_NATIONALITY,
 								   kTAG_ENTITY_VALID ) );							// ==>
 	
 	} // DefaultOffsets.

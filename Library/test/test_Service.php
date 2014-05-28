@@ -747,9 +747,8 @@ echo( kSTYLE_ROW_PRE );
 echo( kSTYLE_HEAD_PRE );
 $param = array
 (
-	kAPI_PAGING_LIMIT => 10,
+//	kAPI_PAGING_LIMIT => 10,
 	kAPI_PARAM_LOG_REQUEST => TRUE,
-	kAPI_PARAM_COLLECTION => kAPI_PARAM_COLLECTION_ENTITY,
 	kAPI_PARAM_CRITERIA => array
 	(
 		':name' => array
@@ -776,10 +775,15 @@ $param = array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
 			kAPI_RESULT_ENUM_TERM => array( ':kind:entity:100', ':kind:entity:200' )
+		),
+		':unit:domain' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 		)
-	)
+	),
+	kAPI_PARAM_GROUP => kTAG_DOMAIN
 );
-$request = "$base_url?op=".kAPI_OP_MATCH_DOMAINS;
+$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 $request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 $request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 echo( htmlspecialchars($request) );
@@ -797,9 +801,9 @@ echo( '<hr>' );
 echo( '<hr>' );
 
 	//
-	// Try matchDomains with string search on ":name" contains "olive".
+	// Try matchUnits with string search on ":name" contains "olive".
 	//
-	echo( '<h4>Try matchDomains with string search on ":name" contains "olive"</h4>' );
+	echo( '<h4>Try matchUnits with string search on ":name" contains "olive"</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -827,7 +831,7 @@ echo( '<hr>' );
 			)
 		)
 	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_DOMAINS;
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );

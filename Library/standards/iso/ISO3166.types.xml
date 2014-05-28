@@ -1008,7 +1008,7 @@
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
 		</EDGE>
 	</META>
 	<!-- iso:3166:1:numeric -->
@@ -1146,7 +1146,7 @@
 		</EDGE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:entity:country</item>
+			<item const="kTAG_OBJECT" node="tag">:entity:nationality</item>
 		</EDGE>
 	</META>
 	<!-- iso:3166:3:alpha-4 -->

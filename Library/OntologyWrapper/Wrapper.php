@@ -744,6 +744,10 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading default XML schema files.\n" );
 		
+		$file = kPATH_STANDARDS_ROOT.'/default/SchemaRecord.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/default/SchemaRefCount.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -790,6 +794,67 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	resetUnits																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset units
+	 *
+	 * This method can be used to reset the units database, it will erase the current units
+	 * collection and load the FAO insatitutes.
+	 *
+	 * The method will take care of setting the necessary indexes.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function resetUnits( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Resetting units.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to reset entities: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Reset units collection.
+		//
+		if( $doLog )
+			echo( "  • Resetting collection.\n" );
+		$this->mUnits->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
+		
+		//
+		// Create units collection entity indexes.
+		//
+		if( $doLog )
+			echo( "  • Creating unit entity indexes.\n" );
+		Individual::CreateIndexes( $this->mUnits );
+		Institution::CreateIndexes( $this->mUnits );
+		
+		//
+		// Load FAO institutes.
+		//
+		if( $doLog )
+			echo( "  • Loading FAO Institutes.\n" );
+		
+		return FAOInstitute::Maintain( $this );										// ==>
+	
+	} // resetUnits.
+
+	 
+	/*===================================================================================
 	 *	resetEntities																	*
 	 *==================================================================================*/
 
@@ -828,18 +893,11 @@ class Wrapper extends Dictionary
 		// Reset entity collection.
 		//
 		if( $doLog )
-			echo( "  • Resetting entities.\n" );
+			echo( "  • Resetting collection.\n" );
 		$this->mEntities->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
-		Individual::CreateIndexes( $this->mEntities );
-		Institution::CreateIndexes( $this->mEntities );
+		User::CreateIndexes( $this->mEntities );
 		
-		//
-		// Load FAO institutes.
-		//
-		if( $doLog )
-			echo( "  • Loading FAO Institutes.\n" );
-		
-		return FAOInstitute::Maintain( $this );										// ==>
+		return NULL;																// ==>
 	
 	} // resetEntities.
 

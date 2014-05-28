@@ -226,6 +226,18 @@ define( "kTYPE_REF_UNIT",						':type:ref:unit' );
 define( "kTYPE_REF_SELF",						':type:ref:self' );
 
 /*=======================================================================================
+ *	CUSTOM DATA TYPES																	*
+ *======================================================================================*/
+
+/**
+ * Time-stamp.
+ *
+ * A <i>time-stamp</i> is a <em>database native type</em> expressing a date and time,
+ * <em>its structure is dependent on the specific database driver</em>.
+ */
+define( "kTYPE_TIME_STAMP",						':type:time-stamp' );
+
+/*=======================================================================================
  *	DEFAULT TERM TYPES																	*
  *======================================================================================*/
 

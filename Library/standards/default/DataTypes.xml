@@ -292,4 +292,17 @@
 			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
 		</EDGE>
 	</META>
+	
+	<!-- kTYPE_TIME_STAMP -->
+	<META>
+		<NODE term=":type:time-stamp">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:time-stamp</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
+		</EDGE>
+	</META>
 </METADATA>

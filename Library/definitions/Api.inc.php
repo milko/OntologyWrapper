@@ -675,23 +675,16 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
 define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
 
 /**
- * Match domains.
+ * Match units.
  *
- * This tag defines the match domains operation.
+ * This tag defines the match units operation.
  *
- * The service will use the provided criteria to search the provided collection returning
- * the list of matching domains, {@link kTAG_DOMAIN}, along with their record count.
+ * The service will use the provided criteria to apply a filter to the units collection and
+ * return information based on the provided parameters.
  *
  * This operation expects the following parameters:
  *
  * <ul>
- *	<li><tt>{@link kAPI_PARAM_COLLECTION}</tt>: <em>Collection</em>. This required parameter
- *		indicates the collection in which we are searching, the parameter may take one of
- *		the following values:
- *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
- *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
- *	 </ul>
  *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
  *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
  *		a language code.
@@ -758,9 +751,40 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			 </ul>
  *		 </ul>
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_RESULT}</tt>: <em>Results domain</em>. If this parameter is
+ *		provided, the service will return the results of the type provided in this
+ *		parameter, if it is not provided, the next parameter is required. If this parameter
+ *		is provided, the next parameter will be ignored; the results will be clustered.
+ *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
+ *		provided if the {@link kAPI_PARAM_RESULT} is omitted: the value may be a string or
+ *		an array of strings representing the tag native identifiers by which the results
+ *		should be grouped. The result will be a nested array containing the distinct values
+ *		of the provided tags as keys and the record count as values. If the parameter is
+ *		an array, the results will be clustered in the order in which the tags are provided,
+ *		only the leaf elements will contain the record counts.
+ *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is
+ *		provided, the service will add the provided shape to the filter, selecting only
+ *		those records whose {@link kTAG_GEO_SHAPE} property is within or near the provided
+ *		shape. The value is a GeoJSON structure whose type defines the type of search:
+ *	 <ul>
+ *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
+ *			limits parameter) closest to the provided point, in this case the
+ *			{@link kAPI_PARAM_DISTANCE} parameter is required.
+ *		<li><tt>Polygon</tt>: The service will select all the records within the provided
+ *			polygon, excluding eventual polygon holes.
+ *		<li><tt>Rect</tt>: The service will select all the records within the provided
+ *			rectangle.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_DISTANCE}</tt>: <em>Maximum distance</em>. This parameter is
+ *		only considered if the {@link kAPI_PARAM_SHAPE} was provided and the shape is a
+ *		point: the value indicates the maximum distance from the point.
+ *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
+ *		indicates the maximum number of elements to be returned. In this service it is
+ *		only relevant if the {@link kAPI_PARAM_RESULT} parameter was provided, in that case,
+ *		If omitted, it will be set to the default constant {@link kSTANDARDS_UNITS_LIMIT}.
  * </ul>
  */
-define( "kAPI_OP_MATCH_DOMAINS",				'matchDomains' );
+define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
 
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
@@ -977,6 +1001,66 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  * </ul>
  */
 define( "kAPI_PARAM_CRITERIA",					'criteria' );
+
+/**
+ * Result type (string).
+ *
+ * This tag defines the results domain.
+ *
+ * This parameter is used by services selecting units, it indicates what type of unit to
+ * select. The value is the enumerated set of the {@link kTAG_DOMAIN} unit property.
+ */
+define( "kAPI_PARAM_RESULT",					'result-type' );
+
+/**
+ * Result grouping (string).
+ *
+ * This tag defines the results grouping.
+ *
+ * This parameter is used by services selecting units, it provides a list of property
+ * identifiers which determine the results groupings.
+ *
+ * The value may either be a string or a list of strings, in the first case the result will
+ * be an array indexed by the property value with the records count as value, in the second
+ * case the result will be a nested array clustering the groups starting from the first
+ * element to the last; only the leaf elements will hold the record count.
+ */
+define( "kAPI_PARAM_GROUP",						'grouping' );
+
+/**
+ * Geographic shape (shape).
+ *
+ * This tag defines the geographic shape.
+ *
+ * This parameter is used by services selecting units, it provides a geographic shape which
+ * can be used to further filter units based on their location.
+ *
+ * The value must be a GeoJSON shape among the following types:
+ *
+ * <ul>
+ *	<li><tt>Point</tt>: The service will select the first 100 records (or less with the
+ *		limits parameter) closest to the provided point, in this case the
+ *		{@link kAPI_PARAM_DISTANCE} parameter is required.
+ *	<li><tt>Polygon</tt>: The service will select all the records within the provided
+ *		polygon, excluding eventual polygon holes.
+ *	<li><tt>Rect</tt>: The service will select all the records within the provided
+ *		rectangle.
+ * </ul>
+ */
+define( "kAPI_PARAM_SHAPE",						'shape' );
+
+/**
+ * Maximum distance (int).
+ *
+ * This tag defines the maximum distance.
+ *
+ * This parameter is used by services selecting units, if a point is provided in the
+ * {@link kAPI_PARAM_SHAPE} parameter, the service will select the 100 (at most) closest
+ * units to the provided point, within the provided distance.
+ *
+ * This parameter is required if the shape type is a point.
+ */
+define( "kAPI_PARAM_DISTANCE",					'max-distance' );
 
 /*=======================================================================================
  *	GENERIC REQUEST FLAG PARAMETERS														*

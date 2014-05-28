@@ -87,6 +87,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
  *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: This property is an array holding the list
  *		of object references featured by the object, the array is indexed by collection name
  *		and the values represent the native identifiers of the objects in the collection.
+ *	<li><tt>{@link kTAG_RECORD_CREATED}</tt>: This property is the creation date time-stamp
+ *		in the database native format. This attribute is automatically managed by the class.
+ *	<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: This property is the last modification date
+ *		time-stamp in the database native format. This attribute is automatically managed by
+ *		the class.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -101,498 +106,530 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	public static $sDefaultTags = array
 	(
-
-		1 => array
+		kTAG_NAMESPACE => array
 		(
 			kTAG_NID	=> ':namespace',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		2 => array
+		kTAG_ID_LOCAL => array
 		(
 			kTAG_NID	=> ':id-local',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		3 => array
+		kTAG_ID_PERSISTENT => array
 		(
 			kTAG_NID	=> ':id-persistent',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		4 => array
+		kTAG_ID_VALID => array
 		(
 			kTAG_NID	=> ':id-valid',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		5 => array
+		kTAG_ID_SEQUENCE => array
 		(
 			kTAG_NID	=> ':id-sequence',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		6 => array
+		kTAG_ID_GRAPH => array
 		(
 			kTAG_NID	=> ':id-graph',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
 		),
-		7 => array
+		kTAG_DOMAIN => array
 		(
 			kTAG_NID	=> ':unit:domain',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		8 => array
+		kTAG_AUTHORITY => array
 		(
 			kTAG_NID	=> ':unit:authority',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		9 => array
+		kTAG_COLLECTION => array
 		(
 			kTAG_NID	=> ':unit:collection',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		10 => array
+		kTAG_IDENTIFIER => array
 		(
 			kTAG_NID	=> ':unit:identifier',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		11 => array
+		kTAG_VERSION => array
 		(
 			kTAG_NID	=> ':unit:version',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
 		),
-		12 => array
+		kTAG_SYNONYM => array
 		(
 			kTAG_NID	=> ':synonym',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
 		),
-		13 => array
+		kTAG_TAG => array
 		(
 			kTAG_NID	=> ':tag',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		14 => array
+		kTAG_TAGS => array
 		(
 			kTAG_NID	=> ':tags',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
 		),
-		15 => array
+		kTAG_TERM => array
 		(
 			kTAG_NID	=> ':term',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		16 => array
+		kTAG_TERMS => array
 		(
 			kTAG_NID	=> ':terms',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
 		),
-		17 => array
+		kTAG_SUBJECT => array
 		(
 			kTAG_NID	=> ':relationship:subject',
-			kTAG_DATA_TYPE	=> ':type:ref:node',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		18 => array
+		kTAG_GRAPH_SUBJECT => array
 		(
 			kTAG_NID	=> ':relationship:graph-subject',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
 		),
-		19 => array
+		kTAG_PREDICATE => array
 		(
 			kTAG_NID	=> ':predicate',
-			kTAG_DATA_TYPE	=> ':type:ref:term',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		20 => array
+		kTAG_OBJECT => array
 		(
 			kTAG_NID	=> ':relationship:object',
-			kTAG_DATA_TYPE	=> ':type:ref:node',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_NODE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		21 => array
+		kTAG_GRAPH_OBJECT => array
 		(
 			kTAG_NID	=> ':relationship:graph-object',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
 		),
-		22 => array
+		kTAG_ENTITY => array
 		(
 			kTAG_NID	=> ':entity',
-			kTAG_DATA_TYPE	=> ':type:ref:entity',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_ENTITY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		23 => array
+		kTAG_MASTER => array
 		(
 			kTAG_NID	=> ':master',
-			kTAG_DATA_TYPE	=> ':type:ref:self',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
 		),
-		24 => array
+		kTAG_CATEGORY => array
 		(
 			kTAG_NID	=> ':category',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		25 => array
+		kTAG_DATA_TYPE => array
 		(
 			kTAG_NID	=> ':type:data',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		26 => array
+		kTAG_DATA_KIND => array
 		(
 			kTAG_NID	=> ':type:kind',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		27 => array
+		kTAG_TERM_TYPE => array
 		(
 			kTAG_NID	=> ':type:term',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		28 => array
+		kTAG_NODE_TYPE => array
 		(
 			kTAG_NID	=> ':type:node',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		29 => array
+		kTAG_NAME => array
 		(
 			kTAG_NID	=> ':name',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		30 => array
+		kTAG_LABEL => array
 		(
 			kTAG_NID	=> ':label',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		31 => array
+		kTAG_DEFINITION => array
 		(
 			kTAG_NID	=> ':definition',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		32 => array
+		kTAG_DESCRIPTION => array
 		(
 			kTAG_NID	=> ':description',
-			kTAG_DATA_TYPE	=> ':type:language-strings',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		33 => array
+		kTAG_NOTE => array
 		(
 			kTAG_NID	=> ':notes',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
 		),
-		34 => array
+		kTAG_EXAMPLE => array
 		(
 			kTAG_NID	=> ':examples',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:list' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
 		),
-		35 => array
+		kTAG_UNIT_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:unit',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		36 => array
+		kTAG_ENTITY_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:entity',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		37 => array
+		kTAG_TAG_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:tag',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		38 => array
+		kTAG_TERM_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:term',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		39 => array
+		kTAG_NODE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:node',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		40 => array
+		kTAG_EDGE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:edge',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:quantitative', ':type:private-modify' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
 		),
-		41 => array
+		kTAG_TAG_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:tag',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		42 => array
+		kTAG_TERM_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:term',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		43 => array
+		kTAG_NODE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:node',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		44 => array
+		kTAG_EDGE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:edge',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		45 => array
+		kTAG_ENTITY_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:entity',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		46 => array
+		kTAG_UNIT_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:unit',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		47 => array
+		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		48 => array
+		kTAG_OBJECT_OFFSETS => array
 		(
 			kTAG_NID	=> ':object-offsets',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY, kTYPE_PRIVATE_DISPLAY )
 		),
-		49 => array
+		kTAG_OBJECT_REFERENCES => array
 		(
 			kTAG_NID	=> ':object-references',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-modify', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY, kTYPE_PRIVATE_DISPLAY )
 		),
-		50 => array
+		kTAG_TAG_STRUCT => array
 		(
 			kTAG_NID	=> ':tag:struct',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		51 => array
+		kTAG_TAG_STRUCT_IDX => array
 		(
 			kTAG_NID	=> ':tag:struct-index',
-			kTAG_DATA_TYPE	=> ':type:ref:tag',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		52 => array
+		kTAG_MIN_VAL => array
 		(
 			kTAG_NID	=> ':min-val',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		53 => array
+		kTAG_MIN_RANGE => array
 		(
 			kTAG_NID	=> ':min-range',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		54 => array
+		kTAG_MAX_VAL => array
 		(
 			kTAG_NID	=> ':max-val',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		55 => array
+		kTAG_MAX_RANGE => array
 		(
 			kTAG_NID	=> ':max-range',
-			kTAG_DATA_TYPE	=> ':type:float',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_FLOAT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		56 => array
+		kTAG_PATTERN => array
 		(
 			kTAG_NID	=> ':grep',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		57 => array
+		kTAG_TYPE => array
 		(
 			kTAG_NID	=> ':type',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		58 => array
+		kTAG_LANGUAGE => array
 		(
 			kTAG_NID	=> ':language',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		59 => array
+		kTAG_TEXT => array
 		(
 			kTAG_NID	=> ':text',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		60 => array
+		kTAG_URL => array
 		(
 			kTAG_NID	=> ':url',
-			kTAG_DATA_TYPE	=> ':type:url',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_URL,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		61 => array
+		kTAG_GEO_SHAPE => array
 		(
 			kTAG_NID	=> ':geo',
-			kTAG_DATA_TYPE	=> ':type:shape',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		62 => array
+		kTAG_CONN_PROTOCOL => array
 		(
 			kTAG_NID	=> ':connection:protocol',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		63 => array
+		kTAG_CONN_HOST => array
 		(
 			kTAG_NID	=> ':connection:host',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		64 => array
+		kTAG_CONN_PORT => array
 		(
 			kTAG_NID	=> ':connection:port',
-			kTAG_DATA_TYPE	=> ':type:int',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_INT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		65 => array
+		kTAG_CONN_USER => array
 		(
 			kTAG_NID	=> ':connection:user',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		66 => array
+		kTAG_CONN_PASS => array
 		(
 			kTAG_NID	=> ':connection:pass',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete', ':type:private-search', ':type:private-display' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
-		67 => array
+		kTAG_CONN_BASE => array
 		(
 			kTAG_NID	=> ':connection:database',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		68 => array
+		kTAG_CONN_COLL => array
 		(
 			kTAG_NID	=> ':connection:collection',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		69 => array
+		kTAG_CONN_OPTS => array
 		(
 			kTAG_NID	=> ':connection:options',
-			kTAG_DATA_TYPE	=> ':type:array',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		70 => array
+		kTAG_ENTITY_FNAME => array
 		(
 			kTAG_NID	=> ':entity:fname',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		71 => array
+		kTAG_ENTITY_LNAME => array
 		(
 			kTAG_NID	=> ':entity:lname',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		72 => array
+		kTAG_ENTITY_TYPE => array
 		(
 			kTAG_NID	=> ':type:entity',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		73 => array
+		kTAG_ENTITY_KIND => array
 		(
 			kTAG_NID	=> ':kind:entity',
-			kTAG_DATA_TYPE	=> ':type:enum-set',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_DATA_TYPE	=> kTYPE_SET,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		74 => array
+		kTAG_ENTITY_ACRONYM => array
 		(
 			kTAG_NID	=> ':entity:acronym',
-			kTAG_DATA_TYPE	=> ':type:string',
-			kTAG_DATA_KIND	=> array( ':type:list', ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL )
 		),
-		75 => array
+		kTAG_ENTITY_MAIL => array
 		(
 			kTAG_NID	=> ':entity:mail',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		76 => array
+		kTAG_ENTITY_EMAIL => array
 		(
 			kTAG_NID	=> ':entity:email',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		77 => array
+		kTAG_ENTITY_LINK => array
 		(
 			kTAG_NID	=> ':entity:url',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		78 => array
+		kTAG_ENTITY_PHONE => array
 		(
 			kTAG_NID	=> ':entity:phone',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		79 => array
+		kTAG_ENTITY_FAX => array
 		(
 			kTAG_NID	=> ':entity:fax',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		80 => array
+		kTAG_ENTITY_AFFILIATION => array
 		(
 			kTAG_NID	=> ':entity:affiliation',
-			kTAG_DATA_TYPE	=> ':type:typed-list',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_TYPED_LIST,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		81 => array
+		kTAG_ENTITY_NATIONALITY => array
 		(
-			kTAG_NID	=> ':entity:country',
-			kTAG_DATA_TYPE	=> ':type:enum',
-			kTAG_DATA_KIND	=> array( ':type:categorical' )
+			kTAG_NID	=> ':entity:nationality',
+			kTAG_DATA_TYPE	=> kTYPE_ENUM,
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		82 => array
+		kTAG_ENTITY_VALID => array
 		(
 			kTAG_NID	=> ':entity:valid',
-			kTAG_DATA_TYPE	=> ':type:ref:entity',
-			kTAG_DATA_KIND	=> array( ':type:discrete' )
+			kTAG_DATA_TYPE	=> kTYPE_REF_ENTITY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+		),
+		kTAG_RECORD_CREATED => array
+		(
+			kTAG_NID	=> ':record:created',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_RECORD_MODIFIED => array
+		(
+			kTAG_NID	=> ':record:modified',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
 		)
 	);
 
@@ -1998,6 +2035,12 @@ abstract class PersistentObject extends OntologyObject
 		// Prepare object.
 		//
 		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set creation time stamp.
+		//
+		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
+			$this->offsetSet( kTAG_RECORD_CREATED, $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.
@@ -2084,6 +2127,11 @@ abstract class PersistentObject extends OntologyObject
 		// Prepare object.
 		//
 		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set modification time stamp.
+		//
+		$this->offsetSet( kTAG_RECORD_MODIFIED, $theCollection->getTimeStamp() );
 	
 		//
 		// Commit.

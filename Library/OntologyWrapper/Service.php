@@ -55,7 +55,7 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
-	 *	<li><tt>{@link kAPI_OP_MATCH_DOMAINS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 * </ul>
 	 *
 	 * @access protected
@@ -73,7 +73,7 @@ class Service extends ServiceObject
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
-			case kAPI_OP_MATCH_DOMAINS:
+			case kAPI_OP_MATCH_UNITS:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -101,7 +101,7 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
-	 *	<li><tt>{@link kAPI_OP_MATCH_DOMAINS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 * </ul>
 	 *
 	 * @param string				$theKey				Parameter key.
@@ -182,15 +182,21 @@ class Service extends ServiceObject
 			//
 			// Match domains.
 			//
-			case kAPI_OP_MATCH_DOMAINS:
+			case kAPI_OP_MATCH_UNITS:
 				//
 				// Parse parameter.
 				//
 				switch( $theKey )
 				{
 					case kAPI_PARAM_CRITERIA:
-					case kAPI_PARAM_COLLECTION:
+					case kAPI_PARAM_RESULT:
+					case kAPI_PARAM_GROUP:
+					case kAPI_PARAM_SHAPE:
 						$this->offsetSet( $theKey, $theValue );
+						break;
+
+					case kAPI_PARAM_DISTANCE:
+						$this->offsetSet( $theKey, (int) $theValue );
 						break;
 
 					default:
@@ -284,7 +290,7 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
-	 *	<li><tt>{@link kAPI_OP_MATCH_DOMAINS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 * </ul>
 	 *
 	 * @access protected
@@ -311,8 +317,8 @@ class Service extends ServiceObject
 				$this->validateGetNodeEnumerations();
 				break;
 				
-			case kAPI_OP_MATCH_DOMAINS:
-				$this->validateSearchWithCriteria();
+			case kAPI_OP_MATCH_UNITS:
+				$this->validateMatchUnits();
 				break;
 				
 			default:
@@ -348,7 +354,7 @@ class Service extends ServiceObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
-	 *	<li><tt>{@link kAPI_OP_MATCH_DOMAINS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 * </ul>
 	 *
 	 * @access protected
@@ -388,8 +394,8 @@ class Service extends ServiceObject
 				$this->executeGetNodeEnumerations();
 				break;
 				
-			case kAPI_OP_MATCH_DOMAINS:
-				$this->executeMatchDomains();
+			case kAPI_OP_MATCH_UNITS:
+				$this->executeMatchUnits();
 				break;
 				
 			default:
@@ -691,43 +697,33 @@ class Service extends ServiceObject
 
 	 
 	/*===================================================================================
-	 *	executeMatchDomains																*
+	 *	executeMatchUnits																*
 	 *==================================================================================*/
 
 	/**
-	 * Match domains.
+	 * Match units.
 	 *
 	 * The method will perform the following actions:
 	 *
 	 * <ul>
-	 *	<li><em>Cluster by feature</em>: The method will cluster all tags by feature term:
-	 *		these tags will be searched in <tt>OR</tt>.
+	 *	<li><em>Cluster by feature</em>: The method will cluster the search criteria by tag
+	 *		feature.
 	 * </ul>
 	 *
 	 * @access protected
 	 */
-	protected function executeMatchDomains()
+	protected function executeMatchUnits()
 	{
-		//
-		// Cluster search criteria.
-		//
-		$this->clusterSearchCriteria();
-var_dump( $this->offsetGet( kAPI_PARAM_CRITERIA ) );
+var_dump( $this->mFilter );
 echo( '<hr>' );
-		
 		//
-		// Build criteria clauses.
+		// Build filter query.
 		//
-		$this->resolveQueryClauses( $criteria );
-		
-		//
-		// Reduce criteria.
-		//
-		$criteria = $this->buildSearchQuery( $criteria );
-var_dump(  $criteria );
+		$this->resolveFilter();
+var_dump( $this->mFilter );
 exit;
 		
-	} // executeMatchDomains.
+	} // executeMatchUnits.
 
 	 
 

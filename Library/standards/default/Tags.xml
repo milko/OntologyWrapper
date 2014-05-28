@@ -203,12 +203,18 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Reference version or date</item>
+				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em> or an <em>iteration</em> of a unit object. It is generally used to identify different versions of the same unit by <em>disambiguating duplicate identifiers</em>, or to provide a <em>time-stamp</em> to the unit's information.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> representing a <em>version</em>, <em>iteration</em> or <em>time-stamp</em> of a unit object. It is generally used to identify different versions of the same unit by <em>disambiguating duplicate identifiers</em>, or to provide a <em>time-stamp</em> to the unit's information.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1614,7 +1620,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
-				<item>:type:discrete</item>
+				<item>:type:categorical</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1769,10 +1775,10 @@
 		</TAG>
 	
 		<!-- 81 -->
-		<!-- kTAG_ENTITY_COUNTRY -->
+		<!-- kTAG_ENTITY_NATIONALITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:entity:country</item>
+				<item>:entity:nationality</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
@@ -1781,13 +1787,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity country</item>
+					<item const="kTAG_TEXT">Entity nationality</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>country of the entity</em>, this is expressed as an ISO country code.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>nationality of the entity</em>, this is expressed as an ISO country code.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -1806,6 +1812,48 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>reference</em> to the <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>. This is used to keep track of historical entity records when these entities become obsolete or defunct.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Record attributes -->
+	
+	<META>
+		<!-- 83 -->
+		<!-- kTAG_RECORD_CREATED -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:record:created</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>value</em> representing the <em>time-stamp in which the record was created</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		
+		<!-- 84 -->
+		<!-- kTAG_RECORD_MODIFIED -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:record:modified</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:time-stamp</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:private-modify</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>value</em> representing the <em>time-stamp in which the record was last modified</em>.]]></item>
 				</item>
 			</item>
 		</TAG>

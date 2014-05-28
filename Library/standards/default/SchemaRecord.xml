@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	RECORD SCHEMA
+	SchemaRecord.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :record -->
+	<META>
+		<NODE term=":record" pid="schema::record">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which provide record specific information.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- PROPERTIES -->
+	
+	<!-- kTAG_RECORD_CREATED -->
+	<META>
+		<NODE tag=":record:created">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::record</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTAG_RECORD_MODIFIED -->
+	<META>
+		<NODE tag=":record:modified">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">schema::record</item>
+		</EDGE>
+	</META>
+</METADATA>

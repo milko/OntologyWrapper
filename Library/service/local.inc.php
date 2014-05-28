@@ -98,4 +98,18 @@ define( "kSTANDARDS_STRINGS_LIMIT",		100 );
  */
 define( "kSTANDARDS_ENUMS_LIMIT",		360 );
 
+/**
+ * Default units limit.
+ *
+ * This tag indicates the default units limit.
+ */
+define( "kSTANDARDS_UNITS_LIMIT",		50 );
+
+/**
+ * Maximum units limit.
+ *
+ * This tag indicates the maximum units limit.
+ */
+define( "kSTANDARDS_UNITS_MAX",			1000 );
+
 ?>

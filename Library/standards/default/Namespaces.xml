@@ -170,6 +170,22 @@
 			</item>
 		</TERM>
 		
+		<!-- Record -->
+		<TERM ns="" lid="record">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Record</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>record</em> namespace groups <em>all terms which deal with data record specific information</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- Entity -->
 		<TERM ns="" lid="entity">
 			<item const="kTAG_LABEL">

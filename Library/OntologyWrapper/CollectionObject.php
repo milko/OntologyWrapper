@@ -846,6 +846,30 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *									PUBLIC TYPE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return the current time-stamp in the native database format.
+	 *
+	 * @access public
+	 * @return mixed				Native current time-stamp.
+	 */
+	abstract public function getTimeStamp();
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC INFORMATION INTERFACE							*
  *																						*
  *======================================================================================*/

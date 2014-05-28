@@ -1145,19 +1145,23 @@ define( "kTAG_ENTITY_FAX",				79 );
  * This tag holds a <em>list of entity references discriminated by their type</em>. Each
  * element of the list represents an entity object reference which is qualified by the
  * element's type.
+ *
+ * <em>Note that the entity reference should point to a units collection entity: entities
+ * stored in the entities collection exist solely for the purpose of providing a container
+ * for system users.</em>
  */
 define( "kTAG_ENTITY_AFFILIATION",		80 );
 
 /**
- * Entity country (<code>:entity:country</code)
+ * Entity mationality (<code>:entity:nationality</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_ENUM}
  * </ul>
  *
- * This tag holds an <em>enumerated value representing the country of the entity</em>.
+ * This tag holds an <em>enumerated value representing the nationality of the entity</em>.
  */
-define( "kTAG_ENTITY_COUNTRY",			81 );
+define( "kTAG_ENTITY_NATIONALITY",		81 );
 
 /**
  * Valid entity (<code>:entity:valid</code)
@@ -1171,6 +1175,32 @@ define( "kTAG_ENTITY_COUNTRY",			81 );
  * or valid entity.
  */
 define( "kTAG_ENTITY_VALID",			82 );
+
+/*=======================================================================================
+ *	RECORD ATTRIBUTES																	*
+ *======================================================================================*/
+
+/**
+ * Creation time stamp (<code>:record:created</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_TIME_STAMP}
+ * </ul>
+ *
+ * This tag indicates the record creation time stamp.
+ */
+define( "kTAG_RECORD_CREATED",			83 );
+
+/**
+ * Modification time stamp (<code>:record:modified</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_TIME_STAMP}
+ * </ul>
+ *
+ * This tag indicates the record modification time stamp.
+ */
+define( "kTAG_RECORD_MODIFIED",			84 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

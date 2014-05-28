@@ -675,7 +675,7 @@ abstract class ServiceObject extends ContainerObject
 		// Check reference count.
 		//
 		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
-			$this->validateReferenceCount( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
+			$this->validateCollection( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
 		
 	} // validateMatchLabelStrings.
 
@@ -792,20 +792,32 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	validateSearchWithCriteria														*
+	 *	validateMatchUnits																*
 	 *==================================================================================*/
 
 	/**
-	 * Validate collection search service.
+	 * Validate match units service.
 	 *
-	 * This method will validate all service operations which search a collection usinf a
-	 * list of criteria, the method will perform the following actions:
+	 * This method will validate all service operations which match units using a list of
+	 * criteria, the method will perform the following actions:
 	 *
 	 * <ul>
-	 *	<li><em>Check collection</em>: If the parameter is missing, the method will raise an
-	 *		exception; the method will check if the provided collection is valid.
+	 *	<li><em>Check criteria</em>: The method will check whether the criteria was
+	 *		.
+	 *	<li><em>Validate group</em>: If the group parameter was provided, we clear the
+	 *		results type parameter.
+	 *	<li><em>Validate results type</em>: If the group parameter was not provided, we
+	 *		assert the group parameter.
+	 *	<li><em>Validate shape</em>: If that parameter is provided:
+	 *	 <ul>
+	 *		<li>Check shape value format.
+	 *		<li>Check shape structure.
+	 *		<li>Check shape type; if point, we assert the distance parameter.
+	 *	 </ul>
+	 *	<li><em>Assert limits</em>: If the results type was provided, we assert this
+	 *		parameter.
 	 *	<li><em>Check criteria parameters</em>: The method will check whether all the
-	 *		required criteria parameters are therew.
+	 *		required criteria parameters are there.
 	 * </ul>
 	 *
 	 * @access protected
@@ -814,21 +826,115 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_NODE
 	 */
-	protected function validateSearchWithCriteria()
+	protected function validateMatchUnits()
 	{
 		//
-		// Check collection.
+		// Check if set.
 		//
-		$this->validateSearchCollection( $tmp = $this->offsetGet( kAPI_PARAM_COLLECTION ) );
+		if( ($value = $this->offsetGet( kAPI_PARAM_CRITERIA )) !== NULL )
+		{
+			//
+			// Validate group.
+			//
+			if( $this->offsetExists( kAPI_PARAM_GROUP ) )
+			{
+				//
+				// Reset results type.
+				//
+				$this->offsetUnset( kAPI_PARAM_RESULT );
+		
+				//
+				// Reset limits.
+				//
+				$this->offsetUnset( kAPI_PAGING_SKIP );
+				$this->offsetUnset( kAPI_PAGING_LIMIT );
+		
+			} // Provided group.
+		
+			//
+			// Validate result type.
+			//
+			elseif( ! $this->offsetExists( kAPI_PARAM_RESULT ) )
+				throw new \Exception(
+					"Missing results type parameter." );						// !@! ==>
+		
+			//
+			// Validate limits.
+			//
+			elseif( $this->offsetExists( kAPI_PAGING_LIMIT )
+				 && ($this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX) )
+				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+		
+			//
+			// Assert limits.
+			//
+			else
+				throw new \Exception(
+					"Missing paging limits parameter." );						// !@! ==>
+		
+			//
+			// Validate shape.
+			//
+			if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
+			{
+				//
+				// Get shape.
+				//
+				$shape = $this->offsetGet( kAPI_PARAM_SHAPE );
+			
+				//
+				// Check shape format.
+				//
+				if( ! is_array( $shape ) )
+					throw new \Exception(
+						"Invalid shape parameter: "
+					   ."the value is not an array." );							// !@! ==>
+			
+				//
+				// Check shape structure.
+				//
+				if( (! array_key_exists( kTAG_SHAPE_TYPE, $shape ))
+				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $shape ))
+				 || (! is_array( $shape[ kTAG_SHAPE_GEOMETRY ] )) )
+					throw new \Exception(
+						"Invalid shape geometry." );							// !@! ==>
+			
+				//
+				// Check shape type.
+				//
+				switch( $tmp = $shape[ kTAG_SHAPE_TYPE ] )
+				{
+					case 'Point':
+						if( ! $this->offsetExists( kAPI_PARAM_DISTANCE ) )
+							throw new \Exception(
+								"Missing distance parameter." );				// !@! ==>
+					case 'Rect':
+					case 'Polygon':
+						break;
+				
+					default:
+						throw new \Exception(
+							"Invalid shape type [$tmp]." );						// !@! ==>
+			
+				} // Parsing shape type.
+		
+			} // Provided shape.
+		
+			//
+			// Check criteria.
+			//
+			$this->validateSearchCriteria();
+		
+		} // Provided criteria.
 		
 		//
-		// Check criteria.
+		// Require criteria.
 		//
-		$tmp = $this->offsetGet( kAPI_PARAM_CRITERIA );
-		$this->validateSearchCriteria( $tmp );
-		$this->offsetSet( kAPI_PARAM_CRITERIA, $tmp );
+		else
+			throw new \Exception(
+				"Missing search criteria." );									// !@! ==>
 		
-	} // validateSearchWithCriteria.
+	} // validateMatchUnits.
 
 	 
 	/*===================================================================================
@@ -987,21 +1093,19 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	validateReferenceCount															*
+	 *	validateCollection																*
 	 *==================================================================================*/
 
 	/**
-	 * Validate reference count reference.
+	 * Validate collection reference.
 	 *
-	 * This method will validate the reference count parameter passed to all service
-	 * operations which select tags and requuire only tags with values, the method will
-	 * check whether the provided parameter value(s) is valid.
+	 * This method will validate the collection parameter.
 	 *
 	 * Any error will raise an exception.
 	 *
-	 * This method expects the reference count parameter to be an array if provided.
+	 * This method expects the collection parameter to be an array if provided.
 	 *
-	 * @param array					$theValue			Reference count enums.
+	 * @param array					$theValue			Collection.
 	 *
 	 * @access protected
 	 *
@@ -1011,7 +1115,7 @@ abstract class ServiceObject extends ContainerObject
 	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
 	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
 	 */
-	protected function validateReferenceCount( $theValue )
+	protected function validateCollection( $theValue )
 	{
 		//
 		// Check if set.
@@ -1033,68 +1137,13 @@ abstract class ServiceObject extends ContainerObject
 			{
 				if( ! in_array( $collection, $collections ) )
 					throw new \Exception(
-						"Invalid or unsupported collection reference count "
+						"Invalid or unsupported collection "
 					   ."[$collection]." );										// !@! ==>
 			}
 		
 		} // Provided.
 		
-	} // validateReferenceCount.
-
-	 
-	/*===================================================================================
-	 *	validateSearchCollection														*
-	 *==================================================================================*/
-
-	/**
-	 * Validate search collection reference.
-	 *
-	 * This method will validate the search collection parameter passed to all service
-	 * operations which perform a search criteria on a specific collection.
-	 *
-	 * The method assumes the collection to be required.
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * @param string				$theValue			Search collection.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
-	 */
-	protected function validateSearchCollection( $theValue )
-	{
-		//
-		// Check if set.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Init local storage.
-			//
-			$collections
-				= array( kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
-			
-			//
-			// Check value.
-			//
-			if( ! in_array( $theValue, $collections ) )
-				throw new \Exception(
-					"Invalid or unsupported collection reference "
-				   ."[$theValue]." );											// !@! ==>
-		
-		} // Provided.
-		
-		//
-		// Require collection parameter.
-		//
-		else
-			throw new \Exception(
-				"Missing required collection parameter." );						// !@! ==>
-		
-	} // validateSearchCollection.
+	} // validateCollection.
 
 	 
 	/*===================================================================================
@@ -1165,9 +1214,7 @@ abstract class ServiceObject extends ContainerObject
 	 * This method will validate the provided search criteria, if the criteria is missing,
 	 * the method will raise an exception.
 	 *
-	 * The method expects the {@link kAPI_PARAM_COLLECTION} parameter to have been set.
-	 *
-	 * @param array					$theValue			Search criteria.
+	 * This method assumes the criteria is present.
 	 *
 	 * @access protected
 	 *
@@ -1175,113 +1222,118 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * @see kAPI_PARAM_INPUT_STRING kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
 	 */
-	protected function validateSearchCriteria( &$theValue )
+	protected function validateSearchCriteria()
 	{
 		//
-		// Check if set.
+		// Check format.
 		//
-		if( $theValue !== NULL )
+		if( ! is_array( $value = $this->offsetGet( kAPI_PARAM_CRITERIA ) ) )
+			throw new \Exception(
+				"Invalid search criteria format." );							// !@! ==>
+		
+		//
+		// Init local storage.
+		//
+		$this->mFilter = Array();
+		$offsets_tag = PersistentObject::ResolveOffsetsTag( UnitObject::kSEQ_NAME );
+		$ref_count_tag = PersistentObject::ResolveRefCountTag( UnitObject::kSEQ_NAME );
+		$indexes
+			= PersistentObject::ResolveCollectionByName(
+				 $this->mWrapper, UnitObject::kSEQ_NAME )
+					->getIndexedOffsets();
+		
+		//
+		// Iterate criteria.
+		//
+		foreach( $value as $tag => $criteria )
 		{
 			//
-			// Check format.
+			// Init loop storage.
 			//
-			if( ! is_array( $theValue ) )
-				throw new \Exception(
-					"Invalid search criteria format." );						// !@! ==>
+			$has_value = ( count( $criteria ) > 1 );
 			
 			//
-			// Init local storage.
+			// Resolve offset.
 			//
-			$collection = $this->offsetGet( kAPI_PARAM_COLLECTION );
+			$tag_sequence = ( (! is_int( $tag )) && (! ctype_digit( $tag )) )
+						  ? $this->mWrapper->getSerial( $tag, TRUE )
+						  : (int) $tag;
 			
 			//
-			// Get tag offsets.
+			// Get tag object.
 			//
-			$offsets = PersistentObject::ResolveOffsetsTag( $collection );
+			$tag_object = $this->mWrapper->getObject( $tag_sequence, TRUE );
 			
 			//
-			// Get reference count offset.
+			// Get cluster key.
 			//
-			$ref_count_offset
-				= $this->offsetGet(
-					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_REF_COUNT ];
+			$cluster_key = ResultAggregator::GetTagClusterKey( $tag_object[ kTAG_TERMS ] );
 			
 			//
-			// Get indexes.
+			// Create cluster entry.
 			//
-			$indexes
-				= PersistentObject::ResolveCollectionByName( $this->mWrapper, $collection )
-						->getIndexedOffsets();
+			if( ! array_key_exists( $cluster_key, $this->mFilter ) )
+				$this->mFilter[ $cluster_key ] = Array();
+			$cluster_ref = & $this->mFilter[ $cluster_key ];
 			
 			//
-			// Iterate criteria.
+			// Handle match values.
 			//
-			foreach( $theValue as $tag => $criteria )
+			if( $has_value )
 			{
 				//
-				// Resolve offset.
+				// Add criteria to cluster.
 				//
-				$offset = ( (! is_int( $tag )) && (! ctype_digit( $tag )) )
-						? $this->mWrapper->getSerial( $tag, TRUE )
-						: (int) $tag;
-				
+				$cluster_ref[ $tag_sequence ] = $criteria;
+				$criteria_ref = & $cluster_ref[ $tag_sequence ];
+			
 				//
-				// Get tag object.
+				// Add tag identifier to cluster.
 				//
-				$tag_object = $this->mWrapper->getObject( $offset, TRUE );
-				
-				//
-				// Add tag sequence number to criteria.
-				//
-				$criteria[ kTAG_ID_SEQUENCE ] = $offset;
-				
+				$criteria_ref[ kTAG_NID ] = $tag;
+			
 				//
 				// Add tag data type criteria.
 				//
-				$criteria[ kTAG_DATA_TYPE ] = $tag_object[ kTAG_DATA_TYPE ];
-				
-				//
-				// Add tag terms to criteria.
-				//
-				$criteria[ kTAG_TERMS ] = $tag_object[ kTAG_TERMS ];
-				
+				$criteria_ref[ kTAG_DATA_TYPE ] = $tag_object[ kTAG_DATA_TYPE ];
+			
 				//
 				// Add tag data kind to criteria.
 				//
 				if( array_key_exists( kTAG_DATA_KIND, $tag_object ) )
-					$criteria[ kTAG_DATA_KIND ]
+					$criteria_ref[ kTAG_DATA_KIND ]
 						= $tag_object[ kTAG_DATA_KIND ];
-				
+			
 				//
 				// Add tag offsets to criteria.
 				//
-				if( array_key_exists( $offsets, $tag_object ) )
-					$criteria[ $offsets ]
-						= $tag_object[ $offsets ];
-				
+				if( array_key_exists( $offsets_tag, $tag_object ) )
+					$criteria_ref[ $offsets_tag ]
+						= $tag_object[ $offsets_tag ];
+			
 				//
 				// Add reference count to criteria.
 				//
-				if( array_key_exists( $ref_count_offset, $tag_object ) )
-					$criteria[ $ref_count_offset ]
-						= $tag_object[ $ref_count_offset ];
-				
+				if( array_key_exists( $ref_count_tag, $tag_object ) )
+					$criteria_ref[ $ref_count_tag ]
+						= $tag_object[ $ref_count_tag ];
+			
 				//
 				// Add index flag to criteria.
 				//
-				if( array_key_exists( $offset, $indexes ) )
-					$criteria[ kAPI_PARAM_INDEX ]
-						= $indexes[ $offset ];
-				
+				if( array_key_exists( $tag_sequence, $indexes ) )
+					$criteria_ref[ kAPI_PARAM_INDEX ]
+						= $indexes[ $tag_sequence ];
+			
 				//
 				// Check required fields.
 				//
-				if( array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria ) )
+				if( array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria_ref ) )
 				{
 					//
 					// Parse by input type.
 					//
-					switch( $tmp = $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+					switch( $tmp = $criteria_ref[ kAPI_PARAM_INPUT_TYPE ] )
 					{
 						//
 						// Strings.
@@ -1290,37 +1342,33 @@ abstract class ServiceObject extends ContainerObject
 							//
 							// Consider only criteria with values.
 							//
-							if( count( $criteria ) > 1 )
+							if( $has_value )
 							{
 								//
 								// Require search pattern.
 								//
-								if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+								if( ! array_key_exists( kAPI_PARAM_PATTERN,
+														$criteria_ref ) )
 									throw new \Exception(
 										"Missing search pattern for tag "
 										   ."[$tag]." );						// !@! ==>
-								
+							
 								//
 								// Cast pattern.
 								//
-								$criteria[ kAPI_PARAM_PATTERN ]
-									= (string) $criteria[ kAPI_PARAM_PATTERN ];
-							
+								$criteria_ref[ kAPI_PARAM_PATTERN ]
+									= (string) $criteria_ref[ kAPI_PARAM_PATTERN ];
+						
 								//
 								// Check operator.
 								//
-								if( array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
+								if( array_key_exists( kAPI_PARAM_OPERATOR, $criteria_ref ) )
 									$this->validateStringMatchOperator(
-										$criteria[ kAPI_PARAM_OPERATOR ] );
-								
-								//
-								// Update criteria.
-								//
-								$theValue[ $tag ] = $criteria;
+										$criteria_ref[ kAPI_PARAM_OPERATOR ] );
 							}
-							
-							break;
 						
+							break;
+					
 						//
 						// Ranges.
 						//
@@ -1328,54 +1376,54 @@ abstract class ServiceObject extends ContainerObject
 							//
 							// Consider only criteria with values.
 							//
-							if( count( $criteria ) > 1 )
+							if( $has_value )
 							{
 								//
 								// Require minimum.
 								//
-								if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
+								if( ! array_key_exists( kAPI_PARAM_RANGE_MIN,
+														$criteria_ref ) )
 									throw new \Exception(
 										"Missing minimum range for tag "
 									   ."[$tag]." );							// !@! ==>
-								
+							
 								//
 								// Cast minimum.
 								//
 								OntologyObject::CastScalar(
-									$criteria[ kAPI_PARAM_RANGE_MIN ],
+									$criteria_ref[ kAPI_PARAM_RANGE_MIN ],
 									$tag_object[ kTAG_DATA_TYPE ] );
-							
+						
 								//
 								// Require maximum.
 								//
-								if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
+								if( ! array_key_exists( kAPI_PARAM_RANGE_MAX,
+														$criteria_ref ) )
 									throw new \Exception(
 										"Missing maximum range for tag "
 									   ."[$tag]." );							// !@! ==>
-								
+							
 								//
 								// Cast maximum.
 								//
 								OntologyObject::CastScalar(
-									$criteria[ kAPI_PARAM_RANGE_MAX ],
+									$criteria_ref[ kAPI_PARAM_RANGE_MAX ],
 									$tag_object[ kTAG_DATA_TYPE ] );
-							
+						
 								//
 								// Check operator.
 								//
-								if( ! array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
-									$criteria[ kAPI_PARAM_OPERATOR ] = NULL;
-								$this->validateRangeMatchOperator(
-									$criteria[ kAPI_PARAM_OPERATOR ] );
-								
-								//
-								// Update criteria.
-								//
-								$theValue[ $tag ] = $criteria;
+								if( ! array_key_exists( kAPI_PARAM_OPERATOR,
+														$criteria_ref ) )
+									$criteria_ref[ kAPI_PARAM_OPERATOR ]
+										= array( kOPERATOR_IRANGE );
+								else
+									$this->validateRangeMatchOperator(
+										$criteria_ref[ kAPI_PARAM_OPERATOR ] );
 							}
-							
-							break;
 						
+							break;
+					
 						//
 						// Enum.
 						//
@@ -1383,42 +1431,39 @@ abstract class ServiceObject extends ContainerObject
 							//
 							// Consider only criteria with values.
 							//
-							if( count( $criteria ) > 1 )
+							if( $has_value )
 							{
 								//
 								// Require tags.
 								//
-								if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
+								if( ! array_key_exists( kAPI_RESULT_ENUM_TERM,
+														$criteria_ref ) )
 									throw new \Exception(
 										"Missing enumerated values "
 									   ."[$tag]." );							// !@! ==>
-								
+							
 								//
 								// Cast enumerations.
 								//
-								if( ! is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
-									$criteria[ kAPI_RESULT_ENUM_TERM ]
-										= array( $criteria[ kAPI_RESULT_ENUM_TERM ] );
-								foreach( $criteria[ kAPI_RESULT_ENUM_TERM ] as $k => $v )
+								if( ! is_array( $criteria_ref[ kAPI_RESULT_ENUM_TERM ] ) )
+									$criteria_ref[ kAPI_RESULT_ENUM_TERM ]
+										= array( $criteria_ref[ kAPI_RESULT_ENUM_TERM ] );
+								foreach( $criteria_ref[ kAPI_RESULT_ENUM_TERM ]
+											as $k => $v )
 									$criteria[ kAPI_RESULT_ENUM_TERM ][ $k ]
 										= (string) $v;
-								
-								//
-								// Update criteria.
-								//
-								$theValue[ $tag ] = $criteria;
 							}
-							
-							break;
 						
+							break;
+					
 						default:
 							throw new \Exception(
 								"Invalid or unsupported input type [$tmp]." );	// !@! ==>
-					
+				
 					} // Parsed input type.
-				
+			
 				} // Has input type.
-				
+			
 				//
 				// Require input type.
 				//
@@ -1426,16 +1471,15 @@ abstract class ServiceObject extends ContainerObject
 					throw new \Exception(
 						"Missing input type for tag [$tag]." );					// !@! ==>
 			
-			} // Iterating criteria.
-		
-		} // Provided.
-		
-		//
-		// Set default operator.
-		//
-		else
-			throw new \Exception(
-				"Missing search criteria." );									// !@! ==>
+			} // Has match value.
+			
+			//
+			// Handle assert property.
+			//
+			else
+				$cluster_ref[ $tag_sequence ] = array( kTAG_NID => $tag );
+			
+		} // Iterating criteria.
 		
 	} // validateSearchCriteria.
 
@@ -1604,7 +1648,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
-		$ref[ "kAPI_OP_MATCH_DOMAINS" ] = kAPI_OP_MATCH_DOMAINS;
+		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		
 		//
 		// Load request parameters.
@@ -1619,6 +1663,10 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
 		$ref[ "kAPI_PARAM_INPUT_TYPE" ] = kAPI_PARAM_INPUT_TYPE;
 		$ref[ "kAPI_PARAM_CRITERIA" ] = kAPI_PARAM_CRITERIA;
+		$ref[ "kAPI_PARAM_RESULT" ] = kAPI_PARAM_RESULT;
+		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
+		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
+		$ref[ "kAPI_PARAM_DISTANCE" ] = kAPI_PARAM_DISTANCE;
 		
 		//
 		// Load generic request flag parameters.
@@ -2575,128 +2623,190 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	clusterSearchCriteria															*
+	 *	resolveFilter																	*
 	 *==================================================================================*/
 
 	/**
-	 * Return clustered search criteria.
+	 * Resolve filter.
 	 *
-	 * This method will cluster the current search criteria, the method will return an
-	 * array of clustered criteria structured as follows:
-	 *
-	 * <ul>
-	 *	<li><em>index</em>: The cluster term identifier.
-	 *	<li><em>value</em>: The criteria elements belonging to that cluster.
-	 * </ul>
-	 *
-	 * The method expects the {@link kAPI_PARAM_CRITERIA} parameter to be set.
+	 * This method will convert the clustered clauses stored in the filter data member into
+	 * a query that can be used by the current database.
 	 *
 	 * @access protected
 	 */
-	protected function clusterSearchCriteria()
+	protected function resolveFilter()
 	{
 		//
 		// Init local storage.
 		//
-		$cluster = $counts = $result = Array();
-		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
-		$ref_count_offset
-			= $this->offsetGet(
-				kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_REF_COUNT ];
-		
-		//
-		// Create clusters.
-		//
-		foreach( $criteria as $key => $value )
-			$cluster[ ResultAggregator::GetTagClusterKey( $value[ kTAG_TERMS ] ) ]
-					[ $key ]
-				= $value;
-		
-		//
-		// Sort cluster by reference counts.
-		//
-		foreach( $cluster as $clu => $crit )
-		{
-			foreach( $crit as $tag => $crit )
-			{
-				$counts[ $clu ][ $tag ]
-					= ( array_key_exists(
-						$ref_count_offset, $cluster[ $clu ][ $tag ] ) )
-					? $cluster[ $clu ][ $tag ][ $ref_count_offset ]
-					: 0;
-			}
-			asort( $counts[ $clu ] );
-		}
-		
-		//
-		// Update cluster.
-		//
-		$result = Array();
-		foreach( $counts as $clu => $crit )
-		{
-			foreach( $counts[ $clu ] as $tag => $crit )
-				$result[ $clu ][ $tag ]
-					= $cluster[ $clu ][ $tag ];
-		}
-		
-		//
-		// Update criteria.
-		//
-		$this->offsetSet( kAPI_PARAM_CRITERIA, $result );
-		
-	} // clusterSearchCriteria.
-
-	 
-	/*===================================================================================
-	 *	resolveQueryClauses																*
-	 *==================================================================================*/
-
-	/**
-	 * Resolve query clauses.
-	 *
-	 * This method will resolve all the query clauses contained in the
-	 * {@link kAPI_PARAM_CRITERIA} parameter and load them into the provided reference
-	 * parameter.
-	 *
-	 * @param array					$theClauses			Receives queries.
-	 *
-	 * @access protected
-	 */
-	protected function resolveQueryClauses( &$theClauses )
-	{
-		//
-		// Init parameter.
-		//
-		$theClauses = Array();
-		
+		$query = [ '$and' => [] ];
+		$root = & $query[ '$and' ];
+		$offsets_tag = PersistentObject::ResolveOffsetsTag( UnitObject::kSEQ_NAME );
+	
 		//
 		// Iterate clusters.
 		//
-		$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
-		foreach( $criteria as $clus => $crit )
+		foreach( $this->mFilter as $cluster )
 		{
 			//
-			// Load cluster and reference it.
+			// Init loop storage.
 			//
-			$theClauses[ $clus ] = Array();
-			$ref_clus = & $theClauses[ $clus ];
+			$cluster_count = count( $cluster );
 			
 			//
-			// Iterate cluster clauses.
+			// Allocate cluster element.
 			//
-			foreach( $crit as $tag => $claus )
+			$idx = count( $root );
+			$root[ $idx ] = Array();
+			$cluster_ref = & $root[ $idx ];
+		
+			//
+			// Handle multiple element cluster.
+			//
+			if( $cluster_count > 1 )
 			{
 				//
-				// Init clause.
+				// Create OR clause.
 				//
-				$ref_clus[ $tag ] = Array();
-				$ref = & $ref_clus[ $tag ];
+				$cluster_ref[ '$or' ] = Array();
+				$cluster_ref = & $cluster_ref[ '$or' ];
+		
+			} // Multiple element cluster.
+		
+			//
+			// Iterate cluster elements.
+			//
+			foreach( $cluster as $tag => $criteria )
+			{
+				//
+				// Init loop storage.
+				//
+				$ref = & $cluster_ref;
+				$is_indexed = array_key_exists( kAPI_PARAM_INDEX, $criteria );
+				$has_value = ( count( $criteria ) > 1 );
+				$offsets = ( array_key_exists( $offsets_tag, $criteria ) )
+						 ? $criteria[ $offsets_tag ]
+						 : array( $tag );
 				
 				//
-				// Handle tags clause.
+				// Handle no match value.
 				//
-				if( ! array_key_exists( kAPI_PARAM_INDEX, $claus ) )
-					$ref[ kTAG_TAGS ] = $claus[ kTAG_ID_SEQUENCE ];
+				if( ! $has_value )
+				{
+					//
+					// Add tag match clause.
+					//
+					$this->addTagMatchClause( $cluster_ref, $tag );
+				
+				} // No match value.
+				
+				
+				
+				
+				//
+				// Handle match value.
+				//
+				if( $has_value )
+				{
+					//
+					// Handle tag match.
+					//
+					if( ! $is_indexed )
+					{
+						//
+						// Add AND clause.
+						//
+						if( $is_multicluster )
+						{
+							//
+							// Create AND clause.
+							//
+							$ref[ '$and' ] = Array();
+							$ref = & $ref[ '$and' ];
+						
+						} // Cluster has many elements.
+						
+						//
+						// Set tag match clause.
+						//
+						$ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+						
+						//
+						// Enclose multi offset OR clause.
+						//
+						if( count( $offsets ) > 1 )
+						{
+							//
+							// Create OR clause.
+							//
+							$ref[ '$and' ] = Array();
+							$ref = & $ref[ '$and' ];
+						
+						} // Has many offsets.
+					
+					} // Not indexed.
+					
+					
+					
+					//
+					// Handled indexed property.
+					//
+					if( $is_indexed )
+					{
+						//
+						// Handle single offset.
+						//
+						if( count( $offsets ) == 1 )
+						{
+						
+						} // Single offset.
+						
+						//
+						// Handle multiple offsets.
+						//
+						else
+						{
+						
+						} // Multiple offsets.
+					
+					} // Indexed property.
+					
+					//
+					// Handle unindexed property.
+					//
+					else
+					{
+						//
+						// Handle single offset.
+						//
+						if( count( $offsets ) == 1 )
+						{
+						
+						} // Single offset.
+						
+						//
+						// Handle multiple offsets.
+						//
+						else
+						{
+						
+						} // Multiple offsets.
+					
+					} // Unindexed property.
+				
+				} // Has value.
+				
+				//
+				// No match value.
+				//
+				else
+				{
+				
+				} // Has no value.
+		
+			} // Iterating cluster elements.
+		
+		} // Iterating clusters.
 				
 				//
 				// Handle clause.
@@ -2720,12 +2830,8 @@ abstract class ServiceObject extends ContainerObject
 						break;
 				
 				} // Parsing input types.
-			
-			} // Iterating clauses.
 		
-		} // Iterating clusters.
-		
-	} // resolveQueryClauses.
+	} // resolveFilter.
 
 	 
 	/*===================================================================================
@@ -2967,39 +3073,91 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
-	 *	buildSearchQuery																*
+	 *	addTagMatchClause																*
 	 *==================================================================================*/
 
 	/**
-	 * Build search query.
+	 * Add tag match clause.
 	 *
-	 * This method will transform the provided clustered criteria into a query.
+	 * This method will scan the provided array matching enclosed arrays holding the
+	 * {@link kTAG_OBJECT_TAGS} keys:
 	 *
-	 * @param array					$theCriteria		Query criteria.
+	 * <ul>
+	 *	<li>If there is no match:
+	 *	 <ul>
+	 *		<li>The method will add an equality clause.
+	 *	 <ul>
+	 *	<li>If there is a match:
+	 *	 <ul>
+	 *		<li>If the metched clause is an equality clause:
+	 *		 <ul>
+	 *			<li>If the tag doesn't match the selected tag, the clause will be converted
+	 *				to an <tt>$in</tt> clause and the provided tag will be added to the
+	 *				selection.
+	 *		 </ul>
+	 *		<li>If the metched clause is an <tt>$in</tt> clause:
+	 *		 <ul>
+	 *			<li>The tag will be added if it doesn't match the selection.
+	 *		 </ul>
+	 *	 <ul>
+	 * </ul> 
+	 *
+	 * @param array					$theCluster			Clause cluster.
+	 * @param int					$theTag				Tag.
 	 *
 	 * @access protected
-	 * @return array				The query.
 	 */
-	protected function buildSearchQuery( &$theCriteria )
+	protected function addTagMatchClause( &$theCluster, $theTag )
 	{
 		//
 		// Init local storage.
 		//
-		$query = Array();
+		$match = NULL;
+		$theTag = (int) $theTag;
 		
 		//
-		// Iterate clusters.
+		// Iterate cluster.
 		//
-		foreach( $theCriteria as $clus => $crit )
+		foreach( $theCluster as $key => $value )
 		{
 			//
-			// Create 
+			// Match tags match clause.
+			//
+			if( key( $value ) == kTAG_OBJECT_TAGS )
+			{
+				$match = $key;
+				break;														// =>
+			}
+		
+		} // Matching theTag match clause.
+		
+		//
+		// Create clause.
+		//
+		if( $match === NULL )
+			$theCluster[] = array( kTAG_OBJECT_TAGS => $theTag );
+		
+		//
+		// Add to set.
+		//
+		elseif( is_array( $theCluster[ $match ][ kTAG_OBJECT_TAGS ] ) )
+		{
+			//
+			// Skip duplicates.
+			//
+			if( ! in_array( $theTag, $theCluster[ $match ][ kTAG_OBJECT_TAGS ][ '$in' ] ) )
+				$theCluster[ $match ][ kTAG_OBJECT_TAGS ][ '$in' ][] = (int) $theTag;
 		}
 		
-		return $theCriteria;																// ==>
-		return $query;																// ==>
+		//
+		// Transform equality clause.
+		//
+		elseif( $theTag != $theCluster[ $match ][ kTAG_OBJECT_TAGS ] )
+			$theCluster[ $match ][ kTAG_OBJECT_TAGS ]
+				= array( '$in' => array( $theCluster[ $match ][ kTAG_OBJECT_TAGS ],
+										 $theTag ) );
 		
-	} // buildSearchQuery.
+	} // addTagMatchClause.
 
 	 
 

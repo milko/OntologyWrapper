@@ -81,19 +81,6 @@ try
 	$meta->drop();
 	
 	//
-	// Set entities.
-	//
-	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	
-	//
-	// Drop entities.
-	//
-	$entities->drop();
-	
-	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
@@ -107,18 +94,38 @@ try
 	$units->drop();
 	
 	//
-	// Set graph database.
+	// Set entities.
 	//
-	echo( "  • Setting graph.\n" );
-	$graph = $wrapper->Graph(
-		new OntologyWrapper\Neo4jGraph(
-			"neo4j://localhost:7474" ) );
+	echo( "  • Setting entities.\n" );
+	$entities = $wrapper->Entities(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
-	// Drop graph database.
+	// Drop entities.
 	//
-	echo( "  • Resetting graph.\n" );
-	$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+	$entities->drop();
+	
+	//
+	// Check graph database.
+	//
+	if( kGRAPH_DO )
+	{
+		//
+		// Set graph database.
+		//
+		echo( "  • Setting graph.\n" );
+		$graph = $wrapper->Graph(
+			new OntologyWrapper\Neo4jGraph(
+				"neo4j://localhost:7474" ) );
+	
+		//
+		// Drop graph database.
+		//
+		echo( "  • Resetting graph.\n" );
+		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+	
+	} // Use graph database.
 	
 	//
 	// Reset ontology.
@@ -141,9 +148,33 @@ try
 	$wrapper->loadStandards( TRUE );
 	
 	//
+	// Load units.
+	//
+	$wrapper->resetUnits( TRUE );
+	
+	//
 	// Load entities.
 	//
 	$wrapper->resetEntities( TRUE );
+	
+	//
+	// Get units collection.
+	//
+	$collection = $units->collection( UnitObject::kSEQ_NAME, TRUE );
+	
+	//
+	// Set country index.
+	//
+	$collection->createIndex(
+		array( $wrapper->getSerial( ':location:country', TRUE ) => 1 ),
+		array( "name" => "COUNTRY" ) );
+	
+	//
+	// Set administrative unit index.
+	//
+	$collection->createIndex(
+		array( $wrapper->getSerial( ':location:admin', TRUE ) => 1 ),
+		array( "name" => "ADMIN" ) );
 }
 
 //

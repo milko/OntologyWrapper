@@ -331,6 +331,26 @@
 		</TERM>
 	</META>
 	
+	<!-- Custom types -->
+	
+	<META>
+		<!-- kTYPE_TIME_STAMP -->
+		<TERM ns=":type" lid="time-stamp">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Time-stamp</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A <em>time-stamp</em> holds <em>date and time information</em> indicating a specific point in time; <em>its format is dependent on the specific storage engine</em>]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- Term types -->
 	
 	<META>

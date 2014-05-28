@@ -24,6 +24,13 @@
  *======================================================================================*/
 
 /**
+ * Graph service switch.
+ *
+ * This tag flag indicates whether to use or not the graph database.
+ */
+define( "kGRAPH_DO",		FALSE );
+
+/**
  * Graph service filename.
  *
  * This tag indicates the graph service filename, this refers to the launchctl file that
@@ -37,7 +44,7 @@ define( "kGRAPH_SERVICE",	'/Users/milko/Library/LaunchAgents/org.neo4j.server.pl
  * This tag indicates the directory where the graph database is stored, it will be used to
  * clear the database, the path must finish with the directory token.
  */
-define( "kGRAPH_DIR",							'/Volumes/Data/Neo4j/' );
+define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
 
 /*=======================================================================================
  *	STANDARDS SUB-FOLDER NAMES															*

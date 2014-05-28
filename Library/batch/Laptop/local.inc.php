@@ -24,6 +24,13 @@
  *======================================================================================*/
 
 /**
+ * Graph service switch.
+ *
+ * This tag flag indicates whether to use or not the graph database.
+ */
+define( "kGRAPH_DO",		FALSE );
+
+/**
  * Graph service filename.
  *
  * This tag indicates the graph service filename, this refers to the launchctl file that

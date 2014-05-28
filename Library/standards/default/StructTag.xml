@@ -434,4 +434,13 @@
 			<item const="kTAG_OBJECT" node="term">_tags</item>
 		</EDGE>
 	</META>
+	
+	<!-- :record -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::record</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_OBJECT" node="term">_tags</item>
+		</EDGE>
+	</META>
 </METADATA>
