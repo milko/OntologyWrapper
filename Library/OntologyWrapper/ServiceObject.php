@@ -75,6 +75,15 @@ abstract class ServiceObject extends ContainerObject
 	 */
 	protected $mResponse = Array();
 
+	/**
+	 * Filter.
+	 *
+	 * This data member holds the service filter.
+	 *
+	 * @var array
+	 */
+	protected $mFilter = Array();
+
 		
 
 /*=======================================================================================
@@ -1181,9 +1190,14 @@ abstract class ServiceObject extends ContainerObject
 					"Invalid search criteria format." );						// !@! ==>
 			
 			//
+			// Init local storage.
+			//
+			$collection = $this->offsetGet( kAPI_PARAM_COLLECTION );
+			
+			//
 			// Get tag offsets.
 			//
-			$offsets = $this->offsetGet( kAPI_DICTIONARY_OFFSETS_TAG );
+			$offsets = PersistentObject::ResolveOffsetsTag( $collection );
 			
 			//
 			// Get reference count offset.
@@ -1196,9 +1210,7 @@ abstract class ServiceObject extends ContainerObject
 			// Get indexes.
 			//
 			$indexes
-				= PersistentObject::ResolveCollectionByName(
-					$this->mWrapper,
-					$this->offsetGet( kAPI_PARAM_COLLECTION ) )
+				= PersistentObject::ResolveCollectionByName( $this->mWrapper, $collection )
 						->getIndexedOffsets();
 			
 			//
@@ -1575,7 +1587,6 @@ abstract class ServiceObject extends ContainerObject
 		//
 		$ref[ "kAPI_DICTIONARY_COLLECTION" ] = kAPI_DICTIONARY_COLLECTION;
 		$ref[ "kAPI_DICTIONARY_REF_COUNT" ] = kAPI_DICTIONARY_REF_COUNT;
-		$ref[ "kAPI_DICTIONARY_OFFSETS_TAG" ] = kAPI_DICTIONARY_OFFSETS_TAG;
 		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
 		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
 		$ref[ "kAPI_DICTIONARY_CLUSTER" ] = kAPI_DICTIONARY_CLUSTER;
@@ -2743,8 +2754,8 @@ abstract class ServiceObject extends ContainerObject
 			// Init local storage.
 			//
 			$offsets
-				= $this->offsetGet(
-					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+				= PersistentObject::ResolveOffsetsTag(
+					$this->offsetGet( kAPI_PARAM_COLLECTION ) );
 			
 			//
 			// Check offsets.
@@ -2804,8 +2815,8 @@ abstract class ServiceObject extends ContainerObject
 			// Init local storage.
 			//
 			$offsets
-				= $this->offsetGet(
-					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+				= PersistentObject::ResolveOffsetsTag(
+					$this->offsetGet( kAPI_PARAM_COLLECTION ) );
 			
 			//
 			// Check offsets.
@@ -2865,8 +2876,8 @@ abstract class ServiceObject extends ContainerObject
 			// Init local storage.
 			//
 			$offsets
-				= $this->offsetGet(
-					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+				= PersistentObject::ResolveOffsetsTag(
+					$this->offsetGet( kAPI_PARAM_COLLECTION ) );
 			
 			//
 			// Check offsets.
@@ -2921,8 +2932,8 @@ abstract class ServiceObject extends ContainerObject
 			// Init local storage.
 			//
 			$offsets
-				= $this->offsetGet(
-					kAPI_RESULTS_DICTIONARY )[ kAPI_DICTIONARY_OFFSETS_TAG ];
+				= PersistentObject::ResolveOffsetsTag(
+					$this->offsetGet( kAPI_PARAM_COLLECTION ) );
 			
 			//
 			// Check offsets.

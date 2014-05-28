@@ -255,13 +255,6 @@ define( "kAPI_DICTIONARY_COLLECTION",			'collection' );
 define( "kAPI_DICTIONARY_REF_COUNT",			'ref-count' );
 
 /**
- * Reference offsets tag.
- *
- * This tag indicates the collection offsets tag reference.
- */
-define( "kAPI_DICTIONARY_OFFSETS_TAG",			'offsets-tag' );
-
-/**
  * Tags cross reference.
  *
  * This tag indicates the dictionary tags cross references.
