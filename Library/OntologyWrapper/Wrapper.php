@@ -833,7 +833,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collection.\n" );
-		$this->mUnits->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
+		$this->mUnits->collection( User::kSEQ_NAME, TRUE )->drop();
 		
 		//
 		// Create units collection entity indexes.
@@ -894,7 +894,7 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collection.\n" );
-		$this->mEntities->collection( EntityObject::kSEQ_NAME, TRUE )->drop();
+		$this->mEntities->collection( User::kSEQ_NAME, TRUE )->drop();
 		User::CreateIndexes( $this->mEntities );
 		
 		return NULL;																// ==>
@@ -1015,6 +1015,11 @@ class Wrapper extends Dictionary
 			// Reset the tag cache.
 			//
 			$this->dictionaryFlush( 0 );
+			
+			//
+			// Wait 5 seconds.
+			//
+			sleep( 5 );
 		
 			//
 			// Get tags collection.
@@ -1693,7 +1698,7 @@ class Wrapper extends Dictionary
 				return Edge::ResolveCollection(
 						Edge::ResolveDatabase( $this, TRUE ) );						// ==>
 				
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return EntityObject::ResolveCollection(
 						EntityObject::ResolveDatabase( $this, TRUE ) );				// ==>
 				
@@ -1754,7 +1759,7 @@ class Wrapper extends Dictionary
 			case Edge::kSEQ_NAME:
 				return 'OntologyWrapper\Edge';										// ==>
 				
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return 'OntologyWrapper\EntityObject';								// ==>
 				
 			case UnitObject::kSEQ_NAME:

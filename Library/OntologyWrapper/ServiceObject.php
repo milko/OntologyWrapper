@@ -1211,10 +1211,11 @@ abstract class ServiceObject extends ContainerObject
 	/**
 	 * Validate search criteria.
 	 *
-	 * This method will validate the provided search criteria, if the criteria is missing,
-	 * the method will raise an exception.
+	 * This method will validate the search criteria, this method assumes the criteria is
+	 * present.
 	 *
-	 * This method assumes the criteria is present.
+	 * While validating the criteria, the method will cluster the criteria in the filter
+	 * fata member.
 	 *
 	 * @access protected
 	 *
@@ -1248,12 +1249,7 @@ abstract class ServiceObject extends ContainerObject
 		foreach( $value as $tag => $criteria )
 		{
 			//
-			// Init loop storage.
-			//
-			$has_value = ( count( $criteria ) > 1 );
-			
-			//
-			// Resolve offset.
+			// Get tag sequence number.
 			//
 			$tag_sequence = ( (! is_int( $tag )) && (! ctype_digit( $tag )) )
 						  ? $this->mWrapper->getSerial( $tag, TRUE )
@@ -1263,6 +1259,7 @@ abstract class ServiceObject extends ContainerObject
 			// Get tag object.
 			//
 			$tag_object = $this->mWrapper->getObject( $tag_sequence, TRUE );
+var_dump( $tag_object );
 			
 			//
 			// Get cluster key.
@@ -1274,210 +1271,200 @@ abstract class ServiceObject extends ContainerObject
 			//
 			if( ! array_key_exists( $cluster_key, $this->mFilter ) )
 				$this->mFilter[ $cluster_key ] = Array();
-			$cluster_ref = & $this->mFilter[ $cluster_key ];
 			
 			//
-			// Handle match values.
+			// Reference cluster and values counter.
 			//
-			if( $has_value )
+			$cluster_ref = & $this->mFilter[ $cluster_key ];
+			$counter_ref = & $cluster_ref[ kAPI_PARAM_VALUE_COUNT ];
+			
+			//
+			// Allocate and reference criterias.
+			//
+			$cluster_ref[ kAPI_PARAM_CRITERIA ] = Array();
+			$cluster_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
+			
+			//
+			// Handle no value.
+			//
+			if( count( $criteria ) == 1 )
 			{
 				//
-				// Add criteria to cluster.
+				// Set tag.
 				//
-				$cluster_ref[ $tag_sequence ] = $criteria;
-				$criteria_ref = & $cluster_ref[ $tag_sequence ];
-			
-				//
-				// Add tag identifier to cluster.
-				//
-				$criteria_ref[ kTAG_NID ] = $tag;
-			
-				//
-				// Add tag data type criteria.
-				//
-				$criteria_ref[ kTAG_DATA_TYPE ] = $tag_object[ kTAG_DATA_TYPE ];
-			
-				//
-				// Add tag data kind to criteria.
-				//
-				if( array_key_exists( kTAG_DATA_KIND, $tag_object ) )
-					$criteria_ref[ kTAG_DATA_KIND ]
-						= $tag_object[ kTAG_DATA_KIND ];
-			
-				//
-				// Add tag offsets to criteria.
-				//
-				if( array_key_exists( $offsets_tag, $tag_object ) )
-					$criteria_ref[ $offsets_tag ]
-						= $tag_object[ $offsets_tag ];
-			
-				//
-				// Add reference count to criteria.
-				//
-				if( array_key_exists( $ref_count_tag, $tag_object ) )
-					$criteria_ref[ $ref_count_tag ]
-						= $tag_object[ $ref_count_tag ];
-			
-				//
-				// Add index flag to criteria.
-				//
-				if( array_key_exists( $tag_sequence, $indexes ) )
-					$criteria_ref[ kAPI_PARAM_INDEX ]
-						= $indexes[ $tag_sequence ];
-			
-				//
-				// Check required fields.
-				//
-				if( array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria_ref ) )
-				{
-					//
-					// Parse by input type.
-					//
-					switch( $tmp = $criteria_ref[ kAPI_PARAM_INPUT_TYPE ] )
-					{
-						//
-						// Strings.
-						//
-						case kAPI_PARAM_INPUT_STRING:
-							//
-							// Consider only criteria with values.
-							//
-							if( $has_value )
-							{
-								//
-								// Require search pattern.
-								//
-								if( ! array_key_exists( kAPI_PARAM_PATTERN,
-														$criteria_ref ) )
-									throw new \Exception(
-										"Missing search pattern for tag "
-										   ."[$tag]." );						// !@! ==>
-							
-								//
-								// Cast pattern.
-								//
-								$criteria_ref[ kAPI_PARAM_PATTERN ]
-									= (string) $criteria_ref[ kAPI_PARAM_PATTERN ];
-						
-								//
-								// Check operator.
-								//
-								if( array_key_exists( kAPI_PARAM_OPERATOR, $criteria_ref ) )
-									$this->validateStringMatchOperator(
-										$criteria_ref[ kAPI_PARAM_OPERATOR ] );
-							}
-						
-							break;
-					
-						//
-						// Ranges.
-						//
-						case kAPI_PARAM_INPUT_RANGE:
-							//
-							// Consider only criteria with values.
-							//
-							if( $has_value )
-							{
-								//
-								// Require minimum.
-								//
-								if( ! array_key_exists( kAPI_PARAM_RANGE_MIN,
-														$criteria_ref ) )
-									throw new \Exception(
-										"Missing minimum range for tag "
-									   ."[$tag]." );							// !@! ==>
-							
-								//
-								// Cast minimum.
-								//
-								OntologyObject::CastScalar(
-									$criteria_ref[ kAPI_PARAM_RANGE_MIN ],
-									$tag_object[ kTAG_DATA_TYPE ] );
-						
-								//
-								// Require maximum.
-								//
-								if( ! array_key_exists( kAPI_PARAM_RANGE_MAX,
-														$criteria_ref ) )
-									throw new \Exception(
-										"Missing maximum range for tag "
-									   ."[$tag]." );							// !@! ==>
-							
-								//
-								// Cast maximum.
-								//
-								OntologyObject::CastScalar(
-									$criteria_ref[ kAPI_PARAM_RANGE_MAX ],
-									$tag_object[ kTAG_DATA_TYPE ] );
-						
-								//
-								// Check operator.
-								//
-								if( ! array_key_exists( kAPI_PARAM_OPERATOR,
-														$criteria_ref ) )
-									$criteria_ref[ kAPI_PARAM_OPERATOR ]
-										= array( kOPERATOR_IRANGE );
-								else
-									$this->validateRangeMatchOperator(
-										$criteria_ref[ kAPI_PARAM_OPERATOR ] );
-							}
-						
-							break;
-					
-						//
-						// Enum.
-						//
-						case kAPI_PARAM_INPUT_ENUM:
-							//
-							// Consider only criteria with values.
-							//
-							if( $has_value )
-							{
-								//
-								// Require tags.
-								//
-								if( ! array_key_exists( kAPI_RESULT_ENUM_TERM,
-														$criteria_ref ) )
-									throw new \Exception(
-										"Missing enumerated values "
-									   ."[$tag]." );							// !@! ==>
-							
-								//
-								// Cast enumerations.
-								//
-								if( ! is_array( $criteria_ref[ kAPI_RESULT_ENUM_TERM ] ) )
-									$criteria_ref[ kAPI_RESULT_ENUM_TERM ]
-										= array( $criteria_ref[ kAPI_RESULT_ENUM_TERM ] );
-								foreach( $criteria_ref[ kAPI_RESULT_ENUM_TERM ]
-											as $k => $v )
-									$criteria[ kAPI_RESULT_ENUM_TERM ][ $k ]
-										= (string) $v;
-							}
-						
-							break;
-					
-						default:
-							throw new \Exception(
-								"Invalid or unsupported input type [$tmp]." );	// !@! ==>
+				$cluster_ref[ $tag_sequence ] = NULL;
 				
-					} // Parsed input type.
+				continue;													// =>
 			
-				} // Has input type.
+			} // No value.
+			
+			//
+			// Alocate and reference cluster tag.
+			//
+			$cluster_ref[ $tag_sequence ] = Array();
+			$criteria_ref = & $cluster_ref[ $tag_sequence ];
+			
+			//
+			// Increment values count.
+			//
+			$counter_ref++;
+			
+			//
+			// Handle input type.
+			//
+			if( ! array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria ) )
+				throw new \Exception(
+					"Missing input type for tag [$tag]." );						// !@! ==>
+			
+			//
+			// Set input and data types.
+			//
+			$criteria_ref[ kAPI_PARAM_INPUT_TYPE ] = $criteria[ kAPI_PARAM_INPUT_TYPE ];
+			$criteria_ref[ kAPI_PARAM_DATA_TYPE ] = $tag_object[ kTAG_DATA_TYPE ];
+		
+			//
+			// Set index flag.
+			//
+			$criteria_ref[ kAPI_PARAM_INDEX ]
+				= ( array_key_exists( $tag_sequence, $indexes ) );
+			
+			//
+			// Check criteria.
+			//
+			switch( $tmp = $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+			{
+				//
+				// Strings.
+				//
+				case kAPI_PARAM_INPUT_STRING:
+					//
+					// Require search pattern.
+					//
+					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+						throw new \Exception(
+							"Missing search pattern for tag [$tag]." );			// !@! ==>
+				
+					//
+					// Cast pattern.
+					//
+					$criteria[ kAPI_PARAM_PATTERN ]
+						= (string) $criteria[ kAPI_PARAM_PATTERN ];
+			
+					//
+					// Check operator.
+					//
+					if( ! array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
+						$criteria[ kAPI_PARAM_OPERATOR ] = NULL;
+					$this->validateStringMatchOperator( $criteria[ kAPI_PARAM_OPERATOR ] );
+					
+					//
+					// Set filter.
+					//
+					$criteria_ref[ kAPI_PARAM_PATTERN ] = $criteria[ kAPI_PARAM_PATTERN ];
+					$criteria_ref[ kAPI_PARAM_OPERATOR ] = $criteria[ kAPI_PARAM_OPERATOR ];
+					
+					break;
 			
 				//
-				// Require input type.
+				// Ranges.
 				//
-				else
+				case kAPI_PARAM_INPUT_RANGE:
+					//
+					// Require minimum.
+					//
+					if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
+						throw new \Exception(
+							"Missing minimum range for tag [$tag]." );			// !@! ==>
+				
+					//
+					// Cast minimum.
+					//
+					OntologyObject::CastScalar(
+						$criteria[ kAPI_PARAM_RANGE_MIN ],
+						$tag_object[ kTAG_DATA_TYPE ] );
+			
+					//
+					// Require maximum.
+					//
+					if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
+						throw new \Exception(
+							"Missing maximum range for tag [$tag]." );			// !@! ==>
+				
+					//
+					// Cast maximum.
+					//
+					OntologyObject::CastScalar(
+						$criteria[ kAPI_PARAM_RANGE_MAX ],
+						$tag_object[ kTAG_DATA_TYPE ] );
+			
+					//
+					// Check operator.
+					//
+					if( ! array_key_exists( kAPI_PARAM_OPERATOR, $criteria ) )
+						$criteria[ kAPI_PARAM_OPERATOR ] = NULL;
+					$this->validateRangeMatchOperator( $criteria[ kAPI_PARAM_OPERATOR ] );
+					
+					//
+					// Set filter.
+					//
+					$criteria_ref[ kAPI_PARAM_RANGE_MIN ]
+						= $criteria[ kAPI_PARAM_RANGE_MIN ];
+					$criteria_ref[ kAPI_PARAM_RANGE_MAX ]
+						= $criteria[ kAPI_PARAM_RANGE_MAX ];
+					$criteria_ref[ kAPI_PARAM_OPERATOR ]
+						= $criteria[ kAPI_PARAM_OPERATOR ];
+
+					break;
+			
+				//
+				// Enumerations.
+				//
+				case kAPI_PARAM_INPUT_ENUM:
+					//
+					// Require tags.
+					//
+					if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
+						throw new \Exception(
+							"Missing enumerated values [$tag]." );				// !@! ==>
+				
+					//
+					// Normalise enumerations.
+					//
+					if( ! is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
+						$criteria[ kAPI_RESULT_ENUM_TERM ]
+							= array( $criteria[ kAPI_RESULT_ENUM_TERM ] );
+				
+					//
+					// Cast enumerations.
+					//
+					foreach( $criteria[ kAPI_RESULT_ENUM_TERM ] as $k => $v )
+						$criteria[ kAPI_RESULT_ENUM_TERM ][ $k ]
+							= (string) $v;
+					
+					//
+					// Set filter.
+					//
+					$criteria_ref[ kAPI_RESULT_ENUM_TERM ]
+						= $criteria[ kAPI_RESULT_ENUM_TERM ];
+					
+					break;
+				
+				//
+				// UNSUPPORTED.
+				//
+				default:
 					throw new \Exception(
-						"Missing input type for tag [$tag]." );					// !@! ==>
+						"Invalid or unsupported input type [$tmp]." );	// !@! ==>
 			
-			} // Has match value.
+			} // Parsing by input type.
 			
 			//
-			// Handle assert property.
+			// Add offsets to filter.
 			//
-			else
-				$cluster_ref[ $tag_sequence ] = array( kTAG_NID => $tag );
+			$criteria_ref[ kAPI_PARAM_OFFSETS ]
+				= ( array_key_exists( $offsets_tag, $tag_object ) )
+				? $tag_object[ $offsets_tag ]
+				: Array();
 			
 		} // Iterating criteria.
 		
@@ -1676,11 +1663,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
 		
 		//
-		// Load generic response parameters.
-		//
-		$ref[ "kAPI_PARAM_INDEX" ] = kAPI_PARAM_INDEX;
-		
-		//
 		// Load enumeration element parameters.
 		//
 		$ref[ "kAPI_RESULT_ENUM_TERM" ] = kAPI_RESULT_ENUM_TERM;
@@ -1710,12 +1692,12 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load collection reference enumerated set.
 		//
-		$ref[ "kAPI_PARAM_COLLECTION_TAG" ] = kAPI_PARAM_COLLECTION_TAG;
-		$ref[ "kAPI_PARAM_COLLECTION_TERM" ] = kAPI_PARAM_COLLECTION_TERM;
-		$ref[ "kAPI_PARAM_COLLECTION_NODE" ] = kAPI_PARAM_COLLECTION_NODE;
-		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = kAPI_PARAM_COLLECTION_EDGE;
-		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = kAPI_PARAM_COLLECTION_UNIT;
-		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = kAPI_PARAM_COLLECTION_ENTITY;
+		$ref[ "kAPI_PARAM_COLLECTION_TAG" ] = Tag::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_TERM" ] = Term::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_NODE" ] = Node::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_EDGE" ] = Edge::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_UNIT" ] = UnitObject::kSEQ_NAME;
+		$ref[ "kAPI_PARAM_COLLECTION_ENTITY" ] = User::kSEQ_NAME;
 		
 		//
 		// Load form input enumerated set.

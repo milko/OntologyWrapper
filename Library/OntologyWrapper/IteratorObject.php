@@ -373,7 +373,7 @@ abstract class IteratorObject implements \Iterator,
 				$offset = Edge::GetReferenceKey();
 				break;
 		
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				$offset = EntityObject::GetReferenceKey();
 				break;
 		

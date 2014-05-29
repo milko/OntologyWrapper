@@ -577,6 +577,127 @@ else
 	add criteria;
 }
 
+================================================================================
+
+foreach( $clusters as $cluster )
+{
+	//
+	// Cluster has values.
+	//
+	if( cluster[ values ] )
+	{
+		if( cluster[ criteria ] > 1 )
+		{
+			foreach( cluster[ criteria ] as $tag => $clause )
+			{
+				if( $clause !== NULL )
+				{
+					if( $clause[ indexed ] )
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+					else
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+				}
+				else
+				{
+					if( $clause[ indexed ] )
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+					else
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			foreach( cluster[ criteria ] as $tag => $clause )
+			{
+				if( $clause !== NULL )
+				{
+					if( $clause[ indexed ] )
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+					else
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+				}
+				else
+				{
+					if( $clause[ indexed ] )
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+					else
+					{
+						if( count( $clause[ offsets ] > 1 )
+						{
+						}
+						else
+						{
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//
+	// Cluster has no values.
+	//
+	else
+	{
+		foreach( cluster[ criteria ] as $tag => $clause )
+		{
+			//
+			// Clause is NULL.
+			//
+		}
+	}
+}
+
 */
 		
 ?>

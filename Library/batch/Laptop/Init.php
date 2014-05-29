@@ -160,7 +160,7 @@ try
 	//
 	// Get units collection.
 	//
-	$collection = $units->collection( UnitObject::kSEQ_NAME, TRUE );
+	$collection = $units->collection( OntologyWrapper\UnitObject::kSEQ_NAME, TRUE );
 	
 	//
 	// Set country index.
@@ -175,6 +175,11 @@ try
 	$collection->createIndex(
 		array( $wrapper->getSerial( ':location:admin', TRUE ) => 1 ),
 		array( "name" => "ADMIN" ) );
+	
+	//
+	// Reset dictionary.
+	//
+	$wrapper->loadTagCache();
 }
 
 //

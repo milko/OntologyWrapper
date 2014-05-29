@@ -1415,7 +1415,7 @@ abstract class PersistentObject extends OntologyObject
 				return Edge::ResolveCollection(
 						Edge::ResolveDatabase( $theWrapper ) );						// ==>
 				
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return EntityObject::ResolveCollection(
 						EntityObject::ResolveDatabase( $theWrapper ) );				// ==>
 				
@@ -1472,7 +1472,7 @@ abstract class PersistentObject extends OntologyObject
 			case Edge::kSEQ_NAME:
 				return kTAG_EDGE_COUNT;												// ==>
 		
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return kTAG_ENTITY_COUNT;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
@@ -1527,7 +1527,7 @@ abstract class PersistentObject extends OntologyObject
 			case Edge::kSEQ_NAME:
 				return kTAG_EDGE_OFFSETS;											// ==>
 		
-			case EntityObject::kSEQ_NAME:
+			case User::kSEQ_NAME:
 				return kTAG_ENTITY_OFFSETS;											// ==>
 		
 			case UnitObject::kSEQ_NAME:
@@ -3980,7 +3980,7 @@ abstract class PersistentObject extends OntologyObject
 					case Term::kSEQ_NAME:
 					case Edge::kSEQ_NAME:
 					case UnitObject::kSEQ_NAME:
-					case EntityObject::kSEQ_NAME:
+					case User::kSEQ_NAME:
 						$theProperty = (string) $theProperty;
 						break;
 					case Node::kSEQ_NAME:
@@ -4536,7 +4536,7 @@ abstract class PersistentObject extends OntologyObject
 				return UnitObject::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_ENTITY:
-				return EntityObject::kSEQ_NAME;										// ==>
+				return User::kSEQ_NAME;										// ==>
 		
 			case kTYPE_REF_SELF:
 				return static::kSEQ_NAME;											// ==>

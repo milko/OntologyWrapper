@@ -1101,17 +1101,6 @@ define( "kAPI_PARAM_LOG_TRACE",					'log-trace' );
 define( "kAPI_PARAM_RECURSE",					'recurse' );
 
 /*=======================================================================================
- *	CRITERIA RESPONSE PARAMETERS														*
- *======================================================================================*/
-
-/**
- * Index (array).
- *
- * This parameter will hold the list of indexes for the criteria tag.
- */
-define( "kAPI_PARAM_INDEX",						'index' );
-
-/*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
  *======================================================================================*/
 
@@ -1240,6 +1229,38 @@ define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
  * This parameter indicates a form default input.
  */
 define( "kAPI_PARAM_INPUT_DEFAULT",				'input-default' );
+
+/*=======================================================================================
+ *	INTERNAL PARAMETERS																	*
+ *======================================================================================*/
+
+/**
+ * Index (array).
+ *
+ * This parameter will hold the list of indexes for the criteria tag.
+ */
+define( "kAPI_PARAM_INDEX",						'index' );
+
+/**
+ * Data type (string).
+ *
+ * This parameter will hold the tag data type.
+ */
+define( "kAPI_PARAM_DATA_TYPE",				'data-type' );
+
+/**
+ * Value count (int).
+ *
+ * This parameter will hold the match value count of the current container.
+ */
+define( "kAPI_PARAM_VALUE_COUNT",				'values' );
+
+/**
+ * Offsets (array).
+ *
+ * This parameter will hold the list of offsets for the current criteria tag.
+ */
+define( "kAPI_PARAM_OFFSETS",					'offsets' );
 
 
 ?>
