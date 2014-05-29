@@ -419,16 +419,18 @@ abstract class CollectionObject extends ConnectionObject
 	 *		<li><em>Result type</em>: This set of values can be added to the previous flag,
 	 *			only one of these should be provided:
 	 *		 <ul>
-	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return the matched object.
-	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return the matched object array value.
-	 *			<li><tt>{@link kQUERY_NID}</tt>: Return the matched object native
-	 *				identifiers.
+	 *			<li><tt>{@link kQUERY_OBJECT}</tt>: Return an object iterator (default).
+	 *			<li><tt>{@link kQUERY_ARRAY}</tt>: Return an array iterator.
+	 *			<li><tt>{@link kQUERY_NID}</tt>: Return an identifier iterator.
 	 *		 </ul>
 	 *			Any other value will trigger an exception.
 	 *	 </ul>
 	 *	<li><b>$theFields</b>: This parameter represents the fields selection, it is an
 	 *		array indexed by offset with a boolean value indicating whether or not to
 	 *		include the field.
+	 *	<li><b>$theKey</b>: This parameter represents the iterator key offset, it can be
+	 *		used to set which value the {@link key()} function should return: the value is
+	 *		the offset that will be used to get the key value.
 	 * </ul>
 	 *
 	 * If you omit the second parameter, the the iterator returned by this method will
@@ -439,13 +441,15 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param array					$theCriteria		Selection criteria.
 	 * @param bitfield				$theResult			Result type.
 	 * @param array					$theFields			Fields selection.
+	 * @param array					$theKey				Key offset.
 	 *
 	 * @access public
 	 * @return IteratorObject		Matched data iterator.
 	 */
 	abstract public function matchAll( $theCriteria = Array(),
 									   $theResult = kQUERY_DEFAULT,
-									   $theFields = Array() );
+									   $theFields = Array(),
+									   $theKey = NULL );
 
 	 
 	/*===================================================================================
@@ -456,16 +460,18 @@ abstract class CollectionObject extends ConnectionObject
 	 * Return all objects
 	 *
 	 * This method should select all the objects of the collection and return an iterator,
-	 * this iterator is not an instance of {@link IteratorObject}, but the curso of the
+	 * this iterator is not an instance of {@link IteratorObject}, but the cursor of the
 	 * native database engine; by default it should be an iterator whose elements are array
 	 * representations of the selected objects.
 	 *
 	 * Concrete derived classes should implement this method.
 	 *
+	 * @param array					$theFields			Fields selection.
+	 *
 	 * @access public
 	 * @return Iterator				Selection of all objects in the collection.
 	 */
-	abstract public function getAll();
+	abstract public function getAll( $theFields = Array() );
 
 		
 

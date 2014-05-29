@@ -102,8 +102,7 @@ abstract class DictionaryObject extends ContainerObject
 	/**
 	 * Set tag
 	 *
-	 * This method should either commit the provided tag object, if it doesn't yet exist, or
-	 * replace an existing tag object.
+	 * This method should commit the provided tag, both as an identifier and as an object.
 	 *
 	 * The method expects the following parameters:
 	 *
@@ -166,6 +165,60 @@ abstract class DictionaryObject extends ContainerObject
 						 		  $theLife );
 	
 	} // setTag.
+
+	 
+	/*===================================================================================
+	 *	setTagsByIterator																*
+	 *==================================================================================*/
+
+	/**
+	 * Set tags by iterator
+	 *
+	 * This method should commit the provided tags, both as identifiers and as an objects.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theTags</b>: Tags iterator, typically from a database query, the iterator
+	 *		must have as key the tag native identifier
+	 *	<li><b>$theLife</b>: Lifetime of the dictionary entry in seconds, 0 means permanent.
+	 * </ul>
+	 *
+	 * @param IteratorObject		$theTags			Tag iterator.
+	 * @param integer				$theLife			Elements lifetime.
+	 *
+	 * @access public
+	 */
+	public function setTagsByIterator( IteratorObject $theTags, $theLife = 0 )
+	{
+		//
+		// Set iterator key to tag sequence number.
+		//
+		$theTags->setKeyOffset( kTAG_ID_SEQUENCE );
+		
+		//
+		// Set objects.
+		//
+		$this->setEntriesByIterator( $theTags, $theLife );
+		
+		//
+		// Set iterator key to tag native identifier.
+		//
+		$theTags->setKeyOffset( kTAG_NID );
+		
+		//
+		// Load sequences.
+		//
+		$serials = Array();
+		foreach( $theTags as $id => $tag )
+			$serials[ $id ] = (int) $tag[ kTAG_ID_SEQUENCE ];
+	
+		//
+		// Set sequences.
+		//
+		$this->setEntriesByArray( $serials, $theLife );
+		
+	} // setTagsByIterator.
 
 	 
 	/*===================================================================================
@@ -337,6 +390,47 @@ abstract class DictionaryObject extends ContainerObject
 		return FALSE;																// ==>
 		
 	} // getTypes.
+
+	 
+	/*===================================================================================
+	 *	getTagOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get dictionary tag offsets
+	 *
+	 * This method should return the list of tag sequence numbers corresponding to the
+	 * tag properties that will be stored in the dictionary.
+	 *
+	 * By default we store:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NID}</tt>: Native identifier.
+	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
+	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Data type.
+	 *	<li><tt>{@link kTAG_DATA_KIND}</tt>: Data kind.
+	 *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: Range minimum bound.
+	 *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: Range maximum bound.
+	 *	<li><tt>{@link kTAG_PATTERN}</tt>: Value pattern.
+	 * </ul>
+	 *
+	 * Other properties are either not needed for this purpose, or they are modified
+	 * frequently, making reading from the database slower, but safer.
+	 *
+	 * The method will return an array suited to be used for querying with a field
+	 * selection, the tag offsets are the key and a boolean is the value.
+	 *
+	 * @access public
+	 * @return array				List of tag offsets.
+	 */
+	public function getTagOffsets()
+	{
+		return array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+					  kTAG_DATA_TYPE => TRUE, kTAG_DATA_KIND => TRUE,
+					  kTAG_MIN_RANGE => TRUE, kTAG_MAX_RANGE => TRUE,
+					  kTAG_PATTERN => TRUE );										// ==>
+	
+	} // getTagOffsets.
 
 	 
 	/*===================================================================================

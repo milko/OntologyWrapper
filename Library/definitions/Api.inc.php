@@ -1246,7 +1246,7 @@ define( "kAPI_PARAM_INDEX",						'index' );
  *
  * This parameter will hold the tag data type.
  */
-define( "kAPI_PARAM_DATA_TYPE",				'data-type' );
+define( "kAPI_PARAM_DATA_TYPE",					'data-type' );
 
 /**
  * Value count (int).

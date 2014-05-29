@@ -65,6 +65,7 @@ class MongoIterator extends IteratorObject
 	 * @param CollectionObject		$theCollection		Query collection.
 	 * @param array					$theCriteria		Query criteria.
 	 * @param array					$theFields			Query fields.
+	 * @param mixed					$theKey				Iterator key.
 	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
@@ -73,7 +74,8 @@ class MongoIterator extends IteratorObject
 								 CollectionObject $theCollection,
 								 				  $theCriteria,
 								 				  $theFields = Array(),
-												  $theResult = kQUERY_ARRAY)
+								 				  $theKey = NULL,
+												  $theResult = kQUERY_ARRAY )
 	{
 		//
 		// Check cursor.
@@ -92,7 +94,10 @@ class MongoIterator extends IteratorObject
 		//
 		// Call parent constructor.
 		//
-		parent::__construct( $theCursor, $theCollection, $theResult );
+		parent::__construct( $theCursor,
+							 $theCollection, $theCriteria,
+							 $theFields, $theKey,
+							 $theResult );
 		
 	} // Constructor.
 

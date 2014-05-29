@@ -716,6 +716,7 @@ class Service extends ServiceObject
 	{
 var_dump( $this->mFilter );
 echo( '<hr>' );
+exit;
 		//
 		// Build filter query.
 		//

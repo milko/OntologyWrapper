@@ -89,6 +89,15 @@ abstract class IteratorObject implements \Iterator,
 	 protected $mFields = NULL;
 
 	/**
+	 * Key.
+	 *
+	 * This data member holds the iterator key field.
+	 *
+	 * @var string
+	 */
+	 protected $mKey = NULL;
+
+	/**
 	 * Result.
 	 *
 	 * This data member holds an enumerated value determining what the iterator should
@@ -128,6 +137,7 @@ abstract class IteratorObject implements \Iterator,
 	 *	<li><b>$theCollection</b>: The collection to which the query was applied.
 	 *	<li><b>$theCriteria</b>: The query filter.
 	 *	<li><b>$theFields</b>: The query fields.
+	 *	<li><b>$theKey</b>: The iterator key.
 	 *	<li><b>$theResult</b>: A bitfield value determining what kind of data the iterator
 	 *		will return:
 	 *	 <ul>
@@ -141,6 +151,7 @@ abstract class IteratorObject implements \Iterator,
 	 * @param CollectionObject		$theCollection		Query collection.
 	 * @param array					$theCriteria		Query criteria.
 	 * @param array					$theFields			Query fields.
+	 * @param mixed					$theKey				Iterator key.
 	 * @param bitfield				$theResult			Result type.
 	 *
 	 * @access public
@@ -149,7 +160,8 @@ abstract class IteratorObject implements \Iterator,
 								 CollectionObject $theCollection,
 								 				  $theCriteria,
 								 				  $theFields = Array(),
-												  $theResult = kQUERY_ARRAY)
+								 				  $theKey = NULL,
+												  $theResult = kQUERY_ARRAY )
 	{
 		//
 		// Set cursor.
@@ -167,14 +179,73 @@ abstract class IteratorObject implements \Iterator,
 		$this->mCriteria = $theCriteria;
 		
 		//
+		// Add class to fields.
+		//
+		if( ($theResult & kRESULT_MASK) == kQUERY_OBJECT )
+		{
+			if( ( is_array( $theFields )
+			   && (! array_key_exists( kTAG_CLASS, $theFields )) )
+			 || ( ($theFields instanceof \ArrayObject)
+			   && (! $theFields->offsetExists( kTAG_CLASS )) ) )
+				$theFields[ kTAG_CLASS ] = TRUE;
+		}
+		
+		//
 		// Set fields.
 		//
 		$this->mFields = $theFields;
 		
 		//
+		// Init default key.
+		//
+		if( $theKey === NULL )
+		{
+			//
+			// Get key offset.
+			//
+			switch( $this->mCollection->connection()->getName() )
+			{
+				case Tag::kSEQ_NAME:
+					$offset = Tag::GetReferenceKey();
+					break;
+		
+				case Term::kSEQ_NAME:
+					$offset = Term::GetReferenceKey();
+					break;
+		
+				case Node::kSEQ_NAME:
+					$offset = Node::GetReferenceKey();
+					break;
+		
+				case Edge::kSEQ_NAME:
+					$offset = Edge::GetReferenceKey();
+					break;
+		
+				case User::kSEQ_NAME:
+					$offset = EntityObject::GetReferenceKey();
+					break;
+		
+				case UnitObject::kSEQ_NAME:
+					$offset = UnitObject::GetReferenceKey();
+					break;
+			
+				default:
+					$offset = kTAG_NID;
+					break;
+		
+			} // Parsed collection name.
+		
+		} // Key not provided.
+		
+		//
+		// Set key.
+		//
+		$this->mKey = $theKey;
+		
+		//
 		// Set result.
 		//
-		$this->resultType( $theResult );
+		$this->resultType( $theResult & kRESULT_MASK );
 		
 	} // Constructor.
 
@@ -299,6 +370,23 @@ abstract class IteratorObject implements \Iterator,
 	
 	} // resultType.
 
+	 
+	/*===================================================================================
+	 *	setKeyOffset																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set key offset
+	 *
+	 * This method can be used to set the key offset, it expects a parameter which represents
+	 * the offset in the current element from which to get the current key value.
+	 *
+	 * @param mixed					$theOffset			Key offset.
+	 *
+	 * @access public
+	 */
+	public function setKeyOffset( $theOffset )				{	$this->mKey = $theOffset;	}
+
 		
 
 /*=======================================================================================
@@ -348,50 +436,15 @@ abstract class IteratorObject implements \Iterator,
 	public function key()
 	{
 		//
-		// Get current element.
+		// Init local storage.
 		//
 		$current = $this->mCursor->current();
 		
 		//
-		// Get key offset.
-		//
-		switch( $this->collection()->connection()->getName() )
-		{
-			case Tag::kSEQ_NAME:
-				$offset = Tag::GetReferenceKey();
-				break;
-		
-			case Term::kSEQ_NAME:
-				$offset = Term::GetReferenceKey();
-				break;
-		
-			case Node::kSEQ_NAME:
-				$offset = Node::GetReferenceKey();
-				break;
-		
-			case Edge::kSEQ_NAME:
-				$offset = Edge::GetReferenceKey();
-				break;
-		
-			case User::kSEQ_NAME:
-				$offset = EntityObject::GetReferenceKey();
-				break;
-		
-			case UnitObject::kSEQ_NAME:
-				$offset = UnitObject::GetReferenceKey();
-				break;
-			
-			default:
-				$offset = kTAG_NID;
-				break;
-		
-		} // Parsed collection name.
-		
-		//
 		// Determine actual key.
 		//
-		if( array_key_exists( $offset, $current ) )
-			return $current[ $offset ];												// ==>
+		if( array_key_exists( $this->mKey, $current ) )
+			return $current[ $this->mKey ];											// ==>
 		
 		return $this->mCursor->key();												// ==>
 	

@@ -586,7 +586,7 @@ foreach( $clusters as $cluster )
 	//
 	if( cluster[ values ] )
 	{
-		if( cluster[ criteria ] > 1 )
+		if( count( cluster[ criteria ] ) > 1 )
 		{
 			foreach( cluster[ criteria ] as $tag => $clause )
 			{
@@ -691,9 +691,10 @@ foreach( $clusters as $cluster )
 	{
 		foreach( cluster[ criteria ] as $tag => $clause )
 		{
-			//
-			// Clause is NULL.
-			//
+			if( count( cluster[ criteria ] ) > 1 )
+				Add tag match to '$in';
+			else
+				Add tag match equals;
 		}
 	}
 }

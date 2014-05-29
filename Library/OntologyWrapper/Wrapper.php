@@ -988,7 +988,7 @@ class Wrapper extends Dictionary
 	 * This method can be used to reset the tag cache.
 	 *
 	 * The method will return <tt>TRUE</tt> if the object is connected and the operation was
-	 * executes and <tt>FALSE</tt> if the object is not connected, or if the metadata is
+	 * executed and <tt>FALSE</tt> if the object is not connected, or if the metadata is
 	 * missing.
 	 *
 	 * Note that although the operation might have been executed, this doesn't mean that the
@@ -1015,23 +1015,17 @@ class Wrapper extends Dictionary
 			// Reset the tag cache.
 			//
 			$this->dictionaryFlush( 0 );
-			
-			//
-			// Wait 5 seconds.
-			//
-			sleep( 5 );
 		
 			//
-			// Get tags collection.
+			// Set dictionary.
 			//
-			$collection = $this->mMetadata->collection( Tag::kSEQ_NAME );
-		
-			//
-			// Load all tags.
-			//
-			$tags = $collection->getAll();
-			foreach( $tags as $tag )
-				$this->setTag( $tag, 0 );
+			$this->setTagsByIterator(
+				new MongoIterator(
+					$this->mMetadata->collection( Tag::kSEQ_NAME )
+						->getAll( $this->getTagOffsets() ),
+					$this->mMetadata->collection( Tag::kSEQ_NAME ),
+					Array() ),
+				0 );
 			
 			return TRUE;															// ==>
 		

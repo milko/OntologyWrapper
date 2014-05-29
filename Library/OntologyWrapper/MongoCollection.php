@@ -243,13 +243,15 @@ class MongoCollection extends CollectionObject
 	 * @param array					$theCriteria		Selection criteria.
 	 * @param bitfield				$theResult			Result type.
 	 * @param array					$theFields			Fields selection.
+	 * @param array					$theKey				Key offset.
 	 *
 	 * @access public
 	 * @return IteratorObject		Matched data iterator.
 	 */
 	public function matchAll( $theCriteria = Array(),
 							  $theResult = kQUERY_DEFAULT,
-							  $theFields = Array() )
+							  $theFields = Array(),
+							  $theKey = NULL )
 	{
 		//
 		// Check if connected.
@@ -264,30 +266,40 @@ class MongoCollection extends CollectionObject
 				$theFields = new \ArrayObject( $theFields );
 					
 			//
-			// Make query.
+			// Get result.
 			//
-			$cursor
-				= $this->
-					mConnection->
-						find( $theCriteria, $theFields );
+			switch( $theResult & kRESULT_MASK )
+			{
+				case kQUERY_NID:
+					//
+					// Set native identifier in fields.
+					// This is necessary since PHP treats numeric indexes as integers.
+					//
+					$theFields = new \ArrayObject( array( kTAG_NID => TRUE ) );
+				case kQUERY_OBJECT:
+				case kQUERY_ARRAY:
+					$cursor
+						= $this->
+							mConnection->
+								find( $theCriteria, $theFields );
+					break;
+					
+				case kQUERY_COUNT:
+					return $this-> mConnection->find( $theCriteria )->count();		// ==>
+			
+			} // Parsed result flags.
 			
 			//
 			// Handle no matches.
 			//
-			if( ! $cursor->count() )
-			{
-				//
-				// Assert.
-				//
-				if( $theResult & kQUERY_ASSERT )
-					throw new \Exception(
-						"No matches." );										// !@! ==>
-			
-			} // No matches.
+			if( (! $cursor->count())
+			 && ($theResult & kQUERY_ASSERT) )
+				throw new \Exception(
+					"No matches." );											// !@! ==>
 			
 			return new MongoIterator(
 					$cursor, $this,
-					$theCriteria, $theFields,
+					$theCriteria, $theFields, $theKey,
 					$theResult & kRESULT_MASK );									// ==>
 		
 		} // Connected.
@@ -308,18 +320,28 @@ class MongoCollection extends CollectionObject
 	 *
 	 * In this class we return a { @link MongoCursor} object.
 	 *
-	 * @access public
-	 * @return Iterator				Selection of all objects of the collection.
+	 * @param array					$theFields			Fields selection.
 	 *
-	 * @throws Exception
+	 * @access public
+	 * @return Iterator				Selection of all objects in the collection.
 	 */
-	public function getAll()
+	public function getAll( $theFields = Array() )
 	{
 		//
 		// Check if connected.
 		//
 		if( $this->isConnected() )
-			return $this->mConnection->find();										// ==>
+		{
+			//
+			// Convert fields to object.
+			// This is necessary since PHP treats numeric indexes as integers.
+			//
+			if( count( $theFields ) )
+				$theFields = new \ArrayObject( $theFields );
+			
+			return $this->mConnection->find( Array(), $theFields );					// ==>
+		
+		} // Connected.
 			
 		throw new \Exception(
 			"Unable to get all object: "

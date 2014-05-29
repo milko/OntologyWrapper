@@ -141,6 +141,76 @@ trait MemcachedDictionary
 
 	 
 	/*===================================================================================
+	 *	setEntriesByArray																*
+	 *==================================================================================*/
+
+	/**
+	 * Set a list dictionary entries from an array
+	 *
+	 * In this trait we use the {@link Memcached::setMulti()} method to add entries to the
+	 * dictionary. This method will receive two kinds of objects:
+	 *
+	 * The method expects the parameters to be correctly casted.
+	 *
+	 * @param array					$theEntries			Entries array.
+	 * @param integer				$theLife			Entry lifetime.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function setEntriesByArray( &$theEntries, $theLife )
+	{
+		//
+		// Load elements.
+		//
+		if( ! $this->mCache->setMulti( $theEntries, $theLife ) )
+		{
+			$code = $this->mCache->getResultCode();
+			$message = $this->mCache->getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==>
+	
+		} // Failed.
+	
+	} // setEntriesByArray.
+
+	 
+	/*===================================================================================
+	 *	setEntriesByIterator															*
+	 *==================================================================================*/
+
+	/**
+	 * Set a list of dictionary entries from an iterator
+	 *
+	 * In this trait we use the {@link Memcached::setMulti()} method to add entries to the
+	 * dictionary. This method expects an iterator indexed by entry key.
+	 *
+	 * The method expects the parameters to be correctly casted.
+	 *
+	 * @param Iterator				$theEntries			Entries iterator.
+	 * @param integer				$theLife			Entry lifetime.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function setEntriesByIterator( \Iterator $theEntries, $theLife )
+	{
+		//
+		// Load elements.
+		//
+		if( ! $this->mCache->setMulti( iterator_to_array( $theEntries ), $theLife ) )
+		{
+			$code = $this->mCache->getResultCode();
+			$message = $this->mCache->getResultMessage();
+			throw new \Exception( $message, $code );							// !@! ==>
+	
+		} // Failed.
+	
+	} // setEntriesByIterator.
+
+	 
+	/*===================================================================================
 	 *	getEntry																		*
 	 *==================================================================================*/
 

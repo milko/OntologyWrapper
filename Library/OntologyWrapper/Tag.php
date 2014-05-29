@@ -339,7 +339,7 @@ class Tag extends PersistentObject
 	/**
 	 * Insert the object
 	 *
-	 * We overload this method to add the object to the data dictionary cache.
+	 * We overload this method to add/update the object in the data dictionary cache.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 *
@@ -356,7 +356,12 @@ class Tag extends PersistentObject
 		//
 		// Set cache.
 		//
-		$this->mDictionary->setTag( $this, 0 );
+		$this->mDictionary
+			->setTag(
+				array_intersect_key(
+					$this->getArrayCopy(),
+					$this->mDictionary->getTagOffsets() ),
+				0 );
 		
 		return $id;																	// ==>
 	
@@ -698,12 +703,12 @@ class Tag extends PersistentObject
 	/**
 	 * Delete the object
 	 *
-	 * We overload this method to remove the tag from the data dictionary.
+	 * We overload this method to remove the object from the data dictionary cache.
 	 *
 	 * @access protected
 	 * @return mixed				Native identifier, <tt>NULL</tt> or <tt>FALSE</tt>.
 	 */
-	protected final function deleteObject()
+	protected function deleteObject()
 	{
 		//
 		// Call parent method
@@ -720,40 +725,6 @@ class Tag extends PersistentObject
 		return $id;																	// ==>
 	
 	} // deleteObject.
-
-	 
-	/*===================================================================================
-	 *	modifyObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Modify object
-	 *
-	 * We overload this method to update the object in the data dictionary cache.
-	 *
-	 * @param mixed					$theOffsets			Offsets to be modified.
-	 * @param boolean				$doSet				<tt>TRUE</tt> means add or replace.
-	 *
-	 * @access protected
-	 * return integer				Number of objects affected.
-	 *
-	 * @throws Exception
-	 */
-	protected function modifyObject( $theOffsets, $doSet )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::modifyObject( $theOffsets, $doSet );
-		
-		//
-		// Set cache.
-		//
-		$this->mDictionary->setTag( $this, 0 );
-		
-		return $ok;																	// ==>
-	
-	} // modifyObject.
 
 		
 

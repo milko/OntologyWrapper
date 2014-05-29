@@ -1244,22 +1244,39 @@ abstract class ServiceObject extends ContainerObject
 					->getIndexedOffsets();
 		
 		//
+		// Load tags.
+		//
+		$tags
+			= iterator_to_array(
+				PersistentObject::ResolveCollectionByName(
+					$this->mWrapper, Tag::kSEQ_NAME )
+					->matchAll(
+						array( kTAG_NID => array( '$in' => array_keys( $value ) ) ),
+						kQUERY_ARRAY,
+						array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+							   kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
+							   $offsets_tag => TRUE ) ) );
+		
+		//
 		// Iterate criteria.
 		//
 		foreach( $value as $tag => $criteria )
 		{
 			//
-			// Get tag sequence number.
-			//
-			$tag_sequence = ( (! is_int( $tag )) && (! ctype_digit( $tag )) )
-						  ? $this->mWrapper->getSerial( $tag, TRUE )
-						  : (int) $tag;
-			
-			//
 			// Get tag object.
 			//
-			$tag_object = $this->mWrapper->getObject( $tag_sequence, TRUE );
-var_dump( $tag_object );
+			if( array_key_exists( $tag, $tags ) )
+				$tag_object = & $tags[ $tag ];
+			else
+				//
+				// We simply ignore missing tags.
+				//
+				continue;													// =>
+			
+			//
+			// Get tag sequence number.
+			//
+			$tag_sequence = $tag_object[ kTAG_ID_SEQUENCE ];
 			
 			//
 			// Get cluster key.

@@ -128,6 +128,12 @@ try
 	} // Use graph database.
 	
 	//
+	// Reset dictionary.
+	//
+	$wrapper->loadTagCache();
+exit;
+	
+	//
 	// Reset ontology.
 	//
 //	$wrapper->resetOntology( TRUE );
