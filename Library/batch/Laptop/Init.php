@@ -148,12 +148,12 @@ try
 	$wrapper->loadStandards( TRUE );
 	
 	//
-	// Load units.
+	// Reset units.
 	//
 	$wrapper->resetUnits( TRUE );
 	
 	//
-	// Load entities.
+	// Reset entities.
 	//
 	$wrapper->resetEntities( TRUE );
 	

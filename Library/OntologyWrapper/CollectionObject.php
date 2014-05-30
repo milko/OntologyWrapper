@@ -330,6 +330,46 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MODIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object(s)
+	 *
+	 * This method should modify the the objects selected by the provided criteria applying
+	 * the provided modifications using the provided options.
+	 *
+	 * The method will return an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>affected</tt>: The affected records count.
+	 *	<li><tt>modified</tt>: The modified records count.
+	 * </ul>
+	 *
+	 * The format of the provided parameters is dependent on the specific database engine.
+	 *
+	 * Derived classes must implement this method.
+	 *
+	 * @param array					$theCriteria		Object selection criteria.
+	 * @param array					$theActions			Modification actions.
+	 * @param array					$theOptions			Modification options.
+	 *
+	 * @access public
+	 * @return array				Operation status.
+	 */
+	abstract public function modify( $theCriteria, $theActions, $theOptions );
+
+		
+
+/*=======================================================================================
+ *																						*
  *									PUBLIC QUERY INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -618,49 +658,6 @@ abstract class CollectionObject extends ConnectionObject
 	 * @return integer				Number of objects affected (1 or 0).
 	 */
 	abstract public function deleteOffsets( $theIdentifier, $theOffsets );
-
-	 
-	/*===================================================================================
-	 *	limitsOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Set offsets minimum and maximum
-	 *
-	 * This method should update the object referenced by the provided criteria by
-	 * setting a minimum and maximum value if the provided values exceed the lower and
-	 * upper bounds.
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theCriteria</b>: The tag selection criteria.
-	 *	<li><b>$theMinOffset</b>: The offset of the property for which we want to set the
-	 *		minimum value, the parameter is an array in which the key represents the offset
-	 *		and the value the minimum value. Pass an empty array or <tt>NULL</tt> to skip
-	 *		the minimum value.
-	 *	<li><b>$theMaxOffset</b>: The offset of the property for which we want to set the
-	 *		maximum value, the parameter is an array in which the key represents the offset
-	 *		and the value the maximum value. Pass an empty array or <tt>NULL</tt> to skip
-	 *		the maximum value.
-	 * </ul>
-	 *
-	 * If none of the two limits were provided, the method will return <tt>NULL</tt>.
-	 *
-	 * Note that if the selection criteria matches more than one object, all matched
-	 * objects will have their properties set to the provided limits.
-	 *
-	 * Derived classes must implement this method.
-	 *
-	 * @param array					$theCriteria		Object selection criteria.
-	 * @param array					$theMinOffset		Minimum offset and value.
-	 * @param array					$theMaxOffset		Maximum offset and value.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	abstract public function limitsOffsets( $theCriteria, $theMinOffset = NULL,
-														  $theMaxOffset = NULL );
 
 		
 

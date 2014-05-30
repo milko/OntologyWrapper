@@ -142,6 +142,43 @@ try
 		echo( "<h3>Current class test</h3>" );
 
 	//
+	// Try matchTagByLabel containing "Reference version" with unit reference count.
+	//
+	echo( '<h4>Try matchTagByLabel containing "Reference version" with unit reference count</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'Reference version',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_LABEL;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
+
+	//
 	// Try empty URL.
 	//
 	echo( '<h4>Try empty URL</h4>' );
@@ -482,9 +519,9 @@ try
 	echo( '<hr>' );
 
 	//
-	// Try matchTagByLabel containing "count" with entity reference count.
+	// Try matchTagByLabel containing "count" with unit reference count.
 	//
-	echo( '<h4>Try matchTagByLabel containing "count" with entity reference count</h4>' );
+	echo( '<h4>Try matchTagByLabel containing "count" with unit reference count</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );

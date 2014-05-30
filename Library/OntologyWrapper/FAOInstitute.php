@@ -1030,10 +1030,11 @@ class FAOInstitute extends Institution
 				// ISO code.
 				//
 				case 'ISO3':
-					if( $tmp = Term::ResolveCountryCode( $this->dictionary(), $theValue ) )
+					if( $tmp = Term::ResolveCountryCode( $this->mDictionary, $theValue ) )
 						$this->offsetSet( ':location:country', $tmp );
 					else
-						throw new \Exception( "Invalid country code [$code]." );			// !@! ==>
+						throw new \Exception(
+							"Invalid country code [$theValue]." );				// !@! ==>
 					break;
 			
 			} // Parsed offset.

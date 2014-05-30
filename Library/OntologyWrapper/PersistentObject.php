@@ -2806,7 +2806,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve tag offsets property.
 		//
-		$tag_ref_count = static::ResolveOffsetsTag( static::kSEQ_NAME );
+		$offsets_tag = static::ResolveOffsetsTag( static::kSEQ_NAME );
 		
 		//
 		// Handle tags.
@@ -2829,7 +2829,7 @@ abstract class PersistentObject extends OntologyObject
 				$tag_collection->updateSet(
 					(int) $key,								// Tag identifiers.
 					kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-					array( $tag_ref_count => $value ),		// Offsets set.
+					array( $offsets_tag => $value ),		// Offsets set.
 					TRUE );									// Add to set.
 		
 		} // Has tag offsets.
@@ -2922,7 +2922,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve tag offsets property.
 		//
-		$tag_ref_count = static::ResolveOffsetsTag( static::kSEQ_NAME );
+		$offsets_tag = static::ResolveOffsetsTag( static::kSEQ_NAME );
 		
 		//
 		// Save offsets and references.
@@ -2949,7 +2949,7 @@ abstract class PersistentObject extends OntologyObject
 			$tag_collection->updateSet(
 				(int) $key,								// Tag identifiers.
 				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-				array( $tag_ref_count
+				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				TRUE );									// Add to set.
 		
@@ -2992,7 +2992,7 @@ abstract class PersistentObject extends OntologyObject
 			$tag_collection->updateSet(
 				(int) $key,								// Tag identifiers.
 				kTAG_ID_SEQUENCE,						// Tag identifiers offset.
-				array( $tag_ref_count
+				array( $offsets_tag
 						=> array_values( $value ) ),	// Offsets set.
 				FALSE );								// Pull from set.
 		
@@ -3451,7 +3451,7 @@ abstract class PersistentObject extends OntologyObject
 			//
 			// Skip internal offsets.
 			//
-			if( ! in_array( $tag, static::InternalOffsets() ) )
+			if( ! in_array( $tag, $this->InternalOffsets() ) )
 			{
 				//
 				// Push offset to path.
@@ -4412,7 +4412,7 @@ abstract class PersistentObject extends OntologyObject
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( static::InternalOffsets(), (array) kTAG_MASTER );		// ==>
+		return array_merge( $this->InternalOffsets(), (array) kTAG_MASTER );		// ==>
 	
 	} // lockedOffsets.
 
@@ -4605,7 +4605,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Resolve reference count tag according to current object.
 		//
-		$tag = static::ResolveRefCountTag( static::kSEQ_NAME );
+		$tag_ref_count = static::ResolveRefCountTag( static::kSEQ_NAME );
 		
 		//
 		// Resolve collection.
@@ -4617,7 +4617,8 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update reference count.
 		//
-		$collection->updateReferenceCount($theIdent, $theIdentOffset, $tag, $theCount );
+		$collection->updateReferenceCount(
+			$theIdent, $theIdentOffset, $tag_ref_count, $theCount );
 	
 	} // updateObjectReferenceCount.
 
@@ -4647,21 +4648,15 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Save and check offsets.
 		//
-		$offsets = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		if( ($offsets !== NULL)
-		 && count( $offsets ) )
+		$bounds = Array();
+		$list = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		if( ($list !== NULL)
+		 && count( $list ) )
 		{
-			//
-			// Resolve tag collection.
-			//
-			$collection
-				= Tag::ResolveCollection(
-					Tag::ResolveDatabase( $this->mDictionary ) );
-			
 			//
 			// Iterate offsets.
 			//
-			foreach( $offsets as $tag => $offsets )
+			foreach( $list as $tag => $offsets )
 			{
 				//
 				// Get type and kind.
@@ -4678,7 +4673,7 @@ abstract class PersistentObject extends OntologyObject
 				if( in_array( kTYPE_QUANTITATIVE, $kind ) )
 				{
 					//
-					// Init limits.
+					// Init local storage.
 					//
 					$min = $max = NULL;
 					
@@ -4718,28 +4713,35 @@ abstract class PersistentObject extends OntologyObject
 					 || ($max !== NULL) )
 					{
 						//
+						// Init local storage.
+						//
+						$index = count( $bounds );
+						$bounds[ $index ] = array( $tag => Array() );
+						$ref = & $bounds[ $index ][ $tag ];
+					
+						//
 						// Compute minimum modification.
 						//
 						if( $min !== NULL )
-							$min = array( kTAG_MIN_VAL => $min );
+							$ref[ kTAG_MIN_VAL ] = $min;
 					
 						//
 						// Compute maximum modification.
 						//
 						if( $max !== NULL )
-							$max = array( kTAG_MAX_VAL => $max );
-					
-						//
-						// Update tag.
-						//
-						$collection->limitsOffsets(
-							array( kTAG_ID_SEQUENCE => (int) $tag ), $min, $max );
+							$ref[ kTAG_MAX_VAL ] = $min;
 					
 					} // Has at least a limit.
 					
 				} // Quantitative tag.
 			
 			} // Iterating offsets.
+			
+			//
+			// Apply modifications.
+			//
+			if( count( $bounds ) )
+				Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_SEQUENCE );
 		
 		} // Has offsets.
 		

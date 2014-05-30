@@ -128,12 +128,6 @@ try
 	} // Use graph database.
 	
 	//
-	// Reset dictionary.
-	//
-	$wrapper->loadTagCache();
-exit;
-	
-	//
 	// Reset ontology.
 	//
 //	$wrapper->resetOntology( TRUE );
@@ -154,20 +148,40 @@ exit;
 //	$wrapper->loadStandards( TRUE );
 	
 	//
-	// Load units.
+	// Remove range references in tags.
 	//
-//	$wrapper->resetUnits( TRUE );
+	$collection = $meta->collection( OntologyWrapper\Tag::kSEQ_NAME, TRUE );
+	$options = array( 'multi' => TRUE );
+	$criteria = array( kTAG_OBJECT_TAGS
+					=> array( '$in'
+						=> array( kTAG_MIN_VAL, kTAG_MAX_VAL ) ) );
+	$action = array( '$pullAll'
+				=> array( kTAG_OBJECT_TAGS
+					=> array( kTAG_MIN_VAL, kTAG_MAX_VAL ) ) );
+	$collection->connection()->update( $criteria, $action, $options );
+	$action = array( '$pullAll'
+				=> array( kTAG_TAG_OFFSETS
+					=> array( kTAG_MIN_VAL, kTAG_MAX_VAL ) ) );
+	$collection->connection()->update( $criteria, $action, $options );
+	$action = array( '$pullAll'
+				=> array( kTAG_OBJECT_OFFSETS
+					=> array( kTAG_MIN_VAL, kTAG_MAX_VAL ) ) );
+	$collection->connection()->update( $criteria, $action, $options );
 	
 	//
-	// Load entities.
+	// Reset units.
+	//
+	$wrapper->resetUnits( TRUE );
+	
+	//
+	// Reset entities.
 	//
 //	$wrapper->resetEntities( TRUE );
 	
-/*
 	//
 	// Get units collection.
 	//
-	$collection = $units->collection( UnitObject::kSEQ_NAME, TRUE );
+	$collection = $units->collection( OntologyWrapper\UnitObject::kSEQ_NAME, TRUE );
 	
 	//
 	// Set country index.
@@ -182,13 +196,11 @@ exit;
 	$collection->createIndex(
 		array( $wrapper->getSerial( ':location:admin', TRUE ) => 1 ),
 		array( "name" => "ADMIN" ) );
-*/
+	
 	//
-	// Load FAO institutes.
+	// Reset dictionary.
 	//
-	echo( "  • Loading FAO Institutes.\n" );
-	$ok = OntologyWrapper\FAOInstitute::Maintain( $wrapper );
-	var_dump( $ok );
+	$wrapper->loadTagCache();
 }
 
 //

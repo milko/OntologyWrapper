@@ -568,6 +568,136 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC UPDATE INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	UpdateRange																		*
+	 *==================================================================================*/
+
+	/**
+	 * Update range
+	 *
+	 * This method should update the range of the provided tags, the method will first
+	 * update the minimum, {@link kTAG_MIN_VAL}, and the maximum, {@link kTAG_MAX_VAL},
+	 * properties of the provided tag(s).
+	 *
+	 * Once these properties are update, the method will update the tag's
+	 * {@link kTAG_OBJECT_TAGS}, {@link kTAG_TAG_OFFSETS} and {@link kTAG_OBJECT_OFFSETS}
+	 * with the above bounds tags.
+	 *
+	 * The method expects an array containing the tag identifiers and the bounds:
+	 *
+	 * <ul>
+	 *	<li><tt>index</tt>: The array index should contain the tag identifier corresponding
+	 *		to the provided offset parameter.
+	 *	<li><tt>value</tt>: The array value should be an array indexed by
+	 *		{@link kTAG_MIN_VAL} and/or {@link kTAG_MAX_VAL} with the corresponding values
+	 *		being the bounds.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Database wrapper.
+	 * @param array					$theBounds			Tag identifiers and range bounds.
+	 * @param int					$theOffset			Tag identifier sequence number.
+	 *
+	 * @static
+	 *
+	 * @throws Exception
+	 */
+	static function UpdateRange( Wrapper $theWrapper, $theBounds,
+													  $theOffset = kTAG_ID_SEQUENCE )
+	{
+		//
+		// Check bounds.
+		//
+		if( ! is_array( $theBounds ) )
+			throw new \Exception(
+				"Invalid bounds parameter: "
+			   ."expecting an array." );										// !@! ==>
+		
+		//
+		// Validate tag identifier.
+		//
+		$theWrapper->getObject( $theOffset, TRUE );
+		
+		//
+		// Init local storage.
+		//
+		$criteria = $actions = Array();
+		$offsets = array( kTAG_MIN_VAL => '$min', kTAG_MAX_VAL => '$max' );
+		
+		//
+		// Iterate bounds.
+		//
+		foreach( $theBounds as $tag => $bounds )
+		{
+			//
+			// Check bounds.
+			//
+			$matched = array_intersect( array_keys( $offsets ), array_keys( $bounds ) );
+			if( count( $matched ) )
+			{
+				//
+				// Get index.
+				//
+				$index = count( $criteria );
+				
+				//
+				// Build criteria.
+				//
+				$criteria[ $index ] = array( $theOffset => $tag );
+				
+				//
+				// Iterate matched bounds.
+				//
+				$actions[ $index ] = Array();
+				foreach( $matched as $offset )
+				{
+					//
+					// Set bound modification.
+					//
+					$actions[ $index ][ $offsets[ $offset ] ]
+						= array( $offsets[ $offset ] => $bounds[ $offsets[ $offset ] ] );
+					
+					//
+					// Update tag offset references.
+					//
+					$actions[ $index ][ '$addToSet' ]
+						= array( kTAG_OBJECT_TAGS => (int) $offsets[ $offset ],
+								 kTAG_TAG_OFFSETS => (string) $offsets[ $offset ],
+								 kTAG_OBJECT_OFFSETS.'.'.$offsets[ $offset ]
+								 	=> (string) $offsets[ $offset ] );
+				
+				} // Iterating matched bounds.
+			
+			} // Has bounds.
+			
+		} // Iterating bounds.
+		
+		//
+		// Resolve tag collection.
+		//
+		$collection
+			= static::ResolveCollection(
+				static::ResolveDatabase( $theWrapper ) );
+		
+		//
+		// Apply modifications.
+		//
+		$keys = array_keys( $criteria );
+		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
+		foreach( $keys as $key )
+			$collection->modify( $criteria[ $key ], $actions[ $key ], $options );
+	
+	} // UpdateRange.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

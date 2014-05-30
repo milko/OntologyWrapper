@@ -72,6 +72,46 @@ class MongoCollection extends CollectionObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MODIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	modify																			*
+	 *==================================================================================*/
+
+	/**
+	 * Modify object(s)
+	 *
+	 * In this class we use the <tt>update</tt> method.
+	 *
+	 * @param array					$theCriteria		Object selection criteria.
+	 * @param array					$theActions			Modification actions.
+	 * @param array					$theOptions			Modification options.
+	 *
+	 * @access public
+	 * @return array				Operation status.
+	 */
+	public function modify( $theCriteria, $theActions, $theOptions )
+	{
+		//
+		// Update.
+		//
+		$ok = $this->mConnection->update( $theCriteria, $theActions, $theOptions );
+		if( ! $ok[ 'ok' ] )
+			throw new Exception( $ok[ 'err' ] );								// !@! ==>
+		
+		return array( 'affected' => $ok[ 'n' ],
+					  'modified' => $ok[ 'updatedExisting' ] );						// ==>
+	
+	} // modify.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC CONNECTION MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
@@ -599,66 +639,6 @@ class MongoCollection extends CollectionObject
 	
 	} // deleteOffsets.
 
-	 
-	/*===================================================================================
-	 *	limitsOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Set offsets minimum and maximum
-	 *
-	 * In this class we use the <tt>$min</tt> and <tt>$max</tt> update operators.
-	 *
-	 * @param array					$theCriteria		Object selection criteria.
-	 * @param array					$theMinOffset		Minimum offset and value.
-	 * @param array					$theMaxOffset		Maximum offset and value.
-	 *
-	 * @access public
-	 * @return integer				Number of objects affected (1 or 0).
-	 */
-	public function limitsOffsets( $theCriteria, $theMinOffset = NULL,
-												 $theMaxOffset = NULL )
-	{
-		//
-		// Init local storage.
-		//
-		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
-		$modifications = Array();
-		
-		//
-		// Handle minimum value.
-		//
-		if( is_array( $theMinOffset )
-		 && count( $theMinOffset ) )
-			$modifications[ '$min' ] = $theMinOffset;
-		
-		//
-		// Handle maximum value.
-		//
-		if( is_array( $theMaxOffset )
-		 && count( $theMaxOffset ) )
-			$modifications[ '$max' ] = $theMaxOffset;
-		
-		//
-		// Update.
-		//
-		if( count( $modifications ) )
-		{
-			//
-			// Update.
-			//
-			$ok = $this->mConnection->update( $theCriteria, $modifications, $options );
-			if( ! $ok[ 'ok' ] )
-				throw new Exception( $ok[ 'err' ] );							// !@! ==>
-		
-			return $ok[ 'n' ];														// ==>
-		
-		} // Provided limits.
-		
-		return NULL;																// ==>
-	
-	} // limitsOffsets.
-
 		
 
 /*=======================================================================================
@@ -1077,8 +1057,6 @@ class MongoCollection extends CollectionObject
 	 *
 	 * In this class we save the provided array and return its {@link kTAG_NID} value.
 	 *
-	 * Derived classes must implement this method.
-	 *
 	 * @param reference				$theData			Data to save.
 	 * @param array					$theOptions			Replace options.
 	 *
@@ -1122,8 +1100,6 @@ class MongoCollection extends CollectionObject
 	 * This method should be implemented by concrete derived classes, it should delete the
 	 * object matched by the provided identifier, if the object was matched, the method
 	 * should return the identifier, if not, it should return <tt>NULL</tt>.
-	 *
-	 * Derived classes must implement this method.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param array					$theOptions			Insert options.

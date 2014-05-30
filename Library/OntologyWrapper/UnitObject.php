@@ -415,7 +415,7 @@ abstract class UnitObject extends PersistentObject
 	 * Return default offsets
 	 *
 	 * In this class we return the default offsets comprising the object's persistent
-	 * identifier..
+	 * identifier.
 	 *
 	 * @static
 	 * @return array				List of default offsets.
