@@ -624,44 +624,6 @@ abstract class UnitObject extends PersistentObject
 	
 	} // lockedOffsets.
 
-	
-
-/*=======================================================================================
- *																						*
- *								PROTECTED OFFSET UTILITIES								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	loadObjectTag																	*
-	 *==================================================================================*/
-
-	/**
-	 * Load object tags
-	 *
-	 * In this class we add the tag if it is not among the {@link DefaultOffsets()} and it
-	 * is not indexed.
-	 *
-	 * @param integer				$theTag				Tag sequence number.
-	 * @param reference				$theInfo			Tag information.
-	 * @param reference				$theTags			Receives tags list.
-	 * @param reference				$theIndexes			List of collection indexes.
-	 *
-	 * @access protected
-	 */
-	protected function loadObjectTag( $theTag, &$theInfo, &$theTags, &$theIndexes )
-	{
-		//
-		// Check if eligible.
-		//
-		if( (! in_array( $theTag, static::DefaultOffsets() ))
-		 && (! in_array( (string) $theTag, $theIndexes )) )
-			parent::loadObjectTag( $theTag, $theInfo, $theTags, $theIndexes );
-	
-	} // loadObjectTag.
-
 		
 
 /*=======================================================================================

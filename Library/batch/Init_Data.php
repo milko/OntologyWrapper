@@ -3,7 +3,7 @@
 /**
  * Data initialisation procedure.
  *
- * This file contains routines to initialise the data.
+ * This file contains routines to initialise data.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -14,7 +14,7 @@
 
 /*=======================================================================================
  *																						*
- *									InitNoGraph.php										*
+ *									Init_Data.php										*
  *																						*
  *======================================================================================*/
 
@@ -76,9 +76,12 @@ try
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
-	// Drop metadata.
+	// Set units.
 	//
-	$meta->drop();
+	echo( "  • Setting units.\n" );
+	$units = $wrapper->Units(
+		new OntologyWrapper\MongoDatabase(
+			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
 	// Set entities.
@@ -89,61 +92,49 @@ try
 			"mongodb://localhost:27017/PGRDG?connect=1" ) );
 	
 	//
-	// Drop entities.
+	// Check graph database.
 	//
-	$entities->drop();
+	if( kGRAPH_DO )
+	{
+		//
+		// Set graph database.
+		//
+		echo( "  • Setting graph.\n" );
+		$graph = $wrapper->Graph(
+			new OntologyWrapper\Neo4jGraph(
+				"neo4j://localhost:7474" ) );
+	
+	} // Use graph database.
 	
 	//
-	// Set units.
+	// Reset units.
 	//
-	echo( "  • Setting units.\n" );
-	$units = $wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
+	$wrapper->openConnections();
+	$wrapper->resetUnits( TRUE );
 	
 	//
-	// Drop units.
+	// Get units collection.
 	//
-	$units->drop();
+	$collection = $units->collection( OntologyWrapper\UnitObject::kSEQ_NAME, TRUE );
 	
 	//
-	// Set graph database.
+	// Set country index.
 	//
-//	echo( "  • Setting graph.\n" );
-//	$graph = $wrapper->Graph(
-//		new OntologyWrapper\Neo4jGraph(
-//			"neo4j://localhost:7474" ) );
+	$collection->createIndex(
+		array( $wrapper->getSerial( ':location:country', TRUE ) => 1 ),
+		array( "name" => "COUNTRY" ) );
 	
 	//
-	// Drop graph database.
+	// Set administrative unit index.
 	//
-//	echo( "  • Resetting graph.\n" );
-//	$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+	$collection->createIndex(
+		array( $wrapper->getSerial( ':location:admin', TRUE ) => 1 ),
+		array( "name" => "ADMIN" ) );
 	
 	//
-	// Reset ontology.
+	// Reset dictionary.
 	//
-	$wrapper->resetOntology( TRUE );
-	
-	//
-	// Load ISO Standards.
-	//
-	$wrapper->initISOStandards( TRUE );
-	
-	//
-	// Load WBI Standards.
-	//
-	$wrapper->initWBIStandards( TRUE );
-	
-	//
-	// Load standards.
-	//
-	$wrapper->loadStandards( TRUE );
-	
-	//
-	// Load entities.
-	//
-	$wrapper->resetEntities( TRUE );
+	$wrapper->loadTagCache();
 }
 
 //

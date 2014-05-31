@@ -3,7 +3,7 @@
 /**
  * Data initialisation procedure.
  *
- * This file contains routines to initialise the data.
+ * This file contains routines to initialise all data.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -14,7 +14,7 @@
 
 /*=======================================================================================
  *																						*
- *										Init.php										*
+ *									Init_All.php										*
  *																						*
  *======================================================================================*/
 

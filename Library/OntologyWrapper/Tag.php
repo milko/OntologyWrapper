@@ -560,6 +560,20 @@ class Tag extends PersistentObject
 								  array( "name" => "ENTITIES_COUNT",
 								  		 "sparse" => TRUE ) );
 		
+		//
+		// Set minimum index.
+		//
+		$collection->createIndex( array( kTAG_MIN_VAL => 1 ),
+								  array( "name" => "MINIMUM_VALUE",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set maximum index.
+		//
+		$collection->createIndex( array( kTAG_MAX_VAL => 1 ),
+								  array( "name" => "MAXIMUM_VALUE",
+								  		 "sparse" => TRUE ) );
+		
 		return $collection;															// ==>
 	
 	} // CreateIndexes.
@@ -623,61 +637,6 @@ class Tag extends PersistentObject
 		//
 		$theWrapper->getObject( $theOffset, TRUE );
 		
-		//
-		// Init local storage.
-		//
-		$criteria = $actions = Array();
-		$offsets = array( kTAG_MIN_VAL => '$min', kTAG_MAX_VAL => '$max' );
-		
-		//
-		// Iterate bounds.
-		//
-		foreach( $theBounds as $tag => $bounds )
-		{
-			//
-			// Check bounds.
-			//
-			$matched = array_intersect( array_keys( $offsets ), array_keys( $bounds ) );
-			if( count( $matched ) )
-			{
-				//
-				// Get index.
-				//
-				$index = count( $criteria );
-				
-				//
-				// Build criteria.
-				//
-				$criteria[ $index ] = array( $theOffset => $tag );
-				
-				//
-				// Iterate matched bounds.
-				//
-				$actions[ $index ] = Array();
-				foreach( $matched as $offset )
-				{
-					//
-					// Set bound modification.
-					//
-					$actions[ $index ][ $offsets[ $offset ] ]
-						= array( $offsets[ $offset ] => $bounds[ $offsets[ $offset ] ] );
-					
-					//
-					// Update tag offset references.
-					//
-					$actions[ $index ][ '$addToSet' ]
-						= array( kTAG_OBJECT_TAGS => (int) $offsets[ $offset ],
-								 kTAG_TAG_OFFSETS => (string) $offsets[ $offset ],
-								 kTAG_OBJECT_OFFSETS.'.'.$offsets[ $offset ]
-								 	=> (string) $offsets[ $offset ] );
-				
-				} // Iterating matched bounds.
-			
-			} // Has bounds.
-			
-		} // Iterating bounds.
-		
-		//
 		// Resolve tag collection.
 		//
 		$collection
@@ -685,12 +644,39 @@ class Tag extends PersistentObject
 				static::ResolveDatabase( $theWrapper ) );
 		
 		//
-		// Apply modifications.
+		// Init local storage.
 		//
-		$keys = array_keys( $criteria );
-		$options = array( 'multiple' => TRUE, 'upsert' => FALSE );
-		foreach( $keys as $key )
-			$collection->modify( $criteria[ $key ], $actions[ $key ], $options );
+		$tags = array( (int) kTAG_MIN_VAL, (int) kTAG_MAX_VAL );
+		$offsets = array( (string) kTAG_MIN_VAL, (string) kTAG_MAX_VAL );
+		$options = array( 'multi' => FALSE, 'upsert' => FALSE );
+		
+		//
+		// Iterate bounds.
+		//
+		foreach( $theBounds as $tag => $bounds )
+		{
+			//
+			// Build criteria.
+			//
+			$criteria = array( $theOffset => $tag );
+			
+			//
+			// Set minimum.
+			//
+			$collection->modify(
+				$criteria,
+				array( '$min' => array( kTAG_MIN_VAL => $bounds[ kTAG_MIN_VAL ] ) ),
+				$options );
+			
+			//
+			// Set maximum.
+			//
+			$collection->modify(
+				$criteria,
+				array( '$max' => array( kTAG_MAX_VAL => $bounds[ kTAG_MAX_VAL ] ) ),
+				$options );
+			
+		} // Iterating bounds.
 	
 	} // UpdateRange.
 

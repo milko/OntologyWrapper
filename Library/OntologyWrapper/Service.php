@@ -716,12 +716,13 @@ class Service extends ServiceObject
 	{
 var_dump( $this->mFilter );
 echo( '<hr>' );
-exit;
 		//
 		// Build filter query.
 		//
 		$this->resolveFilter();
-var_dump( $this->mFilter );
+echo( '<pre>' );
+print_r( $this->mFilter );
+echo( '</pre>' );
 exit;
 		
 	} // executeMatchUnits.

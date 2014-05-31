@@ -2116,7 +2116,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Load persistent image.
 		//
-		$object
+		$old
 			= $theCollection->matchOne(
 				array( kTAG_NID => $this->offsetGet( kTAG_NID ) ),
 				kQUERY_ASSERT | kQUERY_ARRAY,
@@ -2141,9 +2141,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Update references.
 		//
-		$tags = $object[ kTAG_OBJECT_OFFSETS ];
-		$refs = $object[ kTAG_OBJECT_REFERENCES ];
-		$this->postUpdate( $tags, $refs );
+		$this->postUpdate( $old[ kTAG_OBJECT_OFFSETS ], $old[ kTAG_OBJECT_REFERENCES ] );
 		
 		//
 		// Handle tag value ranges.
@@ -4715,9 +4713,8 @@ abstract class PersistentObject extends OntologyObject
 						//
 						// Init local storage.
 						//
-						$index = count( $bounds );
-						$bounds[ $index ] = array( $tag => Array() );
-						$ref = & $bounds[ $index ][ $tag ];
+						$bounds[ $tag ] = Array();
+						$ref = & $bounds[ $tag ];
 					
 						//
 						// Compute minimum modification.

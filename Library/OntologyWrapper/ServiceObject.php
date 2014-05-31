@@ -2679,7 +2679,7 @@ abstract class ServiceObject extends ContainerObject
 						= ( $has_many_criteria )
 						? array( kTAG_OBJECT_TAGS
 							 => array( '$in'
-							 	=> array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
+							 	=> array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) ) )
 						: array( kTAG_OBJECT_TAGS
 							 => (int) $key( $cluster[ kAPI_PARAM_CRITERIA ] ) );
 				else
@@ -2712,7 +2712,7 @@ abstract class ServiceObject extends ContainerObject
 					}
 					else
 					{
-						$cluster_ref[ '$or' ] => Array();
+						$cluster_ref[ '$or' ] = Array();
 						$cluster_ref = & $cluster_ref[ '$or' ];
 					}
 		
@@ -2753,7 +2753,7 @@ abstract class ServiceObject extends ContainerObject
 								}
 								else
 								{
-									$criteria_ref[ '$or' ] => Array();
+									$criteria_ref[ '$or' ] = Array();
 									$criteria_ref = & $criteria_ref[ '$or' ];
 								}
 					
@@ -2781,7 +2781,7 @@ abstract class ServiceObject extends ContainerObject
 							}
 							else
 							{
-								$criteria_ref[ '$and' ] => Array();
+								$criteria_ref[ '$and' ] = Array();
 								$criteria_ref = & $criteria_ref[ '$and' ];
 							}
 					
@@ -2803,7 +2803,7 @@ abstract class ServiceObject extends ContainerObject
 							if( $has_many_clusters )
 								$criteria_ref = array( kTAG_OBJECT_TAGS => (int) $tag );
 							else
-								$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag );
+								$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
 				
 						} // Has single criteria.
 				
@@ -2820,7 +2820,7 @@ abstract class ServiceObject extends ContainerObject
 							}
 							else
 							{
-								$criteria_ref[ '$or' ] => Array();
+								$criteria_ref[ '$or' ] = Array();
 								$criteria_ref = & $criteria_ref[ '$or' ];
 							}
 				
@@ -2904,7 +2904,7 @@ abstract class ServiceObject extends ContainerObject
 											=> $criteria[ kAPI_PARAM_PATTERN ] );
 								else
 									$criteria_ref[ $offset ]
-										= $criteria[ kAPI_PARAM_PATTERN ] );
+										= $criteria[ kAPI_PARAM_PATTERN ];
 								break;
 			
 						} // Parsing input types.
