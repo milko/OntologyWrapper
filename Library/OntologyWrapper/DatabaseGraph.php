@@ -268,7 +268,7 @@ abstract class DatabaseGraph extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 

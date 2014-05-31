@@ -173,6 +173,11 @@ class ResultAggregator
 		$theIterator->fields( Array() );
 		
 		//
+		// Normalise iterator.
+		//
+		$theIterator->resultType( kQUERY_ARRAY );
+		
+		//
 		// Store iterator.
 		//
 		$this->mIterator = $theIterator;
@@ -392,8 +397,8 @@ class ResultAggregator
 	 *	<li><em>Serialise object</em>. The method will traverse the object and perform the
 	 *		following actions:
 	 *	 <ul>
-	 *		<li><em>Remove unpublished offsets</em>: all offsets not making part of the
-	 *			{@link kTAG_OBJECT_TAGS} property will be removed from the object.
+	 *		<li><em>Remove internal offsets</em>: all internal offsets will be removed from
+	 *			the object.
 	 *		<li><em>Select default language strings</em>: if the language code was provided,
 	 *			all language string property values will be replaced by the string matching
 	 *			the provided language code, following these rules:
@@ -412,7 +417,7 @@ class ResultAggregator
 	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param reference				$theObject			Object array reference.
+	 * @param array					$theObject			Object array reference.
 	 * @param string				$theLanguage		Default language code.
 	 * @param boolean				$doRefStructs		<tt>TRUE</tt> reference structures.
 	 * @param boolean				$doRefObjects		<tt>TRUE</tt> load object refs.
@@ -425,9 +430,28 @@ class ResultAggregator
 													  $doRefObjects = TRUE )
 	{
 		//
-		// Save tags and references.
+		// Init local storage.
 		//
-		$tags = $theObject[ kTAG_OBJECT_TAGS ];
+		$class = $theObject[ kTAG_CLASS ];
+		$exclude
+			= array_diff(
+				array_merge(											// Exclude
+					$class::InternalOffsets(),							// internal,
+					$class::DynamicOffsets(),							// dynamic,
+					array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,			// offsets
+						   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
+						   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ) ),	// except
+				array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ),		// timestamps
+				array( kTAG_MIN_VAL, kTAG_MAX_VAL ) );					// and ranges.
+								
+		//
+		// Save tags.
+		//
+		$tags = array_diff( array_keys( $theObject ), $exclude );
+		
+		//
+		// Save object references.
+		//
 		$refs = ( array_key_exists( kTAG_OBJECT_REFERENCES, $theObject ) )
 			  ? $theObject[ kTAG_OBJECT_REFERENCES ]
 			  : Array();
@@ -470,9 +494,8 @@ class ResultAggregator
 	 *
 	 * @access protected
 	 */
-	protected function processObject( Wrapper $theWrapper,
-									  &$theObject, &$theTags,
-									   $theLanguage, $doRefStructs )
+	protected function processObject( Wrapper $theWrapper, &$theObject, &$theTags,
+											  $theLanguage, $doRefStructs )
 	{
 		//
 		// Traverse object.
@@ -718,7 +741,7 @@ class ResultAggregator
 		//
 		// Set criteria.
 		//
-		$criteria = array( kTAG_ID_SEQUENCE => array( '$in' => $theTags ) );
+		$criteria = array( kTAG_ID_SEQUENCE => array( '$in' => array_values( $theTags ) ) );
 		
 		//
 		// Load tags.

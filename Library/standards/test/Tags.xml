@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TEST TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Structure 1 -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:struct1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+	</META>
+	
+	<!-- Structure 2 -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:struct2</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+	</META>
+	
+	<!-- Structure 3 -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:struct3</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Nested structure</item>
+				</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT">:test:struct2</item>
+		</TAG>
+	</META>
+	
+	<!-- Single scale non indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Single scale non indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Single scale indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature2</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Single scale indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 1 scale 1 non indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature1</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>:test:scale1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 1 scale 1 non indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 1 scale 2 non indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature1</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>:test:scale2</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 1 scale 2 non indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 2 scale 1 indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature2</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>:test:scale1</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 1 indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 2 scale 2 indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature2</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>:test:scale2</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 2 indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 2 scale 3 indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature2</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>:test:scale3</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 3 indexed</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":test:feature2/:predicate:SCALE-OF/:test:scale3">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:test:enumeration</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Feature 4 multi offsets -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature4</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 4 multi offset</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 5 multi offsets indexed -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature5</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 5 multi offset indexed</item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Feature 6 struct offset -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:test:feature6</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 6 struct offset</item>
+				</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT">:test:struct3</item>
+		</TAG>
+	</META>
+</METADATA>

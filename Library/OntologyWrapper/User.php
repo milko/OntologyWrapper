@@ -114,7 +114,7 @@ class User extends Individual
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -127,7 +127,12 @@ class User extends Individual
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return all the default offsets.
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_CONN_USER}</tt>: User code.
+	 *	<li><tt>{@link kTAG_CONN_PASS}</tt>: User password.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.

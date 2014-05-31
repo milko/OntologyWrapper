@@ -445,6 +445,43 @@ class Edge extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_SUBJECT}</tt>: Edge subject node reference.
+	 *	<li><tt>{@link kTAG_PREDICATE}</tt>: Edge predicate term reference.
+	 *	<li><tt>{@link kTAG_OBJECT}</tt>: Edge object node reference.
+	 *	<li><tt>{@link kTAG_NAME}</tt>: Edge path name.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_SUBJECT, kTAG_PREDICATE, kTAG_OBJECT,
+								   kTAG_TAG, kTAG_NAME ) );							// ==>
+	
+	} // DefaultOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

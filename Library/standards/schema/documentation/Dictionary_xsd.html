@@ -34,7 +34,8 @@
 				'properties_NODE_pid', 
 				'properties_NODE_set', 
 				'properties_EDGE_set', 
-				'properties_UNIT_class');
+				'properties_UNIT_class', 
+				'properties_UNIT_set');
 var facetsBoxes= new Array('facets_node-ref-type', 
 				'facets_item_node');
 var usedByBoxes= new Array('usedBy_META', 
@@ -63,7 +64,8 @@ var usedByBoxes= new Array('usedBy_META',
 				'usedBy_NODE_pid', 
 				'usedBy_NODE_set', 
 				'usedBy_EDGE_set', 
-				'usedBy_UNIT_class');
+				'usedBy_UNIT_class', 
+				'usedBy_UNIT_set');
 var sourceBoxes= new Array('source_METADATA', 
 				'source_META', 
 				'source_TERM', 
@@ -92,7 +94,8 @@ var sourceBoxes= new Array('source_METADATA',
 				'source_NODE_pid', 
 				'source_NODE_set', 
 				'source_EDGE_set', 
-				'source_UNIT_class');
+				'source_UNIT_class', 
+				'source_UNIT_set');
 var instanceBoxes= new Array('instance_METADATA', 
 				'instance_META', 
 				'instance_TERM', 
@@ -140,7 +143,8 @@ var annotationBoxes= new Array('annotations_METADATA',
 				'annotations_NODE_pid', 
 				'annotations_NODE_set', 
 				'annotations_EDGE_set', 
-				'annotations_UNIT_class');
+				'annotations_UNIT_class', 
+				'annotations_UNIT_set');
 var attributesBoxes= new Array('attributes_TERM', 
 				'attributes_item', 
 				'attributes_TAG', 
@@ -475,6 +479,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -598,6 +606,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -761,6 +773,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -1012,6 +1028,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -1382,6 +1402,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -1568,6 +1592,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -1824,6 +1852,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2009,6 +2041,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2099,7 +2135,7 @@ var modelBoxes= new Array('model_METADATA',
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;UNITS</span><span class="tEl">&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;UNIT</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/UNIT&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;UNIT</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">set=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/UNIT&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/UNITS&gt;</span></pre></td>
                                  </tr>
                               </table>
@@ -2132,6 +2168,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -2184,7 +2224,8 @@ var modelBoxes= new Array('model_METADATA',
                         <td class="diagram">
                            <div id="diagram_UNIT" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_UNIT.png" usemap="#Dictionary_xsd_Element_UNIT" /><map name="Dictionary_xsd_Element_UNIT" id="Dictionary_xsd_Element_UNIT">
                                  <area alt="Dictionary_xsd.tmp#UNIT_class" href="Dictionary_xsd.html#UNIT_class" coords="119,40,232,82" />
-                                 <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="197,146,251,170" /></map></div>
+                                 <area alt="Dictionary_xsd.tmp#UNIT_set" href="Dictionary_xsd.html#UNIT_set" coords="119,135,232,177" />
+                                 <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="197,254,251,278" /></map></div>
                         </td>
                      </tr>
                      <tr>
@@ -2239,7 +2280,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div id="instance_UNIT" style="display:block">
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
-                                    <td width="100%"><pre><span class="tEl">&lt;UNIT</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
+                                    <td width="100%"><pre><span class="tEl">&lt;UNIT</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">set=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;item</span><span class="tT"> </span><span class="tAN">const=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">index=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">key=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">node=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">seq=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">struct=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">tag=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">value=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/item&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/UNIT&gt;</span></pre></td>
                                  </tr>
@@ -2271,8 +2312,29 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute represents the class of the unit,</span><span class="tI">
-</span><span class="tT">it will be used to instantiate the unit object.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute represents the class of the unit, it will be used to</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not inlude the</span><span class="tI">
+</span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
+</span><span class="tT">XML file to resplve the namespace.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Dictionary_xsd.html#UNIT_set" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">set</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Modification reference. This attribute must hold the persistent identifier</span><span class="tI">
+</span><span class="tT">of a unit: if provided, it means that the properties of the current block</span><span class="tI">
+</span><span class="tT">will be added or replace those in the unit corresponding to the native</span><span class="tI">
+</span><span class="tT">identifier provided in this attribute. Note that the block properties are</span><span class="tI">
+</span><span class="tT">assumed to be at the root level, this means that to modify a nested</span><span class="tI">
+</span><span class="tT">property you must provide the full root level enclosing property.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -2305,7 +2367,12 @@ var modelBoxes= new Array('model_METADATA',
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the unit object.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not inlude the namespace, it is the responsibility of the script which will parse the XML file to resplve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"set"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Modification reference. This attribute must hold the persistent identifier of a unit: if provided, it means that the properties of the current block will be added or replace those in the unit corresponding to the native identifier provided in this attribute. Note that the block properties are assumed to be at the root level, this means that to modify a nested property you must provide the full root level enclosing property.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
@@ -2314,6 +2381,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -2524,6 +2595,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2623,6 +2698,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2721,6 +2800,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -2822,6 +2905,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2920,6 +3007,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3117,6 +3208,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3226,6 +3321,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3329,6 +3428,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3435,6 +3538,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3533,6 +3640,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3630,6 +3741,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3732,6 +3847,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3837,6 +3956,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3941,6 +4064,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4040,6 +4167,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4138,6 +4269,10 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -4243,6 +4378,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4347,6 +4486,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4449,6 +4592,10 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4485,8 +4632,10 @@ var modelBoxes= new Array('model_METADATA',
                               <div class="annotation">
                                  <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                     <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute represents the class of the unit,</span><span class="tI">
-</span><span class="tT">it will be used to instantiate the unit object.</span></pre></td>
+                                       <td width="100%"><pre><span class="tT">This attribute represents the class of the unit, it will be used to</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not inlude the</span><span class="tI">
+</span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
+</span><span class="tT">XML file to resplve the namespace.</span></pre></td>
                                     </tr>
                                  </table>
                               </div>
@@ -4540,13 +4689,124 @@ var modelBoxes= new Array('model_METADATA',
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the unit object.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not inlude the namespace, it is the responsibility of the script which will parse the XML file to resplve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
                                  </tr>
                               </table>
                            </div>
                         </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="UNIT_set"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#UNIT" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNIT</a></b> / @set</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_UNIT_set" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_UNIT_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_UNIT_set" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Modification reference. This attribute must hold the persistent identifier</span><span class="tI">
+</span><span class="tT">of a unit: if provided, it means that the properties of the current block</span><span class="tI">
+</span><span class="tT">will be added or replace those in the unit corresponding to the native</span><span class="tI">
+</span><span class="tT">identifier provided in this attribute. Note that the block properties are</span><span class="tI">
+</span><span class="tT">assumed to be at the root level, this means that to modify a nested</span><span class="tI">
+</span><span class="tT">property you must provide the full root level enclosing property.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_UNIT_set" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_UNIT_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_UNIT_set" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_UNIT_set" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_UNIT_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_UNIT_set" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#UNIT" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNIT</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_UNIT_set" type="image" src="img/btM.gif" value="-" onclick="switchState('source_UNIT_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_UNIT_set" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"set"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Modification reference. This attribute must hold the persistent identifier of a unit: if provided, it means that the properties of the current block will be added or replace those in the unit corresponding to the native identifier provided in this attribute. Note that the block properties are assumed to be at the root level, this means that to modify a nested property you must provide the full root level enclosing property.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Schema location</b></td>
+                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>

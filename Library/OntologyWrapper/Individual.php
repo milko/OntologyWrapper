@@ -103,7 +103,7 @@ class Individual extends EntityObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -116,7 +116,12 @@ class Individual extends EntityObject
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return all the default offsets.
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ENTITY_FNAME}</tt>: Individual first name.
+	 *	<li><tt>{@link kTAG_ENTITY_LNAME}</tt>: Individual last name.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.

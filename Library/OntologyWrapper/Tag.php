@@ -119,9 +119,15 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_MIN_VAL}</tt>: <em>Minimum value</em>. This attribute is a floating
  *		point value representing the <em>minimum</em> of the <em>range of values</em>
  *		featured by the tag.
+ *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: <em>Minimum range</em>. This attribute is a
+ *		floating point value representing the <em>minimum</em> value that the current tag
+ *		may take.
  *	<li><tt>{@link kTAG_MAX_VAL}</tt>: <em>Maximum value</em>. This attribute is a floating
  *		point value representing the <em>maximum</em> of the <em>range of values</em>
  *		featured by the tag.
+ *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: <em>Maximum range</em>. This attribute is a
+ *		floating point value representing the <em>maximum</em> value that the current tag
+ *		may take.
  *	<li><tt>{@link kTAG_PATTERN}</tt>: <em>Regular expression pattern</em>. This attribute
  *		holds a <em>string</em> which represents a <em>regular expression pattern</em> which
  *		can be used to <em>validate data identified by this tag</em>.
@@ -644,41 +650,117 @@ class Tag extends PersistentObject
 				static::ResolveDatabase( $theWrapper ) );
 		
 		//
-		// Init local storage.
-		//
-		$tags = array( (int) kTAG_MIN_VAL, (int) kTAG_MAX_VAL );
-		$offsets = array( (string) kTAG_MIN_VAL, (string) kTAG_MAX_VAL );
-		$options = array( 'multi' => FALSE, 'upsert' => FALSE );
-		
-		//
 		// Iterate bounds.
 		//
 		foreach( $theBounds as $tag => $bounds )
-		{
-			//
-			// Build criteria.
-			//
-			$criteria = array( $theOffset => $tag );
-			
-			//
-			// Set minimum.
-			//
 			$collection->modify(
-				$criteria,
-				array( '$min' => array( kTAG_MIN_VAL => $bounds[ kTAG_MIN_VAL ] ) ),
-				$options );
-			
-			//
-			// Set maximum.
-			//
-			$collection->modify(
-				$criteria,
-				array( '$max' => array( kTAG_MAX_VAL => $bounds[ kTAG_MAX_VAL ] ) ),
-				$options );
-			
-		} // Iterating bounds.
-	
+				array( $theOffset => $tag ),
+				array( '$min' => array( (string) kTAG_MIN_VAL
+											  => $bounds[ kTAG_MIN_VAL ] ),
+					   '$max' => array( (string) kTAG_MAX_VAL
+					   						  => $bounds[ kTAG_MAX_VAL ] ) ),
+				array( 'multi' => FALSE, 'upsert' => FALSE ) );
+		
 	} // UpdateRange.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ExternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return external offsets
+	 *
+	 * In this class we return the offsets featured by tag objects which record tag usage
+	 * statistics:
+	 *
+	 * <ul>
+	 *	<li><em>Offset paths</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all tags in which it is referenced.
+	 *		<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all terms in which it is referenced.
+	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all nodes in which it is referenced.
+	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all edges in which it is referenced.
+	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: List of offset paths used by the current
+	 *			tag in all units in which it is referenced.
+	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: List of offset paths used by the
+	 *			current tag in all entities in which it is referenced.
+	 *	 </ul>
+	 *	<li><em>Usage ranges</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_MIN_VAL}</tt>: Minimum range value.
+	 *		<li><tt>{@link kTAG_MAX_VAL}</tt>: Maximum range value.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()
+	{
+		return array_merge(
+			parent::ExternalOffsets(),
+			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
+				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
+				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
+			array( kTAG_MIN_VAL, kTAG_MAX_VAL ) );									// ==>
+	
+	} // ExternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Tag offset number.
+	 *	<li><tt>{@link kTAG_TERMS}</tt>: Tag terms path.
+	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Tag data type.
+	 *	<li><tt>{@link kTAG_DATA_KIND}</tt>: Tag data kind.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Tag label.
+	 *	<li><tt>{@link kTAG_DESCRIPTION}</tt>: Tag description.
+	 *	<li><tt>{@link kTAG_SYNONYM}</tt>: Tag synonyms.
+	 *	<li><tt>{@link kTAG_MIN_VAL}</tt>: Minimum featured value.
+	 *	<li><tt>{@link kTAG_MAX_VAL}</tt>: Maximum featured value.
+	 *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: Minimum allowed value.
+	 *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: Maximum allowed value.
+	 *	<li><tt>{@link kTAG_PATTERN}</tt>: Regular expression pattern.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ID_SEQUENCE,
+								   kTAG_TERMS,
+								   kTAG_DATA_TYPE, kTAG_DATA_KIND,
+								   kTAG_LABEL, kTAG_DESCRIPTION,
+								   kTAG_LABEL, kTAG_DESCRIPTION, kTAG_SYNONYM,
+								   kTAG_MIN_VAL, kTAG_MAX_VAL,
+								   kTAG_MAX_RANGE, kTAG_MAX_RANGE,
+								   kTAG_PATTERN ) );								// ==>
+	
+	} // DefaultOffsets.
 
 		
 

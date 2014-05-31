@@ -899,7 +899,7 @@ abstract class CollectionObject extends ConnectionObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 

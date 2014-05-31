@@ -354,7 +354,7 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -367,13 +367,16 @@ class Term extends PersistentObject
 	/**
 	 * Return default offsets
 	 *
-	 * This method will return the current object list of default offsets, these offsets
-	 * represent the default offsets of the object, which means that all objects derived
-	 * from this class may feature these offsets. This method is used to exclude these
-	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
-	 * implied that these offsets will be there.
+	 * In this class we return:
 	 *
-	 * In this class we return an empty array.
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NAMESPACE}</tt>: Term namespace reference.
+	 *	<li><tt>{@link kTAG_ID_LOCAL}</tt>: Term local identifier.
+	 *	<li><tt>{@link kTAG_TERM_TYPE}</tt>: Term type.
+	 *	<li><tt>{@link kTAG_LABEL}</tt>: Term label.
+	 *	<li><tt>{@link kTAG_DEFINITION}</tt>: Term definition.
+	 *	<li><tt>{@link kTAG_SYNONYM}</tt>: Term synonyms.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
@@ -381,8 +384,9 @@ class Term extends PersistentObject
 	static function DefaultOffsets()
 	{
 		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_NAMESPACE, kTAG_ID_LOCAL,
-								   kTAG_LABEL, kTAG_DEFINITION ) );					// ==>
+							array( kTAG_NAMESPACE, kTAG_ID_LOCAL, kTAG_TERM_TYPE,
+								   kTAG_LABEL, kTAG_DEFINITION,
+								   kTAG_SYNONYM ) );								// ==>
 	
 	} // DefaultOffsets.
 

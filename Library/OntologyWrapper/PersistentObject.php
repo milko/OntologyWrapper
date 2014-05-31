@@ -1553,63 +1553,107 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	LocalOffsets																	*
+	 *	ExternalOffsets																	*
 	 *==================================================================================*/
 
 	/**
-	 * Return local offsets
+	 * Return external offsets
 	 *
-	 * This method will return the current object list of local offsets, these offsets are
-	 * managed internally by the class.
-	 *
-	 * This class of offsets have the following characteristics:
+	 * In this class we return the offsets which keep track of the object structure and ist
+	 * references:
 	 *
 	 * <ul>
-	 *	<li>The offsets are managed internally by the object.
-	 *	<li>Clients must not modify these offsets.
-	 *	<li>These offsets will not be part of the object's {@link kTAG_OBJECT_TAGS} and the
-	 *		{@link kTAG_OBJECT_OFFSETS} properties.
+	 *	<li><em>Reference counting offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_COUNT}</tt>: Number of tags referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_TERM_COUNT}</tt>: Number of terms referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_NODE_COUNT}</tt>: Number of nodes referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Number of edges referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Number of units referencing the current
+	 *			object.
+	 *		<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Number of entities referencing the
+	 *			current object.
+	 *	 </ul>
+	 *	<li><em>Time-stamp offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_RECORD_CREATED}</tt>: Record creation stamp.
+	 *		<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: Record modification stamp.
+	 *	 </ul>
 	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()
+	{
+		return array_merge(
+			parent::ExternalOffsets(),
+			array( kTAG_TAG_COUNT, kTAG_TERM_COUNT,
+				   kTAG_NODE_COUNT, kTAG_EDGE_COUNT,
+				   kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT ),
+			array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );					// ==>
+	
+	} // ExternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	DynamicOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return dynamic offsets
+	 *
+	 * In this class we return the offsets used to manage the object's properties:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: List of tags referenced by the object's
+	 *		properties.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: List of object property offset paths
+	 *		grouped by tag.
+	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: List of objects referenced by the
+	 *		the current object grouped by collection.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of dynamic offsets.
+	 */
+	static function DynamicOffsets()
+	{
+		return array_merge(
+			parent::DynamicOffsets(),
+			array( kTAG_OBJECT_TAGS,  kTAG_OBJECT_OFFSETS,
+				   kTAG_OBJECT_REFERENCES ) );										// ==>
+	
+	} // DynamicOffsets.
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
 	 *
 	 * In this class we return:
 	 *
 	 * <ul>
-	 *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: Graph identifier references.
-	 *	<li><tt>{@link kTAG_TAG_COUNT}</tt>: Tag property references.
-	 *	<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag offset path references.
-	 *	<li><tt>{@link kTAG_TERM_COUNT}</tt>: Term property references.
-	 *	<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term offset path references.
-	 *	<li><tt>{@link kTAG_NODE_COUNT}</tt>: Node property references.
-	 *	<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node offset path references.
-	 *	<li><tt>{@link kTAG_EDGE_COUNT}</tt>: Edge property references.
-	 *	<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge offset path references.
-	 *	<li><tt>{@link kTAG_UNIT_COUNT}</tt>: Unit property references.
-	 *	<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit offset path references.
-	 *	<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Entities property references.
-	 *	<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity offset path references.
-	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: Object tags list.
-	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: Object offsets list.
-	 *	<li><tt>{@link kTAG_OBJECT_REFERENCES}</tt>: Object object references list.
+	 *	<li><tt>{@link kTAG_RECORD_CREATED}</tt>: Record creation time.
+	 *	<li><tt>{@link kTAG_RECORD_MODIFIED}</tt>: Record last modification time.
 	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
 	 */
-	static function LocalOffsets()
+	static function DefaultOffsets()
 	{
-		return array
-		(
-			kTAG_ID_GRAPH,
-			kTAG_TAG_COUNT, kTAG_TAG_OFFSETS,
-			kTAG_TERM_COUNT, kTAG_TERM_OFFSETS,
-			kTAG_NODE_COUNT, kTAG_NODE_OFFSETS,
-			kTAG_EDGE_COUNT, kTAG_EDGE_OFFSETS,
-			kTAG_UNIT_COUNT, kTAG_UNIT_OFFSETS,
-			kTAG_ENTITY_COUNT, kTAG_ENTITY_OFFSETS,
-			kTAG_OBJECT_TAGS, kTAG_OBJECT_OFFSETS, kTAG_OBJECT_REFERENCES
-		);																			// ==>
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );	// ==>
 	
-	} // LocalOffsets.
+	} // DefaultOffsets.
 
 		
 	/*===================================================================================
@@ -1820,7 +1864,10 @@ abstract class PersistentObject extends OntologyObject
 				// Check container structure.
 				//
 				case kTAG_TAG_STRUCT:
-					$tag = $this->mDictionary->getObject( $theValue );
+					$tag
+						= $this->mDictionary
+							->getObject(
+								$this->resolveOffset( $theValue, TRUE ) );
 					if( $tag !== NULL )
 					{
 						if( array_key_exists( kTAG_DATA_TYPE, $tag ) )
@@ -2457,7 +2504,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * <ul>
 	 *	<li><em>Clear local offsets</em>: The method will delete all offsets returned by
-	 *		the {@link LocalOffsets()} static method, this is to ensure these properties
+	 *		the {@link DynamicOffsets()} static method, this is to ensure these properties
 	 *		are filled with current data.
 	 *	<li><em>Parse object</em>: The method will call the {@link parseObject()} method
 	 *		that will perform the following actions:
@@ -2483,7 +2530,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @access protected
 	 *
-	 * @uses LocalOffsets()
+	 * @uses DynamicOffsets()
 	 * @uses parseObject()
 	 */
 	protected function preCommitTraverse( &$theTags, &$theRefs, $doValidate = TRUE )
@@ -2491,7 +2538,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Remove private offsets.
 		//
-		foreach( static::LocalOffsets() as $offset )
+		foreach( static::DynamicOffsets() as $offset )
 			$this->offsetUnset( $offset );
 	
 		//
@@ -3361,7 +3408,7 @@ abstract class PersistentObject extends OntologyObject
 	 *==================================================================================*/
 
 	/**
-	 * Parse property
+	 * Parse structure
 	 *
 	 * This method will parse the provided structure collecting tag, offset and object
 	 * reference information in the provided reference parameters, the method will perform
@@ -3441,15 +3488,22 @@ abstract class PersistentObject extends OntologyObject
 										$doValidate )
 	{
 		//
-		// Iterate properties.
+		// Init local storage.
 		//
 		$tags = array_keys( $theStructure );
+		$exclude = array_merge( static::InternalOffsets(),
+								static::ExternalOffsets(),
+								static::DynamicOffsets() );
+		
+		//
+		// Iterate properties.
+		//
 		foreach( $tags as $tag )
 		{
 			//
 			// Skip internal offsets.
 			//
-			if( ! in_array( $tag, $this->InternalOffsets() ) )
+			if( ! in_array( $tag, $exclude ) )
 			{
 				//
 				// Push offset to path.
@@ -4629,118 +4683,113 @@ abstract class PersistentObject extends OntologyObject
 	 * Update tag ranges
 	 *
 	 * This method will update all tag objects range values according to the current object
-	 * tag values.
+	 * tag values which are recorded in the {@link kTAG_OBJECT_OFFSETS} property.
 	 *
 	 * The method will cycle all object's tag offsets and with all those of kind continuous,
 	 * {@link kTYPE_QUANTITATIVE}, it will collect the minimum and maximum values and update
 	 * the related tag object's  minimum, {@link kTAG_MIN_VAL},and maximum
 	 * {@link kTAG_MAX_VAL}, properties.
 	 *
-	 * The method assumes the current object has its {@link dictionary()} set and the
-	 * {@link kTAG_OBJECT_OFFSETS} property updated.
+	 * The method assumes the current object has its {@link dictionary()} set.
 	 *
 	 * @access protected
 	 */
 	protected function updateTagRanges()
 	{
 		//
-		// Save and check offsets.
+		// Init local storage.
 		//
 		$bounds = Array();
-		$list = $this->offsetGet( kTAG_OBJECT_OFFSETS );
-		if( ($list !== NULL)
-		 && count( $list ) )
+		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		
+		//
+		// Iterate offsets.
+		//
+		foreach( $tags as $tag => $offsets )
 		{
 			//
-			// Iterate offsets.
+			// Get type and kind.
 			//
-			foreach( $list as $tag => $offsets )
+			static::OffsetTypes(
+				$this->mDictionary, $tag,
+				$type, $kind,
+				$min, $max, $pattern,
+				TRUE );
+		
+			//
+			// Handle quantitative kinds.
+			//
+			if( in_array( kTYPE_QUANTITATIVE, $kind ) )
 			{
 				//
-				// Get type and kind.
+				// Init local storage.
 				//
-				static::OffsetTypes(
-					$this->mDictionary, $tag,
-					$type, $kind,
-					$min, $max, $pattern,
-					TRUE );
-			
+				$min = $max = NULL;
+				
 				//
-				// Handle quantitative kinds.
+				// Iterate offsets.
 				//
-				if( in_array( kTYPE_QUANTITATIVE, $kind ) )
+				foreach( $offsets as $offset )
+				{
+					//
+					// Get value.
+					//
+					$value = $this->offsetGet( $offset );
+					if( $value !== NULL )
+					{
+						//
+						// Handle minimum.
+						//
+						if( ($min === NULL)
+						 || ($value < $min) )
+							$min = $value;
+						
+						//
+						// Handle maximum.
+						//
+						if( ($max === NULL)
+						 || ($value > $max) )
+							$max = $value;
+					
+					} // Has value.
+				
+				} // Iterating offsets.
+				
+				//
+				// Check limits.
+				//
+				if( ($min !== NULL)
+				 || ($max !== NULL) )
 				{
 					//
 					// Init local storage.
 					//
-					$min = $max = NULL;
-					
+					$bounds[ $tag ] = Array();
+					$ref = & $bounds[ $tag ];
+				
 					//
-					// Iterate offsets.
+					// Compute minimum modification.
 					//
-					foreach( $offsets as $offset )
-					{
-						//
-						// Get value.
-						//
-						$value = $this->offsetGet( $offset );
-						if( $value !== NULL )
-						{
-							//
-							// Handle minimum.
-							//
-							if( ($min === NULL)
-							 || ($value < $min) )
-								$min = $value;
-							
-							//
-							// Handle maximum.
-							//
-							if( ($max === NULL)
-							 || ($value > $max) )
-								$max = $value;
-						
-						} // Has value.
-					
-					} // Iterating offsets.
-					
+					if( $min !== NULL )
+						$ref[ kTAG_MIN_VAL ] = $min;
+				
 					//
-					// Check limits.
+					// Compute maximum modification.
 					//
-					if( ($min !== NULL)
-					 || ($max !== NULL) )
-					{
-						//
-						// Init local storage.
-						//
-						$bounds[ $tag ] = Array();
-						$ref = & $bounds[ $tag ];
-					
-						//
-						// Compute minimum modification.
-						//
-						if( $min !== NULL )
-							$ref[ kTAG_MIN_VAL ] = $min;
-					
-						//
-						// Compute maximum modification.
-						//
-						if( $max !== NULL )
-							$ref[ kTAG_MAX_VAL ] = $min;
-					
-					} // Has at least a limit.
-					
-				} // Quantitative tag.
-			
-			} // Iterating offsets.
-			
-			//
-			// Apply modifications.
-			//
-			if( count( $bounds ) )
-				Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_SEQUENCE );
+					if( $max !== NULL )
+						$ref[ kTAG_MAX_VAL ] = $min;
+				
+				} // Has at least a limit.
+				
+			} // Quantitative tag.
 		
-		} // Has offsets.
+		} // Iterating offsets.
+		
+		//
+		// Apply modifications.
+		//
+		if( count( $bounds ) )
+			Tag::UpdateRange( $this->mDictionary, $bounds, kTAG_ID_SEQUENCE );
 		
 	} // updateTagRanges.
 

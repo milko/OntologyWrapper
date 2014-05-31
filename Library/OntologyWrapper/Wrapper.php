@@ -1799,7 +1799,7 @@ class Wrapper extends Dictionary
 		// Iterate meta-blocks.
 		//
 		foreach( $theXML->{'META'} as $block )
-			$this->loadXMLMetadataBlock( $block );
+			$this->loadXMLRootBlock( $block );
 	
 	} // loadXMLMetadata.
 
@@ -1833,35 +1833,40 @@ class Wrapper extends Dictionary
 	/**
 	 * Parse and load entities
 	 *
-	 * This method will parse and load the provided entities XML structure.
+	 * This method will parse and load the provided units XML structure.
 	 *
 	 * It is assumed that the object has its comnnections open and that the provided XML
 	 * structure has the correct root element.
 	 *
-	 * @param SimpleXMLElement		$theXML				Entities XML.
+	 * @param SimpleXMLElement		$theXML				Units XML.
 	 *
 	 * @access protected
 	 */
 	protected function loadXMLUnits( \SimpleXMLElement $theXML )
 	{
+		//
+		// Iterate meta-blocks.
+		//
+		foreach( $theXML->{'UNIT'} as $block )
+			$this->loadXMLUnit( $block );
 	
 	} // loadXMLUnits.
 
 	 
 	/*===================================================================================
-	 *	loadXMLMetadataBlock															*
+	 *	loadXMLRootBlock																*
 	 *==================================================================================*/
 
 	/**
-	 * Parse and load metadata block
+	 * Parse and load root block
 	 *
-	 * This method will parse and load the provided metadata transaction block.
+	 * This method will parse and load the provided rot transaction block.
 	 *
-	 * @param SimpleXMLElement		$theXML				Metadata transaction block.
+	 * @param SimpleXMLElement		$theXML				Root transaction block.
 	 *
 	 * @access protected
 	 */
-	protected function loadXMLMetadataBlock( \SimpleXMLElement $theXML )
+	protected function loadXMLRootBlock( \SimpleXMLElement $theXML )
 	{
 		//
 		// Init cache.
@@ -1892,7 +1897,13 @@ class Wrapper extends Dictionary
 		foreach( $theXML->{'EDGE'} as $item )
 			$this->loadXMLEdge( $item, $cache );
 	
-	} // loadXMLMetadataBlock.
+		//
+		// Iterate edges.
+		//
+		foreach( $theXML->{'UNIT'} as $item )
+			$this->loadXMLUnit( $item );
+	
+	} // loadXMLRootBlock.
 
 	 
 	/*===================================================================================
@@ -2204,6 +2215,50 @@ class Wrapper extends Dictionary
 		$theCache[ Edge::kSEQ_NAME ][ $object[ kTAG_NID ] ] = $object;
 	
 	} // loadXMLEdge.
+
+	 
+	/*===================================================================================
+	 *	loadXMLUnit																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse and load XML unit
+	 *
+	 * This method will parse and load the provided unit XML structure.
+	 *
+	 * @param SimpleXMLElement		$theXML				Unit XML structure.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function loadXMLUnit( \SimpleXMLElement $theXML )
+	{
+		//
+		// Get class.
+		//
+		$class = (string) $theXML[ 'class' ];
+		
+		//
+		// Instantiate object.
+		//
+		if( isset( $theXML[ 'set' ] ) )
+			$object = new $class( $this, (string) $theXML[ 'set' ] );
+		else
+			$object = new $class( $this );
+		
+		//
+		// Load properties.
+		//
+		foreach( $theXML->{'item'} as $element )
+			$this->loadXMLElement( $element, $object );
+		
+		//
+		// Commit.
+		//
+		$object->commit();
+	
+	} // loadXMLUnit.
 
 	 
 	/*===================================================================================

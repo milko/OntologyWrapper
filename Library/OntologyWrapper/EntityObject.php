@@ -87,8 +87,8 @@ use OntologyWrapper\CollectionObject;
  *		of entities: objects derived from this class should not be deleted.
  * </ul>
  *
- * An entity can be considered initialised when it has at least the name, in addition to the
- * inherited required offsets.
+ * An entity can be considered initialised when it has at least the domain, identifier and
+ * name.
  *
  * This class is declared abstract, you must derive the class to instantiate it.
  *
@@ -214,22 +214,8 @@ abstract class EntityObject extends UnitObject
 	/**
 	 * <h4>Return global identifier</h4>
 	 *
-	 * The global identifier of units is the combination of the object's domain, authority,
-	 * collection and local identifier, the identifier is computed as follows:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is followed by the
-	 *		{@link kTOKEN_DOMAIN_SEPARATOR}.
-	 *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is followed by the
-	 *		{@link kTOKEN_INDEX_SEPARATOR}.
-	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: The namespace is followed by the
-	 *		{@link kTOKEN_NAMESPACE_SEPARATOR}.
-	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier closes the identifier.
-	 *	<li><tt>{@link kTOKEN_END_TAG}</tt>: This tag closes the whole identifier.
-	 * </ul>
-	 *
-	 * Only the domain, authority and local identifier are required, all missing attributes
-	 * will get omitted, along with the token that follows them.
+	 * We override this method to exclude the version from the elements that comprise the
+	 * global identifier.
 	 *
 	 * @access public
 	 * @return string				The global identifier.
@@ -413,7 +399,7 @@ abstract class EntityObject extends UnitObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -426,7 +412,20 @@ abstract class EntityObject extends UnitObject
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return all the default offsets.
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NAME}</tt>: Entity name.
+	 *	<li><tt>{@link kTAG_ENTITY_TYPE}</tt>: Entity type.
+	 *	<li><tt>{@link kTAG_ENTITY_KIND}</tt>: Entity kind.
+	 *	<li><tt>{@link kTAG_ENTITY_MAIL}</tt>: Entity mailing address.
+	 *	<li><tt>{@link kTAG_ENTITY_EMAIL}</tt>: Entity e-mail address.
+	 *	<li><tt>{@link kTAG_ENTITY_PHONE}</tt>: Entity telephone number.
+	 *	<li><tt>{@link kTAG_ENTITY_FAX}</tt>: Entity telefax number.
+	 *	<li><tt>{@link kTAG_ENTITY_NATIONALITY}</tt>: Entity nationality.
+	 *	<li><tt>{@link kTAG_ENTITY_AFFILIATION}</tt>: Entity affiliation.
+	 *	<li><tt>{@link kTAG_ENTITY_VALID}</tt>: Valid entity.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.

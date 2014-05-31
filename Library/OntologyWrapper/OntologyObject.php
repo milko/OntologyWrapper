@@ -488,6 +488,101 @@ abstract class OntologyObject extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	InternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return internal offsets
+	 *
+	 * This method will return the list of internal offsets for the current class, these
+	 * offsets are not defined in the data dictionary and are private to the object. This
+	 * method is used to exclude these offsets from the default offset resolution workflow.
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_NID}</tt>: Native identifier.
+	 *	<li><tt>{@link kTAG_CLASS}</tt>: Object class name.
+	 *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: Shape property type.
+	 *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: Shape property geometry.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of internal offsets.
+	 */
+	static function InternalOffsets()
+	{
+		return array( kTAG_NID, kTAG_CLASS, kTAG_SHAPE_TYPE, kTAG_SHAPE_GEOMETRY );	// ==>
+	
+	} // InternalOffsets.
+
+	 
+	/*===================================================================================
+	 *	ExternalOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return external offsets
+	 *
+	 * This method will return the list of external offsets for the current class. These are
+	 * offsets which are managed neither by clients nor by the object itself, these will
+	 * generally be managed by events triggered by other objects.
+	 *
+	 * For this reason, these offsets will not be part of the offset management framework.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of external offsets.
+	 */
+	static function ExternalOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	DynamicOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return dynamic offsets
+	 *
+	 * This method will return the list of dynamic offsets for the current class. These are
+	 * offsets which are managed by the object itself, and should not be modified by
+	 * clients.
+	 *
+	 * In general, these offsets will be overwritten each time an object is committed, 
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of dynamic offsets.
+	 */
+	static function DynamicOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * This method will return the list of default offsets for the current class, these
+	 * are the properties known to be part of the current class: since objects may feature
+	 * any defined tag, this selection provides an indication of which properties one could
+	 * expect.
+	 *
+	 * This selection can also be used as the minimum set of properties which an object may
+	 * feature.
+	 *
+	 * In this class we return an empty array.
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()									{	return Array();	}
+
+		
+	/*===================================================================================
 	 *	OffsetTypes																		*
 	 *==================================================================================*/
 
@@ -584,60 +679,6 @@ abstract class OntologyObject extends ContainerObject
 		return NULL;																// ==>
 		
 	} // OffsetTypes.
-
-		
-
-/*=======================================================================================
- *																						*
- *								STATIC OFFSET INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	InternalOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return internal offsets
-	 *
-	 * This method will return the current object list of internal offsets, these offsets
-	 * are not defined in the data dictionary and are private to the object. This method
-	 * is used to exclude these offsets from the default offset resolution workflow.
-	 *
-	 * In this class we return {@link kTAG_NID} and {@link kTAG_CLASS}, which all persistent
-	 * objects share.
-	 *
-	 * @static
-	 * @return array				List of internal offsets.
-	 */
-	static function InternalOffsets()
-	{
-		return array( kTAG_NID, kTAG_CLASS, kTAG_SHAPE_TYPE, kTAG_SHAPE_GEOMETRY );	// ==>
-	
-	} // InternalOffsets.
-
-	 
-	/*===================================================================================
-	 *	DefaultOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return default offsets
-	 *
-	 * This method will return the current object list of default offsets, these offsets
-	 * represent the default offsets of the object, which means that all objects derived
-	 * from this class may feature these offsets. This method is used to exclude these
-	 * offsets from statistical procedures, such as {@link CollectOffsets()}, since it is
-	 * implied that these offsets will be there.
-	 *
-	 * In this class we return an empty array.
-	 *
-	 * @static
-	 * @return array				List of default offsets.
-	 */
-	static function DefaultOffsets()									{	return Array();	}
 
 		
 

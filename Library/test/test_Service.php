@@ -460,6 +460,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PAGING_LIMIT => 50,
 		kAPI_PARAM_PATTERN => 'count',
@@ -755,15 +756,58 @@ $param = array
 	kAPI_PARAM_LOG_REQUEST => TRUE,
 	kAPI_PARAM_CRITERIA => array
 	(
-		':name' => array
+		':test:feature1' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
+		),
+		':test:feature2' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_RANGE,
+			kAPI_PARAM_PATTERN => 20,
+			kAPI_PARAM_OPERATOR => array
+			(
+				kOPERATOR_IRANGE
+			)
+		),
+		':test:feature1/:predicate:SCALE-OF/:test:scale1' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-			kAPI_PARAM_PATTERN => 'olive',
+			kAPI_PARAM_PATTERN => 'test string',
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_CONTAINS,
 				kOPERATOR_NOCASE
 			)
+		),
+		':test:feature1/:predicate:SCALE-OF/:test:scale2' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+			kAPI_PARAM_PATTERN => 20
+		),
+		':test:feature2/:predicate:SCALE-OF/:test:scale1' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+			kAPI_PARAM_PATTERN => 'other string',
+			kAPI_PARAM_OPERATOR => array
+			(
+				kOPERATOR_CONTAINS,
+				kOPERATOR_NOCASE
+			)
+		),
+		':test:feature2/:predicate:SCALE-OF/:test:scale2' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+			kAPI_PARAM_PATTERN => 'other string',
+			kAPI_PARAM_OPERATOR => array
+			(
+				kOPERATOR_CONTAINS,
+				kOPERATOR_NOCASE
+			)
+		),
+		':test:feature2/:predicate:SCALE-OF/:test:scale3' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+			kAPI_RESULT_ENUM_TERM => array( ':test:enumeration:1' )
 		),
 		':unit:version' => array
 		(
@@ -803,6 +847,7 @@ echo( kSTYLE_ROW_POS );
 echo( kSTYLE_TABLE_POS );
 echo( '<hr>' );
 echo( '<hr>' );
+exit;
 
 	//
 	// Try matchUnits with string search on ":name" contains "olive".

@@ -450,8 +450,23 @@
 			<xs:attribute name="class" use="required" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute represents the class of the unit,
-						it will be used to instantiate the unit object.
+						This attribute represents the class of the unit, it will be used to
+						instantiate the object. Note that the class name should not inlude the
+						namespace, it is the responsibility of the script which will parse the
+						XML file to resplve the namespace.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="set" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a unit: if provided, it means that the properties of the current block
+						will be added or replace those in the unit corresponding to the native
+						identifier provided in this attribute. Note that the block properties are
+						assumed to be at the root level, this means that to modify a nested
+						property you must provide the full root level enclosing property.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>

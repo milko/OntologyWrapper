@@ -664,6 +664,44 @@ class Node extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return default offsets
+	 *
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_ID_PERSISTENT}</tt>: Node persistent identifier.
+	 *	<li><tt>{@link kTAG_TAG}</tt>: Node tag reference.
+	 *	<li><tt>{@link kTAG_TERM}</tt>: Node term reference.
+	 *	<li><tt>{@link kTAG_NODE_TYPE}</tt>: Node type.
+	 * </ul>
+	 *
+	 * @static
+	 * @return array				List of default offsets.
+	 */
+	static function DefaultOffsets()
+	{
+		return array_merge( parent::DefaultOffsets(),
+							array( kTAG_ID_PERSISTENT,
+								   kTAG_TAG, kTAG_TERM,
+								   kTAG_NODE_TYPE ) );								// ==>
+	
+	} // DefaultOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

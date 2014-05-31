@@ -41,11 +41,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *		to the object, it indicates <em>who</em> is responsible for the object information
  *		and identification.
  *	<li><tt>{@link kTAG_COLLECTION}</tt>: The unit collection provides a means for
- *		<em>disambiguation</em> of the object's <em>local identifier</em>, it acts as the
- *		namespace for an identifier, making the combination of local identifier and
- *		collection unique among all units of the same domain and authority.
- *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit local identifier is a code that should
- *		uniquely identify the object within the realm of its authority and collection.
+ *		<em>disambiguation</em> of the object's <em>identifier</em>, it acts as the
+ *		namespace for an identifier, making the combination of identifier and collection
+ *		unique among all units of the same domain and authority.
+ *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The unit identifier is a code that should uniquely
+ *		identify the object within the realm of its authority and collection.
  *	<li><tt>{@link kTAG_VERSION}</tt>: The unit version provides a means to have different
  *		versions of the same formal object.
  *	<li><tt>{@link kTAG_ID_GRAPH}</tt>: <em>Unit graph node</em>. If the wrapper uses
@@ -54,10 +54,9 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  * </ul>
  *
  * All the above attributes concur in building the object's persistent identifier, which is
- * the concatenation of the domain, authority, collection, local identifier and version.
+ * the concatenation of the domain, authority, collection, identifier and version.
  *
- * A unit can be considered initialised when it has at least the domain, the authority and
- * the local identifier.
+ * A unit can be considered initialised when it has at least the domain and the identifier.
  *
  * This class is declared abstract, you must derive the class to instantiate it.
  *
@@ -103,7 +102,7 @@ abstract class UnitObject extends PersistentObject
 	 * Instantiate class.
 	 *
 	 * In this class we link the inited status with the presence of the unit domain,
-	 * authority and local identifier.
+	 * authority and identifier.
 	 *
 	 * The constructor will automatically set the object domain to the default class domain.
 	 *
@@ -133,7 +132,6 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 
 	} // Constructor.
@@ -147,7 +145,7 @@ abstract class UnitObject extends PersistentObject
 	 * <h4>Return global identifier</h4>
 	 *
 	 * The global identifier of units is the combination of the object's domain, authority,
-	 * collection, local identifier and version, the identifier is computed as follows:
+	 * collection, identifier and version, the identifier is computed as follows:
 	 *
 	 * <ul>
 	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: The domain is followed by the
@@ -162,8 +160,8 @@ abstract class UnitObject extends PersistentObject
 	 *	<li><tt>{@link kTOKEN_END_TAG}</tt>: This tag closes the whole identifier.
 	 * </ul>
 	 *
-	 * Only the domain, authority and local identifier are required, all missing attributes
-	 * will get omitted, along with the token that follows them.
+	 * Only the domain and identifier are required, all missing attributes will get omitted,
+	 * along with the token that follows them.
 	 *
 	 * @access public
 	 * @return string				The global identifier.
@@ -191,7 +189,7 @@ abstract class UnitObject extends PersistentObject
 			$gid .= ($this->offsetGet( kTAG_COLLECTION ).kTOKEN_NAMESPACE_SEPARATOR);
 		
 		//
-		// Handle local identifier.
+		// Handle identifier.
 		//
 		if( $this->offsetExists( kTAG_IDENTIFIER ) )
 			$gid .= $this->offsetGet( kTAG_IDENTIFIER );
@@ -381,30 +379,10 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								STATIC OFFSET INTERFACE									*
+ *								STATIC DICTIONARY INTERFACE								*
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	InternalOffsets																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return internal offsets
-	 *
-	 * In this class we add the {@link kTAG_OBJECT_TAGS} offset which is handled internally.
-	 *
-	 * @static
-	 * @return array				List of internal offsets.
-	 */
-	static function InternalOffsets()
-	{
-		return array_merge( parent::InternalOffsets(),
-							array( kTAG_OBJECT_TAGS ) );							// ==>
-	
-	} // InternalOffsets.
 
 	 
 	/*===================================================================================
@@ -414,8 +392,15 @@ abstract class UnitObject extends PersistentObject
 	/**
 	 * Return default offsets
 	 *
-	 * In this class we return the default offsets comprising the object's persistent
-	 * identifier.
+	 * In this class we return:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: Unit domain.
+	 *	<li><tt>{@link kTAG_AUTHORITY}</tt>: Unit authority.
+	 *	<li><tt>{@link kTAG_COLLECTION}</tt>: Unit collection.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Unit identifier.
+	 *	<li><tt>{@link kTAG_VERSION}</tt>: Unit version.
+	 * </ul>
 	 *
 	 * @static
 	 * @return array				List of default offsets.
@@ -469,7 +454,6 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetSet.
@@ -504,7 +488,6 @@ abstract class UnitObject extends PersistentObject
 		// Set initialised status.
 		//
 		$this->isInited( \ArrayObject::offsetExists( kTAG_DOMAIN ) &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
 						 \ArrayObject::offsetExists( kTAG_IDENTIFIER ) );
 	
 	} // postOffsetUnset.
@@ -579,8 +562,6 @@ abstract class UnitObject extends PersistentObject
 	 * @return Boolean				<tt>TRUE</tt> means ready.
 	 *
 	 * @see kTAG_NID kTAG_ID_SEQUENCE
-	 *
-	 * @uses isInited()
 	 */
 	protected function isReady()
 	{

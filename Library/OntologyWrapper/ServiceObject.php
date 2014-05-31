@@ -2652,7 +2652,7 @@ abstract class ServiceObject extends ContainerObject
 		if( $has_many_clusters )
 		{
 			$root[ '$and' ] = Array();
-			$root = & $query[ '$and' ];
+			$root = & $root[ '$and' ];
 
 		} // Multi-cluster.
 
@@ -2664,7 +2664,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Init loop storage.
 			//
-			$has_many_criteria = ( count( $cluster[ kAPI_PARAM_CRITERIA ] ) == 1 );
+			$has_many_criteria = ( count( $cluster[ kAPI_PARAM_CRITERIA ] ) > 1 );
 	
 			//
 			// Handle no values.
@@ -2681,12 +2681,12 @@ abstract class ServiceObject extends ContainerObject
 							 => array( '$in'
 							 	=> array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) ) )
 						: array( kTAG_OBJECT_TAGS
-							 => (int) $key( $cluster[ kAPI_PARAM_CRITERIA ] ) );
+							 => (int) key( $cluster[ kAPI_PARAM_CRITERIA ] ) );
 				else
 					$root[ kTAG_OBJECT_TAGS ]
 						= ( $has_many_criteria )
 						? array( '$in' => array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
-						: (int) $key( $cluster[ kAPI_PARAM_CRITERIA ] );
+						: (int) key( $cluster[ kAPI_PARAM_CRITERIA ] );
 	
 			} // Cluster has no values.
 	
