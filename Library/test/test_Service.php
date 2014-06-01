@@ -763,7 +763,8 @@ $param = array
 		':test:feature2' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_RANGE,
-			kAPI_PARAM_PATTERN => 20,
+			kAPI_PARAM_RANGE_MIN => '',
+			kAPI_PARAM_RANGE_MAX => 'z',
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_IRANGE

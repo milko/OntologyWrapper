@@ -1465,6 +1465,24 @@ abstract class ServiceObject extends ContainerObject
 						= $criteria[ kAPI_RESULT_ENUM_TERM ];
 					
 					break;
+					
+				//
+				// Strings.
+				//
+				case kAPI_PARAM_INPUT_DEFAULT:
+					//
+					// Require search pattern.
+					//
+					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+						throw new \Exception(
+							"Missing search pattern for tag [$tag]." );			// !@! ==>
+				
+					//
+					// Set filter.
+					//
+					$criteria_ref[ kAPI_PARAM_PATTERN ] = $criteria[ kAPI_PARAM_PATTERN ];
+					
+					break;
 				
 				//
 				// UNSUPPORTED.
@@ -2885,14 +2903,28 @@ abstract class ServiceObject extends ContainerObject
 								if( $has_many_clusters
 								 || $has_many_criteria
 								 || $has_many_offsets )
-									$criteria_ref[]
-										= array( $offset
-											=> array( '$in'
-												=> $criteria[ kAPI_RESULT_ENUM_TERM ] ) );
+								{
+									if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
+										$criteria_ref[]
+											= array( $offset
+												=> array( '$in'
+													=> $criteria[
+														kAPI_RESULT_ENUM_TERM ] ) );
+									else
+										$criteria_ref[]
+											= array( $offset
+												=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
+								}
 								else
-									$criteria_ref[ $offset ]
-										= array( '$in'
-											=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
+								{
+									if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
+										$criteria_ref[ $offset ]
+											= array( '$in'
+												=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
+									else
+										$criteria_ref[ $offset ]
+											= $criteria[ kAPI_RESULT_ENUM_TERM ];
+								}
 								break;
 				
 							default:
