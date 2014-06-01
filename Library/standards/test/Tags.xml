@@ -7,6 +7,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
+	<!-- STRUCTURES -->
+	
 	<!-- Structure 1 -->
 	<META>
 		<TAG>
@@ -43,6 +45,8 @@
 			<item const="kTAG_TAG_STRUCT">:test:struct2</item>
 		</TAG>
 	</META>
+	
+	<!-- FEATURES -->
 	
 	<!-- Single scale non indexed -->
 	<META>
@@ -183,6 +187,8 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
+	
+	<!-- NESTED FEATURES -->
 	
 	<!-- Feature 4 multi offsets -->
 	<META>

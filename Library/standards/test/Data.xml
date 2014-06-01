@@ -11,6 +11,7 @@
 	<UNIT class="OntologyWrapper\Individual">
 		<item const="kTAG_DOMAIN">:domain:individual</item>
 		<item const="kTAG_IDENTIFIER">m.skofic@cgiar.org</item>
+		<item const="kTAG_VERSION">20000101</item>
 		
 		<item const="kTAG_NAME"><![CDATA[Milko Škofič]]></item>
 		<item const="kTAG_ENTITY_TYPE">

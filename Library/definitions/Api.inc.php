@@ -757,11 +757,13 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		is provided, the next parameter will be ignored; the results will be clustered.
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_RESULT} is omitted: the value may be a string or
- *		an array of strings representing the tag native identifiers by which the results
- *		should be grouped. The result will be a nested array containing the distinct values
- *		of the provided tags as keys and the record count as values. If the parameter is
- *		an array, the results will be clustered in the order in which the tags are provided,
- *		only the leaf elements will contain the record counts.
+ *		an array of strings representing the tag native identifiers or sequence numbers by
+ *		which the results should be grouped. The result will be a nested array containing
+ *		the distinct values of the provided tags as keys and the record count as values.
+ *		If the parameter is an array, the results will be clustered in the order in which
+ *		the tags are provided, only the leaf elements will contain the record counts.
+ *		<em>Note that the leaf element will always be the {@link kTAG_DOMAIN} property, if
+ *		missing from the provided parametrer it will be added</em>.
  *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is
  *		provided, the service will add the provided shape to the filter, selecting only
  *		those records whose {@link kTAG_GEO_SHAPE} property is within or near the provided

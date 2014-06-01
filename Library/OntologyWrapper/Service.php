@@ -722,6 +722,7 @@ echo( '<hr>' );
 		$this->resolveFilter();
 echo( '<pre>' );
 print_r( $this->mFilter );
+var_dump( json_encode( $this->mFilter ) );
 echo( '</pre>' );
 exit;
 		

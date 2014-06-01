@@ -763,8 +763,8 @@ $param = array
 		':test:feature2' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_RANGE,
-			kAPI_PARAM_RANGE_MIN => '',
-			kAPI_PARAM_RANGE_MAX => 'z',
+			kAPI_PARAM_RANGE_MIN => 10,
+			kAPI_PARAM_RANGE_MAX => 20,
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_IRANGE
@@ -773,7 +773,7 @@ $param = array
 		':test:feature1/:predicate:SCALE-OF/:test:scale1' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-			kAPI_PARAM_PATTERN => 'test string',
+			kAPI_PARAM_PATTERN => 'two',
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_CONTAINS,
@@ -783,12 +783,12 @@ $param = array
 		':test:feature1/:predicate:SCALE-OF/:test:scale2' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
-			kAPI_PARAM_PATTERN => 20
+			kAPI_PARAM_PATTERN => 21
 		),
 		':test:feature2/:predicate:SCALE-OF/:test:scale1' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-			kAPI_PARAM_PATTERN => 'other string',
+			kAPI_PARAM_PATTERN => 'three',
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_CONTAINS,
@@ -798,7 +798,7 @@ $param = array
 		':test:feature2/:predicate:SCALE-OF/:test:scale2' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-			kAPI_PARAM_PATTERN => 'other string',
+			kAPI_PARAM_PATTERN => 'FOUR',
 			kAPI_PARAM_OPERATOR => array
 			(
 				kOPERATOR_CONTAINS,
@@ -808,7 +808,25 @@ $param = array
 		':test:feature2/:predicate:SCALE-OF/:test:scale3' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			kAPI_RESULT_ENUM_TERM => array( ':test:enumeration:1' )
+			kAPI_RESULT_ENUM_TERM => array( ':test:enumeration:2' )
+		),
+		':test:feature4' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+			kAPI_PARAM_PATTERN => 'test string five',
+			kAPI_PARAM_OPERATOR => array
+			(
+				kOPERATOR_EQUAL
+			)
+		),
+		':test:feature5' => array
+		(
+			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+			kAPI_PARAM_PATTERN => 'test string six',
+			kAPI_PARAM_OPERATOR => array
+			(
+				kOPERATOR_EQUAL
+			)
 		),
 		':unit:version' => array
 		(
@@ -820,10 +838,10 @@ $param = array
 				kOPERATOR_IRANGE
 			)
 		),
-		':kind:entity' => array
+		':type:entity' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			kAPI_RESULT_ENUM_TERM => array( ':kind:entity:100', ':kind:entity:200' )
+			kAPI_RESULT_ENUM_TERM => array( ':kind:entity:125', ':kind:entity:200' )
 		),
 		':unit:domain' => array
 		(

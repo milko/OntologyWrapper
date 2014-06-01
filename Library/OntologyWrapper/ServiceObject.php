@@ -831,7 +831,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Check if set.
 		//
-		if( ($value = $this->offsetGet( kAPI_PARAM_CRITERIA )) !== NULL )
+		if( $this->offsetGet( kAPI_PARAM_CRITERIA ) !== NULL )
 		{
 			//
 			// Validate group.
@@ -848,6 +848,45 @@ abstract class ServiceObject extends ContainerObject
 				//
 				$this->offsetUnset( kAPI_PAGING_SKIP );
 				$this->offsetUnset( kAPI_PAGING_LIMIT );
+				
+				//
+				// Get value.
+				//
+				$tmp = $this->offsetGet( kAPI_PARAM_GROUP );
+				
+				//
+				// Convert group into an array.
+				//
+				if( ! is_array( $tmp ) )
+					$tmp = array( $tmp );
+				
+				//
+				// Serialise tag native references.
+				//
+				foreach( $tmp as $key => $value )
+					$tmp[ $key ]
+						= ( (! is_int( $value ))
+					   && (! ctype_digit( $value )) )
+						? $this->mWrapper->getSerial( $value, TRUE )
+						: (int) $value;
+				
+				//
+				// Add domain.
+				//
+				if( ! in_array( kTAG_DOMAIN, $tmp ) )
+					$tmp[] = kTAG_DOMAIN;
+				
+				//
+				// Assert domain.
+				//
+				elseif( $tmp[ count( $tmp ) - 1 ] != kTAG_DOMAIN )
+					throw new \Exception(
+						"Domain must be last group element." );					// !@! ==>
+				
+				//
+				// Update parameter.
+				//
+				$this->offsetSet( kAPI_PARAM_GROUP, $tmp );
 		
 			} // Provided group.
 		
@@ -1287,19 +1326,17 @@ abstract class ServiceObject extends ContainerObject
 			// Create cluster entry.
 			//
 			if( ! array_key_exists( $cluster_key, $this->mFilter ) )
-				$this->mFilter[ $cluster_key ] = Array();
+				$this->mFilter[ $cluster_key ]
+					= array( kAPI_PARAM_VALUE_COUNT => 0,
+							 kAPI_PARAM_CRITERIA => Array() );
+				
 			
 			//
-			// Reference cluster and values counter.
+			// Reference cluster, values counter and criteria.
 			//
 			$cluster_ref = & $this->mFilter[ $cluster_key ];
 			$counter_ref = & $cluster_ref[ kAPI_PARAM_VALUE_COUNT ];
-			
-			//
-			// Allocate and reference criterias.
-			//
-			$cluster_ref[ kAPI_PARAM_CRITERIA ] = Array();
-			$cluster_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
+			$criteria_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
 			
 			//
 			// Handle no value.
@@ -1309,22 +1346,22 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Set tag.
 				//
-				$cluster_ref[ $tag_sequence ] = NULL;
+				$criteria_ref[ $tag_sequence ] = NULL;
 				
 				continue;													// =>
 			
 			} // No value.
 			
 			//
-			// Alocate and reference cluster tag.
-			//
-			$cluster_ref[ $tag_sequence ] = Array();
-			$criteria_ref = & $cluster_ref[ $tag_sequence ];
-			
-			//
 			// Increment values count.
 			//
 			$counter_ref++;
+			
+			//
+			// Allocate criteria.
+			//
+			$criteria_ref[ $tag_sequence ] = Array();
+			$criteria_ref = & $criteria_ref[ $tag_sequence ];
 			
 			//
 			// Handle input type.
@@ -2656,297 +2693,249 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Init local storage.
 		//
-		$has_many_clusters = ( count( $this->mFilter ) > 1 );
-
-		//
-		// Allocate query.
-		//
 		$query = Array();
 		$root = & $query;
-
+		$parent = NULL;
+		
 		//
-		// Handle multi-cluster.
+		// Handle many clusters.
 		//
-		if( $has_many_clusters )
+		if( ($cluster_count = count( $this->mFilter )) > 1 )
 		{
-			$root[ '$and' ] = Array();
-			$root = & $root[ '$and' ];
-
-		} // Multi-cluster.
-
+			$query[ '$and' ] = Array();
+			$root = & $query[ '$and' ];
+			$parent = 'a';
+		
+		} // Many clusters.
+		
 		//
 		// Iterate clusters.
 		//
-		foreach( $this->mFilter as $cluster )
+		foreach( $this->mFilter as $cluster_key => $cluster )
 		{
 			//
 			// Init loop storage.
 			//
-			$has_many_criteria = ( count( $cluster[ kAPI_PARAM_CRITERIA ] ) > 1 );
-	
+			$cluster_ref = & $root;
+			$criteria_count = count( $cluster[ kAPI_PARAM_CRITERIA ] );
+			$parent_clu = $parent;
+			
 			//
-			// Handle no values.
+			// Handle cluster with no values.
 			//
 			if( ! $cluster[ kAPI_PARAM_VALUE_COUNT ] )
 			{
 				//
+				// Get tag match.
+				//
+				$match = ( $criteria_count > 1 )
+					   ? array( '$in' => array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
+					   :  (int) key( $cluster[ kAPI_PARAM_CRITERIA ] );
+				
+				//
 				// Load tag match clause.
 				//
-				if( $has_many_clusters )
-					$root[]
-						= ( $has_many_criteria )
-						? array( kTAG_OBJECT_TAGS
-							 => array( '$in'
-							 	=> array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) ) )
-						: array( kTAG_OBJECT_TAGS
-							 => (int) key( $cluster[ kAPI_PARAM_CRITERIA ] ) );
+				if( $cluster_count > 1 )
+					$root[] = array( kTAG_OBJECT_TAGS => $match );
 				else
-					$root[ kTAG_OBJECT_TAGS ]
-						= ( $has_many_criteria )
-						? array( '$in' => array_keys( $cluster[ kAPI_PARAM_CRITERIA ] ) )
-						: (int) key( $cluster[ kAPI_PARAM_CRITERIA ] );
-	
+					$root[ kTAG_OBJECT_TAGS ] = $match;
+			
 			} // Cluster has no values.
-	
+			
 			//
-			// Handle cluster values.
+			// Handle cluster with values.
 			//
 			else
 			{
 				//
-				// Init local storage.
-				//
-				$cluster_ref = & $root;
-		
-				//
 				// Handle many criteria.
 				//
-				if( $has_many_criteria )
+				if( $criteria_count > 1 )
 				{
-					if( $has_many_clusters )
+					$parent_clu = 'o';
+					if( $cluster_count > 1 )
 					{
-						$cluster_ref[] = array( '$or' => Array() );
-						$cluster_ref = & $cluster_ref[ count( $cluster_ref ) - 1 ];
+						$index = count( $cluster_ref );
+						$cluster_ref[ $index ] = array( '$or' => Array() );
+						$cluster_ref = & $cluster_ref[ $index ][ '$or' ];
 					}
 					else
 					{
 						$cluster_ref[ '$or' ] = Array();
 						$cluster_ref = & $cluster_ref[ '$or' ];
 					}
-		
-				} // Has many criteria.
-		
+			
+				} // Many criteria.
+				
 				//
 				// Iterate criteria.
 				//
 				foreach( $cluster[ kAPI_PARAM_CRITERIA ] as $tag => $criteria )
 				{
 					//
-					// Init local storage.
+					// Init loop storage.
 					//
 					$criteria_ref = & $cluster_ref;
-					$has_many_offsets
-						= ( count( $offsets = $criteria[ kAPI_PARAM_OFFSETS ] ) > 1 );
-		
-					//
-					// Handle indexed.
-					//
-					if( $criteria[ kAPI_PARAM_INDEX ] )
-					{
-						//
-						// Handle many offsets.
-						//
-						if( $has_many_offsets )
-						{
-							//
-							// Handle single criteria.
-							//
-							if( ! $has_many_criteria )
-							{
-								if( $has_many_clusters )
-								{
-									$criteria_ref[] = array( '$or' => Array() );
-									$criteria_ref
-										= & $criteria_ref[ count( $criteria_ref ) - 1 ];
-								}
-								else
-								{
-									$criteria_ref[ '$or' ] = Array();
-									$criteria_ref = & $criteria_ref[ '$or' ];
-								}
+					$offsets_count = count( $criteria[ kAPI_PARAM_OFFSETS ] );
+					$parent_cri = $parent_clu;
 					
-							} // Single criteria.
-				
-						} // Has many offsets.
-			
-					} // Indexed.
-		
 					//
-					// Handle no index.
+					// Handle unindexed in many criteria.
+					//
+					if( ($criteria !== NULL)				// Has value
+					 && (! $criteria[ kAPI_PARAM_INDEX ])	// and has no index
+					 && ($parent_cri == 'o') )				// and in OR.
+					{
+						$index = count( $criteria_ref );
+						$criteria_ref[ $index ] = array( '$and' => Array() );
+						$criteria_ref = & $criteria_ref[ $index ][ '$and' ];
+						$parent_cri = 'a';
+					
+					} // Enclose in AND.
+					
+					//
+					// Handle no value.
+					//
+					if( $criteria === NULL )
+					{
+						if( $parent_cri !== NULL )
+							$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
+						else
+							$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
+					
+					} // No value.
+					
+					//
+					// Handle value.
 					//
 					else
 					{
 						//
-						// Handle multiple criteria.
+						// Handle unindexed.
 						//
-						if( $has_many_criteria )
+						if( ! $criteria[ kAPI_PARAM_INDEX ] )
 						{
-							if( $has_many_clusters )
-							{
-								$criteria_ref[] = array( '$and' => Array() );
-								$criteria_ref
-									= & $criteria_ref[ count( $criteria_ref ) - 1 ];
-							}
-							else
-							{
-								$criteria_ref[ '$and' ] = Array();
-								$criteria_ref = & $criteria_ref[ '$and' ];
-							}
-					
-							//
-							// Add tag match clause.
-							//
-							$criteria_ref = array( kTAG_OBJECT_TAGS => (int) $tag );
-				
-						} // Has many criteria.
-				
-						//
-						// Handle single criteria.
-						//
-						else
-						{
-							//
-							// Add tag match clause.
-							//
-							if( $has_many_clusters )
-								$criteria_ref = array( kTAG_OBJECT_TAGS => (int) $tag );
+							if( $parent_cri !== NULL )
+								$criteria_ref[] = array( kTAG_OBJECT_TAGS => (int) $tag );
 							else
 								$criteria_ref[ kTAG_OBJECT_TAGS ] = (int) $tag;
-				
-						} // Has single criteria.
-				
+						
+						} // Not indexed.
+			
 						//
 						// Handle many offsets.
 						//
-						if( $has_many_offsets )
+						if( $offsets_count > 1 )
 						{
-							if( $has_many_clusters )
+							if( $parent_cri == 'a' )
 							{
-								$criteria_ref[] = array( '$or' => Array() );
-								$criteria_ref
-									= & $criteria_ref[ count( $criteria_ref ) - 1 ];
+								$index = count( $criteria_ref );
+								$criteria_ref[ $index ] = array( '$or' => Array() );
+								$criteria_ref = & $criteria_ref[ $index ][ '$or' ];
 							}
-							else
+							elseif( $parent_cri === NULL )
 							{
 								$criteria_ref[ '$or' ] = Array();
 								$criteria_ref = & $criteria_ref[ '$or' ];
 							}
-				
-						} // Has many offsets.
-		
-					} // Not indexed.
 			
-					//
-					// Add criteria clauses.
-					//
-					foreach( $offsets as $offset )
-					{
+						} // Has many offsets.
+					
 						//
-						// Parse input type.
+						// Iterate criteria offsets.
 						//
-						switch( $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+						foreach( $criteria[ kAPI_PARAM_OFFSETS ] as $offset )
 						{
 							//
-							// Strings.
+							// Parse input type.
 							//
-							case kAPI_PARAM_INPUT_STRING:
-								if( $has_many_clusters
-								 || $has_many_criteria
-								 || $has_many_offsets )
-									$criteria_ref[]
-										= array( $offset
-										   => $this->stringMatchPattern(
+							switch( $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+							{
+								//
+								// Strings.
+								//
+								case kAPI_PARAM_INPUT_STRING:
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array( $offset
+											   => $this->stringMatchPattern(
+													$criteria[ kAPI_PARAM_PATTERN ],
+													$criteria[ kAPI_PARAM_OPERATOR ] ) );
+									else
+										$criteria_ref[ $offset ]
+											= $this->stringMatchPattern(
 												$criteria[ kAPI_PARAM_PATTERN ],
-												$criteria[ kAPI_PARAM_OPERATOR ] ) );
-								else
-									$criteria_ref[ $offset ]
-										= $this->stringMatchPattern(
-											$criteria[ kAPI_PARAM_PATTERN ],
-											$criteria[ kAPI_PARAM_OPERATOR ] );
-								break;
+												$criteria[ kAPI_PARAM_OPERATOR ] );
+									break;
 					
-							//
-							// Match ranges.
-							//
-							case kAPI_PARAM_INPUT_RANGE:
-								if( $has_many_clusters
-								 || $has_many_criteria
-								 || $has_many_offsets )
-									$criteria_ref[]
-										= array( $offset
-										   => $this->rangeMatchPattern(
+								//
+								// Match ranges.
+								//
+								case kAPI_PARAM_INPUT_RANGE:
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array( $offset
+											   => $this->rangeMatchPattern(
+													$criteria[ kAPI_PARAM_RANGE_MIN ],
+													$criteria[ kAPI_PARAM_RANGE_MAX ],
+													$criteria[ kAPI_PARAM_OPERATOR ] ) );
+									else
+										$criteria_ref[ $offset ]
+											= $this->stringMatchPattern(
 												$criteria[ kAPI_PARAM_RANGE_MIN ],
 												$criteria[ kAPI_PARAM_RANGE_MAX ],
-												$criteria[ kAPI_PARAM_OPERATOR ] ) );
-								else
-									$criteria_ref[ $offset ]
-										= $this->stringMatchPattern(
-											$criteria[ kAPI_PARAM_RANGE_MIN ],
-											$criteria[ kAPI_PARAM_RANGE_MAX ],
-											$criteria[ kAPI_PARAM_OPERATOR ] );
-								break;
+												$criteria[ kAPI_PARAM_OPERATOR ] );
+									break;
 					
-							//
-							// Enumerations.
-							//
-							case kAPI_PARAM_INPUT_ENUM:
-								if( $has_many_clusters
-								 || $has_many_criteria
-								 || $has_many_offsets )
-								{
-									if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
-										$criteria_ref[]
-											= array( $offset
-												=> array( '$in'
-													=> $criteria[
-														kAPI_RESULT_ENUM_TERM ] ) );
+								//
+								// Enumerations.
+								//
+								case kAPI_PARAM_INPUT_ENUM:
+									if( $parent_cri !== NULL )
+									{
+										if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
+											$criteria_ref[]
+												= array( $offset
+													=> array( '$in'
+														=> $criteria[
+															kAPI_RESULT_ENUM_TERM ] ) );
+										else
+											$criteria_ref[]
+												= array( $offset
+													=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
+									}
 									else
-										$criteria_ref[]
-											= array( $offset
-												=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
-								}
-								else
-								{
-									if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
-										$criteria_ref[ $offset ]
-											= array( '$in'
-												=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
-									else
-										$criteria_ref[ $offset ]
-											= $criteria[ kAPI_RESULT_ENUM_TERM ];
-								}
-								break;
+									{
+										if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
+											$criteria_ref[ $offset ]
+												= array( '$in'
+													=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
+										else
+											$criteria_ref[ $offset ]
+												= $criteria[ kAPI_RESULT_ENUM_TERM ];
+									}
+									break;
 				
-							default:
-								if( $has_many_clusters
-								 || $has_many_criteria
-								 || $has_many_offsets )
-									$criteria_ref[]
-										= array( $offset
-											=> $criteria[ kAPI_PARAM_PATTERN ] );
-								else
-									$criteria_ref[ $offset ]
-										= $criteria[ kAPI_PARAM_PATTERN ];
-								break;
+								default:
+									if( $parent_cri !== NULL )
+										$criteria_ref[]
+											= array( $offset
+												=> $criteria[ kAPI_PARAM_PATTERN ] );
+									else
+										$criteria_ref[ $offset ]
+											= $criteria[ kAPI_PARAM_PATTERN ];
+									break;
 			
-						} // Parsing input types.
+							} // Parsing input types.
 			
-					} // Iterating criteria offsets.
-		
+						} // Iterating criteria offsets.
+					
+					} // Has value.
+			
 				} // Iterating cluster criteria.
-	
+			
 			} // Cluster has values.
-
+		
 		} // Iterating clusters.
 		
 		//
