@@ -1,13 +1,5 @@
 <?php
 
-$json = '{"baba":[[0,0],[100,100]]}';
-$php = array( 'baba' => array( array( 0, 0 ), array( 100, 100 ) ) );
-$x = json_encode( $php );
-var_dump( $json );
-var_dump( $x );
-
-exit;
-
 /*	
 	//
 	// Connect.
@@ -712,5 +704,104 @@ foreach( $clusters as $cluster )
 }
 
 */
+	
+/******************************************************************************/
+
+	//
+	// Test aggregation framework.
+	//
+
+	//
+	// Connect.
+	//
+	$m = new MongoClient();
+	$d = $m->selectDB( 'TEST' );
+	$c = $d->selectCollection( '_units' );
+	
+	//
+	// Init local storage.
+	//
+	$pipeline = Array();
+	$grouping = array( '72' => '$72', '7' => '$7' );
+	
+	//
+	// Set match.
+	//
+	$pipeline[] = array( '$match' => array( '11' => array( '$gte' => '2014' ) ) );
+	
+	//
+	// Set project.
+	//
+	$pipeline[] = array( '$project' => array_count_values( array_keys( $grouping ) ) );
+	
+	//
+	// Set unwind.
+	//
+	$pipeline[] = array( '$unwind' => '$72' );
+	
+	//
+	// Set group.
+	//
+	$pipeline[] = array( '$group' => array( '_id' => $grouping,
+											'count' => array( '$sum' => 1 ) ) );
+	
+	//
+	// Set sort.
+	//
+	$pipeline[] = array( '$sort' => array( '_id.164' => 1,
+										   '_id.72' => 1,
+										   '_id.7' => 1 ) );
+	
+	//
+	// Show.
+	//
+	echo( '<h4>Pipeline:</h4>' );
+	var_dump( $pipeline );
+	
+	//
+	// Query.
+	//
+	$rs = $c->aggregateCursor( $pipeline );
+	
+	//
+	// Show.
+	//
+	echo( '<h4>Results:</h4>' );
+	var_dump( iterator_to_array( $rs ) );
+	
+	//
+	// Transform.
+	//
+	$results = Array();
+	foreach( $rs as $record )
+	{
+		$ref = & $results;
+		if( array_key_exists( '164', $record[ '_id' ] ) )
+		{
+			if( ! array_key_exists( $record[ '_id' ][ '164' ], $ref ) )
+				$ref[ $record[ '_id' ][ '164' ] ] = Array();
+			$ref = & $ref[ $record[ '_id' ][ '164' ] ];
+		}
 		
+		if( array_key_exists( '72', $record[ '_id' ] ) )
+		{
+			if( ! array_key_exists( $record[ '_id' ][ '164' ], $ref ) )
+				$ref[ $record[ '_id' ][ '72' ] ] = Array();
+			$ref = & $ref[ $record[ '_id' ][ '72' ] ];
+		}
+		
+		if( array_key_exists( '7', $record[ '_id' ] ) )
+			$ref[ $record[ '_id' ][ '7' ] ]
+				= $record[ 'count' ];
+	}
+	
+	//
+	// Show.
+	//
+	echo( '<h4>Formatted:</h4>' );
+	echo( '<pre>' );
+	print_r( $results );
+	echo( '</pre>' );
+
+	
 ?>

@@ -755,6 +755,15 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		provided, the service will return the results of the type provided in this
  *		parameter, if it is not provided, the next parameter is required. If this parameter
  *		is provided, the next parameter will be ignored; the results will be clustered.
+ *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Results format</em>. This parameter must be
+ *		provided if the {@link kAPI_PARAM_DOMAIN} parameter was provided, it indicates what
+ *		kind of data the service should return:
+ *	 <ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a
+ *			clustered record set.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
+ *			geographic markers.
+ *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
  *		an array of strings representing the tag native identifiers or sequence numbers by

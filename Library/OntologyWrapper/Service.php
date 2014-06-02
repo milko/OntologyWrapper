@@ -716,17 +716,30 @@ class Service extends ServiceObject
 	 */
 	protected function executeMatchUnits()
 	{
-var_dump( $this->mFilter );
-echo( '<hr>' );
 		//
 		// Build filter query.
 		//
 		$this->resolveFilter();
-echo( '<pre>' );
-print_r( $this->mFilter );
-var_dump( json_encode( $this->mFilter ) );
-echo( '</pre>' );
-exit;
+		
+		//
+		// Initialise result.
+		//
+		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= Array();
+		
+		//
+		// Return grouped results.
+		//
+		if( $this->offsetExists( kAPI_PARAM_GROUP ) )
+			$this->executeGroupUnits( $this->offsetGet( kAPI_PARAM_GROUP ),
+									  $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+		
+		//
+		// Return clustered results.
+		//
+		else
+			$this->executeClusterUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
 		
 	} // executeMatchUnits.
 

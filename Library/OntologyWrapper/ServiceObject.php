@@ -880,17 +880,19 @@ abstract class ServiceObject extends ContainerObject
 					   && (! ctype_digit( $value )) )
 						? $this->mWrapper->getSerial( $value, TRUE )
 						: (int) $value;
+					$type
+						= $this->mWrapper
+							->getObject( $tmp[ $key ], TRUE )[ kTAG_DATA_TYPE ];
 					
 					//
-					// Assert categorical.
+					// Assert enumerated set.
 					//
-					if( ! in_array( kTYPE_CATEGORICAL,
-									$this->mWrapper->getObject( $tmp[ $key ], TRUE )
-										[ kTAG_DATA_KIND ] ) )
+					if( ($type != kTYPE_SET)
+					 && ($type != kTYPE_ENUM) )
 						throw new \Exception(
 							"Group element [ "
 						   .$tmp[ $key ]
-						   ."] must be categorical." );							// !@! ==>
+						   ."] must be an enumerated set." );					// !@! ==>
 				}
 				
 				//
@@ -1485,8 +1487,6 @@ abstract class ServiceObject extends ContainerObject
 		if( ! is_array( $value = $this->offsetGet( kAPI_PARAM_CRITERIA ) ) )
 			throw new \Exception(
 				"Invalid search criteria format." );							// !@! ==>
-var_dump( $value );
-echo( '<hr>' );
 		
 		//
 		// Init local storage.
@@ -2693,6 +2693,98 @@ echo( '<hr>' );
 		} // Has children.
 		
 	} // executeLoadEnumeration.
+
+
+	/*===================================================================================
+	 *	executeGroupUnits																*
+	 *==================================================================================*/
+
+	/**
+	 * Group units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theGroup			Groupings list.
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeGroupUnits( $theGroup, &$theContainer )
+	{
+		//
+		// Init local storage.
+		//
+		$pipeline = $grouping = $identifiers = Array();
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		foreach( $theGroup as $tmp )
+		{
+			$grouping[ $tmp ] = '$'.$tmp;
+			$identifiers[ $tmp ] = "_id.$tmp";
+		}
+		
+		//
+		// Set match.
+		//
+		$pipeline[] = array( '$match' => $this->mFilter );
+		
+		//
+		// Set project.
+		//
+		$pipeline[] = array( '$project' => array_count_values( $theGroup ) );
+		
+		//
+		// Set unwind.
+		//
+		foreach( $theGroup as $tmp )
+		{
+			if( $this->mWrapper->getObject( $tmp, TRUE )[ kTAG_DATA_TYPE ] == kTYPE_SET )
+				$pipeline[] = array( '$unwind' => '$'.$tmp );
+		}
+		
+		//
+		// Set group.
+		//
+		$pipeline[] = array( '$group' => array( '_id' => $grouping,
+												'count' => array( '$sum' => 1 ) ) );
+		
+		//
+		// Set sort.
+		//
+		$pipeline[] = array( '$sort' => array_count_values( $identifiers ) );
+		
+		//
+		// Aggregate.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->connection()
+							->aggregateCursor(
+								$pipeline );
+		
+		//
+		// Serialise group.
+		//
+		foreach( $rs as $record )
+		{
+			$ref = & $theContainer;
+			foreach( $theGroup as $group )
+			{
+				if( $group == kTAG_DOMAIN )
+					$ref[ $record[ '_id' ][ kTAG_DOMAIN ] ]
+						= $record[ 'count' ];
+				
+				else
+				{
+					if( ! array_key_exists( $record[ '_id' ][ $group ], $ref ) )
+						$ref[ $record[ '_id' ][ $group ] ] = Array();
+					$ref = & $ref[ $record[ '_id' ][ $group ] ];
+				}
+			}
+		}
+		
+	} // executeGroupUnits.
 
 		
 
