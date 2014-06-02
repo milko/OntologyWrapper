@@ -841,13 +841,34 @@ $param = array
 		':type:entity' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			kAPI_RESULT_ENUM_TERM => array( ':kind:entity:125', ':kind:entity:200' )
+			kAPI_RESULT_ENUM_TERM => array( ':type:entity:123', ':type:entity:125' )
 		),
 		':unit:domain' => array
 		(
 			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 		)
 	),
+/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Point',
+							   kTAG_SHAPE_GEOMETRY => array( array( 10, 20 ), 10000 ) ),*/
+/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Circle',
+							   kTAG_SHAPE_GEOMETRY => array( array( 10, 20 ), 10 / 3959 ) ),*/
+/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Rect',
+							   kTAG_SHAPE_GEOMETRY => array( array( -10, 30 ),
+							   								 array( -11, 29 ) ) ),*/
+	kAPI_PARAM_SHAPE
+		=> array( kTAG_SHAPE_TYPE => 'Polygon',
+				  kTAG_SHAPE_GEOMETRY
+				  	=> array( array( array( 12.8199,42.8422 ),
+				  					 array( 12.8207,42.8158 ),
+				  					 array( 12.8699,42.8166 ),
+				  					 array( 12.8678,42.8398 ),
+				  					 array( 12.8199,42.8422 ) ),
+				  			  array( array( 12.8344,42.8347 ),
+				  					 array( 12.8348,42.8225 ),
+				  					 array( 12.857,42.8223 ),
+				  					 array( 12.8566,42.8332 ),
+				  					 array( 12.8344,42.8347 ) ) ) ),
+	kAPI_PARAM_SHAPE_OFFSET => ':geo',
 	kAPI_PARAM_GROUP => kTAG_DOMAIN
 );
 $request = "$base_url?op=".kAPI_OP_MATCH_UNITS;

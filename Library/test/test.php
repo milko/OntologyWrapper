@@ -1,5 +1,13 @@
 <?php
 
+$json = '{"baba":[[0,0],[100,100]]}';
+$php = array( 'baba' => array( array( 0, 0 ), array( 100, 100 ) ) );
+$x = json_encode( $php );
+var_dump( $json );
+var_dump( $x );
+
+exit;
+
 /*	
 	//
 	// Connect.
@@ -389,6 +397,7 @@ var_dump( $x );
 	
 /******************************************************************************/
 
+/*
 	//
 	// Test json mongo query.
 	//

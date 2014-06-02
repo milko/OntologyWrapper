@@ -751,12 +751,12 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			 </ul>
  *		 </ul>
  *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_RESULT}</tt>: <em>Results domain</em>. If this parameter is
+ *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
  *		provided, the service will return the results of the type provided in this
  *		parameter, if it is not provided, the next parameter is required. If this parameter
  *		is provided, the next parameter will be ignored; the results will be clustered.
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
- *		provided if the {@link kAPI_PARAM_RESULT} is omitted: the value may be a string or
+ *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
  *		an array of strings representing the tag native identifiers or sequence numbers by
  *		which the results should be grouped. The result will be a nested array containing
  *		the distinct values of the provided tags as keys and the record count as values.
@@ -765,9 +765,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		<em>Note that the leaf element will always be the {@link kTAG_DOMAIN} property, if
  *		missing from the provided parametrer it will be added</em>.
  *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is
- *		provided, the service will add the provided shape to the filter, selecting only
- *		those records whose {@link kTAG_GEO_SHAPE} property is within or near the provided
- *		shape. The value is a GeoJSON structure whose type defines the type of search:
+ *		provided, the service will add the provided shape to the filter, the parameter is
+ *		structured as a GeoJson shape of which the following types are supported:
  *	 <ul>
  *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
  *			limits parameter) closest to the provided point, in this case the
@@ -777,12 +776,15 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		<li><tt>Rect</tt>: The service will select all the records within the provided
  *			rectangle.
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>. This parameter is
+ *		the tag reference of the shape, it is required if the {@link kAPI_PARAM_SHAPE}
+ *		parameter was provided.
  *	<li><tt>{@link kAPI_PARAM_DISTANCE}</tt>: <em>Maximum distance</em>. This parameter is
  *		only considered if the {@link kAPI_PARAM_SHAPE} was provided and the shape is a
- *		point: the value indicates the maximum distance from the point.
+ *		point: the value indicates the maximum distance from the point in meters.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. In this service it is
- *		only relevant if the {@link kAPI_PARAM_RESULT} parameter was provided, in that case,
+ *		only relevant if the {@link kAPI_PARAM_DOMAIN} parameter was provided, in that case,
  *		If omitted, it will be set to the default constant {@link kSTANDARDS_UNITS_LIMIT}.
  * </ul>
  */
@@ -926,6 +928,8 @@ define( "kAPI_PARAM_RANGE_MAX",					'max' );
  *	<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: A string search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: A range search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: An enumerated set selection control.
+ *	<li><tt>{@link kAPI_PARAM_INPUT_SHAPE}</tt>: An geographic area; note that this will not
+ *		come from a traditional form element, but rather from a map selection.
  * </ul>
  */
 define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
@@ -1005,14 +1009,34 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
 define( "kAPI_PARAM_CRITERIA",					'criteria' );
 
 /**
- * Result type (string).
+ * Results domain (string).
  *
  * This tag defines the results domain.
  *
  * This parameter is used by services selecting units, it indicates what type of unit to
  * select. The value is the enumerated set of the {@link kTAG_DOMAIN} unit property.
  */
-define( "kAPI_PARAM_RESULT",					'result-type' );
+define( "kAPI_PARAM_DOMAIN",					'result-domain' );
+
+/**
+ * Result type (string).
+ *
+ * This tag defines the result type.
+ *
+ * This parameter is used by services selecting units, it indicates what kind of data the
+ * service should return. This parameter is required if the {@link kAPI_PARAM_DOMAIN} is
+ * provided: it indicates what kind of data the service should return:
+ *
+ * <ul>
+ *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a clustered
+ *		record set.
+ *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
+ *		geographic markers.
+ * </ul>
+ *
+ * This parameter is ignored if the {@link kAPI_PARAM_DOMAIN} parameter is not provided.
+ */
+define( "kAPI_PARAM_DATA",						'result-data' );
 
 /**
  * Result grouping (string).
@@ -1037,19 +1061,46 @@ define( "kAPI_PARAM_GROUP",						'grouping' );
  * This parameter is used by services selecting units, it provides a geographic shape which
  * can be used to further filter units based on their location.
  *
- * The value must be a GeoJSON shape among the following types:
+ * The value must have the following format:
  *
  * <ul>
- *	<li><tt>Point</tt>: The service will select the first 100 records (or less with the
- *		limits parameter) closest to the provided point, in this case the
- *		{@link kAPI_PARAM_DISTANCE} parameter is required.
- *	<li><tt>Polygon</tt>: The service will select all the records within the provided
- *		polygon, excluding eventual polygon holes.
+ *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: This element indicates the shape type.
+ *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: This element indicates the shape geometry.
+ * </ul>
+ *
+ * Depending on the type of the shape:
+ *
+ * <ul>
+ *	<li><tt>Point</tt>: The geometry should be an array of two elements, the first holding
+ *		an array with the longitude and latitude, the second should hold the maximum
+ *		distance in meters. The service will select the first 100 (at most) units closest to
+ *		the provided point.
+ *	<li><tt>Circle</tt>: The geometry should be an array of two elements, the first holding
+ *		an array with the longitude and latitude, the second should hold the circle radius
+ *		in radians. The service will select all units contained in the circle.
+ *	<li><tt>Polygon</tt>: The geometry should be a series of arrays holding the vertices of
+ *		the polygon. The first array provides the exterior ring as a list of coordinate
+ *		arrays, the subsequent arrays represent the inner rings of the polygon. The service
+ *		will select all the records within the provided polygon, excluding eventual polygon
+ *		holes.
  *	<li><tt>Rect</tt>: The service will select all the records within the provided
- *		rectangle.
+ *		rectangle. The value is a set of two arrays, providing respectively the bottom left
+ *		and upper right coordinates. The service will select all the records within the
+ *		provided rect.
  * </ul>
  */
 define( "kAPI_PARAM_SHAPE",						'shape' );
+
+/**
+ * Geographic shape offset (string/int).
+ *
+ * This tag defines the geographic shape offset.
+ *
+ * This parameter is required if the {@link kAPI_PARAM_SHAPE} parameter was provided, it
+ * defines the offset corresponding to the shape property; it should be the tag native
+ * identifier.
+ */
+define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
 
 /**
  * Maximum distance (int).
@@ -1060,7 +1111,8 @@ define( "kAPI_PARAM_SHAPE",						'shape' );
  * {@link kAPI_PARAM_SHAPE} parameter, the service will select the 100 (at most) closest
  * units to the provided point, within the provided distance.
  *
- * This parameter is required if the shape type is a point.
+ * This parameter is required if the shape type is a point and it must be expressed in
+ * meters.
  */
 define( "kAPI_PARAM_DISTANCE",					'max-distance' );
 
@@ -1155,6 +1207,24 @@ define( "kAPI_RESULT_ENUM_VALUE",				'value' );
 define( "kAPI_RESULT_ENUM_CHILDREN",			'children' );
 
 /*=======================================================================================
+ *	RESULT TYPE ENUMERATED SET															*
+ *======================================================================================*/
+
+/**
+ * Record (string).
+ *
+ * This value indicates a result of type clustered records
+ */
+define( "kAPI_RESULT_ENUM_DATA_RECORD",			'record' );
+
+/**
+ * Marker (string).
+ *
+ * This value indicates a result of type geographic markers
+ */
+define( "kAPI_RESULT_ENUM_DATA_MARKER",			'marker' );
+
+/*=======================================================================================
  *	COLLECTION REFERENCE ENUMERATED SET													*
  *======================================================================================*/
 
@@ -1208,6 +1278,27 @@ define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
  * String input (string).
  *
  * This parameter indicates a form string input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list (required), a
+ *		string containing the search pattern.
+ *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: The search operator (required), one of the
+ *		following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>.
+ *		<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>.
+ *		<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Starts with</em>.
+ *		<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>.
+ *		<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Ends with</em>.
+ *		<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>.
+ *	 </ul>
+ *		and any of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case and accent insensitive</em>.
+ *	 </ul>
+ * </ul>
  */
 define( "kAPI_PARAM_INPUT_STRING",				'input-string' );
 
@@ -1215,6 +1306,19 @@ define( "kAPI_PARAM_INPUT_STRING",				'input-string' );
  * Range input (string).
  *
  * This parameter indicates a form range input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: Minimum range (required).
+ *	<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: Maximum range (required).
+ *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: The search operator (optional, defaults to
+ *		{@link kOPERATOR_IRANGE}), one of the following:
+ *	 <ul>
+ *		<li><tt>{@link kOPERATOR_IRANGE}</tt>: <em>Range inclusive</em>.
+ *		<li><tt>{@link kOPERATOR_ERANGE}</tt>: <em>Range exclusive</em>.
+ *	 </ul>
+ * </ul>
  */
 define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
 
@@ -1222,13 +1326,52 @@ define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
  * Enumeration input (string).
  *
  * This parameter indicates a form enumneration input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: Enumerated set (required).
+ * </ul>
  */
 define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
+
+/**
+ * Shape input (string).
+ *
+ * This parameter indicates a form shape input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_RESULT_SHAPE}</tt>: The shape (required). The value should be a
+ *		GeoJSON structure amon the following types:
+ *	 <ul>
+ *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
+ *			limits parameter) closest to the provided point, in this case the
+ *			{@link kAPI_PARAM_DISTANCE} parameter is required.
+ *		<li><tt>Polygon</tt>: The service will select all the records within the provided
+ *			polygon, excluding eventual polygon holes.
+ *		<li><tt>Rect</tt>: The service will select all the records within the provided
+ *			rectangle.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: The tag reference to the shape property.
+ *	<li><tt>{@link kAPI_PARAM_DISTANCE}</tt>: An integer indicating the maximum distance in
+ *		meters from the provided point (required if the shape is a point).
+ * </ul>
+ */
+define( "kAPI_PARAM_INPUT_SHAPE",				'input-shape' );
 
 /**
  * Default input (string).
  *
  * This parameter indicates a form default input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The value to match (required), an equality test
+ *		will be applied.
+ * </ul>
  */
 define( "kAPI_PARAM_INPUT_DEFAULT",				'input-default' );
 

@@ -189,9 +189,11 @@ class Service extends ServiceObject
 				switch( $theKey )
 				{
 					case kAPI_PARAM_CRITERIA:
-					case kAPI_PARAM_RESULT:
+					case kAPI_PARAM_DOMAIN:
+					case kAPI_PARAM_DATA:
 					case kAPI_PARAM_GROUP:
 					case kAPI_PARAM_SHAPE:
+					case kAPI_PARAM_SHAPE_OFFSET:
 						$this->offsetSet( $theKey, $theValue );
 						break;
 

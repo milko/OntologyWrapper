@@ -841,7 +841,8 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Reset results type.
 				//
-				$this->offsetUnset( kAPI_PARAM_RESULT );
+				$this->offsetUnset( kAPI_PARAM_DOMAIN );
+				$this->offsetUnset( kAPI_PARAM_DATA );
 		
 				//
 				// Reset limits.
@@ -861,14 +862,36 @@ abstract class ServiceObject extends ContainerObject
 					$tmp = array( $tmp );
 				
 				//
-				// Serialise tag native references.
+				// Set default group.
+				//
+				if( ! count( $tmp ) )
+					$tmp[] = kTAG_DOMAIN;
+				
+				//
+				// Check group elements.
 				//
 				foreach( $tmp as $key => $value )
+				{
+					//
+					// Serialise tag native references.
+					//
 					$tmp[ $key ]
 						= ( (! is_int( $value ))
 					   && (! ctype_digit( $value )) )
 						? $this->mWrapper->getSerial( $value, TRUE )
 						: (int) $value;
+					
+					//
+					// Assert categorical.
+					//
+					if( ! in_array( kTYPE_CATEGORICAL,
+									$this->mWrapper->getObject( $tmp[ $key ], TRUE )
+										[ kTAG_DATA_KIND ] ) )
+						throw new \Exception(
+							"Group element [ "
+						   .$tmp[ $key ]
+						   ."] must be categorical." );							// !@! ==>
+				}
 				
 				//
 				// Add domain.
@@ -889,33 +912,67 @@ abstract class ServiceObject extends ContainerObject
 				$this->offsetSet( kAPI_PARAM_GROUP, $tmp );
 		
 			} // Provided group.
-		
+			
 			//
-			// Validate result type.
-			//
-			elseif( ! $this->offsetExists( kAPI_PARAM_RESULT ) )
-				throw new \Exception(
-					"Missing results type parameter." );						// !@! ==>
-		
-			//
-			// Validate limits.
-			//
-			elseif( $this->offsetExists( kAPI_PAGING_LIMIT )
-				 && ($this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX) )
-				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
-		
-			//
-			// Assert limits.
+			// Handle ungrouped results.
 			//
 			else
-				throw new \Exception(
-					"Missing paging limits parameter." );						// !@! ==>
+			{
+				//
+				// Assert result type.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+					throw new \Exception(
+						"Missing results type parameter." );					// !@! ==>
+		
+				//
+				// Assert result kind.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+					throw new \Exception(
+						"Missing results kind parameter." );					// !@! ==>
+				else
+				{
+					switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
+					{
+						case kAPI_RESULT_ENUM_DATA_RECORD:
+						case kAPI_RESULT_ENUM_DATA_MARKER:
+							break;
+						
+						default:
+							throw new \Exception(
+								"Invalid result type [$tmp]." );				// !@! ==>
+							break;
+					}
+				}
+		
+				//
+				// Assert limits.
+				//
+				if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
+					throw new \Exception(
+						"Missing paging limits parameter." );					// !@! ==>
+			
+				//
+				// Normalise limits.
+				//
+				elseif( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
+					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+		
+			} // Group not provided.
 		
 			//
 			// Validate shape.
 			//
 			if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
 			{
+				//
+				// Check shape offset.
+				//
+				if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+					throw new \Exception(
+						"Missing shape offset reference parameter." );			// !@! ==>
+				
 				//
 				// Get shape.
 				//
@@ -924,38 +981,16 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Check shape format.
 				//
-				if( ! is_array( $shape ) )
-					throw new \Exception(
-						"Invalid shape parameter: "
-					   ."the value is not an array." );							// !@! ==>
-			
-				//
-				// Check shape structure.
-				//
-				if( (! array_key_exists( kTAG_SHAPE_TYPE, $shape ))
-				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $shape ))
-				 || (! is_array( $shape[ kTAG_SHAPE_GEOMETRY ] )) )
-					throw new \Exception(
-						"Invalid shape geometry." );							// !@! ==>
-			
-				//
-				// Check shape type.
-				//
-				switch( $tmp = $shape[ kTAG_SHAPE_TYPE ] )
-				{
-					case 'Point':
-						if( ! $this->offsetExists( kAPI_PARAM_DISTANCE ) )
-							throw new \Exception(
-								"Missing distance parameter." );				// !@! ==>
-					case 'Rect':
-					case 'Polygon':
-						break;
+				$this->validateShape( $shape );
 				
-					default:
-						throw new \Exception(
-							"Invalid shape type [$tmp]." );						// !@! ==>
-			
-				} // Parsing shape type.
+				//
+				// Add shape to criteria.
+				//
+				$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
+				$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
+							 kAPI_PARAM_SHAPE => $shape );
+				$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
 		
 			} // Provided shape.
 		
@@ -1244,6 +1279,186 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateShape																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape
+	 *
+	 * This method will validate the shape parameter passed to all service operations which
+	 * should select objects based on geographic queries.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param array					$theValue			Shape value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_SHAPE
+	 */
+	protected function validateShape( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid shape parameter: "
+				   ."the value is not an array." );								// !@! ==>
+		
+			//
+			// Check shape structure.
+			//
+			if( (! array_key_exists( kTAG_SHAPE_TYPE, $theValue ))
+			 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theValue ))
+			 || (! is_array( $theValue[ kTAG_SHAPE_GEOMETRY ] )) )
+				throw new \Exception(
+					"Invalid shape geometry." );								// !@! ==>
+			
+			//
+			// Check shape contents.
+			//
+			$geom = $theValue[ kTAG_SHAPE_GEOMETRY ];
+			switch( $type = $theValue[ kTAG_SHAPE_TYPE ] )
+			{
+				//
+				// Points and circles.
+				//
+				case 'Point':
+				case 'Circle':
+					//
+					// Check geometry elements.
+					//
+					if( count( $geom ) != 2 )
+						throw new \Exception(
+							"Geometry for [$type] "
+						   ."must have two elements." );						// !@! ==>
+					
+					//
+					// Check coordinates structure.
+					//
+					if( ! is_array( $geom[ 0 ] ) )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must be an array." );								// !@! ==>
+					
+					//
+					// Check coordinates.
+					//
+					if( count( $geom[ 0 ] ) != 2 )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must contain a pair of coordinates." );			// !@! ==>
+					
+					//
+					// Cast coordinates.
+					//
+					$geom[ 0 ][ 0 ] = (double) $geom[ 0 ][ 0 ];
+					$geom[ 0 ][ 1 ] = (double) $geom[ 0 ][ 1 ];
+					
+					//
+					// Cast distance.
+					//
+					if( $type == 'Point' )
+						$geom[ 1] = (int) $geom[ 1 ];
+					
+					break;
+							
+				case 'Rect':
+					//
+					// Check geometry elements.
+					//
+					if( count( $geom ) != 2 )
+						throw new \Exception(
+							"Geometry for [$type] "
+						   ."must have two elements." );						// !@! ==>
+					
+					//
+					// Check coordinates structure.
+					//
+					if( ! is_array( $geom[ 0 ] ) )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must contain the bottom left coordinates." );		// !@! ==>
+					
+					if( ! is_array( $geom[ 1 ] ) )
+						throw new \Exception(
+							"The second element of [$type] "
+						   ."must contain the upper right coordinates." );		// !@! ==>
+					
+					//
+					// Cast coordinates.
+					//
+					for( $i = 0; $i < 2; $i ++ )
+					{
+						for( $j = 0; $j < 2; $j ++ )
+							$geom[ $i ][ $j ]
+								= (double) $geom[ $i ][ $j ];
+					}
+					
+					break;
+					
+				case 'Polygon':
+					//
+					// Traverse geometry.
+					//
+					for( $i = 0; $i < count( $geom ); $i++ )
+					{
+						//
+						// Check ring.
+						//
+						if( ! is_array( $geom[ $i ] ) )
+							throw new \Exception(
+								"Invalid ring structure for [$type]." );		// !@! ==>
+						
+						//
+						// Check vertices.
+						//
+						for( $j = 0; $j < count( $geom[ $i ] ); $j++ )
+						{
+							if( ! is_array( $geom[ $i ][ $j ] ) )
+								throw new \Exception(
+									"Invalid vertex for [$type]." );			// !@! ==>
+							
+							if( count( $geom[ $i ][ $j ] ) != 2 )
+								throw new \Exception(
+									"Invalid vertex for [$type]"
+								   ."a vertex must have two elements." );		// !@! ==>
+							
+							//
+							// Cast.
+							//
+							$geom[ $i ][ $j ][ 0 ] = (double) $geom[ $i ][ $j ][ 0 ];
+							$geom[ $i ][ $j ][ 1 ] = (double) $geom[ $i ][ $j ][ 1 ];
+						}
+					}
+					
+					break;
+			
+				default:
+					throw new \Exception(
+						"Invalid shape type [$type]." );						// !@! ==>
+		
+			} // Parsing shape type.
+			
+			//
+			// Update geometry.
+			//
+			$theValue[ kTAG_SHAPE_GEOMETRY ] = $geom;
+		
+		} // Provided.
+		
+	} // validateShape.
+
+	 
+	/*===================================================================================
 	 *	validateSearchCriteria															*
 	 *==================================================================================*/
 
@@ -1270,6 +1485,8 @@ abstract class ServiceObject extends ContainerObject
 		if( ! is_array( $value = $this->offsetGet( kAPI_PARAM_CRITERIA ) ) )
 			throw new \Exception(
 				"Invalid search criteria format." );							// !@! ==>
+var_dump( $value );
+echo( '<hr>' );
 		
 		//
 		// Init local storage.
@@ -1502,9 +1719,34 @@ abstract class ServiceObject extends ContainerObject
 						= $criteria[ kAPI_RESULT_ENUM_TERM ];
 					
 					break;
+			
+				//
+				// Shapes.
+				//
+				case kAPI_PARAM_INPUT_SHAPE:
+					//
+					// Require tags.
+					//
+					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
+						throw new \Exception(
+							"Missing shape [$tag]." );							// !@! ==>
+					if( array_key_exists( 'Point', $criteria[ kAPI_PARAM_SHAPE ] )
+					 && (! array_key_exists( kAPI_PARAM_DISTANCE, $criteria )) )
+						throw new \Exception(
+							"Missing maximum distance [$tag]." );				// !@! ==>
+				
+					//
+					// Add element.
+					//
+					$criteria_ref[ kAPI_PARAM_SHAPE ] = $criteria[ kAPI_PARAM_SHAPE ];
+					if( array_key_exists( kAPI_PARAM_DISTANCE, $criteria ) )
+						$criteria_ref[ kAPI_PARAM_DISTANCE ]
+							= $criteria[ kAPI_PARAM_DISTANCE ];
+					
+					break;
 					
 				//
-				// Strings.
+				// Default.
 				//
 				case kAPI_PARAM_INPUT_DEFAULT:
 					//
@@ -1722,9 +1964,11 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
 		$ref[ "kAPI_PARAM_INPUT_TYPE" ] = kAPI_PARAM_INPUT_TYPE;
 		$ref[ "kAPI_PARAM_CRITERIA" ] = kAPI_PARAM_CRITERIA;
-		$ref[ "kAPI_PARAM_RESULT" ] = kAPI_PARAM_RESULT;
+		$ref[ "kAPI_PARAM_DOMAIN" ] = kAPI_PARAM_DOMAIN;
+		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
+		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
 		$ref[ "kAPI_PARAM_DISTANCE" ] = kAPI_PARAM_DISTANCE;
 		
 		//
@@ -1757,6 +2001,12 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kOPERATOR_ERANGE" ] = kOPERATOR_ERANGE;
 		
 		//
+		// Load result type parameters.
+		//
+		$ref[ "kAPI_RESULT_ENUM_DATA_RECORD" ] = kAPI_RESULT_ENUM_DATA_RECORD;
+		$ref[ "kAPI_RESULT_ENUM_DATA_MARKER" ] = kAPI_RESULT_ENUM_DATA_MARKER;
+		
+		//
 		// Load modifiers.
 		//
 		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
@@ -1777,6 +2027,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_INPUT_STRING" ] = kAPI_PARAM_INPUT_STRING;
 		$ref[ "kAPI_PARAM_INPUT_RANGE" ] = kAPI_PARAM_INPUT_RANGE;
 		$ref[ "kAPI_PARAM_INPUT_ENUM" ] = kAPI_PARAM_INPUT_ENUM;
+		$ref[ "kAPI_PARAM_INPUT_SHAPE" ] = kAPI_PARAM_INPUT_SHAPE;
 		$ref[ "kAPI_PARAM_INPUT_DEFAULT" ] = kAPI_PARAM_INPUT_DEFAULT;
 		
 	} // executeListParameterConstants.
@@ -2677,6 +2928,56 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	shapeMatchPattern																*
+	 *==================================================================================*/
+
+	/**
+	 * Return shape match criteria pattern.
+	 *
+	 * This method will return the query corresponding to the provided shape input type.
+	 *
+	 * @param array					$theShape			Shape criteria.
+	 *
+	 * @access protected
+	 * @return array				Search criteria.
+	 */
+	protected function shapeMatchPattern( $theShape )
+	{
+		//
+		// Parse by type.
+		//
+		$geom = & $theShape[ kTAG_SHAPE_GEOMETRY ];
+		switch( $type = $theShape[ kTAG_SHAPE_TYPE ] )
+		{
+			case 'Point':
+				return
+					array( '$nearSphere'
+						=> array( '$geometry' => array( 'type' => $type,
+														'coordinates' => $geom[ 0 ] ),
+								  '$maxDistance' => $geom[ 1 ] ) );					// ==>
+			
+			case 'Circle':
+				return
+					array( '$geoWithin'
+						=> array( '$centerSphere'
+							=> array( $geom[ 0 ],
+									  $geom[ 1 ] ) ) );								// ==>
+			
+			case 'Rect':
+				return
+					array( '$geoWithin'
+						=> array( '$box' => $geom ) );								// ==>
+			
+			case 'Polygon':
+				return
+					array( '$geoWithin'
+						=> array( '$geometry' => $theShape ) );						// ==>
+		}
+		
+	} // shapeMatchPattern.
+
+	 
+	/*===================================================================================
 	 *	resolveFilter																	*
 	 *==================================================================================*/
 
@@ -2855,65 +3156,66 @@ abstract class ServiceObject extends ContainerObject
 								// Strings.
 								//
 								case kAPI_PARAM_INPUT_STRING:
+									$clause
+										= $this->stringMatchPattern(
+											$criteria[ kAPI_PARAM_PATTERN ],
+											$criteria[ kAPI_PARAM_OPERATOR ] );
+									
 									if( $parent_cri !== NULL )
-										$criteria_ref[]
-											= array( $offset
-											   => $this->stringMatchPattern(
-													$criteria[ kAPI_PARAM_PATTERN ],
-													$criteria[ kAPI_PARAM_OPERATOR ] ) );
+										$criteria_ref[] = array( $offset => $clause );
 									else
-										$criteria_ref[ $offset ]
-											= $this->stringMatchPattern(
-												$criteria[ kAPI_PARAM_PATTERN ],
-												$criteria[ kAPI_PARAM_OPERATOR ] );
+										$criteria_ref[ $offset ] = $clause;
+										
 									break;
 					
 								//
 								// Match ranges.
 								//
 								case kAPI_PARAM_INPUT_RANGE:
+									$clause
+										= $this->rangeMatchPattern(
+											$criteria[ kAPI_PARAM_RANGE_MIN ],
+											$criteria[ kAPI_PARAM_RANGE_MAX ],
+											$criteria[ kAPI_PARAM_OPERATOR ] );
+									
 									if( $parent_cri !== NULL )
-										$criteria_ref[]
-											= array( $offset
-											   => $this->rangeMatchPattern(
-													$criteria[ kAPI_PARAM_RANGE_MIN ],
-													$criteria[ kAPI_PARAM_RANGE_MAX ],
-													$criteria[ kAPI_PARAM_OPERATOR ] ) );
+										$criteria_ref[] = array( $offset => $clause );
 									else
-										$criteria_ref[ $offset ]
-											= $this->stringMatchPattern(
-												$criteria[ kAPI_PARAM_RANGE_MIN ],
-												$criteria[ kAPI_PARAM_RANGE_MAX ],
-												$criteria[ kAPI_PARAM_OPERATOR ] );
+										$criteria_ref[ $offset ] = $clause;
+
 									break;
 					
 								//
 								// Enumerations.
 								//
 								case kAPI_PARAM_INPUT_ENUM:
+									$clause
+										= ( count( $criteria[ kAPI_RESULT_ENUM_TERM ] )
+												> 1 )
+										? array( '$in'
+											=> $criteria[ kAPI_RESULT_ENUM_TERM ] )
+										: $criteria[ kAPI_RESULT_ENUM_TERM ];
+									
 									if( $parent_cri !== NULL )
-									{
-										if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
-											$criteria_ref[]
-												= array( $offset
-													=> array( '$in'
-														=> $criteria[
-															kAPI_RESULT_ENUM_TERM ] ) );
-										else
-											$criteria_ref[]
-												= array( $offset
-													=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
-									}
+										$criteria_ref[] = array( $offset => $clause );
 									else
-									{
-										if( count( $criteria[ kAPI_RESULT_ENUM_TERM ] ) > 1 )
-											$criteria_ref[ $offset ]
-												= array( '$in'
-													=> $criteria[ kAPI_RESULT_ENUM_TERM ] );
-										else
-											$criteria_ref[ $offset ]
-												= $criteria[ kAPI_RESULT_ENUM_TERM ];
-									}
+										$criteria_ref[ $offset ] = $clause;
+										
+									break;
+					
+								//
+								// Shapes.
+								//
+								case kAPI_PARAM_INPUT_SHAPE:
+									$clause
+										= $this->shapeMatchPattern(
+											$criteria[ kAPI_PARAM_SHAPE ] );
+									
+									if( $parent_cri !== NULL )
+										$criteria_ref[] = array( $offset => $clause );
+									else
+										$criteria_ref[ $offset ] = $clause;
+									
 									break;
 				
 								default:
@@ -2924,6 +3226,7 @@ abstract class ServiceObject extends ContainerObject
 									else
 										$criteria_ref[ $offset ]
 											= $criteria[ kAPI_PARAM_PATTERN ];
+									
 									break;
 			
 							} // Parsing input types.
