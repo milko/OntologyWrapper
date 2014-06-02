@@ -778,8 +778,11 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		structured as a GeoJson shape of which the following types are supported:
  *	 <ul>
  *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
- *			limits parameter) closest to the provided point, in this case the
- *			{@link kAPI_PARAM_DISTANCE} parameter is required.
+ *			limits parameter) closest to the provided point and within the provided
+ *			distance.
+ *		<li><tt>Circle</tt>: The service will select the first 100 records (or less with the
+ *			limits parameter) closest to the provided point and within the provided
+ *			radius.
  *		<li><tt>Polygon</tt>: The service will select all the records within the provided
  *			polygon, excluding eventual polygon holes.
  *		<li><tt>Rect</tt>: The service will select all the records within the provided
@@ -788,9 +791,6 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: <em>Shape offset</em>. This parameter is
  *		the tag reference of the shape, it is required if the {@link kAPI_PARAM_SHAPE}
  *		parameter was provided.
- *	<li><tt>{@link kAPI_PARAM_DISTANCE}</tt>: <em>Maximum distance</em>. This parameter is
- *		only considered if the {@link kAPI_PARAM_SHAPE} was provided and the shape is a
- *		point: the value indicates the maximum distance from the point in meters.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. In this service it is
  *		only relevant if the {@link kAPI_PARAM_DOMAIN} parameter was provided, in that case,
@@ -1111,20 +1111,6 @@ define( "kAPI_PARAM_SHAPE",						'shape' );
  */
 define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
 
-/**
- * Maximum distance (int).
- *
- * This tag defines the maximum distance.
- *
- * This parameter is used by services selecting units, if a point is provided in the
- * {@link kAPI_PARAM_SHAPE} parameter, the service will select the 100 (at most) closest
- * units to the provided point, within the provided distance.
- *
- * This parameter is required if the shape type is a point and it must be expressed in
- * meters.
- */
-define( "kAPI_PARAM_DISTANCE",					'max-distance' );
-
 /*=======================================================================================
  *	GENERIC REQUEST FLAG PARAMETERS														*
  *======================================================================================*/
@@ -1356,15 +1342,16 @@ define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
  *		GeoJSON structure amon the following types:
  *	 <ul>
  *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
- *			limits parameter) closest to the provided point, in this case the
- *			{@link kAPI_PARAM_DISTANCE} parameter is required.
+ *			limits parameter) closest to the provided point and less than the provided
+ *			distance.
+ *		<li><tt>Circle</tt>: The service will select the first 100 records (or less with the
+ *			limits parameter) closest to the provided point and within the provided radius.
  *		<li><tt>Polygon</tt>: The service will select all the records within the provided
  *			polygon, excluding eventual polygon holes.
  *		<li><tt>Rect</tt>: The service will select all the records within the provided
  *			rectangle.
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: The tag reference to the shape property.
- *	<li><tt>{@link kAPI_PARAM_DISTANCE}</tt>: An integer indicating the maximum distance in
  *		meters from the provided point (required if the shape is a point).
  * </ul>
  */

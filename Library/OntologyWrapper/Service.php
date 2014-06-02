@@ -197,10 +197,6 @@ class Service extends ServiceObject
 						$this->offsetSet( $theKey, $theValue );
 						break;
 
-					case kAPI_PARAM_DISTANCE:
-						$this->offsetSet( $theKey, (int) $theValue );
-						break;
-
 					default:
 						parent::parseParameter( $theKey, $theValue );
 						break;

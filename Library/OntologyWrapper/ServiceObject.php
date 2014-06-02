@@ -1730,18 +1730,11 @@ abstract class ServiceObject extends ContainerObject
 					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
 						throw new \Exception(
 							"Missing shape [$tag]." );							// !@! ==>
-					if( array_key_exists( 'Point', $criteria[ kAPI_PARAM_SHAPE ] )
-					 && (! array_key_exists( kAPI_PARAM_DISTANCE, $criteria )) )
-						throw new \Exception(
-							"Missing maximum distance [$tag]." );				// !@! ==>
 				
 					//
 					// Add element.
 					//
 					$criteria_ref[ kAPI_PARAM_SHAPE ] = $criteria[ kAPI_PARAM_SHAPE ];
-					if( array_key_exists( kAPI_PARAM_DISTANCE, $criteria ) )
-						$criteria_ref[ kAPI_PARAM_DISTANCE ]
-							= $criteria[ kAPI_PARAM_DISTANCE ];
 					
 					break;
 					
@@ -1969,7 +1962,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
-		$ref[ "kAPI_PARAM_DISTANCE" ] = kAPI_PARAM_DISTANCE;
 		
 		//
 		// Load generic request flag parameters.
