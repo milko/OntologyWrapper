@@ -386,6 +386,35 @@ abstract class UnitObject extends PersistentObject
 
 	 
 	/*===================================================================================
+	 *	DynamicOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return dynamic offsets
+	 *
+	 * In this class we return the offsets that are required by the object:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_DOMAIN}</tt>: Object domain.
+	 *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: Object identifier.
+	 * </ul>
+	 *
+	 * These tags will not be part of the offset management framework, since they are
+	 * required.
+	 *
+	 * @static
+	 * @return array				List of dynamic offsets.
+	 */
+	static function DynamicOffsets()
+	{
+		return array_merge(
+			parent::DynamicOffsets(),
+			array( kTAG_DOMAIN, kTAG_IDENTIFIER ) );								// ==>
+	
+	} // DynamicOffsets.
+
+	 
+	/*===================================================================================
 	 *	DefaultOffsets																	*
 	 *==================================================================================*/
 

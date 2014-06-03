@@ -549,7 +549,8 @@ abstract class OntologyObject extends ContainerObject
 	 * offsets which are managed by the object itself, and should not be modified by
 	 * clients.
 	 *
-	 * In general, these offsets will be overwritten each time an object is committed, 
+	 * In general, these offsets will be overwritten each time an object is committed, and
+	 * will not be part of the offset management framework.
 	 *
 	 * In this class we return an empty array.
 	 *
@@ -713,7 +714,7 @@ abstract class OntologyObject extends ContainerObject
 	 * @param string				$theLanguage		Selected language code.
 	 *
 	 * @static
-	 * @return array				List of internal offsets.
+	 * @return string				The string in the provided language.
 	 */
 	static function SelectLanguageString( $theStrings, $theLanguage )
 	{

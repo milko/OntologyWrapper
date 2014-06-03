@@ -829,179 +829,216 @@ abstract class ServiceObject extends ContainerObject
 	protected function validateMatchUnits()
 	{
 		//
-		// Check if set.
+		// Get criteria.
 		//
-		if( $this->offsetGet( kAPI_PARAM_CRITERIA ) !== NULL )
+		$criteria = ( $this->offsetExists( kAPI_PARAM_CRITERIA ) )
+				  ? $this->offsetGet( kAPI_PARAM_CRITERIA )
+				  : Array();
+		
+		//
+		// Validate group.
+		//
+		if( $this->offsetExists( kAPI_PARAM_GROUP ) )
 		{
 			//
-			// Validate group.
+			// Reset results type.
 			//
-			if( $this->offsetExists( kAPI_PARAM_GROUP ) )
-			{
-				//
-				// Reset results type.
-				//
-				$this->offsetUnset( kAPI_PARAM_DOMAIN );
-				$this->offsetUnset( kAPI_PARAM_DATA );
-		
-				//
-				// Reset limits.
-				//
-				$this->offsetUnset( kAPI_PAGING_SKIP );
-				$this->offsetUnset( kAPI_PAGING_LIMIT );
-				
-				//
-				// Get value.
-				//
-				$tmp = $this->offsetGet( kAPI_PARAM_GROUP );
-				
-				//
-				// Convert group into an array.
-				//
-				if( ! is_array( $tmp ) )
-					$tmp = array( $tmp );
-				
-				//
-				// Set default group.
-				//
-				if( ! count( $tmp ) )
-					$tmp[] = kTAG_DOMAIN;
-				
-				//
-				// Check group elements.
-				//
-				foreach( $tmp as $key => $value )
-				{
-					//
-					// Serialise tag native references.
-					//
-					$tmp[ $key ]
-						= ( (! is_int( $value ))
-					   && (! ctype_digit( $value )) )
-						? $this->mWrapper->getSerial( $value, TRUE )
-						: (int) $value;
-					$type
-						= $this->mWrapper
-							->getObject( $tmp[ $key ], TRUE )[ kTAG_DATA_TYPE ];
-					
-					//
-					// Assert enumerated set.
-					//
-					if( ($type != kTYPE_SET)
-					 && ($type != kTYPE_ENUM) )
-						throw new \Exception(
-							"Group element [ "
-						   .$tmp[ $key ]
-						   ."] must be an enumerated set." );					// !@! ==>
-				}
-				
-				//
-				// Add domain.
-				//
-				if( ! in_array( kTAG_DOMAIN, $tmp ) )
-					$tmp[] = kTAG_DOMAIN;
-				
-				//
-				// Assert domain.
-				//
-				elseif( $tmp[ count( $tmp ) - 1 ] != kTAG_DOMAIN )
-					throw new \Exception(
-						"Domain must be last group element." );					// !@! ==>
-				
-				//
-				// Update parameter.
-				//
-				$this->offsetSet( kAPI_PARAM_GROUP, $tmp );
-		
-			} // Provided group.
+			$this->offsetUnset( kAPI_PARAM_DOMAIN );
+			$this->offsetUnset( kAPI_PARAM_DATA );
+	
+			//
+			// Reset limits.
+			//
+			$this->offsetUnset( kAPI_PAGING_SKIP );
+			$this->offsetUnset( kAPI_PAGING_LIMIT );
 			
 			//
-			// Handle ungrouped results.
+			// Get value.
 			//
+			$tmp = $this->offsetGet( kAPI_PARAM_GROUP );
+			
+			//
+			// Convert group into an array.
+			//
+			if( ! is_array( $tmp ) )
+				$tmp = array( $tmp );
+			
+			//
+			// Save groups.
+			//
+			$groups = $tmp;
+			
+			//
+			// Set default group.
+			//
+			if( ! count( $tmp ) )
+				$tmp[] = kTAG_DOMAIN;
+			
+			//
+			// Check group elements.
+			//
+			foreach( $tmp as $key => $value )
+			{
+				//
+				// Serialise tag native references.
+				//
+				$tmp[ $key ]
+					= ( (! is_int( $value ))
+				   && (! ctype_digit( $value )) )
+					? $this->mWrapper->getSerial( $value, TRUE )
+					: (int) $value;
+				$type
+					= $this->mWrapper
+						->getObject( $tmp[ $key ], TRUE )[ kTAG_DATA_TYPE ];
+				
+				//
+				// Assert enumerated set.
+				//
+				if( ($type != kTYPE_SET)
+				 && ($type != kTYPE_ENUM) )
+					throw new \Exception(
+						"Group element [ "
+					   .$tmp[ $key ]
+					   ."] must be an enumerated set." );					// !@! ==>
+			}
+			
+			//
+			// Add domain.
+			//
+			if( ! in_array( kTAG_DOMAIN, $tmp ) )
+				$tmp[] = kTAG_DOMAIN;
+			
+			//
+			// Assert domain.
+			//
+			elseif( $tmp[ count( $tmp ) - 1 ] != kTAG_DOMAIN )
+				throw new \Exception(
+					"Domain must be last group element." );					// !@! ==>
+			
+			//
+			// Update parameter.
+			//
+			$this->offsetSet( kAPI_PARAM_GROUP, $tmp );
+			
+			//
+			// Collect untracked offsets.
+			//
+			$untracked = array_merge( UnitObject::InternalOffsets(),
+									  UnitObject::ExternalOffsets(),
+									  UnitObject::DynamicOffsets() );
+			
+			//
+			// Add groups to criteria.
+			//
+			$keys = array_keys( $groups );
+			foreach( $keys as $key )
+			{
+				//
+				// Skip untracked offsets.
+				//
+				if( in_array( $tmp[ $key ], $untracked ) )
+					continue;											// =>
+				
+				//
+				// Skip existing.
+				//
+				if( array_key_exists( $groups[ $key ], $criteria ) )
+					continue;											// =>
+				
+				//
+				// Add to criteria.
+				//
+				$criteria[ $groups[ $key ] ]
+					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM );
+			
+			} // Iterating groups.
+	
+		} // Provided group.
+		
+		//
+		// Handle ungrouped results.
+		//
+		else
+		{
+			//
+			// Assert result type.
+			//
+			if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+				throw new \Exception(
+					"Missing results type parameter." );					// !@! ==>
+	
+			//
+			// Assert result kind.
+			//
+			if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+				throw new \Exception(
+					"Missing results kind parameter." );					// !@! ==>
 			else
 			{
-				//
-				// Assert result type.
-				//
-				if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
-					throw new \Exception(
-						"Missing results type parameter." );					// !@! ==>
-		
-				//
-				// Assert result kind.
-				//
-				if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
-					throw new \Exception(
-						"Missing results kind parameter." );					// !@! ==>
-				else
+				switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
 				{
-					switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
-					{
-						case kAPI_RESULT_ENUM_DATA_RECORD:
-						case kAPI_RESULT_ENUM_DATA_MARKER:
-							break;
-						
-						default:
-							throw new \Exception(
-								"Invalid result type [$tmp]." );				// !@! ==>
-							break;
-					}
+					case kAPI_RESULT_ENUM_DATA_RECORD:
+					case kAPI_RESULT_ENUM_DATA_MARKER:
+						break;
+					
+					default:
+						throw new \Exception(
+							"Invalid result type [$tmp]." );				// !@! ==>
+						break;
 				}
+			}
+	
+			//
+			// Assert limits.
+			//
+			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
+				throw new \Exception(
+					"Missing paging limits parameter." );					// !@! ==>
 		
-				//
-				// Assert limits.
-				//
-				if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
-					throw new \Exception(
-						"Missing paging limits parameter." );					// !@! ==>
+			//
+			// Normalise limits.
+			//
+			elseif( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
+				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+	
+		} // Group not provided.
+	
+		//
+		// Validate shape.
+		//
+		if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
+		{
+			//
+			// Check shape offset.
+			//
+			if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+				throw new \Exception(
+					"Missing shape offset reference parameter." );			// !@! ==>
 			
-				//
-				// Normalise limits.
-				//
-				elseif( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
-					$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
-		
-			} // Group not provided.
+			//
+			// Get shape.
+			//
+			$shape = $this->offsetGet( kAPI_PARAM_SHAPE );
 		
 			//
-			// Validate shape.
+			// Check shape format.
 			//
-			if( $this->offsetExists( kAPI_PARAM_SHAPE ) )
-			{
-				//
-				// Check shape offset.
-				//
-				if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-					throw new \Exception(
-						"Missing shape offset reference parameter." );			// !@! ==>
-				
-				//
-				// Get shape.
-				//
-				$shape = $this->offsetGet( kAPI_PARAM_SHAPE );
+			$this->validateShape( $shape );
 			
-				//
-				// Check shape format.
-				//
-				$this->validateShape( $shape );
-				
-				//
-				// Add shape to criteria.
-				//
-				$criteria = $this->offsetGet( kAPI_PARAM_CRITERIA );
-				$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
-							 kAPI_PARAM_SHAPE => $shape );
-				$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
-		
-			} // Provided shape.
-		
 			//
-			// Check criteria.
+			// Add shape to criteria.
 			//
-			$this->validateSearchCriteria();
+			$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE,
+						 kAPI_PARAM_SHAPE => $shape );
+	
+		} // Provided shape.
 		
-		} // Provided criteria.
+		//
+		// Update criteria.
+		//
+		if( count( $criteria ) )
+			$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
 		
 		//
 		// Require criteria.
@@ -1009,6 +1046,11 @@ abstract class ServiceObject extends ContainerObject
 		else
 			throw new \Exception(
 				"Missing search criteria." );									// !@! ==>
+		
+		//
+		// Validate criteria.
+		//
+		$this->validateSearchCriteria();
 		
 	} // validateMatchUnits.
 
@@ -1502,16 +1544,20 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load tags.
 		//
+		$fields = array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
+						 kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
+						 $offsets_tag => TRUE );
+		$criteria = array( kTAG_NID => ( ( count( $value ) > 1 )
+									   ? array( '$in' => array_keys( $value ) )
+									   : key( $value ) ) );
 		$tags
 			= iterator_to_array(
 				PersistentObject::ResolveCollectionByName(
 					$this->mWrapper, Tag::kSEQ_NAME )
 					->matchAll(
-						array( kTAG_NID => array( '$in' => array_keys( $value ) ) ),
+						$criteria,
 						kQUERY_ARRAY,
-						array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
-							   kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
-							   $offsets_tag => TRUE ) ) );
+						$fields ) );
 		
 		//
 		// Iterate criteria.
@@ -1524,10 +1570,8 @@ abstract class ServiceObject extends ContainerObject
 			if( array_key_exists( $tag, $tags ) )
 				$tag_object = & $tags[ $tag ];
 			else
-				//
-				// We simply ignore missing tags.
-				//
-				continue;													// =>
+				throw new \Exception(
+					"Unknown property [$tag]." );								// !@! ==>
 			
 			//
 			// Get tag sequence number.
@@ -1969,6 +2013,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_LOG_REQUEST" ] = kAPI_PARAM_LOG_REQUEST;
 		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
+		$ref[ "kAPI_PARAM_RESPONSE_COUNT" ] = kAPI_PARAM_RESPONSE_COUNT;
 		
 		//
 		// Load enumeration element parameters.
@@ -1978,7 +2023,9 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_RESULT_ENUM_LABEL" ] = kAPI_RESULT_ENUM_LABEL;
 		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
 		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
-		$ref[ "kAPI_RESULT_ENUM_CHILDREN" ] = kAPI_RESULT_ENUM_CHILDREN;
+		$ref[ "kAPI_PARAM_RESPONSE_CHILDREN" ] = kAPI_PARAM_RESPONSE_CHILDREN;
+		$ref[ "kAPI_PARAM_RESPONSE_IDENT" ] = kAPI_PARAM_RESPONSE_IDENT;
+		$ref[ "kAPI_PARAM_RESPONSE_COORD" ] = kAPI_PARAM_RESPONSE_COORD;
 		
 		//
 		// Load operators.
@@ -2666,13 +2713,13 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Allocate children element.
 				//
-				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = Array();
+				$ref[ kAPI_PARAM_RESPONSE_CHILDREN ] = Array();
 	
 				//
 				// Recurse.
 				//
 				$this->executeLoadEnumerations( $edges,
-												$ref[ kAPI_RESULT_ENUM_CHILDREN ] );
+												$ref[ kAPI_PARAM_RESPONSE_CHILDREN ] );
 		
 			} // Recurse enumerations.
 			
@@ -2680,7 +2727,7 @@ abstract class ServiceObject extends ContainerObject
 			// Save count.
 			//
 			else
-				$ref[ kAPI_RESULT_ENUM_CHILDREN ] = (int) $edges->count( FALSE );
+				$ref[ kAPI_PARAM_RESPONSE_CHILDREN ] = (int) $edges->count( FALSE );
 		
 		} // Has children.
 		
@@ -2736,8 +2783,10 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Set group.
 		//
-		$pipeline[] = array( '$group' => array( '_id' => $grouping,
-												'count' => array( '$sum' => 1 ) ) );
+		$pipeline[] = array( '$group'
+						=> array( '_id' => $grouping,
+								  kAPI_PARAM_RESPONSE_COUNT
+								  	=> array( '$sum' => 1 ) ) );
 		
 		//
 		// Set sort.
@@ -2747,36 +2796,248 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Aggregate.
 		//
-		$rs
+		$rs_units
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase(
 					$this->mWrapper ) )
-						->connection()
-							->aggregateCursor(
-								$pipeline );
+						->aggregate(
+							$pipeline );
+		
+		//
+		// Iterate results.
+		//
+		$tmp = Array();
+		foreach( $rs_units as $record )
+		{
+			//
+			// Collect terms.
+			//
+			foreach( $record[ kTAG_NID ] as $term )
+			{
+				if( ! in_array( $term, $tmp ) )
+					$tmp[] = $term;
+			
+			} // Iterating terms.
+		
+		} // Collecting tags.
+		
+		//
+		// Resolve terms.
+		//
+		$rs_terms
+			= Term::ResolveCollection(
+				Term::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							array( kTAG_NID => array( '$in' => $tmp ) ),
+							kQUERY_ARRAY,
+							array( kTAG_LABEL => TRUE, kTAG_DEFINITION => TRUE ) );
+		
+		//
+		// Load terms.
+		//
+		$terms = Array();
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		foreach( $rs_terms as $key => $value )
+		{
+			$terms[ $key ] = Array();
+			if( array_key_exists( kTAG_LABEL, $value ) )
+				$terms[ $key ][ kTAG_LABEL ]
+					= OntologyObject::SelectLanguageString(
+						$value[ kTAG_LABEL ], $language );
+			if( array_key_exists( kTAG_DEFINITION, $value ) )
+				$terms[ $key ][ kTAG_DEFINITION ]
+					= OntologyObject::SelectLanguageString(
+						$value[ kTAG_DEFINITION ], $language );
+		
+		} // Loading temrs.
 		
 		//
 		// Serialise group.
 		//
-		foreach( $rs as $record )
+		foreach( $rs_units as $record )
 		{
+			//
+			// Point to container.
+			//
 			$ref = & $theContainer;
+			
+			//
+			// Iterate groups.
+			//
 			foreach( $theGroup as $group )
 			{
-				if( $group == kTAG_DOMAIN )
-					$ref[ $record[ '_id' ][ kTAG_DOMAIN ] ]
-						= $record[ 'count' ];
+				//
+				// Get term.
+				//
+				$term = $record[ '_id' ][ $group ];
+				$term_ref = & $terms[ $term ];
 				
+				//
+				// Create element.
+				//
+				if( ! array_key_exists( $term, $ref ) )
+				{
+					//
+					// Allocate element.
+					//
+					$ref[ $term ] = Array();
+					
+					//
+					// Load label.
+					//
+					if( array_key_exists( kTAG_LABEL, $term_ref ) )
+						$ref[ $term ][ kTAG_LABEL ]
+							= $term_ref[ kTAG_LABEL ];
+					
+					//
+					// Load definition.
+					//
+					if( array_key_exists( kTAG_DEFINITION, $term_ref ) )
+						$ref[ $term ][ kTAG_DEFINITION ]
+							= $term_ref[ kTAG_DEFINITION ];
+				
+				} // New element.
+				
+				//
+				// Handle leaf node.
+				//
+				if( $group == kTAG_DOMAIN )
+					$ref[ $term ][ kAPI_PARAM_RESPONSE_COUNT ]
+						= $record[ kAPI_PARAM_RESPONSE_COUNT ];
+				
+				//
+				// Handle container node.
+				//
 				else
 				{
-					if( ! array_key_exists( $record[ '_id' ][ $group ], $ref ) )
-						$ref[ $record[ '_id' ][ $group ] ] = Array();
-					$ref = & $ref[ $record[ '_id' ][ $group ] ];
-				}
-			}
-		}
+					//
+					// Allocate children container.
+					//
+					if( ! array_key_exists( kAPI_PARAM_RESPONSE_CHILDREN, $ref[ $term ] ) )
+						$ref[ $term ][ kAPI_PARAM_RESPONSE_CHILDREN ] = Array();
+					
+					//
+					// Point to container.
+					//
+					$ref = & $ref[ $term ][ kAPI_PARAM_RESPONSE_CHILDREN ];
+				
+				} // Container node.
+			
+			} // Iterating groups.
+		
+		} // Iterating results.
 		
 	} // executeGroupUnits.
+
+
+	/*===================================================================================
+	 *	executeClusterUnits																*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeClusterUnits( &$theContainer )
+	{
+		//
+		// Execute request.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll( $this->mFilter,
+									kQUERY_OBJECT );
+		
+		//
+		// Set cursor limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
+		// Instantiate results aggregator.
+		//
+		$aggregator = new ResultAggregator( $rs, $this->mResponse );
+		
+		//
+		// Aggregate results.
+		//
+		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
+		
+	} // executeClusterUnits.
+
+
+	/*===================================================================================
+	 *	executeMarkerUnits																*
+	 *==================================================================================*/
+
+	/**
+	 * Marker units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeMarkerUnits( &$theContainer )
+	{
+		//
+		// Execute request.
+		//
+		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+		$iterator
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll( $this->mFilter,
+									kQUERY_OBJECT,
+									array( $shape => TRUE ) );
+		
+		//
+		// Set cursor limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$iterator->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
+		// Init pageing.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ]
+			= array( kAPI_PAGING_AFFECTED => $iterator->affectedCount(),
+					 kAPI_PAGING_ACTUAL => $iterator->count(),
+					 kAPI_PAGING_SKIP => $iterator->skip(),
+					 kAPI_PAGING_LIMIT => $iterator->limit() );
+		
+		//
+		// Init dictionary.
+		//
+		$collection = $iterator->collection()[ kTAG_CONN_COLL ];
+		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+			= array( kAPI_DICTIONARY_COLLECTION => $collection,
+					 kAPI_DICTIONARY_REF_COUNT
+					 	=> PersistentObject::ResolveRefCountTag( $collection ),
+					 kAPI_DICTIONARY_IDS => Array(),
+					 kAPI_DICTIONARY_TAGS => Array() );
+		
+		//
+		// Iterate results.
+		//
+		foreach( $iterator as $key => $value )
+			$theContainer[]
+				= array( kAPI_PARAM_RESPONSE_IDENT => $key,
+						 kAPI_PARAM_RESPONSE_COORD
+						 	=> $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
+		
+	} // executeMarkerUnits.
 
 		
 
@@ -3245,7 +3506,8 @@ abstract class ServiceObject extends ContainerObject
 											$criteria[ kAPI_PARAM_PATTERN ],
 											$criteria[ kAPI_PARAM_OPERATOR ] );
 									
-									if( $parent_cri !== NULL )
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
 										$criteria_ref[] = array( $offset => $clause );
 									else
 										$criteria_ref[ $offset ] = $clause;
@@ -3329,6 +3591,12 @@ abstract class ServiceObject extends ContainerObject
 		// Update filter.
 		//
 		$this->mFilter = $query;
+		
+		//
+		// Debug.
+		//
+		if( kDEBUG_FLAG )
+			$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ 'query' ] = $this->mFilter;
 		
 	} // resolveFilter.
 

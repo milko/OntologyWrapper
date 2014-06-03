@@ -631,7 +631,7 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
- *	<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_CHILDREN}</tt>: If the current enumeration has
  *		sub-elements, this item will contain the elements array.
  * </ul>
  */
@@ -668,7 +668,7 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
- *	<li><tt>{@link kAPI_RESULT_ENUM_CHILDREN}</tt>: If the current enumeration has
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_CHILDREN}</tt>: If the current enumeration has
  *		sub-elements, this item will contain the elements array.
  * </ul>
  */
@@ -702,51 +702,55 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *				<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: String search:
  *				 <ul>
  *					<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list.
- *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This required
- *						parameter indicates what kind of match should be applied to the searched
- *						strings, it is an array that must contain one of the following:
+ *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This
+ *						required parameter indicates what kind of match should be applied to
+ *						the matched strings, it is an array that must contain one of the
+ *						following:
  *					 <ul>
- *						<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two match
- *							terms must be equal.
- *						<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The two
- *							match terms must be different.
+ *						<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>. The two
+ *							match terms must be equal.
+ *						<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>. The
+ *							two match terms must be different.
  *						<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Prefix</em>. The target
  *							string must start with the pattern.
- *						<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The target
- *							string must contain the pattern.
+ *						<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>. The
+ *							target string must contain the pattern.
  *						<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Suffix</em>. The target
  *							string must end with the pattern.
- *						<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>. The
- *							parameter is expected to contain a regular expression string.
+ *						<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>.
+ *							The parameter is expected to contain a regular expression
+ *							string.
  *					 </ul>
  *						and any of the following:
  *					 <ul>
  *						<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case insensitive</em>. If
- *							provided, it means that the matching operation is case and accent
- *							insensitive.
+ *							provided, it means that the matching operation is case and
+ *							accent insensitive.
  *					 </ul>
  *				 </ul>
  *				<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: Value range search:
  *				 <ul>
- *					<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: The minimum value of the range.
- *					<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: The maximum value of the range.
- *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This optionsl
- *						parameter indicates what kind of range match should be applied, it is a
- *						string that can take one of the following values:
+ *					<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: The minimum value of the
+ *						range.
+ *					<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: The maximum value of the
+ *						range.
+ *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This
+ *						parameter indicates what kind of range match should be applied, it
+ *						is a string that can take one of the following values:
  *					 <ul>
  *						<li><tt>{@link kOPERATOR_IRANGE}</tt>: <em>Range inclusive</em>. The
  *							provided minimum and maximum are included in the matched range.
  *						<li><tt>{@link kOPERATOR_ERANGE}</tt>: <em>Range exclusive</em>. The
  *							provided minimum and maximum are excluded from the matched range.
  *					 </ul>
- *						If the parameter is omitted, the {@link kOPERATOR_IRANGE} operator is
- *						used by default.
+ *						If the parameter is omitted, the {@link kOPERATOR_IRANGE} operator
+ *						is used by default.
  *				 </ul>
  *				<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: Enumerated set search:
  *				 <ul>
- *					<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: An array containing the list of
- *						term native identifiers corresponding to the enumerated values to be
- *						matched.
+ *					<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: An array containing the list
+ *						of term native identifiers corresponding to the enumerated values to
+ *						be matched.
  *				 </ul>
  *			 </ul>
  *		 </ul>
@@ -795,6 +799,35 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		indicates the maximum number of elements to be returned. In this service it is
  *		only relevant if the {@link kAPI_PARAM_DOMAIN} parameter was provided, in that case,
  *		If omitted, it will be set to the default constant {@link kSTANDARDS_UNITS_LIMIT}.
+ * </ul>
+ *
+ * The results structure depends on the kind of request:
+ *
+ * <ul>
+ *	<li><em>The {@link kAPI_PARAM_GROUP} parameter was provided</em>: In that case the
+ *		results are a series of nested arrays representing the record count grouped by the
+ *		elements provided in the {@link kAPI_PARAM_GROUP} parameter in which the leaf nodes
+ *		contain the record count. Note that the leaf element will always represent the
+ *		{@link kTAG_DOMAIN} property. The arrays will have the term native identifier as
+ *		the key, the value will be an array containing the term's {@link kTAG_LABEL} and
+ *		{@link kTAG_DEFINITION}, if the element is a leaf, the count will be set in the
+ *		element indexed by {@link kAPI_PARAM_RESPONSE_COUNT}; if the element is not a leaf,
+ *		the element indexed by {@link kAPI_PARAM_RESPONSE_CHILDREN} will hold a list of
+ *		similar structures.
+ *	<li><em>The {@link kAPI_PARAM_DOMAIN} parameter was provided</em>: In that case the
+ *		results represent individual records, the format is defined by the
+ *		{@link kAPI_PARAM_DATA} value:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
+ *			{@link ResultAggregator} class.
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
+ *			fed to a map, it will be an array holding the following elements:
+ *		 <ul>
+ *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_RESPONSE_COORD</tt>: The coordinates expressed as an array of
+ *				two elements holding respectively the longitude and latitude.
+ *		 </ul>
+ *	 </ul>
  * </ul>
  */
 define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
@@ -1112,7 +1145,7 @@ define( "kAPI_PARAM_SHAPE",						'shape' );
 define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
 
 /*=======================================================================================
- *	GENERIC REQUEST FLAG PARAMETERS														*
+ *	GENERIC FLAG REQUEST PARAMETERS														*
  *======================================================================================*/
 
 /**
@@ -1148,6 +1181,39 @@ define( "kAPI_PARAM_LOG_TRACE",					'log-trace' );
  * the root level of the structure.
  */
 define( "kAPI_PARAM_RECURSE",					'recurse' );
+
+/*=======================================================================================
+ *	GENERIC RESPONSE PARAMETERS															*
+ *======================================================================================*/
+
+/**
+ * Count (int).
+ *
+ * This parameter represents a count.
+ */
+define( "kAPI_PARAM_RESPONSE_COUNT",			'count' );
+
+/**
+ * Childern (int).
+ *
+ * This parameter represents a list of sub-elements.
+ */
+define( "kAPI_PARAM_RESPONSE_CHILDREN",			'children' );
+
+/**
+ * Identifier (mixed).
+ *
+ * This parameter represents an identifier.
+ */
+define( "kAPI_PARAM_RESPONSE_IDENT",			'ident' );
+
+/**
+ * Coordinates (array).
+ *
+ * This parameter represents a set of coordinates expressed as an array of longitude and
+ * latitude.
+ */
+define( "kAPI_PARAM_RESPONSE_COORD",			'coord' );
 
 /*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
@@ -1192,14 +1258,6 @@ define( "kAPI_RESULT_ENUM_DESCR",				'description' );
  * be considered as an enumerated value, if not, the element is a category.
  */
 define( "kAPI_RESULT_ENUM_VALUE",				'value' );
-
-/**
- * Children (array).
- *
- * This tag is used when returning an enumeration element, it defines the element's subset,
- * that is, it will contain all the elements whose parent is the current element.
- */
-define( "kAPI_RESULT_ENUM_CHILDREN",			'children' );
 
 /*=======================================================================================
  *	RESULT TYPE ENUMERATED SET															*

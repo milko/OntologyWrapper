@@ -389,6 +389,28 @@ class MongoCollection extends CollectionObject
 	
 	} // getAll.
 
+	 
+	/*===================================================================================
+	 *	aggregate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate pipeline
+	 *
+	 * In this class we use the <tt>aggregateCursor()</tt> method.
+	 *
+	 * @param array					$thePipeline		Aggregation pipeline.
+	 * @param array					$theOptions			Aggregation options.
+	 *
+	 * @access public
+	 * @return Iterator				Aggregated results.
+	 */
+	public function aggregate( $thePipeline, $theOptions = Array() )
+	{
+		return $this->mConnection->aggregateCursor( $thePipeline, $theOptions );	// ==>
+	
+	} // aggregate.
+
 		
 
 /*=======================================================================================

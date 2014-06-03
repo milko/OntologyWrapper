@@ -730,12 +730,28 @@ class Service extends ServiceObject
 		if( $this->offsetExists( kAPI_PARAM_GROUP ) )
 			$this->executeGroupUnits( $this->offsetGet( kAPI_PARAM_GROUP ),
 									  $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
-		
+	
 		//
-		// Return clustered results.
+		// Return individual results.
 		//
 		else
-			$this->executeClusterUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+		{
+			//
+			// Parse by result type.
+			//
+			switch( $this->offsetGet( kAPI_PARAM_DATA ) )
+			{
+				case kAPI_RESULT_ENUM_DATA_RECORD:
+					$this->executeClusterUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					break;
+			
+				case kAPI_RESULT_ENUM_DATA_MARKER:
+					$this->executeMarkerUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					break;
+			
+			} // Parsed result type.
+		
+		} // Not grouped.
 		
 	} // executeMatchUnits.
 

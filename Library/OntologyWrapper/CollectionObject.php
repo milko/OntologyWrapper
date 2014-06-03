@@ -513,6 +513,27 @@ abstract class CollectionObject extends ConnectionObject
 	 */
 	abstract public function getAll( $theFields = Array() );
 
+	 
+	/*===================================================================================
+	 *	aggregate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate pipeline
+	 *
+	 * This method expects an aggregation pipeline and should return the result as an
+	 * iterator.
+	 *
+	 * Concrete derived classes must implement this method.
+	 *
+	 * @param array					$thePipeline		Aggregation pipeline.
+	 * @param array					$theOptions			Aggregation options.
+	 *
+	 * @access public
+	 * @return Iterator				Aggregated results.
+	 */
+	abstract public function aggregate( $thePipeline, $theOptions = Array() );
+
 		
 
 /*=======================================================================================
