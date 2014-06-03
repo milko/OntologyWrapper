@@ -2335,11 +2335,29 @@ abstract class ServiceObject extends ContainerObject
 		);
 		
 		//
-		// Filter hidden tags.
+		// Handle tag strings.
 		//
 		if( $theCollection->getName() == Tag::kSEQ_NAME )
-			$criteria[ (string) kTAG_DATA_KIND ]
-				= array( '$ne' => kTAG_PRIVATE_SEARCH );
+		{
+			//
+			// Filter hidden tags.
+			//
+			$criteria[ (string) kTAG_DATA_KIND ] = array( '$ne' => kTAG_PRIVATE_SEARCH );
+			
+			//
+			// Filter internal tags.
+			//
+			$criteria[ (string) kTAG_NID ]
+				= array( '$nin' => array_merge( UnitObject::InternalOffsets() ) );
+			
+			//
+			// Filter untracked tags.
+			//
+			$criteria[ (string) kTAG_ID_SEQUENCE ]
+				= array( '$nin' => array_merge( UnitObject::ExternalOffsets(),
+												UnitObject::DynamicOffsets() ) );
+		
+		} // Searching tags
 		
 		//
 		// Add collection reference count.
@@ -2955,12 +2973,18 @@ abstract class ServiceObject extends ContainerObject
 					$this->mWrapper ) )
 						->matchAll( $this->mFilter,
 									kQUERY_OBJECT );
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$rs->skip( (int) $tmp );
 		
 		//
 		// Set cursor limit.
 		//
-		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-			$rs->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$rs->limit( (int) $tmp );
 		
 		//
 		// Instantiate results aggregator.
