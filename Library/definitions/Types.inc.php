@@ -53,6 +53,14 @@ define( "kTYPE_INT",							':type:int' );
  */
 define( "kTYPE_FLOAT",							':type:float' );
 
+/**
+ * Boolean.
+ *
+ * A <i>boolean</i> data type is a binary value which can take one of two states: on/true or
+ * off/false.
+ */
+define( "kTYPE_BOOLEAN",						':type:boolean' );
+
 /*=======================================================================================
  *	STRUCTURED DATA TYPES																*
  *======================================================================================*/

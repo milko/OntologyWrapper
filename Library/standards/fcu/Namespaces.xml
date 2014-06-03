@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	FOREST GENE CONSERVATION UNITS NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Base namespace -->
+	
+	<META>
+		<!-- fcu -->
+		<TERM lid="fcu">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Forest gene conservation</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Dynamic gene conservation of forest trees.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- fcu:unit -->
+		<TERM ns="fcu" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Forest gene conservation unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Geographic and administrative</em> information of a <em>forest fene conservartion unit</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- fcu:population -->
+		<TERM ns="fcu" lid="population">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Forest gene conservation population</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Target managed species</em> information of a <em>forest fene conservartion unit</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

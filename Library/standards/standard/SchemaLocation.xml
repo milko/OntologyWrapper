@@ -97,6 +97,12 @@
 	
 		<!-- Coordinates -->
 	
+		<!-- Datum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:datum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- Decimal latitude -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
@@ -166,6 +172,14 @@
 		<!-- Longitude uncertainty -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:longitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Usage -->
+	
+	<!-- Coordinates restricted -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:restricted</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

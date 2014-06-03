@@ -1037,7 +1037,7 @@
 		</TERM>
 	
 		<!-- kTAG_GEO_SHAPE -->
-		<TERM ns="" lid="geo">
+		<TERM ns="" lid="shape">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

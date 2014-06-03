@@ -79,6 +79,19 @@
 		</EDGE>
 	</META>
 	
+	<!-- kTYPE_BOOLEAN -->
+	<META>
+		<NODE term=":type:boolean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:data</item>
+		</EDGE>
+	</META>
+	
 	<!-- kTYPE_STRUCT -->
 	<META>
 		<NODE term=":type:struct">

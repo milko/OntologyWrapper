@@ -73,6 +73,22 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- kTYPE_BOOLEAN -->
+		<TERM ns=":type" lid="boolean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Boolean</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Boolean</em> values can take one of two states: <em>on or true</em>, or <em>off or false</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Structured data types -->

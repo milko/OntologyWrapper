@@ -1319,7 +1319,7 @@
 		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:geo</item>
+				<item>:shape</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:shape</item>
 			<item const="kTAG_DATA_KIND">

@@ -311,8 +311,6 @@
 	<!-- Geographic units -->
 	
 	<!-- Elevation -->
-	
-	<!-- Elevation -->
 	<META>
 		<TERM ns=":location" lid="elevation">
 			<item const="kTAG_LABEL">
@@ -465,6 +463,44 @@
 	</META>
 	
 	<!-- Coordinates -->
+	
+	<!-- Datum -->
+	<META>
+		<TERM ns=":location" lid="datum">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Datum</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Coordinates geodetic datum.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:elevation</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:elevation">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
 	<!-- Decimal latitude -->
 	<META>
@@ -930,6 +966,46 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude uncertainty in meters</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":location:longitude:error">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Usage -->
+	
+	<!-- Coordinates restricted -->
+	<META>
+		<TERM ns=":location" lid="restricted">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Coordinates restricted</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">A flag indicating restriction in making the geographical coordinates publically available.</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:location:restricted</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:boolean</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute indicates whether the coordinates may or may not be published.]]></item>
 				</item>
 			</item>
 		</TAG>
