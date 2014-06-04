@@ -1022,7 +1022,7 @@ class Tag extends PersistentObject
 			//
 			if( (! $this->offsetExists( kTAG_DATA_TYPE ))
 			 || ($this->offsetGet( kTAG_DATA_TYPE ) != kTYPE_STRUCT)
-			 || (! offsetExists( kTAG_DATA_KIND ))
+			 || (! $this->offsetExists( kTAG_DATA_KIND ))
 			 || (! array_key_exists( kTYPE_LIST, $this->offsetGet( kTAG_DATA_KIND ) )) )
 				throw new \Exception(
 					"Cannot be a structure list index: "

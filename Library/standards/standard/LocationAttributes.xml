@@ -1009,7 +1009,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:longitude:error">
+		<NODE tag=":location:restricted">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
