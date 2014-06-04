@@ -1805,17 +1805,22 @@ abstract class ServiceObject extends ContainerObject
 				//
 				default:
 					throw new \Exception(
-						"Invalid or unsupported input type [$tmp]." );	// !@! ==>
+						"Invalid or unsupported input type [$tmp]." );			// !@! ==>
 			
 			} // Parsing by input type.
 			
 			//
 			// Add offsets to filter.
 			//
-			$criteria_ref[ kAPI_PARAM_OFFSETS ]
-				= ( array_key_exists( $offsets_tag, $tag_object ) )
-				? $tag_object[ $offsets_tag ]
-				: Array();
+			if( array_key_exists( kAPI_PARAM_OFFSETS, $criteria ) )
+				$criteria_ref[ kAPI_PARAM_OFFSETS ]
+					= $criteria[ kAPI_PARAM_OFFSETS ];
+			elseif( array_key_exists( $offsets_tag, $tag_object ) )
+				$criteria_ref[ kAPI_PARAM_OFFSETS ]
+					= $tag_object[ $offsets_tag ];
+			else
+				throw new \Exception(
+					"Missing selection offsets for tag [$tag]." );				// !@! ==>
 			
 		} // Iterating criteria.
 		
@@ -2025,7 +2030,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
 		$ref[ "kAPI_PARAM_RESPONSE_CHILDREN" ] = kAPI_PARAM_RESPONSE_CHILDREN;
 		$ref[ "kAPI_PARAM_RESPONSE_IDENT" ] = kAPI_PARAM_RESPONSE_IDENT;
-		$ref[ "kAPI_PARAM_RESPONSE_COORD" ] = kAPI_PARAM_RESPONSE_COORD;
 		
 		//
 		// Load operators.
@@ -3058,8 +3062,8 @@ abstract class ServiceObject extends ContainerObject
 		foreach( $iterator as $key => $value )
 			$theContainer[]
 				= array( kAPI_PARAM_RESPONSE_IDENT => $key,
-						 kAPI_PARAM_RESPONSE_COORD
-						 	=> $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
+						 kTAG_SHAPE_TYPE = $value[ $shape[ kTAG_SHAPE_TYPE ] ],
+						 kTAG_SHAPE_GEOMETRY = $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
 		
 	} // executeMarkerUnits.
 

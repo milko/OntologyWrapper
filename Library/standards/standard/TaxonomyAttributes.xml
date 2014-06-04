@@ -2401,10 +2401,6 @@
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT">Scientific name</item>
 				</item>
-				<item>
-					<item const="kTAG_LANGUAGE">la</item>
-					<item const="kTAG_TEXT">infraspecies</item>
-				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -2419,7 +2415,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:categorical</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:epithet">
@@ -2469,10 +2465,6 @@
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT">Valid scientific name</item>
 				</item>
-				<item>
-					<item const="kTAG_LANGUAGE">la</item>
-					<item const="kTAG_TEXT">infraspecies</item>
-				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -2487,7 +2479,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:categorical</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:valid">
@@ -2523,7 +2515,7 @@
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
+				<item>:type:categorical</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraspecies">

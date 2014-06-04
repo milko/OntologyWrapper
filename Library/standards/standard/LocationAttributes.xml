@@ -482,9 +482,9 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:location:elevation</item>
+				<item>:location:datum</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 			</item>
@@ -495,7 +495,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:elevation">
+		<NODE tag=":location:datum">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

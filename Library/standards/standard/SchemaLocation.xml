@@ -177,7 +177,7 @@
 	
 		<!-- Usage -->
 	
-	<!-- Coordinates restricted -->
+		<!-- Coordinates restricted -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:restricted</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>

@@ -34,3 +34,17 @@ of an object, while we can traverse a schema to get standard sub-structures.
 
 If we adopt this strategy we could say that kTYPE_NODE_SCHEMA is a kTYPE_NODE_TYPE, while
 the kTYPE_NODE_STRUCT is not a kTYPE_NODE_TYPE.
+
+A set of example rules:
+
+	- A term node of type kTYPE_NODE_STRUCT represents a structure.
+	- A set of tag nodes pointing to the above structure via kPREDICATE_PROPERTY_OF
+	  represent some of the properties of the above structure.
+	- A term node of type kTYPE_NODE_SCHEMA pointing to the above structure via
+	  kPREDICATE_SUBCLASS_OF links all of its properties directly to the above structure.
+	- A tag node of type kTYPE_STRUCT may have a term node of type kTYPE_NODE_STRUCT
+	  pointing to it via kPREDICATE_PROPERTY_OF: in this case all the structure's properties
+	  may be part of the kTYPE_STRUCT tag node.
+	- A tag node of type kTYPE_STRUCT may have a term node of type kTYPE_NODE_SCHEMA
+	  pointing to it via kPREDICATE_PROPERTY_OF: in this case all the schema's properties
+	  may be part of the kTYPE_STRUCT tag node.

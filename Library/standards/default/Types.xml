@@ -175,9 +175,25 @@
 		</TERM>
 	</META>
 	
-	<!-- Standards data types -->
+	<!-- Derived data types -->
 	
 	<META>
+		<!-- kTYPE_TEXT -->
+		<TERM ns=":type" lid="text">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Text</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type is derived from the <em>string</em> type, it indicates a text <em>which is not intended for searching or for being indexed</em>. This type can be considered a textual blob.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_URL -->
 		<TERM ns=":type" lid="url">
 			<item const="kTAG_LABEL">
@@ -190,6 +206,38 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[A <em>link</em> data type indicates that the referred property is a <em>string</em> representing an <em>URL</em> which is an internet link or network address.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_YEAR -->
+		<TERM ns=":type" lid="year">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Year</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>year<em> as an <em>integer</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_DATE -->
+		<TERM ns=":type" lid="date">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Date</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>date<em> in which <em>the day and month may be omitted</em>, it is a <em>string</em> providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month do not need to be assigned. This type can be used as <em>a range</em> and <em>sorted</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

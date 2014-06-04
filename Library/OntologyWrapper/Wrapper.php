@@ -903,7 +903,7 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	LoadStandards																	*
+	 *	loadStandards																	*
 	 *==================================================================================*/
 
 	/**
@@ -921,7 +921,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function LoadStandards( $doLog = FALSE )
+	public function loadStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -934,7 +934,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset entities: "
+				"Unable to load standards: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
@@ -975,7 +975,67 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // LoadStandards.
+	} // loadStandards.
+
+	 
+	/*===================================================================================
+	 *	loadFCUStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load Forest Fene Conservation Unit standards
+	 *
+	 * This method can be used to load the FCU standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadFCUStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading FCU standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load standards: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default FCU files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Structure.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadFCUStandards.
 
 	 
 	/*===================================================================================
@@ -1477,7 +1537,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset ontology: "
+				"Unable to load ontology: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//

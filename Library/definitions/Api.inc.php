@@ -753,6 +753,10 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *						be matched.
  *				 </ul>
  *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_OFFSETS}</tt>: <em>Selected offsets</em>. If this parameter
+ *				is omitted, the selection criteria will apply to all offsets in which the
+ *				current tag is used, this parameter can be used to provide a specific set of
+ *				offsets.
  *		 </ul>
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
@@ -824,8 +828,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
  *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
- *			<li><tt>kAPI_PARAM_RESPONSE_COORD</tt>: The coordinates expressed as an array of
- *				two elements holding respectively the longitude and latitude.
+ *			<li><tt>kTAG_SHAPE_TYPE</tt>: The shape type.
+ *			<li><tt>kTAG_SHAPE_GEOMETRY</tt>: The shape geometry.
  *		 </ul>
  *	 </ul>
  * </ul>
@@ -1044,6 +1048,10 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  *					term native identifiers corresponding to the enumerated values to be
  *					matched.
  *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_OFFSETS}</tt>: <em>Selected offsets</em>. If this parameter
+ *				is omitted, the selection criteria will apply to all offsets in which the
+ *				current tag is used, this parameter can be used to provide a specific set of
+ *				offsets.
  *		 </ul>
  *	 </ul>
  * </ul>
@@ -1206,14 +1214,6 @@ define( "kAPI_PARAM_RESPONSE_CHILDREN",			'children' );
  * This parameter represents an identifier.
  */
 define( "kAPI_PARAM_RESPONSE_IDENT",			'ident' );
-
-/**
- * Coordinates (array).
- *
- * This parameter represents a set of coordinates expressed as an array of longitude and
- * latitude.
- */
-define( "kAPI_PARAM_RESPONSE_COORD",			'coord' );
 
 /*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
@@ -1457,7 +1457,8 @@ define( "kAPI_PARAM_VALUE_COUNT",				'values' );
 /**
  * Offsets (array).
  *
- * This parameter will hold the list of offsets for the current criteria tag.
+ * This parameter will hold the list of offsets for the current criteria tag; this parameter
+ * may also be provided as part of a criteria to specify which offsets should be searched.
  */
 define( "kAPI_PARAM_OFFSETS",					'offsets' );
 

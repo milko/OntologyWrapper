@@ -146,6 +146,7 @@ try
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
+	$wrapper->loadFCUStandards( TRUE );
 	
 	//
 	// Reset dictionary.

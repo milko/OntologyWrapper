@@ -756,11 +756,9 @@ define( "kTAG_OBJECT_REFERENCES",		49 );
  *	<li><em>Kind</em>: {@link kTAG_PRIVATE_MODIFY}, {@link kTYPE_PRIVATE_DISPLAY}
  * </ul>
  *
- * This tag is used to provide the <em>the current tag's container</em>. If set, it
- * indicates that the current offset should be stored in the offset defined by the property.
- * This means that the referenced tag <em>must be a structure</em> and that when an object
- * featuring this tag is stored in an object, the container structure must be created if not
- * yet there.
+ * This tag is used to provide the <em>the current tag's container</em>, the value should be
+ * a reference to a {@link kTYPE_STRUCT} tag in which the current tag must be stored. If
+ * set, the current offset should be stored in the offset defined in this property.
  */
 define( "kTAG_TAG_STRUCT",				50 );
 

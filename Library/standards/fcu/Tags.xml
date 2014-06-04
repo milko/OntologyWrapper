@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	FOREST GENE CONSERVATION UNITS TAGS
+	Tags.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Unit attributes -->
+	
+	<!-- fcu:unit:number -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitNumber</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This number is the <em>unique identifier of the unit</em> described.  This number <em>should not be duplicated or reassigned to another unit</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:gene-number -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:gene-number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitGeneNumber</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unit number <em>from the national registry</em>.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:admin -->
+	
+	<!-- :location:country -->
+	
+	<!-- :location:admin-1 -->
+	
+	<!-- :location:admin-2 -->
+	
+	<!-- :location:admin-3 -->
+	
+	<!-- :location:locality -->
+	
+	<!-- :location:datum -->
+	
+	<!-- :location:latitude -->
+	
+	<!-- :location:latitude:deg -->
+	<!-- :location:latitude:min -->
+	<!-- :location:latitude:sec -->
+	<!-- :location:latitude:hem -->
+	
+	<!-- :location:latitude:error -->
+	
+	<!-- :location:longitude -->
+	
+	<!-- :location:longitude:deg -->
+	<!-- :location:longitude:min -->
+	<!-- :location:longitude:sec -->
+	<!-- :location:longitude:hem -->
+	
+	<!-- :location:longitude:error -->
+	
+	<!-- :shape -->
+	
+	<!-- :location:restricted -->
+	
+	<!-- :location:elevation:min -->
+	
+	<!-- :location:elevation:max -->
+	
+	<!-- fcu:unit:area -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:area</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitArea</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Total surface area</em> of the unit <em>in hectares</em> accuracy of 0.1 ha.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:ownership/:predicate:SCALE-OF/eufgis:UnitOwnership -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:ownership</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:UnitOwnership</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitOwnership</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:UnitOwnership</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:unit:type/:predicate:SCALE-OF/eufgis:UnitType -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:area</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:UnitType</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitType</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:unit:data-collection -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:data-collection</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitDataCollectionYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date in which the <em>unit data was collected</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:last-visit -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:last-visit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitLastVisitYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date in which the <em>unit data last visited</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:remarks-soil -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:remarks-soil</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitSoilRemarks</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks on specific soil characteristics of the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:remarks-unit -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:remarks-unit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitRemarks</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks on other specific characteristics of the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:unit:species -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:species</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitSpecies</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of target and non target species growing in the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	
+		<!-- :taxon:genus -->
+	
+		<!-- :taxon:epithet -->
+	</META>
+	
+	<!-- Population attributes -->
+	
+	<!-- fcu:population -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unit populations]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:epithet -->
+	
+	<!-- fcu:population:number -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationUnitNumber</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:population:establishment -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:establishment</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationEstablishmentYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date of establishment of the gene conservation unit for the taxon.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:population:last-visit -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:last-visit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationEstablishmentYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date of the most recent visit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:population:status/:predicate:SCALE-OF/eufgis:PopulationStatus -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:status</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationStatus</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationStatus</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Status of the target tree population regarding the EUFORGEN common action plans.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationStatus</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:situ/:predicate:SCALE-OF/eufgis:PopulationSitu -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:situ</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationSitu</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSitu</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationSitu</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:origin/:predicate:SCALE-OF/eufgis:PopulationOrigin -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:origin</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationOrigin</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationOrigin</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationOrigin</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:system/:predicate:SCALE-OF/eufgis:PopulationSystem -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:system</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationSystem</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSystem</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:management/:predicate:SCALE-OF/eufgis:PopulationManagement -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:management</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationManagement</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationManagement</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Level of management allowed to favour the target species.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationManagement</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:justification/:predicate:SCALE-OF/eufgis:PopulationJustification -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:justification</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationJustification</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationJustification</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Main reason for carrying out gene conservation for this taxon.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationJustification</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:reproducing/:predicate:SCALE-OF/eufgis:PopulationReproducingTrees -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:reproducing</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationReproducingTrees</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationReproducingTrees</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total number of reproducing trees per unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationReproducingTrees</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:sex-ratio/:predicate:SCALE-OF/eufgis:PopulationSexRatio -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:sex-ratio</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationSexRatio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSexRatio</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If appropriate]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationSexRatio</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:regeneration/:predicate:SCALE-OF/eufgis:PopulationRegeneration -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:regeneration</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationRegeneration</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationRegeneration</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationRegeneration</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:distribution/:predicate:SCALE-OF/eufgis:PopulationDistribution -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:distribution</item>
+				<item>:predicate:SCALE-OF</item>
+				<item>eufgis:PopulationDistribution</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationRegeneration</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">eufgis:PopulationDistribution</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- fcu:population:share -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:share</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationShare</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- fcu:population:remarks -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:remarks</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationRemarks</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

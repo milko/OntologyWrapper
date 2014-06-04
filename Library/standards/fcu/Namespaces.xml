@@ -15,7 +15,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Forest gene conservation</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
@@ -31,13 +31,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Forest gene conservation unit</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation unit]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Geographic and administrative</em> information of a <em>forest fene conservartion unit</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[<em>Geographic and administrative</em> information of a <em>forest gene conservartion unit</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -47,13 +47,33 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Forest gene conservation population</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation unit population]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[<em>Target managed species</em> information of a <em>forest fene conservartion unit</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Convention namespace -->
+	
+	<META>
+		<!-- eufgis -->
+		<TERM lid="eufgis">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[European Information System on Forest Genetic Resources]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The EUFGIS project (April 2007-March 2011) created an online information system for forest genetic resources (FGR) inventories in Europe to support the countries in their efforts to implement FGR conservation as part of sustainable forest management.]]></item>
 				</item>
 			</item>
 		</TERM>

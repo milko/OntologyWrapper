@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Data initialisation procedure.
+ * XML file parser.
  *
- * This file contains routines to initialise the data dictionary.
+ * This file contains the script to load a single XML file from terminal arguments.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 18/03/2014
+ *	@version	1.00 04/06/2014
  */
 
 /*=======================================================================================
  *																						*
- *									Init_Dictionary.php									*
+ *									LoadXMLFile.php										*
  *																						*
  *======================================================================================*/
 
@@ -47,6 +47,19 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 /*=======================================================================================
  *	TEST																				*
  *======================================================================================*/
+
+//
+// Parse arguments.
+//
+if( $argc < 3 )
+	exit( "Usage: script.php [XML file path] [database DSN] [graph DSN].\n" );		// ==>
+
+//
+// Load arguments.
+//
+$file = $argv[ 1 ];
+$database = $argv[ 2 ];
+$graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
  
 //
 // Try.
@@ -68,86 +81,57 @@ try
 			array( array( 'localhost', 11211 ) ) );
 	
 	//
+	// Inform.
+	//
+	echo( "  • Creating database.\n" );
+	
+	//
+	// Instantiate database.
+	//
+	$database
+		= new OntologyWrapper\MongoDatabase(
+			"$database?connect=1" );
+	
+	//
 	// Set metadata.
 	//
 	echo( "  • Setting metadata.\n" );
-	$meta = $wrapper->Metadata(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	
-	//
-	// Drop metadata.
-	//
-	$meta->drop();
+	$wrapper->Metadata( $database );
 	
 	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
-	$units = $wrapper->Units(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	
-	//
-	// Drop units.
-	//
-	$units->drop();
+	$wrapper->Units( $database );
 	
 	//
 	// Set entities.
 	//
 	echo( "  • Setting entities.\n" );
-	$entities = $wrapper->Entities(
-		new OntologyWrapper\MongoDatabase(
-			"mongodb://localhost:27017/PGRDG?connect=1" ) );
-	
-	//
-	// Drop entities.
-	//
-	$entities->drop();
+	$wrapper->Entities( $database );
 	
 	//
 	// Check graph database.
 	//
-	if( kGRAPH_DO )
+	if( $graph !== NULL )
 	{
 		//
 		// Set graph database.
 		//
 		echo( "  • Setting graph.\n" );
-		$graph = $wrapper->Graph(
+		$wrapper->Graph(
 			new OntologyWrapper\Neo4jGraph(
-				"neo4j://localhost:7474" ) );
-	
-		//
-		// Drop graph database.
-		//
-		echo( "  • Resetting graph.\n" );
-		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+				$graph ) );
 	
 	} // Use graph database.
 	
 	//
-	// Reset ontology.
+	// Load default XML files.
 	//
-	$wrapper->resetOntology( TRUE );
-	
-	//
-	// Load ISO Standards.
-	//
-	$wrapper->initISOStandards( TRUE );
-	
-	//
-	// Load WBI Standards.
-	//
-	$wrapper->initWBIStandards( TRUE );
-	
-	//
-	// Load standards.
-	//
-	$wrapper->loadStandards( TRUE );
-	$wrapper->loadFCUStandards( TRUE );
-	
+	echo( "  • Loading file\n" );
+	echo( "    - $file\n" );
+	$wrapper->loadXMLFile( $file );
+		
 	//
 	// Reset dictionary.
 	//

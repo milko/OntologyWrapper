@@ -145,12 +145,37 @@ define( "kTYPE_SHAPE",							':type:shape' );
  *======================================================================================*/
 
 /**
+ * Text.
+ *
+ * This type is derived from the string type, it indicates a text which is not intended for
+ * searching. In general, this type will be used to qualify properties which contain large
+ * text which cannot be indexed.
+ */
+define( "kTYPE_TEXT",							':type:text' );
+
+/**
  * Link.
  *
  * A <i>link</i> data type indicates that the referred property is a <em>string</em>
  * representing an <em>URL</em> which is an internet link or network address.
  */
 define( "kTYPE_URL",							':type:url' );
+
+/**
+ * Year.
+ *
+ * This type defines a year as an integer.
+ */
+define( "kTYPE_YEAR",							':type:year' );
+
+/**
+ * Date.
+ *
+ * This type defines a date in which the day and month can be omitted, it is a string
+ * providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month
+ * may not be provided. This type can be used for ranges and sorted.
+ */
+define( "kTYPE_DATE",							':type:date' );
 
 /*=======================================================================================
  *	ENUMERATED DATA TYPES																*
