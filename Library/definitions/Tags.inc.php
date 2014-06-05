@@ -895,7 +895,7 @@ define( "kTAG_TEXT",					59 );
 define( "kTAG_URL",						60 );
 
 /**
- * Geographic location shape (<code>:geo</code)
+ * Geographic location shape (<code>:shape</code)
  *
  * <ul>
  *	<li><em>Type</em>: {@link kTYPE_SHAPE}

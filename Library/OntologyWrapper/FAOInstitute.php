@@ -761,8 +761,6 @@ class FAOInstitute extends Institution
 	 * @param reference				$theRefs			Object references.
 	 *
 	 * @access protected
-	 *
-	 * @uses isInited()
 	 */
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{

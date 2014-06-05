@@ -189,6 +189,7 @@ try
 catch( \Exception $error )
 {
 	echo( $error->xdebug_message );
+	print_r( $error->getTrace() );
 }
 
 echo( "\nDone!\n" );

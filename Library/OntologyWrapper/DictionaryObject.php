@@ -409,6 +409,8 @@ abstract class DictionaryObject extends ContainerObject
 	 *	<li><tt>{@link kTAG_ID_SEQUENCE}</tt>: Sequence number.
 	 *	<li><tt>{@link kTAG_DATA_TYPE}</tt>: Data type.
 	 *	<li><tt>{@link kTAG_DATA_KIND}</tt>: Data kind.
+	 *	<li><tt>{@link kTAG_TAG_STRUCT}</tt>: Container structure.
+	 *	<li><tt>{@link kTAG_TAG_STRUCT_IDX}</tt>: Container structure list index.
 	 *	<li><tt>{@link kTAG_MIN_RANGE}</tt>: Range minimum bound.
 	 *	<li><tt>{@link kTAG_MAX_RANGE}</tt>: Range maximum bound.
 	 *	<li><tt>{@link kTAG_PATTERN}</tt>: Value pattern.
@@ -427,6 +429,7 @@ abstract class DictionaryObject extends ContainerObject
 	{
 		return array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
 					  kTAG_DATA_TYPE => TRUE, kTAG_DATA_KIND => TRUE,
+					  kTAG_TAG_STRUCT => TRUE, kTAG_TAG_STRUCT_IDX => TRUE,
 					  kTAG_MIN_RANGE => TRUE, kTAG_MAX_RANGE => TRUE,
 					  kTAG_PATTERN => TRUE );										// ==>
 	

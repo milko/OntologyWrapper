@@ -386,11 +386,11 @@ abstract class UnitObject extends PersistentObject
 
 	 
 	/*===================================================================================
-	 *	DynamicOffsets																	*
+	 *	UnmanagedOffsets																*
 	 *==================================================================================*/
 
 	/**
-	 * Return dynamic offsets
+	 * Return unmanaged offsets
 	 *
 	 * In this class we return the offsets that are required by the object:
 	 *
@@ -403,15 +403,15 @@ abstract class UnitObject extends PersistentObject
 	 * required.
 	 *
 	 * @static
-	 * @return array				List of dynamic offsets.
+	 * @return array				List of unmanaged offsets.
 	 */
-	static function DynamicOffsets()
+	static function UnmanagedOffsets()
 	{
 		return array_merge(
-			parent::DynamicOffsets(),
+			parent::UnmanagedOffsets(),
 			array( kTAG_DOMAIN, kTAG_IDENTIFIER ) );								// ==>
 	
-	} // DynamicOffsets.
+	} // UnmanagedOffsets.
 
 	 
 	/*===================================================================================

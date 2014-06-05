@@ -38,136 +38,10 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :location:admin -->
+		<!-- SCHEMA term=":location" pid="schema::location" -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:country -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-1 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-2 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-3 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:locality -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:datum -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:datum</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:latitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:latitude:deg -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude:deg</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:latitude:min -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude:min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:latitude:sec -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude:sec</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:latitude:hem -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude:hem</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:latitude:error -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude:error</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:longitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:longitude:deg -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude:deg</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:longitude:min -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude:min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:longitude:sec -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude:sec</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :location:longitude:hem -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude:hem</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:longitude:error -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude:error</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :shape -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:shape</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:restricted -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:restricted</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:elevation:min -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :location:elevation:max -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
 		<!-- fcu:unit:area -->
@@ -206,9 +80,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- fcu:unit:remarks-unit -->
+		<!-- fcu:unit:remarks -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:unit:remarks-unit</item>
+			<item const="kTAG_SUBJECT" node="tag">fcu:unit:remarks</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -228,17 +102,10 @@
 	<!-- Unit species schema -->
 		
 	<META>
-		<!-- :taxon:genus -->
+		<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:unit:species</item>
-		</EDGE>
-		
-		<!-- :taxon:epithet -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 			<item const="kTAG_OBJECT" node="tag">fcu:unit:species</item>
 		</EDGE>
 	</META>
@@ -246,9 +113,9 @@
 	<!-- Unit populations schema -->
 		
 	<META>
-		<!-- :taxon:epithet -->
+		<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>

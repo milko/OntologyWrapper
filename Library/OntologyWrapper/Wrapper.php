@@ -1699,6 +1699,104 @@ class Wrapper extends Dictionary
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC TRAVERSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	collectStructureOffsets															*
+	 *==================================================================================*/
+
+	/**
+	 * Get structure offsets.
+	 *
+	 * This method will return the list of offsets belonging to the provided structure or
+	 * schema node.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theNode</b>: The structure or schema node native or persistent identifier.
+	 *	<li><b>$theType</b>: This parameter indicates the requested output format:
+	 *	 <ul>
+	 *		<li><tt>0</tt>: The returned array will hold the flattened list of all leaf
+	 *			offsets.
+	 *		<li><tt>1</tt>: The returned array will hold the list of tag sequence numbers
+	 *			structured as the schema, holding the tag references in the key.
+	 *		<li><tt>2</tt>: The returned array will hold the list of tag native identifiers
+	 *			structured as the schema, holding the tag references in the key.
+	 *	 </ul>
+	 *		If omitted, the method will use the <tt>0</tt> value by default.
+	 * </ul>
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * All schema and structure elements present as sub-elements will be resolved.
+	 *
+	 * @param mixed					$theNode			Node reference.
+	 * @param int					$theType			Result type.
+	 *
+	 * @access public
+	 * @return array				List of offsets belonging to the structure.
+	 *
+	 * @throws Exception
+	 */
+	public function collectStructureOffsets( $theNode, $theType = 0 )
+	{
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to traverse structure: "
+			   ."object is not connected." );									// !@! ==>
+
+		//
+		// Check type.
+		//
+		switch( $theType )
+		{
+			case 1:
+			case 2:
+			case 3:
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid traversal type parameter [$theType]." );			// !@! ==>
+		}
+
+		//
+		// Init local storage.
+		//
+		$offsets = Array();
+		
+		//
+		// Resolve node.
+		//
+		if( ! is_int( $theNode ) )
+			$theNode
+				= Node::ResolveCollection(
+					Node::ResolveDatabase( $this ) )
+						->matchOne(
+							array( kTAG_ID_PERSISTENT => $theNode ),
+							kQUERY_ASSERT | kQUERY_NID );
+		
+		//
+		// Traverse root structure.
+		//
+		$this->traverseStructureOffsets( $offsets, $theNode, $theType, $level );
+		
+		return $offsets;															// ==>
+		
+	} // collectStructureOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC RESOLUTION INTERFACE								*
  *																						*
  *======================================================================================*/
@@ -2574,6 +2672,229 @@ class Wrapper extends Dictionary
 		} // Array property.
 	
 	} // parseXMLItem.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED TRAVERSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	traverseStructureOffsets														*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse structure offsets.
+	 *
+	 * This method will traverse the relationships of the provided node, filling the
+	 * provided array container with the list of matched offsets.
+	 *
+	 * The main duty of this method is to iterate all nodes pointing to the provided node
+	 * via the {@link kPREDICATE_PROPERTY_OF} or {@link kPREDICATE_SUBCLASS_OF} predicates,
+	 * loading the provided array container with the encountered tag offsets according to
+	 * the provided type parameter, eventually recursing nested structures and schemas.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffsets</b>: This parameter will receive the matched offsets.
+	 *	<li><b>$theNode</b>: The structure or schema node native identifier.
+	 *	<li><b>$theType</b>: This parameter indicates the requested output format:
+	 *	 <ul>
+	 *		<li><tt>0</tt>: Collects flattened list of leaf offsets.
+	 *		<li><tt>1</tt>: Collects structured list of tag sequence numbers.
+	 *		<li><tt>2</tt>: Collects structured list of tag native identifiers.
+	 *	 </ul>
+	 *	<li><b>$theLevel</b>: This parameter is initialised and handled by this method, it
+	 *		holds an array of elements holding the nested level tag sequence numbers, this
+	 *		array will only hold tags of type {@link kTYPE_STRUCT}.
+	 * </ul>
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * All schema and structure elements present as sub-elements will be resolved.
+	 *
+	 * @param array					$theOffsets			Receives offsets.
+	 * @param int					$theNode			Node native identifier.
+	 * @param int					$theType			Result type.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function traverseStructureOffsets( &$theOffsets,
+												  $theNode, $theType,
+												 &$theLevel )
+	{
+		//
+		// Init level.
+		//
+		if( ! is_array( $theLevel ) )
+			$theLevel = Array();
+		
+		//
+		// Locate edges.
+		//
+		$edges
+			= Edge::ResolveCollection(
+				Edge::ResolveDatabase( $this ) )
+					->matchAll(
+						array( kTAG_OBJECT => $theNode,
+							   kTAG_PREDICATE
+									=> array( '$in'
+										=> array( kPREDICATE_PROPERTY_OF,
+												  kPREDICATE_SUBCLASS_OF ) ) ),
+						kQUERY_ASSERT | kQUERY_OBJECT,
+						array( kTAG_SUBJECT => TRUE,
+							   kTAG_PREDICATE => TRUE ) );
+		
+		//
+		// Iterate results.
+		//
+		foreach( $edges as $edge )
+		{
+			//
+			// Recurse schemas.
+			//
+			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
+				$this->traverseStructureOffsets(
+					$theOffsets, $edge[ kTAG_SUBJECT ], $theType, $theLevel );
+			
+			//
+			// Load offset.
+			//
+			else
+			{
+				//
+				// Get subject node.
+				//
+				$node
+					= Node::ResolveCollection(
+						Node::ResolveDatabase( $this ) )
+							->matchOne(
+								array( kTAG_NID => $edge[ kTAG_SUBJECT ] ),
+								kQUERY_ASSERT | kQUERY_ARRAY,
+								array( kTAG_TAG => TRUE ) );
+				
+				//
+				// Assert it points to a tag.
+				//
+				if( array_key_exists( kTAG_TAG, $node ) )
+				{
+					//
+					// Get tag.
+					//
+					$tag
+						= Tag::ResolveCollection(
+							Tag::ResolveDatabase( $this ) )
+								->matchOne(
+									array( kTAG_NID => $node[ kTAG_TAG ] ),
+									kQUERY_ASSERT | kQUERY_ARRAY,
+									array( kTAG_ID_SEQUENCE => TRUE,
+										   kTAG_DATA_TYPE => TRUE ) );
+					
+					//
+					// Save identifiers.
+					//
+					$id = $tag[ kTAG_NID ];
+					$seq = $tag[ kTAG_ID_SEQUENCE ];
+					
+					//
+					// Handle structure.
+					//
+					if( $tag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+					{
+						//
+						// Push structure.
+						//
+						$theLevel[] = $seq;
+						
+						//
+						// Allocate and reference structure container.
+						//
+						switch( $theType )
+						{
+							case 1:
+								$theOffsets[ $seq ] = Array();
+								$ref = & $theOffsets[ $seq ];
+								break;
+						
+							case 2:
+								$theOffsets[ $id ] = Array();
+								$ref = & $theOffsets[ $id ];
+								break;
+							
+							default:
+								$ref = & $theOffsets;
+								break;
+						
+						} // By result type.
+						
+						//
+						// Recurse structure.
+						//
+						$this->traverseStructureOffsets(
+							$ref,
+							$edge[ kTAG_SUBJECT ],
+							$theType,
+							$theLevel );
+						
+						//
+						// Pop structure.
+						//
+						array_pop( $theLevel );
+					
+					} // Structure tag.
+					
+					//
+					// Handle property.
+					//
+					else
+					{
+						//
+						// Load property.
+						//
+						switch( $theType )
+						{
+							case 0:
+								$theOffsets[]
+									= implode(
+										'.',
+										array_merge(
+											$theLevel,
+											array( $seq ) ) );
+								break;
+						
+							case 1:
+								$theOffsets[ $seq ] = $seq;
+								break;
+						
+							case 2:
+								$theOffsets[ $id ] = $id;
+								break;
+						
+						} // By result type.
+					
+					} // Property tag.
+				
+				} // Tag node.
+				
+				else
+					throw new \Exception(
+						"Invalid structure element pointing to [$theNode]: "
+					   ."node ["
+					   .$node[ kTAG_NID]
+					   ."] should reference a tag." );							// !@! ==>
+			
+			} // Not a schema.
+		
+		} // Iterating edges.
+		
+	} // traverseStructureOffsets.
 
 		
 

@@ -976,6 +976,15 @@
 		</NODE>
 	</META>
 	
+	<!-- Shape -->
+	<META>
+		<NODE tag=":shape">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Usage -->
 	
 	<!-- Coordinates restricted -->

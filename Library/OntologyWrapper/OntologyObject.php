@@ -498,6 +498,12 @@ abstract class OntologyObject extends ContainerObject
 	 * offsets are not defined in the data dictionary and are private to the object. This
 	 * method is used to exclude these offsets from the default offset resolution workflow.
 	 *
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 * </ul>
+	 *
 	 * In this class we return:
 	 *
 	 * <ul>
@@ -528,7 +534,11 @@ abstract class OntologyObject extends ContainerObject
 	 * offsets which are managed neither by clients nor by the object itself, these will
 	 * generally be managed by events triggered by other objects.
 	 *
-	 * For this reason, these offsets will not be part of the offset management framework.
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 * </ul>
 	 *
 	 * In this class we return an empty array.
 	 *
@@ -549,8 +559,12 @@ abstract class OntologyObject extends ContainerObject
 	 * offsets which are managed by the object itself, and should not be modified by
 	 * clients.
 	 *
-	 * In general, these offsets will be overwritten each time an object is committed, and
-	 * will not be part of the offset management framework.
+	 * These offsets:
+	 *
+	 * <ul>
+	 *	<li>Will not be part of the offset management framework.
+	 *	<li>Will be reset each time the object is committed.
+	 * </ul>
 	 *
 	 * In this class we return an empty array.
 	 *
@@ -558,6 +572,40 @@ abstract class OntologyObject extends ContainerObject
 	 * @return array				List of dynamic offsets.
 	 */
 	static function DynamicOffsets()									{	return Array();	}
+
+	 
+	/*===================================================================================
+	 *	UnmanagedOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Return unmanaged offsets
+	 *
+	 * This method will return the list of offsets which should be excluded from the offset
+	 * management framework.
+	 *
+	 * By default we include offsets returned by:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link ExternalOffsets()}</tt>: External offsets.
+	 *	<li><tt>{@link DynamicOffsets()}</tt>: Synamic offsets.
+	 * </ul>
+	 *
+	 * Note that internal offsets, {@link InternalOffsets()}, are also not managed, but
+	 * since those offsets do not have a sequence number, we need to treat them separately.
+	 *
+	 * Derived classes may overload this method to add custom offsets.
+	 *
+	 * @static
+	 * @return array				List of unmanaged offsets.
+	 */
+	static function UnmanagedOffsets()
+	{
+		return array_merge(
+			static::ExternalOffsets(),
+			static::DynamicOffsets() );												// ==>
+	
+	} // UnmanagedOffsets.
 
 	 
 	/*===================================================================================

@@ -3491,9 +3491,7 @@ abstract class PersistentObject extends OntologyObject
 		// Init local storage.
 		//
 		$tags = array_keys( $theStructure );
-		$exclude = array_merge( static::InternalOffsets(),
-								static::ExternalOffsets(),
-								static::DynamicOffsets() );
+		$exclude = array_merge( static::InternalOffsets(), static::UnmanagedOffsets() );
 		
 		//
 		// Iterate properties.

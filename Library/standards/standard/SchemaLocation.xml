@@ -94,6 +94,12 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:elevation:error</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- Shape -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:shape</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	
 		<!-- Coordinates -->
 	

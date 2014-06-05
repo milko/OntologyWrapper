@@ -430,9 +430,13 @@ class ResultAggregator
 													  $doRefObjects = TRUE )
 	{
 		//
-		// Init local storage.
+		// Get object class.
 		//
 		$class = $theObject[ kTAG_CLASS ];
+		
+		//
+		// Get list of tags to be excluded from the object.
+		//
 		$exclude
 			= array_diff(
 				array_merge(											// Exclude

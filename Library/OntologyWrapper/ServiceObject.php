@@ -803,7 +803,7 @@ abstract class ServiceObject extends ContainerObject
 	 *
 	 * <ul>
 	 *	<li><em>Check criteria</em>: The method will check whether the criteria was
-	 *		.
+	 *		provided.
 	 *	<li><em>Validate group</em>: If the group parameter was provided, we clear the
 	 *		results type parameter.
 	 *	<li><em>Validate results type</em>: If the group parameter was not provided, we
@@ -2358,8 +2358,7 @@ abstract class ServiceObject extends ContainerObject
 			// Filter untracked tags.
 			//
 			$criteria[ (string) kTAG_ID_SEQUENCE ]
-				= array( '$nin' => array_merge( UnitObject::ExternalOffsets(),
-												UnitObject::DynamicOffsets() ) );
+				= array( '$nin' => UnitObject::UnmanagedOffsets() );
 		
 		} // Searching tags
 		
@@ -3062,8 +3061,8 @@ abstract class ServiceObject extends ContainerObject
 		foreach( $iterator as $key => $value )
 			$theContainer[]
 				= array( kAPI_PARAM_RESPONSE_IDENT => $key,
-						 kTAG_SHAPE_TYPE = $value[ $shape[ kTAG_SHAPE_TYPE ] ],
-						 kTAG_SHAPE_GEOMETRY = $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
+						 kTAG_SHAPE_TYPE => $value[ $shape[ kTAG_SHAPE_TYPE ] ],
+						 kTAG_SHAPE_GEOMETRY => $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
 		
 	} // executeMarkerUnits.
 

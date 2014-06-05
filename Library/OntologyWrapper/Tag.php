@@ -1018,12 +1018,17 @@ class Tag extends PersistentObject
 		if( $this->offsetExists( kTAG_TAG_STRUCT_IDX ) )
 		{
 			//
+			// Get data type and kind.
+			//
+			$type = $this->offsetGet( kTAG_DATA_TYPE );
+			$kind = $this->offsetGet( kTAG_DATA_KIND );
+			
+			//
 			// Assert current tag is a list of structures.
 			//
-			if( (! $this->offsetExists( kTAG_DATA_TYPE ))
-			 || ($this->offsetGet( kTAG_DATA_TYPE ) != kTYPE_STRUCT)
-			 || (! $this->offsetExists( kTAG_DATA_KIND ))
-			 || (! array_key_exists( kTYPE_LIST, $this->offsetGet( kTAG_DATA_KIND ) )) )
+			if( ($type != kTYPE_STRUCT)
+			 || ($kind === NULL)
+			 || (! in_array( kTYPE_LIST, $kind )) )
 				throw new \Exception(
 					"Cannot be a structure list index: "
 				   ."The current tag is not a structure and not a list." );		// !@! ==>
