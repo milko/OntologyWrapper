@@ -30,11 +30,11 @@ use OntologyWrapper\CollectionObject;
  * <ul>
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the {@link kDOMAIN_FOREST}
  *		constant.
- *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the forest country which
- *		is found by default in the <tt>:location:country</tt> tag.
- *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is not handled by default.
+ *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the first three
+ *		characters of the unit number.
  *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the value of the
- *		<tt>fcu:unit:number</tt> tag.
+ *		<tt>fcu:unit:number</tt> tag starting from character 4.
+ *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is not handled by default.
  *	<li><tt>{@link kTAG_VERSION}</tt>: This attribute is set with the value of the
  *		<tt>fcu:unit:data-collection</tt> tag.
  * </ul>
@@ -42,10 +42,10 @@ use OntologyWrapper\CollectionObject;
  * The object can be considered initialised when it has at least the domain, identifier and
  * version.
  *
- *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@author		Milko A. kofi <m.skofic@cgiar.org>
  *	@version	1.00 05/06/2014
  */
-abstract class ForestUnit extends UnitObject
+class ForestUnit extends UnitObject
 {
 	/**
 	 * Default domain.
@@ -304,6 +304,11 @@ abstract class ForestUnit extends UnitObject
 	protected function preCommitPrepare( &$theTags, &$theRefs )
 	{
 		//
+		// Init local storage.
+		//
+		$id = $this->offsetGet( 'fcu:unit:number' );
+		
+		//
 		// Check domain.
 		//
 		if( ! $this->offsetExists( kTAG_DOMAIN ) )
@@ -313,9 +318,14 @@ abstract class ForestUnit extends UnitObject
 		//
 		// Check identifier.
 		//
+		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+			$this->offsetSet( kTAG_IDENTIFIER, substr( $id, 3 ) );
+		
+		//
+		// Check authority.
+		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
-			$this->offsetSet( kTAG_AUTHORITY,
-							  $this->offsetGet( 'fcu:unit:number' );
+			$this->offsetSet( kTAG_AUTHORITY, substr( $id, 0, 3 ) );
 		
 		//
 		// Check version.

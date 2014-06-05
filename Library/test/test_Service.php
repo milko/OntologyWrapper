@@ -1500,6 +1500,49 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+	
+	//
+	// Get FCU structure offsets flattened.
+	//
+	echo( '<h4>Get FCU structure offsets flattened</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 0 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Get FCU structure offsets structured.
+	//
+	echo( '<h4>Get FCU structure offsets structured</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 1 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Get FCU structure tags structured.
+	//
+	echo( '<h4>Get FCU structure tags structured</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 2 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
 }
 
 //
