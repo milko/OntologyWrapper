@@ -47,6 +47,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Types.inc.php" );
 require_once( kPATH_DEFINITIONS_ROOT."/Tokens.inc.php" );
 
 /**
+ * Predicates.
+ *
+ * This file contains the default predicate definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
+
+/**
  * ISO definitions.
  *
  * This file contains the default ISO definitions.
@@ -1758,9 +1765,9 @@ class Wrapper extends Dictionary
 		//
 		switch( $theType )
 		{
+			case 0:
 			case 1:
 			case 2:
-			case 3:
 				break;
 			
 			default:

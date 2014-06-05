@@ -191,9 +191,17 @@ class Service extends ServiceObject
 					case kAPI_PARAM_CRITERIA:
 					case kAPI_PARAM_DOMAIN:
 					case kAPI_PARAM_DATA:
-					case kAPI_PARAM_GROUP:
 					case kAPI_PARAM_SHAPE:
 					case kAPI_PARAM_SHAPE_OFFSET:
+						$this->offsetSet( $theKey, $theValue );
+						break;
+					
+					case kAPI_PARAM_GROUP:
+						if( ( is_array( $theValue )
+						   && (count( $theValue ) == 1)
+						   && ($theValue[ 0 ] == kTAG_DOMAIN) )
+						 || ($theValue == kTAG_DOMAIN) )
+							$theValue = Array();
 						$this->offsetSet( $theKey, $theValue );
 						break;
 

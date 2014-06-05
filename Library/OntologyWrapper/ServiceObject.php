@@ -899,7 +899,7 @@ abstract class ServiceObject extends ContainerObject
 					throw new \Exception(
 						"Group element [ "
 					   .$tmp[ $key ]
-					   ."] must be an enumerated set." );					// !@! ==>
+					   ."] must be an enumerated set." );						// !@! ==>
 			}
 			
 			//
@@ -913,7 +913,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			elseif( $tmp[ count( $tmp ) - 1 ] != kTAG_DOMAIN )
 				throw new \Exception(
-					"Domain must be last group element." );					// !@! ==>
+					"Domain must be last group element." );						// !@! ==>
 			
 			//
 			// Update parameter.
@@ -937,13 +937,13 @@ abstract class ServiceObject extends ContainerObject
 				// Skip untracked offsets.
 				//
 				if( in_array( $tmp[ $key ], $untracked ) )
-					continue;											// =>
+					continue;												// =>
 				
 				//
 				// Skip existing.
 				//
 				if( array_key_exists( $groups[ $key ], $criteria ) )
-					continue;											// =>
+					continue;												// =>
 				
 				//
 				// Add to criteria.
@@ -965,25 +965,28 @@ abstract class ServiceObject extends ContainerObject
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
 				throw new \Exception(
-					"Missing results type parameter." );					// !@! ==>
+					"Missing results type parameter." );						// !@! ==>
 	
 			//
 			// Assert result kind.
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
 				throw new \Exception(
-					"Missing results kind parameter." );					// !@! ==>
+					"Missing results kind parameter." );						// !@! ==>
 			else
 			{
 				switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
 				{
-					case kAPI_RESULT_ENUM_DATA_RECORD:
 					case kAPI_RESULT_ENUM_DATA_MARKER:
+						if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+							throw new \Exception(
+								"Missing shape offset." );						// !@! ==>
+					case kAPI_RESULT_ENUM_DATA_RECORD:
 						break;
 					
 					default:
 						throw new \Exception(
-							"Invalid result type [$tmp]." );				// !@! ==>
+							"Invalid result type [$tmp]." );					// !@! ==>
 						break;
 				}
 			}
@@ -993,7 +996,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
 				throw new \Exception(
-					"Missing paging limits parameter." );					// !@! ==>
+					"Missing paging limits parameter." );						// !@! ==>
 		
 			//
 			// Normalise limits.
@@ -1013,7 +1016,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
 				throw new \Exception(
-					"Missing shape offset reference parameter." );			// !@! ==>
+					"Missing shape offset reference parameter." );				// !@! ==>
 			
 			//
 			// Get shape.
@@ -1033,6 +1036,13 @@ abstract class ServiceObject extends ContainerObject
 						 kAPI_PARAM_SHAPE => $shape );
 	
 		} // Provided shape.
+		
+		//
+		// Validate shape offset.
+		//
+		if( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+			$criteria[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
 		
 		//
 		// Update criteria.
@@ -1590,7 +1600,6 @@ abstract class ServiceObject extends ContainerObject
 				$this->mFilter[ $cluster_key ]
 					= array( kAPI_PARAM_VALUE_COUNT => 0,
 							 kAPI_PARAM_CRITERIA => Array() );
-				
 			
 			//
 			// Reference cluster, values counter and criteria.
@@ -3026,7 +3035,7 @@ abstract class ServiceObject extends ContainerObject
 				UnitObject::ResolveDatabase(
 					$this->mWrapper ) )
 						->matchAll( $this->mFilter,
-									kQUERY_OBJECT,
+									kQUERY_ARRAY,
 									array( $shape => TRUE ) );
 		
 		//

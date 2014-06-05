@@ -141,7 +141,8 @@ try
 	//
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
-	
+
+/*	
 //
 // Test two fields with values (group).
 //
@@ -185,6 +186,7 @@ echo( kSTYLE_TABLE_POS );
 echo( '<hr>' );
 echo( '<hr>' );
 exit;
+*/
 	//
 	// Try empty URL.
 	//
@@ -637,42 +639,6 @@ exit;
 	echo( '<hr>' );
 
 	//
-	// Try getTagEnumerations for ":location:country".
-	//
-	echo( '<h4>Try getTagEnumerations for ":location:country"</h4>' );
-	$term = ':location:country';
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PAGING_LIMIT => 300,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_TAG => $term
-	);
-	$request = "$base_url?op=".kAPI_OP_GET_TAG_ENUMERATIONS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
 	// Try getTagEnumerations for ":type:entity".
 	//
 	echo( '<h4>Try getTagEnumerations for ":type:entity"</h4>' );
@@ -748,7 +714,7 @@ exit;
 	//
 	// Try getNodeEnumerations for ":type:entity:100".
 	//
-	echo( '<h4>Try getTagEnumerations for ":type:entity:100"</h4>' );
+	echo( '<h4>Try getNodeEnumerations for ":type:entity:100"</h4>' );
 	$node = $result[ kAPI_RESPONSE_RESULTS ][ 0 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
@@ -784,7 +750,7 @@ exit;
 	//
 	// Try getNodeEnumerations for ":type:entity:120".
 	//
-	echo( '<h4>Try getTagEnumerations for ":type:entity:120"</h4>' );
+	echo( '<h4>Try getNodeEnumerations for ":type:entity:120"</h4>' );
 	$node = $result[ kAPI_RESPONSE_RESULTS ][ 1 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
@@ -841,7 +807,7 @@ exit;
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
 			)
 		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
+		kAPI_PARAM_GROUP => Array()
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -888,7 +854,7 @@ exit;
 				)
 			)
 		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
+		kAPI_PARAM_GROUP => Array()
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -1465,7 +1431,7 @@ exit;
 										 array( 12.857,42.8223 ),
 										 array( 12.8566,42.8332 ),
 										 array( 12.8344,42.8347 ) ) ) ),
-		kAPI_PARAM_SHAPE_OFFSET => ':geo',
+		kAPI_PARAM_SHAPE_OFFSET => ':shape',
 		kAPI_PARAM_GROUP => kTAG_DOMAIN
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
@@ -1501,6 +1467,7 @@ exit;
 	(
 		kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
 			':name' => array
@@ -1515,7 +1482,7 @@ exit;
 			)
 		),
 		kAPI_PARAM_DOMAIN => ':domain:organisation',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
