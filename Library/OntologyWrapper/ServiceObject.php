@@ -2329,8 +2329,8 @@ abstract class ServiceObject extends ContainerObject
 		// Set property.
 		//
 		$property = (string) ( $language == '*' )
-				  ? (kTAG_LABEL.'.'.kTAG_TEXT)
-				  : kTAG_TEXT;
+				  ? (kTAG_LABEL.'.'.kTAG_GEN_TEXT)
+				  : kTAG_GEN_TEXT;
 		
 		//
 		// Init criteria.
@@ -2341,8 +2341,8 @@ abstract class ServiceObject extends ContainerObject
 			(
 				'$elemMatch' => array
 				(
-					(string) kTAG_TEXT => $filter,
-					(string) kTAG_LANGUAGE => $language
+					(string) kTAG_GEN_TEXT => $filter,
+					(string) kTAG_GEN_LANGUAGE => $language
 				)
 			)
 		);
@@ -2469,19 +2469,19 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Match language.
 				//
-				if( $element[ kTAG_LANGUAGE ] == $language )
+				if( $element[ kTAG_GEN_LANGUAGE ] == $language )
 				{
 					//
 					// Skip duplicates.
 					//
-					if( ! in_array( $element[ kTAG_TEXT ],
+					if( ! in_array( $element[ kTAG_GEN_TEXT ],
 									$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
 					{
 						//
 						// Add to results.
 						//
 						$this->mResponse[ kAPI_RESPONSE_RESULTS ][]
-							= $element[ kTAG_TEXT ];
+							= $element[ kTAG_GEN_TEXT ];
 					
 						//
 						// Decrement limits.
@@ -3576,7 +3576,7 @@ abstract class ServiceObject extends ContainerObject
 												> 1 )
 										? array( '$in'
 											=> $criteria[ kAPI_RESULT_ENUM_TERM ] )
-										: $criteria[ kAPI_RESULT_ENUM_TERM ];
+										: $criteria[ kAPI_RESULT_ENUM_TERM ][ 0 ];
 									
 									if( $parent_cri !== NULL )
 										$criteria_ref[] = array( $offset => $clause );

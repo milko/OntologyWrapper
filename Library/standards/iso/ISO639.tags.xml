@@ -14,14 +14,14 @@
 		 <TERM ns="iso:639" lid="scope">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language Scope</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language Scope</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Scope of denotation for language identifiers.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Scope of denotation for language identifiers.</item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 639 language scope codes.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all ISO 639 language scope codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -47,14 +47,14 @@
 		<TERM ns="iso:639:scope" lid="I">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Individual</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Individual</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A distinct individual language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A distinct individual language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -73,14 +73,14 @@
 		<TERM ns="iso:639:scope" lid="M">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Macrolanguage</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Macrolanguage</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language that corresponds in a one-to-many manner with several individual languages.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language that corresponds in a one-to-many manner with several individual languages.</item>
 				</item>
 			</item>
 		</TERM>
@@ -99,14 +99,14 @@
 		<TERM ns="iso:639:scope" lid="C">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collection of languages</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Collection of languages</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A collective language code item is an identifier that represents a group of individual languages that are not deemed to be one language in any usage context.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A collective language code item is an identifier that represents a group of individual languages that are not deemed to be one language in any usage context.</item>
 				</item>
 			</item>
 		</TERM>
@@ -125,14 +125,14 @@
 		<TERM ns="iso:639:scope" lid="D">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Dialect</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Dialect</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Sub-variety of a language such as might be based on geographic region, age, gender, social class, time period, or the like.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Sub-variety of a language such as might be based on geographic region, age, gender, social class, time period, or the like.</item>
 				</item>
 			</item>
 		</TERM>
@@ -151,14 +151,14 @@
 		<TERM ns="iso:639:scope" lid="R">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Reserved</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Reserved</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Reserved for local use.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Reserved for local use.</item>
 				</item>
 			</item>
 		</TERM>
@@ -177,14 +177,14 @@
 		<TERM ns="iso:639:scope" lid="S">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Special</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Special</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Special situation.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Special situation.</item>
 				</item>
 			</item>
 		</TERM>
@@ -216,8 +216,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language scope.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute indicates the ISO 639 language scope.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -236,14 +236,14 @@
 		 <TERM ns="iso:639" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Scope of denotation for language identifiers.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Scope of denotation for language identifiers.</item>
 				</item>
 			</item>
 		</TERM>
@@ -254,8 +254,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 639 language type codes.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all ISO 639 language type codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -269,14 +269,14 @@
 		<TERM ns="iso:639:type" lid="L">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Living</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Living</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A language is listed as living when there are people still living who learned it as a first language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A language is listed as living when there are people still living who learned it as a first language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -295,14 +295,14 @@
 		<TERM ns="iso:639:type" lid="E">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Extinct</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Extinct</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language that is no longer living.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language that is no longer living.</item>
 				</item>
 			</item>
 		</TERM>
@@ -321,14 +321,14 @@
 		<TERM ns="iso:639:type" lid="A">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Ancient</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Ancient</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A language went extinct in ancient times (e.g. more than a millennium ago).</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A language went extinct in ancient times (e.g. more than a millennium ago).</item>
 				</item>
 			</item>
 		</TERM>
@@ -347,14 +347,14 @@
 		<TERM ns="iso:639:type" lid="H">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Historic</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Historic</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A language considered to be distinct from any modern languages that are descended from it; for instance, Old English and Middle English.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A language considered to be distinct from any modern languages that are descended from it; for instance, Old English and Middle English.</item>
 				</item>
 			</item>
 		</TERM>
@@ -373,14 +373,14 @@
 		<TERM ns="iso:639:type" lid="C">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Constructed</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Constructed</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">A constructed (or artificial) language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">A constructed (or artificial) language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -399,14 +399,14 @@
 		<TERM ns="iso:639:type" lid="S">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Special</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Special</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Special language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Special language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -425,14 +425,14 @@
 		<TERM ns="iso:639:type" lid="Genetic">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Genetic</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Genetic</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">In linguistics, genetic relationship is the usual TERM for the relationship which exists between languages that are members of the same language family, mixed languages, pidgins and creole languages constitute special genetic types of languages.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">In linguistics, genetic relationship is the usual TERM for the relationship which exists between languages that are members of the same language family, mixed languages, pidgins and creole languages constitute special genetic types of languages.</item>
 				</item>
 			</item>
 		</TERM>
@@ -451,14 +451,14 @@
 		<TERM ns="iso:639:type" lid="Genetic-like">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Genetic-like</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Genetic-like</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Genetic-like language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Genetic-like language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -477,14 +477,14 @@
 		<TERM ns="iso:639:type" lid="Geographic">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Geographic</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Geographic</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Geographic language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Geographic language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -516,8 +516,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates the ISO 639 language type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute indicates the ISO 639 language type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -536,14 +536,14 @@
 		 <TERM ns="iso:639" lid="status">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language status</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language status</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Status of individual language.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Status of individual language.</item>
 				</item>
 			</item>
 		</TERM>
@@ -574,14 +574,14 @@
 		 <TERM ns="iso:639" lid="inverted_name">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language inverted name</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language inverted name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">An inverted name is one that is altered from the usual English-language order by moving adjectival qualifiers to the end, after the main language name and separated by a comma.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">An inverted name is one that is altered from the usual English-language order by moving adjectival qualifiers to the end, after the main language name and separated by a comma.</item>
 				</item>
 			</item>
 		</TERM>
@@ -612,14 +612,14 @@
 		 <TERM ns="iso:639" lid="common_name">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Common name</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Common name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language common name.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language common name.</item>
 				</item>
 			</item>
 		</TERM>

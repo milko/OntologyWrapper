@@ -14,14 +14,14 @@
 		 <TERM lid="_tags">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Tag</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tag</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a data property, it represents the <i>metadata</i> of the property, or its <i>definition</i> in an ontology.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a data property, it represents the <i>metadata</i> of the property, or its <i>definition</i> in an ontology.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of tag objects.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains all default properties of tag objects.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -46,8 +46,8 @@
 		<NODE term="_id" pid="_tags:_id">
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds a string value which represents the global identifier of the current object. This identifier is immutable and represents the unique key. This string is constituted by the concatenation of all term references stored in the current object's branch. This attribute is automatically assigned and is only available as read-only.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute holds a string value which represents the global identifier of the current object. This identifier is immutable and represents the unique key. This string is constituted by the concatenation of all term references stored in the current object's branch. This attribute is automatically assigned and is only available as read-only.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -65,8 +65,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds an integer value which represents the current object's sequence number, as with the global identifier, this value must be unique, except that it may change across implementations. All offset keys in all objects derived from this class ancestor are references to this sequence number. This attribute is automatically assigned and only available as read-only.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute holds an integer value which represents the current object's sequence number, as with the global identifier, this value must be unique, except that it may change across implementations. All offset keys in all objects derived from this class ancestor are references to this sequence number. This attribute is automatically assigned and only available as read-only.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -84,8 +84,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -103,8 +103,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds the list of terms comprising the current tag: this is an array of term references provided as an odd sequence of vertices and predicates forming a path of the ontology graph in which the first vertex defines the feature, the middle ones define the methodology and the last element indicates the scale or unit. This attribute is only available as read-only.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute holds the list of terms comprising the current tag: this is an array of term references provided as an odd sequence of vertices and predicates forming a path of the ontology graph in which the first vertex defines the feature, the middle ones define the methodology and the last element indicates the scale or unit. This attribute is only available as read-only.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -122,8 +122,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated value indicating the <em>data type</em> that the value of the property defined by the current tag may take.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is an enumerated value indicating the <em>data type</em> that the value of the property defined by the current tag may take.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -145,8 +145,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated set of values providing the <em>data attributes</em> of the property defined by the current tag. This may be whether the property is a list of values, or if the property is required or not.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is an enumerated set of values providing the <em>data attributes</em> of the property defined by the current tag. This may be whether the property is a list of values, or if the property is required or not.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -168,8 +168,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The label represents the <i>name or short description</i> of the data property that the current object defines. All tags <em>should</em> have a label, since this is how human users will be able to identify and select them. This property is constituted by a list of elements containing the language and text of the label.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The label represents the <i>name or short description</i> of the data property that the current object defines. All tags <em>should</em> have a label, since this is how human users will be able to identify and select them. This property is constituted by a list of elements containing the language and text of the label.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -187,8 +187,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The description represents the <i>description or extended definition</i> of the property that the current tag defines. The description is similar to the <em>definition</em>, except that while the definition provides a definition unrelated to context, the description adds to the definition the elements added by the current context. All tags <em>should</em> have a description if the tag label is not enough to provide a sufficient description or definition. This property is constituted by a list of elements containing the language and text of the description.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The description represents the <i>description or extended definition</i> of the property that the current tag defines. The description is similar to the <em>definition</em>, except that while the definition provides a definition unrelated to context, the description adds to the definition the elements added by the current context. All tags <em>should</em> have a description if the tag label is not enough to provide a sufficient description or definition. This property is constituted by a list of elements containing the language and text of the description.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -206,8 +206,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>set of strings</em> representing <em>alternate identifiers of this tag</em>, not formally defined in the current data set.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is a <em>set of strings</em> representing <em>alternate identifiers of this tag</em>, not formally defined in the current data set.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -225,8 +225,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>minimum featured value</em> of the property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is a floating point value representing the <em>minimum featured value</em> of the property.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -244,8 +244,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>maximum featured value</em> of the property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is a floating point value representing the <em>maximum featured value</em> of the property.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -263,8 +263,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents a <em>regular expression pattern</em> which can be used to <em>validate data identified by this tag</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents a <em>regular expression pattern</em> which can be used to <em>validate data identified by this tag</em>.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -282,8 +282,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by other tag objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by other tag objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -301,8 +301,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by term objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by term objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -320,8 +320,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by node objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by node objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -339,8 +339,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by edge objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by edge objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -358,8 +358,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by unit objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by unit objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -377,8 +377,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by entity objects as a leaf offset, that is, an offset holding a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is handled automatically and should not be modified by clients, it collects all the offsets (sequence of tags indicating the structure path to a leaf offset) in which the tag was used by entity objects as a leaf offset, that is, an offset holding a value.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -396,8 +396,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a tag object reference that must be a structure, if set, it indicates that the property defined by the current tag must be stored as a sub-element of the property referenced by the the value of this attribute. This means that whenever a property defined by a tag featuring this offset is stored in an object, this property must be placed inside of the offset referenced by the value of this attribute.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds a tag object reference that must be a structure, if set, it indicates that the property defined by the current tag must be stored as a sub-element of the property referenced by the the value of this attribute. This means that whenever a property defined by a tag featuring this offset is stored in an object, this property must be placed inside of the offset referenced by the value of this attribute.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -415,8 +415,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute should only be featured by tags which define a list of structures. The value of this attribute is a tag object reference which represents the structure element which acts as the list index. This means that no two elements of a list of structures may share the same value in the offset defined by the current attribute. This also means that the offset defined in this property <em>is required</em> by the hosting structure.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute should only be featured by tags which define a list of structures. The value of this attribute is a tag object reference which represents the structure element which acts as the list index. This means that no two elements of a list of structures may share the same value in the offset defined by the current attribute. This also means that the offset defined in this property <em>is required</em> by the hosting structure.]]></item>
 				</item>
 			</item>
 		</NODE>

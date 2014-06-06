@@ -460,25 +460,25 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_TYPE => array
+		kTAG_GEN_TYPE => array
 		(
 			kTAG_NID	=> ':type',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		kTAG_LANGUAGE => array
+		kTAG_GEN_LANGUAGE => array
 		(
 			kTAG_NID	=> ':language',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
 		),
-		kTAG_TEXT => array
+		kTAG_GEN_TEXT => array
 		(
 			kTAG_NID	=> ':text',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_URL => array
+		kTAG_GEN_URL => array
 		(
 			kTAG_NID	=> ':url',
 			kTAG_DATA_TYPE	=> kTYPE_URL,

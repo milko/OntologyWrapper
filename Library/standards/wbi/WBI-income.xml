@@ -12,14 +12,14 @@
 		<TERM ns="wbi" lid="income">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Income classification group</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Income classification group</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">World Bank Institute income classification group.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">World Bank Institute income classification group.</item>
 				</item>
 			</item>
 		</TERM>
@@ -30,8 +30,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Income classification group type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Income classification group type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -53,8 +53,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Arab World]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Arab World]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -76,8 +76,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Central America (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Central America (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -99,8 +99,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Central Asia (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Central Asia (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -122,8 +122,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Central Africa (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Central Africa (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -145,8 +145,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Caribbean (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Caribbean (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -168,8 +168,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Caribbean small states]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Caribbean small states]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -191,8 +191,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[East Asia & Pacific (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[East Asia & Pacific (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -214,8 +214,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[East Asia & Pacific (all income levels)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[East Asia & Pacific (all income levels)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -237,8 +237,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Europe & Central Asia (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Europe & Central Asia (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -260,8 +260,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Europe & Central Asia (all income levels)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Europe & Central Asia (all income levels)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -283,8 +283,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Eastern Europe (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Eastern Europe (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -306,8 +306,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Euro area]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Euro area]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -329,8 +329,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[East and Southern Africa (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[East and Southern Africa (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -352,8 +352,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Eastern Asia (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Eastern Asia (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -375,8 +375,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[European Union]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[European Union]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -398,8 +398,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[High income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[High income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -421,8 +421,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Heavily indebted poor countries (HIPC)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Heavily indebted poor countries (HIPC)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -444,8 +444,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IBRD, including blend]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IBRD, including blend]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -467,8 +467,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IBRD only]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IBRD only]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -490,8 +490,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IDA & IBRD total]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IDA & IBRD total]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -513,8 +513,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IDA total]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IDA total]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -536,8 +536,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IDA blend]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IDA blend]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -559,8 +559,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IDA only]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[IDA only]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -582,8 +582,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Latin America & Caribbean (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Latin America & Caribbean (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -605,8 +605,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Latin America & Caribbean (all income levels)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Latin America & Caribbean (all income levels)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -628,8 +628,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Least developed countries: UN classification]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Least developed countries: UN classification]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -651,8 +651,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Low income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Low income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -674,8 +674,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Lower middle income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Lower middle income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -697,8 +697,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Low & middle income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Low & middle income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -720,8 +720,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Middle East (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Middle East (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -743,8 +743,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Middle East & North Africa (all income levels)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Middle East & North Africa (all income levels)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -766,8 +766,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Middle income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Middle income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -789,8 +789,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Middle East & North Africa (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Middle East & North Africa (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -812,8 +812,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[North America]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[North America]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -835,8 +835,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[North Africa]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[North Africa]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -858,8 +858,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[High income: non OECD]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[High income: non OECD]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -881,8 +881,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[High income: OECD]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[High income: OECD]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -904,8 +904,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[OECD members]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[OECD members]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -927,8 +927,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other small states]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Other small states]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -950,8 +950,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Pacific (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Pacific (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -973,8 +973,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Pacific island small states]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Pacific island small states]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -996,8 +996,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[South America (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[South America (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1019,8 +1019,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[South Asia]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[South Asia]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1042,8 +1042,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[South Asia, excluding India]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[South Asia, excluding India]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1065,8 +1065,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[South-Eastern Asia (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[South-Eastern Asia (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1088,8 +1088,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Southern Europe (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Southern Europe (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1111,8 +1111,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Sub-Saharan Africa (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Sub-Saharan Africa (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1134,8 +1134,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Sub-Saharan Africa (all income levels)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Sub-Saharan Africa (all income levels)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1157,8 +1157,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Small states]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Small states]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1180,8 +1180,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Upper middle income]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Upper middle income]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1203,8 +1203,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[West Africa (developing only)]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[West Africa (developing only)]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1226,8 +1226,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[World]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[World]]></item>
 				</item>
 			</item>
 		</TERM>

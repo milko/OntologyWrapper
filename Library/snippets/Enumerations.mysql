@@ -1,0 +1,32 @@
+--
+-- `ANCILLARY`.`Code_GeodeticDatum`.
+--
+SELECT
+	CONCAT(	"	<!-- :location:datum:", `Code`, " -->\n",
+			"	<META>\n",
+			"		<TERM ns=\":location:datum\" lid=\"", `Code`, "\">\n",
+			"			<item const=\"kTAG_LABEL\">\n",
+			"				<item>\n",
+			"					<item const=\"kTAG_LANGUAGE\">en</item>\n",
+			"					<item const=\"kTAG_TEXT\"><![CDATA[", `Name`, "]]></item>\n",
+			"				</item>\n",
+			"			</item>\n",
+			"			<item tag=\":location:datum:DeltaA\">", `DeltaA`, "</item>\n",
+			"			<item tag=\":location:datum:DeltaF\">", `DeltaF`, "</item>\n",
+			"			<item tag=\":location:datum:X\">", `X`, "</item>\n",
+			"			<item tag=\":location:datum:Y\">", `Y`, "</item>\n",
+			"			<item tag=\":location:datum:Z\">", `Z`, "</item>\n",
+			"		</TERM>\n",
+			"		<NODE>\n",
+			"			<item const=\"kTAG_NODE_TYPE\">\n",
+			"				<item>:type:node:type</item>\n",
+			"				<item>:kind:enumerated-node</item>\n",
+			"			</item>\n",
+			"		</NODE>\n",
+			"		<EDGE>\n",
+			"			<item const=\"kTAG_PREDICATE\">:predicate:ENUM-OF</item>\n",
+			"			<item const=\"kTAG_OBJECT\" node=\"term\">:location:datum</item>\n",
+			"		</EDGE>\n",
+			"	</META>" )
+FROM
+	`Code_GeodeticDatum`

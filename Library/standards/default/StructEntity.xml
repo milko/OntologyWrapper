@@ -14,14 +14,14 @@
 		 <TERM lid="_entities">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Entities represent <em>people</em> and <em>organisations</em>, it generally represents the collection of <em>ctors</em> in the system.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Entities represent <em>people</em> and <em>organisations</em>, it generally represents the collection of <em>ctors</em> in the system.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of entity objects.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains all default properties of entity objects.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -46,8 +46,8 @@
 		<NODE term="_id" pid="_entities:_id">
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Entities are identified by the combination of the domain, authority, collection and identifier.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Entities are identified by the combination of the domain, authority, collection and identifier.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -92,8 +92,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the entity vertex stored in the graph database.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the entity vertex stored in the graph database.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -113,8 +113,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute represents the name of the entity.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute represents the name of the entity.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -132,8 +132,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the type of entity, this enumerated set indicates <em>what</em> the entity is.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the type of entity, this enumerated set indicates <em>what</em> the entity is.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -155,8 +155,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the kind of entity, this enumerated set indicates entity <em>activities</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the kind of entity, this enumerated set indicates entity <em>activities</em>.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -178,8 +178,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the mailing addresses of the entity, it is a list of addresses discriminated by their type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the mailing addresses of the entity, it is a list of addresses discriminated by their type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -197,8 +197,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the e-mail addresses of the entity, it is a list of e-mails discriminated by their type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the e-mail addresses of the entity, it is a list of e-mails discriminated by their type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -216,8 +216,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the telephone numbers of the entity, it is a list of phones discriminated by their type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the telephone numbers of the entity, it is a list of phones discriminated by their type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -235,8 +235,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents the telefax numbers of the entity, it is a list of faxes discriminated by their type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents the telefax numbers of the entity, it is a list of faxes discriminated by their type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -254,8 +254,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute indicates which is the nationality of the entity, it is an enumerated value that represents the ISO country code, including legacy for historical reasons.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute indicates which is the nationality of the entity, it is an enumerated value that represents the ISO country code, including legacy for historical reasons.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -273,8 +273,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute contains the list of entities to which the current entity is affiliated. The attribute is a list of elements each containing two items: the type of affiliation and the affiliated entity native identifier.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute contains the list of entities to which the current entity is affiliated. The attribute is a list of elements each containing two items: the type of affiliation and the affiliated entity native identifier.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -292,8 +292,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute represents a reference to the entity that is currently in use or that is preferred. This attribute is featured by obsolete or replaced entities and points to the entity which currently replaces them. This is used to maintain a historical record of entities: objects derived from this class should never be deleted.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute represents a reference to the entity that is currently in use or that is preferred. This attribute is featured by obsolete or replaced entities and points to the entity which currently replaces them. This is used to maintain a historical record of entities: objects derived from this class should never be deleted.]]></item>
 				</item>
 			</item>
 		</NODE>

@@ -18,8 +18,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all domains.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all domains.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -32,14 +32,14 @@
 		<TERM ns=":domain" lid="attribute">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Attribute</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Attribute</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>data property attributes</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>data property attributes</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -59,14 +59,14 @@
 		<TERM ns=":domain" lid="property">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Property</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Property</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>data properties</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>data properties</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -86,14 +86,14 @@
 		<TERM ns=":domain" lid="unit">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Unit</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>generic units</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>generic units</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -113,14 +113,14 @@
 		<TERM ns=":domain" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>persons</em>, <em>institutions</em> and <em>organisations</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>persons</em>, <em>institutions</em> and <em>organisations</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -140,14 +140,14 @@
 		<TERM ns=":domain" lid="individual">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Person</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Person</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>entities representing an individual</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>entities representing an individual</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -167,14 +167,14 @@
 		<TERM ns=":domain" lid="organisation">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Organisation</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Organisation</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>entities representing an organisation</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>entities representing an organisation</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -194,14 +194,14 @@
 		<TERM ns=":domain" lid="occurrence">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Occurrence</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Occurrence</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>generic occurrences</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>generic occurrences</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -221,14 +221,14 @@
 		<TERM ns=":domain" lid="forest">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Forest</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Forest</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>forest gene conservation units and their target species populations</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>forest gene conservation units and their target species populations</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -248,14 +248,14 @@
 		<TERM ns=":domain" lid="landrace">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Landrace</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Landrace</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing a landrace and its environment</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>units representing a landrace and its environment</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -275,14 +275,14 @@
 		<TERM ns=":domain" lid="specimen">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Specimen</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Specimen</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>samples</em> and <em>specimens</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>samples</em> and <em>specimens</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -302,14 +302,14 @@
 		<TERM ns=":domain" lid="accession">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Accession</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Accession</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing an ex-situ sample conserved in a gene bank</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>units representing an ex-situ sample conserved in a gene bank</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -329,14 +329,14 @@
 		<TERM ns=":domain" lid="event">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Event</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Event</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>generic events</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>generic events</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -356,14 +356,14 @@
 		<TERM ns=":domain" lid="trial">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Trial</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Trial</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing a controlled experiment on a set of samples</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>units representing a controlled experiment on a set of samples</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -383,14 +383,14 @@
 		<TERM ns=":domain" lid="taxon">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Taxon</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Taxon</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>taxa</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>taxa</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -410,14 +410,14 @@
 		<TERM ns=":domain" lid="cwr-checklist">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Crop wild relative checklist</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Crop wild relative checklist</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing crop wild relative checklists</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>units representing crop wild relative checklists</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -437,14 +437,14 @@
 		<TERM ns=":domain" lid="cwr-inventory">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Crop wild relative inventory</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Crop wild relative inventory</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of <em>units representing crop wild relative inventories</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The domain of <em>units representing crop wild relative inventories</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

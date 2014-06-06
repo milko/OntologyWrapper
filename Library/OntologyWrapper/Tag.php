@@ -98,8 +98,8 @@ use OntologyWrapper\CollectionObject;
  *		short description</i> of the data property that the current object defines. All tags
  *		<em>should</em> have a label, since this is how human users will be able to identify
  *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
- *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
- *		holdsthe label language code and the {@link kTAG_TEXT} holds the label text. To
+ *		which is constituted by a list of elements in which the {@link kTAG_GEN_LANGUAGE} item
+ *		holdsthe label language code and the {@link kTAG_GEN_TEXT} holds the label text. To
  *		populate and handle labels by language, use the {@link Label()} offset accessor
  *		method.
  *	<li><tt>{@link kTAG_DESCRIPTION}</tt>: <em>Description</em>. The description tag
@@ -110,8 +110,8 @@ use OntologyWrapper\CollectionObject;
  *		context. All tags <em>should</em> have a description, if the tag label is not enough
  *		to provide a sufficient description or definition. Descriptions have the
  *		{@link kTYPE_LANGUAGE_STRINGS} data type, which is constituted by a list of elements
- *		in which the {@link kTAG_LANGUAGE} item holds the description language code and the
- *		{@link kTAG_TEXT} holds the description text. To populate and handle
+ *		in which the {@link kTAG_GEN_LANGUAGE} item holds the description language code and the
+ *		{@link kTAG_GEN_TEXT} holds the description text. To populate and handle
  *		descriptions by language, use the {@link Description()} offset accessor method.
  *	<li><tt>{@link kTAG_SYNONYM}</tt>: <em>Synonyms</em>. This attribute is a <em>set of
  *		strings</em> representing <em>alternate identifiers of this tag</em>, not formally

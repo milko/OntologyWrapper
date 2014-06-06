@@ -77,14 +77,14 @@ trait Definition
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_DEFINITION kTAG_LANGUAGE kTAG_TEXT
+	 * @see kTAG_DEFINITION kTAG_GEN_LANGUAGE kTAG_GEN_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function Definition( $theLanguage, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_TEXT,
+				kTAG_DEFINITION, kTAG_GEN_LANGUAGE, kTAG_GEN_TEXT,
 				$theLanguage, $theValue, $getOld );									// ==>
 	
 	} // Definition.

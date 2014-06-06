@@ -616,6 +616,28 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  *		flag parameter indicates that the response should contain all nested levels of the
  *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
  *		parameter will be ignored.
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter detewrmines what value the result parameter {@link kAPI_RESULT_ENUM_VALUE}
+ *		will hold: if provided, the parameter will hold the record count for that specific
+ *		enumeration in the collection referenced by the value of
+ *		{@link kAPI_PARAM_REF_COUNT}; if not provided, the {@link kAPI_RESULT_ENUM_VALUE}
+ *		hold <tt>TRUE</tt> if the enumeration is selectable. The value of this parameter
+ *		is a reference to the collection in which nthe enumeration is featured:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
+ *	 </ul>
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This parameter is required and
  *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
  *		indicates the maximum number of elements to be returned; if omitted, it will be
@@ -628,6 +650,7 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
  * <ul>
  *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_VALUE}</tt>: The selection flag or values count.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
@@ -657,6 +680,28 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
  *		considered only if the {@link kAPI_PARAM_RECURSE} parameter is not provided: it
  *		indicates the maximum number of elements to be returned; if omitted, it will be
  *		set to the default constant {@link kSTANDARDS_ENUMS_LIMIT}.
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter detewrmines what value the result parameter {@link kAPI_RESULT_ENUM_VALUE}
+ *		will hold: if provided, the parameter will hold the record count for that specific
+ *		enumeration in the collection referenced by the value of
+ *		{@link kAPI_PARAM_REF_COUNT}; if not provided, the {@link kAPI_RESULT_ENUM_VALUE}
+ *		hold <tt>TRUE</tt> if the enumeration is selectable. The value of this parameter
+ *		is a reference to the collection in which nthe enumeration is featured:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
+ *	 </ul>
  * </ul>
  *
  * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,

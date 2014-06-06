@@ -1349,12 +1349,12 @@ try
 			kTAG_NAME => 321,
 			kTAG_DESCRIPTION => array
 			(
-				array( kTAG_LANGUAGE => "en",
-					   kTAG_TEXT => "Description" ),
-				array( kTAG_LANGUAGE => "it",
-					   kTAG_TEXT => "Descrizione" ),
-				array( kTAG_LANGUAGE => 3,
-					   kTAG_TEXT => 4 )
+				array( kTAG_GEN_LANGUAGE => "en",
+					   kTAG_GEN_TEXT => "Description" ),
+				array( kTAG_GEN_LANGUAGE => "it",
+					   kTAG_GEN_TEXT => "Descrizione" ),
+				array( kTAG_GEN_LANGUAGE => 3,
+					   kTAG_GEN_TEXT => 4 )
 			),
 		),
 		-2 => array
@@ -1366,12 +1366,12 @@ try
 					kTAG_CONN_USER => 444,
 					kTAG_LABEL => array
 					(
-						array( kTAG_LANGUAGE => "en",
-							   kTAG_TEXT => "Test" ),
-						array( kTAG_LANGUAGE => "it",
-							   kTAG_TEXT => "Collaudo" ),
-						array( kTAG_LANGUAGE => 5,
-							   kTAG_TEXT => 6 )
+						array( kTAG_GEN_LANGUAGE => "en",
+							   kTAG_GEN_TEXT => "Test" ),
+						array( kTAG_GEN_LANGUAGE => "it",
+							   kTAG_GEN_TEXT => "Collaudo" ),
+						array( kTAG_GEN_LANGUAGE => 5,
+							   kTAG_GEN_TEXT => 6 )
 					)
 				)
 			),
@@ -1386,12 +1386,12 @@ try
 							kTAG_CONN_PASS => "secter",
 							kTAG_LABEL => array
 							(
-								array( kTAG_LANGUAGE => "en",
-									   kTAG_TEXT => "Test" ),
-								array( kTAG_LANGUAGE => "it",
-									   kTAG_TEXT => "Collaudo" ),
-								array( kTAG_LANGUAGE => 5,
-									   kTAG_TEXT => 6 )
+								array( kTAG_GEN_LANGUAGE => "en",
+									   kTAG_GEN_TEXT => "Test" ),
+								array( kTAG_GEN_LANGUAGE => "it",
+									   kTAG_GEN_TEXT => "Collaudo" ),
+								array( kTAG_GEN_LANGUAGE => 5,
+									   kTAG_GEN_TEXT => 6 )
 							),
 						),
 					),
@@ -1405,12 +1405,12 @@ try
 		),
 		kTAG_LABEL => array
 		(
-			array( kTAG_LANGUAGE => "en",
-				   kTAG_TEXT => "Connection" ),
-			array( kTAG_LANGUAGE => "it",
-				   kTAG_TEXT => "Connessione" ),
-			array( kTAG_LANGUAGE => 1,
-				   kTAG_TEXT => 2 )
+			array( kTAG_GEN_LANGUAGE => "en",
+				   kTAG_GEN_TEXT => "Connection" ),
+			array( kTAG_GEN_LANGUAGE => "it",
+				   kTAG_GEN_TEXT => "Connessione" ),
+			array( kTAG_GEN_LANGUAGE => 1,
+				   kTAG_GEN_TEXT => 2 )
 		),
 		kTAG_CONN_PORT => "80",
 		-4 => array( kTAG_SHAPE_TYPE => 'LineString',

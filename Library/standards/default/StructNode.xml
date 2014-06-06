@@ -14,14 +14,14 @@
 		 <TERM lid="_nodes">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A node is a <em>vertex in a graph structure</em>, nodes reference <em>term</em> and <em>tag</em> instances, when referencing a term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data structures</em>, <em>input and output templates</em> and <em>search forms</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A node is a <em>vertex in a graph structure</em>, nodes reference <em>term</em> and <em>tag</em> instances, when referencing a term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data structures</em>, <em>input and output templates</em> and <em>search forms</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of node objects.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains all default properties of node objects.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -46,8 +46,8 @@
 		<NODE term="_id" pid="_nodes:_id">
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds an <em>integer serial number</em>, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or tag. The native identifier is assigned automatically.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute holds an <em>integer serial number</em>, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or tag. The native identifier is assigned automatically.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -65,8 +65,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This optional attribute holds a string which represents a unique persitent identifier, this value must be unique among all nodes and is optional. The main duty of this attribute is to disambiguate nodes pointing to the same term or tag.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This optional attribute holds a string which represents a unique persitent identifier, this value must be unique among all nodes and is optional. The main duty of this attribute is to disambiguate nodes pointing to the same term or tag.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -84,8 +84,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -103,8 +103,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>term object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the tag offset must be omitted.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>term object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the tag offset must be omitted.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -122,8 +122,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>tag object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the term offset must be omitted.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>tag object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the term offset must be omitted.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -141,8 +141,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute is an <em>enumerated set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -164,8 +164,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This property is featured by alias nodes, it <em>references</em> the <em>master node</em>. This property is handled automatically by the object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This property is featured by alias nodes, it <em>references</em> the <em>master node</em>. This property is handled automatically by the object.]]></item>
 				</item>
 			</item>
 		</NODE>

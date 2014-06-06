@@ -14,14 +14,14 @@
 		<TERM ns="fcu:unit" lid="number">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit number]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit number]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit unique identifier.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit unique identifier.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -30,14 +30,14 @@
 		<TERM ns="fcu:unit" lid="gene-number">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National unit number]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[National unit number]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National gene conservation unit number.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[National gene conservation unit number.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -46,8 +46,8 @@
 		<TERM ns="fcu:unit" lid="area">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Surface area of the unit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Surface area of the unit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -56,8 +56,8 @@
 		<TERM ns="fcu:unit" lid="ownership">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Ownership type of the unit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Ownership type of the unit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -66,8 +66,8 @@
 		<TERM ns="fcu:unit" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Type and function of the unit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Type and function of the unit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -76,8 +76,8 @@
 		<TERM ns="fcu:unit" lid="data-collection">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit data collection date]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit data collection date]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -86,8 +86,8 @@
 		<TERM ns="fcu:unit" lid="last-visit">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Date of the most recent visit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Date of the most recent visit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -96,8 +96,8 @@
 		<TERM ns="fcu:unit" lid="remarks-soil">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit soil remarks]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit soil remarks]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -106,8 +106,8 @@
 		<TERM ns="fcu:unit" lid="remarks">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit remarks]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit remarks]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -116,8 +116,8 @@
 		<TERM ns="fcu:unit" lid="species">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[All tree species growing in the unit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[All tree species growing in the unit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -130,8 +130,8 @@
 		<TERM ns="fcu:population" lid="number">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National population unit number]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[National population unit number]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -140,8 +140,8 @@
 		<TERM ns="fcu:population" lid="establishment">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Establishment date]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Establishment date]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -150,8 +150,8 @@
 		<TERM ns="fcu:population" lid="last-visit">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Last visit date]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Last visit date]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -160,8 +160,8 @@
 		<TERM ns="fcu:population" lid="status">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Population status]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Population status]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -170,8 +170,8 @@
 		<TERM ns="fcu:population" lid="situ">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Category of the population]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Category of the population]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -180,8 +180,8 @@
 		<TERM ns="fcu:population" lid="origin">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Origin of the material]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Origin of the material]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -190,8 +190,8 @@
 		<TERM ns="fcu:population" lid="system">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Predominant silvicultural system]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Predominant silvicultural system]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -200,8 +200,8 @@
 		<TERM ns="fcu:population" lid="management">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Population management]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Population management]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -210,8 +210,8 @@
 		<TERM ns="fcu:population" lid="justification">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Population justification]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Population justification]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -220,8 +220,8 @@
 		<TERM ns="fcu:population" lid="reproducing">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Population reproducing trees]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Population reproducing trees]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -230,8 +230,8 @@
 		<TERM ns="fcu:population" lid="sex-ratio">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Sex ratio]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Sex ratio]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -240,8 +240,8 @@
 		<TERM ns="fcu:population" lid="regeneration">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Status of long-term viable regeneration]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Status of long-term viable regeneration]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -250,8 +250,8 @@
 		<TERM ns="fcu:population" lid="distribution">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Distribution of the reproducing trees in the unit]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Distribution of the reproducing trees in the unit]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -260,8 +260,8 @@
 		<TERM ns="fcu:population" lid="share">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Estimated share of the total area within the unit in which the species is occurring]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Estimated share of the total area within the unit in which the species is occurring]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -270,8 +270,8 @@
 		<TERM ns="fcu:population" lid="remarks">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remarks on the population]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Remarks on the population]]></item>
 				</item>
 			</item>
 		</TERM>

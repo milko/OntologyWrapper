@@ -14,14 +14,14 @@
 		<TERM lid="_id">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Native identifier</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Native identifier</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>native identifier</em> represents the <em>primary key</em> of an object, all objects which are persistent must have this property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>native identifier</em> represents the <em>primary key</em> of an object, all objects which are persistent must have this property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -30,14 +30,14 @@
 		<TERM lid="_class">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Class</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Class</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>class</em> represents the <em>object class name</em>, this <em>string</em> is used to instantiate the correct object once loaded from a container.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>class</em> represents the <em>object class name</em>, this <em>string</em> is used to instantiate the correct object once loaded from a container.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -46,14 +46,14 @@
 		<TERM lid="type">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Shape type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Shape type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This offset represents the <em>type of a shape</em>, this string is used to indicate  what type of object the shape represents. This offset is followed by the <tt>coordinates</tt> offset that contains the shape geometry.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This offset represents the <em>type of a shape</em>, this string is used to indicate  what type of object the shape represents. This offset is followed by the <tt>coordinates</tt> offset that contains the shape geometry.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -62,14 +62,14 @@
 		<TERM lid="coordinates">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Shape geometry</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Shape geometry</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This offset represents the <em>geometry of a shape</em>, this string labels the coordinates lists that comprise a shape geometry. This offset is preceded by the <tt>type</tt> offset that contains the shape type.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This offset represents the <em>geometry of a shape</em>, this string labels the coordinates lists that comprise a shape geometry. This offset is preceded by the <tt>type</tt> offset that contains the shape type.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -82,14 +82,14 @@
 		<TERM ns="" lid="namespace">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Namespace</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Namespace</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>namespace</em> is used to <em>disambiguate homonym identifiers</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>namespace</em> is used to <em>disambiguate homonym identifiers</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -98,14 +98,14 @@
 		<TERM ns="" lid="id-local">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Local identifier</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Local identifier</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>local identifier</em> is used to uniquely identify objects <em>within a namespace</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>local identifier</em> is used to uniquely identify objects <em>within a namespace</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -114,14 +114,14 @@
 		<TERM ns="" lid="id-persistent">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Persistent identifier</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Persistent identifier</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>persistent identifier</em> is <em>immutable</em> and represents a <em>global identifier</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>persistent identifier</em> is <em>immutable</em> and represents a <em>global identifier</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -130,14 +130,14 @@
 		<TERM ns="" lid="id-valid">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Valid identifier</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Valid identifier</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>valid identifier</em> is a <em>persistent identifier</em> which is <em>valid</em> or <em>official</em>, as opposed to a persistent identifier which is invalid or obsolete.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>valid identifier</em> is a <em>persistent identifier</em> which is <em>valid</em> or <em>official</em>, as opposed to a persistent identifier which is invalid or obsolete.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -146,14 +146,14 @@
 		<TERM ns="" lid="id-sequence">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Sequence number</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Sequence number</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>sequence number</em> is an <em>identifier</em> which is <em>unique across objects belonging to the same collection</em>, this identifier is <em>serial</em>, in that it is <em>assigned at commit time</em> and subsequently <em>incremented</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>sequence number</em> is an <em>identifier</em> which is <em>unique across objects belonging to the same collection</em>, this identifier is <em>serial</em>, in that it is <em>assigned at commit time</em> and subsequently <em>incremented</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -162,14 +162,14 @@
 		<TERM ns="" lid="id-graph">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Graph reference</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Graph reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>graph reference</em> is an <em>identifier</em> which <em>relates the current object with an element of a graph or ontology</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>graph reference</em> is an <em>identifier</em> which <em>relates the current object with an element of a graph or ontology</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -182,14 +182,14 @@
 		<TERM ns=":unit" lid="domain">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Domain</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Domain</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>domain</em> indicates <em>what</em> an object <em>is</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>domain</em> indicates <em>what</em> an object <em>is</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -198,14 +198,14 @@
 		<TERM ns=":unit" lid="authority">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Authority</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>authority</em> identifies <em>who</em> is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>authority</em> identifies <em>who</em> is responsible for the <em>identification</em> and <em>documentation</em> of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -214,14 +214,14 @@
 		<TERM ns=":unit" lid="collection">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collection</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Collection</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>collection</em> represents the <em>group to which an object belongs</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -230,14 +230,14 @@
 		<TERM ns=":unit" lid="identifier">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Identifier</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Identifier</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>identifier</em> is used to <em>disambiguate</em> objects of the <em>same domain and collection</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>identifier</em> is used to <em>disambiguate</em> objects of the <em>same domain and collection</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -246,14 +246,14 @@
 		<TERM ns=":unit" lid="version">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Version</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Version</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object in time</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[<em>Versions</em> are used to identify <em>iterations of the same object in time</em>, they may also be used to provide a <em>temporal stamp</em> to the information.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -262,14 +262,14 @@
 		<TERM ns="" lid="synonym">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Synonym</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Synonym</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Synonyms</em> are <em>alternate</em> identifiers of the object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[<em>Synonyms</em> are <em>alternate</em> identifiers of the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -282,14 +282,14 @@
 		<TERM ns="" lid="tag">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Tag reference</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tag reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to a <em>tag</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>reference</em> to a <em>tag</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -298,14 +298,14 @@
 		<TERM ns="" lid="tags">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Tag references</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tag references</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>list of tag references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>list of tag references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -314,14 +314,14 @@
 		<TERM ns="" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term reference</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to a <em>term</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>reference</em> to a <em>term</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -330,14 +330,14 @@
 		<TERM ns="" lid="terms">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term references</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term references</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>list of term references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>list of term references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -346,14 +346,14 @@
 		<TERM ns=":relationship" lid="subject">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Subject vertex</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Subject vertex</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>origin vertex of a directed graph relationship</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>origin vertex of a directed graph relationship</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -362,14 +362,14 @@
 		<TERM ns=":relationship" lid="graph-subject">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Graph subject vertex</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Graph subject vertex</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The reference to the <em>origin vertex of a directed graph relationship</em> in the graph.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The reference to the <em>origin vertex of a directed graph relationship</em> in the graph.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -378,14 +378,14 @@
 		<TERM ns=":relationship" lid="predicate">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Relationship predicate</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Relationship predicate</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>predicate of a directed graph relationship</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>predicate of a directed graph relationship</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -394,14 +394,14 @@
 		<TERM ns=":relationship" lid="object">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Object vertex</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Object vertex</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>destination vertex of a directed graph relationship</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>destination vertex of a directed graph relationship</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -410,14 +410,14 @@
 		<TERM ns=":relationship" lid="graph-object">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Graph object vertex</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Graph object vertex</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The reference to the <em>destination vertex of a directed graph relationship</em> in the graph.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The reference to the <em>destination vertex of a directed graph relationship</em> in the graph.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -426,14 +426,14 @@
 		<TERM ns="" lid="master">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Master reference</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Master reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> to the <em>master copy of the current object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>reference</em> to the <em>master copy of the current object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -446,14 +446,14 @@
 		<TERM ns="" lid="category">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Category</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Category</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>category</em> to which an object belongs.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>category</em> to which an object belongs.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -462,14 +462,14 @@
 		<TERM ns=":type" lid="data">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Data type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Data type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>data type</em>, of a property, it describes the internal representation of a value.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>data type</em>, of a property, it describes the internal representation of a value.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -478,14 +478,14 @@
 		<TERM ns=":type" lid="kind">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Data kind</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Data kind</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>data attributes</em> of a property, it describes the structure and cardinality of a data property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>data attributes</em> of a property, it describes the structure and cardinality of a data property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -494,14 +494,14 @@
 		<TERM ns=":type" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the <em>type of a term object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This qualifies the <em>type of a term object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -510,14 +510,14 @@
 		<TERM ns=":type" lid="node">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Node type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Node type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the <em>type of a node object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This qualifies the <em>type of a node object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -530,14 +530,14 @@
 		<TERM ns="" lid="name">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Name</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>name</em> of an object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>name</em> of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -546,14 +546,14 @@
 		<TERM ns="" lid="label">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Label</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Label</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a <em>label</em> or <em>short description</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents a <em>label</em> or <em>short description</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -562,14 +562,14 @@
 		<TERM ns="" lid="definition">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Definition</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Definition</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>definition</em> provides <em>detailed information</em> about an object <em>without reference to a specific context</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>definition</em> provides <em>detailed information</em> about an object <em>without reference to a specific context</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -578,14 +578,14 @@
 		<TERM ns="" lid="description">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Description</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Description</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>description</em> is a <em>descriptive text</em> that provides <em>documentation</em> on an object. A description should provide <em>information related to context</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A <em>description</em> is a <em>descriptive text</em> that provides <em>documentation</em> on an object. A description should provide <em>information related to context</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -594,14 +594,14 @@
 		<TERM ns="" lid="notes">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Notes</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Notes</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a collection of <em>notes</em> or <em>comments</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents a collection of <em>notes</em> or <em>comments</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -610,14 +610,14 @@
 		<TERM ns="" lid="examples">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Examples</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Examples</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a collection of <em>examples</em> or <em>instances</em> illustrating various uses of a property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents a collection of <em>examples</em> or <em>instances</em> illustrating various uses of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -630,14 +630,14 @@
 		<TERM ns=":ref-count" lid="unit">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Units count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Units count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of unit objects featuring a specific property</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>number of unit objects featuring a specific property</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -646,14 +646,14 @@
 		<TERM ns=":ref-count" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entities count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entities count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of entity objects featuring a specific property</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>number of entity objects featuring a specific property</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -662,14 +662,14 @@
 		<TERM ns=":ref-count" lid="tag">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Tags count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tags count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of tag references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>number of tag references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -678,14 +678,14 @@
 		<TERM ns=":ref-count" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Terms count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Terms count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of term references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>number of term references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -694,14 +694,14 @@
 		<TERM ns=":ref-count" lid="node">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Nodes count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Nodes count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>number of node references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>number of node references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -710,14 +710,14 @@
 		<TERM ns=":ref-count" lid="edge">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Edges count</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Edges count</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a <em>number of edge references</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents a <em>number of edge references</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -728,14 +728,14 @@
 		<TERM ns=":offset" lid="tag">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Tag offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tag offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>tag object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>tag object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -744,14 +744,14 @@
 		<TERM ns=":offset" lid="term">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Term offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>term object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>term object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -760,14 +760,14 @@
 		<TERM ns=":offset" lid="node">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Node offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Node offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>node object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>node object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -776,14 +776,14 @@
 		<TERM ns=":offset" lid="edge">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Edge offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Edge offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in an <em>edge object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in an <em>edge object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -792,14 +792,14 @@
 		<TERM ns=":offset" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in an <em>entity object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in an <em>entity object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -808,14 +808,14 @@
 		<TERM ns=":offset" lid="unit">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit offset</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Unit offset</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>unit object</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>path to a leaf offset</em> featured in a <em>unit object</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -824,14 +824,14 @@
 		<TERM ns="" lid="object-tags">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Object tags</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Object tags</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -840,14 +840,14 @@
 		<TERM ns="" lid="object-offsets">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Object offsets</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Object offsets</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>list of tags featured as leaf offsets</em> and their relative <em>offset paths</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -856,14 +856,14 @@
 		<TERM ns="" lid="object-references">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Object references</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Object references</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the <em>list of object references</em> and their relative <em>collection</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents the <em>list of object references</em> and their relative <em>collection</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -872,14 +872,14 @@
 		<TERM ns=":tag" lid="struct">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Structure</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Structure</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a <em>reference to a container structure</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents a <em>reference to a container structure</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -888,14 +888,14 @@
 		<TERM ns=":tag" lid="struct-index">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Structure index</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Structure index</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents <em>the index of a container structure</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This represents <em>the index of a container structure</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -908,14 +908,14 @@
 		<TERM ns="" lid="min-val">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Minimum value</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Minimum value</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>minimum featured value</em> of a property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>minimum featured value</em> of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -924,14 +924,14 @@
 		<TERM ns="" lid="min-range">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Minimum range</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Minimum range</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>minimum range value</em> of a property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>minimum range value</em> of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -940,14 +940,14 @@
 		<TERM ns="" lid="max-val">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Maximum value</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Maximum value</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>maximum featured value</em> of a property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>maximum featured value</em> of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -956,14 +956,14 @@
 		<TERM ns="" lid="max-range">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Maximum range</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Maximum range</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>maximum range value</em> of a property.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>maximum range value</em> of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -972,14 +972,14 @@
 		<TERM ns="" lid="grep">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Pattern</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Pattern</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>regular expression</em> that validates a string.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>regular expression</em> that validates a string.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -988,66 +988,208 @@
 	<!-- Generic attributes -->
 	
 	<META>
-		<!-- kTAG_LANGUAGE -->
-		<TERM ns="" lid="language">
+		<!-- kTAG_GEN_TYPE -->
+		<TERM ns=":generic" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>language</em> of the current element.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Type</item>
 				</item>
 			</item>
 		</TERM>
 	
-		<!-- kTAG_TEXT -->
-		<TERM ns="" lid="text">
+		<!-- kTAG_GEN_LANGUAGE -->
+		<TERM ns=":generic" lid="language">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Text</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Language</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>string</em> or <em>text</em> of the current element.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>language</em> of the current element.]]></item>
 				</item>
 			</item>
 		</TERM>
 	
-		<!-- kTAG_URL -->
-		<TERM ns="" lid="url">
+		<!-- kTAG_GEN_TEXT -->
+		<TERM ns=":generic" lid="text">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">URL</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Text</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>internet address</em> of the current element.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>string</em> or <em>text</em> of the current element.]]></item>
 				</item>
 			</item>
 		</TERM>
 	
+		<!-- kTAG_GEN_URL -->
+		<TERM ns=":generic" lid="url">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">URL</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>internet address</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_TAG -->
+		<TERM ns=":generic" lid="tag">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Tag</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>tag reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_TERM -->
+		<TERM ns=":generic" lid="term">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Term</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>term reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_NODE -->
+		<TERM ns=":generic" lid="node">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Node</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>node reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_EDGE -->
+		<TERM ns=":generic" lid="edge">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Edge</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>edge reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_UNIT -->
+		<TERM ns=":generic" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>unit reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_GEN_ENTITY -->
+		<TERM ns=":generic" lid="entity">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>entity reference</em> of the current element.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Default attributes -->
+	
+	<META>
 		<!-- kTAG_GEO_SHAPE -->
 		<TERM ns="" lid="shape">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Geographic location shape</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Geographic location shape</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the <em>geographic location and geometry</em> of an object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This indicates the <em>geographic location and geometry</em> of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_RECORD_CREATED -->
+		<TERM ns=":record" lid="created">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Record creation time-stamp</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was created</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTAG_RECORD_MODIFIED -->
+		<TERM ns=":record" lid="modified">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Record modification time-stamp</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was last modified</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1060,14 +1202,14 @@
 		<TERM ns=":connection" lid="protocol">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Protocol</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Protocol</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The network connection <em>protocol</em> or <em>scheme</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The network connection <em>protocol</em> or <em>scheme</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1076,14 +1218,14 @@
 		<TERM ns=":connection" lid="host">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Host</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Host</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Network <em>host</em> or <em>IP address</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Network <em>host</em> or <em>IP address</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1092,14 +1234,14 @@
 		<TERM ns=":connection" lid="port">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Port</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Port</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Network TCP or UDP <em>port number</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Network TCP or UDP <em>port number</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1108,14 +1250,14 @@
 		<TERM ns=":connection" lid="user">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">User code</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">User code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Authentication credentials <em>user code</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Authentication credentials <em>user code</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1124,14 +1266,14 @@
 		<TERM ns=":connection" lid="pass">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">User password</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">User password</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Authentication credentials <em>user password</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Authentication credentials <em>user password</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1140,14 +1282,14 @@
 		<TERM ns=":connection" lid="database">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Database</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Database</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Database</em> name.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[<em>Database</em> name.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1156,14 +1298,14 @@
 		<TERM ns=":connection" lid="collection">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Collection</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Collection</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<EM>Database collection</em> name.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[<EM>Database collection</em> name.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1172,14 +1314,14 @@
 		<TERM ns=":connection" lid="options">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Options</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Options</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Connection <em>list of options</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Connection <em>list of options</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1192,14 +1334,14 @@
 		<TERM ns=":entity" lid="fname">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity first name</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity first name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>first name</em> of an <em>individual entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>first name</em> of an <em>individual entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1208,14 +1350,14 @@
 		<TERM ns=":entity" lid="lname">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity last name</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity last name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>surname</em> of an <em>individual entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>surname</em> of an <em>individual entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1224,14 +1366,14 @@
 		<TERM ns=":type" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>type</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1240,14 +1382,14 @@
 		<TERM ns=":kind" lid="entity">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity kind</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity kind</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>kind</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>kind</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1256,14 +1398,14 @@
 		<TERM ns=":entity" lid="acronym">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity acronym</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity acronym</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>acronym</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>acronym</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1272,14 +1414,14 @@
 		<TERM ns=":entity" lid="mail">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity mail</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity mail</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>mailing address</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>mailing address</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1288,14 +1430,14 @@
 		<TERM ns=":entity" lid="email">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity e-mail</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity e-mail</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>electronic mail address</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>electronic mail address</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1304,14 +1446,14 @@
 		<TERM ns=":entity" lid="url">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity link</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity link</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>internet address</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>internet address</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1320,14 +1462,14 @@
 		<TERM ns=":entity" lid="phone">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity telephone</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity telephone</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>telephone number</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>telephone number</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1336,14 +1478,14 @@
 		<TERM ns=":entity" lid="fax">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity telefax</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity telefax</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>telefax number</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>telefax number</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1352,14 +1494,14 @@
 		<TERM ns=":entity" lid="affiliation">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Affiliation</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Affiliation</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A reference to the <em>entity or entities</em> to which the current object is <em>affiliated</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[A reference to the <em>entity or entities</em> to which the current object is <em>affiliated</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1368,14 +1510,14 @@
 		<TERM ns=":entity" lid="nationality">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Entity nationality</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Entity nationality</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>nationality</em> of an <em>entity</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>nationality</em> of an <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1384,50 +1526,14 @@
 		<TERM ns=":entity" lid="valid">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Valid entity</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Valid entity</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>.]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Record attributes -->
-	
-	<META>
-		<!-- kTAG_RECORD_CREATED -->
-		<TERM ns=":record" lid="created">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Record creation time-stamp</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was created</em>.]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- kTAG_RECORD_MODIFIED -->
-		<TERM ns=":record" lid="modified">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Record modification time-stamp</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>date and time</em> in which the <em>record was last modified</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>valid</em>, <em>current</em> or <em>preferred</em> <em>entity</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

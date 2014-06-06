@@ -14,14 +14,14 @@
 		 <TERM ns=":test" lid="enumeration">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumeration type</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Enumeration type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">This is the enumeration test type.</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">This is the enumeration test type.</item>
 				</item>
 			</item>
 		</TERM>
@@ -37,8 +37,8 @@
 		<TERM ns=":test:enumeration" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumeration 1</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Enumeration 1</item>
 				</item>
 			</item>
 		</TERM>
@@ -57,8 +57,8 @@
 		<TERM ns=":test:enumeration" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumeration 2</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Enumeration 2</item>
 				</item>
 			</item>
 		</TERM>
@@ -77,8 +77,8 @@
 		<TERM ns=":test:enumeration" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Enumeration 3</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Enumeration 3</item>
 				</item>
 			</item>
 		</TERM>

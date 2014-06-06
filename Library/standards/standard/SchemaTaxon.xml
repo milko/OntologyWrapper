@@ -17,8 +17,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing taxonomic properties of an object.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This schema contains all standard common properties describing taxonomic properties of an object.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -330,6 +330,14 @@
 		<!-- Infraspecies author -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- REFERENCE -->
+		
+		<!-- Reference -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:reference</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

@@ -76,14 +76,14 @@ trait EntityLink
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_LINK kTAG_TYPE kTAG_URL
+	 * @see kTAG_ENTITY_LINK kTAG_GEN_TYPE kTAG_GEN_URL
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function EntityLink( $theType, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_LINK, kTAG_TYPE, kTAG_URL,
+				kTAG_ENTITY_LINK, kTAG_GEN_TYPE, kTAG_GEN_URL,
 				$theType, $theValue, $getOld );										// ==>
 	
 	} // EntityLink.

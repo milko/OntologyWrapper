@@ -779,14 +779,14 @@ abstract class OntologyObject extends ContainerObject
 			//
 			// Match language code.
 			//
-			if( $string[ kTAG_LANGUAGE ] == $theLanguage )
-				return $string[ kTAG_TEXT ];										// ==>
+			if( $string[ kTAG_GEN_LANGUAGE ] == $theLanguage )
+				return $string[ kTAG_GEN_TEXT ];										// ==>
 			
 			//
 			// Set first.
 			//
 			if( $first === NULL )
-				$first = $string[ kTAG_TEXT ];
+				$first = $string[ kTAG_GEN_TEXT ];
 		
 		} // Iterating language strings.
 	
@@ -798,8 +798,8 @@ abstract class OntologyObject extends ContainerObject
 			//
 			// Match default code.
 			//
-			if( $string[ kTAG_LANGUAGE ] == 0 )
-				return $string[ kTAG_TEXT ];										// ==>
+			if( $string[ kTAG_GEN_LANGUAGE ] == 0 )
+				return $string[ kTAG_GEN_TEXT ];										// ==>
 		
 		} // Iterating language strings.
 		

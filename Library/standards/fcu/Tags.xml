@@ -24,8 +24,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This number is the <em>unique identifier of the unit</em> described. This number <em>should not be duplicated or reassigned to another unit</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This number is the <em>unique identifier of the unit</em> described. This number <em>should not be duplicated or reassigned to another unit</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -51,8 +51,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit number <em>from the national registry</em>.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit number <em>from the national registry</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -80,8 +80,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Total surface area</em> of the unit <em>in hectares</em> accuracy of 0.1 ha.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[<em>Total surface area</em> of the unit <em>in hectares</em> accuracy of 0.1 ha.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -161,8 +161,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Date in which the <em>unit data was collected</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Date in which the <em>unit data was collected</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -188,8 +188,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Date in which the <em>unit data last visited</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Date in which the <em>unit data last visited</em>, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -215,8 +215,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remarks on specific soil characteristics of the unit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Remarks on specific soil characteristics of the unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -242,8 +242,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remarks on other specific characteristics of the unit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Remarks on other specific characteristics of the unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -269,8 +269,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[List of target and non target species growing in the unit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[List of target and non target species growing in the unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -298,14 +298,14 @@
 			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unit populations]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Unit populations]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -354,8 +354,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Date of establishment of the gene conservation unit for the taxon.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Date of establishment of the gene conservation unit for the taxon.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -381,8 +381,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Date of the most recent visit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Date of the most recent visit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -410,8 +410,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Status of the target tree population regarding the EUFORGEN common action plans.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Status of the target tree population regarding the EUFORGEN common action plans.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -524,8 +524,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Level of management allowed to favour the target species.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Level of management allowed to favour the target species.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -557,8 +557,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Main reason for carrying out gene conservation for this taxon.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Main reason for carrying out gene conservation for this taxon.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -590,8 +590,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Total number of reproducing trees per unit.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Total number of reproducing trees per unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -623,8 +623,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[If appropriate]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[If appropriate]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -708,8 +708,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Expressed as a percentage, from 0 to 100.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[Expressed as a percentage, from 0 to 100.]]></item>
 				</item>
 			</item>
 		</TAG>

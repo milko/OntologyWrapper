@@ -14,8 +14,8 @@
 		<TERM ns=":unit" lid="identification">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Unit identification schema</item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT">Unit identification schema</item>
 				</item>
 			</item>
 		</TERM>
@@ -25,8 +25,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all default properties which are used to identify objects derived from the unit class.]]></item>
+					<item const="kTAG_GEN_LANGUAGE">en</item>
+					<item const="kTAG_GEN_TEXT"><![CDATA[This schema contains all default properties which are used to identify objects derived from the unit class.]]></item>
 				</item>
 			</item>
 		</NODE>
