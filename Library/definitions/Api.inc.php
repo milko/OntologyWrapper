@@ -873,8 +873,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
  *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
- *			<li><tt>kTAG_SHAPE_TYPE</tt>: The shape type.
- *			<li><tt>kTAG_SHAPE_GEOMETRY</tt>: The shape geometry.
+ *			<li><tt>kTAG_TYPE</tt>: The shape type.
+ *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
  *		 </ul>
  *	 </ul>
  * </ul>
@@ -1159,8 +1159,8 @@ define( "kAPI_PARAM_GROUP",						'grouping' );
  * The value must have the following format:
  *
  * <ul>
- *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: This element indicates the shape type.
- *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: This element indicates the shape geometry.
+ *	<li><tt>{@link kTAG_TYPE}</tt>: This element indicates the shape type.
+ *	<li><tt>{@link kTAG_GEOMETRY}</tt>: This element indicates the shape geometry.
  * </ul>
  *
  * Depending on the type of the shape:

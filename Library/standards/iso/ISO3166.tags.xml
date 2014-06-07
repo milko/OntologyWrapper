@@ -14,14 +14,14 @@
 		 <TERM ns="iso:3166" lid="common_name">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Common name</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Common name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Country common name.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country common name.</item>
 				</item>
 			</item>
 		</TERM>
@@ -52,14 +52,14 @@
 		 <TERM ns="iso:3166:2" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subdivision type</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subdivision type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Type or kind of the country subdivision.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type or kind of the country subdivision.</item>
 				</item>
 			</item>
 		</TERM>

@@ -14,14 +14,14 @@
 		<TERM ns="eufgis" lid="UnitType">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest unit type]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest unit type]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>type of the unit</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>type of the unit</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -37,8 +37,8 @@
 		<TERM ns="eufgis:UnitType" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Gene reserve forest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene reserve forest]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -57,14 +57,14 @@
 		<TERM ns="eufgis:UnitType" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Biodiversity conservation]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biodiversity conservation]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Habitats and/or species]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Habitats and/or species]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -83,8 +83,8 @@
 		<TERM ns="eufgis:UnitType" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Seed stand]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed stand]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -103,14 +103,14 @@
 		<TERM ns="eufgis:UnitType" lid="4">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Protective forest area]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Protective forest area]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Soil, water, timber line, etc]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Soil, water, timber line, etc]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -129,8 +129,8 @@
 		<TERM ns="eufgis:UnitType" lid="5">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest area managed for wood production and /or multiple uses and services]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest area managed for wood production and /or multiple uses and services]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -152,14 +152,14 @@
 		<TERM ns="eufgis" lid="UnitOwnership">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest unit ownership]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest unit ownership]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>ownership of the unit</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>ownership of the unit</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -175,8 +175,8 @@
 		<TERM ns="eufgis:UnitOwnership" lid="Public">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Public]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Public]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -195,8 +195,8 @@
 		<TERM ns="eufgis:UnitOwnership" lid="Private">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Private]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Private]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -215,8 +215,8 @@
 		<TERM ns="eufgis:UnitOwnership" lid="Other">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Other]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -238,14 +238,14 @@
 		<TERM ns="eufgis" lid="PopulationDistribution">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population distribution]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population distribution]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>distribution of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>distribution of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -261,8 +261,8 @@
 		<TERM ns="eufgis:PopulationDistribution" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[In stands]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In stands]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -281,8 +281,8 @@
 		<TERM ns="eufgis:PopulationDistribution" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Scattered]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Scattered]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -301,8 +301,8 @@
 		<TERM ns="eufgis:PopulationDistribution" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[In groups]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In groups]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -324,14 +324,14 @@
 		<TERM ns="eufgis" lid="PopulationJustification">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population justification]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population justification]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>justification for the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>justification for the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -347,8 +347,8 @@
 		<TERM ns="eufgis:PopulationJustification" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[To maintain genetic diversity in large tree populations]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To maintain genetic diversity in large tree populations]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -367,8 +367,8 @@
 		<TERM ns="eufgis:PopulationJustification" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[To conserve specific adaptive and/or phenotypic traits in marginal or scattered tree populations which are often relatively small]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To conserve specific adaptive and/or phenotypic traits in marginal or scattered tree populations which are often relatively small]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -387,8 +387,8 @@
 		<TERM ns="eufgis:PopulationJustification" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[To conserve rare or endangered tree species with populations consisting of a low number of remaining individuals]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To conserve rare or endangered tree species with populations consisting of a low number of remaining individuals]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -410,14 +410,14 @@
 		<TERM ns="eufgis" lid="PopulationManagement">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population management]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population management]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>management of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>management of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -433,8 +433,8 @@
 		<TERM ns="eufgis:PopulationManagement" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[No intervention allowed]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No intervention allowed]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -453,8 +453,8 @@
 		<TERM ns="eufgis:PopulationManagement" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Minimum intervention allowed]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Minimum intervention allowed]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -473,8 +473,8 @@
 		<TERM ns="eufgis:PopulationManagement" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Conservation through active intervention carried out]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Conservation through active intervention carried out]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -496,14 +496,14 @@
 		<TERM ns="eufgis" lid="PopulationOrigin">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population origin]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population origin]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>origin of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>origin of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -519,8 +519,8 @@
 		<TERM ns="eufgis:PopulationOrigin" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Autochthonous]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Autochthonous]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -539,8 +539,8 @@
 		<TERM ns="eufgis:PopulationOrigin" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Introduced]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -559,8 +559,8 @@
 		<TERM ns="eufgis:PopulationOrigin" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Unknown]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unknown]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -582,14 +582,14 @@
 		<TERM ns="eufgis" lid="PopulationSexRatio">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population sex ratio]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population sex ratio]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>sex ratio in the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>sex ratio in the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -605,8 +605,8 @@
 		<TERM ns="eufgis:PopulationSexRatio" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Predominately males]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Predominately males]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -625,8 +625,8 @@
 		<TERM ns="eufgis:PopulationSexRatio" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Even sex ratio]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Even sex ratio]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -645,8 +645,8 @@
 		<TERM ns="eufgis:PopulationSexRatio" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Predominately females]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Predominately females]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -668,14 +668,14 @@
 		<TERM ns="eufgis" lid="PopulationRegeneration">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population long-term regeneration]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population long-term regeneration]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>long-term regeneration status of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>long-term regeneration status of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -691,8 +691,8 @@
 		<TERM ns="eufgis:PopulationRegeneration" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Continuous]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Continuous]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -711,8 +711,8 @@
 		<TERM ns="eufgis:PopulationRegeneration" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Sporadic]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sporadic]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -731,8 +731,8 @@
 		<TERM ns="eufgis:PopulationRegeneration" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Requires management intervention]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Requires management intervention]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -754,14 +754,14 @@
 		<TERM ns="eufgis" lid="PopulationReproducingTrees">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population reproducing trees]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population reproducing trees]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>number of reproducing trees in the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>number of reproducing trees in the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -777,8 +777,8 @@
 		<TERM ns="eufgis:PopulationReproducingTrees" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[15 - 50]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[15 - 50]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -797,8 +797,8 @@
 		<TERM ns="eufgis:PopulationReproducingTrees" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[51 - 500]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[51 - 500]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -817,8 +817,8 @@
 		<TERM ns="eufgis:PopulationReproducingTrees" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[501 - 5000]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[501 - 5000]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -837,8 +837,8 @@
 		<TERM ns="eufgis:PopulationReproducingTrees" lid="4">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[> 5000]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[> 5000]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -860,14 +860,14 @@
 		<TERM ns="eufgis" lid="PopulationSitu">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population situ]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population situ]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>situ of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>situ of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -883,8 +883,8 @@
 		<TERM ns="eufgis:PopulationSitu" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[In situ]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In situ]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -903,8 +903,8 @@
 		<TERM ns="eufgis:PopulationSitu" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ex situ]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ex situ]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -926,14 +926,14 @@
 		<TERM ns="eufgis" lid="PopulationStatus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population status]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population status]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>status of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>status of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -949,8 +949,8 @@
 		<TERM ns="eufgis:PopulationStatus" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Included]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Included]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -969,8 +969,8 @@
 		<TERM ns="eufgis:PopulationStatus" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Not included]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not included]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -989,8 +989,8 @@
 		<TERM ns="eufgis:PopulationStatus" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Pending]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pending]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1012,14 +1012,14 @@
 		<TERM ns="eufgis" lid="PopulationSystem">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Forest population silvicultural system]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest population silvicultural system]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type assesses the <i>silvicultural system of the population</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>silvicultural system of the population</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1035,8 +1035,8 @@
 		<TERM ns="eufgis:PopulationSystem" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Coppice]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coppice]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1055,14 +1055,14 @@
 		<TERM ns="eufgis:PopulationSystem" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Clear-cutting with artificial regeneration]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with artificial regeneration]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Planting or seeding.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Planting or seeding.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1081,14 +1081,14 @@
 		<TERM ns="eufgis:PopulationSystem" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Clear-cutting with natural regeneration]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with natural regeneration]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Seed trees or strips.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed trees or strips.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1107,8 +1107,8 @@
 		<TERM ns="eufgis:PopulationSystem" lid="4">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Shelterwood systems]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Shelterwood systems]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1127,14 +1127,14 @@
 		<TERM ns="eufgis:PopulationSystem" lid="5">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Close-to-natural forestry]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Close-to-natural forestry]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Continuous cover forest, selective logging.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Continuous cover forest, selective logging.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1153,8 +1153,8 @@
 		<TERM ns="eufgis:PopulationSystem" lid="6">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[No silviculture]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No silviculture]]></item>
 				</item>
 			</item>
 		</TERM>

@@ -14,14 +14,14 @@
 		 <TERM ns="iso:3166" lid="location">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location codes comprising regions, countries and country subdivisions.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location codes comprising regions, countries and country subdivisions.</item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines a nested enumerated set of ISO 3166 location codes covering regions, countries and country subdivisions.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a nested enumerated set of ISO 3166 location codes covering regions, countries and country subdivisions.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -47,8 +47,8 @@
 		<TERM ns="iso:3166:location" lid="002">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -70,8 +70,8 @@
 		<TERM ns="iso:3166:location" lid="014">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Eastern Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Eastern Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -93,8 +93,8 @@
 		<TERM ns="iso:3166:location" lid="017">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Middle Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Middle Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -116,8 +116,8 @@
 		<TERM ns="iso:3166:location" lid="015">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Northern Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Northern Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -139,8 +139,8 @@
 		<TERM ns="iso:3166:location" lid="018">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Southern Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Southern Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -162,8 +162,8 @@
 		<TERM ns="iso:3166:location" lid="011">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Western Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Western Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -185,8 +185,8 @@
 		<TERM ns="iso:3166:location" lid="019">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Americas</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Americas</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -208,8 +208,8 @@
 		<TERM ns="iso:3166:location" lid="419">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Latin America and the Caribbean</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Latin America and the Caribbean</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -231,8 +231,8 @@
 		<TERM ns="iso:3166:location" lid="005">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">South America</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">South America</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -254,8 +254,8 @@
 		<TERM ns="iso:3166:location" lid="013">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Central America</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Central America</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -277,8 +277,8 @@
 		<TERM ns="iso:3166:location" lid="029">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Caribbean</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Caribbean</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -300,8 +300,8 @@
 		<TERM ns="iso:3166:location" lid="021">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Northern America</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Northern America</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -323,8 +323,8 @@
 		<TERM ns="iso:3166:location" lid="142">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -346,8 +346,8 @@
 		<TERM ns="iso:3166:location" lid="145">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Western Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Western Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -369,8 +369,8 @@
 		<TERM ns="iso:3166:location" lid="035">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">South-Eastern Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">South-Eastern Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -392,8 +392,8 @@
 		<TERM ns="iso:3166:location" lid="143">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Central Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Central Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -415,8 +415,8 @@
 		<TERM ns="iso:3166:location" lid="034">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Southern Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Southern Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -438,8 +438,8 @@
 		<TERM ns="iso:3166:location" lid="030">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Eastern Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Eastern Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -461,8 +461,8 @@
 		<TERM ns="iso:3166:location" lid="150">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -484,8 +484,8 @@
 		<TERM ns="iso:3166:location" lid="039">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Southern Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Southern Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -507,8 +507,8 @@
 		<TERM ns="iso:3166:location" lid="155">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Western Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Western Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -530,8 +530,8 @@
 		<TERM ns="iso:3166:location" lid="154">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Northern Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Northern Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -553,8 +553,8 @@
 		<TERM ns="iso:3166:location" lid="151">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Eastern Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Eastern Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -576,8 +576,8 @@
 		<TERM ns="iso:3166:location" lid="009">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Oceania</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Oceania</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -599,8 +599,8 @@
 		<TERM ns="iso:3166:location" lid="053">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Australia & New Zealand]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Australia & New Zealand]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -622,8 +622,8 @@
 		<TERM ns="iso:3166:location" lid="054">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Melanesia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Melanesia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -645,8 +645,8 @@
 		<TERM ns="iso:3166:location" lid="057">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Micronesia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Micronesia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -668,8 +668,8 @@
 		<TERM ns="iso:3166:location" lid="061">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Polynesia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Polynesia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -691,8 +691,8 @@
 		<TERM ns="iso:3166:location" lid="010">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Antartica</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Antartica</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -717,14 +717,14 @@
 		 <TERM ns="iso:3166" lid="continent">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Continent code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Continent code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Two character continent codes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Two character continent codes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -735,8 +735,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 continent codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 continent codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -750,8 +750,8 @@
 		<TERM ns="iso:3166:continent" lid="AF">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Africa</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Africa</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -773,8 +773,8 @@
 		<TERM ns="iso:3166:continent" lid="AN">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Antarctica</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Antarctica</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -796,8 +796,8 @@
 		<TERM ns="iso:3166:continent" lid="AS">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Asia</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Asia</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -819,8 +819,8 @@
 		<TERM ns="iso:3166:continent" lid="EU">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Europe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Europe</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -842,8 +842,8 @@
 		<TERM ns="iso:3166:continent" lid="NA">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">North America</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">North America</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -865,8 +865,8 @@
 		<TERM ns="iso:3166:continent" lid="SA">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">South America</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">South America</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -888,8 +888,8 @@
 		<TERM ns="iso:3166:continent" lid="OC">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Oceania</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Oceania</item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -914,14 +914,14 @@
 		<TERM ns="iso:3166" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Part 1</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Part 1</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Country codes, defines codes for the names of countries, dependent territories, and special areas of geographical interest.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country codes, defines codes for the names of countries, dependent territories, and special areas of geographical interest.</item>
 				</item>
 			</item>
 		</TERM>
@@ -931,8 +931,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 part 1 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all ISO 3166 part 1 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -946,14 +946,14 @@
 		<TERM ns="iso:3166:1" lid="alpha-2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Alpha-2 country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alpha-2 country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Two-letter country codes which are the most widely used of the three ISO 3166-1 subdivisions, and used most prominently for the Internet's country code top-level domains (with a few exceptions).</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Two-letter country codes which are the most widely used of the three ISO 3166-1 subdivisions, and used most prominently for the Internet's country code top-level domains (with a few exceptions).</item>
 				</item>
 			</item>
 		</TERM>
@@ -964,8 +964,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-2 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-2 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -979,14 +979,14 @@
 		<TERM ns="iso:3166:1" lid="alpha-3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Alpha-3 country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alpha-3 country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Three-letter country codes which allow a better visual association between the codes and the country names than the alpha-2 codes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Three-letter country codes which allow a better visual association between the codes and the country names than the alpha-2 codes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -997,8 +997,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-3 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 alpha-3 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1016,14 +1016,14 @@
 		<TERM ns="iso:3166:1" lid="numeric">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Numeric country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Numeric country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Three-digit country codes which are identical to those developed and maintained by the United Nations Statistics Division, with the advantage of script (writing system) independence, and hence useful for people or systems using non-Latin scripts.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Three-digit country codes which are identical to those developed and maintained by the United Nations Statistics Division, with the advantage of script (writing system) independence, and hence useful for people or systems using non-Latin scripts.</item>
 				</item>
 			</item>
 		</TERM>
@@ -1034,8 +1034,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 numeric codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 1 numeric codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1052,14 +1052,14 @@
 		<TERM ns="iso:3166" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Country subdivision code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country subdivision code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Code definitions for the names of the principal subdivisions (e.g., provinces or states) of all countries coded in ISO 3166-1.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Code definitions for the names of the principal subdivisions (e.g., provinces or states) of all countries coded in ISO 3166-1.</item>
 				</item>
 			</item>
 		</TERM>
@@ -1070,8 +1070,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 2 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 2 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1088,22 +1088,22 @@
 		<TERM ns="iso:3166" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Part 3</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Part 3</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Code for formerly used names of countries, defines codes for country names which have been deleted from ISO 3166-1 since its first publication in 1974.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Code for formerly used names of countries, defines codes for country names which have been deleted from ISO 3166-1 since its first publication in 1974.</item>
 				</item>
 			</item>
 		</TERM>
 		<NODE>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 former country codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 former country codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1117,14 +1117,14 @@
 		<TERM ns="iso:3166:3" lid="alpha-3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Former alpha-3 country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former alpha-3 country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Former three-letter country code.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former three-letter country code.</item>
 				</item>
 			</item>
 		</TERM>
@@ -1135,8 +1135,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-3 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-3 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1154,14 +1154,14 @@
 		<TERM ns="iso:3166:3" lid="alpha-4">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Former alpha-4 country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former alpha-4 country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Four-letter country code. Each former country name in ISO 3166-3 is assigned a four-letter alphabetic code. The first two letters are the ISO 3166-1 alpha-2 code of the former country, while the last two letters are allocated according to the following rules: 1.) If the country changed its name, the new ISO 3166-1 alpha-2 code is used (e.g., Burma changed its name to Myanmar, whose new alpha-2 code is MM), or the special code AA is used if its alpha-2 code was not changed (e.g., Byelorussian SSR changed its name to Belarus, which has kept the same alpha-2 code). 2.) If the country merged into an existing country, the ISO 3166-1 alpha-2 code of this country is used (e.g., the German Democratic Republic merged into Germany, whose alpha-2 code is DE). 3.) If the country was divided into several parts, the special code HH is used to indicate that there is no single successor country (e.g., Czechoslovakia was divided into the Czech Republic and Slovakia), with the exception of Serbia and Montenegro, for which XX is used to avoid duplicate use of the same ISO 3166-3 code, as the alpha-2 code CS had twice been deleted from ISO 3166-1, the first time due to the split of Czechoslovakia and the second time due to the split of Serbia and Montenegro.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Four-letter country code. Each former country name in ISO 3166-3 is assigned a four-letter alphabetic code. The first two letters are the ISO 3166-1 alpha-2 code of the former country, while the last two letters are allocated according to the following rules: 1.) If the country changed its name, the new ISO 3166-1 alpha-2 code is used (e.g., Burma changed its name to Myanmar, whose new alpha-2 code is MM), or the special code AA is used if its alpha-2 code was not changed (e.g., Byelorussian SSR changed its name to Belarus, which has kept the same alpha-2 code). 2.) If the country merged into an existing country, the ISO 3166-1 alpha-2 code of this country is used (e.g., the German Democratic Republic merged into Germany, whose alpha-2 code is DE). 3.) If the country was divided into several parts, the special code HH is used to indicate that there is no single successor country (e.g., Czechoslovakia was divided into the Czech Republic and Slovakia), with the exception of Serbia and Montenegro, for which XX is used to avoid duplicate use of the same ISO 3166-3 code, as the alpha-2 code CS had twice been deleted from ISO 3166-1, the first time due to the split of Czechoslovakia and the second time due to the split of Serbia and Montenegro.</item>
 				</item>
 			</item>
 		</TERM>
@@ -1172,8 +1172,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-4 codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 alpha-4 codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -1187,14 +1187,14 @@
 		<TERM ns="iso:3166:3" lid="numeric">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Former numeric country code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former numeric country code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Former three-digit country code.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Former three-digit country code.</item>
 				</item>
 			</item>
 		</TERM>
@@ -1205,8 +1205,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 numeric codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 3166 Part 3 numeric codes.]]></item>
 				</item>
 			</item>
 		</NODE>

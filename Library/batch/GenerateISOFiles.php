@@ -1933,9 +1933,9 @@ if( kOPTION_VERBOSE )
 							$element_sub->addAttribute( 'const', 'kTAG_LABEL' );
 							$element_sub = $element_sub->addChild( 'item' );
 							$item_sub = $element_sub->addChild( 'item', 'en' );
-							$item_sub->addAttribute( 'const', 'kTAG_GEN_LANGUAGE' );
+							$item_sub->addAttribute( 'const', 'kTAG_LANGUAGE' );
 							$item_sub = $element_sub->addChild( 'item', $sub_name );
-							$item_sub->addAttribute( 'const', 'kTAG_GEN_TEXT' );
+							$item_sub->addAttribute( 'const', 'kTAG_TEXT' );
 					
 							//
 							// Set synonyms.
@@ -4517,13 +4517,13 @@ if( kOPTION_VERBOSE )
 			// Create language item.
 			//
 			$tmp = $item->addChild( 'item', $language );
-			$tmp->addAttribute( 'const', 'kTAG_GEN_LANGUAGE' );
+			$tmp->addAttribute( 'const', 'kTAG_LANGUAGE' );
 			
 			//
 			// Create language item.
 			//
 			$tmp = $item->addChild( 'item', htmlspecialchars( $string ) );
-			$tmp->addAttribute( 'const', 'kTAG_GEN_TEXT' );
+			$tmp->addAttribute( 'const', 'kTAG_TEXT' );
 		
 		} // Iterating language strings.
 

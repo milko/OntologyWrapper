@@ -21,55 +21,55 @@
 		<item const="kTAG_ENTITY_LNAME"><![CDATA[Škofič]]></item>
 		<item const="kTAG_ENTITY_MAIL">
 			<item>
-				<item const="kTAG_GEN_TYPE">Work</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[Bioversity International<br/>Via dei Tre Denari, 472/a<br/>00057 Maccarese (Fiumicino)<br/>ITALIA]]></item>
+				<item const="kTAG_TYPE">Work</item>
+				<item const="kTAG_TEXT"><![CDATA[Bioversity International<br/>Via dei Tre Denari, 472/a<br/>00057 Maccarese (Fiumicino)<br/>ITALIA]]></item>
 			</item>
 			<item>
-				<item const="kTAG_GEN_TYPE">Home</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[Via di Torrimpietra, 227<br/>00054 Torrimpietra Fiumicino<br/>ITALIA]]></item>
+				<item const="kTAG_TYPE">Home</item>
+				<item const="kTAG_TEXT"><![CDATA[Via di Torrimpietra, 227<br/>00054 Torrimpietra Fiumicino<br/>ITALIA]]></item>
 			</item>
 		</item>
 		<item const="kTAG_ENTITY_EMAIL">
 			<item>
-				<item const="kTAG_GEN_TYPE">Work</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[m.skofic@cgiar.org]]></item>
+				<item const="kTAG_TYPE">Work</item>
+				<item const="kTAG_TEXT"><![CDATA[m.skofic@cgiar.org]]></item>
 			</item>
 			<item>
-				<item const="kTAG_GEN_TYPE">Personal</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[info@skofic.net]]></item>
+				<item const="kTAG_TYPE">Personal</item>
+				<item const="kTAG_TEXT"><![CDATA[info@skofic.net]]></item>
 			</item>
 		</item>
 		<item const="kTAG_ENTITY_PHONE">
 			<item>
-				<item const="kTAG_GEN_TYPE">Work</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[+39 06 6118286]]></item>
+				<item const="kTAG_TYPE">Work</item>
+				<item const="kTAG_TEXT"><![CDATA[+39 06 6118286]]></item>
 			</item>
 			<item>
-				<item const="kTAG_GEN_TYPE">Cellular</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[+39 346 2250585]]></item>
+				<item const="kTAG_TYPE">Cellular</item>
+				<item const="kTAG_TEXT"><![CDATA[+39 346 2250585]]></item>
 			</item>
 		</item>
 		<item const="kTAG_ENTITY_FAX">
 			<item>
-				<item const="kTAG_GEN_TYPE">Work</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[+39 06 61979661]]></item>
+				<item const="kTAG_TYPE">Work</item>
+				<item const="kTAG_TEXT"><![CDATA[+39 06 61979661]]></item>
 			</item>
 		</item>
 		<item const="kTAG_ENTITY_NATIONALITY"><![CDATA[iso:3166:1:alpha-3:ITA]]></item>
 		<item const="kTAG_ENTITY_AFFILIATION">
 			<item>
-				<item const="kTAG_GEN_TYPE">Programme Specialist</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[Bioversity International]]></item>
+				<item const="kTAG_TYPE">Programme Specialist</item>
+				<item const="kTAG_TEXT"><![CDATA[Bioversity International]]></item>
 			</item>
 			<item>
-				<item const="kTAG_GEN_TYPE">Secret Agent</item>
-				<item const="kTAG_GEN_TEXT"><![CDATA[Spectre International]]></item>
+				<item const="kTAG_TYPE">Secret Agent</item>
+				<item const="kTAG_TEXT"><![CDATA[Spectre International]]></item>
 			</item>
 		</item>
 		
 		<item const="kTAG_GEO_SHAPE">
-			<item const="kTAG_SHAPE_TYPE">Point</item>
-			<item const="kTAG_SHAPE_GEOMETRY">
+			<item const="kTAG_TYPE">Point</item>
+			<item const="kTAG_GEOMETRY">
 				<item>12.236371</item>
 				<item>41.878017</item>
 			</item>

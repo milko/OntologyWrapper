@@ -509,8 +509,11 @@ abstract class OntologyObject extends ContainerObject
 	 * <ul>
 	 *	<li><tt>{@link kTAG_NID}</tt>: Native identifier.
 	 *	<li><tt>{@link kTAG_CLASS}</tt>: Object class name.
-	 *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: Shape property type.
-	 *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: Shape property geometry.
+	 *	<li><tt>{@link kTAG_TYPE}</tt>: Property type.
+	 *	<li><tt>{@link kTAG_LANGUAGE}</tt>: Property language.
+	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
+	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
+	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
 	 * </ul>
 	 *
 	 * @static
@@ -518,7 +521,9 @@ abstract class OntologyObject extends ContainerObject
 	 */
 	static function InternalOffsets()
 	{
-		return array( kTAG_NID, kTAG_CLASS, kTAG_SHAPE_TYPE, kTAG_SHAPE_GEOMETRY );	// ==>
+		return array( kTAG_NID, kTAG_CLASS,
+					  kTAG_TYPE, kTAG_LANGUAGE,
+					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY );							// ==>
 	
 	} // InternalOffsets.
 
@@ -779,14 +784,14 @@ abstract class OntologyObject extends ContainerObject
 			//
 			// Match language code.
 			//
-			if( $string[ kTAG_GEN_LANGUAGE ] == $theLanguage )
-				return $string[ kTAG_GEN_TEXT ];										// ==>
+			if( $string[ kTAG_LANGUAGE ] == $theLanguage )
+				return $string[ kTAG_TEXT ];										// ==>
 			
 			//
 			// Set first.
 			//
 			if( $first === NULL )
-				$first = $string[ kTAG_GEN_TEXT ];
+				$first = $string[ kTAG_TEXT ];
 		
 		} // Iterating language strings.
 	
@@ -798,8 +803,8 @@ abstract class OntologyObject extends ContainerObject
 			//
 			// Match default code.
 			//
-			if( $string[ kTAG_GEN_LANGUAGE ] == 0 )
-				return $string[ kTAG_GEN_TEXT ];										// ==>
+			if( $string[ kTAG_LANGUAGE ] == 0 )
+				return $string[ kTAG_TEXT ];										// ==>
 		
 		} // Iterating language strings.
 		
@@ -926,8 +931,8 @@ abstract class OntologyObject extends ContainerObject
 		//
 		// Init local storage.
 		//
-		$type = & $theShape[ kTAG_SHAPE_TYPE ];
-		$geom = & $theShape[ kTAG_SHAPE_GEOMETRY ];
+		$type = & $theShape[ kTAG_TYPE ];
+		$geom = & $theShape[ kTAG_GEOMETRY ];
 		
 		//
 		// Parse by type.
@@ -972,10 +977,10 @@ abstract class OntologyObject extends ContainerObject
 						//
 						// Recurse with points.
 						//
-						$shape = array( kTAG_SHAPE_TYPE => 'Point',
-										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
+						$shape = array( kTAG_TYPE => 'Point',
+										kTAG_GEOMETRY => $geom[ $idx ] );
 						static::CastShapeGeometry( $shape );
-						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
+						$geom[ $idx ] = $shape[ kTAG_GEOMETRY ];
 					}
 				}
 				else
@@ -998,10 +1003,10 @@ abstract class OntologyObject extends ContainerObject
 						//
 						// Recurse with line strings.
 						//
-						$shape = array( kTAG_SHAPE_TYPE => 'LineString',
-										kTAG_SHAPE_GEOMETRY => $geom[ $idx ] );
+						$shape = array( kTAG_TYPE => 'LineString',
+										kTAG_GEOMETRY => $geom[ $idx ] );
 						static::CastShapeGeometry( $shape );
-						$geom[ $idx ] = $shape[ kTAG_SHAPE_GEOMETRY ];
+						$geom[ $idx ] = $shape[ kTAG_GEOMETRY ];
 					}
 				}
 				else

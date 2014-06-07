@@ -360,8 +360,8 @@ try
 		 && $object->offsetExists( ':location:latitude' ) )
 			$object->offsetSet(
 				':shape',
-				array( kTAG_SHAPE_TYPE => 'Point',
-					   kTAG_SHAPE_GEOMETRY => array(
+				array( kTAG_TYPE => 'Point',
+					   kTAG_GEOMETRY => array(
 					   		$object->offsetGet( ':location:longitude' ),
 					   		$object->offsetGet( ':location:latitude' ) ) ) );
 		

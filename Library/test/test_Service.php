@@ -1411,16 +1411,16 @@ exit;
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 			)
 		),
-	/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Point',
-								   kTAG_SHAPE_GEOMETRY => array( array( 10, 20 ), 10000 ) ),*/
-	/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Circle',
-								   kTAG_SHAPE_GEOMETRY => array( array( 10, 20 ), 10 / 3959 ) ),*/
-	/*	kAPI_PARAM_SHAPE => array( kTAG_SHAPE_TYPE => 'Rect',
-								   kTAG_SHAPE_GEOMETRY => array( array( -10, 30 ),
+	/*	kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Point',
+								   kTAG_GEOMETRY => array( array( 10, 20 ), 10000 ) ),*/
+	/*	kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Circle',
+								   kTAG_GEOMETRY => array( array( 10, 20 ), 10 / 3959 ) ),*/
+	/*	kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
+								   kTAG_GEOMETRY => array( array( -10, 30 ),
 																 array( -11, 29 ) ) ),*/
 		kAPI_PARAM_SHAPE
-			=> array( kTAG_SHAPE_TYPE => 'Polygon',
-					  kTAG_SHAPE_GEOMETRY
+			=> array( kTAG_TYPE => 'Polygon',
+					  kTAG_GEOMETRY
 						=> array( array( array( 12.8199,42.8422 ),
 										 array( 12.8207,42.8158 ),
 										 array( 12.8699,42.8166 ),

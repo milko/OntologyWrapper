@@ -460,30 +460,6 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_GEN_TYPE => array
-		(
-			kTAG_NID	=> ':type',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
-		),
-		kTAG_GEN_LANGUAGE => array
-		(
-			kTAG_NID	=> ':language',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
-		),
-		kTAG_GEN_TEXT => array
-		(
-			kTAG_NID	=> ':text',
-			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
-		kTAG_GEN_URL => array
-		(
-			kTAG_NID	=> ':url',
-			kTAG_DATA_TYPE	=> kTYPE_URL,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
-		),
 		kTAG_GEO_SHAPE => array
 		(
 			kTAG_NID	=> ':geo',
@@ -3909,9 +3885,9 @@ abstract class PersistentObject extends OntologyObject
 						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."the value is not an array." );							// !@! ==>
 				
-				if( (! array_key_exists( kTAG_SHAPE_TYPE, $theProperty ))
-				 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theProperty ))
-				 || (! is_array( $theProperty[ kTAG_SHAPE_GEOMETRY ] )) )
+				if( (! array_key_exists( kTAG_TYPE, $theProperty ))
+				 || (! array_key_exists( kTAG_GEOMETRY, $theProperty ))
+				 || (! is_array( $theProperty[ kTAG_GEOMETRY ] )) )
 					throw new \Exception(
 						"Invalid offset value in [$thePath] type [$theType]: "
 					   ."invalid shape geometry." );							// !@! ==>

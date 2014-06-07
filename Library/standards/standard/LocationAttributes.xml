@@ -14,8 +14,8 @@
 		<TERM ns=":location" lid="continent">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Continent</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Continent</item>
 				</item>
 			</item>
 		</TERM>
@@ -29,8 +29,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>continent</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>continent</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -51,8 +51,8 @@
 		<TERM ns=":location" lid="country">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Country</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country</item>
 				</item>
 			</item>
 		</TERM>
@@ -66,8 +66,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>country</em>. For historical reasons legacy countries are included.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>country</em>. For historical reasons legacy countries are included.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -88,14 +88,14 @@
 		<TERM ns=":location" lid="country-legacy">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Legacy countries</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Legacy countries</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[A legacy country is one <em>which does not exist any more</em> or a <em>country code no more in use</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A legacy country is one <em>which does not exist any more</em> or a <em>country code no more in use</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -116,14 +116,14 @@
 		<TERM ns=":location" lid="admin">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Administrative unit</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Administrative unit</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location administrative unit comprising continents, countries and country subdivisions.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location administrative unit comprising continents, countries and country subdivisions.</item>
 				</item>
 			</item>
 		</TERM>
@@ -137,8 +137,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>administrative unit</em> of the location, the code can describe either a <em>continent</em>, <em>country</em> or <em>country subdivision</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>administrative unit</em> of the location, the code can describe either a <em>continent</em>, <em>country</em> or <em>country subdivision</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -161,14 +161,14 @@
 		<TERM ns=":location" lid="admin-1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Primary administrative unit</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Primary administrative unit</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Name of the primary administrative subdivision of the location's country.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the primary administrative subdivision of the location's country.</item>
 				</item>
 			</item>
 		</TERM>
@@ -182,8 +182,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>name of the primary administrative unit</em> below the country.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the primary administrative unit</em> below the country.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -199,14 +199,14 @@
 		<TERM ns=":location" lid="admin-2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Secondary administrative unit</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Secondary administrative unit</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Name of the secondary administrative subdivision of the location's primary administrative unit.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the secondary administrative subdivision of the location's primary administrative unit.</item>
 				</item>
 			</item>
 		</TERM>
@@ -220,8 +220,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>name of the secondary administrative unit</em> below the primary administrative unit.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the secondary administrative unit</em> below the primary administrative unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -237,14 +237,14 @@
 		<TERM ns=":location" lid="admin-3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Lowest administrative unit</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Lowest administrative unit</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Name of the lowest administrative subdivision of the location, or its local name.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Name of the lowest administrative subdivision of the location, or its local name.</item>
 				</item>
 			</item>
 		</TERM>
@@ -258,8 +258,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>name of the lowest administrative unit</em>, or <em>local name</em> of the location.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the lowest administrative unit</em>, or <em>local name</em> of the location.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -275,14 +275,14 @@
 		<TERM ns=":location" lid="locality">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Locality</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Locality</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Description or name of the location.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Description or name of the location.</item>
 				</item>
 			</item>
 		</TERM>
@@ -296,8 +296,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>description</em> or <em>name</em> of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>description</em> or <em>name</em> of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -315,14 +315,14 @@
 		<TERM ns=":location" lid="elevation">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Elevation</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Elevation</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location elevation or mean elevation.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location elevation or mean elevation.</item>
 				</item>
 			</item>
 		</TERM>
@@ -336,8 +336,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level. For areas, this attribute should hold the <em>mean elevation</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level. For areas, this attribute should hold the <em>mean elevation</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -353,14 +353,14 @@
 		<TERM ns=":location:elevation" lid="min">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Minimum elevation</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minimum elevation</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location minimum elevation.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location minimum elevation.</item>
 				</item>
 			</item>
 		</TERM>
@@ -374,8 +374,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>minimum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>minimum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -391,14 +391,14 @@
 		<TERM ns=":location:elevation" lid="max">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Maximum elevation</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Maximum elevation</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location maximum elevation.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location maximum elevation.</item>
 				</item>
 			</item>
 		</TERM>
@@ -412,8 +412,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>maximum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>maximum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -429,14 +429,14 @@
 		<TERM ns=":location:elevation" lid="error">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Elevation uncertainty</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Elevation uncertainty</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location elevation uncertainty.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location elevation uncertainty.</item>
 				</item>
 			</item>
 		</TERM>
@@ -450,8 +450,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>elevation uncertainty in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation uncertainty in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -469,14 +469,14 @@
 		<TERM ns=":location" lid="datum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Datum</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Datum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Coordinates geodetic datum.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coordinates geodetic datum.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -490,8 +490,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -507,8 +507,8 @@
 		<TERM ns=":location:datum" lid="DeltaA">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Equatorial radius minus the specified datum Equatorial radius in meters]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Equatorial radius minus the specified datum Equatorial radius in meters]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -533,8 +533,8 @@
 		<TERM ns=":location:datum" lid="DeltaF">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The WGS-84 flattening minus the specified datum flattening multiplied by 10^4]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The WGS-84 flattening minus the specified datum flattening multiplied by 10^4]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -559,8 +559,8 @@
 		<TERM ns=":location:datum" lid="X">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[WGS-84 X minus the specified datum X]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[WGS-84 X minus the specified datum X]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -585,8 +585,8 @@
 		<TERM ns=":location:datum" lid="Y">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[WGS-84 Y minus the specified datum Y]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[WGS-84 Y minus the specified datum Y]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -611,8 +611,8 @@
 		<TERM ns=":location:datum" lid="Z">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[WGS-84 Z minus the specified datum Z]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[WGS-84 Z minus the specified datum Z]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -649,8 +649,8 @@
 		<TERM ns=":location:datum" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[WGS-84]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[WGS-84]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -675,8 +675,8 @@
 		<TERM ns=":location:datum" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[WGS-72]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[WGS-72]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">2</item>
@@ -701,8 +701,8 @@
 		<TERM ns=":location:datum" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ain El Abd 1970, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ain El Abd 1970, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -727,8 +727,8 @@
 		<TERM ns=":location:datum" lid="4">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Alaska (NAD-27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Alaska (NAD-27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -753,8 +753,8 @@
 		<TERM ns=":location:datum" lid="5">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Alaska/Canada NAD-27, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Alaska/Canada NAD-27, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -779,8 +779,8 @@
 		<TERM ns=":location:datum" lid="6">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Anna 1 Astro 1965, Australian National]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Anna 1 Astro 1965, Australian National]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-23</item>
@@ -805,8 +805,8 @@
 		<TERM ns=":location:datum" lid="7">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[ARC-1950 mean, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[ARC-1950 mean, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -831,8 +831,8 @@
 		<TERM ns=":location:datum" lid="8">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[ARC-1960 mean, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[ARC-1960 mean, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -857,8 +857,8 @@
 		<TERM ns=":location:datum" lid="9">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ascension Island '58, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ascension Island '58, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -883,8 +883,8 @@
 		<TERM ns=":location:datum" lid="10">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Astro B4 Sor.Atoll, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Astro B4 Sor.Atoll, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -909,8 +909,8 @@
 		<TERM ns=":location:datum" lid="11">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Astro Beacon "E", International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Astro Beacon "E", International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -935,8 +935,8 @@
 		<TERM ns=":location:datum" lid="12">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Astro Pos 71/4, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Astro Pos 71/4, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -961,8 +961,8 @@
 		<TERM ns=":location:datum" lid="13">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Astronomic Stn. '52, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Astronomic Stn. '52, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -987,8 +987,8 @@
 		<TERM ns=":location:datum" lid="14">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Australian Geodetic 1984, Australian National]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Australian Geodetic 1984, Australian National]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-23</item>
@@ -1013,8 +1013,8 @@
 		<TERM ns=":location:datum" lid="15">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Bahamas (NAD-27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bahamas (NAD-27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1039,8 +1039,8 @@
 		<TERM ns=":location:datum" lid="16">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Bellevue (IGN), International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bellevue (IGN), International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1065,8 +1065,8 @@
 		<TERM ns=":location:datum" lid="17">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Bermuda 1957, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bermuda 1957, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1091,8 +1091,8 @@
 		<TERM ns=":location:datum" lid="18">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Bogota Observatory, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bogota Observatory, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1117,8 +1117,8 @@
 		<TERM ns=":location:datum" lid="19">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Bukit Rimpah, Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bukit Rimpah, Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -1143,8 +1143,8 @@
 		<TERM ns=":location:datum" lid="20">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Camp Area Astro, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Camp Area Astro, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1169,8 +1169,8 @@
 		<TERM ns=":location:datum" lid="21">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Campo Inchauspe, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Campo Inchauspe, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1195,8 +1195,8 @@
 		<TERM ns=":location:datum" lid="22">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Canada Mean (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Canada Mean (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1221,8 +1221,8 @@
 		<TERM ns=":location:datum" lid="23">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Canal Zone (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Canal Zone (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1247,8 +1247,8 @@
 		<TERM ns=":location:datum" lid="24">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Canton Island 1966, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Canton Island 1966, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1273,8 +1273,8 @@
 		<TERM ns=":location:datum" lid="25">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Cape, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cape, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -1299,8 +1299,8 @@
 		<TERM ns=":location:datum" lid="26">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Cape Canaveral mean, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cape Canaveral mean, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1325,8 +1325,8 @@
 		<TERM ns=":location:datum" lid="27">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Carribean (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Carribean (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1351,8 +1351,8 @@
 		<TERM ns=":location:datum" lid="28">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Carthage, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Carthage, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -1377,8 +1377,8 @@
 		<TERM ns=":location:datum" lid="29">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Central America (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Central America (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1403,8 +1403,8 @@
 		<TERM ns=":location:datum" lid="30">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Chatham 1971, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chatham 1971, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1429,8 +1429,8 @@
 		<TERM ns=":location:datum" lid="31">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Chua Astro, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chua Astro, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1455,8 +1455,8 @@
 		<TERM ns=":location:datum" lid="32">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Corrego Alegre, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Corrego Alegre, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1481,8 +1481,8 @@
 		<TERM ns=":location:datum" lid="33">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Corrego Alegre (Provisional), International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Corrego Alegre (Provisional), International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1507,8 +1507,8 @@
 		<TERM ns=":location:datum" lid="34">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Cuba (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cuba (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1533,8 +1533,8 @@
 		<TERM ns=":location:datum" lid="35">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Cyprus, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cyprus, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1559,8 +1559,8 @@
 		<TERM ns=":location:datum" lid="36">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Djakarta(Batavia), Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Djakarta(Batavia), Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -1585,8 +1585,8 @@
 		<TERM ns=":location:datum" lid="37">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[DOS 1968, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[DOS 1968, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1611,8 +1611,8 @@
 		<TERM ns=":location:datum" lid="38">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Easter lsland 1967, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Easter lsland 1967, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1637,8 +1637,8 @@
 		<TERM ns=":location:datum" lid="39">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Egypt, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Egypt, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1663,8 +1663,8 @@
 		<TERM ns=":location:datum" lid="40">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[European 1950, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[European 1950, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1689,8 +1689,8 @@
 		<TERM ns=":location:datum" lid="41">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[European 1950 mean, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[European 1950 mean, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1715,8 +1715,8 @@
 		<TERM ns=":location:datum" lid="42">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[European 1979 mean, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[European 1979 mean, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1741,8 +1741,8 @@
 		<TERM ns=":location:datum" lid="43">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Finnish Nautical Chart, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Finnish Nautical Chart, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1767,8 +1767,8 @@
 		<TERM ns=":location:datum" lid="44">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Gandajika Base, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gandajika Base, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1793,8 +1793,8 @@
 		<TERM ns=":location:datum" lid="45">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Geodetic Datum '49, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Geodetic Datum '49, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1819,8 +1819,8 @@
 		<TERM ns=":location:datum" lid="46">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ghana, WGS-84]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ghana, WGS-84]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -1845,8 +1845,8 @@
 		<TERM ns=":location:datum" lid="47">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Greenland (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Greenland (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1871,8 +1871,8 @@
 		<TERM ns=":location:datum" lid="48">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Guam 1963, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Guam 1963, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -1897,8 +1897,8 @@
 		<TERM ns=":location:datum" lid="49">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Gunung Segara, Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gunung Segara, Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -1923,8 +1923,8 @@
 		<TERM ns=":location:datum" lid="50">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Gunung Serindung 1962, WGS-84]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gunung Serindung 1962, WGS-84]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -1949,8 +1949,8 @@
 		<TERM ns=":location:datum" lid="51">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[GUX 1 Astro, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[GUX 1 Astro, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -1975,8 +1975,8 @@
 		<TERM ns=":location:datum" lid="52">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Herat North, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Herat North, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2001,8 +2001,8 @@
 		<TERM ns=":location:datum" lid="53">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Hjorsey 1955, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hjorsey 1955, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2027,8 +2027,8 @@
 		<TERM ns=":location:datum" lid="54">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Hong Kong 1963, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hong Kong 1963, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2053,8 +2053,8 @@
 		<TERM ns=":location:datum" lid="55">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Hu-Tzu-Shan, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hu-Tzu-Shan, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2079,8 +2079,8 @@
 		<TERM ns=":location:datum" lid="56">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Indian, Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indian, Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">860.655</item>
@@ -2105,8 +2105,8 @@
 		<TERM ns=":location:datum" lid="57">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Iran, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Iran, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2131,8 +2131,8 @@
 		<TERM ns=":location:datum" lid="58">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ireland 1965, Modified Airy]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ireland 1965, Modified Airy]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">796.811</item>
@@ -2157,8 +2157,8 @@
 		<TERM ns=":location:datum" lid="59">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[ISTS 073 Astro '69, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[ISTS 073 Astro '69, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2183,8 +2183,8 @@
 		<TERM ns=":location:datum" lid="60">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Johnston Island '61, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Johnston Island '61, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2209,8 +2209,8 @@
 		<TERM ns=":location:datum" lid="61">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Kandawala, Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Kandawala, Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">860.655</item>
@@ -2235,8 +2235,8 @@
 		<TERM ns=":location:datum" lid="62">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Kerguelen Island, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Kerguelen Island, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2261,8 +2261,8 @@
 		<TERM ns=":location:datum" lid="63">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Kertau '48, Modified Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Kertau '48, Modified Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">832.937</item>
@@ -2287,8 +2287,8 @@
 		<TERM ns=":location:datum" lid="64">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[L.C. 5 Astro, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[L.C. 5 Astro, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2313,8 +2313,8 @@
 		<TERM ns=":location:datum" lid="65">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[La Reunion, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[La Reunion, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2339,8 +2339,8 @@
 		<TERM ns=":location:datum" lid="66">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Liberia 1964, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Liberia 1964, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2365,8 +2365,8 @@
 		<TERM ns=":location:datum" lid="67">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Luzon, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Luzon, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2391,8 +2391,8 @@
 		<TERM ns=":location:datum" lid="68">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Mahe 1971, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mahe 1971, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2417,8 +2417,8 @@
 		<TERM ns=":location:datum" lid="69">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Marco Astro, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Marco Astro, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2443,8 +2443,8 @@
 		<TERM ns=":location:datum" lid="70">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Masirah Is. (Nahrwan), Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Masirah Is. (Nahrwan), Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2469,8 +2469,8 @@
 		<TERM ns=":location:datum" lid="71">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Massawa, Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Massawa, Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -2495,8 +2495,8 @@
 		<TERM ns=":location:datum" lid="72">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Merchich, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Merchich, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2521,8 +2521,8 @@
 		<TERM ns=":location:datum" lid="73">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Mexico (NAD27), Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mexico (NAD27), Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2547,8 +2547,8 @@
 		<TERM ns=":location:datum" lid="74">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Midway Astro '61, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Midway Astro '61, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2573,8 +2573,8 @@
 		<TERM ns=":location:datum" lid="75">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Mindanao, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mindanao, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2599,8 +2599,8 @@
 		<TERM ns=":location:datum" lid="76">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Minna, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Minna, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2625,8 +2625,8 @@
 		<TERM ns=":location:datum" lid="77">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Montjong Lowe, WGS-84]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Montjong Lowe, WGS-84]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -2651,8 +2651,8 @@
 		<TERM ns=":location:datum" lid="78">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Nahrwan, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Nahrwan, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2677,8 +2677,8 @@
 		<TERM ns=":location:datum" lid="79">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Naparima BWI, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Naparima BWI, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2703,8 +2703,8 @@
 		<TERM ns=":location:datum" lid="80">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[North America '83, GRS 80]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[North America '83, GRS 80]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -2729,8 +2729,8 @@
 		<TERM ns=":location:datum" lid="81">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[North America 1927 mean, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[North America 1927 mean, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2755,8 +2755,8 @@
 		<TERM ns=":location:datum" lid="82">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Observatorio 1966, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Observatorio 1966, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2781,8 +2781,8 @@
 		<TERM ns=":location:datum" lid="83">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Old Egyptian, Helmert 1906]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Old Egyptian, Helmert 1906]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-63</item>
@@ -2807,8 +2807,8 @@
 		<TERM ns=":location:datum" lid="84">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Old Hawaiian mean, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Old Hawaiian mean, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2833,8 +2833,8 @@
 		<TERM ns=":location:datum" lid="85">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Old Hawaiian Kauai, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Old Hawaiian Kauai, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2859,8 +2859,8 @@
 		<TERM ns=":location:datum" lid="86">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Old Hawaiian Maui, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Old Hawaiian Maui, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2885,8 +2885,8 @@
 		<TERM ns=":location:datum" lid="87">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Old Hawaiian Oahu, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Old Hawaiian Oahu, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -2911,8 +2911,8 @@
 		<TERM ns=":location:datum" lid="88">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Oman, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Oman, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -2937,8 +2937,8 @@
 		<TERM ns=":location:datum" lid="89">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Ordnance Survey of Great Britain '36, Airy]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ordnance Survey of Great Britain '36, Airy]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">573.604</item>
@@ -2963,8 +2963,8 @@
 		<TERM ns=":location:datum" lid="90">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Pico De Las Nieves, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pico De Las Nieves, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -2989,8 +2989,8 @@
 		<TERM ns=":location:datum" lid="91">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Pitcairn Astro '67, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pitcairn Astro '67, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3015,8 +3015,8 @@
 		<TERM ns=":location:datum" lid="92">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Potsdam Rauenberg DHDN, Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Potsdam Rauenberg DHDN, Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -3041,8 +3041,8 @@
 		<TERM ns=":location:datum" lid="93">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Provisional South American 1956 mean, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provisional South American 1956 mean, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3067,8 +3067,8 @@
 		<TERM ns=":location:datum" lid="94">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Provisional South Chilean 1963, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Provisional South Chilean 1963, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3093,8 +3093,8 @@
 		<TERM ns=":location:datum" lid="95">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Puerto Rico, Clarke 1866]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Puerto Rico, Clarke 1866]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-69.4</item>
@@ -3119,8 +3119,8 @@
 		<TERM ns=":location:datum" lid="96">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Pulkovo 1942, Krassovsky]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pulkovo 1942, Krassovsky]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-108</item>
@@ -3145,8 +3145,8 @@
 		<TERM ns=":location:datum" lid="97">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Qornoq, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Qornoq, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3171,8 +3171,8 @@
 		<TERM ns=":location:datum" lid="98">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Quatar National, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Quatar National, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3197,8 +3197,8 @@
 		<TERM ns=":location:datum" lid="99">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Rome 1940, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Rome 1940, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3223,8 +3223,8 @@
 		<TERM ns=":location:datum" lid="100">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[S 42, Krassovsky]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[S 42, Krassovsky]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-108</item>
@@ -3249,8 +3249,8 @@
 		<TERM ns=":location:datum" lid="101">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[S.E.Asia (Indian), Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[S.E.Asia (Indian), Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">860.655</item>
@@ -3275,8 +3275,8 @@
 		<TERM ns=":location:datum" lid="102">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[SAD-69/Brazil, South American 1969]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[SAD-69/Brazil, South American 1969]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-23</item>
@@ -3301,8 +3301,8 @@
 		<TERM ns=":location:datum" lid="103">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Santa Braz, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Santa Braz, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3327,8 +3327,8 @@
 		<TERM ns=":location:datum" lid="104">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Santo (DOS), International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Santo (DOS), International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3353,8 +3353,8 @@
 		<TERM ns=":location:datum" lid="105">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Sapper Hill '43, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sapper Hill '43, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3379,8 +3379,8 @@
 		<TERM ns=":location:datum" lid="106">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Schwarzeck, Bessel 1841 (Namibia)]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Schwarzeck, Bessel 1841 (Namibia)]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">653.135</item>
@@ -3405,8 +3405,8 @@
 		<TERM ns=":location:datum" lid="107">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Sicily, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sicily, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3431,8 +3431,8 @@
 		<TERM ns=":location:datum" lid="108">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Sierra Leone 1960, WGS-84]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sierra Leone 1960, WGS-84]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">0</item>
@@ -3457,8 +3457,8 @@
 		<TERM ns=":location:datum" lid="109">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[South American 1969 mean, South American 1969]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[South American 1969 mean, South American 1969]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-23</item>
@@ -3483,8 +3483,8 @@
 		<TERM ns=":location:datum" lid="110">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[South Asia, Modified Fischer 1960]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[South Asia, Modified Fischer 1960]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-18</item>
@@ -3509,8 +3509,8 @@
 		<TERM ns=":location:datum" lid="111">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Southeast Base, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Southeast Base, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3535,8 +3535,8 @@
 		<TERM ns=":location:datum" lid="112">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Southwest Base, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Southwest Base, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3561,8 +3561,8 @@
 		<TERM ns=":location:datum" lid="113">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Tananarive Observatory '25, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tananarive Observatory '25, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3587,8 +3587,8 @@
 		<TERM ns=":location:datum" lid="114">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Thai/Viet (Indian), Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Thai/Viet (Indian), Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">860.655</item>
@@ -3613,8 +3613,8 @@
 		<TERM ns=":location:datum" lid="115">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Timbalai 1948, Everest]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Timbalai 1948, Everest]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">860.655</item>
@@ -3639,8 +3639,8 @@
 		<TERM ns=":location:datum" lid="116">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Tokyo mean, Bessel 1841]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tokyo mean, Bessel 1841]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">739.845</item>
@@ -3665,8 +3665,8 @@
 		<TERM ns=":location:datum" lid="117">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Tristan Astro 1968, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Tristan Astro 1968, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3691,8 +3691,8 @@
 		<TERM ns=":location:datum" lid="118">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Unites Arab Emirates (Nahrwan), Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unites Arab Emirates (Nahrwan), Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -3717,8 +3717,8 @@
 		<TERM ns=":location:datum" lid="119">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Viti Levu 1916, Clarke 1880]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Viti Levu 1916, Clarke 1880]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-112.145</item>
@@ -3743,8 +3743,8 @@
 		<TERM ns=":location:datum" lid="120">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Wake-Eniwetok '60, Hough]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wake-Eniwetok '60, Hough]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-133</item>
@@ -3769,8 +3769,8 @@
 		<TERM ns=":location:datum" lid="121">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Yacare, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yacare, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3795,8 +3795,8 @@
 		<TERM ns=":location:datum" lid="122">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Zanderij, International]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Zanderij, International]]></item>
 				</item>
 			</item>
 			<item tag=":location:datum:DeltaA">-251</item>
@@ -3824,14 +3824,14 @@
 		<TERM ns=":location" lid="latitude">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Decimal latitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Decimal latitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude in decimal degrees.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude in decimal degrees.</item>
 				</item>
 			</item>
 		</TERM>
@@ -3845,8 +3845,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude in decimal degrees</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude in decimal degrees</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">-90</item>
@@ -3864,14 +3864,14 @@
 		<TERM ns=":location:latitude" lid="deg">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Degrees of latitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Degrees of latitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude degrees.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude degrees.</item>
 				</item>
 			</item>
 		</TERM>
@@ -3885,8 +3885,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude degrees</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude degrees</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -3904,14 +3904,14 @@
 		<TERM ns=":location:latitude" lid="min">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Minutes of latitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minutes of latitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude minutes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude minutes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -3925,8 +3925,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude minutes</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude minutes</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -3944,14 +3944,14 @@
 		<TERM ns=":location:latitude" lid="sec">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Seconds of latitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Seconds of latitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude seconds.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude seconds.</item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -3967,8 +3967,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude seconds</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude seconds</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -3984,14 +3984,14 @@
 		<TERM ns=":location:latitude" lid="hem">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Latitude hemisphere</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Latitude hemisphere</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude hemisphere.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude hemisphere.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4005,8 +4005,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude hemisphere</em>, accepted values are <tt>N</tt> for <em>North</em> and <tt>S</tt> for <em>South</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude hemisphere</em>, accepted values are <tt>N</tt> for <em>North</em> and <tt>S</tt> for <em>South</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_PATTERN"><![CDATA[[NS]{1}]]></item>
@@ -4023,14 +4023,14 @@
 		<TERM ns=":location:latitude" lid="error">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Latitude uncertainty</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Latitude uncertainty</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location latitude uncertainty.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location latitude uncertainty.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4044,8 +4044,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>latitude uncertainty in meters</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude uncertainty in meters</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4061,14 +4061,14 @@
 		<TERM ns=":location" lid="longitude">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Decimal longitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Decimal longitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude in decimal degrees.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude in decimal degrees.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4082,8 +4082,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude in decimal degrees</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude in decimal degrees</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">-180</item>
@@ -4101,14 +4101,14 @@
 		<TERM ns=":location:longitude" lid="deg">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Degrees of longitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Degrees of longitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude degrees.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude degrees.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4122,8 +4122,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude degrees</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude degrees</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -4141,14 +4141,14 @@
 		<TERM ns=":location:longitude" lid="min">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Minutes of longitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Minutes of longitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude minutes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude minutes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4162,8 +4162,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude minutes</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude minutes</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -4181,14 +4181,14 @@
 		<TERM ns=":location:longitude" lid="sec">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Seconds of longitude</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Seconds of longitude</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude seconds.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude seconds.</item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -4204,8 +4204,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude seconds</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude seconds</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4221,14 +4221,14 @@
 		<TERM ns=":location:longitude" lid="hem">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Longitude hemisphere</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Longitude hemisphere</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude hemisphere.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude hemisphere.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4242,8 +4242,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude hemisphere</em>, accepted values are <tt>E</tt> for <em>East</em> and <tt>W</tt> for <em>West</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude hemisphere</em>, accepted values are <tt>E</tt> for <em>East</em> and <tt>W</tt> for <em>West</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_PATTERN"><![CDATA[[EW]{1}]]></item>
@@ -4260,14 +4260,14 @@
 		<TERM ns=":location:longitude" lid="error">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Longitude uncertainty</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Longitude uncertainty</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Location longitude uncertainty.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location longitude uncertainty.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4281,8 +4281,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the location <em>longitude uncertainty in meters</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude uncertainty in meters</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4309,14 +4309,14 @@
 		<TERM ns=":location" lid="restricted">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Coordinates restricted</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Coordinates restricted</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">A flag indicating restriction in making the geographical coordinates publically available.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">A flag indicating restriction in making the geographical coordinates publically available.</item>
 				</item>
 			</item>
 		</TERM>
@@ -4330,8 +4330,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute indicates whether the coordinates may or may not be published.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute indicates whether the coordinates may or may not be published.]]></item>
 				</item>
 			</item>
 		</TAG>

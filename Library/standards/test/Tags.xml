@@ -38,8 +38,8 @@
 			<item const="kTAG_DATA_TYPE">:type:struct</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Nested structure</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Nested structure</item>
 				</item>
 			</item>
 			<item const="kTAG_TAG_STRUCT">:test:struct2</item>
@@ -57,8 +57,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Single scale non indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Single scale non indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -73,8 +73,8 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Single scale indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Single scale indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -94,8 +94,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 1 scale 1 non indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 1 scale 1 non indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -112,8 +112,8 @@
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 1 scale 2 non indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 1 scale 2 non indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -133,8 +133,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 2 scale 1 indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 1 indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -151,8 +151,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 2 scale 2 indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 2 indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -172,8 +172,8 @@
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 2 scale 3 indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 2 scale 3 indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -199,8 +199,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 4 multi offset</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 4 multi offset</item>
 				</item>
 			</item>
 		</TAG>
@@ -215,8 +215,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 5 multi offset indexed</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 5 multi offset indexed</item>
 				</item>
 			</item>
 		</TAG>
@@ -231,8 +231,8 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Feature 6 struct offset</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Feature 6 struct offset</item>
 				</item>
 			</item>
 			<item const="kTAG_TAG_STRUCT">:test:struct3</item>

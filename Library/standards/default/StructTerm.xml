@@ -14,14 +14,14 @@
 		 <TERM lid="_terms">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Term</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Term</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[A term object holds the necessary information to <i>uniquely identify</i>, <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related to a specific context</i>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A term object holds the necessary information to <i>uniquely identify</i>, <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related to a specific context</i>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -32,8 +32,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains all default properties of term objects.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of term objects.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -46,8 +46,8 @@
 		<NODE term="_id" pid="_terms:_id">
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This required attribute holds the term global identifier. By convention this value is the combination of the namespace and the local identifier, separated by a colon token; this identifier may also be manually set.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute holds the term global identifier. By convention this value is the combination of the namespace and the local identifier, separated by a colon token; this identifier may also be manually set.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -65,8 +65,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property is a reference to another term which represents the namespace of the current term.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property is a reference to another term which represents the namespace of the current term.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -84,8 +84,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents the identifier of the term within its namespace.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the identifier of the term within its namespace.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -103,8 +103,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database, this property is only present if the term was used as a tag property attribute.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds an integer which represents the reference to the node stored in the graph database, this property is only present if the term was used as a tag property attribute.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -122,8 +122,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents the term's label.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's label.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -141,8 +141,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents the term's definition.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's definition.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -160,8 +160,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents the term's synonyms list.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's synonyms list.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -179,8 +179,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents the term's types list.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents the term's types list.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -202,8 +202,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This property represents a reference to the term which represents the master copy of the current term, this property is managed automatically and should not be set by clients.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This property represents a reference to the term which represents the master copy of the current term, this property is managed automatically and should not be set by clients.]]></item>
 				</item>
 			</item>
 		</NODE>

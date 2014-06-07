@@ -1370,17 +1370,17 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Check shape structure.
 			//
-			if( (! array_key_exists( kTAG_SHAPE_TYPE, $theValue ))
-			 || (! array_key_exists( kTAG_SHAPE_GEOMETRY, $theValue ))
-			 || (! is_array( $theValue[ kTAG_SHAPE_GEOMETRY ] )) )
+			if( (! array_key_exists( kTAG_TYPE, $theValue ))
+			 || (! array_key_exists( kTAG_GEOMETRY, $theValue ))
+			 || (! is_array( $theValue[ kTAG_GEOMETRY ] )) )
 				throw new \Exception(
 					"Invalid shape geometry." );								// !@! ==>
 			
 			//
 			// Check shape contents.
 			//
-			$geom = $theValue[ kTAG_SHAPE_GEOMETRY ];
-			switch( $type = $theValue[ kTAG_SHAPE_TYPE ] )
+			$geom = $theValue[ kTAG_GEOMETRY ];
+			switch( $type = $theValue[ kTAG_TYPE ] )
 			{
 				//
 				// Points and circles.
@@ -1505,7 +1505,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Update geometry.
 			//
-			$theValue[ kTAG_SHAPE_GEOMETRY ] = $geom;
+			$theValue[ kTAG_GEOMETRY ] = $geom;
 		
 		} // Provided.
 		
@@ -2329,8 +2329,8 @@ abstract class ServiceObject extends ContainerObject
 		// Set property.
 		//
 		$property = (string) ( $language == '*' )
-				  ? (kTAG_LABEL.'.'.kTAG_GEN_TEXT)
-				  : kTAG_GEN_TEXT;
+				  ? (kTAG_LABEL.'.'.kTAG_TEXT)
+				  : kTAG_TEXT;
 		
 		//
 		// Init criteria.
@@ -2341,8 +2341,8 @@ abstract class ServiceObject extends ContainerObject
 			(
 				'$elemMatch' => array
 				(
-					(string) kTAG_GEN_TEXT => $filter,
-					(string) kTAG_GEN_LANGUAGE => $language
+					(string) kTAG_TEXT => $filter,
+					kTAG_LANGUAGE => $language
 				)
 			)
 		);
@@ -2469,19 +2469,19 @@ abstract class ServiceObject extends ContainerObject
 				//
 				// Match language.
 				//
-				if( $element[ kTAG_GEN_LANGUAGE ] == $language )
+				if( $element[ kTAG_LANGUAGE ] == $language )
 				{
 					//
 					// Skip duplicates.
 					//
-					if( ! in_array( $element[ kTAG_GEN_TEXT ],
+					if( ! in_array( $element[ kTAG_TEXT ],
 									$this->mResponse[ kAPI_RESPONSE_RESULTS ] ) )
 					{
 						//
 						// Add to results.
 						//
 						$this->mResponse[ kAPI_RESPONSE_RESULTS ][]
-							= $element[ kTAG_GEN_TEXT ];
+							= $element[ kTAG_TEXT ];
 					
 						//
 						// Decrement limits.
@@ -3070,8 +3070,8 @@ abstract class ServiceObject extends ContainerObject
 		foreach( $iterator as $key => $value )
 			$theContainer[]
 				= array( kAPI_PARAM_RESPONSE_IDENT => $key,
-						 kTAG_SHAPE_TYPE => $value[ $shape[ kTAG_SHAPE_TYPE ] ],
-						 kTAG_SHAPE_GEOMETRY => $value[ $shape[ kTAG_SHAPE_GEOMETRY ] ] );
+						 kTAG_TYPE => $value[ $shape[ kTAG_TYPE ] ],
+						 kTAG_GEOMETRY => $value[ $shape[ kTAG_GEOMETRY ] ] );
 		
 	} // executeMarkerUnits.
 
@@ -3327,8 +3327,8 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Parse by type.
 		//
-		$geom = & $theShape[ kTAG_SHAPE_GEOMETRY ];
-		switch( $type = $theShape[ kTAG_SHAPE_TYPE ] )
+		$geom = & $theShape[ kTAG_GEOMETRY ];
+		switch( $type = $theShape[ kTAG_TYPE ] )
 		{
 			case 'Point':
 				return

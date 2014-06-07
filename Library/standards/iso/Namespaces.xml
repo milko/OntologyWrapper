@@ -12,22 +12,22 @@
 		<TERM lid="iso">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">International Organization for Standardization</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">International Organization for Standardization</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">fr</item>
-					<item const="kTAG_GEN_TEXT">Organisation internationale de normalisation</item>
+					<item const="kTAG_LANGUAGE">fr</item>
+					<item const="kTAG_TEXT">Organisation internationale de normalisation</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">ru</item>
-					<item const="kTAG_GEN_TEXT">Международная организация по стандартизации</item>
+					<item const="kTAG_LANGUAGE">ru</item>
+					<item const="kTAG_TEXT">Международная организация по стандартизации</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Collection of industrial and commercial standards and codes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collection of industrial and commercial standards and codes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -44,14 +44,14 @@
 		<TERM ns="iso" lid="639">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">International Standard for language codes</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">International Standard for language codes</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">The purpose of ISO 639 is to establish internationally recognised codes (either 2, 3, or 4 letters long) for the representation of languages or language families.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The purpose of ISO 639 is to establish internationally recognised codes (either 2, 3, or 4 letters long) for the representation of languages or language families.</item>
 				</item>
 			</item>
 		</TERM>
@@ -61,8 +61,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO languages.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO languages.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -77,14 +77,14 @@
 		<TERM ns="iso" lid="3166">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">International Standard of codes for the representation of names of countries and their subdivisions</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">International Standard of codes for the representation of names of countries and their subdivisions</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">The purpose of ISO 3166 is to define codes for the names of countries, dependent territories, special areas of geographical interest, and their principal subdivisions (e.g., provinces or states).</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The purpose of ISO 3166 is to define codes for the names of countries, dependent territories, special areas of geographical interest, and their principal subdivisions (e.g., provinces or states).</item>
 				</item>
 			</item>
 		</TERM>
@@ -94,8 +94,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO countries.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO countries.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -110,14 +110,14 @@
 		<TERM ns="iso" lid="4217">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">International Standard for currency codes</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">International Standard for currency codes</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">The purpose of ISO 4217 is to establish internationally recognised codes for the representation of currencies. Currencies can be represented in the code in two ways: a three-letter alphabetic code and a three-digit numeric code.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The purpose of ISO 4217 is to establish internationally recognised codes for the representation of currencies. Currencies can be represented in the code in two ways: a three-letter alphabetic code and a three-digit numeric code.</item>
 				</item>
 			</item>
 		</TERM>
@@ -127,8 +127,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO currencies.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO currencies.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -143,14 +143,14 @@
 		<TERM ns="iso" lid="15924">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Codes for the representation of names of scripts</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Codes for the representation of names of scripts</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">ISO 15924 defines two sets of codes for a number of writing systems (scripts). Each script is given both a four-letter code and a numeric one. Script is defined as "set of graphic characters used for the written form of one or more languages".</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">ISO 15924 defines two sets of codes for a number of writing systems (scripts). Each script is given both a four-letter code and a numeric one. Script is defined as "set of graphic characters used for the written form of one or more languages".</item>
 				</item>
 			</item>
 		</TERM>
@@ -160,8 +160,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO language scripts.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The aggregation of all attributes pertaining to ISO language scripts.]]></item>
 				</item>
 			</item>
 		</NODE>

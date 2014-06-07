@@ -77,14 +77,14 @@ trait Label
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_LABEL kTAG_GEN_LANGUAGE kTAG_GEN_TEXT
+	 * @see kTAG_LABEL kTAG_LANGUAGE kTAG_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function Label( $theLanguage, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_LABEL, kTAG_GEN_LANGUAGE, kTAG_GEN_TEXT,
+				kTAG_LABEL, kTAG_LANGUAGE, kTAG_TEXT,
 				$theLanguage, $theValue, $getOld );									// ==>
 	
 	} // Label.

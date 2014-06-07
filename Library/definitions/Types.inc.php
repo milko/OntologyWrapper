@@ -88,8 +88,8 @@ define( "kTYPE_ARRAY",							':type:array' );
  *
  * This data type defines a <em>list of strings expressed in different languages</em>. The
  * list elements are composed by <em>two key/value pairs</em>. The first pair has the
- * {@link kTAG_GEN_LANGUAGE} tag as its key and the value represents the language code. The
- * second pair has the {@link kTAG_GEN_TEXT} as its key and the value represents the text
+ * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
+ * second pair has the {@link kTAG_TEXT} as its key and the value represents the text
  * expressed in the language defined by the first pair. No two elements may share the same
  * language and only one element may omit the language pair.
  */
@@ -99,7 +99,7 @@ define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
  * Typed list.
  *
  * This data type defines a <em>list of elements categorised by type</em>. The list elements
- * are composed by <em>two key/value pairs</em>. The first pair has the {@link kTAG_GEN_TYPE}
+ * are composed by <em>two key/value pairs</em>. The first pair has the {@link kTAG_TYPE}
  * tag as its key and the value represents the type of the element. The second pair has
  * an unspecified tag as the key and the value represents the element's value qualified by
  * the previous pair. No two elements may share the same type and only one element may omit
@@ -116,14 +116,14 @@ define( "kTYPE_TYPED_LIST",						':type:typed-list' );
  * It is an array composed by two key/value pairs:
  *
  * <ul>
- *	<li><tt>{@link kTAG_SHAPE_TYPE}</tt>: The element indexed by this string contains the
+ *	<li><tt>{@link kTAG_TYPE}</tt>: The element indexed by this string contains the
  *		code indicating the type of the shape, these are the supported values:
  *	 <ul>
  *		<li><tt>Point</tt>: A point.
  *		<li><tt>LineString</tt>: A list of non closed points.
  *		<li><tt>Polygon</tt>: A polygon, including its rings.
  *	 </ul>
- *	<li><tt>{@link kTAG_SHAPE_GEOMETRY}</tt>: The element indexed by this string contains
+ *	<li><tt>{@link kTAG_GEOMETRY}</tt>: The element indexed by this string contains
  *		the <em>geometry of the shape</em>, which has a structure depending on the shape
  +		type:
  *	 <ul>

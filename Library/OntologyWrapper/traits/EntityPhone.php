@@ -77,14 +77,14 @@ trait EntityPhone
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_PHONE kTAG_GEN_TYPE kTAG_GEN_TEXT
+	 * @see kTAG_ENTITY_PHONE kTAG_TYPE kTAG_TEXT
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
 	public function EntityPhone( $theType, $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_PHONE, kTAG_GEN_TYPE, kTAG_GEN_TEXT,
+				kTAG_ENTITY_PHONE, kTAG_TYPE, kTAG_TEXT,
 				$theType, $theValue, $getOld );										// ==>
 	
 	} // EntityPhone.

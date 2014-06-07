@@ -12,14 +12,14 @@
 		<TERM ns="wbi" lid="lending">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Lending classification group</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Lending classification group</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">World Bank Institute lending classification group.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">World Bank Institute lending classification group.</item>
 				</item>
 			</item>
 		</TERM>
@@ -30,8 +30,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[Lending classification group type.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Lending classification group type.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -50,8 +50,8 @@
 		<TERM ns="wbi:lending" lid="IDA">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Deeply concessional</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Deeply concessional</item>
 				</item>
 			</item>
 		</TERM>
@@ -71,8 +71,8 @@
 		<TERM ns="wbi:lending" lid="IBRD">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Non concessional</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Non concessional</item>
 				</item>
 			</item>
 		</TERM>
@@ -92,8 +92,8 @@
 		<TERM ns="wbi:lending" lid="Blend">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Eligible for IDA loans</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Eligible for IDA loans</item>
 				</item>
 			</item>
 		</TERM>

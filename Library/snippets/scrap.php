@@ -1281,9 +1281,9 @@
 							//
 							// Cast text element.
 							//
-							if( array_key_exists( kTAG_GEN_TEXT, $value[ $idx ] ) )
-								$value[ $idx ][ kTAG_GEN_TEXT ]
-									= (string) $value[ $idx ][ kTAG_GEN_TEXT ];
+							if( array_key_exists( kTAG_TEXT, $value[ $idx ] ) )
+								$value[ $idx ][ kTAG_TEXT ]
+									= (string) $value[ $idx ][ kTAG_TEXT ];
 							//
 							// Missing text element.
 							//
@@ -1294,9 +1294,9 @@
 							//
 							// Cast language.
 							//
-							if( array_key_exists( kTAG_GEN_LANGUAGE, $value[ $idx ] ) )
-								$value[ $idx ][ kTAG_GEN_LANGUAGE ]
-									= (string) $value[ $idx ][ kTAG_GEN_LANGUAGE ];
+							if( array_key_exists( kTAG_LANGUAGE, $value[ $idx ] ) )
+								$value[ $idx ][ kTAG_LANGUAGE ]
+									= (string) $value[ $idx ][ kTAG_LANGUAGE ];
 						}
 						//
 						// Invalid format.

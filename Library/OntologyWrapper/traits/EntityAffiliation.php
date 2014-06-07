@@ -81,7 +81,7 @@ trait EntityAffiliation
 	 * @access public
 	 * @return mixed				Old or new value.
 	 *
-	 * @see kTAG_ENTITY_AFFILIATION kTAG_GEN_TYPE kTAG_ENTITY
+	 * @see kTAG_ENTITY_AFFILIATION kTAG_TYPE kTAG_ENTITY
 	 *
 	 * @uses manageElementMatchOffset()
 	 */
@@ -96,7 +96,7 @@ trait EntityAffiliation
 				$theValue, kTYPE_REF_ENTITY, "EntityObject", kTAG_ENTITY_AFFILIATION );
 		
 		return $this->manageElementMatchOffset(
-				kTAG_ENTITY_AFFILIATION, kTAG_GEN_TYPE, kTAG_ENTITY,
+				kTAG_ENTITY_AFFILIATION, kTAG_TYPE, kTAG_ENTITY,
 				$theType, $theValue, $getOld );										// ==>
 	
 	} // EntityAffiliation.

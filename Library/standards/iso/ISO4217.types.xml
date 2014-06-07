@@ -14,14 +14,14 @@
 		<TERM ns="iso:4217" lid="A">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Active currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Active currency code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Codes currently in use.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Codes currently in use.</item>
 				</item>
 			</item>
 		</TERM>
@@ -40,8 +40,8 @@
 		<TERM ns="iso:4217:A" lid="alpha">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Alphabetic active currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alphabetic active currency code</item>
 				</item>
 			</item>
 		</TERM>
@@ -52,8 +52,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 active alphabetic codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 active alphabetic codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -67,8 +67,8 @@
 		<TERM ns="iso:4217:A" lid="numeric">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Numeric active currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Numeric active currency code</item>
 				</item>
 			</item>
 		</TERM>
@@ -79,8 +79,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 active numeric codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 active numeric codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -95,14 +95,14 @@
 		<TERM ns="iso:4217" lid="H">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Historic currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Historic currency code</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Historical or obsolete codes.</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Historical or obsolete codes.</item>
 				</item>
 			</item>
 		</TERM>
@@ -121,8 +121,8 @@
 		<TERM ns="iso:4217:H" lid="alpha">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Alphabetic historic currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Alphabetic historic currency code</item>
 				</item>
 			</item>
 		</TERM>
@@ -133,8 +133,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 historic alphabetic codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 historic alphabetic codes.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -148,8 +148,8 @@
 		<TERM ns="iso:4217:H" lid="numeric">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Numeric historic currency code</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Numeric historic currency code</item>
 				</item>
 			</item>
 		</TERM>
@@ -160,8 +160,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 historic numeric codes.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains the enumerated set of all ISO 4217 historic numeric codes.]]></item>
 				</item>
 			</item>
 		</NODE>

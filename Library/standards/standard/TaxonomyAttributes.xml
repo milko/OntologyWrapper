@@ -14,14 +14,14 @@
 		<TERM ns=":taxon" lid="url">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Taxonomic reference</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxonomic reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>reference</em> of the <em>taxonomic standard</em> in which the current taxon is published.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>reference</em> of the <em>taxonomic standard</em> in which the current taxon is published.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -35,8 +35,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>internet address</em> in which <em>the current taxon is published</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>internet address</em> in which <em>the current taxon is published</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -54,14 +54,14 @@
 		<TERM ns=":taxon" lid="rank">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Taxonomic rank</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxonomic rank</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>level</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>level</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -75,8 +75,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>rank</em> or <em>position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>rank</em> or <em>position</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -92,8 +92,8 @@
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[This type defines the enumerated set of all taxonomic ranks.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines the enumerated set of all taxonomic ranks.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -111,18 +111,18 @@
 		<TERM ns=":taxon" lid="superregnum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Domain</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superregnum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superregnum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>highest taxonomic rank</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>highest taxonomic rank</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -167,18 +167,18 @@
 		<TERM ns=":taxon" lid="regnum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Kingdom</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Kingdom</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">regnum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">regnum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>second highest taxonomic rank</em> below <em>domain</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>second highest taxonomic rank</em> below <em>domain</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -226,18 +226,18 @@
 		<TERM ns=":taxon" lid="subregnum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subkingdom</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subkingdom</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subregnum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subregnum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -277,18 +277,18 @@
 		<TERM ns=":taxon" lid="infraregnum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infrakingdom or Branch</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infrakingdom or Branch</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">infraregnum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraregnum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -330,18 +330,18 @@
 		<TERM ns=":taxon" lid="superphylum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Superphylum or Superdivision</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superphylum or Superdivision</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superphylum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superphylum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above phylum or division and below kingdom</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>superdivision</em> is used in place of <em>superphylum</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above phylum or division and below kingdom</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>superdivision</em> is used in place of <em>superphylum</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -376,18 +376,18 @@
 		<TERM ns=":taxon" lid="phylum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Phylum or Division</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Phylum or Division</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">phylum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">phylum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below kingdom and above class</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>division</em> is used in place of <em>phylum</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below kingdom and above class</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>division</em> is used in place of <em>phylum</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -441,18 +441,18 @@
 		<TERM ns=":taxon" lid="subphylum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subphylum</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subphylum</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subphylum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subphylum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below phylum or division and above infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below phylum or division and above infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -492,18 +492,18 @@
 		<TERM ns=":taxon" lid="infraphylum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infraphylum</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraphylum</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">infraphylum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraphylum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below subphylum and above microphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subphylum and above microphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -543,18 +543,18 @@
 		<TERM ns=":taxon" lid="microphylum">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Microphylum</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Microphylum</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">microphylum</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">microphylum</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -596,18 +596,18 @@
 		<TERM ns=":taxon" lid="superclassis">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Superclass</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superclass</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superclassis</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superclassis</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above class</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above class</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -642,18 +642,18 @@
 		<TERM ns=":taxon" lid="classis">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Class</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Class</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">classis</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">classis</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below superclass and above subclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superclass and above subclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -707,18 +707,18 @@
 		<TERM ns=":taxon" lid="subclassis">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subclass</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subclass</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subclassis</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subclassis</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below class and above infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -758,18 +758,18 @@
 		<TERM ns=":taxon" lid="infraclassis">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infraclass</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraclass</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">infraclassis</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraclassis</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below subclass and above parvclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subclass and above parvclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -809,18 +809,18 @@
 		<TERM ns=":taxon" lid="parvclassis">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Parvclass</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parvclass</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">oarvclassis</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">oarvclassis</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -862,18 +862,18 @@
 		<TERM ns=":taxon" lid="legio">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Legion</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Legion</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">legio</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">legio</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below class and above cohort</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above cohort</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -913,18 +913,18 @@
 		<TERM ns=":taxon" lid="cohors">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Cohort</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Cohort</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">cohors</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">cohors</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below legion</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below legion</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -966,18 +966,18 @@
 		<TERM ns=":taxon" lid="magnordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Magnorder or Megaorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Magnorder or Megaorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">magnordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">magnordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1015,18 +1015,18 @@
 		<TERM ns=":taxon" lid="superordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Superorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above grandorder and below magnorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above grandorder and below magnorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1070,18 +1070,18 @@
 		<TERM ns=":taxon" lid="grandordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Grandorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Grandorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">grandordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">grandordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above mirorder and below superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above mirorder and below superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1124,18 +1124,18 @@
 		<TERM ns=":taxon" lid="mirordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Grandorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Grandorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">mirordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">mirordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above order and below grandorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above order and below grandorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1178,18 +1178,18 @@
 		<TERM ns=":taxon" lid="ordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Order</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Order</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">ordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">ordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above suborder and below mirorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above suborder and below mirorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1243,18 +1243,18 @@
 		<TERM ns=":taxon" lid="subordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Suborder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Suborder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above infraorder and below order</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above infraorder and below order</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1301,18 +1301,18 @@
 		<TERM ns=":taxon" lid="infraordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infraorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">infraordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above parvorder and below suborder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above parvorder and below suborder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1356,18 +1356,18 @@
 		<TERM ns=":taxon" lid="parvordo">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Parvorder</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Parvorder</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">parvordo</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">parvordo</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>and below infraorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>and below infraorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1412,18 +1412,18 @@
 		<TERM ns=":taxon" lid="superfamilia">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Superfamily</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superfamily</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superfamilia</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superfamilia</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above family</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1458,18 +1458,18 @@
 		<TERM ns=":taxon" lid="familia">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Family</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Family</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">familia</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">familia</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below superfamily and above subfamily</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superfamily and above subfamily</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1520,14 +1520,14 @@
 		<TERM ns=":taxon:familia" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Family authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Family authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the family epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the family epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1552,18 +1552,18 @@
 		<TERM ns=":taxon" lid="subfamilia">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subfamily</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subfamily</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subfamilia</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subfamilia</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below family</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1611,18 +1611,18 @@
 		<TERM ns=":taxon" lid="supertribus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Supertribe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Supertribe</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">supertribus</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">supertribus</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above tribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above tribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1657,18 +1657,18 @@
 		<TERM ns=":taxon" lid="tribus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Tribe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Tribe</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">tribus</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">tribus</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below supertribe and above subtribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below supertribe and above subtribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1713,18 +1713,18 @@
 		<TERM ns=":taxon" lid="subtribus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subtribe</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subtribe</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subtribus</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subtribus</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below tribe/em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below tribe/em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1766,18 +1766,18 @@
 		<TERM ns=":taxon" lid="genus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Genus</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Genus</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">genus</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">genus</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above subgenus</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above subgenus</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1823,14 +1823,14 @@
 		<TERM ns=":taxon:genus" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Genus authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Genus authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the genus epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the genus epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1855,18 +1855,18 @@
 		<TERM ns=":taxon" lid="subgenus">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subgenus</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subgenus</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subgenus</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subgenus</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below genus and above section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below genus and above section</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1906,18 +1906,18 @@
 		<TERM ns=":taxon" lid="sectio">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Section</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Section</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">sectio</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">sectio</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below subgenus and above series</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subgenus and above series</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1957,18 +1957,18 @@
 		<TERM ns=":taxon" lid="series">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Series</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Series</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">series</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">series</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below section</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2010,18 +2010,18 @@
 		<TERM ns=":taxon" lid="superspecies">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Superspecies</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Superspecies</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">superspecies</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">superspecies</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>above species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above species</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2056,18 +2056,18 @@
 		<TERM ns=":taxon" lid="species">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Species</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Species</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">species</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">species</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below superspecies and above subspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superspecies and above subspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -2118,14 +2118,14 @@
 		<TERM ns=":taxon:species" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Species authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Species authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the species epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the species epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2150,18 +2150,18 @@
 		<TERM ns=":taxon" lid="subspecies">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subspecies</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subspecies</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">subspecies</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">subspecies</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below species and above infraspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below species and above infraspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2200,14 +2200,14 @@
 		<TERM ns=":taxon:subspecies" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Subspecies authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Subspecies authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the subspecies epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the subspecies epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2232,18 +2232,18 @@
 		<TERM ns=":taxon" lid="varietas">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Variety</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Variety</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">varietas</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">varietas</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below subspecies and above form</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subspecies and above form</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2282,14 +2282,14 @@
 		<TERM ns=":taxon:varietas" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Variety authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Variety authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the variety epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the variety epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2314,18 +2314,18 @@
 		<TERM ns=":taxon" lid="forma">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Form</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Form</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">forma</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">forma</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic rank <em>below variety</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below variety</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2364,14 +2364,14 @@
 		<TERM ns=":taxon:forma" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Form authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Form authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the form epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the form epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2398,14 +2398,14 @@
 		<TERM ns=":taxon" lid="epithet">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Scientific name</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The full scientific name comprising epithets and rank abbreviations, excluding authorship. Unless of higher rank, the name should start at the genus rank and provide the most specific infraspecies rank.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The full scientific name comprising epithets and rank abbreviations, excluding authorship. Unless of higher rank, the name should start at the genus rank and provide the most specific infraspecies rank.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2430,14 +2430,14 @@
 		<TERM ns=":taxon" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Scientific name authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The scientific name authority at the lowest taxonomic rank.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The scientific name authority at the lowest taxonomic rank.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2462,14 +2462,14 @@
 		<TERM ns=":taxon" lid="valid">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Valid scientific name</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Valid scientific name</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The <em>valid</em> or <em>preferred</em> scientific name related to the current taxon.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The <em>valid</em> or <em>preferred</em> scientific name related to the current taxon.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2494,18 +2494,18 @@
 		<TERM ns=":taxon" lid="infraspecies">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infraspecific epithet</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraspecific epithet</item>
 				</item>
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">la</item>
-					<item const="kTAG_GEN_TEXT">infraspecies</item>
+					<item const="kTAG_LANGUAGE">la</item>
+					<item const="kTAG_TEXT">infraspecies</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The taxonomic epithet <em>comprising all elements below the rank of species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic epithet <em>comprising all elements below the rank of species</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2545,14 +2545,14 @@
 		<TERM ns=":taxon:infraspecies" lid="author">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Infraspecific authority</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Infraspecific authority</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[The author of the <em>lowest rank epithet</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the <em>lowest rank epithet</em> in the <em>taxonomic hierarchy</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2579,14 +2579,14 @@
 		<TERM ns=":taxon" lid="reference">
 			<item const="kTAG_LABEL">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT">Scientific name reference</item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name reference</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
-					<item const="kTAG_GEN_LANGUAGE">en</item>
-					<item const="kTAG_GEN_TEXT"><![CDATA[A link to the resource in which the scientific name is published.]]></item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A link to the resource in which the scientific name is published.]]></item>
 				</item>
 			</item>
 		</TERM>
