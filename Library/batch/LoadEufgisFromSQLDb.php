@@ -156,6 +156,12 @@ try
 	} // Use graph database.
 	
 	//
+	// Load data dictionary.
+	//
+	if( ! $wrapper->dictionaryFilled() )
+		$wrapper->loadTagCache();
+	
+	//
 	// Load dictionary.
 	//
 	$tmp = array( 'fcu:unit:number' => NULL,
@@ -178,6 +184,7 @@ try
 				  ':taxon:epithet' => NULL,
 				  'fcu:unit:species' => NULL,
 				  'fcu:unit:remarks' => NULL,
+				  'fcu:unit:remarks-soil' => NULL,
 				  'fcu:population' => NULL,
 				  'fcu:population:last-visit' => NULL,
 				  'fcu:population:establishment' => NULL,
@@ -394,7 +401,7 @@ try
 				//
 				// Set target species.
 				//
-				$pop[ '$dd[ :taxon:epithet' ] ] = $record[ 'PopulationTargetSpecies' ];
+				$pop[ $dd[ ':taxon:epithet' ] ] = $record[ 'PopulationTargetSpecies' ];
 				
 				//
 				// Iterate record.

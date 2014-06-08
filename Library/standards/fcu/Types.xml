@@ -210,6 +210,26 @@
 			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
 		</EDGE>
 	</META>
+	<!-- eufgis:UnitOwnership:Both -->
+	<META>
+		<TERM ns="eufgis:UnitOwnership" lid="Both">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Both]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
+		</EDGE>
+	</META>
 	<!-- eufgis:UnitOwnership:Other -->
 	<META>
 		<TERM ns="eufgis:UnitOwnership" lid="Other">
