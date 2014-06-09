@@ -2836,6 +2836,10 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Iterate results.
 		//
+//
+// MILKO - Need to do this if aggregate doesn't use dursor.
+//
+$rs_units = & $rs_units[ 'result' ];
 		$tmp = Array();
 		foreach( $rs_units as $record )
 		{

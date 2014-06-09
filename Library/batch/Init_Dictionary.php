@@ -135,12 +135,12 @@ try
 	//
 	// Load ISO Standards.
 	//
-	$wrapper->initISOStandards( TRUE );
+	$wrapper->loadISOStandards( TRUE );
 	
 	//
 	// Load WBI Standards.
 	//
-	$wrapper->initWBIStandards( TRUE );
+	$wrapper->loadWBIStandards( TRUE );
 	
 	//
 	// Load standards.

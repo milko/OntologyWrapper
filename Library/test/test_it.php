@@ -105,7 +105,7 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 0 );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 0 );
 	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
@@ -119,7 +119,7 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 1 );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 1 );
 	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
@@ -133,7 +133,7 @@ try
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 2 );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 2 );
 	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );

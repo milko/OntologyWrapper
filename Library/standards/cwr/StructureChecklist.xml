@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CWR CHECKLIST STRUCTURE
+	StructureChecklist.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- Checkliststructure -->
+	
+	<!-- cwr:ck -->
+	<META>
+		<NODE term="cwr:ck" pid="struct:cwr:ck">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a crop wild relative checklist.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- cwr:ck:CWRCODE/:predicate:SCALE-OF/iso:3166:country-sub -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:CWRCODE/:predicate:SCALE-OF/iso:3166:country-sub</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:NUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:NUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:INSTCODE" -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:ck:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:TYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:URL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:URL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:TAXREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:TAXREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:SYNONYMS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:SYNONYMS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:SYNREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:SYNREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:COMMONTAXONNAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:COMMONTAXONNAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:CHROMOSNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:CHROMOSNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:GENEPOOL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:GENEPOOL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:GENEPOOLREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:GENEPOOLREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REFTAXONGROUP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REFTAXONGROUP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:LISTSPCROSS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:LISTSPCROSS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:LISTSPCROSSREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:LISTSPCROSSREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:METHCROSSREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:METHCROSSREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:SUCCROSSREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:SUCCROSSREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:ASSLEVEL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:ASSLEVEL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REGIONASS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REGIONASS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:category -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:category</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:criteria -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:criteria</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REDLISTCAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REDLISTCAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:URLPUBREDLISTASS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:URLPUBREDLISTASS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REFREDLISTASS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REFREDLISTASS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:TAXONSTATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:TAXONSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:OCCURTHREAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:OCCURTHREAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:ECOVALUE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:ECOVALUE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:ECOVALUEREF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:ECOVALUEREF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

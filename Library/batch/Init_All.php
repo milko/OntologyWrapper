@@ -135,18 +135,24 @@ try
 	//
 	// Load ISO Standards.
 	//
-	$wrapper->initISOStandards( TRUE );
+	$wrapper->loadISOStandards( TRUE );
 	
 	//
 	// Load WBI Standards.
 	//
-	$wrapper->initWBIStandards( TRUE );
+	$wrapper->loadWBIStandards( TRUE );
+	
+	//
+	// Load IUCN Standards.
+	//
+	$wrapper->loadIUCNStandards( TRUE );
 	
 	//
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
 	$wrapper->loadFCUStandards( TRUE );
+	$wrapper->loadCWRStandards( TRUE );
 	
 	//
 	// Reset units.

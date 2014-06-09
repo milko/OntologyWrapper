@@ -910,142 +910,6 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	loadStandards																	*
-	 *==================================================================================*/
-
-	/**
-	 * Reset standards
-	 *
-	 * This method can be used to reset the standards in the metadata database, it will
-	 * load the standards XML files.
-	 *
-	 * Note that this method expects other standards to have been loaded.
-	 *
-	 * @param boolean				$doLog				Log operations.
-	 *
-	 * @access public
-	 * @return array				Statistics.
-	 *
-	 * @throws Exception
-	 */
-	public function loadStandards( $doLog = FALSE )
-	{
-		//
-		// Inform.
-		//
-		if( $doLog )
-			echo( "\n==> Loading standards.\n" );
-		
-		//
-		// Check if object is connected.
-		//
-		if( ! $this->isConnected() )
-			throw new \Exception(
-				"Unable to load standards: "
-			   ."object is not connected." );									// !@! ==>
-		
-		//
-		// Load XML namespace files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML namespace files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/Namespaces.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load XML attribute files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML attribute files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load XML schema files.
-		//
-		if( $doLog )
-			echo( "  • Loading XML schema files.\n" );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-	
-	} // loadStandards.
-
-	 
-	/*===================================================================================
-	 *	loadFCUStandards																*
-	 *==================================================================================*/
-
-	/**
-	 * Load Forest Fene Conservation Unit standards
-	 *
-	 * This method can be used to load the FCU standards.
-	 *
-	 * @param boolean				$doLog				Log operations.
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 */
-	public function loadFCUStandards( $doLog = FALSE )
-	{
-		//
-		// Inform.
-		//
-		if( $doLog )
-			echo( "\n==> Loading FCU standards.\n" );
-		
-		//
-		// Check if object is connected.
-		//
-		if( ! $this->isConnected() )
-			throw new \Exception(
-				"Unable to load standards: "
-			   ."object is not connected." );									// !@! ==>
-		
-		//
-		// Load default XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading default FCU files.\n" );
-
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Types.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Tags.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Structure.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-	
-	} // loadFCUStandards.
-
-	 
-	/*===================================================================================
 	 *	loadTagCache																	*
 	 *==================================================================================*/
 
@@ -1294,14 +1158,14 @@ class Wrapper extends Dictionary
 
 /*=======================================================================================
  *																						*
- *						PUBLIC STANDARDS INITIALISATION INTERFACE								*
+ *						PUBLIC STANDARDS INITIALISATION INTERFACE						*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	initISOStandards																*
+	 *	loadISOStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1315,7 +1179,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initISOStandards( $doLog = FALSE )
+	public function loadISOStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1328,7 +1192,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to reset ontology: "
+				"Unable to load ISO: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
@@ -1513,11 +1377,11 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // initISOStandards.
+	} // loadISOStandards.
 
 	 
 	/*===================================================================================
-	 *	initWBIStandards																*
+	 *	loadWBIStandards																*
 	 *==================================================================================*/
 
 	/**
@@ -1531,7 +1395,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initWBIStandards( $doLog = FALSE )
+	public function loadWBIStandards( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1544,7 +1408,7 @@ class Wrapper extends Dictionary
 		//
 		if( ! $this->isConnected() )
 			throw new \Exception(
-				"Unable to load ontology: "
+				"Unable to load WBI: "
 			   ."object is not connected." );									// !@! ==>
 		
 		//
@@ -1579,11 +1443,277 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // initWBIStandards.
+	} // loadWBIStandards.
 
 	 
 	/*===================================================================================
-	 *	initEntities																	*
+	 *	loadIUCNStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load IUCN standards
+	 *
+	 * This method can be used to load the IUCN standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadIUCNStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading IUCN standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load IUCN: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/iucn/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadIUCNStandards.
+
+	 
+	/*===================================================================================
+	 *	loadFCUStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load Forest Fene Conservation Unit standards
+	 *
+	 * This method can be used to load the FCU standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadFCUStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading FCU standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load FCU: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default FCU files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Structure.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadFCUStandards.
+
+	 
+	/*===================================================================================
+	 *	loadCWRStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load crop wild relative standards
+	 *
+	 * This method can be used to load the CWR standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadCWRStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading CWR standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load CWR: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default CWR files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/AttributesChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/TypesChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/TagsChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fcu/StructureChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadCWRStandards.
+
+	 
+	/*===================================================================================
+	 *	loadStandards																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load standards
+	 *
+	 * This method can be used to load the standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load standards: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/InventoryAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML schema files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML schema files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadStandards.
+
+	 
+	/*===================================================================================
+	 *	loadFAOInstitutes																*
 	 *==================================================================================*/
 
 	/**
@@ -1597,7 +1727,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function initEntities( $doLog = FALSE )
+	public function loadFAOInstitutes( $doLog = FALSE )
 	{
 		//
 		// Inform.
@@ -1622,7 +1752,7 @@ class Wrapper extends Dictionary
 		$institutes = new FAOInstitute();
 		$institutes->Maintain( $this );
 	
-	} // initEntities.
+	} // loadFAOInstitutes.
 
 		
 

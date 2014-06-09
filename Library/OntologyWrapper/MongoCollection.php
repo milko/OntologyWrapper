@@ -407,6 +407,10 @@ class MongoCollection extends CollectionObject
 	 */
 	public function aggregate( $thePipeline, $theOptions = Array() )
 	{
+//
+// MILKO - For some reason the aggregate cursor doesn't work.
+//
+		return $this->mConnection->aggregate( $thePipeline, $theOptions );			// ==>
 		return $this->mConnection->aggregateCursor( $thePipeline, $theOptions );	// ==>
 	
 	} // aggregate.

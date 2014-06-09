@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	IUCN ATTRIBUTES
+	Attributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+	<!-- iucn standards -->
+	
+	<!-- iucn:category -->
+	<META>
+		<TERM ns="iucn" lid="category">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Red list category</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The iucn Red List Categories and Criteria are intended to be an easily and widely understood system for classifying species at high risk of global extinction. The general aim of the system is to provide an explicit, objective framework for the classification of the broadest range of species according to their extinction risk. However, while the Red List may focus attention on those taxa at the highest risk, it is not the sole means of setting priorities for conservation measures for their protection.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- iucn:criteria -->
+	<META>
+		<TERM ns="iucn" lid="criteria">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Red list criteria</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The iucn Red List Categories and Criteria are intended to be an easily and widely understood system for classifying species at high risk of global extinction. The general aim of the system is to provide an explicit, objective framework for the classification of the broadest range of species according to their extinction risk. However, while the Red List may focus attention on those taxa at the highest risk, it is not the sole means of setting priorities for conservation measures for their protection.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- iucn:threat -->
+	<META>
+		<TERM ns="iucn" lid="threat">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threats Classification Scheme</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- iucn:conservation -->
+	<META>
+		<TERM ns="iucn" lid="conservation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Conservation Actions Scheme</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

@@ -1724,6 +1724,7 @@ if( kOPTION_VERBOSE )
 			$ns_n = 'iso:3166:1:numeric';
 			$ns_common_name = 'iso:3166:common_name';
 			$ns_location = 'iso:3166:location';
+			$ns_country_sub = 'iso:3166:country-sub';
 			
 			//
 			// Set target files name.
@@ -2317,6 +2318,7 @@ if( kOPTION_VERBOSE )
 			$ns_n = 'iso:3166:3:numeric';
 			$ns_date_witdrawn = 'iso:date_withdrawn';
 			$ns_location = 'iso:3166:location';
+			$ns_country_sub = 'iso:3166:country-sub';
 			
 			//
 			// Set target files name.
@@ -2451,6 +2453,16 @@ if( kOPTION_VERBOSE )
 					$loc_element = $loc_node->addChild( 'item' );
 					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
 					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					
+					//
+					// Relate location node to country subdivisions.
+					//
+					$edge = $loc_unit->addChild( 'EDGE' );
+					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
+					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+					$element = $edge->addChild( 'item', $ns_country_sub );
+					$element->addAttribute( 'const', 'kTAG_OBJECT' );
+					$element->addAttribute( 'node', 'term' );
 					
 					//
 					// Relate country to parent.

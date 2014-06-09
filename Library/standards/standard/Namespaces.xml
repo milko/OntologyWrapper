@@ -41,5 +41,21 @@
 				</item>
 			</item>
 		</TERM>
+
+		<!-- Inventory -->
+		<TERM ns="" lid="inventory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Inventory</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Invormation regarding <em>institutions</em> and <em>inventories</em>.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

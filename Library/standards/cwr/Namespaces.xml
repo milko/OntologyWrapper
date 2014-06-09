@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+    <!-- Namespaces -->
+	
+    <!-- cwr -->
+    <META>
+        <TERM lid="cwr">
+			<item const="kTAG_KIND">
+				<item>:KIND-NAMESPACE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+	
+    <!-- cwr:ck -->
+    <META>
+        <TERM ns="cwr" lid="ck">
+			<item const="kTAG_KIND">
+				<item>:KIND-NAMESPACE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative checklist]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+	
+    <!-- cwr:in -->
+    <META>
+        <TERM ns="cwr" lid="in">
+			<item const="kTAG_KIND">
+				<item>:KIND-NAMESPACE</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative inventory]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+</METADATA>
