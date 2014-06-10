@@ -1609,23 +1609,23 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading default CWR files.\n" );
 
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/Namespaces.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/AttributesChecklist.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/AttributesChecklist.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/TypesChecklist.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/TypesChecklist.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/TagsChecklist.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/TagsChecklist.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/StructureChecklist.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureChecklist.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

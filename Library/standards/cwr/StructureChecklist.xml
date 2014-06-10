@@ -36,9 +36,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:ck:INSTCODE" -->
+		<!-- cwr:ck:INSTCODE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:ck:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

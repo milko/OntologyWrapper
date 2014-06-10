@@ -12,9 +12,6 @@
     <!-- cwr -->
     <META>
         <TERM lid="cwr">
-			<item const="kTAG_KIND">
-				<item>:KIND-NAMESPACE</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -27,9 +24,6 @@
     <!-- cwr:ck -->
     <META>
         <TERM ns="cwr" lid="ck">
-			<item const="kTAG_KIND">
-				<item>:KIND-NAMESPACE</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -42,9 +36,6 @@
     <!-- cwr:in -->
     <META>
         <TERM ns="cwr" lid="in">
-			<item const="kTAG_KIND">
-				<item>:KIND-NAMESPACE</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

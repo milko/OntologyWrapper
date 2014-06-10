@@ -371,7 +371,7 @@
 	</META>
 	<!-- cwr:ck:ASSLEVEL:1 -->
 	<META>
-		<TERM ns="cwr:ck:OCCURTHREAT" lid="1">
+		<TERM ns="cwr:ck:ASSLEVEL" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -391,7 +391,7 @@
 	</META>
 	<!-- cwr:ck:ASSLEVEL:2 -->
 	<META>
-		<TERM ns="cwr:ck:OCCURTHREAT" lid="2">
+		<TERM ns="cwr:ck:ASSLEVEL" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
