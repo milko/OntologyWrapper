@@ -1038,13 +1038,6 @@ abstract class ServiceObject extends ContainerObject
 		} // Provided shape.
 		
 		//
-		// Validate shape offset.
-		//
-		if( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
-			$criteria[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
-				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
-		
-		//
 		// Update criteria.
 		//
 		if( count( $criteria ) )
@@ -1536,9 +1529,34 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Check format.
 		//
-		if( ! is_array( $value = $this->offsetGet( kAPI_PARAM_CRITERIA ) ) )
+		if( ! is_array( $tmp = $this->offsetGet( kAPI_PARAM_CRITERIA ) ) )
 			throw new \Exception(
 				"Invalid search criteria format." );							// !@! ==>
+		
+		//
+		// Resolve tags.
+		//
+		$value = Array();
+		foreach( $tmp as $key => $val )
+		{
+			//
+			// Handle tag sequence numbers.
+			//
+			if( is_int( $key )
+			 || ctype_digit( $key ) )
+				$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+			
+			//
+			// Set criteria.
+			//
+			$value[ $key ] = $val;
+		
+		} // Iterating criteria.
+		
+		//
+		// Update criteria.
+		//
+		$this->offsetSet( kAPI_PARAM_CRITERIA, $value );
 		
 		//
 		// Init local storage.
@@ -1568,7 +1586,7 @@ abstract class ServiceObject extends ContainerObject
 						$criteria,
 						kQUERY_ARRAY,
 						$fields ) );
-		
+
 		//
 		// Iterate criteria.
 		//
@@ -1623,6 +1641,173 @@ abstract class ServiceObject extends ContainerObject
 			} // No value.
 			
 			//
+			// Handle input type.
+			//
+			if( ! array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria ) )
+				throw new \Exception(
+					"Missing input type for tag [$tag]." );						// !@! ==>
+			
+			//
+			// Check required and empty values.
+			//
+			switch( $tmp = $criteria[ kAPI_PARAM_INPUT_TYPE ] )
+			{
+				//
+				// Strings.
+				//
+				case kAPI_PARAM_INPUT_STRING:
+					//
+					// Require search pattern.
+					//
+					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+						throw new \Exception(
+							"Missing search pattern for tag [$tag]." );			// !@! ==>
+					
+					//
+					// Handle empty search pattern.
+					//
+					if( ! strlen( $criteria[ kAPI_PARAM_PATTERN ] ) )
+					{
+						//
+						// Set tag.
+						//
+						$criteria_ref[ $tag_sequence ] = NULL;
+				
+						continue;											// =>
+					
+					} // No value.
+					
+					break;
+			
+				//
+				// Ranges.
+				//
+				case kAPI_PARAM_INPUT_RANGE:
+					//
+					// Require minimum.
+					//
+					if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
+						throw new \Exception(
+							"Missing minimum range for tag [$tag]." );			// !@! ==>
+					
+					//
+					// Require maximum.
+					//
+					if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
+						throw new \Exception(
+							"Missing maximum range for tag [$tag]." );			// !@! ==>
+					
+					//
+					// Set minimum.
+					//
+					if( ! strlen( $criteria[ kAPI_PARAM_RANGE_MIN ] ) )
+						$criteria[ kAPI_PARAM_RANGE_MIN ]
+							= $criteria[ kAPI_PARAM_RANGE_MAX ];
+					
+					//
+					// Set maximum.
+					//
+					if( ! strlen( $criteria[ kAPI_PARAM_RANGE_MAX ] ) )
+						$criteria[ kAPI_PARAM_RANGE_MAX ]
+							= $criteria[ kAPI_PARAM_RANGE_MIN ];
+					
+					//
+					// Handle empty range.
+					//
+					if( (! strlen( $criteria[ kAPI_PARAM_RANGE_MIN ] ))
+					 && (! strlen( $criteria[ kAPI_PARAM_RANGE_MAX ] )) )
+					{
+						//
+						// Set tag.
+						//
+						$criteria_ref[ $tag_sequence ] = NULL;
+				
+						continue;											// =>
+					
+					} // No value.
+				
+					break;
+			
+				//
+				// Enumerations.
+				//
+				case kAPI_PARAM_INPUT_ENUM:
+					//
+					// Require tags.
+					//
+					if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
+						throw new \Exception(
+							"Missing enumerated values [$tag]." );				// !@! ==>
+					
+					//
+					// Handle empty enumerated nset.
+					//
+					if( ( is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] )
+					   && (! count( $criteria[ kAPI_RESULT_ENUM_TERM ] )) )
+					 || ( (!is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ))
+					   && (! strlen( $criteria[ kAPI_RESULT_ENUM_TERM ] )) ) )
+					{
+						//
+						// Set tag.
+						//
+						$criteria_ref[ $tag_sequence ] = NULL;
+				
+						continue;											// =>
+					
+					} // No value.
+				
+					break;
+			
+				//
+				// Shapes.
+				//
+				case kAPI_PARAM_INPUT_SHAPE:
+					//
+					// Require tags.
+					//
+					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
+						throw new \Exception(
+							"Missing shape [$tag]." );							// !@! ==>
+				
+					break;
+					
+				//
+				// Default.
+				//
+				case kAPI_PARAM_INPUT_DEFAULT:
+					//
+					// Require search pattern.
+					//
+					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+						throw new \Exception(
+							"Missing search pattern for tag [$tag]." );			// !@! ==>
+					
+					//
+					// Handle empty search pattern.
+					//
+					if( ! strlen( $criteria[ kAPI_PARAM_PATTERN ] ) )
+					{
+						//
+						// Set tag.
+						//
+						$criteria_ref[ $tag_sequence ] = NULL;
+				
+						continue;											// =>
+					
+					} // No value.
+				
+					break;
+				
+				//
+				// UNSUPPORTED.
+				//
+				default:
+					throw new \Exception(
+						"Invalid or unsupported input type [$tmp]." );			// !@! ==>
+			
+			} // Parsing by input type.
+			
+			//
 			// Increment values count.
 			//
 			$counter_ref++;
@@ -1632,13 +1817,6 @@ abstract class ServiceObject extends ContainerObject
 			//
 			$criteria_ref[ $tag_sequence ] = Array();
 			$criteria_ref = & $criteria_ref[ $tag_sequence ];
-			
-			//
-			// Handle input type.
-			//
-			if( ! array_key_exists( kAPI_PARAM_INPUT_TYPE, $criteria ) )
-				throw new \Exception(
-					"Missing input type for tag [$tag]." );						// !@! ==>
 			
 			//
 			// Set input and data types.
@@ -1661,13 +1839,6 @@ abstract class ServiceObject extends ContainerObject
 				// Strings.
 				//
 				case kAPI_PARAM_INPUT_STRING:
-					//
-					// Require search pattern.
-					//
-					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
-						throw new \Exception(
-							"Missing search pattern for tag [$tag]." );			// !@! ==>
-				
 					//
 					// Cast pattern.
 					//
@@ -1694,26 +1865,12 @@ abstract class ServiceObject extends ContainerObject
 				//
 				case kAPI_PARAM_INPUT_RANGE:
 					//
-					// Require minimum.
-					//
-					if( ! array_key_exists( kAPI_PARAM_RANGE_MIN, $criteria ) )
-						throw new \Exception(
-							"Missing minimum range for tag [$tag]." );			// !@! ==>
-				
-					//
 					// Cast minimum.
 					//
 					OntologyObject::CastScalar(
 						$criteria[ kAPI_PARAM_RANGE_MIN ],
 						$tag_object[ kTAG_DATA_TYPE ] );
 			
-					//
-					// Require maximum.
-					//
-					if( ! array_key_exists( kAPI_PARAM_RANGE_MAX, $criteria ) )
-						throw new \Exception(
-							"Missing maximum range for tag [$tag]." );			// !@! ==>
-				
 					//
 					// Cast maximum.
 					//
@@ -1745,13 +1902,6 @@ abstract class ServiceObject extends ContainerObject
 				//
 				case kAPI_PARAM_INPUT_ENUM:
 					//
-					// Require tags.
-					//
-					if( ! array_key_exists( kAPI_RESULT_ENUM_TERM, $criteria ) )
-						throw new \Exception(
-							"Missing enumerated values [$tag]." );				// !@! ==>
-				
-					//
 					// Normalise enumerations.
 					//
 					if( ! is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
@@ -1778,13 +1928,6 @@ abstract class ServiceObject extends ContainerObject
 				//
 				case kAPI_PARAM_INPUT_SHAPE:
 					//
-					// Require tags.
-					//
-					if( ! array_key_exists( kAPI_PARAM_SHAPE, $criteria ) )
-						throw new \Exception(
-							"Missing shape [$tag]." );							// !@! ==>
-				
-					//
 					// Add element.
 					//
 					$criteria_ref[ kAPI_PARAM_SHAPE ] = $criteria[ kAPI_PARAM_SHAPE ];
@@ -1796,25 +1939,11 @@ abstract class ServiceObject extends ContainerObject
 				//
 				case kAPI_PARAM_INPUT_DEFAULT:
 					//
-					// Require search pattern.
-					//
-					if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
-						throw new \Exception(
-							"Missing search pattern for tag [$tag]." );			// !@! ==>
-				
-					//
 					// Set filter.
 					//
 					$criteria_ref[ kAPI_PARAM_PATTERN ] = $criteria[ kAPI_PARAM_PATTERN ];
 					
 					break;
-				
-				//
-				// UNSUPPORTED.
-				//
-				default:
-					throw new \Exception(
-						"Invalid or unsupported input type [$tmp]." );			// !@! ==>
 			
 			} // Parsing by input type.
 			
@@ -3069,13 +3198,9 @@ $rs_units = & $rs_units[ 'result' ];
 					 kAPI_DICTIONARY_TAGS => Array() );
 		
 		//
-		// Iterate results.
+		// Load results.
 		//
-		foreach( $iterator as $key => $value )
-			$theContainer[]
-				= array( kAPI_PARAM_RESPONSE_IDENT => $key,
-						 kTAG_TYPE => $value[ $shape[ kTAG_TYPE ] ],
-						 kTAG_GEOMETRY => $value[ $shape[ kTAG_GEOMETRY ] ] );
+		$theContainer = array_values( iterator_to_array( $iterator ) );
 		
 	} // executeMarkerUnits.
 

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CWR CHECKLIST TAGS
-	TagsChecklist.xml
+	CROP WILD RELATIVE TAGS
+	Tags.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
-	<!-- Checklist attributes -->
+	<!-- Common attributes -->
 	
-	<!-- cwr:ck:CWRCODE/:predicate:SCALE-OF/iso:3166:country-sub -->
+	<!-- cwr:CWRCODE/:predicate:SCALE-OF/iso:3166:country-sub -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:ck:CWRCODE</item>
+				<item>cwr:CWRCODE</item>
 				<item>:predicate:SCALE-OF</item>
 				<item>iso:3166:country-sub</item>
 			</item>
@@ -36,11 +36,11 @@
 		</EDGE>
 	</META>
 	
-	<!-- cwr:ck:NUMB -->
+	<!-- cwr:NUMB -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:ck:NUMB</item>
+				<item>cwr:NUMB</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -57,11 +57,11 @@
 		</NODE>
 	</META>
 	
-	<!-- cwr:ck:INSTCODE -->
+	<!-- cwr:INSTCODE -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:ck:INSTCODE</item>
+				<item>cwr:INSTCODE</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
 			<item const="kTAG_SYNONYM">
@@ -74,6 +74,546 @@
 			</item>
 		</NODE>
 	</META>
+	
+	<!-- cwr:REF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:URL -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:URL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>URL</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
+	
+	<!-- cwr:TAXREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:TAXREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>TAXREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:SYNONYMS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:SYNONYMS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SYNONYMS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:SYNREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:SYNREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SYNREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:COMMONTAXONNAME -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:COMMONTAXONNAME</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COMMONTAXONNAME</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:CHROMOSNUMB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:CHROMOSNUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CHROMOSNUMB</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:GENEPOOL -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:GENEPOOL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>GENEPOOL</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:GENEPOOLREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:GENEPOOLREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>GENEPOOLREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:REFTAXONGROUP -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REFTAXONGROUP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REFTAXONGROUP</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:LISTSPCROSS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:LISTSPCROSS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LISTSPCROSS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:LISTSPCROSSREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:LISTSPCROSSREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LISTSPCROSSREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:METHCROSSREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:METHCROSSREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>METHCROSSREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:SUCCROSSREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:SUCCROSSREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SUCCROSSREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:ASSLEVEL -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ASSLEVEL</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ASSLEVEL</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:ASSLEVEL</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:REGIONASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REGIONASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REGIONASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- iucn:category -->
+	<!-- iucn:criteria -->
+	
+	<!-- cwr:REDLISTCAT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REDLISTCAT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REDLISTCAT</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:URLPUBREDLISTASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:URLPUBREDLISTASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>URLPUBREDLISTASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:REFREDLISTASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REFREDLISTASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REFREDLISTASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:TAXONSTATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:TAXONSTATUS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>TAXONSTATUS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:TAXONSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- iucn:threat -->
+	
+	<!-- cwr:OCCURTHREAT -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:OCCURTHREAT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>OCCURTHREAT</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:OCCURTHREAT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:ECOVALUE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ECOVALUE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ECOVALUE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:ECOVALUEREF -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ECOVALUEREF</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ECOVALUEREF</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:REMARKS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:REMARKS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REMARKS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Checklist attributes -->
 	
 	<!-- cwr:ck:TYPE -->
 	<META>
@@ -98,543 +638,5 @@
 			<item const="kTAG_SUBJECT" node="term">cwr:ck:TYPE</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
-	</META>
-	
-	<!-- cwr:ck:REF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:URL -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:URL</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:url</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>URL</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
-	
-	<!-- cwr:ck:TAXREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:TAXREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TAXREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:SYNONYMS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:SYNONYMS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SYNONYMS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:SYNREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:SYNREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SYNREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:COMMONTAXONNAME -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:COMMONTAXONNAME</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COMMONTAXONNAME</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:CHROMOSNUMB -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:CHROMOSNUMB</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CHROMOSNUMB</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:GENEPOOL -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:GENEPOOL</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GENEPOOL</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:GENEPOOLREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:GENEPOOLREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>GENEPOOLREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:REFTAXONGROUP -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REFTAXONGROUP</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REFTAXONGROUP</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:LISTSPCROSS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:LISTSPCROSS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LISTSPCROSS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:LISTSPCROSSREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:LISTSPCROSSREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LISTSPCROSSREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:METHCROSSREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:METHCROSSREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>METHCROSSREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:SUCCROSSREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:SUCCROSSREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>SUCCROSSREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:ASSLEVEL -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:ASSLEVEL</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ASSLEVEL</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:ck:ASSLEVEL</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-	</META>
-	
-	<!-- cwr:ck:REGIONASS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REGIONASS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:quantitative</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REGIONASS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- iucn:category -->
-	<!-- iucn:criteria -->
-	
-	<!-- cwr:ck:REDLISTCAT -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REDLISTCAT</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REDLISTCAT</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:URLPUBREDLISTASS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:URLPUBREDLISTASS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:url</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>URLPUBREDLISTASS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:REFREDLISTASS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REFREDLISTASS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REFREDLISTASS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:TAXONSTATUS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:TAXONSTATUS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>TAXONSTATUS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:ck:TAXONSTATUS</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-	</META>
-	
-	<!-- iucn:threat -->
-	
-	<!-- cwr:ck:OCCURTHREAT -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:OCCURTHREAT</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>OCCURTHREAT</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">cwr:ck:OCCURTHREAT</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-	</META>
-	
-	<!-- cwr:ck:ECOVALUE -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:ECOVALUE</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ECOVALUE</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:ECOVALUEREF -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:ECOVALUEREF</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>ECOVALUEREF</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:ck:REMARKS -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:ck:REMARKS</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:text</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>REMARKS</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 	</META>
 </METADATA>

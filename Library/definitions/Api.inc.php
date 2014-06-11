@@ -815,7 +815,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a
  *			clustered record set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
- *			geographic markers.
+ *			geographic markers, each element will contain the unit {@link kTAG_NID} and the
+ *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET}.
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or

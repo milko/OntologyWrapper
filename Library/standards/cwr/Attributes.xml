@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CWR CHECKLIST ATTRIBUTES
-	AttributesChecklist.xml
+	CROP WILD RELATIVE ATTRIBUTES
+	Attributes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 	
-	<!-- Checklist attributes -->
+	<!-- Common attributes -->
 	
-	<!-- cwr:ck:CWRCODE -->
 	<META>
-		<TERM ns="cwr:ck" lid="CWRCODE">
+		<!-- cwr:CWRCODE -->
+		<TERM ns="cwr" lid="CWRCODE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -19,11 +19,9 @@
 				</item>
 			</item>
 		</TERM>
-	</META>
 	
-	<!-- cwr:ck:NUMB -->
-	<META>
-		<TERM ns="cwr:ck" lid="NUMB">
+		<!-- cwr:NUMB -->
+		<TERM ns="cwr" lid="NUMB">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -31,19 +29,269 @@
 				</item>
 			</item>
 		</TERM>
-	</META>
 	
-	<!-- cwr:ck:INSTCODE -->
-	<META>
-		<TERM ns="cwr:ck" lid="INSTCODE">
+		<!-- cwr:INSTCODE -->
+		<TERM ns="cwr" lid="INSTCODE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Checklist institute code]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REF -->
+		<TERM ns="cwr" lid="REF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[References]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:URL -->
+		<TERM ns="cwr" lid="URL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL links]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:TAXREF -->
+		<TERM ns="cwr" lid="TAXREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomic reference]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:SYNONYMS -->
+		<TERM ns="cwr" lid="SYNONYMS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon synonyms]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:SYNREF -->
+		<TERM ns="cwr" lid="SYNREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon synonym references]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:COMMONTAXONNAME -->
+		<TERM ns="cwr" lid="COMMONTAXONNAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Common taxon name]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:CHROMOSNUMB -->
+		<TERM ns="cwr" lid="CHROMOSNUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chromosome number]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:GENEPOOL -->
+		<TERM ns="cwr" lid="GENEPOOL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene Pool]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:GENEPOOLREF -->
+		<TERM ns="cwr" lid="GENEPOOLREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene Pool references]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:TAXONGROUP -->
+		<TERM ns="cwr" lid="TAXONGROUP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon Group]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REFTAXONGROUP -->
+		<TERM ns="cwr" lid="REFTAXONGROUP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Reference for Taxon Group]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:LISTSPCROSS -->
+		<TERM ns="cwr" lid="LISTSPCROSS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of species crosses]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:LISTSPCROSSREF -->
+		<TERM ns="cwr" lid="LISTSPCROSSREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of species crosses references]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:METHCROSSREF -->
+		<TERM ns="cwr" lid="METHCROSSREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Method used for crosses]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:SUCCROSSREF -->
+		<TERM ns="cwr" lid="SUCCROSSREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Success rate of crosses]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:ASSLEVEL -->
+		<TERM ns="cwr" lid="ASSLEVEL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Red List assessment level]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REGIONASS -->
+		<TERM ns="cwr" lid="REGIONASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Region of assessment]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REDLISTCAT -->
+		<TERM ns="cwr" lid="REDLISTCAT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other Red List categories and criteria]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:URLPUBREDLISTASS -->
+		<TERM ns="cwr" lid="URLPUBREDLISTASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL publication details of Red List assessment]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REFREDLISTASS -->
+		<TERM ns="cwr" lid="REFREDLISTASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[References details of Red List assessment]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:TAXONSTATUS -->
+		<TERM ns="cwr" lid="TAXONSTATUS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon status]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:OCCURTHREAT -->
+		<TERM ns="cwr" lid="OCCURTHREAT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Period of occurrence of threat]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:ECOVALUE -->
+		<TERM ns="cwr" lid="ECOVALUE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Economic Value of the Related Crop]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:ECOVALUEREF -->
+		<TERM ns="cwr" lid="ECOVALUEREF">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Economic Value of the Related Crop reference]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:REMARKS -->
+		<TERM ns="cwr" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
 				</item>
 			</item>
 		</TERM>
 	</META>
+	
+	<!-- Checklist attributes -->
 	
 	<!-- cwr:ck:TYPE -->
 	<META>
@@ -52,312 +300,6 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Type of checklist]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REF -->
-	<META>
-		<TERM ns="cwr:ck" lid="REF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[References]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:URL -->
-	<META>
-		<TERM ns="cwr:ck" lid="URL">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[URL links]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Taxonomy attributes -->
-	
-	<!-- cwr:ck:TAXREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="TAXREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxonomic reference]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:SYNONYMS -->
-	<META>
-		<TERM ns="cwr:ck" lid="SYNONYMS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxon synonyms]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:SYNREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="SYNREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxon synonym references]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:COMMONTAXONNAME -->
-	<META>
-		<TERM ns="cwr:ck" lid="COMMONTAXONNAME">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Common taxon name]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:CHROMOSNUMB -->
-	<META>
-		<TERM ns="cwr:ck" lid="CHROMOSNUMB">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Chromosome number]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:GENEPOOL -->
-	<META>
-		<TERM ns="cwr:ck" lid="GENEPOOL">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Gene Pool]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:GENEPOOLREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="GENEPOOLREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Gene Pool references]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:TAXONGROUP -->
-	<META>
-		<TERM ns="cwr:ck" lid="TAXONGROUP">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxon Group]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REFTAXONGROUP -->
-	<META>
-		<TERM ns="cwr:ck" lid="REFTAXONGROUP">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Reference for Taxon Group]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Crossability -->
-	
-	<!-- cwr:ck:LISTSPCROSS -->
-	<META>
-		<TERM ns="cwr:ck" lid="LISTSPCROSS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[List of species crosses]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:LISTSPCROSSREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="LISTSPCROSSREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[List of species crosses references]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:METHCROSSREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="METHCROSSREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Method used for crosses]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:SUCCROSSREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="SUCCROSSREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Success rate of crosses]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- Threatened status -->
-	
-	<!-- cwr:ck:ASSLEVEL -->
-	<META>
-		<TERM ns="cwr:ck" lid="ASSLEVEL">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Red List assessment level]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REGIONASS -->
-	<META>
-		<TERM ns="cwr:ck" lid="REGIONASS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Region of assessment]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REDLISTCAT -->
-	<META>
-		<TERM ns="cwr:ck" lid="REDLISTCAT">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other Red List categories and criteria]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:URLPUBREDLISTASS -->
-	<META>
-		<TERM ns="cwr:ck" lid="URLPUBREDLISTASS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[URL publication details of Red List assessment]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REFREDLISTASS -->
-	<META>
-		<TERM ns="cwr:ck" lid="REFREDLISTASS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[References details of Red List assessment]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:TAXONSTATUS -->
-	<META>
-		<TERM ns="cwr:ck" lid="TAXONSTATUS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxon status]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:OCCURTHREAT -->
-	<META>
-		<TERM ns="cwr:ck" lid="OCCURTHREAT">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Period of occurrence of threat]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:ECOVALUE -->
-	<META>
-		<TERM ns="cwr:ck" lid="ECOVALUE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Economic Value of the Related Crop]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:ECOVALUEREF -->
-	<META>
-		<TERM ns="cwr:ck" lid="ECOVALUEREF">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Economic Value of the Related Crop reference]]></item>
-				</item>
-			</item>
-		</TERM>
-	</META>
-	
-	<!-- cwr:ck:REMARKS -->
-	<META>
-		<TERM ns="cwr:ck" lid="REMARKS">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Checklist remarks]]></item>
 				</item>
 			</item>
 		</TERM>

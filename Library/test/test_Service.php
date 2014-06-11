@@ -142,51 +142,6 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 
-/*	
-//
-// Test two fields with values (group).
-//
-echo( '<h4>Test two fields with values (group)</h4>' );
-echo( kSTYLE_TABLE_PRE );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE );
-echo( 'Request:' );
-echo( kSTYLE_HEAD_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_HEAD_PRE );
-$param = array
-(
-//	kAPI_PAGING_LIMIT => 10,
-	kAPI_PARAM_LOG_REQUEST => TRUE,
-	kAPI_PARAM_CRITERIA => array
-	(
-		':type:entity' => array
-		(
-			kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			kAPI_RESULT_ENUM_TERM => array( ':type:entity:210' )
-		)
-	),
-	kAPI_PARAM_GROUP => Array()
-);
-$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-echo( htmlspecialchars($request) );
-echo( kSTYLE_HEAD_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_ROW_PRE );
-echo( kSTYLE_DATA_PRE );
-$response = file_get_contents( $request );
-$result = json_decode( $response, TRUE );
-echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-echo( kSTYLE_DATA_POS );
-echo( kSTYLE_ROW_POS );
-echo( kSTYLE_TABLE_POS );
-echo( '<hr>' );
-echo( '<hr>' );
-exit;
-*/
 	//
 	// Try empty URL.
 	//
@@ -1302,6 +1257,54 @@ exit;
 	echo( '<hr>' );
 
 	//
+	// Map.
+	//
+	echo( '<h4>Map</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+	//	kAPI_PAGING_LIMIT => 10,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			'fcu:unit:ownership/:predicate:SCALE-OF/eufgis:UnitOwnership' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+				kAPI_RESULT_ENUM_TERM => array( 'eufgis:UnitOwnership:Private' )
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:forest',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEOMETRY,
+		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
+								   kTAG_GEOMETRY => array( array( 13, 48.5 ),
+														   array( 17, 45.5 ) ) )
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// Many fields.
 	//
 	echo( '<h4>Many fields</h4>' );
@@ -1495,6 +1498,87 @@ exit;
 	$response = file_get_contents( $request );
 	$result = json_decode( $response, TRUE );
 	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Map.
+	//
+	echo( '<h4>Map</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PAGING_LIMIT => 10,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			'fcu:unit:ownership/:predicate:SCALE-OF/eufgis:UnitOwnership' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+				kAPI_RESULT_ENUM_TERM => array( 'eufgis:UnitOwnership:Private' )
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:forest',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_SHAPE
+				=> array( kTAG_TYPE => 'Polygon',
+						  kTAG_GEOMETRY
+							=> array( array( array( 13, 48.5 ),
+											 array( 13, 45.5 ),
+											 array( 17, 45.5 ),
+											 array( 17, 48.5 ),
+											 array( 13, 48.5 ) ) ) )
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' );
+	print_r( array( kAPI_REQUEST_OPERATION => kAPI_OP_MATCH_UNITS,
+					kAPI_REQUEST_LANGUAGE => 'en',
+					kAPI_REQUEST_PARAMETERS => $param ) );
+	echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( 'Coordinates: ' );
+	$min_lon = $min_lat = 200;
+	$max_lon = $max_lat = -200;
+	foreach( $result[ kAPI_RESPONSE_RESULTS ] as $item )
+	{
+		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ] < $min_lon )
+			$min_lon = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ];
+		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ] > $max_lon )
+			$max_lon = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ];
+		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ] < $min_lat )
+			$min_lat = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ];
+		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ] > $max_lat )
+			$max_lat = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ];
+	}
+	echo( "[$min_lon] [$min_lat] [$max_lon $max_lat]" );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
