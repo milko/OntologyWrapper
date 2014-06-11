@@ -78,7 +78,7 @@ try
 	//
 	// Drop metadata.
 	//
-//	$meta->drop();
+	$meta->drop();
 	
 	//
 	// Set units.
@@ -91,7 +91,7 @@ try
 	//
 	// Drop units.
 	//
-//	$units->drop();
+	$units->drop();
 	
 	//
 	// Set entities.
@@ -104,7 +104,7 @@ try
 	//
 	// Drop entities.
 	//
-//	$entities->drop();
+	$entities->drop();
 	
 	//
 	// Check graph database.
@@ -122,11 +122,11 @@ try
 		//
 		// Drop graph database.
 		//
-//		echo( "  • Resetting graph.\n" );
-//		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
+		echo( "  • Resetting graph.\n" );
+		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
 	
 	} // Use graph database.
-/*	
+	
 	//
 	// Reset ontology.
 	//
@@ -151,12 +151,12 @@ try
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
-*/	
+/*	
 	//
 	// Load MCPD standards.
 	//
 	$wrapper->loadMCPDStandards( TRUE );
-/*	
+	
 	//
 	// Load FCU standards.
 	//
