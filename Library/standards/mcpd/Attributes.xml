@@ -8,26 +8,6 @@
 	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
 		
 	<META>
-		<!-- mcpd:NICODE -->
-		 <TERM ns="mcpd" lid="NICODE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Accession National Inventory]]></item>
-				</item>
-			</item>
-		</TERM>
-		
-		<!-- mcpd:INSTCODE -->
-		<TERM ns="mcpd" lid="INSTCODE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Holding institute code]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- mcpd:ACCENUMB -->
 		<TERM ns="mcpd" lid="ACCENUMB">
 			<item const="kTAG_LABEL">
@@ -64,16 +44,6 @@
 		<!-- :taxon:infraspecies -->
 		<!-- :taxon:infraspecies:author -->
 		
-		<!-- mcpd:CROPNAME -->
-		<TERM ns="mcpd" lid="CROPNAME">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Common crop names]]></item>
-				</item>
-			</item>
-		</TERM>
-		
 		<!-- mcpd:COLLDATE -->
 		<TERM ns="mcpd" lid="COLLDATE">
 			<item const="kTAG_LABEL">
@@ -99,7 +69,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Collecting institute code]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting institute]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -109,7 +79,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Decoded collecting institute]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting institute name]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -144,7 +114,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Breeding institute code]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding institute]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -154,7 +124,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Decoded breeding institute]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding institute name]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -194,7 +164,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Breeding institute code]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Donor institute]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -204,7 +174,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Decoded donor institute]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Donor institute name]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -254,7 +224,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Decoded safety duplication location]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Safety duplication location names]]></item>
 				</item>
 			</item>
 		</TERM>

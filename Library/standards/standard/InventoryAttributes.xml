@@ -9,7 +9,7 @@
 	
 	<!-- Inventory attributes -->
 	
-	<!-- NICODE -->
+	<!-- :inventory:NICODE -->
 	<META>
 		<TERM ns=":inventory" lid="NICODE">
 			<item const="kTAG_LABEL">
@@ -23,33 +23,25 @@
 			<item const="kTAG_TERMS">
 				<item>:inventory:NICODE</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>country code</em> of the national inventory.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the National Inventory. In general the code of the country preparing the National Inventory.]]></item>
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:continent">
+		<NODE tag=":inventory:NICODE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:location:country-legacy</item>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-		</EDGE>
 	</META>
 	
-	<!-- INSTCODE -->
+	<!-- :inventory:INSTCODE -->
 	<META>
 		<TERM ns=":inventory" lid="INSTCODE">
 			<item const="kTAG_LABEL">
@@ -71,7 +63,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:continent">
+		<NODE tag=":inventory:INSTCODE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

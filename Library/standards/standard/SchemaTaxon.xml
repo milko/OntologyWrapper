@@ -332,6 +332,12 @@
 			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+		
+		<!-- Common taxon names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	
 		<!-- REFERENCE -->
 		

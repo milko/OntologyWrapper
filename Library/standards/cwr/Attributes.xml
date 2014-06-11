@@ -10,16 +10,6 @@
 	<!-- Common attributes -->
 	
 	<META>
-		<!-- cwr:INSTCODE -->
-		<TERM ns="cwr" lid="INSTCODE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Institute code]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- cwr:REF -->
 		<TERM ns="cwr" lid="REF">
 			<item const="kTAG_LABEL">
@@ -36,6 +26,16 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[URL links]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:ENDEMISM -->
+		<TERM ns="cwr" lid="ENDEMISM">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Endemism]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -66,16 +66,6 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Taxon synonym references]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- cwr:COMMONTAXONNAME -->
-		<TERM ns="cwr" lid="COMMONTAXONNAME">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Common taxon name]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -210,8 +200,8 @@
 			</item>
 		</TERM>
 		
-		<!-- cwr:YEARASS -->
-		<TERM ns="cwr" lid="YEARASS">
+		<!-- cwr:YEARREDLISTASS -->
+		<TERM ns="cwr" lid="YEARREDLISTASS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -318,16 +308,6 @@
 	<!-- Inventory attributes -->
 	
 	<META>
-		<!-- cwr:in:NICODE -->
-		<TERM ns="cwr:in" lid="NICODE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National inventory]]></item>
-				</item>
-			</item>
-		</TERM>
-		
 		<!-- cwr:in:NIENUMB -->
 		<TERM ns="cwr:in" lid="NIENUMB">
 			<item const="kTAG_LABEL">

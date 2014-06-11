@@ -9,24 +9,6 @@
 	
 	<!-- Common attributes -->
 	
-	<!-- cwr:INSTCODE -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:INSTCODE</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_SYNONYM">
-				<item>INSTCODE</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- cwr:REF -->
 	<META>
 		<TAG>
@@ -40,6 +22,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>REF</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Any bibliographic references related to the publication, the format should include the author, date, title, journal, volume and page number or the DOI number.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -62,6 +50,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>URL</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL linking to any additional data about the species either in the institute or from another source.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -71,6 +65,30 @@
 	</META>
 	
 	<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
+	
+	<!-- cwr:ENDEMISM -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ENDEMISM</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:boolean</item>
+			<item const="kTAG_SYNONYM">
+				<item>ENDEMISM</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Said of a plant that originates in a given country or region and is restricted to that region, that is aboriginal or native to a given geographical area.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
 	<!-- cwr:TAXREF -->
 	<META>
@@ -84,6 +102,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>TAXREF</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomy used by checklist compiler to identify the material (e.g. The Plant List, Euro+Med PlantBase, GRIN Taxonomy for Plants, etc.) .]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -107,6 +131,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>SYNONYMS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms of taxon.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -129,27 +159,11 @@
 			<item const="kTAG_SYNONYM">
 				<item>SYNREF</item>
 			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- cwr:COMMONTAXONNAME -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:COMMONTAXONNAME</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>COMMONTAXONNAME</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms references used by checklist compiler (e.g.. The Plant List, Euro+Med PlantBase, GRIN Taxonomy for Plnats, etc.).]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -173,6 +187,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>CHROMOSNUMB</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chromosome number of the species.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -194,6 +214,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>GENEPOOL</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene Pool to which the taxon belongs (see Maxted et al., 2006). The members of crop gene pool GP1b (primary) and 2 (secondary) are most likely to be crossable with the crop and so these become the obvious conservation priorities.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -217,6 +243,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>GENEPOOLREF</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Gene Pool concept applied.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -234,9 +266,16 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:list</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>TAXONGROUP</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If no concept has been applied to the crop complex, the Taxon Group to which the taxon belongs (see Maxted et al., 2006). The Taxon Group uses taxonomic classifications of the crop genus as a proxy for relative crossability. Taxon group TG1b (same species as crop), TG2 (same series or section as crop) and TG3 (same subgenus as crop) are given priority. Other CWR that are also given priority are species that have previously been successfully used in breeding.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -259,6 +298,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>REFTAXONGROUP</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Taxon Group concept applied.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -326,6 +371,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>METHCROSSREF</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Description of the method used for each identified cross.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -347,6 +398,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>SUCCROSSREF</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Percentage (%) of success rate for each cross.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -394,6 +451,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>REGIONASS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Region of assessment if level is 2 (= regional).  A region indicates any subglobal geographically defined area, including country, state, or province (IUCN 2012a).]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -418,6 +481,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>REDLISTCAT</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If the taxon has not been assessed using the IUCN Red List Categories and Criteria Version 3.1, provide the Red List category, criteria and subcriteria that apply to the taxon as a result of the Red listing process using the alternative system applied.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -439,6 +508,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>URLPUBREDLISTASS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL linking to the additional Red List assessment publication details.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -447,18 +522,18 @@
 		</NODE>
 	</META>
 	
-	<!-- cwr:YEARASS -->
+	<!-- cwr:YEARREDLISTASS -->
 	<META>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>cwr:YEARASS</item>
+				<item>cwr:YEARREDLISTASS</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 			</item>
 			<item const="kTAG_SYNONYM">
-				<item>YEARASS</item>
+				<item>YEARREDLISTASS</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -482,6 +557,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>REFREDLISTASS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bibliographic references related to the publication of the red list assesment, the format should include the author, date, title, journal, volume and page number or the DOI number.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -502,6 +583,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>TAXONSTATUS</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indication of the status of the taxon in the country (TDWG-POSS).]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -578,6 +665,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>ECOVALUEREF</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for the economic value of the related crop or any bibliographic references related to the publication of the economic value.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -622,6 +715,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>CWRCODE</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the National CWR checklist.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -642,6 +741,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>NUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National CWR checklist made up of the edition number and the year of publication.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -678,27 +783,6 @@
 	
 	<!-- Inventory attributes -->
 	
-	<!-- cwr:in:NICODE -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:in:NICODE</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NICODE</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- cwr:in:NIENUMB -->
 	<META>
 		<TAG>
@@ -711,6 +795,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>NIENUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National CWR Inventory made up of the edition number and the year of publication.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -758,6 +848,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>METHCRITPRIORI</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Description of the method applied to the NI prioritization, based on the criteria used.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -775,6 +871,12 @@
 			<item const="kTAG_DATA_TYPE">:type:boolean</item>
 			<item const="kTAG_SYNONYM">
 				<item>CONSACTION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indication whether conservation actions related to the taxon are in place.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -797,6 +899,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>CONSERVCOUNTRYCODE</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country to which the conservation priority applies.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -804,7 +912,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
@@ -821,6 +929,12 @@
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>LEGISTYPE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type of legislation in which the taxon is included, if any.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -847,6 +961,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>COUNTRYCODEASS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country of assessment if level is 3 (= national).]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -854,7 +974,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
@@ -879,7 +999,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>
@@ -981,6 +1101,12 @@
 			<item const="kTAG_SYNONYM">
 				<item>TAXONDISTSTATUS</item>
 			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Indication of countries where the taxon is known to occur and the status of the taxon in each country.]]></item>
+				</item>
+			</item>
 		</TAG>
 		<NODE>
 			<item const="kTAG_NODE_TYPE">
@@ -1009,7 +1135,7 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>

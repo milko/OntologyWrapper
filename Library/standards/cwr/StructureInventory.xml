@@ -24,9 +24,9 @@
 			</item>
 		</NODE>
 	
-		<!-- cwr:in:NICODE -->
+		<!-- :inventory:NICODE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:NICODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -36,9 +36,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:INSTCODE -->
+		<!-- :inventory:INSTCODE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:INSTCODE</item>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -75,12 +75,6 @@
 		<!-- cwr:SYNREF -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:SYNREF</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:COMMONTAXONNAME -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:COMMONTAXONNAME</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

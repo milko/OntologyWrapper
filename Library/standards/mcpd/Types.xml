@@ -52,8 +52,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Forest/woodland]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild habitat: forest/woodland.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: forest/woodland.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -75,8 +78,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Shrubland]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild habitat: shrubland.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: shrubland.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -98,8 +104,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Grassland]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild habitat: grassland.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: grassland.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -121,8 +130,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Desert/tundra]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild habitat: desert/tundra.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: desert/tundra.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -144,8 +156,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Aquatic habitat]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild habitat: aquatic habitat.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: aquatic habitat.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -187,8 +202,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Field]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: field.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: field.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -210,8 +228,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Orchard]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: orchard.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: orchard.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -233,8 +254,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Backyard, kitchen or home garden (urban, peri-urban or rural)]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: backyard, kitchen or home garden (urban, peri-urban or rural).]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: backyard, kitchen or home garden (urban, peri-urban or rural).]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -256,8 +280,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Fallow land]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: fallow land.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: fallow land.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -279,8 +306,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Pasture]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: pasture.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: pasture.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -302,8 +332,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Farm store]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: farm store.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: farm store.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -325,8 +358,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Threshing floor]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: threshing floor.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: threshing floor.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -348,8 +384,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Park]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Farm or cultivated habitat: park.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: park.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -451,8 +490,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Roadside]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Weedy, disturbed or ruderal habitat: roadside.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy, disturbed or ruderal habitat: roadside.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -474,8 +516,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Field margin]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Weedy, disturbed or ruderal habitat: field margin.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy, disturbed or ruderal habitat: field margin.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -534,8 +579,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Natural]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild: natural.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: natural.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -557,8 +605,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Semi-natural/wild]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Wild: semi-natural/wild.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: semi-natural/wild.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -640,8 +691,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Breeder's line]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -663,8 +717,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Synthetic population]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line - synthetic population.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - synthetic population.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -686,8 +743,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Hybrid]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line - Hybrid.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - Hybrid.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -709,8 +769,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Founder stock/base population]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line - Founder stock/base population.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - Founder stock/base population.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -732,8 +795,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Inbred line (parent of hybrid cultivar)]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line - inbred line.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - inbred line.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -755,8 +821,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Segregating population]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: breeder's line - segregating population.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - segregating population.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -778,8 +847,11 @@
 					<item const="kTAG_TEXT"><![CDATA[Mutant/genetic stock]]></item>
 				</item>
 			</item>
-            <item const="kTAG_DEFINITION">
-				<item key="en"><![CDATA[Breeding/research material: mutant/genetic stock.]]></item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: mutant/genetic stock.]]></item>
+				</item>
 			</item>
     	</TERM>
 		<NODE>
@@ -832,9 +904,6 @@
 	<!-- mcpd:STORAGE:10 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="10">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -855,9 +924,6 @@
 	<!-- mcpd:STORAGE:11 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="11">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -884,9 +950,6 @@
 	<!-- mcpd:STORAGE:12 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="12">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -913,9 +976,6 @@
 	<!-- mcpd:STORAGE:13 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="13">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -942,9 +1002,6 @@
 	<!-- mcpd:STORAGE:20 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="20">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -965,9 +1022,6 @@
 	<!-- mcpd:STORAGE:30 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="30">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -988,9 +1042,6 @@
 	<!-- mcpd:STORAGE:40 -->
 	<META>
 		<TERM ns="mcpd:STORAGE" lid="40">
-			<item const="kTAG_KIND">
-				<item>:KIND-ENUMERATION</item>
-			</item>
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
