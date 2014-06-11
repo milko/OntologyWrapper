@@ -151,7 +151,20 @@ try
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
+	
+	//
+	// Load MCPD standards.
+	//
+	$wrapper->loadMCPDStandards( TRUE );
+	
+	//
+	// Load FCU standards.
+	//
 	$wrapper->loadFCUStandards( TRUE );
+	
+	//
+	// Load CWR standards.
+	//
 	$wrapper->loadCWRStandards( TRUE );
 	
 	//

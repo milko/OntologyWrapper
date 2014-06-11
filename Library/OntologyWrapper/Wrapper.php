@@ -1513,6 +1513,66 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadMCPDStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load Multicrop Passport Descriptors standards
+	 *
+	 * This method can be used to load the MCPD standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadMCPDStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading MCPD standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load MCPD: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load default XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading default MCPD files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Types.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Tags.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/mcpd/Structure.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadMCPDStandards.
+
+	 
+	/*===================================================================================
 	 *	loadFCUStandards																*
 	 *==================================================================================*/
 

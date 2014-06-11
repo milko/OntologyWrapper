@@ -10,26 +10,6 @@
 	<!-- Common attributes -->
 	
 	<META>
-		<!-- cwr:CWRCODE -->
-		<TERM ns="cwr" lid="CWRCODE">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National CWR checklist code]]></item>
-				</item>
-			</item>
-		</TERM>
-	
-		<!-- cwr:NUMB -->
-		<TERM ns="cwr" lid="NUMB">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[National CWR checklist edition number]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- cwr:INSTCODE -->
 		<TERM ns="cwr" lid="INSTCODE">
 			<item const="kTAG_LABEL">
@@ -229,6 +209,16 @@
 				</item>
 			</item>
 		</TERM>
+		
+		<!-- cwr:YEARASS -->
+		<TERM ns="cwr" lid="YEARASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Year of Red List assessment]]></item>
+				</item>
+			</item>
+		</TERM>
 	
 		<!-- cwr:REFREDLISTASS -->
 		<TERM ns="cwr" lid="REFREDLISTASS">
@@ -293,13 +283,187 @@
 	
 	<!-- Checklist attributes -->
 	
-	<!-- cwr:ck:TYPE -->
 	<META>
+		<!-- cwr:ck:CWRCODE -->
+		<TERM ns="cwr:ck" lid="CWRCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National CWR checklist code]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:ck:NUMB -->
+		<TERM ns="cwr:ck" lid="NUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National CWR checklist edition number]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- cwr:ck:TYPE -->
 		<TERM ns="cwr:ck" lid="TYPE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Type of checklist]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Inventory attributes -->
+	
+	<META>
+		<!-- cwr:in:NICODE -->
+		<TERM ns="cwr:in" lid="NICODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National inventory]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:NIENUMB -->
+		<TERM ns="cwr:in" lid="NIENUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National Inventory edition number]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:CRITPRIORI -->
+		<TERM ns="cwr:in" lid="CRITPRIORI">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of criteria used for the NI prioritization]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:METHCRITPRIORI -->
+		<TERM ns="cwr:in" lid="METHCRITPRIORI">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Method for the NI prioritization]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:CONSACTION -->
+		<TERM ns="cwr:in" lid="CONSACTION">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Conservation actions in place]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:CONSERVCOUNTRYCODE -->
+		<TERM ns="cwr:in" lid="CONSERVCOUNTRYCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country to which the conservation applies]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:LEGISTYPE -->
+		<TERM ns="cwr:in" lid="LEGISTYPE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Legislation type]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:COUNTRYCODEASS -->
+		<TERM ns="cwr:in" lid="COUNTRYCODEASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country of assessment]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:COUNTRYCODE -->
+		<TERM ns="cwr:in" lid="COUNTRYCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Country]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:NUNITCODE -->
+		<TERM ns="cwr:in" lid="NUNITCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National unit code]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:NUNITDESCR -->
+		<TERM ns="cwr:in" lid="NUNITDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National unit description]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:NUNITAUTHOR -->
+		<TERM ns="cwr:in" lid="NUNITAUTHOR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National unit authority]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:YEARNASS -->
+		<TERM ns="cwr:in" lid="YEARNASS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Year of national red list assessment]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:TAXONDISTSTATUS -->
+		<TERM ns="cwr:in" lid="TAXONDISTSTATUS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon distribution and status]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- cwr:in:DISTCOUNTRYCODE -->
+		<TERM ns="cwr:in" lid="DISTCOUNTRYCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Distribution country]]></item>
 				</item>
 			</item>
 		</TERM>

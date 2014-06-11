@@ -9,54 +9,6 @@
 	
 	<!-- Common attributes -->
 	
-	<!-- cwr:CWRCODE/:predicate:SCALE-OF/iso:3166:country-sub -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:CWRCODE</item>
-				<item>:predicate:SCALE-OF</item>
-				<item>iso:3166:country-sub</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>CWRCODE</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:3166:country-sub</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-		</EDGE>
-	</META>
-	
-	<!-- cwr:NUMB -->
-	<META>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>cwr:NUMB</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>NUMB</item>
-			</item>
-		</TAG>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- cwr:INSTCODE -->
 	<META>
 		<TAG>
@@ -273,6 +225,27 @@
 		</NODE>
 	</META>
 	
+	<!-- cwr:TAXONGROUP -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:TAXONGROUP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>TAXONGROUP</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- cwr:REFTAXONGROUP -->
 	<META>
 		<TAG>
@@ -474,6 +447,27 @@
 		</NODE>
 	</META>
 	
+	<!-- cwr:YEARASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:YEARASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>YEARASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- cwr:REFREDLISTASS -->
 	<META>
 		<TAG>
@@ -615,6 +609,48 @@
 	
 	<!-- Checklist attributes -->
 	
+	<!-- cwr:ck:CWRCODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:CWRCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CWRCODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:ck:NUMB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:NUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NUMB</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- cwr:ck:TYPE -->
 	<META>
 		<TAG>
@@ -636,6 +672,344 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="term">cwr:ck:TYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Inventory attributes -->
+	
+	<!-- cwr:in:NICODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:NICODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NICODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:NIENUMB -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:NIENUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NIENUMB</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:CRITPRIORI -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:CRITPRIORI</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CRITPRIORI</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:in:CRITPRIORI</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:in:METHCRITPRIORI -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:METHCRITPRIORI</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>METHCRITPRIORI</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:CONSACTION -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:CONSACTION</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:boolean</item>
+			<item const="kTAG_SYNONYM">
+				<item>CONSACTION</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:CONSERVCOUNTRYCODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:CONSERVCOUNTRYCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CONSERVCOUNTRYCODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:in:LEGISTYPE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:LEGISTYPE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LEGISTYPE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:in:LEGISTYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:in:COUNTRYCODEASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:COUNTRYCODEASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COUNTRYCODEASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:in:COUNTRYCODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:COUNTRYCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COUNTRYCODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:in:NUNITCODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:NUNITCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NUNITCODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:NUNITDESCR -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:NUNITDESCR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NUNITDESCR</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:NUNITAUTHOR -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:NUNITAUTHOR</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NUNITAUTHOR</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:YEARNASS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:YEARNASS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:year</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>YEARNASS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:TAXONDISTSTATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:TAXONDISTSTATUS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>TAXONDISTSTATUS</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- cwr:in:DISTCOUNTRYCODE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:in:DISTCOUNTRYCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DISTCOUNTRYCODE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:location:country</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 	</META>

@@ -1650,6 +1650,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Check required and empty values.
 			//
+			$has_values = TRUE;
 			switch( $tmp = $criteria[ kAPI_PARAM_INPUT_TYPE ] )
 			{
 				//
@@ -1668,12 +1669,8 @@ abstract class ServiceObject extends ContainerObject
 					//
 					if( ! strlen( $criteria[ kAPI_PARAM_PATTERN ] ) )
 					{
-						//
-						// Set tag.
-						//
-						$criteria_ref[ $tag_sequence ] = NULL;
-				
-						continue;											// =>
+						$has_values = FALSE;
+						break;
 					
 					} // No value.
 					
@@ -1717,12 +1714,8 @@ abstract class ServiceObject extends ContainerObject
 					if( (! strlen( $criteria[ kAPI_PARAM_RANGE_MIN ] ))
 					 && (! strlen( $criteria[ kAPI_PARAM_RANGE_MAX ] )) )
 					{
-						//
-						// Set tag.
-						//
-						$criteria_ref[ $tag_sequence ] = NULL;
-				
-						continue;											// =>
+						$has_values = FALSE;
+						break;
 					
 					} // No value.
 				
@@ -1740,21 +1733,28 @@ abstract class ServiceObject extends ContainerObject
 							"Missing enumerated values [$tag]." );				// !@! ==>
 					
 					//
-					// Handle empty enumerated nset.
+					// Handle array.
 					//
-					if( ( is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] )
-					   && (! count( $criteria[ kAPI_RESULT_ENUM_TERM ] )) )
-					 || ( (!is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ))
-					   && (! strlen( $criteria[ kAPI_RESULT_ENUM_TERM ] )) ) )
+					if( is_array( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
 					{
-						//
-						// Set tag.
-						//
-						$criteria_ref[ $tag_sequence ] = NULL;
-				
-						continue;											// =>
+						if( (! count( $criteria[ kAPI_RESULT_ENUM_TERM ] ))
+						 || (! strlen( $criteria[ kAPI_RESULT_ENUM_TERM ][ 0 ] )) )
+						{
+							$has_values = FALSE;
+							break;
+						
+						}
 					
-					} // No value.
+					} // Received array.
+					
+					//
+					// Handle string.
+					//
+					elseif( ! strlen( $criteria[ kAPI_RESULT_ENUM_TERM ] ) )
+					{
+						$has_values = FALSE;
+						break;
+					}
 				
 					break;
 			
@@ -1787,12 +1787,8 @@ abstract class ServiceObject extends ContainerObject
 					//
 					if( ! strlen( $criteria[ kAPI_PARAM_PATTERN ] ) )
 					{
-						//
-						// Set tag.
-						//
-						$criteria_ref[ $tag_sequence ] = NULL;
-				
-						continue;											// =>
+						$has_values = FALSE;
+						break;
 					
 					} // No value.
 				
@@ -1806,6 +1802,20 @@ abstract class ServiceObject extends ContainerObject
 						"Invalid or unsupported input type [$tmp]." );			// !@! ==>
 			
 			} // Parsing by input type.
+			
+			//
+			// Handle no values.
+			//
+			if( ! $has_values )
+			{
+				//
+				// Set tag.
+				//
+				$criteria_ref[ $tag_sequence ] = NULL;
+		
+				continue;													// =>
+			
+			} // Has no values.
 			
 			//
 			// Increment values count.

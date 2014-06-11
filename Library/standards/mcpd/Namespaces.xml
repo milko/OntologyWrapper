@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MULTICROP PASSPORT DESCRIPTOR NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	
+    <!-- Namespaces -->
+	
+    <!-- mcpd -->
+    <META>
+        <TERM lid="mcpd">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Multicrop passport descriptor]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+</METADATA>

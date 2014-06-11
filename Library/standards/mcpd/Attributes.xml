@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MULTICROP PASSPORT DESCRIPTOR ATTRIBUTES
+	Attributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+		
+	<META>
+		<!-- mcpd:NICODE -->
+		 <TERM ns="mcpd" lid="NICODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession National Inventory]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:INSTCODE -->
+		<TERM ns="mcpd" lid="INSTCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Holding institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- mcpd:ACCENUMB -->
+		<TERM ns="mcpd" lid="ACCENUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession number]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:ACCENAME -->
+		<TERM ns="mcpd" lid="ACCENAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession names]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:OTHERNUMB -->
+		<TERM ns="mcpd" lid="OTHERNUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other identification associated with the accession]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :taxon:genus -->
+		<!-- :taxon:species -->
+		<!-- :taxon:species:author -->
+		<!-- :taxon:infraspecies -->
+		<!-- :taxon:infraspecies:author -->
+		
+		<!-- mcpd:CROPNAME -->
+		<TERM ns="mcpd" lid="CROPNAME">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Common crop names]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:COLLDATE -->
+		<TERM ns="mcpd" lid="COLLDATE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting date of sample]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:COLLNUMB -->
+		<TERM ns="mcpd" lid="COLLNUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting number]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:COLLCODE -->
+		<TERM ns="mcpd" lid="COLLCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:COLLDESCR -->
+		<TERM ns="mcpd" lid="COLLDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Decoded collecting institute]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:country -->
+		<!-- :location:locality -->
+		
+		<!-- mcpd:LATITUDE -->
+		<TERM ns="mcpd" lid="LATITUDE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Latitude of collecting site]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:LONGITUDE -->
+		<TERM ns="mcpd" lid="LONGITUDE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Longitude of collecting site]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :location:elevation -->
+		
+		<!-- mcpd:BREDCODE -->
+		<TERM ns="mcpd" lid="BREDCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:BREDDESCR -->
+		<TERM ns="mcpd" lid="BREDDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Decoded breeding institute]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:ANCEST -->
+		<TERM ns="mcpd" lid="ANCEST">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ancestral data]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:COLLSRC -->
+		<TERM ns="mcpd" lid="COLLSRC">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting/acquisition source]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:SAMPSTAT -->
+		<TERM ns="mcpd" lid="SAMPSTAT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biological status of accession]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:DONORCODE -->
+		<TERM ns="mcpd" lid="DONORCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding institute code]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:DONORDESCR -->
+		<TERM ns="mcpd" lid="DONORDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Decoded donor institute]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:DONORNUMB -->
+		<TERM ns="mcpd" lid="DONORNUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Donor accession number]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:ACQDATE -->
+		<TERM ns="mcpd" lid="ACQDATE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Acquisition date]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:STORAGE -->
+		<TERM ns="mcpd" lid="STORAGE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type of germplasm storage]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:DUPLSITE -->
+		<TERM ns="mcpd" lid="DUPLSITE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Location of safety duplicates]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:DUPLDESCR -->
+		<TERM ns="mcpd" lid="DUPLDESCR">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Decoded safety duplication location]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:ACCEURL -->
+		<TERM ns="mcpd" lid="ACCEURL">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession URL]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:MLSSTAT -->
+		<TERM ns="mcpd" lid="MLSSTAT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[MLS Status]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:AEGISSTAT -->
+		<TERM ns="mcpd" lid="AEGISSTAT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[AEGIS Status]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:REMARKS -->
+		<TERM ns="mcpd" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>
