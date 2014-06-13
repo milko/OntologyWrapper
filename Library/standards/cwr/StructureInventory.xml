@@ -162,9 +162,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:COUNTRYCODEASS -->
+		<!-- cwr:in:COUNTRYCODEASS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:COUNTRYCODEASS</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:COUNTRYCODEASS</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -186,9 +186,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:YEARASS -->
+		<!-- cwr:YEARREDLISTASS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:YEARASS</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:YEARREDLISTASS</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

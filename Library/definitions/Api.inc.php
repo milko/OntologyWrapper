@@ -111,6 +111,7 @@ define( "kAPI_RESPONSE_RESULTS",				'results' );
  *	<li><tt>{@link kAPI_DICTIONARY_TAGS}</tt>: Tags cross reference indexed by sequence
  *		number, having the tag identifier as value.
  *	<li><tt>{@link kAPI_DICTIONARY_IDS}</tt>: List of returned identifiers.
+ *	<li><tt>{@link kAPI_DICTIONARY_LIST_COLS}</tt>: List of table column header tags.
  *	<li><tt>{@link kAPI_DICTIONARY_CLUSTER}</tt>: List of clustered identifiers: an array
  *		indexed by cluster identifier (a term identifier), with as values the tag
  *		identifiers, featured in the {@link kAPI_DICTIONARY_IDS} list, belonging to that
@@ -267,6 +268,13 @@ define( "kAPI_DICTIONARY_TAGS",					'tags' );
  * This tag indicates the dictionary list of identifiers.
  */
 define( "kAPI_DICTIONARY_IDS",					'ids' );
+
+/**
+ * Table column offsets.
+ *
+ * This tag indicates the list of table column tag references.
+ */
+define( "kAPI_DICTIONARY_LIST_COLS",			'cols' );
 
 /**
  * Cluster.

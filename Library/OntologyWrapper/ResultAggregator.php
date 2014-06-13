@@ -272,12 +272,33 @@ class ResultAggregator
 			$collection = $this->mIterator->collection();
 			$wrapper = $collection->dictionary();
 			$name = $collection[ kTAG_CONN_COLL ];
+			$cols = NULL;
 	
 			//
 			// Iterate iterator.
 			//
 			foreach( $this->mIterator as $key => $value )
 			{
+				//
+				// Load columns.
+				//
+				if( $cols === NULL )
+				{
+					//
+					// Get domain.
+					//
+					if( array_key_exists( kTAG_DOMAIN, $value ) )
+					{
+						$cols = UnitObject::ListOffsets( $value[ kTAG_DOMAIN ] );
+						if( count( $cols ) )
+							$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+										   [ kAPI_DICTIONARY_LIST_COLS ]
+										   		= $cols;
+					}
+					else
+						$cols = Array();
+				}
+		
 				//
 				// Store identifier.
 				//

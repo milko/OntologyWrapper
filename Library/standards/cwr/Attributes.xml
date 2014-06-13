@@ -230,6 +230,16 @@
 			</item>
 		</TERM>
 	
+		<!-- cwr:USEOFTAXON -->
+		<TERM ns="cwr" lid="USEOFTAXON">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Use of taxon]]></item>
+				</item>
+			</item>
+		</TERM>
+	
 		<!-- cwr:OCCURTHREAT -->
 		<TERM ns="cwr" lid="OCCURTHREAT">
 			<item const="kTAG_LABEL">

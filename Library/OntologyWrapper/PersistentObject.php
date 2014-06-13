@@ -1614,6 +1614,9 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Return default offsets
 	 *
+	 * The default offsets are those that the object is expected to manage, besides these,
+	 * objects accept any other kind of offset.
+	 *
 	 * In this class we return:
 	 *
 	 * <ul>

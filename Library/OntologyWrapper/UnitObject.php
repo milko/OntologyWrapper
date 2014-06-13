@@ -447,6 +447,71 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC DICTIONARY INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	ListOffsets																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return list offsets
+	 *
+	 * The list offsets are those that will be used to provide a table view of objects
+	 * belonging to the provided domain.
+	 *
+	 * @param string				$theDomain			Object domain.
+	 *
+	 * @static
+	 * @return array				List of list offsets.
+	 */
+	static function ListOffsets( $theDomain )
+	{
+		//
+		// Parse domain.
+		//
+		switch( $theDomain )
+		{
+			case kDOMAIN_UNIT:
+				return array( kTAG_DOMAIN, kTAG_AUTHORITY,
+							  kTAG_COLLECTION, kTAG_IDENTIFIER,
+							  kTAG_VERSION );										// ==>
+		
+			case kDOMAIN_ENTITY:
+				return array( kTAG_NAME );											// ==>
+		
+			case kDOMAIN_INDIVIDUAL:
+				return array( kTAG_NAME );											// ==>
+		
+			case kDOMAIN_ORGANISATION:
+				return array( kTAG_IDENTIFIER, kTAG_ENTITY_ACRONYM, kTAG_NAME );	// ==>
+		
+			case kDOMAIN_ACCESSION:
+				return array( ':inventory:INSTCODE', 'mcpd:ACCENUMB',
+							  ':taxon:epithet' );									// ==>
+		
+			case kDOMAIN_FOREST:
+				return array( 'fcu:unit:number', 'fcu:unit:data-collection',
+							  ':location:country', ':location:admin-1',
+							  ':location:admin-2', ':location:admin-3' );			// ==>
+		
+			case kDOMAIN_CWR_CHECKLIST:
+				return array( ':taxon:epithet', 'cwr:ck:CWRCODE', 'cwr:ck:NUMB',
+							  ':location:admin' );									// ==>
+		
+		} // Parsed domain.
+		
+		return Array();																// ==>
+	
+	} // ListOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

@@ -258,6 +258,7 @@ try
 						break;
 			
 					case 'UnitDataCollectionYear':
+						$object[ $dd[ 'fcu:unit:data-collection' ] ] = (string) $value;
 						$object[ kTAG_VERSION ] = (string) $value;
 						break;
 			

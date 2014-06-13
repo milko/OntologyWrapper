@@ -9,7 +9,7 @@
 	
 	<!-- Enumerated administrative units -->
 	
-	<!-- Continent -->
+	<!-- :location:continent -->
 	<META>
 		<TERM ns=":location" lid="continent">
 			<item const="kTAG_LABEL">
@@ -46,7 +46,7 @@
 		</EDGE>
 	</META>
 	
-	<!-- Country -->
+	<!-- :location:country -->
 	<META>
 		<TERM ns=":location" lid="country">
 			<item const="kTAG_LABEL">
@@ -83,7 +83,7 @@
 		</EDGE>
 	</META>
 	
-	<!-- Legacy country -->
+	<!-- :location:country-legacy -->
 	<META>
 		<TERM ns=":location" lid="country-legacy">
 			<item const="kTAG_LABEL">
@@ -111,7 +111,7 @@
 		</EDGE>
 	</META>
 	
-	<!-- Administrative unit -->
+	<!-- :location:admin -->
 	<META>
 		<TERM ns=":location" lid="admin">
 			<item const="kTAG_LABEL">
@@ -156,7 +156,7 @@
 	
 	<!-- Administrative unit names -->
 	
-	<!-- Primary administrative unit -->
+	<!-- :location:admin-1 -->
 	<META>
 		<TERM ns=":location" lid="admin-1">
 			<item const="kTAG_LABEL">
@@ -194,7 +194,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Secondary administrative unit -->
+	<!-- :location:admin-2 -->
 	<META>
 		<TERM ns=":location" lid="admin-2">
 			<item const="kTAG_LABEL">
@@ -232,7 +232,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Lowest administrative unit -->
+	<!-- :location:admin-3 -->
 	<META>
 		<TERM ns=":location" lid="admin-3">
 			<item const="kTAG_LABEL">
@@ -270,7 +270,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Locality -->
+	<!-- :location:locality -->
 	<META>
 		<TERM ns=":location" lid="locality">
 			<item const="kTAG_LABEL">
@@ -310,7 +310,7 @@
 	
 	<!-- Geographic units -->
 	
-	<!-- Elevation -->
+	<!-- :location:elevation -->
 	<META>
 		<TERM ns=":location" lid="elevation">
 			<item const="kTAG_LABEL">
@@ -348,7 +348,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Minimum elevation -->
+	<!-- :location:elevation:min -->
 	<META>
 		<TERM ns=":location:elevation" lid="min">
 			<item const="kTAG_LABEL">
@@ -386,7 +386,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Maximum elevation -->
+	<!-- :location:elevation:max -->
 	<META>
 		<TERM ns=":location:elevation" lid="max">
 			<item const="kTAG_LABEL">
@@ -424,7 +424,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Elevation uncertainty -->
+	<!-- :location:elevation:error -->
 	<META>
 		<TERM ns=":location:elevation" lid="error">
 			<item const="kTAG_LABEL">
@@ -464,7 +464,7 @@
 	
 	<!-- Geodetic datum -->
 	
-	<!-- Datum -->
+	<!-- :location:datum -->
 	<META>
 		<TERM ns=":location" lid="datum">
 			<item const="kTAG_LABEL">
@@ -502,7 +502,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Datum (DeltaA) -->
+	<!-- :location:datum:DeltaA -->
 	<META>
 		<TERM ns=":location:datum" lid="DeltaA">
 			<item const="kTAG_LABEL">
@@ -528,7 +528,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Datum (DeltaF) -->
+	<!-- :location:datum:DeltaF -->
 	<META>
 		<TERM ns=":location:datum" lid="DeltaF">
 			<item const="kTAG_LABEL">
@@ -554,7 +554,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Datum (X) -->
+	<!-- :location:datum:X -->
 	<META>
 		<TERM ns=":location:datum" lid="X">
 			<item const="kTAG_LABEL">
@@ -580,7 +580,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Datum (Y) -->
+	<!-- :location:datum:Y -->
 	<META>
 		<TERM ns=":location:datum" lid="Y">
 			<item const="kTAG_LABEL">
@@ -606,7 +606,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Datum (Z) -->
+	<!-- :location:datum:Z -->
 	<META>
 		<TERM ns=":location:datum" lid="Z">
 			<item const="kTAG_LABEL">
@@ -3819,7 +3819,7 @@
 	
 	<!-- Coordinates -->
 	
-	<!-- Decimal latitude -->
+	<!-- :location:latitude -->
 	<META>
 		<TERM ns=":location" lid="latitude">
 			<item const="kTAG_LABEL">
@@ -3859,7 +3859,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Latitude degrees -->
+	<!-- :location:latitude:deg -->
 	<META>
 		<TERM ns=":location:latitude" lid="deg">
 			<item const="kTAG_LABEL">
@@ -3899,7 +3899,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Latitude minutes -->
+	<!-- :location:latitude:min -->
 	<META>
 		<TERM ns=":location:latitude" lid="min">
 			<item const="kTAG_LABEL">
@@ -3939,7 +3939,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Latitude seconds -->
+	<!-- :location:latitude:sec -->
 	<META>
 		<TERM ns=":location:latitude" lid="sec">
 			<item const="kTAG_LABEL">
@@ -3979,7 +3979,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Latitude hemisphere -->
+	<!-- :location:latitude:hem -->
 	<META>
 		<TERM ns=":location:latitude" lid="hem">
 			<item const="kTAG_LABEL">
@@ -4018,7 +4018,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Latitude uncertainty -->
+	<!-- :location:latitude:error -->
 	<META>
 		<TERM ns=":location:latitude" lid="error">
 			<item const="kTAG_LABEL">
@@ -4056,7 +4056,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Decimal longitude -->
+	<!-- :location:longitude -->
 	<META>
 		<TERM ns=":location" lid="longitude">
 			<item const="kTAG_LABEL">
@@ -4096,7 +4096,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Longitude degrees -->
+	<!-- :location:longitude:deg -->
 	<META>
 		<TERM ns=":location:longitude" lid="deg">
 			<item const="kTAG_LABEL">
@@ -4136,7 +4136,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Longitude minutes -->
+	<!-- :location:longitude:min -->
 	<META>
 		<TERM ns=":location:longitude" lid="min">
 			<item const="kTAG_LABEL">
@@ -4176,7 +4176,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Longitude seconds -->
+	<!-- :location:longitude:sec -->
 	<META>
 		<TERM ns=":location:longitude" lid="sec">
 			<item const="kTAG_LABEL">
@@ -4216,7 +4216,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Longitude hemisphere -->
+	<!-- :location:longitude:hem -->
 	<META>
 		<TERM ns=":location:longitude" lid="hem">
 			<item const="kTAG_LABEL">
@@ -4255,7 +4255,7 @@
 		</NODE>
 	</META>
 	
-	<!-- Longitude uncertainty -->
+	<!-- :location:longitude:error -->
 	<META>
 		<TERM ns=":location:longitude" lid="error">
 			<item const="kTAG_LABEL">
@@ -4304,7 +4304,7 @@
 	
 	<!-- Usage -->
 	
-	<!-- Coordinates restricted -->
+	<!-- :location:restricted -->
 	<META>
 		<TERM ns=":location" lid="restricted">
 			<item const="kTAG_LABEL">

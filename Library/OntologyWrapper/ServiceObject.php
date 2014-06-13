@@ -968,6 +968,13 @@ abstract class ServiceObject extends ContainerObject
 					"Missing results type parameter." );						// !@! ==>
 	
 			//
+			// Assert limits.
+			//
+			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
+				throw new \Exception(
+					"Missing paging limits parameter." );						// !@! ==>
+	
+			//
 			// Assert result kind.
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
@@ -978,10 +985,25 @@ abstract class ServiceObject extends ContainerObject
 				switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
 				{
 					case kAPI_RESULT_ENUM_DATA_MARKER:
+						//
+						// Assert shape offset.
+						//
 						if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
 							throw new \Exception(
 								"Missing shape offset." );						// !@! ==>
+						//
+						// Normalise limit.
+						//
+						if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX )
+							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
+						break;
+						
 					case kAPI_RESULT_ENUM_DATA_RECORD:
+						//
+						// Normalise limit.
+						//
+						if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
+							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
 						break;
 					
 					default:
@@ -990,19 +1012,6 @@ abstract class ServiceObject extends ContainerObject
 						break;
 				}
 			}
-	
-			//
-			// Assert limits.
-			//
-			if( ! $this->offsetExists( kAPI_PAGING_LIMIT ) )
-				throw new \Exception(
-					"Missing paging limits parameter." );						// !@! ==>
-		
-			//
-			// Normalise limits.
-			//
-			elseif( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
-				$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
 	
 		} // Group not provided.
 	
@@ -2124,6 +2133,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_DICTIONARY_REF_COUNT" ] = kAPI_DICTIONARY_REF_COUNT;
 		$ref[ "kAPI_DICTIONARY_TAGS" ] = kAPI_DICTIONARY_TAGS;
 		$ref[ "kAPI_DICTIONARY_IDS" ] = kAPI_DICTIONARY_IDS;
+		$ref[ "kAPI_DICTIONARY_LIST_COLS" ] = kAPI_DICTIONARY_LIST_COLS;
 		$ref[ "kAPI_DICTIONARY_CLUSTER" ] = kAPI_DICTIONARY_CLUSTER;
 		
 		//
