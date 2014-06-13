@@ -487,6 +487,7 @@ abstract class UnitObject extends PersistentObject
 				return array( kTAG_NAME );											// ==>
 		
 			case kDOMAIN_ORGANISATION:
+				return array( ':unit:identifier', ':entity:acronym', ':name' );
 				return array( kTAG_IDENTIFIER, kTAG_ENTITY_ACRONYM, kTAG_NAME );	// ==>
 		
 			case kDOMAIN_ACCESSION:

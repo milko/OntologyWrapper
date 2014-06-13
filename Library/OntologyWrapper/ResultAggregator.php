@@ -296,7 +296,7 @@ class ResultAggregator
 						if( count( $cols ) )
 						{
 							//
-							// Convert serials to native identifiers.
+							// Convert native identifiers in serials.
 							//
 							$keys = array_keys( $cols );
 							foreach( $keys as $key )
@@ -304,20 +304,19 @@ class ResultAggregator
 								//
 								// Convert to native identifier.
 								//
-								if( is_int( $cols[ $key ] )
-								 || ctype_digit( $cols[ $key ] ) )
+								if( (! is_int( $cols[ $key ] ))
+								 && (!ctype_digit( $cols[ $key ] )) )
 									$cols[ $key ]
-										= $wrapper->getObject( $cols[ $key ], TRUE )
-											[ kTAG_NID ];
+										= $wrapper->getSerial( $cols[ $key ], TRUE );
+							
+								//
+								// Set in dictionary.
+								//
+								$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+											   [ kAPI_DICTIONARY_LIST_COLS ]
+													= $cols;
 							
 							} // Iterated columns.
-							
-							//
-							// Set in dictionary.
-							//
-							$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-										   [ kAPI_DICTIONARY_LIST_COLS ]
-										   		= $cols;
 						
 						} // Has columns.
 					
@@ -349,6 +348,13 @@ class ResultAggregator
 							   [ $key ] = $value;
 	
 			} // Iterating iterator.
+			
+			//
+			// Add table column offsets.
+			//
+			if( array_key_exists( kAPI_DICTIONARY_LIST_COLS,
+								  $this->mResults[ kAPI_RESULTS_DICTIONARY ] ) )
+				$this->loadTags( $wrapper, $cols, $theLanguage, $doRefStructs );
 			
 			//
 			// Cluster tags.
