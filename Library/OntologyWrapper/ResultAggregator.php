@@ -289,15 +289,47 @@ class ResultAggregator
 					//
 					if( array_key_exists( kTAG_DOMAIN, $value ) )
 					{
+						//
+						// Get table columns.
+						//
 						$cols = UnitObject::ListOffsets( $value[ kTAG_DOMAIN ] );
 						if( count( $cols ) )
+						{
+							//
+							// Convert serials to native identifiers.
+							//
+							$keys = array_keys( $cols );
+							foreach( $keys as $key )
+							{
+								//
+								// Convert to native identifier.
+								//
+								if( is_int( $cols[ $key ] )
+								 || ctype_digit( $cols[ $key ] ) )
+									$cols[ $key ]
+										= $wrapper->getObject( $cols[ $key ], TRUE )
+											[ kTAG_NID ];
+							
+							} // Iterated columns.
+							
+							//
+							// Set in dictionary.
+							//
 							$this->mResults[ kAPI_RESULTS_DICTIONARY ]
 										   [ kAPI_DICTIONARY_LIST_COLS ]
 										   		= $cols;
-					}
+						
+						} // Has columns.
+					
+					} // Has domain.
+					
+					//
+					// No domain => no columns.
+					//
 					else
 						$cols = Array();
-				}
+				
+				} // Not processed columns yet.
 		
 				//
 				// Store identifier.
