@@ -1059,4 +1059,116 @@
 			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE</item>
 		</EDGE>
 	</META>
+	
+	<!-- mcpd:MLSSTAT -->
+	<META>
+		<NODE term="mcpd:MLSSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the different status that an accession may have in regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	<!-- mcpd:MLSSTAT:1 -->
+	<META>
+		<TERM ns="mcpd:MLSSTAT" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part of the MLS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:MLSSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:MLSSTAT:0 -->
+	<META>
+		<TERM ns="mcpd:MLSSTAT" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not part of the MLS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:MLSSTAT</item>
+		</EDGE>
+	</META>
+	
+	<!-- mcpd:AEGISSTAT -->
+	<META>
+		<NODE term="mcpd:AEGISSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the different status that an accession may have in regards to the European Genebank Integrated System (AEGIS).]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	<!-- mcpd:AEGISSTAT:1 -->
+	<META>
+		<TERM ns="mcpd:AEGISSTAT" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part of AEGIS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AEGISSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:AEGISSTAT:0 -->
+	<META>
+		<TERM ns="mcpd:AEGISSTAT" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not part of AEGIS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AEGISSTAT</item>
+		</EDGE>
+	</META>
 </METADATA>

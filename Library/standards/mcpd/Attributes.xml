@@ -244,7 +244,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[MLS Status]]></item>
+					<item const="kTAG_TEXT">MLS Status</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The status with regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture.</item>
 				</item>
 			</item>
 		</TERM>
@@ -254,7 +260,29 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[AEGIS Status]]></item>
+					<item const="kTAG_TEXT">AEGIS Status</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The status with regards to the European Genebank Integrated System (AEGIS).</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- mcpd:AVAILABLE -->
+		<TERM ns="mcpd" lid="AVAILABLE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Availability</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Germplasm availability.</item>
 				</item>
 			</item>
 		</TERM>
@@ -268,5 +296,61 @@
 				</item>
 			</item>
 		</TERM>
+	</META>
+	
+	<!-- mcpd:AVAILABLE -->
+	<META>
+		<NODE term="mcpd:AVAILABLE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the availability status of the accession.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	<!-- mcpd:AVAILABLE:1 -->
+	<META>
+		<TERM ns="mcpd:AVAILABLE" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Available]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AVAILABLE</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:AVAILABLE:0 -->
+	<META>
+		<TERM ns="mcpd:AVAILABLE" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unavailable]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AVAILABLE</item>
+		</EDGE>
 	</META>
 </METADATA>

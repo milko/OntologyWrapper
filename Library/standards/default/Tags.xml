@@ -1770,7 +1770,7 @@
 			<item const="kTAG_TERMS">
 				<item>:entity:valid</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:entity</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:self</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>

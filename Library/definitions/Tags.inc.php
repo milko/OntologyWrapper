@@ -1180,7 +1180,7 @@ define( "kTAG_ENTITY_NATIONALITY",		79 );
  * Valid entity (<code>:entity:valid</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_REF_ENTITY}
+ *	<li><em>Type</em>: {@link kTYPE_REF_SELF}
  * </ul>
  *
  * This tag holds a reference to the <em>currently valid or preferred entity</em>. This

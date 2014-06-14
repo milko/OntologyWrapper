@@ -592,7 +592,7 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_ENTITY_VALID => array
 		(
 			kTAG_NID	=> ':entity:valid',
-			kTAG_DATA_TYPE	=> kTYPE_REF_ENTITY,
+			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_RECORD_CREATED => array

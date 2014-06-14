@@ -146,15 +146,6 @@ abstract class EntityObject extends UnitObject
 	 */
 	use	traits\EntityAffiliation;
 
-	/**
-	 * Default domain.
-	 *
-	 * This constant holds the <i>default domain</i> of the object.
-	 *
-	 * @var string
-	 */
-	const kDEFAULT_DOMAIN = kDOMAIN_ENTITY;
-
 		
 
 /*=======================================================================================

@@ -180,6 +180,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- mcpd:AVAILABLE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:AVAILABLE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- mcpd:REMARKS -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:REMARKS</item>

@@ -178,6 +178,7 @@ try
 				  ':location:elevation:max' => NULL,
 				  ':location:datum' => NULL,
 				  ':location:restricted' => NULL,
+				  'fcu:unit:data-collection' => NULL,
 				  'fcu:unit:area' => NULL,
 				  'fcu:unit:ownership/:predicate:SCALE-OF/eufgis:UnitOwnership' => NULL,
 				  'fcu:unit:type/:predicate:SCALE-OF/eufgis:UnitType' => NULL,

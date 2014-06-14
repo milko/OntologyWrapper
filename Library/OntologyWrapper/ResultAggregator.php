@@ -360,7 +360,7 @@ class ResultAggregator
 			// Cluster tags.
 			//
 			if( $name == Tag::kSEQ_NAME )
-			$this->clusterTags();
+				$this->clusterTags();
 		
 			//
 			// Signal processed.
@@ -510,7 +510,13 @@ class ResultAggregator
 		//
 		// Save tags.
 		//
-		$tags = array_diff( array_keys( $theObject ), $exclude );
+		$tags
+			= array_unique(
+				array_diff(
+					array_merge(
+						array_keys( $theObject ),
+						$theObject[ kTAG_OBJECT_TAGS ] ),
+					$exclude ) );
 		
 		//
 		// Save object references.
@@ -642,12 +648,17 @@ class ResultAggregator
 											 						&$thePath,
 											 						&$theTags,
 																	 $theLanguage,
-																	 $doRefStructs = TRUE )
+																	 $doRefStructs = FALSE )
 	{
+		//
+		// Copy offset.
+		//
+		$offset = $theIterator->key();
+		
 		//
 		// Handle published tags.
 		//
-		if( in_array( $offset = $theIterator->key(),
+		if( in_array( $offset,
 					  array_merge( $theTags, PersistentObject::GetReferenceCounts() ) ) )
 		{
 			//
@@ -672,72 +683,87 @@ class ResultAggregator
 			if( $type == kTYPE_STRUCT )
 			{
 				//
-				// Init new object property.
+				// Shadow structures.
 				//
-				$theNew[ $offset ] = Array();
-				$reference = & $theNew[ $offset ];
+				if( $doRefStructs )
+					$theNew[ $offset ] = implode( '.', $thePath );
 				
 				//
-				// Handle structure lists.
-				//
-				if( in_array( kTYPE_LIST, $kind ) )
-				{
-					//
-					// Iterate list.
-					//
-					foreach( $property as $idx => $struct )
-					{
-						//
-						// Init new object property.
-						//
-						$reference[ $idx ] = Array();
-						$ref = & $reference[ $idx ];
-				
-						//
-						// Traverse structure.
-						//
-						$struct = new \ArrayObject( $struct );
-						$iterator = $struct->getIterator();
-						iterator_apply( $iterator,
-										array( $this, 'traverseObject' ),
-										array( $iterator, $theWrapper, & $ref,
-																	   & $thePath,
-																	   & $theTags,
-															  			 $theLanguage,
-															  			 $doRefStructs ) );
-			
-					} // Iterating list.
-		
-				} // List of structures.
-		
-				//
-				// Handle scalar structure.
+				// Process structures.
 				//
 				else
 				{
 					//
-					// Shadow structures.
+					// Init new object property.
 					//
-					if( $doRefStructs )
-						$theNew[ $offset ] = implode( '.', $thePath );
-					
+					$theNew[ $offset ] = Array();
+					$reference = & $theNew[ $offset ];
+				
 					//
-					// Traverse structure.
+					// Handle structure lists.
+					//
+					if( in_array( kTYPE_LIST, $kind ) )
+					{
+						//
+						// Iterate list.
+						//
+						foreach( $property as $idx => $struct )
+						{
+							//
+							// Init new object property.
+							//
+							$reference[ $idx ] = Array();
+							$ref = & $reference[ $idx ];
+				
+							//
+							// Traverse structure.
+							//
+							$struct = new \ArrayObject( $struct );
+							$iterator = $struct->getIterator();
+							iterator_apply( $iterator,
+											array( $this, 'traverseObject' ),
+											array( $iterator, $theWrapper,
+															& $ref,
+															& $thePath,
+															& $theTags,
+															  $theLanguage,
+															  $doRefStructs ) );
+			
+						} // Iterating list.
+		
+					} // List of structures.
+		
+					//
+					// Handle scalar structure.
 					//
 					else
 					{
-						$struct = new \ArrayObject( $property );
-						$iterator = $struct->getIterator();
-						iterator_apply( $iterator,
-										array( $this, 'traverseObject' ),
-										array( $iterator, $theWrapper, & $reference,
-																	   & $theTags,
-																	   & $theTags,
-																		 $theLanguage,
-																		 $doRefStructs ) );
-					} // Do not shadow structures.
+						//
+						// Shadow structures.
+						//
+						if( $doRefStructs )
+							$theNew[ $offset ] = implode( '.', $thePath );
+					
+						//
+						// Traverse structure.
+						//
+						else
+						{
+							$struct = new \ArrayObject( $property );
+							$iterator = $struct->getIterator();
+							iterator_apply( $iterator,
+											array( $this, 'traverseObject' ),
+											array( $iterator, $theWrapper,
+															& $reference,
+															& $theTags,
+															& $theTags,
+															  $theLanguage,
+															  $doRefStructs ) );
+						} // Do not shadow structures.
 		
-				} // Scalar structure.
+					} // Scalar structure.
+				
+				} // Process structure.
 			
 			} // Structure.
 			

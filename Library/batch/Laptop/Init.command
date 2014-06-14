@@ -7,7 +7,7 @@
 #
 # Init metadata.
 #
-php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Init_All.php
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/Laptop/Init_All.php
 
 #
 # Load EUFGIS.

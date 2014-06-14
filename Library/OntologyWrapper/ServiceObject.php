@@ -1068,6 +1068,39 @@ abstract class ServiceObject extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	validateGetUnit																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get unit service.
+	 *
+	 * This method will validate all service operations which match a single unit using an
+	 * identifier, the method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check identifier</em>: The method will check whether the identifier was
+	 *		provided.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateGetUnit()
+	{
+		//
+		// Validate identifier.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_ID ) )
+			throw new \Exception(
+				"Missing unit identifier parameter." );							// !@! ==>
+		
+	} // validateGetUnit.
+
+	 
+	/*===================================================================================
 	 *	validateStringMatchOperator														*
 	 *==================================================================================*/
 
@@ -2150,6 +2183,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
+		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
 		
 		//
 		// Load request parameters.
@@ -2164,6 +2198,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
 		$ref[ "kAPI_PARAM_INPUT_TYPE" ] = kAPI_PARAM_INPUT_TYPE;
 		$ref[ "kAPI_PARAM_CRITERIA" ] = kAPI_PARAM_CRITERIA;
+		$ref[ "kAPI_PARAM_ID" ] = kAPI_PARAM_ID;
 		$ref[ "kAPI_PARAM_DOMAIN" ] = kAPI_PARAM_DOMAIN;
 		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;

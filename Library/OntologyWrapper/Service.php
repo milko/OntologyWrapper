@@ -74,6 +74,7 @@ class Service extends ServiceObject
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 			case kAPI_OP_MATCH_UNITS:
+			case kAPI_OP_GET_UNIT:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -211,6 +212,25 @@ class Service extends ServiceObject
 				}
 				break;
 				
+			//
+			// Match domains.
+			//
+			case kAPI_OP_GET_UNIT:
+				//
+				// Parse parameter.
+				//
+				switch( $theKey )
+				{
+					case kAPI_PARAM_ID:
+						$this->offsetSet( $theKey, $theValue );
+						break;
+
+					default:
+						parent::parseParameter( $theKey, $theValue );
+						break;
+				}
+				break;
+				
 			default:
 				parent::parseParameter( $theKey, $theValue );
 				break;
@@ -327,6 +347,10 @@ class Service extends ServiceObject
 				$this->validateMatchUnits();
 				break;
 				
+			case kAPI_OP_GET_UNIT:
+				$this->validateGetUnit();
+				break;
+				
 			default:
 				parent::validateRequest();
 				break;
@@ -402,6 +426,10 @@ class Service extends ServiceObject
 				
 			case kAPI_OP_MATCH_UNITS:
 				$this->executeMatchUnits();
+				break;
+				
+			case kAPI_OP_GET_UNIT:
+				$this->executeGetUnit();
 				break;
 				
 			default:
@@ -762,6 +790,43 @@ class Service extends ServiceObject
 		} // Not grouped.
 		
 	} // executeMatchUnits.
+
+	 
+	/*===================================================================================
+	 *	executeGetUnit																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get unit.
+	 *
+	 * The method will match the unit and return a clustered result.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetUnit()
+	{
+		//
+		// Execute query.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
+							kQUERY_ARRAY );
+
+		//
+		// Instantiate results aggregator.
+		//
+		$aggregator = new ResultAggregator( $rs, $this->mResponse );
+		
+		//
+		// Aggregate results.
+		//
+		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		
+	} // executeGetUnit.
 
 	 
 

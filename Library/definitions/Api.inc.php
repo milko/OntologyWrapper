@@ -890,6 +890,25 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  */
 define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
 
+/**
+ * Get unit.
+ *
+ * This tag defines the get unit operation.
+ *
+ * The service will return a unit matching the provided identifier as a clustered result.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
+ *		holds the unit native identifier.
+ * </ul>
+ */
+define( "kAPI_OP_GET_UNIT",						'getUnit' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/
@@ -1111,6 +1130,16 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  * </ul>
  */
 define( "kAPI_PARAM_CRITERIA",					'criteria' );
+
+/**
+ * Object identifier (mixed).
+ *
+ * This tag defines the object identifier.
+ *
+ * This parameter is used by services requesting a single specific object, the parameter
+ * should hold the object identifier, which will generally be its native identifier.
+ */
+define( "kAPI_PARAM_ID",						'id' );
 
 /**
  * Results domain (string).
