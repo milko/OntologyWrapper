@@ -3919,7 +3919,7 @@
 			<item const="kTAG_TERMS">
 				<item>:location:latitude:min</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
@@ -3929,8 +3929,6 @@
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude minutes</em>.]]></item>
 				</item>
 			</item>
-			<item const="kTAG_MIN_RANGE">0</item>
-			<item const="kTAG_MAX_RANGE">59</item>
 		</TAG>
 		<NODE tag=":location:latitude:min">
 			<item const="kTAG_NODE_TYPE">
@@ -4009,7 +4007,6 @@
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude hemisphere</em>, accepted values are <tt>N</tt> for <em>North</em> and <tt>S</tt> for <em>South</em>.]]></item>
 				</item>
 			</item>
-			<item const="kTAG_PATTERN"><![CDATA[[NS]{1}]]></item>
 		</TAG>
 		<NODE tag=":location:latitude:hem">
 			<item const="kTAG_NODE_TYPE">
@@ -4156,7 +4153,7 @@
 			<item const="kTAG_TERMS">
 				<item>:location:longitude:min</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 			</item>
@@ -4166,8 +4163,6 @@
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude minutes</em>.]]></item>
 				</item>
 			</item>
-			<item const="kTAG_MIN_RANGE">0</item>
-			<item const="kTAG_MAX_RANGE">59</item>
 		</TAG>
 		<NODE tag=":location:longitude:min">
 			<item const="kTAG_NODE_TYPE">
@@ -4191,8 +4186,6 @@
 					<item const="kTAG_TEXT">Location longitude seconds.</item>
 				</item>
 			</item>
-			<item const="kTAG_MIN_RANGE">0</item>
-			<item const="kTAG_MAX_RANGE">60</item>
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -4246,7 +4239,6 @@
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude hemisphere</em>, accepted values are <tt>E</tt> for <em>East</em> and <tt>W</tt> for <em>West</em>.]]></item>
 				</item>
 			</item>
-			<item const="kTAG_PATTERN"><![CDATA[[EW]{1}]]></item>
 		</TAG>
 		<NODE tag=":location:longitude:hem">
 			<item const="kTAG_NODE_TYPE">

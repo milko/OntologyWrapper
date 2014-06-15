@@ -90,6 +90,18 @@
 			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
 		</EDGE>
 		
+		<!-- mcpd:LATITUDE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:LATITUDE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:LONGITUDE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:LONGITUDE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- mcpd:BREDCODE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDCODE</item>

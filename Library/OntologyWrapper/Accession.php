@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Checklist.php
+ * Accession.php
  *
- * This file contains the definition of the {@link Checklist} class.
+ * This file contains the definition of the {@link Accession} class.
  */
 
 namespace OntologyWrapper;
@@ -15,38 +15,39 @@ use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*
- *									Checklist.php										*
+ *									Accession.php										*
  *																						*
  *======================================================================================*/
 
 /**
- * Checklist object
+ * Accession object
  *
- * This class is derived from the {@link UnitObject} class, it implements a species
- * checklist which uses the crop wild relative standards as its default properties.
+ * This class is derived from the {@link UnitObject} class, it implements an accession
+ * which uses the multicrop passport descriptors as its default properties.
  *
  * The inherited attributes have the following function:
  *
  * <ul>
  *	<li><tt>{@link kTAG_DOMAIN}</tt>: By default the class sets the
- *		{@link kDOMAIN_CWR_CHECKLIST} constant.
+ *		{@link kDOMAIN_ACCESSION} constant.
  *	<li><tt>{@link kTAG_AUTHORITY}</tt>: The authority is set with the institute code,
  *		<tt>:inventory:INSTCODE</tt> tag.
- *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the concatenation of
- *		the <tt>cwr:ck:CWRCODE</tt> anf the <tt>cwr:ck:NUMB</tt> tags separated by a dash.
- *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is set with the value of the
- *		<tt>:taxon:epithet</tt> tag.
- *	<li><tt>{@link kTAG_VERSION}</tt>: This property is set with the value of the
- *		<tt>cwr:ck:TYPE</tt> tag.
+ *	<li><tt>{@link kTAG_IDENTIFIER}</tt>: The identifier is set with the
+ *		<tt>mcpd:ACCENUMB</tt> tag.
+ *	<li><tt>{@link kTAG_COLLECTION}</tt>: This property is optionally set by the client.
+ *	<li><tt>{@link kTAG_VERSION}</tt>: This property is set with the original creation date.
  * </ul>
  *
- * The object can be considered initialised when it has at least the domain, authority,
- * identifier, collection and version.
+ * All the above properties, except the version, are used to compute the object's
+ * native identifier.
+ *
+ * The object can be considered initialised when it has at least the domain, authority and
+ * the identifier set.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 05/06/2014
  */
-class Checklist extends UnitObject
+class Accession extends UnitObject
 {
 	/**
 	 * Default domain.
@@ -55,7 +56,7 @@ class Checklist extends UnitObject
 	 *
 	 * @var string
 	 */
-	const kDEFAULT_DOMAIN = kDOMAIN_CWR_CHECKLIST;
+	const kDEFAULT_DOMAIN = kDOMAIN_ACCESSION;
 
 		
 
@@ -105,9 +106,7 @@ class Checklist extends UnitObject
 		// Set initialised status.
 		//
 		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
 
 	} // Constructor.
 
@@ -129,7 +128,7 @@ class Checklist extends UnitObject
 	 * Return default offsets
 	 *
 	 * In this class we return the parent offsets and the results of
-	 * {@link collectStructureOffsets()} of the <tt>struct:cwr:ck</tt> structure node (PID).
+	 * {@link collectStructureOffsets()} of the <tt>struct:mcpd</tt> structure node (PID).
 	 *
 	 * @static
 	 * @return array				List of default offsets.
@@ -138,7 +137,7 @@ class Checklist extends UnitObject
 	{
 		return array_merge( parent::DefaultOffsets(),
 							$this->mDictionary
-								->collectStructureOffsets( 'struct:cwr:ck' ) );		// ==>
+								->collectStructureOffsets( 'struct:mcpd' ) );		// ==>
 	
 	} // DefaultOffsets.
 
@@ -179,9 +178,7 @@ class Checklist extends UnitObject
 		// Set initialised status.
 		//
 		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
 	
 	} // postOffsetSet.
 
@@ -212,9 +209,7 @@ class Checklist extends UnitObject
 		// Set initialised status.
 		//
 		$this->isInited( parent::isInited() &&
-						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) &&
-						 \ArrayObject::offsetExists( kTAG_COLLECTION ) &&
-						 \ArrayObject::offsetExists( kTAG_VERSION ) );
+						 \ArrayObject::offsetExists( kTAG_AUTHORITY ) );
 	
 	} // postOffsetUnset.
 
@@ -251,28 +246,19 @@ class Checklist extends UnitObject
 		// Check domain.
 		//
 		if( ! $this->offsetExists( kTAG_DOMAIN ) )
-			$this->offsetSet( kTAG_DOMAIN,
-							  static::kDEFAULT_DOMAIN );
+			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
 		
 		//
 		// Check identifier.
 		//
 		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
-			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( 'cwr:ck:CWRCODE' )
-											  .'-'
-											  .$this->offsetGet( 'cwr:ck:NUMB' ) );
+			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( 'mcpd:ACCENUMB' ) );
 		
 		//
 		// Check authority.
 		//
 		if( ! $this->offsetExists( kTAG_AUTHORITY ) )
 			$this->offsetSet( kTAG_AUTHORITY, $this->offsetGet( ':inventory:INSTCODE' ) );
-		
-		//
-		// Check version.
-		//
-		if( ! $this->offsetExists( kTAG_VERSION ) )
-			$this->offsetSet( kTAG_VERSION, $this->offsetGet( 'cwr:ck:TYPE' ) );
 		
 		//
 		// Set taxon.
@@ -298,12 +284,6 @@ class Checklist extends UnitObject
 		} // Taxon not yet set.
 		
 		//
-		// Check collection.
-		//
-		if( ! $this->offsetExists( kTAG_COLLECTION ) )
-			$this->offsetSet( kTAG_COLLECTION, $this->offsetGet( ':taxon:epithet' ) );
-		
-		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
@@ -312,7 +292,7 @@ class Checklist extends UnitObject
 
 	 
 
-} // class Checklist.
+} // class Accession.
 
 
 ?>

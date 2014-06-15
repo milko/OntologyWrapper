@@ -1,20 +1,21 @@
 <?php
 
 /**
- * Checklist load procedure.
+ * MCPD (CWR) load procedure.
  *
- * This file contains routines to load CWR checklists from an SQL database.
+ * This file contains routines to load the crop wild relative accessions from an SQL
+ * database.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 05/06/2014
+ *	@version	1.00 14/06/2014
  */
 
 /*=======================================================================================
  *																						*
- *								LoadChecklistsFromSQLDb.php								*
+ *							LoadCWRAccessionsFromSQLDb.php								*
  *																						*
  *======================================================================================*/
 
@@ -174,13 +175,13 @@ try
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$rsu = $db->execute( "SELECT * FROM `DATA-CK`" );
+	$rsu = $db->execute( "SELECT * FROM `MCPD`" );
 	foreach( $rsu as $record )
 	{
 		//
 		// Init loop storage.
 		//
-		$object = new OntologyWrapper\Checklist( $wrapper );
+		$object = new OntologyWrapper\Accession( $wrapper );
 		
 		//
 		// Parse unit.
@@ -194,126 +195,111 @@ try
 			 || strlen( trim( $value ) ) )
 			{
 				//
-				// Skip local fields.
-				//
-				if( ($key == '__ID')
-				 || ($key == '__KEY') )
-					continue;												// =>
-				
-				//
 				// Parse record.
 				//
 				switch( $key )
 				{
-					case 'cwr:ck:CWRCODE':
-						if( strlen( $value ) == 3 )
-						{
-							$object[ ':location:country' ]
-								= "iso:3166:1:alpha-3:$value";
-							$object[ ':location:admin' ]
-								= "iso:3166:1:alpha-3:$value";
-						}
-						elseif( substr( $value, 0, 2 ) == 'GB' )
-						{
-							$object[ ':location:country' ]
-								= "iso:3166:1:alpha-3:GBR";
-							$object[ ':location:admin' ]
-								= "iso:3166:2:$value";
-						}
-					
-					case 'cwr:ck:NUMB':
-					case 'cwr:CHROMOSNUMB':
-					case 'cwr:GENEPOOL':
-					case ':taxon:regnum':
-					case ':taxon:phylum':
-					case ':taxon:classis':
-					case ':taxon:ordo':
-					case ':taxon:familia':
-					case ':taxon:subfamilia':
-					case ':taxon:tribus':
-					case ':taxon:subtribus':
+					case ':inventory:dataset':
+					case ':inventory:NICODE':
+					case ':unit:collection':
+					case 'mcpd:ACCENUMB':
+					case 'mcpd:ACQDATE':
 					case ':taxon:genus':
 					case ':taxon:species':
 					case ':taxon:species:author':
 					case ':taxon:infraspecies':
 					case ':taxon:infraspecies:author':
-					case 'cwr:TAXREF':
-					case 'cwr:REGIONASS':
-					case 'cwr:REDLISTCAT':
-					case 'cwr:URLPUBREDLISTASS':
-					case 'cwr:REMARKS':
+					case ':taxon:epithet':
+					case 'mcpd:COLLDESCR':
+					case 'mcpd:COLLNUMB':
+					case 'mcpd:COLLDATE':
+					case ':location:locality':
+					case 'mcpd:LATITUDE':
+					case ':location:latitude:deg':
+					case ':location:latitude:min':
+					case ':location:latitude:sec':
+					case ':location:latitude:hem':
+					case ':location:latitude':
+					case 'mcpd:LONGITUDE':
+					case ':location:longitude:deg':
+					case ':location:longitude:min':
+					case ':location:longitude:sec':
+					case ':location:longitude:hem':
+					case ':location:longitude':
+					case ':location:elevation':
+					case 'mcpd:DONORDESCR':
+					case 'mcpd:DONORNUMB':
+					case 'mcpd:BREDDESCR':
+					case 'mcpd:ANCEST':
+					case 'mcpd:DUPLDESCR':
+					case 'mcpd:ACCEURL':
+					case 'mcpd:REMARKS':
+					case ':unit:version':
 						$object[ $key ] = $value;
+						break;
+			
+					case ':taxon:names':
+						$tmp = explode( ',', $value );
+						$value = Array();
+						foreach( $tmp as $item )
+						{
+							$item = trim( $item );
+							if( strlen( $item ) )
+								$value[] = $item;
+						}
+						if( count( $value ) )
+							$object[ $key ] = $value;
+						break;
+			
+					case 'mcpd:STORAGE':
+						$tmp = explode( ',', $value );
+						$value = Array();
+						foreach( $tmp as $item )
+							$value[] = "$key:$item";
+						$object[ $key ] = $value;
+						break;
+			
+					case ':taxon:crop':
+					case ':taxon:annex-1':
+					case 'mcpd:MLSSTAT1':
+					case 'mcpd:AEGISSTAT':
+					case 'mcpd:AVAILABLE':
+					case 'mcpd:SAMPSTAT':
+					case 'mcpd:COLLSRC':
+						$object[ $key ] = "$key:$value";
 						break;
 					
 					case ':inventory:INSTCODE':
+						$object[ kTAG_AUTHORITY ] = $value;
+					case 'mcpd:COLLCODE':
+					case 'mcpd:DONORCODE':
+					case 'mcpd:BREDCODE':
+					case 'mcpd:DUPLSITE':
 						$object[ $key ]
 							= OntologyWrapper\FAOInstitute::FAOIdentifier(
 								$value );
 						break;
-					
-					case 'cwr:ENDEMISM':
-						$object[ $key ] = (boolean) $value;
+						
+					case ':location:country':
+						if( $tmp = OntologyWrapper\Term::ResolveCountryCode(
+										$wrapper, $value ) )
+							$object[ $key ] = $tmp;
 						break;
-					
-					case 'cwr:ck:TYPE':
-					case 'cwr:ck:CRITPRIORI':
-					case 'cwr:ASSLEVEL':
-					case 'cwr:TAXONSTATUS':
-					case 'cwr:OCCURTHREAT':
-						$object[ $key ] = "$key:$value";
-						break;
-					
-					case 'cwr:REF':
-					case 'cwr:URL':
-					case 'cwr:SYNONYMS':
-					case 'cwr:SYNREF':
-					case ':taxon:names':
-					case 'cwr:TAXONGROUP':
-					case 'cwr:REFTAXONGROUP':
-					case 'cwr:LISTSPCROSS':
-					case 'cwr:LISTSPCROSSREF':
-					case 'cwr:METHCROSSREF':
-					case 'cwr:REFREDLISTASS':
-					case 'cwr:ECOVALUE':
-					case 'cwr:ECOVALUEREF':
+						
+					case 'mcpd:OTHERNUMB':
+					case 'mcpd:ACCENAME':
 						$tmp = explode( ';', $value );
 						$value = Array();
 						foreach( $tmp as $item )
 						{
-							if( strlen( $item = trim( $item ) ) )
+							$item = trim( $item );
+							if( strlen( $item ) )
 								$value[] = $item;
 						}
 						if( count( $value ) )
 							$object[ $key ] = $value;
 						break;
 						
-					case 'cwr:SUCCROSSREF':
-						$tmp = explode( ';', $value );
-						$value = Array();
-						foreach( $tmp as $item )
-						{
-							if( strlen( $item = trim( $item ) ) )
-								$value[] = (int) $item;
-						}
-						if( count( $value ) )
-							$object[ $key ] = $value;
-						break;
-						
-					case 'iucn:category':
-					case 'iucn:criteria':
-					case 'cwr:USEOFTAXON':
-					case 'iucn:threat':
-						$tmp = explode( ';', $value );
-						$value = Array();
-						foreach( $tmp as $item )
-						{
-							if( strlen( $item = trim( $item ) ) )
-								$value[] = "$key:$item";
-						}
-						if( count( $value ) )
-							$object[ $key ] = $value;
-						break;
-			
 				} // Parsing record.
 			
 			} // Fields not empty.

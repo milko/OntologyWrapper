@@ -187,6 +187,48 @@
 	</META>
 		
 	<!-- SCHEMA term=":location" pid="schema::location" -->
+		
+	<!-- mcpd:LATITUDE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:LATITUDE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LATITUDE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- mcpd:LONGITUDE -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:LONGITUDE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LONGITUDE</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
 	<!-- mcpd:BREDCODE -->
 	<META>

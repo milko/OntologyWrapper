@@ -221,7 +221,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>year<em> as an <em>integer</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>year</em> as an <em>integer</em>.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -237,7 +237,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>date<em> in which <em>the day and month may be omitted</em>, it is a <em>string</em> providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month do not need to be assigned. This type can be used as <em>a range</em> and <em>sorted</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>date</em> in which <em>the day and month may be omitted</em>, it is a <em>string</em> providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month do not need to be assigned. This type can be used as <em>a range</em> and <em>sorted</em>.]]></item>
 				</item>
 			</item>
 		</TERM>

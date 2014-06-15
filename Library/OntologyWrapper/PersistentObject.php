@@ -3930,7 +3930,8 @@ abstract class PersistentObject extends OntologyObject
 				   ."[$theProperty] greater than [$theMax]." );					// !@! ==>
 		
 		} // Has range.
-		
+/*
+MILKO - Need to check.		
 		//
 		// Validate pattern.
 		//
@@ -3945,6 +3946,7 @@ abstract class PersistentObject extends OntologyObject
 				   ."[$theProperty] mismatches [$thePattern]." );				// !@! ==>
 		
 		} // Has pattern.
+*/
 	
 	} // validateProperty.
 

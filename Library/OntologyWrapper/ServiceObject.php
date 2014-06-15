@@ -2725,7 +2725,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Aggregate results.
 		//
-		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
+		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
 		
 	} // executeMatchLabelObjectsResults.
 
@@ -3021,7 +3021,7 @@ abstract class ServiceObject extends ContainerObject
 		// Iterate results.
 		//
 //
-// MILKO - Need to do this if aggregate doesn't use dursor.
+// MILKO - Need to do this if aggregate doesn't use cursor.
 //
 $rs_units = & $rs_units[ 'result' ];
 		$tmp = Array();
@@ -3194,7 +3194,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Aggregate results.
 		//
-		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
+		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
 		
 	} // executeClusterUnits.
 
