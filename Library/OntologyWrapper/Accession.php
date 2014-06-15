@@ -110,6 +110,52 @@ class Accession extends UnitObject
 
 	} // Constructor.
 
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Return global identifier</h4>
+	 *
+	 * We override this method to exclude the version from the elements that comprise the
+	 * global identifier.
+	 *
+	 * @access public
+	 * @return string				The global identifier.
+	 */
+	public function __toString()
+	{
+		//
+		// Handle domain.
+		//
+		$gid = ( $this->offsetExists( kTAG_DOMAIN ) )
+			 ? $this->offsetGet( kTAG_DOMAIN )
+			 : static::kDEFAULT_DOMAIN;
+		$gid .= kTOKEN_DOMAIN_SEPARATOR;
+		
+		//
+		// Handle authority.
+		//
+		if( $this->offsetExists( kTAG_AUTHORITY ) )
+			$gid .= ($this->offsetGet( kTAG_AUTHORITY ).kTOKEN_INDEX_SEPARATOR);
+		
+		//
+		// Handle collection.
+		//
+		if( $this->offsetExists( kTAG_COLLECTION ) )
+			$gid .= ($this->offsetGet( kTAG_COLLECTION ).kTOKEN_NAMESPACE_SEPARATOR);
+		
+		//
+		// Handle local identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$gid .= $this->offsetGet( kTAG_IDENTIFIER );
+		
+		return $gid.kTOKEN_END_TAG;													// ==>
+	
+	} // __toString.
+
 		
 
 /*=======================================================================================
