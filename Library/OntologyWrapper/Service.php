@@ -75,6 +75,7 @@ class Service extends ServiceObject
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_GET_UNIT:
+			case kAPI_OP_GET_UNIT_FORMATTED:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -216,6 +217,7 @@ class Service extends ServiceObject
 			// Match domains.
 			//
 			case kAPI_OP_GET_UNIT:
+			case kAPI_OP_GET_UNIT_FORMATTED:
 				//
 				// Parse parameter.
 				//
@@ -348,6 +350,7 @@ class Service extends ServiceObject
 				break;
 				
 			case kAPI_OP_GET_UNIT:
+			case kAPI_OP_GET_UNIT_FORMATTED:
 				$this->validateGetUnit();
 				break;
 				
@@ -430,6 +433,10 @@ class Service extends ServiceObject
 				
 			case kAPI_OP_GET_UNIT:
 				$this->executeGetUnit();
+				break;
+				
+			case kAPI_OP_GET_UNIT_FORMATTED:
+				$this->executeGetUnitFormatted();
 				break;
 				
 			default:
@@ -827,6 +834,43 @@ class Service extends ServiceObject
 		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
 		
 	} // executeGetUnit.
+
+	 
+	/*===================================================================================
+	 *	executeGetUnitFormatted															*
+	 *==================================================================================*/
+
+	/**
+	 * Get unit formatted.
+	 *
+	 * The method will match the unit and return a formatted result.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetUnitFormatted()
+	{
+		//
+		// Execute query.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
+							kQUERY_ARRAY );
+
+		//
+		// Instantiate results aggregator.
+		//
+		$aggregator = new ResultAggregator( $rs, $this->mResponse );
+		
+		//
+		// Format results.
+		//
+		$aggregator->format( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		
+	} // executeGetUnitFormatted.
 
 	 
 

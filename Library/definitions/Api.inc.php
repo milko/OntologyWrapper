@@ -909,6 +909,25 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  */
 define( "kAPI_OP_GET_UNIT",						'getUnit' );
 
+/**
+ * Get unit formatted.
+ *
+ * This tag defines the get unit formatted operation.
+ *
+ * The service will return a unit matching the provided identifier as a formatted result.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
+ *		holds the unit native identifier.
+ * </ul>
+ */
+define( "kAPI_OP_GET_UNIT_FORMATTED",			'getUnitFormatted' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/

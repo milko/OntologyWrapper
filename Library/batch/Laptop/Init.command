@@ -23,4 +23,11 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadChecklistsFr
 	"MySQLi://WEB-SERVICES:webservicereader@localhost/pgrdg?socket=/tmp/mysql.sock&persist" \
 	"mongodb://localhost:27017/PGRDG"
 
+#
+# Load CWR inventories.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadCWRInventoriesFromSQLDb.php \
+	"MySQLi://WEB-SERVICES:webservicereader@localhost/pgrdg?socket=/tmp/mysql.sock&persist" \
+	"mongodb://localhost:27017/PGRDG"
+
 exit

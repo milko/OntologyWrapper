@@ -142,11 +142,11 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-/*
+///*
 	//
-	// Try matchUnits with string search on ":name" contains "olive".
+	// Map.
 	//
-	echo( '<h4>Try matchUnits with string search on ":name" contains "olive"</h4>' );
+	echo( '<h4>Map</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -157,24 +157,21 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 3,
+		kAPI_PAGING_LIMIT => 5,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':name' => array
+			':location:country' => array
 			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'olive',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 			)
 		),
-		kAPI_PARAM_DOMAIN => ':domain:organisation',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD
+		kAPI_PARAM_DOMAIN => ':domain:forest',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
+								   kTAG_GEOMETRY => array( array( 9, 45 ),
+														   array( 18, 50 ) ) )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -193,7 +190,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 exit;
-*/
+//*/
 	//
 	// Try empty URL.
 	//

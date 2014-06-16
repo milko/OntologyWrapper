@@ -5,7 +5,7 @@
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
 	<!-- IUCN PROPERTIES -->
 	
@@ -51,6 +51,24 @@
 			<item const="kTAG_SUBJECT" node="term">iucn:criteria</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
+	</META>
+		
+	<!-- iucn:criteria-citation -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>iucn:criteria-citation</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 		
 	<!-- iucn:threat -->

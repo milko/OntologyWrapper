@@ -503,6 +503,10 @@ abstract class UnitObject extends PersistentObject
 				return array( ':taxon:epithet', 'cwr:ck:CWRCODE', 'cwr:ck:NUMB',
 							  ':location:admin' );									// ==>
 		
+			case kDOMAIN_CWR_INVENTORY:
+				return array( ':taxon:epithet', ':inventory:NICODE',
+							  'cwr:in:NIENUMB', ':unit:version' );					// ==>
+		
 		} // Parsed domain.
 		
 		return Array();																// ==>

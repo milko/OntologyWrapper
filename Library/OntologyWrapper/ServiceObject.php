@@ -2184,6 +2184,8 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
+		$ref[ "kAPI_OP_GET_UNIT_FORMATTED" ] = kAPI_OP_GET_UNIT_FORMATTED;
+		
 		
 		//
 		// Load request parameters.

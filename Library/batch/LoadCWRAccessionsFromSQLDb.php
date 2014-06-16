@@ -83,7 +83,9 @@ if( $argc < 3 )
 //
 // Init local storage.
 //
-$db = $rs = NULL;
+$db = $rsu = NULL;
+$start = 0;
+$limit = 1000;
 
 //
 // Load arguments.
@@ -172,146 +174,170 @@ try
 	$db->SetFetchMode( ADODB_FETCH_ASSOC );
 	
 	//
-	// Import.
+	// Read.
 	//
-	echo( "  • Importing\n" );
-	$rsu = $db->execute( "SELECT * FROM `MCPD`" );
-	foreach( $rsu as $record )
+	echo( "  • Importing " );
+	$rsu = $db->execute( "SELECT * FROM `MCPD` LIMIT $start,$limit" );
+	while( $rsu->RecordCount() )
 	{
 		//
-		// Init loop storage.
+		// Iterate recordset.
 		//
-		$object = new OntologyWrapper\Accession( $wrapper );
-		
-		//
-		// Parse unit.
-		//
-		foreach( $record as $key => $value )
+		foreach( $rsu as $record )
 		{
 			//
-			// Skip NULL records.
+			// Init loop storage.
 			//
-			if( ($value !== NULL)
-			 || strlen( trim( $value ) ) )
+			$object = new OntologyWrapper\Accession( $wrapper );
+		
+			//
+			// Parse unit.
+			//
+			foreach( $record as $key => $value )
 			{
 				//
-				// Parse record.
+				// Skip NULL records.
 				//
-				switch( $key )
+				if( ($value !== NULL)
+				 || strlen( trim( $value ) ) )
 				{
-					case ':inventory:dataset':
-					case ':inventory:NICODE':
-					case ':unit:collection':
-					case 'mcpd:ACCENUMB':
-					case 'mcpd:ACQDATE':
-					case ':taxon:genus':
-					case ':taxon:species':
-					case ':taxon:species:author':
-					case ':taxon:infraspecies':
-					case ':taxon:infraspecies:author':
-					case ':taxon:epithet':
-					case 'mcpd:COLLDESCR':
-					case 'mcpd:COLLNUMB':
-					case 'mcpd:COLLDATE':
-					case ':location:locality':
-					case 'mcpd:LATITUDE':
-					case ':location:latitude:deg':
-					case ':location:latitude:min':
-					case ':location:latitude:sec':
-					case ':location:latitude:hem':
-					case ':location:latitude':
-					case 'mcpd:LONGITUDE':
-					case ':location:longitude:deg':
-					case ':location:longitude:min':
-					case ':location:longitude:sec':
-					case ':location:longitude:hem':
-					case ':location:longitude':
-					case ':location:elevation':
-					case 'mcpd:DONORDESCR':
-					case 'mcpd:DONORNUMB':
-					case 'mcpd:BREDDESCR':
-					case 'mcpd:ANCEST':
-					case 'mcpd:DUPLDESCR':
-					case 'mcpd:ACCEURL':
-					case 'mcpd:REMARKS':
-					case ':unit:version':
-						$object[ $key ] = $value;
-						break;
-			
-					case ':taxon:names':
-						$tmp = explode( ',', $value );
-						$value = Array();
-						foreach( $tmp as $item )
-						{
-							$item = trim( $item );
-							if( strlen( $item ) )
-								$value[] = $item;
-						}
-						if( count( $value ) )
+					//
+					// Parse record.
+					//
+					switch( $key )
+					{
+						case ':inventory:dataset':
+						case ':inventory:NICODE':
+						case ':unit:collection':
+						case 'mcpd:ACCENUMB':
+						case 'mcpd:ACQDATE':
+						case ':taxon:genus':
+						case ':taxon:species':
+						case ':taxon:species:author':
+						case ':taxon:infraspecies':
+						case ':taxon:infraspecies:author':
+						case ':taxon:epithet':
+						case 'mcpd:COLLDESCR':
+						case 'mcpd:COLLNUMB':
+						case 'mcpd:COLLDATE':
+						case ':location:locality':
+						case 'mcpd:LATITUDE':
+						case ':location:latitude:deg':
+						case ':location:latitude:min':
+						case ':location:latitude:sec':
+						case ':location:latitude:hem':
+						case ':location:latitude':
+						case 'mcpd:LONGITUDE':
+						case ':location:longitude:deg':
+						case ':location:longitude:min':
+						case ':location:longitude:sec':
+						case ':location:longitude:hem':
+						case ':location:longitude':
+						case ':location:elevation':
+						case 'mcpd:DONORDESCR':
+						case 'mcpd:DONORNUMB':
+						case 'mcpd:BREDDESCR':
+						case 'mcpd:ANCEST':
+						case 'mcpd:DUPLDESCR':
+						case 'mcpd:ACCEURL':
+						case 'mcpd:REMARKS':
+						case ':unit:version':
 							$object[ $key ] = $value;
-						break;
+							break;
 			
-					case 'mcpd:STORAGE':
-						$tmp = explode( ',', $value );
-						$value = Array();
-						foreach( $tmp as $item )
-							$value[] = "$key:$item";
-						$object[ $key ] = $value;
-						break;
+						case ':taxon:names':
+							$tmp = explode( ',', $value );
+							$value = Array();
+							foreach( $tmp as $item )
+							{
+								$item = trim( $item );
+								if( strlen( $item ) )
+									$value[] = $item;
+							}
+							if( count( $value ) )
+								$object[ $key ] = $value;
+							break;
 			
-					case ':taxon:crop':
-					case ':taxon:annex-1':
-					case 'mcpd:MLSSTAT1':
-					case 'mcpd:AEGISSTAT':
-					case 'mcpd:AVAILABLE':
-					case 'mcpd:SAMPSTAT':
-					case 'mcpd:COLLSRC':
-						$object[ $key ] = "$key:$value";
-						break;
+						case 'mcpd:STORAGE':
+							$tmp = explode( ',', $value );
+							$value = Array();
+							foreach( $tmp as $item )
+								$value[] = "$key:$item";
+							$object[ $key ] = $value;
+							break;
+			
+						case ':taxon:crop':
+						case ':taxon:annex-1':
+						case 'mcpd:MLSSTAT1':
+						case 'mcpd:AEGISSTAT':
+						case 'mcpd:AVAILABLE':
+						case 'mcpd:SAMPSTAT':
+						case 'mcpd:COLLSRC':
+							$object[ $key ] = "$key:$value";
+							break;
 					
-					case ':inventory:INSTCODE':
-						$object[ kTAG_AUTHORITY ] = $value;
-					case 'mcpd:COLLCODE':
-					case 'mcpd:DONORCODE':
-					case 'mcpd:BREDCODE':
-					case 'mcpd:DUPLSITE':
-						$object[ $key ]
-							= OntologyWrapper\FAOInstitute::FAOIdentifier(
-								$value );
-						break;
+						case ':inventory:INSTCODE':
+							$object[ kTAG_AUTHORITY ] = $value;
+						case 'mcpd:COLLCODE':
+						case 'mcpd:DONORCODE':
+						case 'mcpd:BREDCODE':
+						case 'mcpd:DUPLSITE':
+							$object[ $key ]
+								= OntologyWrapper\FAOInstitute::FAOIdentifier(
+									$value );
+							break;
 						
-					case ':location:country':
-						if( $tmp = OntologyWrapper\Term::ResolveCountryCode(
-										$wrapper, $value ) )
-							$object[ $key ] = $tmp;
-						break;
+						case ':location:country':
+							if( $tmp = OntologyWrapper\Term::ResolveCountryCode(
+											$wrapper, $value ) )
+								$object[ $key ] = $tmp;
+							break;
 						
-					case 'mcpd:OTHERNUMB':
-					case 'mcpd:ACCENAME':
-						$tmp = explode( ';', $value );
-						$value = Array();
-						foreach( $tmp as $item )
-						{
-							$item = trim( $item );
-							if( strlen( $item ) )
-								$value[] = $item;
-						}
-						if( count( $value ) )
-							$object[ $key ] = $value;
-						break;
+						case 'mcpd:OTHERNUMB':
+						case 'mcpd:ACCENAME':
+							$tmp = explode( ';', $value );
+							$value = Array();
+							foreach( $tmp as $item )
+							{
+								$item = trim( $item );
+								if( strlen( $item ) )
+									$value[] = $item;
+							}
+							if( count( $value ) )
+								$object[ $key ] = $value;
+							break;
 						
-				} // Parsing record.
+					} // Parsing record.
 			
-			} // Fields not empty.
+				} // Fields not empty.
 		
-		} // Iterating unit.
+			} // Iterating unit.
 		
-		//
-		// Store record.
-		//
-		$object->commit( $wrapper );
+			//
+			// Store record.
+			//
+			$object->commit( $wrapper );
 	
-	} // Iterating units.
+		} // Iterating recordset.
+		
+		//
+		// Close recordset.
+		//
+		$rsu->Close();
+		$rsu = NULL;
+			
+		//
+		// Inform.
+		//
+		echo( '.' );
+		
+		//
+		// Read next.
+		//
+		$start += $limit;
+		$rsu = $db->execute( "SELECT * FROM `MCPD` LIMIT $start,$limit" );
+	
+	} // Records left.
 
 	echo( "\nDone!\n" );
 }
@@ -330,8 +356,8 @@ catch( \Exception $error )
 //
 finally
 {
-	if( $rs instanceof ADORecordSet )
-		$rs->Close();
+	if( $rsu instanceof ADORecordSet )
+		$rsu->Close();
 	if( $db instanceof ADOConnection )
 		$db->Close();
 }

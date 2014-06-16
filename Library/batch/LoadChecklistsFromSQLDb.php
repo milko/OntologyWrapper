@@ -82,7 +82,7 @@ if( $argc < 3 )
 //
 // Init local storage.
 //
-$db = $rs = NULL;
+$db = $rsu = NULL;
 
 //
 // Load arguments.
@@ -223,7 +223,6 @@ try
 					
 					case 'cwr:ck:NUMB':
 					case 'cwr:CHROMOSNUMB':
-					case 'cwr:GENEPOOL':
 					case ':taxon:regnum':
 					case ':taxon:phylum':
 					case ':taxon:classis':
@@ -270,6 +269,8 @@ try
 					case ':taxon:names':
 					case 'cwr:TAXONGROUP':
 					case 'cwr:REFTAXONGROUP':
+					case 'cwr:GENEPOOL':
+					case 'cwr:GENEPOOLREF':
 					case 'cwr:LISTSPCROSS':
 					case 'cwr:LISTSPCROSSREF':
 					case 'cwr:METHCROSSREF':
@@ -344,8 +345,8 @@ catch( \Exception $error )
 //
 finally
 {
-	if( $rs instanceof ADORecordSet )
-		$rs->Close();
+	if( $rsu instanceof ADORecordSet )
+		$rsu->Close();
 	if( $db instanceof ADOConnection )
 		$db->Close();
 }

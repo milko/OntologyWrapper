@@ -5,7 +5,7 @@
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://resources.grinfo.net/Schema/Dictionary.xsd">
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
 	<!-- Common attributes -->
 	
@@ -209,6 +209,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:list</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>GENEPOOL</item>
@@ -632,6 +633,33 @@
 	</META>
 	
 	<!-- iucn:threat -->
+	
+	<!-- cwr:THREATSTATUS -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:THREATSTATUS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>THREATSTATUS</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Threat status according to national criteria, if IUCN red list status is not available or in adition to IUCN status.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
 	<!-- cwr:OCCURTHREAT -->
 	<META>

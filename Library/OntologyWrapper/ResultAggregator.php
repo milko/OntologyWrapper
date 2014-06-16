@@ -338,7 +338,8 @@ class ResultAggregator
 				//
 				// Process object.
 				//
-				$this->process( $wrapper, $value, $theLanguage, $doRefStructs, TRUE );
+				$this->aggregateProcess(
+					$wrapper, $value, $theLanguage, $doRefStructs, TRUE );
 		
 				//
 				// Store object.
@@ -372,6 +373,41 @@ class ResultAggregator
 		return $this->mResults;														// ==>
 	
 	} // aggregate.
+
+	 
+	/*===================================================================================
+	 *	format																			*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Format and return results</h4>
+	 *
+	 * This method will iterate the results set formatting the data, the method will return
+	 * the resulting array.
+	 *
+	 * @param string				$theLanguage		Default language code.
+	 * @param boolean				$doRefStructs		<tt>TRUE</tt> reference structures.
+	 *
+	 * @access public
+	 * @return array				Aggregated results.
+	 */
+	public function format( $theLanguage = NULL, $doRefStructs = FALSE )
+	{
+		//
+		// Check if it needs to be processed.
+		//
+		if( ! $this->mProcessed )
+		{
+			//
+			// Signal processed.
+			//
+			$this->mProcessed = TRUE;
+	
+		} // Not processed.
+	
+		return $this->mResults;														// ==>
+	
+	} // format.
 
 		
 
@@ -442,7 +478,7 @@ class ResultAggregator
 
 	 
 	/*===================================================================================
-	 *	process																			*
+	 *	aggregateProcess																*
 	 *==================================================================================*/
 
 	/**
@@ -483,10 +519,10 @@ class ResultAggregator
 	 *
 	 * @access protected
 	 */
-	protected function process( Wrapper $theWrapper, &$theObject,
-													  $theLanguage,
-													  $doRefStructs,
-													  $doRefObjects = TRUE )
+	protected function aggregateProcess( Wrapper $theWrapper, &$theObject,
+															   $theLanguage,
+															   $doRefStructs,
+															   $doRefObjects = TRUE )
 	{
 		//
 		// Get object class.
@@ -543,7 +579,33 @@ class ResultAggregator
 		 && $doRefObjects )
 			$this->loadReferences( $theWrapper, $refs, $theLanguage, $doRefStructs );
 		
-	} // process.
+	} // aggregateProcess.
+
+	 
+	/*===================================================================================
+	 *	identify																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load identifier
+	 *
+	 * This method will load the provided identifier in the main identifiers list.
+	 *
+	 * In this class we set the provided value in the {@link kAPI_DICTIONARY_IDS} element of
+	 * the {@link kAPI_RESULTS_DICTIONARY} block; derived classes may overload this method
+	 * to build a custom identifiers structure.
+	 *
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 */
+	protected function identify( $theIdentifier )
+	{
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
+					   [ kAPI_DICTIONARY_IDS ]
+					   [] = $theIdentifier;
+		
+	} // identify.
 
 	 
 	/*===================================================================================
@@ -855,7 +917,8 @@ class ResultAggregator
 				//
 				// Process tag.
 				//
-				$this->process( $theWrapper, $value, $theLanguage, $doRefStructs, TRUE );
+				$this->aggregateProcess(
+					$theWrapper, $value, $theLanguage, $doRefStructs, TRUE );
 			
 				//
 				// Load object.
@@ -933,7 +996,7 @@ class ResultAggregator
 					//
 					// Process reference.
 					//
-					$this->process(
+					$this->aggregateProcess(
 						$theWrapper, $value, $theLanguage, $doRefStructs, FALSE );
 					
 					//
