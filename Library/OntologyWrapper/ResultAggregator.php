@@ -452,32 +452,6 @@ class ResultAggregator
 
 	 
 	/*===================================================================================
-	 *	identify																		*
-	 *==================================================================================*/
-
-	/**
-	 * Load identifier
-	 *
-	 * This method will load the provided identifier in the main identifiers list.
-	 *
-	 * In this class we set the provided value in the {@link kAPI_DICTIONARY_IDS} element of
-	 * the {@link kAPI_RESULTS_DICTIONARY} block; derived classes may overload this method
-	 * to build a custom identifiers structure.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @access protected
-	 */
-	protected function identify( $theIdentifier )
-	{
-		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-					   [ kAPI_DICTIONARY_IDS ]
-					   [] = $theIdentifier;
-		
-	} // identify.
-
-	 
-	/*===================================================================================
 	 *	aggregateProcess																*
 	 *==================================================================================*/
 
