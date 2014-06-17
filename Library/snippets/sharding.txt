@@ -1,8 +1,13 @@
 mongo --host 192.168.181.11 --port 27017
 
-use PGRDG-BIS
-db.dropDatabase()
-use PGRDG-BIS
-sh.enableSharding("PGRDG-BIS")
+sh.addShard( "shard0.grinfo.private:27018" )
+sh.addShard( "shard1.grinfo.private:27018" )
+sh.addShard( "shard2.grinfo.private:27018" )
+sh.addShard( "shard3.grinfo.private:27018" )
 
-sh.shardCollection( "PGRDG-BIS._units", { "_id" : "hashed" } )
+use PGRDG
+db.dropDatabase()
+use PGRDG
+sh.enableSharding("PGRDG")
+
+sh.shardCollection( "PGRDG._units", { "_id" : "hashed" } )

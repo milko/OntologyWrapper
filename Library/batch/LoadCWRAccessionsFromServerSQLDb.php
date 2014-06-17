@@ -81,7 +81,7 @@ $limit = 1000;
 // Load arguments.
 //
 $database = 'MySQLi://WEB-SERVICES:webservicereader@192.168.181.190/pgrdg?socket=/tmp/mysql.sock&persist';
-$mongo = 'mongodb://localhost:27017/PGRDG-BIS';
+$mongo = 'mongodb://localhost:27017/PGRDG';
 $graph =  NULL;
  
 //
