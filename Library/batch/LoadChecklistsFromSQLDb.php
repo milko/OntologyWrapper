@@ -90,7 +90,12 @@ $db = $rsu = NULL;
 $database = $argv[ 1 ];
 $mongo = $argv[ 2 ];
 $graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
- 
+
+//
+// Inform.
+//
+echo( "\n==> Loading checklists.\n" );
+
 //
 // Try.
 //
@@ -99,7 +104,6 @@ try
 	//
 	// Inform.
 	//
-	echo( "\n==> Connecting.\n" );
 	echo( "  • Creating wrapper.\n" );
 	
 	//

@@ -95,6 +95,11 @@ $mongo = $argv[ 2 ];
 $graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
  
 //
+// Inform.
+//
+echo( "\n==> Loading crop wild relative related accessions.\n" );
+
+//
 // Try.
 //
 try
@@ -102,7 +107,6 @@ try
 	//
 	// Inform.
 	//
-	echo( "\n==> Connecting.\n" );
 	echo( "  • Creating wrapper.\n" );
 	
 	//

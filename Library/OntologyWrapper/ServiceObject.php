@@ -1156,7 +1156,7 @@ abstract class ServiceObject extends ContainerObject
 			// Init local storage.
 			//
 			$opts = array( kOPERATOR_EQUAL, kOPERATOR_EQUAL_NOT, kOPERATOR_PREFIX,
-						   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX, kOPERATOR_REGEX );
+						   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX/*, kOPERATOR_REGEX*/ );
 		
 			//
 			// Check operator.
@@ -2234,7 +2234,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kOPERATOR_PREFIX" ] = kOPERATOR_PREFIX;
 		$ref[ "kOPERATOR_CONTAINS" ] = kOPERATOR_CONTAINS;
 		$ref[ "kOPERATOR_SUFFIX" ] = kOPERATOR_SUFFIX;
-		$ref[ "kOPERATOR_REGEX" ] = kOPERATOR_REGEX;
+//		$ref[ "kOPERATOR_REGEX" ] = kOPERATOR_REGEX;
 		$ref[ "kOPERATOR_IRANGE" ] = kOPERATOR_IRANGE;
 		$ref[ "kOPERATOR_ERANGE" ] = kOPERATOR_ERANGE;
 		
@@ -2334,13 +2334,13 @@ abstract class ServiceObject extends ContainerObject
 							 'type' => 'string',
 							 'main' => TRUE,
 							 'selected' => FALSE );
-				$ref[ kOPERATOR_REGEX ]
-					= array( 'key' => kOPERATOR_REGEX,
-							 'label' => 'Regular expression',
-							 'title' => 'Regular expression [@pattern@]',
-							 'type' => 'string',
-							 'main' => TRUE,
-							 'selected' => FALSE );
+//				$ref[ kOPERATOR_REGEX ]
+//					= array( 'key' => kOPERATOR_REGEX,
+//							 'label' => 'Regular expression',
+//							 'title' => 'Regular expression [@pattern@]',
+//							 'type' => 'string',
+//							 'main' => TRUE,
+//							 'selected' => FALSE );
 				$ref[ kOPERATOR_IRANGE ]
 					= array( 'key' => kOPERATOR_IRANGE,
 							 'label' => 'Range inclusive',
