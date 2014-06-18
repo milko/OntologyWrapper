@@ -707,6 +707,8 @@ foreach( $clusters as $cluster )
 	
 /******************************************************************************/
 
+/*
+
 	//
 	// Test aggregation framework.
 	//
@@ -803,5 +805,13 @@ foreach( $clusters as $cluster )
 	print_r( $results );
 	echo( '</pre>' );
 
+*/
+	
+/******************************************************************************/
+
+//
+// Decode URL.
+//
+var_dump( urldecode( 'address=matchUnits&lang=en&param=%7B%22limit%22:300,%22criteria%22:%7B%22:taxon:genus%22:%7B%22input-type%22:%22input-string%22,%22pattern%22:%22h%22,%22operator%22:%5B%22$PX%22,%22%22%5D%7D%7D,%22grouping%22:%5B%5D%7D' ) );
 	
 ?>

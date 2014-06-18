@@ -31,10 +31,17 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadCWRInventori
 	"mongodb://localhost:27017/PGRDG"
 
 #
-# Load accessions.
+# Load CWR accessions.
 #
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadCWRAccessionsFromSQLDb.php \
 	"MySQLi://WEB-SERVICES:webservicereader@localhost/pgrdg?socket=/tmp/mysql.sock&persist" \
+	"mongodb://localhost:27017/PGRDG"
+
+#
+# Load EUFGIS accessions.
+#
+php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadEUFGISAccessionsFromServerSQLDb.php \
+	"MySQLi://WEB-SERVICES:webservicereader@localhost/mcpd?socket=/tmp/mysql.sock&persist" \
 	"mongodb://localhost:27017/PGRDG"
 
 exit

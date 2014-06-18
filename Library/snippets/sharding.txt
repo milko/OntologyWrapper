@@ -10,4 +10,11 @@ db.dropDatabase()
 use PGRDG
 sh.enableSharding("PGRDG")
 
+// Shard normal.
+
+sh.shardCollection( "PGRDG._units", { "_id" : 1 } )
+
+// Shard hashed.
+
+db[":_units"].ensureIndex( { "_id" : "hashed" } )
 sh.shardCollection( "PGRDG._units", { "_id" : "hashed" } )

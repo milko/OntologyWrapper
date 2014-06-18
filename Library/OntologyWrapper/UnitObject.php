@@ -491,7 +491,7 @@ abstract class UnitObject extends PersistentObject
 				return array( kTAG_IDENTIFIER, kTAG_ENTITY_ACRONYM, kTAG_NAME );	// ==>
 		
 			case kDOMAIN_ACCESSION:
-				return array( ':inventory:INSTCODE', 'mcpd:ACCENUMB',
+				return array( 'mcpd:INSTCODE', 'mcpd:ACCENUMB',
 							  ':taxon:epithet' );									// ==>
 		
 			case kDOMAIN_FOREST:
@@ -500,8 +500,8 @@ abstract class UnitObject extends PersistentObject
 							  ':location:admin-2', ':location:admin-3' );			// ==>
 		
 			case kDOMAIN_CWR_CHECKLIST:
-				return array( ':taxon:epithet', 'cwr:ck:CWRCODE', 'cwr:ck:NUMB',
-							  ':location:admin' );									// ==>
+				return array( ':taxon:epithet', 'cwr:ck:TYPE', 'cwr:ck:CWRCODE',
+							  'cwr:ck:NUMB', ':location:admin' );									// ==>
 		
 			case kDOMAIN_CWR_INVENTORY:
 				return array( ':taxon:epithet', ':inventory:NICODE',

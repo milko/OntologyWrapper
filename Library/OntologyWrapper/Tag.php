@@ -332,51 +332,6 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	commit																			*
-	 *==================================================================================*/
-
-	/**
-	 * Insert the object
-	 *
-	 * We overload this method to add/update the object in the data dictionary cache.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 *
-	 * @access public
-	 * @return mixed				The object's native identifier.
-	 */
-	public final function commit( $theWrapper = NULL )
-	{
-		//
-		// Call parent method
-		//
-		$id = parent::commit( $theWrapper );
-		
-		//
-		// Set cache.
-		//
-		$this->mDictionary
-			->setTag(
-				array_intersect_key(
-					$this->getArrayCopy(),
-					$this->mDictionary->getTagOffsets() ),
-				0 );
-		
-		return $id;																	// ==>
-	
-	} // commit.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PUBLIC MASTER MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -1106,6 +1061,47 @@ class Tag extends PersistentObject
 		} // Not committed.
 	
 	} // preCommitObjectIdentifiers.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED POST-COMMIT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	postInsert																		*
+	 *==================================================================================*/
+
+	/**
+	 * Handle object after insert
+	 *
+	 * We overload this method to add/update the object in the data dictionary cache.
+	 *
+	 * @uses ResolveOffsetsTag()
+	 * @uses updateObjectReferenceCount()
+	 */
+	protected function postInsert( &$theOffsets, &$theReferences )
+	{
+		//
+		// Call parent method.
+		//
+		parent::postInsert( $theOffsets, $theReferences );
+		
+		//
+		// Set cache.
+		//
+		$this->mDictionary
+			->setTag(
+				array_intersect_key(
+					$this->getArrayCopy(),
+					$this->mDictionary->getTagOffsets() ),
+				0 );
+	
+	} // postInsert.
 
 		
 

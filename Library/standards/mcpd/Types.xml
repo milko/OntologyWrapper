@@ -622,6 +622,32 @@
 			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:100</item>
 		</EDGE>
 	</META>
+	<!-- mcpd:SAMPSTAT:130 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="130">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Semi-natural/sown]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: semi-natural/sown.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:100</item>
+		</EDGE>
+	</META>
 	<!-- mcpd:SAMPSTAT:200 -->
 	<META>
 		<TERM ns="mcpd:SAMPSTAT" lid="200">

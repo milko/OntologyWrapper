@@ -814,6 +814,88 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
+	 *	insert																			*
+	 *==================================================================================*/
+
+	/**
+	 * Insert the object
+	 *
+	 * This method will insert the current object into the provided persistent store only
+	 * if it doesn't exist already:
+	 *
+	 * <ul>
+	 *	<li>The object is not committed:
+	 *	 <ul>
+	 *		<li>The object already exists in the store: the method will do nothing.
+	 *		<li>The object does not exist in the store: the object will be inserted.
+	 *	 </ul>
+	 *	<li>The object is committed: the method will do nothing.
+	 * </ul>
+	 *
+	 * The method will return the inserted object native identifier or <tt>NULL</tt> if the
+	 * the object was not inserted.
+	 *
+	 * Do not overload this method, you should overload the methods called in this method.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 *
+	 * @access public
+	 * @return mixed				The object's native identifier or <tt>NULL</tt>.
+	 *
+	 * @uses isCommitted()
+	 * @uses resolveWrapper()
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses insertObject()
+	 * @uses isDirty()
+	 */
+	public function insert( $theWrapper = NULL )
+	{
+		//
+		// Skip committed object.
+		//
+		if( ! $this->isCommitted() )
+		{
+			//
+			// Resolve wrapper.
+			//
+			$this->resolveWrapper( $theWrapper );
+		
+			//
+			// Resolve collection.
+			//
+			$collection
+				= static::ResolveCollection(
+					static::ResolveDatabase( $theWrapper ) );
+		
+			//
+			// Insert.
+			//
+			$id = $this->insertObject( $collection );
+			
+			//
+			// Handle inserted object.
+			//
+			if( $id !== NULL )
+			{
+				//
+				// Set object status.
+				//
+				$this->isDirty( FALSE );
+				$this->isCommitted( TRUE );
+	
+				return $id;															// ==>
+			
+			} // Object inserted.
+		
+		} // Not committed.
+		
+		return NULL;																// ==>
+	
+	} // insert.
+
+	 
+	/*===================================================================================
 	 *	commit																			*
 	 *==================================================================================*/
 
@@ -824,7 +906,7 @@ abstract class PersistentObject extends OntologyObject
 	 * store, the method expects a single parameter representing the wrapper, this can be
 	 * omitted if the object was instantiated with a wrapper.
 	 *
-	 * The method will call the {@link insertObject()} method if the object was not
+	 * The method will call the {@link commitObject()} method if the object was not
 	 * committed and the {@link updateObject()} method if it was.
 	 *
 	 * Do not overload this method, you should overload the methods called in this method.
@@ -839,7 +921,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses ResolveCollection()
 	 * @uses isCommitted()
 	 * @uses updateObject()
-	 * @uses insertObject()
+	 * @uses commitObject()
 	 * @uses isDirty()
 	 */
 	public function commit( $theWrapper = NULL )
@@ -861,7 +943,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		$id = ( $this->isCommitted() )
 			? $this->updateObject( $collection )
-			: $this->insertObject( $collection );
+			: $this->commitObject( $collection );
 
 		//
 		// Set object status.
@@ -2020,6 +2102,107 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Insert the object
 	 *
+	 * This method will insert the current object into the provided persistent store only if
+	 * not yet committed, the method  will perform the following steps:
+	 *
+	 * <ul>
+	 *	<li>We call the <tt>{@link preCommit()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link preCommitPrepare()}</tt>: Prepare the object before committing.
+	 *		<li><tt>{@link preCommitTraverse()}</tt>: Traverse the object's properties
+	 *			validating formats and references.
+	 *		<li><tt>{@link preCommitFinalise()}</tt>: Load the dynamic object properties and
+	 *			compute the eventual object identifiers.
+	 *	 </ul>
+	 *	<li>We check whether the object already exists, if that is the case we exit.:
+	 *	<li>We pass the current object to the collection's
+	 *		{@link CollectionObject::commit()} method and recuperate the identifier.
+	 *	<li>We call the <tt>{@link postInsert()}</tt> method that is responsible of:
+	 *	 <ul>
+	 *		<li><tt>{@link postCommitReferences()}</tt>: Update object references.
+	 *		<li><tt>{@link postCommitTags()}</tt>: Update object tags.
+	 *	 </ul>
+	 *	<li>We set the object {@link isCommitted()} and reset the {@link isDirty()} status.
+	 *	<li>We return the object's identifier.
+	 * </ul>
+	 *
+	 * If any of the above steps fail the method must raise an exception.
+	 *
+	 * Note that this method can only be called with objects that do not have native
+	 * identifiers assigned by the database, oin that case all objects will appear to be
+	 * new and will be inserted.
+	 *
+	 * Do not overload this method, you should overload the methods called in this method.
+	 *
+	 * @param CollectionObject		$theCollection		Data collection.
+	 *
+	 * @access protected
+	 * @return mixed				The object's native identifie or <tt>NULL</tt>.
+	 *
+	 * @uses preCommit()
+	 * @uses postInsert()
+	 */
+	protected function insertObject( CollectionObject $theCollection )
+	{
+		//
+		// Prepare object.
+		//
+		$this->preCommit( $tags, $refs );
+		
+		//
+		// Set creation time stamp.
+		//
+		if( ! $this->offsetExists( kTAG_RECORD_CREATED ) )
+			$this->offsetSet( kTAG_RECORD_CREATED, $theCollection->getTimeStamp() );
+		
+		//
+		// Check if the object exists.
+		//
+		if( ($id = $this->offsetGet( kTAG_NID )) !== NULL )
+		{
+			//
+			// Check object.
+			//
+			if( $theCollection->matchOne( array( kTAG_NID => $id ), kQUERY_COUNT ) )
+				return NULL;														// ==>
+		
+		} // Has native identifier.
+	
+		//
+		// Commit.
+		//
+		$id = $theCollection->commit( $this );
+
+		//
+		// Set native identifier if generated.
+		//
+		if( ! $this->offsetExists( kTAG_NID ) )
+			$this->offsetSet( kTAG_NID, $id );
+	
+		//
+		// Update tag offsets and object references.
+		//
+		$tags = $this->offsetGet( kTAG_OBJECT_OFFSETS );
+		$refs = $this->offsetGet( kTAG_OBJECT_REFERENCES );
+		$this->postInsert( $tags, $refs );
+		
+		//
+		// Handle tag value ranges.
+		//
+		$this->updateTagRanges();
+	
+		return $id;																	// ==>
+	
+	} // insertObject.
+
+	 
+	/*===================================================================================
+	 *	commitObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Commit the object
+	 *
 	 * This method will insert the current object into the provided persistent store, the
 	 * method  will perform the following steps:
 	 *
@@ -2055,7 +2238,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses preCommit()
 	 * @uses postInsert()
 	 */
-	protected function insertObject( CollectionObject $theCollection )
+	protected function commitObject( CollectionObject $theCollection )
 	{
 		//
 		// Prepare object.
@@ -2093,7 +2276,7 @@ abstract class PersistentObject extends OntologyObject
 	
 		return $id;																	// ==>
 	
-	} // insertObject.
+	} // commitObject.
 
 	 
 	/*===================================================================================
