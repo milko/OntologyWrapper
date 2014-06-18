@@ -610,12 +610,13 @@ class Wrapper extends Dictionary
 	 * these databases useless</em></b>.
 	 *
 	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
 	 *
 	 * @access public
 	 *
 	 * @throws Exception
 	 */
-	public function resetOntology( $doLog = FALSE )
+	public function resetOntology( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.
@@ -643,7 +644,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting tags.\n" );
-		$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Tag::kSEQ_NAME, TRUE )->drop();
 		Tag::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -651,7 +653,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting terms.\n" );
-		$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Term::kSEQ_NAME, TRUE )->drop();
 		Term::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -659,7 +662,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting nodes.\n" );
-		$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Node::kSEQ_NAME, TRUE )->drop();
 		Node::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -667,7 +671,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting edges.\n" );
-		$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mMetadata->collection( Edge::kSEQ_NAME, TRUE )->drop();
 		Edge::CreateIndexes( $this->mMetadata );
 		
 		//
@@ -813,13 +818,14 @@ class Wrapper extends Dictionary
 	 * The method will take care of setting the necessary indexes.
 	 *
 	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
 	 *
 	 * @access public
 	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
-	public function resetUnits( $doLog = FALSE )
+	public function resetUnits( $doLog = FALS, $doDrop = FALSEE )
 	{
 		//
 		// Inform.
@@ -840,7 +846,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collection.\n" );
-		$this->mUnits->collection( User::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mUnits->collection( User::kSEQ_NAME, TRUE )->drop();
 		
 		//
 		// Create units collection entity indexes.
@@ -874,13 +881,14 @@ class Wrapper extends Dictionary
 	 * The method will take care of setting the necessary indexes.
 	 *
 	 * @param boolean				$doLog				Log operations.
+	 * @param boolean				$doDrop				Drop collections.
 	 *
 	 * @access public
 	 * @return array				Statistics.
 	 *
 	 * @throws Exception
 	 */
-	public function resetEntities( $doLog = FALSE )
+	public function resetEntities( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.
@@ -901,7 +909,8 @@ class Wrapper extends Dictionary
 		//
 		if( $doLog )
 			echo( "  • Resetting collection.\n" );
-		$this->mEntities->collection( User::kSEQ_NAME, TRUE )->drop();
+		if( $doDrop )
+			$this->mEntities->collection( User::kSEQ_NAME, TRUE )->drop();
 		User::CreateIndexes( $this->mEntities );
 		
 		return NULL;																// ==>
