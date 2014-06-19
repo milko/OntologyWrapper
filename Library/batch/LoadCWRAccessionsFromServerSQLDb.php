@@ -2072,16 +2072,16 @@ try
 			} // Iterating unit.
 			
 			//
-			// Set shape coordinates.
+			// Set shape.
 			//
-			if( $object->offsetExists( ':location:latitude' )
-			 && $object->offsetExists( ':location:longitude' ) )
+			if( $object->offsetExists( ':location:longitude' )
+			 && $object->offsetExists( ':location:latitude' ) )
 				$object->offsetSet(
-					kTAG_GEO_SHAPE,
+					':shape',
 					array( kTAG_TYPE => 'Point',
 						   kTAG_GEOMETRY => array(
-						   		$object->offsetGet( ':location:longitude' ),
-						   		$object->offsetGet( ':location:latitude' ) ) ) );
+								$object->offsetGet( ':location:longitude' ),
+								$object->offsetGet( ':location:latitude' ) ) ) );
 		
 			//
 			// Store record.
