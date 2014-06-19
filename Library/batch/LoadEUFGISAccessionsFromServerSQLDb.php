@@ -95,8 +95,10 @@ SELECT
 			'USA',
 			NULL ) ) AS `:inventory:NICODE`,
 	IF( `INSTCODE` IS NOT NULL,
-		REPLACE( `INSTCODE`, ':', '' ),
-		NULL )` AS `:inventory:INSTCODE`,
+		REPLACE(
+			REPLACE( `INSTCODE`, ':', '' ),
+			';', '' ),
+		NULL ) AS `:inventory:INSTCODE`,
 	`COLLECTION` AS `:unit:collection`,
 	`ACCENUMB` AS `mcpd:ACCENUMB`,
 	IF( `ACQDATE` IS NOT NULL,
@@ -135,8 +137,10 @@ SELECT
 	`SAMPSTAT` AS `mcpd:SAMPSTAT`,
 	`COLLSRC` AS `mcpd:COLLSRC`,
 	IF( `COLLCODE` IS NOT NULL,
-		REPLACE( `COLLCODE`, ':', '' ),
-		NULL )` AS `mcpd:COLLCODE`,
+		REPLACE(
+			REPLACE( `COLLCODE`, ':', '' ),
+			';', '' ),
+		NULL ) AS `mcpd:COLLCODE`,
 	`COLLDESCR` AS `mcpd:COLLDESCR`,
 	`COLLNUMB` AS `mcpd:COLLNUMB`,
 	IF( `COLLDATE` IS NOT NULL,
@@ -282,19 +286,25 @@ SELECT
 	`LONGITUDED` AS `:location:longitude`,
 	CONVERT( `ELEVATION`, SIGNED ) AS `:location:elevation`,
 	IF( `DONORCODE` IS NOT NULL,
-		REPLACE( `DONORCODE`, ':', '' ),
+		REPLACE(
+			REPLACE( `DONORCODE`, ':', '' ),
+			';', '' ),
 		NULL ) AS `mcpd:DONORCODE`,
 	`DONORDESCR` AS `mcpd:DONORDESCR`,
 	`DONORNUMB` AS `mcpd:DONORNUMB`,
 	IF( `BREDCODE` IS NOT NULL,
-		REPLACE( `BREDCODE`, ':', '' ),
+		REPLACE(
+			REPLACE( `BREDCODE`, ':', '' ),
+			';', '' ),
 		NULL ) AS `mcpd:BREDCODE`,
 	`BREDDESCR` AS `mcpd:BREDDESCR`,
 	`ANCEST` AS `mcpd:ANCEST`,
 	`OTHERNUMB` AS `mcpd:OTHERNUMB`,
 	IF( `DUPLSITE` IS NOT NULL,
-		REPLACE( `DUPLSITE`, ':', '' ),
-		NULL )` AS `mcpd:DUPLSITE`,
+		REPLACE(
+			REPLACE( `DUPLSITE`, ':', '' ),
+			';', '' ),
+		NULL ) AS `mcpd:DUPLSITE`,
 	`DUPLDESCR` AS `mcpd:DUPLDESCR`,
 	`ACCENAME` AS `mcpd:ACCENAME`,
 	`ACCEURL` AS `mcpd:ACCEURL`,
@@ -493,17 +503,41 @@ try
 							$tmp = explode( ',', $value );
 							$value = Array();
 							foreach( $tmp as $item )
-								$value[] = "$key:$item";
-							$object[ $key ] = $value;
+							{
+								if( $item != '99' )
+									$value[] = "$key:$item";
+							}
+							if( count( $value ) )
+								$object[ $key ] = $value;
 							break;
 			
-						case ':taxon:crop':
+						case 'mcpd:SAMPSTAT':
+							if( $value == '999' )
+								break;
+							$object[ $key ] = "$key:$value";
+							break;
+					
+						case 'mcpd:COLLSRC':
+							if( $value == '99' )
+								break;
+							$object[ $key ] = "$key:$value";
+							break;
+					
 						case ':taxon:annex-1':
+							if( $value == '900' )
+								break;
+							$object[ $key ] = "$key:$value";
+							break;
+					
+						case ':taxon:crop':
+							if( $value == '999' )
+								break;
+							$object[ $key ] = "$key:$value";
+							break;
+					
 						case 'mcpd:MLSSTAT1':
 						case 'mcpd:AEGISSTAT':
 						case 'mcpd:AVAILABLE':
-						case 'mcpd:SAMPSTAT':
-						case 'mcpd:COLLSRC':
 							$object[ $key ] = "$key:$value";
 							break;
 					
@@ -544,6 +578,18 @@ try
 				} // Fields not empty.
 		
 			} // Iterating unit.
+			
+			//
+			// Set shape coordinates.
+			//
+			if( $object->offsetExists( ':location:latitude' )
+			 && $object->offsetExists( ':location:longitude' ) )
+				$object->offsetSet(
+					kTAG_GEO_SHAPE,
+					array( kTAG_TYPE => 'Point',
+						   kTAG_GEOMETRY => array(
+						   		$object->offsetGet( ':location:longitude' ),
+						   		$object->offsetGet( ':location:latitude' ) ) ) );
 		
 			//
 			// Store record.

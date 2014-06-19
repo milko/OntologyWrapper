@@ -3810,6 +3810,18 @@ $rs_units = & $rs_units[ 'result' ];
 		} // Iterating clusters.
 		
 		//
+		// Add domain selection.
+		//
+		if( $this->offsetExists( kAPI_PARAM_DOMAIN ) )
+		{
+			if( $parent == 'a' )
+				$root[] = array( kTAG_DOMAIN => $this->offsetGet( kAPI_PARAM_DOMAIN ) );
+			else
+				$root[ kTAG_DOMAIN ] = $this->offsetGet( kAPI_PARAM_DOMAIN );
+		
+		} // Domain selection.
+
+		//
 		// Update filter.
 		//
 		$this->mFilter = $query;

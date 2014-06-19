@@ -825,7 +825,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	public function resetUnits( $doLog = FALS, $doDrop = FALSEE )
+	public function resetUnits( $doLog = FALSE, $doDrop = FALSE )
 	{
 		//
 		// Inform.

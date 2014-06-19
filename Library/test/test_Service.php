@@ -161,17 +161,26 @@ try
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:country' => array
+			'mcpd:ACCENUMB' => array
 			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'IG 20056',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
 			)
 		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
+		kAPI_PARAM_DOMAIN => ':domain:accession',
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
 		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
-								   kTAG_GEOMETRY => array( array( 9, 45 ),
-														   array( 18, 50 ) ) )
+		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Polygon',
+								   kTAG_GEOMETRY => array(
+								   	array(
+								   		array( -31, 72 ), array( 65, 72 ),
+								   		array( 65, 30 ), array( -31, 30 ),
+								   		array( -31, 72 ) ) ) )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

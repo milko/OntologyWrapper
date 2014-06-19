@@ -94,7 +94,7 @@ $graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
 //
 // Inform.
 //
-echo( "\n==> Loading forest gene conservation units related accessions.\n" );
+echo( "\n==> Loading forest gene conservation units.\n" );
 
 //
 // Try.

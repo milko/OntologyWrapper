@@ -264,6 +264,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitSpecies</item>
 			</item>

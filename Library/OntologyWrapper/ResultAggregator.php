@@ -18,6 +18,13 @@ use OntologyWrapper\IteratorObject;
  *======================================================================================*/
 
 /**
+ * API.
+ *
+ * This file contains the API definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
+
+/**
  * Results aggregator
  *
  * The duty of this object is to aggregate the results of the provided iterator object into
@@ -173,11 +180,6 @@ class ResultAggregator
 		$theIterator->fields( Array() );
 		
 		//
-		// Normalise iterator.
-		//
-		$theIterator->resultType( kQUERY_ARRAY );
-		
-		//
 		// Store iterator.
 		//
 		$this->mIterator = $theIterator;
@@ -298,16 +300,16 @@ class ResultAggregator
 							//
 							// Convert native identifiers in serials.
 							//
-							$keys = array_keys( $cols );
-							foreach( $keys as $key )
+							$list = array_keys( $cols );
+							foreach( $list as $item )
 							{
 								//
 								// Convert to native identifier.
 								//
-								if( (! is_int( $cols[ $key ] ))
-								 && (!ctype_digit( $cols[ $key ] )) )
-									$cols[ $key ]
-										= $wrapper->getSerial( $cols[ $key ], TRUE );
+								if( (! is_int( $cols[ $item ] ))
+								 && (!ctype_digit( $cols[ $item ] )) )
+									$cols[ $item ]
+										= $wrapper->getSerial( $cols[ $item ], TRUE );
 							
 								//
 								// Set in dictionary.
@@ -373,41 +375,6 @@ class ResultAggregator
 		return $this->mResults;														// ==>
 	
 	} // aggregate.
-
-	 
-	/*===================================================================================
-	 *	format																			*
-	 *==================================================================================*/
-
-	/**
-	 * <h4>Format and return results</h4>
-	 *
-	 * This method will iterate the results set formatting the data, the method will return
-	 * the resulting array.
-	 *
-	 * @param string				$theLanguage		Default language code.
-	 * @param boolean				$doRefStructs		<tt>TRUE</tt> reference structures.
-	 *
-	 * @access public
-	 * @return array				Aggregated results.
-	 */
-	public function format( $theLanguage = NULL, $doRefStructs = FALSE )
-	{
-		//
-		// Check if it needs to be processed.
-		//
-		if( ! $this->mProcessed )
-		{
-			//
-			// Signal processed.
-			//
-			$this->mProcessed = TRUE;
-	
-		} // Not processed.
-	
-		return $this->mResults;														// ==>
-	
-	} // format.
 
 		
 

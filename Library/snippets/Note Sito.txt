@@ -1,37 +1,18 @@
-=>	Togliere Regular Expression dal popup prima del campo di ricerca delle stringhe.
-	(Io provo a toglierlo dalla lista delle scelte, se funziona non c'è bisogno di fare
-	niente).
-	
-=>	Sostituire "Start typing in the search box" con:
-	"Start typing the name of a field you want to search"
-	
-=>	Togliere il tipo e il kind dagli elementi della form.
-
-=>	Quando clicchi su un domain della summary, lui ti fa vedere solo i risultati dell'ultimo
-	domain. Credo che queso valga anche per la mappa.
-
-=>	Scrivi acronym, scegli la prima scelta, scrivi "ipgri" nel campo e fai search:
-	non fa nulla. Questo sicuramente succede in altri casi.
-	
-=>	Quando modifichi la query corrente non fa più nulla: bisogna rivedere bene perché se no
-	non riesco a fare neanche le creenshots.
-
-=>	Ti dimentichi di gestire "accent e case insensitive" nella query.
-
-=>	Quando vai sulle icone di help non fa nulla, all'inizio, solo dopo un po' li mostra.
-
-=>	Nella pagina di dettaglio ti dimentichi di mostrare la label dei campi di tipo struct.
-
 =>	Nella pagina di dettaglio, una volta aperto un campo struct, non si aprono piu gli
 	altri. In effetti, se ne hai più di uno, se clicchi qualsiasi si apre e chiude solo il
 	primo. Ho il sospetto che non sviluppi bene le liste e le strutture: sembra che
 	tutti gli elementi abbiano lo stesso data target. (probabile che questo sia perché
 	non metti l'elemento padre).
 
+=>	I range non mostrano i valori nei dati (minimo, massimo).
+
+=>	La selezione della form è globale: se l'utente torna alla pagina Home, la selezione si
+	perde: bisogna fare in modo che la selezione della form sia un dato legato alla
+	sessione.
+
 =>	Ho il sospetto che quando hai nello storage un campo, ti dimentichi di caricare di
 	di nuovo la lista delle scelte. Scegli country, fai una ricerca, reset all, cerca
 	country e non ci sono più le enum.
 
-=>	I range non mostrano i valori nei dati (minimo, massimo).
+=>	Quando vai sulle icone di help non fa nulla, all'inizio, solo dopo un po' li mostra.
 
-=>	Le pagine di dettaglio mostrano il header di un domain e i dati di un altro domain.

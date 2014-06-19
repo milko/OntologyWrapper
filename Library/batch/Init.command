@@ -34,7 +34,7 @@ php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadCWRInventori
 # Load CWR accessions.
 #
 php -f /Library/WebServer/Library/OntologyWrapper/Library/batch/LoadCWRAccessionsFromSQLDb.php \
-	"MySQLi://WEB-SERVICES:webservicereader@localhost/pgrdg?socket=/tmp/mysql.sock&persist" \
+	"MySQLi://WEB-SERVICES:webservicereader@localhost/mcpd?socket=/tmp/mysql.sock&persist" \
 	"mongodb://localhost:27017/PGRDG"
 
 #
