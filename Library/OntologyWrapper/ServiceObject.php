@@ -2216,6 +2216,15 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_RESPONSE_COUNT" ] = kAPI_PARAM_RESPONSE_COUNT;
 		
 		//
+		// Load formatted request parameters.
+		//
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_NAME" ] = kAPI_PARAM_RESPONSE_FRMT_NAME;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_INFO" ] = kAPI_PARAM_RESPONSE_FRMT_INFO;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DATA" ] = kAPI_PARAM_RESPONSE_FRMT_DATA;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_LINK" ] = kAPI_PARAM_RESPONSE_FRMT_LINK;
+		$ref[ "kAPI_PARAM_RESPONSE_FRMT_DOCU" ] = kAPI_PARAM_RESPONSE_FRMT_DOCU;
+		
+		//
 		// Load enumeration element parameters.
 		//
 		$ref[ "kAPI_RESULT_ENUM_TERM" ] = kAPI_RESULT_ENUM_TERM;

@@ -38,10 +38,10 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *	<li><tt>{@link kAPI_RESPONSE_PAGING}</tt>: This element holds the iterator counters:
  *	 <ul>
  *		<li><tt>{@link kAPI_PAGING_AFFECTED}</tt>: This element will hold an integer
- *			indicating the total number of records affected by the query; this value does not
- *			take into consideration paging.
- *		<li><tt>{@link kAPI_PAGING_ACTUAL}</tt>: This element will hold an integer indicating
- *			the number of records returned by the iterator; this value takes into
+ *			indicating the total number of records affected by the query; this value does
+ *			not take into consideration paging.
+ *		<li><tt>{@link kAPI_PAGING_ACTUAL}</tt>: This element will hold an integer
+ *			indicating the number of records returned by the iterator; this value takes into
  *			consideration paging.
  *		<li><tt>{@link kAPI_PAGING_SKIP}</tt>: This element will hold an integer indicating
  *			the number of records skipped.
@@ -51,19 +51,50 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  * </ul>
  *
  * The second block is an array containing all the objects contained in the provided
- * iterator, each array element is indexed by the object's native identifier ans the value
+ * iterator, each array element is indexed by the object's native identifier and the value
  * is formatted as a nested array of elements corresoinding to the object's data members and
  * structured as follows:
  *
  * <ul>
- *	<li><tt>name</tt>: This element holds the data property label.
- *	<li><tt>info</tt>: This element holds the data property description.
- *	<li><tt>data</tt>: This element holds the formatted data property value as a string.
- *	<li><tt>link</tt>: If the property is an URl, this element will hold its address.
- *	<li><tt>serv</tt>: If the property is a reference to another object, this element will
- *		hold the native identifier of the object.
- *	<li><tt>coll</tt>: If the property is a reference to another object, this element will
- *		hold the collection name for that object.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: This element holds the data property
+ *		name or label.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
+ *		information or description.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DATA}</tt>: This element holds the property data
+ *		formatted as a string, if the property is a scalar, or an array if the property is
+ *		an enumerated set: in this case the value will be formatted as an array of elements
+ *		of the following structure:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The enumerated value name or
+ *			label.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The enumerated value information
+ *			or description.
+ *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This tag indicates the property
+ *		link, which can take two forms:
+ *	 <ul>
+ *		<li><em>URL</em>: If the property contains an internet link, this element will hold
+ *			the URL as a string.
+ *		<li><em>Object reference</em>: If the property contains an object reference, this
+ *			element will hold the following structure:
+ *		 <ul>
+ *			<li><tt>id</tt>: The referenced object native identifier as a string.
+ *			<li><tt>coll</tt>: The referenced object collection name.
+ *		 </ul>
+ *		<li><em>Object sub-reference</em>: If the property contains an object sub-document,
+ *			the element will hold the following structure:
+ *		 <ul>
+ *			<li><tt>id</tt>: The referenced object native identifier as a string.
+ *			<li><tt>coll</tt>: The referenced object collection name.
+ *			<li><tt>sub</tt>: The sub-document tag sequence number or native identifier.
+ *			<li><tt>idx</tt>: The sub-document index, if the property holds a list of
+ *				sub-documents.
+ *		 </ul>
+ *	 </ul>
+ *		In both cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
+ *		display name.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: This element holds the eventual
+ *		sub-document as an array.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -90,13 +121,13 @@ class ResultFormatter
 	protected $mResults = Array();
 
 	/**
-	 * Tag cache.
+	 * Cache.
 	 *
-	 * This protected data member holds the tags cache.
+	 * This protected data member holds the cache, indexed by collection name.
 	 *
 	 * @var array
 	 */
-	protected $mTagCache = Array();
+	protected $mCache = Array();
 
 	/**
 	 * Processed.
@@ -213,6 +244,8 @@ class ResultFormatter
 			//
 			// Init local storage.
 			//
+			$collection = $this->mIterator->collection();
+			$wrapper = $collection->dictionary();
 			$results = & $this->mResults[ kAPI_RESPONSE_RESULTS ];
 	
 			//
@@ -245,60 +278,26 @@ class ResultFormatter
 								array_keys( $object ),
 								$object[ kTAG_OBJECT_TAGS ] ),
 							$exclude ) );
+				
+				//
+				// Cache tags.
+				//
+				$this->cacheTag( $wrapper, $tags, $theLanguage );
 							
 				//
 				// Allocate object in results.
 				//
-				$index = count( $results );
-				$results[ $index ] = Array();
-				$results_object = & $results[ $index ];
-		
+				$results[ $object[ kTAG_NID ] ] = Array();
+				
 				//
-				// Iterate object properties.
+				// Process object.
 				//
-				foreach( $object as $key => $value )
-				{
-					//
-					// Handle published tags.
-					//
-					if( in_array(
-							$key,
-							array_merge(
-								$tags,
-								PersistentObject::GetReferenceCounts() ) ) )
-					{
-						//
-						// Allocate property.
-						//
-						$results_object[ $key ] = Array();
-						$results_property = & $results_object[ $key ];
-		
-						//
-						// Collect offset data types.
-						//
-						if( ! array_key_exists( $key, $this->mTagCache ) )
-							$this->mTagCache[ $key ]
-								= Tag::ResolveCollection(
-									Tag::ResolveDatabase(
-										$this->mIterator->collection()->dictionary() ) )
-											->matchOne(
-												array( kTAG_ID_SEQUENCE => $key ) );
-						//
-						// Get label and description.
-						//
-						$results_property[ 'name' ]
-							= OntologyObject::SelectLanguageString(
-									$this->mTagCache[ $key ][ kTAG_LABEL ],
-									$theLanguage );
-						if( $this->mTagCache[ $key ]->offsetExists( kTAG_DESCRIPTION ) )
-							$results_property[ 'info' ]
-								= OntologyObject::SelectLanguageString(
-										$this->mTagCache[ $key ][ kTAG_DESCRIPTION ],
-										$theLanguage );
-			
-					} // Publishable tag.
-		
-				} // Iterated object properties.
+				$this->formatObject(
+					$wrapper,
+					$object,
+					$results[ $object[ kTAG_NID ] ],
+					$tags,
+					$theLanguage );
 			
 			} // Iterating objects.
 		
@@ -332,18 +331,426 @@ class ResultFormatter
 	 *
 	 * This method will parse the provided object.
 	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theObject			Object array reference.
+	 * @param array					$theResults			Results array reference.
 	 * @param array					$theTags			Object tags.
 	 * @param string				$theLanguage		Default language code.
 	 *
 	 * @access protected
 	 */
-	protected function formatObject( &$theObject,
-									 &$theTags,
-									  $theLanguage )
+	protected function formatObject( Wrapper $theWrapper, &$theObject,
+														  &$theResults,
+														  &$theTags,
+														   $theLanguage )
 	{
+		//
+		// Iterate object properties.
+		//
+		foreach( $theObject as $key => $value )
+		{
+			//
+			// Handle published tags.
+			//
+			if( in_array(
+					$key,
+					array_merge(
+						$theTags,
+						PersistentObject::GetReferenceCounts() ) ) )
+			{
+				//
+				// Allocate property.
+				//
+				$theResults[ $key ] = Array();
+				
+				//
+				// Format property.
+				//
+				$this->formatProperty(
+					$theWrapper,
+					$theResults[ $key ],
+					$this->mCache[ Tag::kSEQ_NAME ][ $key ],
+					$value,
+					$theLanguage );
+			
+			} // Publishable tag.
+
+		} // Iterated object properties.
 		
 	} // formatObject.
+
+	 
+	/*===================================================================================
+	 *	formatProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format property
+	 *
+	 * This method will parse the provided property.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results array reference.
+	 * @param array					$theTag				Tag object reference.
+	 * @param mixed					$theValue			Property value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function formatProperty( Wrapper $theWrapper, &$theResults,
+															&$theTag,
+															&$theValue,
+															 $theLanguage )
+	{
+		//
+		// Load label.
+		//
+		$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theTag[ kTAG_LABEL ];
+		
+		//
+		// Load description.
+		//
+		if( array_key_exists( kTAG_DESCRIPTION, $theTag ) )
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $theTag[ kTAG_DESCRIPTION ];
+		
+		//
+		// Handle lists.
+		//
+		if( array_key_exists( kTAG_DATA_KIND, $theTag )
+		 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
+		{
+			//
+			// Handle structures
+			//
+			if( $theTag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+			{
+			
+			} // Structure.
+			
+			//
+			// Handle scalars.
+			//
+			else
+			{
+			
+			} // Scalar.
+					
+		} // List.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Handle structures
+			//
+			if( $theTag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+			{
+			
+			} // Structure.
+			
+			//
+			// Handle scalars.
+			//
+			else
+			{
+				//
+				// Allocate data.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = NULL;
+				$this->resolveProperty(
+					$theWrapper,
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ],
+					$theTag,
+					$theValue,
+					$theLanguage );
+			
+			} // Scalar.
+		
+		} // Scalar.
+			
+	} // formatProperty.
+
+	 
+	/*===================================================================================
+	 *	resolveProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve property
+	 *
+	 * This method will resolve the provided property.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results array reference.
+	 * @param array					$theTag				Tag object reference.
+	 * @param mixed					$theValue			Property value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveProperty( Wrapper $theWrapper, &$theResults,
+															 &$theTag,
+															 &$theValue,
+															  $theLanguage )
+	{
+		//
+		// Handle arrays.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Iterate list.
+			//
+			$theResults = Array();
+			foreach( $theValue as $key => $value )
+			{
+				$theResults[ $key ] = NULL;
+				$this->resolveProperty(
+					$theWrapper, $theResults[ $key ], $theTag, $value, $theLanguage );
+			}
+		
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Parse by type.
+			//
+			switch( $theTag[ kTAG_DATA_TYPE ] )
+			{
+				case kTYPE_ENUM:
+				case kTYPE_SET:
+					$theResults = Array();
+					$this->cacheTerm( $theWrapper, $theValue, $theLanguage );
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= $this->mCache[ Term::kSEQ_NAME ][ $theValue ][ kTAG_LABEL ];
+					if( array_key_exists( kTAG_DEFINITION,
+										  $this->mCache[ Term::kSEQ_NAME ][ $theValue ] ) )
+						$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+							= $this->mCache
+								[ Term::kSEQ_NAME ][ $theValue ][ kTAG_DEFINITION ];
+					break;
+				
+				case kTYPE_MIXED:
+				default:
+					$theResults = $theValue;
+					break;
+			}
+		
+		} // Scalar.
+			
+	} // resolveProperty.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CACHING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	cacheTag																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load tag in cache
+	 *
+	 * This method will load the provided tag into the cache, if not yet there.
+	 *
+	 * The provided parameter may be an array.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theTag				Tag native identifier or sequence.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function cacheTag( Wrapper $theWrapper, $theTag, $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theTag ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			
+			//
+			// Cache tags.
+			//
+			foreach( $theTag as $tag )
+			{
+				//
+				// Get tag.
+				//
+				$tag = $this->cacheTag( $theWrapper, $tag, $theLanguage );
+				
+				//
+				// Add tag.
+				//
+				if( ! array_key_exists( $tag[ kTAG_ID_SEQUENCE ], $result ) )
+					$result[ $tag[ kTAG_ID_SEQUENCE ] ] = $tag;
+			
+			} // Iterating tags.
+		
+		} // Provided list of tags.
+		
+		//
+		// Handle scalar tag.
+		//
+		else
+		{
+			//
+			// Convert to sequence number.
+			//
+			if( (! is_int( $theTag ))
+			 && (! ctype_digit( $theTag )) )
+				$theTag = $theWrapper->getSerial( $theTag, TRUE );
+		
+			//
+			// Check collection.
+			//
+			if( ! array_key_exists( Tag::kSEQ_NAME, $this->mCache ) )
+				$this->mCache[ Tag::kSEQ_NAME ] = Array();
+		
+			//
+			// Add tag.
+			//
+			if( ! array_key_exists( $theTag, $this->mCache[ Tag::kSEQ_NAME ] ) )
+			{
+				//
+				// Get object.
+				//
+				$this->mCache[ Tag::kSEQ_NAME ][ $theTag ]
+					= Tag::ResolveCollection(
+						Tag::ResolveDatabase( $theWrapper, TRUE ) )
+							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
+										kQUERY_ARRAY );
+			
+				//
+				// Handle default language.
+				//
+				$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ kTAG_LABEL ]
+					= OntologyObject::SelectLanguageString(
+						$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ kTAG_LABEL ],
+						$theLanguage );
+				if( array_key_exists( kTAG_DESCRIPTION,
+									  $this->mCache[ Tag::kSEQ_NAME ][ $theTag ] ) )
+					$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ kTAG_DESCRIPTION ]
+						= OntologyObject::SelectLanguageString(
+							$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ kTAG_DESCRIPTION ],
+							$theLanguage );
+		
+			} // New entry.
+		
+		} // Provided scalar tag.
+		
+	} // cacheTag.
+
+	 
+	/*===================================================================================
+	 *	cacheTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load term in cache
+	 *
+	 * This method will load the provided term into the cache, if not yet there.
+	 *
+	 * The provided parameter may be an array.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theTerm			Term native identifier.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function cacheTerm( Wrapper $theWrapper, $theTerm, $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theTerm ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			
+			//
+			// Cache terms.
+			//
+			foreach( $theTerm as $term )
+			{
+				//
+				// Get term.
+				//
+				$term = $this->cacheTerm( $theWrapper, $term, $theLanguage );
+				
+				//
+				// Add term.
+				//
+				if( ! array_key_exists( $term[ kTAG_NID ], $result ) )
+					$result[ $term[ kTAG_NID ] ] = $term;
+			
+			} // Iterating terms.
+		
+		} // Provided list of terms.
+		
+		//
+		// Handle scalar term.
+		//
+		else
+		{
+			//
+			// Check collection.
+			//
+			if( ! array_key_exists( Term::kSEQ_NAME, $this->mCache ) )
+				$this->mCache[ Term::kSEQ_NAME ] = Array();
+		
+			//
+			// Add term.
+			//
+			if( ! array_key_exists( $theTerm, $this->mCache[ Term::kSEQ_NAME ] ) )
+			{
+				//
+				// Get object.
+				//
+				$this->mCache[ Term::kSEQ_NAME ][ $theTerm ]
+					= Term::ResolveCollection(
+						Term::ResolveDatabase( $theWrapper, TRUE ) )
+							->matchOne( array( kTAG_NID => $theTerm ),
+										kQUERY_ARRAY );
+			
+				//
+				// Handle default language.
+				//
+				$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ kTAG_LABEL ]
+					= OntologyObject::SelectLanguageString(
+						$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ kTAG_LABEL ],
+						$theLanguage );
+				if( array_key_exists( kTAG_DEFINITION,
+									  $this->mCache[ Term::kSEQ_NAME ][ $theTerm ] ) )
+					$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ kTAG_DEFINITION ]
+						= OntologyObject::SelectLanguageString(
+							$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ kTAG_DEFINITION ],
+							$theLanguage );
+		
+			} // New entry.
+		
+		} // Provided scalar term.
+		
+	} // cacheTerm.
 
 	 
 

@@ -1318,6 +1318,59 @@ define( "kAPI_PARAM_RESPONSE_CHILDREN",			'children' );
 define( "kAPI_PARAM_RESPONSE_IDENT",			'ident' );
 
 /*=======================================================================================
+ *	FORMATTED RESPONSE PARAMETERS														*
+ *======================================================================================*/
+
+/**
+ * Property name or label (string).
+ *
+ * This tag indicates the property name or label.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_NAME",		'name' );
+
+/**
+ * Property info or description (string).
+ *
+ * This tag indicates the property information or description.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_INFO",		'info' );
+
+/**
+ * Property data (string/array).
+ *
+ * This tag indicates the property data, formatted as a string or array of strings.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_DATA",		'data' );
+
+/**
+ * Property link (string/array).
+ *
+ * This tag indicates the property link, which can take two forms:
+ *
+ * <ul>
+ *	<li><em>URL</em>: If the property contains an internet link, this element will hold the
+ *		URL as a string.
+ *	<li><em>Object reference</em>: If the property contains an object reference, this
+ *		element will hold the following structure:
+ *	 <ul>
+ *		<li><tt>id</tt>: The referenced object native identifier as a string.
+ *		<li><tt>coll</tt>: The referenced object collection name.
+ *	 </ul>
+ * </ul>
+ *
+ * In both cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
+ * display name.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_LINK",		'link' );
+
+/**
+ * Property sub-document (array).
+ *
+ * This tag indicates the property sub-document as an array.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_DOCU",		'docu' );
+
+/*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
  *======================================================================================*/
 
