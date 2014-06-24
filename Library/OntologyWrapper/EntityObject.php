@@ -243,6 +243,36 @@ abstract class EntityObject extends UnitObject
 	
 	} // __toString.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the entity {@link kTAG_NAME}.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		return $this->offsetGet( kTAG_NAME );										// ==>
+	
+	} // getName.
+
 		
 
 /*=======================================================================================

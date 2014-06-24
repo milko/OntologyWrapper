@@ -198,6 +198,42 @@ class Edge extends PersistentObject
 	 */
 	public function setAlias( $doSet = TRUE )											   {}
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the edge's {@link kTAG_NAME} property.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check name.
+		//
+		if( $this->offsetExists( kTAG_NAME ) )
+			return $this->offsetGet( kTAG_NAME );									// ==>
+		
+		return NULL;																// ==>
+	
+	} // getName.
+
 		
 
 /*=======================================================================================

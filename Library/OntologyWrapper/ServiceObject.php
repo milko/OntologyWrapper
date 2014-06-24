@@ -999,6 +999,7 @@ abstract class ServiceObject extends ContainerObject
 						break;
 						
 					case kAPI_RESULT_ENUM_DATA_RECORD:
+					case kAPI_RESULT_ENUM_DATA_FORMAT:
 						//
 						// Normalise limit.
 						//
@@ -1096,6 +1097,46 @@ abstract class ServiceObject extends ContainerObject
 		if( ! $this->offsetExists( kAPI_PARAM_ID ) )
 			throw new \Exception(
 				"Missing unit identifier parameter." );							// !@! ==>
+
+		//
+		// Assert result kind.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_DATA ) )
+			throw new \Exception(
+				"Missing results kind parameter." );							// !@! ==>
+		else
+		{
+			switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
+			{
+				case kAPI_RESULT_ENUM_DATA_MARKER:
+					//
+					// Assert shape offset.
+					//
+					if( ! $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+						throw new \Exception(
+							"Missing shape offset." );							// !@! ==>
+					//
+					// Normalise limit.
+					//
+					if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_MARKERS_MAX )
+						$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
+					break;
+					
+				case kAPI_RESULT_ENUM_DATA_RECORD:
+				case kAPI_RESULT_ENUM_DATA_FORMAT:
+					//
+					// Normalise limit.
+					//
+					if( $this->offsetGet( kAPI_PAGING_LIMIT ) > kSTANDARDS_UNITS_MAX )
+						$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_UNITS_MAX );
+					break;
+				
+				default:
+					throw new \Exception(
+						"Invalid result type [$tmp]." );						// !@! ==>
+					break;
+			}
+		}
 		
 	} // validateGetUnit.
 
@@ -2184,7 +2225,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
-		$ref[ "kAPI_OP_GET_UNIT_FORMATTED" ] = kAPI_OP_GET_UNIT_FORMATTED;
 		
 		
 		//
@@ -2251,6 +2291,7 @@ abstract class ServiceObject extends ContainerObject
 		// Load result type parameters.
 		//
 		$ref[ "kAPI_RESULT_ENUM_DATA_RECORD" ] = kAPI_RESULT_ENUM_DATA_RECORD;
+		$ref[ "kAPI_RESULT_ENUM_DATA_FORMAT" ] = kAPI_RESULT_ENUM_DATA_FORMAT;
 		$ref[ "kAPI_RESULT_ENUM_DATA_MARKER" ] = kAPI_RESULT_ENUM_DATA_MARKER;
 		
 		//
@@ -3208,6 +3249,56 @@ $rs_units = & $rs_units[ 'result' ];
 		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
 		
 	} // executeClusterUnits.
+
+
+	/*===================================================================================
+	 *	executeFormattedUnits															*
+	 *==================================================================================*/
+
+	/**
+	 * Format units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeFormattedUnits( &$theContainer )
+	{
+		//
+		// Execute request.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll( $this->mFilter,
+									kQUERY_OBJECT );
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$rs->skip( (int) $tmp );
+		
+		//
+		// Set cursor limit.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$rs->limit( (int) $tmp );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter = new ResultFormatter( $rs, $this->mResponse );
+		
+		//
+		// Format results.
+		//
+		$formatter->format( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		
+	} // executeFormattedUnits.
 
 
 	/*===================================================================================

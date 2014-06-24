@@ -755,11 +755,7 @@ class ResultFormatter
 					= Tag::ResolveCollection(
 						Tag::ResolveDatabase( $theWrapper, TRUE ) )
 							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
-										kQUERY_ARRAY,
-										array( kTAG_LABEL => TRUE,
-											   kTAG_DESCRIPTION => TRUE,
-											   kTAG_DATA_TYPE => TRUE,
-											   kTAG_DATA_KIND => TRUE ) );
+										kQUERY_ARRAY );
 			
 				//
 				// Handle default language.
@@ -854,9 +850,7 @@ class ResultFormatter
 					= Term::ResolveCollection(
 						Term::ResolveDatabase( $theWrapper, TRUE ) )
 							->matchOne( array( kTAG_NID => $theTerm ),
-										kQUERY_ARRAY,
-										array( kTAG_LABEL => TRUE,
-											   kTAG_DEFINITION => TRUE ) );
+										kQUERY_ARRAY );
 			
 				//
 				// Handle default language.

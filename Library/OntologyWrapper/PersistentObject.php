@@ -1140,6 +1140,35 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // setAlias.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * This method should return the object name, this value represents a name or label that
+	 * characterises the current object.
+	 *
+	 * Derived classes must overload this method.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	abstract public function getName( $theLanguage );
+
 		
 
 /*=======================================================================================

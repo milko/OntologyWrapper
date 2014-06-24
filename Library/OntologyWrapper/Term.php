@@ -228,6 +228,43 @@ class Term extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the term's label.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check label.
+		//
+		if( $this->offsetExists( kTAG_LABEL ) )
+			return OntologyObject::SelectLanguageString(
+				$this->offsetGet( kTAG_LABEL ), $theLanguage );						// ==>
+		
+		return NULL;																// ==>
+	
+	} // getName.
+
+	
+
+/*=======================================================================================
+ *																						*
  *								STATIC CONNECTION INTERFACE								*
  *																						*
  *======================================================================================*/

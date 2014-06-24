@@ -109,6 +109,38 @@ class Inventory extends UnitObject
 
 	} // Constructor.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the unit {@link kTAG_IDENTIFIER} and the
+	 * {@link kTAG_COLLECTION} separated by a slash.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		return $this->offsetGet( kTAG_IDENTIFIER )
+			  .'/'.$this->offsetGet( kTAG_COLLECTION );								// ==>
+	
+	} // getName.
+
 		
 
 /*=======================================================================================

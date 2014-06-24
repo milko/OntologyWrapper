@@ -204,6 +204,38 @@ class Node extends PersistentObject
 	
 	} // __toString.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the node's term or tag name.
+	 *
+	 * The method will raise an exception if the current object lacks a wrapper reference.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		return $this->getReferenced()->getName();									// ==>
+	
+	} // getName.
+
 		
 
 /*=======================================================================================

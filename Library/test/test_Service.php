@@ -144,9 +144,9 @@ try
 	
 ///*
 	//
-	// Map.
+	// Try matchUnits formatted.
 	//
-	echo( '<h4>Map</h4>' );
+	echo( '<h4>Try matchUnits with string search on ":name" contains "olive" formatted</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -157,14 +157,15 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 5,
+		kAPI_PAGING_LIMIT => 3,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			'mcpd:ACCENUMB' => array
+			':name' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'IG 20056',
+				kAPI_PARAM_PATTERN => 'olive',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
@@ -172,15 +173,8 @@ try
 				)
 			)
 		),
-		kAPI_PARAM_DOMAIN => ':domain:accession',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Polygon',
-								   kTAG_GEOMETRY => array(
-								   	array(
-								   		array( -31, 72 ), array( 65, 72 ),
-								   		array( 65, 30 ), array( -31, 30 ),
-								   		array( -31, 72 ) ) ) )
+		kAPI_PARAM_DOMAIN => ':domain:organisation',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -1512,9 +1506,9 @@ exit;
 	echo( '<hr>' );
 
 	//
-	// Try matchUnits with string search on ":name" contains "olive".
+	// Try matchUnits with string search on ":name" contains "olive" clustered.
 	//
-	echo( '<h4>Try matchUnits with string search on ":name" contains "olive"</h4>' );
+	echo( '<h4>Try matchUnits with string search on ":name" contains "olive" clustered</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1560,11 +1554,61 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+
+	//
+	// Try matchUnits with string search on ":name" contains "olive" formatted.
+	//
+	echo( '<h4>Try matchUnits with string search on ":name" contains "olive" formatted</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PAGING_LIMIT => 3,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			':name' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'olive',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:organisation',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
-	// Try getUnit.
+	// Try getUnit clustered.
 	//
-	echo( '<h4>Try getUnit</h4>' );
+	echo( '<h4>Try getUnit clustered</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -1577,6 +1621,43 @@ exit;
 	(
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
+		kAPI_PARAM_ID => ':domain:forest://AUT/00023/1990;'
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Try getUnit formatted.
+	//
+	echo( '<h4>Try getUnit formatted</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
 		kAPI_PARAM_ID => ':domain:forest://AUT/00023/1990;'
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
@@ -1684,7 +1765,7 @@ exit;
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu:unit', 0 );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 0 );
 	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );

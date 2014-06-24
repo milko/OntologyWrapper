@@ -75,7 +75,6 @@ class Service extends ServiceObject
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_GET_UNIT:
-			case kAPI_OP_GET_UNIT_FORMATTED:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 				
@@ -217,13 +216,13 @@ class Service extends ServiceObject
 			// Match domains.
 			//
 			case kAPI_OP_GET_UNIT:
-			case kAPI_OP_GET_UNIT_FORMATTED:
 				//
 				// Parse parameter.
 				//
 				switch( $theKey )
 				{
 					case kAPI_PARAM_ID:
+					case kAPI_PARAM_DATA:
 						$this->offsetSet( $theKey, $theValue );
 						break;
 
@@ -350,7 +349,6 @@ class Service extends ServiceObject
 				break;
 				
 			case kAPI_OP_GET_UNIT:
-			case kAPI_OP_GET_UNIT_FORMATTED:
 				$this->validateGetUnit();
 				break;
 				
@@ -433,10 +431,6 @@ class Service extends ServiceObject
 				
 			case kAPI_OP_GET_UNIT:
 				$this->executeGetUnit();
-				break;
-				
-			case kAPI_OP_GET_UNIT_FORMATTED:
-				$this->executeGetUnitFormatted();
 				break;
 				
 			default:
@@ -785,11 +779,18 @@ class Service extends ServiceObject
 			switch( $this->offsetGet( kAPI_PARAM_DATA ) )
 			{
 				case kAPI_RESULT_ENUM_DATA_RECORD:
-					$this->executeClusterUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->executeClusterUnits(
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					break;
+			
+				case kAPI_RESULT_ENUM_DATA_FORMAT:
+					$this->executeFormattedUnits(
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
 					break;
 			
 				case kAPI_RESULT_ENUM_DATA_MARKER:
-					$this->executeMarkerUnits( $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->executeMarkerUnits(
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
 					break;
 			
 			} // Parsed result type.
@@ -806,71 +807,47 @@ class Service extends ServiceObject
 	/**
 	 * Get unit.
 	 *
-	 * The method will match the unit and return a clustered result.
+	 * The method will match the unit and return a clustered, formatted or marker result.
 	 *
 	 * @access protected
 	 */
 	protected function executeGetUnit()
 	{
 		//
-		// Execute query.
+		// Set filter.
 		//
-		$rs
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll(
-							array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
-							kQUERY_ARRAY );
-
-		//
-		// Instantiate results aggregator.
-		//
-		$aggregator = new ResultAggregator( $rs, $this->mResponse );
+		$this->mFilter = array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
 		
 		//
-		// Aggregate results.
+		// Initialise result.
 		//
-		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= Array();
+
+		//
+		// Parse by result type.
+		//
+		switch( $this->offsetGet( kAPI_PARAM_DATA ) )
+		{
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+				$this->executeClusterUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+				break;
+		
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+				$this->executeFormattedUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+				break;
+		
+			case kAPI_RESULT_ENUM_DATA_MARKER:
+				$this->executeMarkerUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+				break;
+		
+		} // Parsed result type.
 		
 	} // executeGetUnit.
-
-	 
-	/*===================================================================================
-	 *	executeGetUnitFormatted															*
-	 *==================================================================================*/
-
-	/**
-	 * Get unit formatted.
-	 *
-	 * The method will match the unit and return a formatted result.
-	 *
-	 * @access protected
-	 */
-	protected function executeGetUnitFormatted()
-	{
-		//
-		// Execute query.
-		//
-		$rs
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll(
-							array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) ),
-							kQUERY_ARRAY );
-
-		//
-		// Instantiate results aggregator.
-		//
-		$aggregator = new ResultAggregator( $rs, $this->mResponse );
-		
-		//
-		// Format results.
-		//
-		$aggregator->format( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
-		
-	} // executeGetUnitFormatted.
 
 	 
 

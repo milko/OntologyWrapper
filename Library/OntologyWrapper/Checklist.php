@@ -111,6 +111,60 @@ class Checklist extends UnitObject
 
 	} // Constructor.
 
+	
+
+/*=======================================================================================
+ *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the checklist {@link kTAG_AUTHORITY}, {@link kTAG_COLLECTION}
+	 * and {@link kTAG_IDENTIFIER} separated by colons.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Init name
+		//
+		$name = Array();
+		
+		//
+		// Set authority.
+		//
+		if( $this->offsetExists( kTAG_AUTHORITY ) )
+			$name[] = $this->offsetGet( kTAG_AUTHORITY );
+		
+		//
+		// Set collection.
+		//
+		if( $this->offsetExists( kTAG_COLLECTION ) )
+			$name[] = $this->offsetGet( kTAG_COLLECTION );
+		
+		//
+		// Set identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
+		
+		return implode( ':', $name );												// ==>
+	
+	} // getName.
+
 		
 
 /*=======================================================================================

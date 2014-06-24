@@ -822,6 +822,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *	 <ul>
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a
  *			clustered record set.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
+ *			formatted record set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
  *			geographic markers, each element will contain the unit {@link kTAG_NID} and the
  *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET}.
@@ -878,6 +880,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *	 <ul>
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
  *			{@link ResultAggregator} class.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
+ *			formatted record set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
@@ -908,25 +912,6 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  * </ul>
  */
 define( "kAPI_OP_GET_UNIT",						'getUnit' );
-
-/**
- * Get unit formatted.
- *
- * This tag defines the get unit formatted operation.
- *
- * The service will return a unit matching the provided identifier as a formatted result.
- *
- * This operation expects the following parameters:
- *
- * <ul>
- *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
- *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
- *		a language code.
- *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
- *		holds the unit native identifier.
- * </ul>
- */
-define( "kAPI_OP_GET_UNIT_FORMATTED",			'getUnitFormatted' );
 
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
@@ -1182,6 +1167,8 @@ define( "kAPI_PARAM_DOMAIN",					'result-domain' );
  * <ul>
  *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a clustered
  *		record set.
+ *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a formatted
+ *		record set.
  *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
  *		geographic markers.
  * </ul>
@@ -1424,6 +1411,13 @@ define( "kAPI_RESULT_ENUM_VALUE",				'value' );
  * This value indicates a result of type clustered records
  */
 define( "kAPI_RESULT_ENUM_DATA_RECORD",			'record' );
+
+/**
+ * Formatted (string).
+ *
+ * This value indicates a result of type formatted records
+ */
+define( "kAPI_RESULT_ENUM_DATA_FORMAT",			'formatted' );
 
 /**
  * Marker (string).
