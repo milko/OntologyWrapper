@@ -226,7 +226,7 @@ class ResultFormatter
 	/**
 	 * <h4>Format and return results</h4>
 	 *
-	 * This method will iterate the results set aggregating the data, the method will return
+	 * This method will iterate the results set formatting the data, the method will return
 	 * the resulting array.
 	 *
 	 * @param string				$theLanguage		Default language code.
@@ -315,6 +315,75 @@ class ResultFormatter
 	} // format.
 
 	 
+	/*===================================================================================
+	 *	table																			*
+	 *==================================================================================*/
+
+	/**
+	 * Format and return table results
+	 *
+	 * This method will iterate the results set using the provided field set, the method
+	 * will return the resulting array.
+	 *
+	 * @param array					$theFields			List of fields.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access public
+	 * @return array				Aggregated results.
+	 */
+	public function table( $theFields, $theLanguage = NULL )
+	{
+		//
+		// Check if it needs to be processed.
+		//
+		if( ! $this->mProcessed )
+		{
+			//
+			// Init local storage.
+			//
+			$collection = $this->mIterator->collection();
+			$wrapper = $collection->dictionary();
+			$results = & $this->mResults[ kAPI_RESPONSE_RESULTS ];
+	
+			//
+			// Iterate.
+			//
+			foreach( $this->mIterator as $object )
+			{
+				//
+				// Cache tags.
+				//
+				$this->cacheTag( $wrapper, $theFields, $theLanguage );
+							
+				//
+				// Allocate object in results.
+				//
+				$results[ $object[ kTAG_NID ] ] = Array();
+				
+				//
+				// Process object.
+				//
+				$this->tableObject(
+					$wrapper,
+					$theFields,
+					$object,
+					$results[ $object[ kTAG_NID ] ],
+					$theLanguage );
+			
+			} // Iterating objects.
+		
+			//
+			// Signal processed.
+			//
+			$this->mProcessed = TRUE;
+	
+		} // Not processed.
+	
+		return $this->mResults;														// ==>
+	
+	} // table.
+
+	 
 
 /*=======================================================================================
  *																						*
@@ -322,6 +391,61 @@ class ResultFormatter
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	tableObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Table object
+	 *
+	 * This method will parse the provided object.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theTags			Object tags.
+	 * @param array					$theObject			Object array reference.
+	 * @param array					$theResults			Results array reference.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function tableObject( Wrapper $theWrapper, &$theTags,
+														 &$theObject,
+														 &$theResults,
+														  $theLanguage )
+	{
+		//
+		// Iterate object properties.
+		//
+		foreach( $theObject as $key => $value )
+		{
+			//
+			// Handle published tags.
+			//
+			if( in_array( $key, $theTags ) )
+			{
+				//
+				// Allocate property.
+				//
+				$theResults[ $key ] = Array();
+				
+				//
+				// Format property.
+				//
+				$this->formatProperty(
+					$theWrapper,
+					$theTags,
+					$theResults[ $key ],
+					$value,
+					$key,
+					$theLanguage );
+			
+			} // Publishable tag.
+
+		} // Iterated object properties.
+		
+	} // tableObject.
 
 	 
 	/*===================================================================================

@@ -820,6 +820,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		provided if the {@link kAPI_PARAM_DOMAIN} parameter was provided, it indicates what
  *		kind of data the service should return:
  *	 <ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
+ *			table set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a
  *			clustered record set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
@@ -878,6 +880,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		results represent individual records, the format is defined by the
  *		{@link kAPI_PARAM_DATA} value:
  *	 <ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
+ *			table set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
  *			{@link ResultAggregator} class.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
@@ -1165,6 +1169,7 @@ define( "kAPI_PARAM_DOMAIN",					'result-domain' );
  * provided: it indicates what kind of data the service should return:
  *
  * <ul>
+ *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a table set.
  *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The service will return a clustered
  *		record set.
  *	 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a formatted
@@ -1404,6 +1409,13 @@ define( "kAPI_RESULT_ENUM_VALUE",				'value' );
 /*=======================================================================================
  *	RESULT TYPE ENUMERATED SET															*
  *======================================================================================*/
+
+/**
+ * Table (string).
+ *
+ * This value indicates a result of type table records
+ */
+define( "kAPI_RESULT_ENUM_DATA_COLUMN",			'column' );
 
 /**
  * Record (string).

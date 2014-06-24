@@ -142,7 +142,7 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-///*
+/*
 	//
 	// Try matchUnits formatted.
 	//
@@ -174,7 +174,7 @@ try
 			)
 		),
 		kAPI_PARAM_DOMAIN => ':domain:organisation',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_COLUMN
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -193,7 +193,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 exit;
-//*/
+*/
 	//
 	// Try empty URL.
 	//
@@ -1487,6 +1487,56 @@ exit;
 										 array( 12.8344,42.8347 ) ) ) ),
 		kAPI_PARAM_SHAPE_OFFSET => ':shape',
 		kAPI_PARAM_GROUP => kTAG_DOMAIN
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try matchUnits with string search on ":name" contains "olive" tabled.
+	//
+	echo( '<h4>Try matchUnits with string search on ":name" contains "olive" tabled</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PAGING_LIMIT => 3,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			':name' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'olive',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:organisation',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_COLUMN
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

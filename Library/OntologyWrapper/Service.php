@@ -778,6 +778,11 @@ class Service extends ServiceObject
 			//
 			switch( $this->offsetGet( kAPI_PARAM_DATA ) )
 			{
+				case kAPI_RESULT_ENUM_DATA_COLUMN:
+					$this->executeTableUnits(
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					break;
+			
 				case kAPI_RESULT_ENUM_DATA_RECORD:
 					$this->executeClusterUnits(
 						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
@@ -830,6 +835,11 @@ class Service extends ServiceObject
 		//
 		switch( $this->offsetGet( kAPI_PARAM_DATA ) )
 		{
+			case kAPI_RESULT_ENUM_DATA_COLUMN:
+				$this->executeTableUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+				break;
+		
 			case kAPI_RESULT_ENUM_DATA_RECORD:
 				$this->executeClusterUnits(
 					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );

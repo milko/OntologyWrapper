@@ -194,15 +194,22 @@ class ResultAggregator
 					 kAPI_PAGING_LIMIT => $theIterator->limit() );
 		
 		//
+		// Allocate dictionary.
+		//
+		if( ! array_key_exists( kAPI_RESULTS_DICTIONARY,
+								$this->mResults ) )
+			$this->mResults[ kAPI_RESULTS_DICTIONARY ] = Array();
+		
+		//
 		// Init dictionary.
 		//
 		$collection = $theIterator->collection()[ kTAG_CONN_COLL ];
-		$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-			= array( kAPI_DICTIONARY_COLLECTION => $collection,
-					 kAPI_DICTIONARY_REF_COUNT
-					 	=> PersistentObject::ResolveRefCountTag( $collection ),
-					 kAPI_DICTIONARY_IDS => Array(),
-					 kAPI_DICTIONARY_TAGS => Array() );
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_COLLECTION ]
+			= $collection;
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_REF_COUNT ]
+			= PersistentObject::ResolveRefCountTag( $collection );
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_IDS ] = Array();
+		$this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_TAGS ] = Array();
 		
 		//
 		// Init results.
@@ -274,64 +281,13 @@ class ResultAggregator
 			$collection = $this->mIterator->collection();
 			$wrapper = $collection->dictionary();
 			$name = $collection[ kTAG_CONN_COLL ];
-			$cols = NULL;
+			$cols = $this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_LIST_COLS ];
 	
 			//
 			// Iterate iterator.
 			//
 			foreach( $this->mIterator as $key => $value )
 			{
-				//
-				// Load columns.
-				//
-				if( $cols === NULL )
-				{
-					//
-					// Get domain.
-					//
-					if( array_key_exists( kTAG_DOMAIN, $value ) )
-					{
-						//
-						// Get table columns.
-						//
-						$cols = UnitObject::ListOffsets( $value[ kTAG_DOMAIN ] );
-						if( count( $cols ) )
-						{
-							//
-							// Convert native identifiers in serials.
-							//
-							$list = array_keys( $cols );
-							foreach( $list as $item )
-							{
-								//
-								// Convert to native identifier.
-								//
-								if( (! is_int( $cols[ $item ] ))
-								 && (!ctype_digit( $cols[ $item ] )) )
-									$cols[ $item ]
-										= $wrapper->getSerial( $cols[ $item ], TRUE );
-							
-								//
-								// Set in dictionary.
-								//
-								$this->mResults[ kAPI_RESULTS_DICTIONARY ]
-											   [ kAPI_DICTIONARY_LIST_COLS ]
-													= $cols;
-							
-							} // Iterated columns.
-						
-						} // Has columns.
-					
-					} // Has domain.
-					
-					//
-					// No domain => no columns.
-					//
-					else
-						$cols = Array();
-				
-				} // Not processed columns yet.
-		
 				//
 				// Store identifier.
 				//

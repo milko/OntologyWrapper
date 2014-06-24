@@ -998,6 +998,7 @@ abstract class ServiceObject extends ContainerObject
 							$this->offsetSet( kAPI_PAGING_LIMIT, kSTANDARDS_MARKERS_MAX );
 						break;
 						
+					case kAPI_RESULT_ENUM_DATA_COLUMN:
 					case kAPI_RESULT_ENUM_DATA_RECORD:
 					case kAPI_RESULT_ENUM_DATA_FORMAT:
 						//
@@ -2290,6 +2291,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Load result type parameters.
 		//
+		$ref[ "kAPI_RESULT_ENUM_DATA_COLUMN" ] = kAPI_RESULT_ENUM_DATA_COLUMN;
 		$ref[ "kAPI_RESULT_ENUM_DATA_RECORD" ] = kAPI_RESULT_ENUM_DATA_RECORD;
 		$ref[ "kAPI_RESULT_ENUM_DATA_FORMAT" ] = kAPI_RESULT_ENUM_DATA_FORMAT;
 		$ref[ "kAPI_RESULT_ENUM_DATA_MARKER" ] = kAPI_RESULT_ENUM_DATA_MARKER;
@@ -3202,6 +3204,77 @@ $rs_units = & $rs_units[ 'result' ];
 
 
 	/*===================================================================================
+	 *	executeTableUnits																*
+	 *==================================================================================*/
+
+	/**
+	 * Cluster units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeTableUnits( &$theContainer )
+	{
+		//
+		// Get table columns.
+		//
+		$columns
+			= array_keys(
+				$this->addColumnsSelection(
+					$this->offsetGet( kAPI_PARAM_DOMAIN ),
+					kAPI_RESULT_ENUM_DATA_FORMAT,
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) ) );
+		
+		//
+		// Get table fields.
+		//
+		$fields = Array();
+		foreach( $columns as $col )
+			$fields[ $col ] = TRUE;
+		
+		//
+		// Execute request.
+		//
+		$rs
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll( $this->mFilter,
+									kQUERY_OBJECT,
+									$fields );
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$rs->skip( (int) $tmp );
+		
+		//
+		// Set cursor limit.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$rs->limit( (int) $tmp );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter = new ResultFormatter( $rs, $this->mResponse );
+		
+		//
+		// Format results.
+		//
+		$formatter->table(
+			$columns,
+			$this->offsetGet( kAPI_REQUEST_LANGUAGE ),
+			FALSE );
+		
+	} // executeTableUnits.
+
+
+	/*===================================================================================
 	 *	executeClusterUnits																*
 	 *==================================================================================*/
 
@@ -3237,6 +3310,14 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
 			$rs->limit( (int) $tmp );
+		
+		//
+		// Set table columns.
+		//
+		$this->addColumnsSelection(
+			$this->offsetGet( kAPI_PARAM_DOMAIN ),
+			kAPI_RESULT_ENUM_DATA_RECORD,
+			$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
 		
 		//
 		// Instantiate results aggregator.
@@ -3287,6 +3368,14 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
 			$rs->limit( (int) $tmp );
+		
+		//
+		// Set table columns.
+		//
+		$this->addColumnsSelection(
+			$this->offsetGet( kAPI_PARAM_DOMAIN ),
+			kAPI_RESULT_ENUM_DATA_FORMAT,
+			$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
 		
 		//
 		// Instantiate results formatter.
@@ -4259,6 +4348,116 @@ $rs_units = & $rs_units[ 'result' ];
 										 $theTag ) );
 		
 	} // addTagMatchClause.
+
+	 
+	/*===================================================================================
+	 *	addColumnsSelection																*
+	 *==================================================================================*/
+
+	/**
+	 * Add columns selection.
+	 *
+	 * This method will load the dictionary {@link kAPI_DICTIONARY_LIST_COLS} field with the
+	 * default columns for the provided domain.
+	 *
+	 * The second parameter is the value of the {@link kAPI_PARAM_DATA} service parameter,
+	 * it determines the format of the columns and accepts the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The columns will be a list of
+	 *		tag serial numbers.
+	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The columns will be a list of
+	 *		elements containing the following items:
+	 *	 <ul>
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The tag label.
+	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The tag description.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theDomain			Domain.
+	 * @param string				$theFormat			Data format.
+	 * @param string				$theLanguage		Default language.
+	 *
+	 * @access protected
+	 * @return array				The columns selection.
+	 */
+	protected function addColumnsSelection( $theDomain, $theFormat, $theLanguage )
+	{
+		//
+		// Allocate dictionary.
+		//
+		if( ! array_key_exists( kAPI_RESULTS_DICTIONARY,
+								$this->mResponse ) )
+			$this->mResponse[ kAPI_RESULTS_DICTIONARY ] = Array();
+		
+		//
+		// Allocate columns.
+		//
+		if( ! array_key_exists( kAPI_DICTIONARY_LIST_COLS,
+								$this->mResponse[ kAPI_RESULTS_DICTIONARY ] ) )
+			$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_LIST_COLS ]
+				= Array();
+		
+		//
+		// Get table columns.
+		//
+		$cols = UnitObject::ListOffsets( $theDomain );
+		if( count( $cols ) )
+		{
+			//
+			// Iterate tags.
+			//
+			foreach( $cols as $col )
+			{
+				//
+				// Convert to serial number.
+				//
+				if( (! is_int( $col ))
+				 && (!ctype_digit( $col )) )
+					$col = $this->mWrapper->getSerial( $col, TRUE );
+				
+				//
+				// Parse by data format.
+				//
+				switch( $theFormat )
+				{
+					case kAPI_RESULT_ENUM_DATA_RECORD:
+						$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+										[ kAPI_DICTIONARY_LIST_COLS ]
+										[] = $col;
+						break;
+				
+					default:
+						$tag = $this->mWrapper->getObject( $col, TRUE );
+						$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+										[ kAPI_DICTIONARY_LIST_COLS ]
+										[ $col ]
+										[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= OntologyObject::SelectLanguageString(
+								$tag[ kTAG_LABEL ],
+								$theLanguage );
+						if( array_key_exists( kTAG_DESCRIPTION, $tag ) )
+							$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+											[ kAPI_DICTIONARY_LIST_COLS ]
+											[ $col ]
+											[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+							= OntologyObject::SelectLanguageString(
+								$tag[ kTAG_DESCRIPTION ],
+								$theLanguage );
+						break;
+				
+				} // Parsed by data format.
+			
+			} // Iterating tags.
+			
+			return $this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+								   [ kAPI_DICTIONARY_LIST_COLS ];					// ==>
+		
+		} // Found columns.
+		
+		return $cols;																// ==>
+		
+	} // addColumnsSelection.
 
 	 
 
