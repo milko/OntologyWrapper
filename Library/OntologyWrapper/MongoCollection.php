@@ -179,12 +179,25 @@ class MongoCollection extends CollectionObject
 		if( $this->isConnected() )
 		{
 			//
-			// Convert fields array.
-			// This is necessary since PHP treats numeric indexes as integers.
+			// Handle fields.
 			//
 			if( count( $theFields ) )
-				$theFields = new \ArrayObject( $theFields );
+			{
+				//
+				// Prevent fields if requested object.
+				//
+				if( ($theResult & kRESULT_MASK) == kQUERY_OBJECT )
+					$theFields = Array();
+				
+				//
+				// Convert fields to object.
+				// This is necessary since PHP treats numeric indexes as integers.
+				//
+				else
+					$theFields = new \ArrayObject( $theFields );
 			
+			} // Provided fields selection.
+						
 			//
 			// Get result.
 			//
@@ -299,11 +312,24 @@ class MongoCollection extends CollectionObject
 		if( $this->isConnected() )
 		{
 			//
-			// Convert fields to object.
-			// This is necessary since PHP treats numeric indexes as integers.
+			// Handle fields.
 			//
 			if( count( $theFields ) )
-				$theFields = new \ArrayObject( $theFields );
+			{
+				//
+				// Prevent fields if requested object.
+				//
+				if( ($theResult & kRESULT_MASK) == kQUERY_OBJECT )
+					$theFields = Array();
+				
+				//
+				// Convert fields to object.
+				// This is necessary since PHP treats numeric indexes as integers.
+				//
+				else
+					$theFields = new \ArrayObject( $theFields );
+			
+			} // Provided fields selection.
 					
 			//
 			// Get result.

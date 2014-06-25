@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This <em>namespace</em> groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This namespace groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -37,7 +37,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>domain</em> represents the <em>kind</em> or <em>class</em>, it indicates <em>what</em> an object is.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The domain represents the kind or class, it indicates what an object is.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>type</em> describes the <em>nature</em> or <em>composition</em> of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The type describes the nature or composition of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -69,7 +69,23 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>kind</em> describes the <em>function</em> or <em>context</em> of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The kind describes the function or context of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Category -->
+		<TERM ns="" lid="category">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Category</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Categories are used to group, tag or qualify objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -85,7 +101,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>offset</em> represents a <em>path to a leaf offset</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The offset represents a path to a leaf offset.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -101,7 +117,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>predicate</em> qualifies a <em>directed graph relationship</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A predicate qualifies a directed graph relationship.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -117,7 +133,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>relationship</em> represents the <em>term</em> of a <em>directed graph relation</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A relationship represents the term of a directed graph relation.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -133,7 +149,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>reference</em> represents a <em>link</em> to an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A reference represents a link to an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -149,7 +165,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>reference count</em> keeps track of <em>how many objects reference the current object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A reference count keeps track of how many objects reference the current object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -165,7 +181,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>connection</em> groups <em>network connection related attributes</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A connection groups network connection related attributes.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -181,7 +197,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>record</em> namespace groups <em>all terms which deal with data record specific information</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The record namespace groups all terms which deal with data record specific information.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -197,7 +213,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>entity</em> groups <em>organisation, institution or person related attributes</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An entity groups organisation, institution or person related attributes.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -213,7 +229,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>unit</em> is an <em>object</em> that can be considered an <em>independant entity</em> and not a part or component of another object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A unit is an object that can be considered an independant entity and not a part or component of another object.]]></item>
 				</item>
 			</item>
 		</TERM>

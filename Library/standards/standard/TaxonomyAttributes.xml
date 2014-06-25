@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>reference</em> of the <em>taxonomic standard</em> in which the current taxon is published.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The reference of the taxonomic standard in which the current taxon is published.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -36,7 +36,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>internet address</em> in which <em>the current taxon is published</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the internet address in which the current taxon is published.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -61,7 +61,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>level</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The level or relative position in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -76,7 +76,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>rank</em> or <em>position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the enumerated value describing the rank or position in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -122,7 +122,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>highest taxonomic rank</em> or <em>relative position</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The highest taxonomic rank or relative position in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -178,7 +178,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>second highest taxonomic rank</em> below <em>domain</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The second highest taxonomic rank below domain in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -237,7 +237,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the kingdom rank in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -288,7 +288,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A subclass of the <em>kingdom</em> rank in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A subclass of the kingdom rank in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -341,7 +341,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above phylum or division and below kingdom</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>superdivision</em> is used in place of <em>superphylum</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above phylum or division and below kingdom in the taxonomic hierarchy. In botany, the term superdivision is used in place of superphylum.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -387,7 +387,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below kingdom and above class</em> in the <em>taxonomic hierarchy</em>. In botany, the term <em>division</em> is used in place of <em>phylum</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below kingdom and above class in the taxonomic hierarchy. In botany, the term division is used in place of phylum.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -452,7 +452,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below phylum or division and above infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below phylum or division and above infraphylum in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -503,7 +503,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subphylum and above microphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below subphylum and above microphylum in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -554,7 +554,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraphylum</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below infraphylum in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -607,7 +607,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above class</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above class in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -653,7 +653,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superclass and above subclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below superclass and above subclass in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -718,7 +718,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below class and above infraclass in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -769,7 +769,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subclass and above parvclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below subclass and above parvclass in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -820,7 +820,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below infraclass</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below infraclass in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -873,7 +873,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below class and above cohort</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below class and above cohort in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -924,7 +924,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below legion</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below legion in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -977,7 +977,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above superorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1026,7 +1026,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above grandorder and below magnorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above grandorder and below magnorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1081,7 +1081,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above mirorder and below superorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above mirorder and below superorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1135,7 +1135,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above order and below grandorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above order and below grandorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1189,7 +1189,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above suborder and below mirorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above suborder and below mirorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1254,7 +1254,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above infraorder and below order</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above infraorder and below order in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1312,7 +1312,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above parvorder and below suborder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above parvorder and below suborder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1367,7 +1367,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>and below infraorder</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank and below infraorder in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1423,7 +1423,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above family in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1469,7 +1469,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superfamily and above subfamily</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below superfamily and above subfamily in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1527,7 +1527,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the family epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the family epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1563,7 +1563,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below family</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below family in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1622,7 +1622,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above tribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above tribe in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1668,7 +1668,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below supertribe and above subtribe</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below supertribe and above subtribe in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1724,7 +1724,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below tribe/em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below tribe/em> in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1777,7 +1777,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above subgenus</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above subgenus in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -1830,7 +1830,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the genus epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the genus epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1866,7 +1866,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below genus and above section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below genus and above section in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1917,7 +1917,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subgenus and above series</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below subgenus and above series in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1968,7 +1968,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below section</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below section in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2021,7 +2021,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>above species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank above species in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2067,7 +2067,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below superspecies and above subspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below superspecies and above subspecies in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_EXAMPLE">
@@ -2125,7 +2125,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the species epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the species epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2161,7 +2161,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below species and above infraspecies</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below species and above infraspecies in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2207,7 +2207,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the subspecies epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the subspecies epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2243,7 +2243,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below subspecies and above form</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below subspecies and above form in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2289,7 +2289,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the variety epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the variety epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2325,7 +2325,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank <em>below variety</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic rank below variety in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2371,7 +2371,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the form epithet </em>in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the form epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2468,7 +2468,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The <em>valid</em> or <em>preferred</em> scientific name related to the current taxon.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The valid or preferred scientific name related to the current taxon.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2504,7 +2504,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The taxonomic epithet <em>comprising all elements below the rank of species</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The taxonomic epithet comprising all elements below the rank of species in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2550,7 +2550,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The author of the <em>lowest rank epithet</em> in the <em>taxonomic hierarchy</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The author of the lowest rank epithet in the taxonomic hierarchy.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -2630,7 +2630,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type <em>qualifies the taxon crop</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the taxon crop.]]></item>
 				</item>
 			</item>
 		</NODE>

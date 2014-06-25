@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A node is a <em>vertex in a graph structure</em>, nodes reference <em>term</em> and <em>tag</em> instances, when referencing a term, nodes are used to build <em>ontologies</em>, <em>type definitions</em> and <em>controlled vocabularies</em>; when referencing tags they are used to build <em>data structures</em>, <em>input and output templates</em> and <em>search forms</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A node is a vertex in a graph structure, nodes reference term and tag instances, when referencing a term, nodes are used to build ontologies, type definitions and controlled vocabularies; when referencing tags they are used to build data structures, input and output templates and search forms.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -47,7 +47,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds an <em>integer serial number</em>, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or tag. The native identifier is assigned automatically.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute holds an integer serial number, nodes do not have a unique persistent identifier, since they act as references and because you may have more than one node referencing the same term or tag. The native identifier is assigned automatically.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -104,7 +104,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>term object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the tag offset must be omitted.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a string that holds a reference to the term object that the current node represents in a graph structure. If this offset is set, the tag offset must be omitted.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -123,7 +123,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>string</em> that holds a reference to the <em>tag object</em> that the current node <em>represents in a graph structure</em>. If this offset is set, the term offset must be omitted.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a string that holds a reference to the tag object that the current node represents in a graph structure. If this offset is set, the term offset must be omitted.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -142,7 +142,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>enumerated set</em> which <em>qualifies</em> and sets a <em>context</en> for the current node.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated set which qualifies and sets a context</en> for the current node.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -165,7 +165,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This property is featured by alias nodes, it <em>references</em> the <em>master node</em>. This property is handled automatically by the object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This property is featured by alias nodes, it references the master node. This property is handled automatically by the object.]]></item>
 				</item>
 			</item>
 		</NODE>

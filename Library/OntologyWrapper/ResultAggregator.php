@@ -170,11 +170,6 @@ class ResultAggregator
 		$this->mResults = & $theResults;
 		
 		//
-		// Set results type.
-		//
-		$theIterator->resultType( kQUERY_ARRAY );
-		
-		//
 		// Reset fields.
 		//
 		$theIterator->fields( Array() );
@@ -281,7 +276,6 @@ class ResultAggregator
 			$collection = $this->mIterator->collection();
 			$wrapper = $collection->dictionary();
 			$name = $collection[ kTAG_CONN_COLL ];
-			$cols = $this->mResults[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_LIST_COLS ];
 	
 			//
 			// Iterate iterator.
@@ -313,7 +307,11 @@ class ResultAggregator
 			//
 			if( array_key_exists( kAPI_DICTIONARY_LIST_COLS,
 								  $this->mResults[ kAPI_RESULTS_DICTIONARY ] ) )
+			{
+				$cols = $this->mResults[ kAPI_RESULTS_DICTIONARY ]
+									   [ kAPI_DICTIONARY_LIST_COLS ];
 				$this->loadTags( $wrapper, $cols, $theLanguage, $doRefStructs );
+			}
 			
 			//
 			// Cluster tags.
@@ -447,7 +445,8 @@ class ResultAggregator
 			= array_unique(
 				array_diff(
 					array_merge(
-						array_keys( $theObject ),
+						( is_array( $theObject ) ) ? array_keys( $theObject )
+												   : $theObject->arrayKeys(),
 						$theObject[ kTAG_OBJECT_TAGS ] ),
 					$exclude ) );
 		

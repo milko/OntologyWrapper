@@ -1,0 +1,454 @@
+[results] => Array
+	(
+		[:domain:forest://AUT/00023/1990;] => Array
+			(
+				[232] => Array
+					(
+						[name] => Unit number
+						[info] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
+						[data] => AUT00023
+					)
+
+				[173] => Array
+					(
+						[name] => Country
+						[info] => This attribute holds the enumerated value describing the location country. For historical reasons legacy countries are included.
+						[data] => Array
+							(
+								[name] => Austria
+								[info] => Republic of Austria
+							)
+
+					)
+
+				[237] => Array
+					(
+						[name] => Unit data collection date
+						[info] => Date in which the unit data was collected, the date should be expressed in YYYYMMDD format, where day and month may be omitted.
+						[data] => 1990
+					)
+
+				[11] => Array
+					(
+						[name] => Reference version or date
+						[data] => 1990
+					)
+
+				[238] => Array
+					(
+						[name] => Date of the most recent visit
+						[info] => Date in which the unit data last visited, the date should be expressed in YYYYMMDD format, where day and month may be omitted.
+						[data] => 2000
+					)
+
+				[233] => Array
+					(
+						[name] => National unit number
+						[info] => Unit number from the national registry.
+						[data] => 214
+					)
+
+				[175] => Array
+					(
+						[name] => Primary administrative unit
+						[info] => This attribute holds the name of the primary administrative unit below the country.
+						[data] => Kärnten
+					)
+
+				[176] => Array
+					(
+						[name] => Secondary administrative unit
+						[info] => This attribute holds the name of the secondary administrative unit below the primary administrative unit.
+						[data] => St.Veit/Glan
+					)
+
+				[178] => Array
+					(
+						[name] => Locality
+						[info] => This attribute holds the description or name of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.
+						[data] => Rev. Petschon - Abtlg. 3/12, 4/1, 4/2, 4/7, 4/8
+					)
+
+				[189] => Array
+					(
+						[name] => Decimal latitude
+						[info] => This attribute holds the location latitude in decimal degrees.
+						[data] => 46.819444444444
+					)
+
+				[195] => Array
+					(
+						[name] => Decimal longitude
+						[info] => This attribute holds the location longitude in decimal degrees.
+						[data] => 14.547777777778
+					)
+
+				[180] => Array
+					(
+						[name] => Minimum elevation
+						[info] => This attribute holds the location minimum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.
+						[data] => 600
+					)
+
+				[181] => Array
+					(
+						[name] => Maximum elevation
+						[info] => This attribute holds the location maximum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.
+						[data] => 760
+					)
+
+				[183] => Array
+					(
+						[name] => Datum
+						[info] => Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.
+						[data] => Array
+							(
+								[name] => WGS-84
+							)
+
+					)
+
+				[201] => Array
+					(
+						[name] => Coordinates restricted
+						[info] => This attribute indicates whether the coordinates may or may not be published.
+						[data] => No
+					)
+
+				[234] => Array
+					(
+						[name] => Surface area of the unit
+						[info] => Total surface area of the unit in hectares accuracy of 0.1 ha.
+						[data] => 14.2
+					)
+
+				[235] => Array
+					(
+						[name] => Ownership type of the unit
+						[data] => Array
+							(
+								[name] => Private
+							)
+
+					)
+
+				[236] => Array
+					(
+						[name] => Type and function of the unit
+						[data] => Array
+							(
+								[0] => Array
+									(
+										[name] => Gene reserve forest
+									)
+
+								[1] => Array
+									(
+										[name] => Forest area managed for wood production and /or multiple uses and services
+									)
+
+							)
+
+					)
+
+				[241] => Array
+					(
+						[name] => All tree species growing in the unit
+						[info] => List of target and non target species growing in the unit.
+						[docu] => Array
+							(
+								[0] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Acer pseudoplatanus
+											)
+
+									)
+
+								[1] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Picea abies
+											)
+
+									)
+
+								[2] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Fraxinus excelsior
+											)
+
+									)
+
+								[3] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Larix decidua
+											)
+
+									)
+
+								[4] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Fagus sylvatica
+											)
+
+									)
+
+								[5] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Abies alba
+											)
+
+									)
+
+							)
+
+					)
+
+				[242] => Array
+					(
+						[name] => Unit populations
+						[info] => Information on population target species growing in the unit.
+						[docu] => Array
+							(
+								[0] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Larix decidua
+											)
+
+										[245] => Array
+											(
+												[name] => Last visit date
+												[info] => Date of the most recent visit.
+												[data] => 1990
+											)
+
+										[246] => Array
+											(
+												[name] => Population status
+												[info] => Status of the target tree population regarding the EUFORGEN common action plans.
+												[data] => Array
+													(
+														[name] => Pending
+													)
+
+											)
+
+										[247] => Array
+											(
+												[name] => Category of the population
+												[data] => Array
+													(
+														[name] => In situ
+													)
+
+											)
+
+										[248] => Array
+											(
+												[name] => Origin of the material
+												[data] => Array
+													(
+														[name] => Autochthonous
+													)
+
+											)
+
+										[249] => Array
+											(
+												[name] => Predominant silvicultural system
+												[data] => Array
+													(
+														[name] => Clear-cutting with natural regeneration
+														[info] => Seed trees or strips.
+													)
+
+											)
+
+										[250] => Array
+											(
+												[name] => Population management
+												[info] => Level of management allowed to favour the target species.
+												[data] => Array
+													(
+														[name] => Conservation through active intervention carried out
+													)
+
+											)
+
+										[251] => Array
+											(
+												[name] => Population justification
+												[info] => Main reason for carrying out gene conservation for this taxon.
+												[data] => Array
+													(
+														[name] => To maintain genetic diversity in large tree populations
+													)
+
+											)
+
+										[252] => Array
+											(
+												[name] => Population reproducing trees
+												[info] => Total number of reproducing trees per unit.
+												[data] => Array
+													(
+														[name] => 501 - 5000
+													)
+
+											)
+
+										[255] => Array
+											(
+												[name] => Distribution of the reproducing trees in the unit
+												[data] => Array
+													(
+														[name] => In stands
+													)
+
+											)
+
+										[256] => Array
+											(
+												[name] => Estimated share of the total area within the unit in which the species is occurring
+												[info] => Expressed as a percentage, from 0 to 100.
+												[data] => 100
+											)
+
+									)
+
+								[1] => Array
+									(
+										[163] => Array
+											(
+												[name] => Scientific name
+												[data] => Picea abies
+											)
+
+										[245] => Array
+											(
+												[name] => Last visit date
+												[info] => Date of the most recent visit.
+												[data] => 1990
+											)
+
+										[246] => Array
+											(
+												[name] => Population status
+												[info] => Status of the target tree population regarding the EUFORGEN common action plans.
+												[data] => Array
+													(
+														[name] => Pending
+													)
+
+											)
+
+										[247] => Array
+											(
+												[name] => Category of the population
+												[data] => Array
+													(
+														[name] => In situ
+													)
+
+											)
+
+										[248] => Array
+											(
+												[name] => Origin of the material
+												[data] => Array
+													(
+														[name] => Autochthonous
+													)
+
+											)
+
+										[249] => Array
+											(
+												[name] => Predominant silvicultural system
+												[data] => Array
+													(
+														[name] => Clear-cutting with natural regeneration
+														[info] => Seed trees or strips.
+													)
+
+											)
+
+										[250] => Array
+											(
+												[name] => Population management
+												[info] => Level of management allowed to favour the target species.
+												[data] => Array
+													(
+														[name] => Conservation through active intervention carried out
+													)
+
+											)
+
+										[251] => Array
+											(
+												[name] => Population justification
+												[info] => Main reason for carrying out gene conservation for this taxon.
+												[data] => Array
+													(
+														[name] => To maintain genetic diversity in large tree populations
+													)
+
+											)
+
+										[252] => Array
+											(
+												[name] => Population reproducing trees
+												[info] => Total number of reproducing trees per unit.
+												[data] => Array
+													(
+														[name] => 501 - 5000
+													)
+
+											)
+
+										[255] => Array
+											(
+												[name] => Distribution of the reproducing trees in the unit
+												[data] => Array
+													(
+														[name] => In stands
+													)
+
+											)
+
+										[256] => Array
+											(
+												[name] => Estimated share of the total area within the unit in which the species is occurring
+												[info] => Expressed as a percentage, from 0 to 100.
+												[data] => 100
+											)
+
+									)
+
+							)
+
+					)
+
+			)
+
+	)

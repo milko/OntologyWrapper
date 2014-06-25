@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT CATEGORIES
+	Categories.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Categories -->
+	
+	<META>
+		<!-- :category:inventory -->
+		<TERM ns=":category" lid="inventory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Inventory</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:identification -->
+		<TERM ns=":category" lid="identification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Identification</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:taxonomy -->
+		<TERM ns=":category" lid="taxonomy">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxonomy</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:location -->
+		<TERM ns=":category" lid="location">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:source -->
+		<TERM ns=":category" lid="source">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Source</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:collecting -->
+		<TERM ns=":category" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:breeding -->
+		<TERM ns=":category" lid="breeding">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Breeding</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:management -->
+		<TERM ns=":category" lid="management">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Management</item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- :category:status -->
+		<TERM ns=":category" lid="status">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Status</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

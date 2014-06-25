@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship</i> is a <i>subclass of the object of the relationship</i>, in other words, the <i>subject is derived from the object</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is a subclass of the object of the relationship, in other words, the subject is derived from the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -37,7 +37,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship</i> belongs to the <i>next lowest rank</i> than the object of the relationship.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship belongs to the next lowest rank than the object of the relationship.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship</i> represents a <i>subset of the object of the relationship</i>, in other words, the <i>subject is contained by the object</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship represents a subset of the object of the relationship, in other words, the subject is contained by the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -117,7 +117,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is a <i>collection belonging to the object of the relationship. This predicate is similar to the <i>attribute of</i> predicate, except that the latter case the subject is a scalar item of the object, while, in this case, the subject is a template for the collection of elements that belong to the object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is a collection belonging to the object of the relationship. This predicate is similar to the attribute of predicate, except that the latter case the subject is a scalar item of the object, while, in this case, the subject is a template for the collection of elements that belong to the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -133,7 +133,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <em>subject</em> of the relationship is an <em>attribute of the object</em> of the relationship, this means that the subject of the relationship belongs to the set of attributes of the object of the relationship.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is an attribute of the object of the relationship, this means that the subject of the relationship belongs to the set of attributes of the object of the relationship.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -149,7 +149,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the <i>subject of the relationship is a property of the object of the relationship</i>, this means that the subject of the relationship is a <i>feature</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is a property of the object of the relationship, this means that the subject of the relationship is a feature.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -165,7 +165,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate relates a <i>trait</i> to its category vertex, it indicates that the subject of the relationship is a <i>trait of the relationship object</i>. This predicate is used to connect <i>feature vertices</i> to their parent vertex.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate relates a trait to its category vertex, it indicates that the subject of the relationship is a trait of the relationship object. This predicate is used to connect feature vertices to their parent vertex.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -181,7 +181,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate relates <i>method vertices</i> with <i>feature vertices</i> or <i>other methods</i>, it indicates that the subject of the relationship is a <i>method, or workflow variation</i> of the object of the relationship. This predicate is used to connect the <i>pipeline of modifiers</i> applied to a <i>feature vertex</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate relates method vertices with feature vertices or other methods, it indicates that the subject of the relationship is a method, or workflow variation of the object of the relationship. This predicate is used to connect the pipeline of modifiers applied to a feature vertex.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -197,7 +197,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate is used by <i>scale vertices</i> to <i>connect feature or trait vertices</i>, the subject of the relationship represents a <i>scale or unit</i> and the predicate indicates that the object of the relationship uses that scale or unit. This predicate is specifically used to indicate the different scales in which a feature or trait vertex can be expressed in.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate is used by scale vertices to connect feature or trait vertices, the subject of the relationship represents a scale or unit and the predicate indicates that the object of the relationship uses that scale or unit. This predicate is specifically used to indicate the different scales in which a feature or trait vertex can be expressed in.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -213,7 +213,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate relates <i>vertex elements</i> of an <i>enumerated set</i>, it indicates that the subject of the relationship is an <i>enumerated set item instance</i>. If the object of the relationship is also an enumerated set item instance, this means that the subject is a subset of the object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate relates vertex elements of an enumerated set, it indicates that the subject of the relationship is an enumerated set item instance. If the object of the relationship is also an enumerated set item instance, this means that the subject is a subset of the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -229,7 +229,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate <i>relates a type to its instance</i>, it indicates that the <i>object of the relationship is an instance of the subject</i> of the relationship.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate relates a type to its instance, it indicates that the object of the relationship is an instance of the subject of the relationship.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -245,7 +245,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship should be <i>aggregated</i> into the object of the relationship, in other words, the subject should be copied into the object. This predicate will be used in general to <i>copy</i> a value from a descriptor belonging to a set specific to a kind of domain into a descriptor which is common to a series of different unit kinds. This is useful for searching among heterogeneous kinds of objects.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship should be aggregated into the object of the relationship, in other words, the subject should be copied into the object. This predicate will be used in general to copy a value from a descriptor belonging to a set specific to a kind of domain into a descriptor which is common to a series of different unit kinds. This is useful for searching among heterogeneous kinds of objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -261,7 +261,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the <i>preferred choice</i>, in other words, if possible, one should use the object of the relationship in place of the subject. This predicate will be used in general by <i>obsolete or deprecated items</i>. The scope of this predicate is similar to the <tt>VALID</tt> predicate, except that in this case the <i>use</i> of the subject of the relationship is <i>only deprecated</i>, while in the <tt>VALID</tt> predicate it is not valid.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the preferred choice, in other words, if possible, one should use the object of the relationship in place of the subject. This predicate will be used in general by obsolete or deprecated items. The scope of this predicate is similar to the VALID predicate, except that in this case the use of the subject of the relationship is only deprecated, while in the VALID predicate it is not valid.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -277,7 +277,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the <i>valid choice</i>, in other words, the <i>subject of the relationship is obsolete or not valid</i>, and one should use the object of the relationship in its place. This predicate will be used in general to store the obsolete or deprecated versions. The scope of this predicate is similar to the <i>PREFERRED</i> predicate, except that in this case the use of the <i>subject of the relationship is invalid</i>, while in the <tt>PREFERRED</tt> predicate it is only deprecated.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the valid choice, in other words, the subject of the relationship is obsolete or not valid, and one should use the object of the relationship in its place. This predicate will be used in general to store the obsolete or deprecated versions. The scope of this predicate is similar to the PREFERRED predicate, except that in this case the use of the subject of the relationship is invalid, while in the PREFERRED predicate it is only deprecated.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -293,7 +293,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the <i>former or legacy</i> choice, in other words, the object of the relationship is <i>obsolete</i> or <i>not in use</i>. This predicate will be used in general to <i>record historical information</i>. The scope of this predicate is similar to the <tt>PREFERRED</tt> and <tt>VALID</tt> predicates, except that in this case the legacy choice <i>might not be invalid nor deprecated</i>: it only means that the object of the relationship <i>was used in the past</i> and the subject of the relationship is currently used in its place.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship is the former or legacy choice, in other words, the object of the relationship is obsolete or not in use. This predicate will be used in general to record historical information. The scope of this predicate is similar to the PREFERRED and VALID predicates, except that in this case the legacy choice might not be invalid nor deprecated: it only means that the object of the relationship was used in the past and the subject of the relationship is currently used in its place.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -309,7 +309,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is <i>related</i> to the object of the relationship. This predicate does not represent any specific type of relationship, other than what the edge object attributes may indicate. The scope of this predicate is similar to the <tt>XREF-EXACT</tt> predicate, except that the latter indicates that the object of the relationship can be used in place of the subject, while in this predicate this is not necessarily true.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the subject of the relationship is related to the object of the relationship. This predicate does not represent any specific type of relationship, other than what the edge object attributes may indicate. The scope of this predicate is similar to the XREF-EXACT predicate, except that the latter indicates that the object of the relationship can be used in place of the subject, while in this predicate this is not necessarily true.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -325,7 +325,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship <i>can be used in place of</i> the subject of the relationship. If the predicate is found in both directions, one could say that the two <i>vertices are identical</i>, except for their formal representation. The scope of this predicate is similar to the <tt>XREF</tt> predicate, except that the latter only indicates that both vertices are related, this predicate indicates that they are <i>interchangeable</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This predicate indicates that the object of the relationship can be used in place of the subject of the relationship. If the predicate is found in both directions, one could say that the two vertices are identical, except for their formal representation. The scope of this predicate is similar to the XREF predicate, except that the latter only indicates that both vertices are related, this predicate indicates that they are interchangeable.]]></item>
 				</item>
 			</item>
 		</TERM>

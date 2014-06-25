@@ -348,7 +348,10 @@ try
 						$field = Array();
 						$tmp = explode( ';', $value );
 						foreach( $tmp as $item )
-							$field[] = array( $dd[ ':taxon:epithet' ] => trim( $item ) );
+						{
+							if( strlen( $item = trim( $item ) ) )
+								$field[] = $item;
+						}
 						$object[ $dd[ 'fcu:unit:species' ] ] = $field;
 						break;
 			

@@ -20,4 +20,88 @@
 			</item>
     	</TERM>
     </META>
+	
+    <!-- Categories -->
+	
+    <META>
+    	<!-- mcpd:inventory -->
+		<TERM ns="mcpd" lid="inventory">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inventory]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:identification -->
+		<TERM ns="mcpd" lid="identification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Identification]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:taxonomy -->
+		<TERM ns="mcpd" lid="taxonomy">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomy]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:collecting -->
+		<TERM ns="mcpd" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting event]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:breeding -->
+		<TERM ns="mcpd" lid="breeding">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding event]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:source -->
+		<TERM ns="mcpd" lid="source">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Source]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:source -->
+		<TERM ns="mcpd" lid="source">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Management]]></item>
+				</item>
+			</item>
+    	</TERM>
+    	
+    	<!-- mcpd:status -->
+		<TERM ns="mcpd" lid="status">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Status]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
 </METADATA>

@@ -730,14 +730,14 @@ abstract class PersistentObject extends OntologyObject
 			if( is_array( $theIdentifier ) )
 			{
 				//
-				// Set committed status.
-				//
-				$this->isCommitted( TRUE );
-				
-				//
 				// Call parent constructor.
 				//
 				parent::__construct( $theIdentifier );
+				
+				//
+				// Set committed status.
+				//
+				$this->isCommitted( TRUE );
 				
 			} // Provided data.
 			

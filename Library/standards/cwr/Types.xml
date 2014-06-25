@@ -18,7 +18,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>status of the crop wild relative taxon</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the status of the crop wild relative taxon.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -269,7 +269,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>red list assessment geographic level</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the red list assessment geographic level.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -346,7 +346,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>period of occurrence of the threat</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the period of occurrence of the threat.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -423,7 +423,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>uses</i> of the crop wild relative taxon, it is an enumerated set that follows the IUCN Utilization Authority File (available from http://data.iucn.org/Themes/ssc/sis/authority.htm. Date accessed 19 March 2013): IUCN numbering is used except for descriptor states ‘unknown’ and ’other’.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the uses of the crop wild relative taxon, it is an enumerated set that follows the IUCN Utilization Authority File (available from http://data.iucn.org/Themes/ssc/sis/authority.htm. Date accessed 19 March 2013): IUCN numbering is used except for descriptor states ‘unknown’ and ’other’.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -850,7 +850,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the <i>type of the crop wild relative checklist</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This qualifies the type of the crop wild relative checklist.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -945,7 +945,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the <i>criteria used to prioritise the national inventory</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This qualifies the criteria used to prioritise the national inventory.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -3385,7 +3385,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type qualifies the <i>type of legislation in which the taxon is included</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the type of legislation in which the taxon is included.]]></item>
 				</item>
 			</item>
 		</NODE>

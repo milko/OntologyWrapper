@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>type of the unit</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the type of the unit.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -159,7 +159,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>ownership of the unit</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the ownership of the unit.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -265,7 +265,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>distribution of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the distribution of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -351,7 +351,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>justification for the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the justification for the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -437,7 +437,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>management of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the management of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -523,7 +523,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>origin of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the origin of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -609,7 +609,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>sex ratio in the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the sex ratio in the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -695,7 +695,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>long-term regeneration status of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the long-term regeneration status of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -781,7 +781,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>number of reproducing trees in the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the number of reproducing trees in the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -887,7 +887,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>situ of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the situ of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -953,7 +953,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>status of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the status of the population.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1039,7 +1039,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>silvicultural system of the population</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the silvicultural system of the population.]]></item>
 				</item>
 			</item>
 		</TERM>

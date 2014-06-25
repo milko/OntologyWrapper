@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	MULTICROP PASSPORT DESCRIPTOR FORM
+	Form.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Multicrop passport descriptors form -->
+	
+	<!-- mcpd -->
+	<META>
+		<NODE term="mcpd" pid="form:mcpd">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all default multicrop passport descriptor search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- Inventory attributes -->
+
+	<META>
+		<NODE term=":category:inventory" pid="form::category:inventory">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession inventory attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- :inventory:NICODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:INSTCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Identification attributes -->
+
+	<META>
+		<NODE term=":category:identification" pid="form::category:identification">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession identification attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCENAME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENAME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:OTHERNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:OTHERNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Taxonomy attributes -->
+
+	<META>
+		<NODE term=":category:identification" pid="form::category:identification">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession identification attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- Rank -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:rank</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Family -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:familia</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Genus -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Species -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:species</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- Species authority -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:species:author</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Infraspecies epithet -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- Infraspecies author -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Scientific name -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Reference -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:reference</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- URL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:url</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Common taxon names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Collecting event -->
+
+	<META>
+		<NODE term=":category:collecting" pid="form::category:collecting">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession collecting event attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:COLLDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:COLLDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Primary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Secondary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Lowest administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Locality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Decimal latitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Decimal longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Breeding event -->
+
+	<META>
+		<NODE term=":category:breeding" pid="form::category:breeding">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession breeding event attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:BREDCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:BREDDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:BREDDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:ANCEST -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ANCEST</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Source attributes -->
+
+	<META>
+		<NODE term=":category:source" pid="form::category:source">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession source and biological attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:COLLSRC -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLSRC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:SAMPSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:SAMPSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DONORCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DONORCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DONORDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DONORDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DONORNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DONORNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Management attributes -->
+
+	<META>
+		<NODE term=":category:management" pid="form::category:management">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession management attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:ACQDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACQDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:STORAGE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:STORAGE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DUPLSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DUPLDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCEURL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCEURL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Status attributes -->
+
+	<META>
+		<NODE term=":category:status" pid="form::category:status">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Accession status attributes.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+		</EDGE>
+	
+		<!-- mcpd:MLSSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:AEGISSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:AEGISSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:AVAILABLE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:AVAILABLE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

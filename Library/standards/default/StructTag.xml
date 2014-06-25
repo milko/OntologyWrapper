@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A tag object is used to <i>identify</i>, <i>document</i> and <i>share</i> a data property, it represents the <i>metadata</i> of the property, or its <i>definition</i> in an ontology.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A tag object is used to identify, document and share a data property, it represents the metadata of the property, or its definition in an ontology.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -123,7 +123,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated value indicating the <em>data type</em> that the value of the property defined by the current tag may take.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated value indicating the data type that the value of the property defined by the current tag may take.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -146,7 +146,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated set of values providing the <em>data attributes</em> of the property defined by the current tag. This may be whether the property is a list of values, or if the property is required or not.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an enumerated set of values providing the data attributes of the property defined by the current tag. This may be whether the property is a list of values, or if the property is required or not.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -169,7 +169,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The label represents the <i>name or short description</i> of the data property that the current object defines. All tags <em>should</em> have a label, since this is how human users will be able to identify and select them. This property is constituted by a list of elements containing the language and text of the label.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The label represents the name or short description of the data property that the current object defines. All tags should have a label, since this is how human users will be able to identify and select them. This property is constituted by a list of elements containing the language and text of the label.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -188,7 +188,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The description represents the <i>description or extended definition</i> of the property that the current tag defines. The description is similar to the <em>definition</em>, except that while the definition provides a definition unrelated to context, the description adds to the definition the elements added by the current context. All tags <em>should</em> have a description if the tag label is not enough to provide a sufficient description or definition. This property is constituted by a list of elements containing the language and text of the description.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The description represents the description or extended definition of the property that the current tag defines. The description is similar to the definition, except that while the definition provides a definition unrelated to context, the description adds to the definition the elements added by the current context. All tags should have a description if the tag label is not enough to provide a sufficient description or definition. This property is constituted by a list of elements containing the language and text of the description.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -207,7 +207,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a <em>set of strings</em> representing <em>alternate identifiers of this tag</em>, not formally defined in the current data set.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a set of strings representing alternate identifiers of this tag, not formally defined in the current data set.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -226,7 +226,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>minimum featured value</em> of the property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the minimum featured value of the property.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -245,7 +245,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the <em>maximum featured value</em> of the property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is a floating point value representing the maximum featured value of the property.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -264,7 +264,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds a <em>string</em> which represents a <em>regular expression pattern</em> which can be used to <em>validate data identified by this tag</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a string which represents a regular expression pattern which can be used to validate data identified by this tag.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -416,7 +416,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute should only be featured by tags which define a list of structures. The value of this attribute is a tag object reference which represents the structure element which acts as the list index. This means that no two elements of a list of structures may share the same value in the offset defined by the current attribute. This also means that the offset defined in this property <em>is required</em> by the hosting structure.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute should only be featured by tags which define a list of structures. The value of this attribute is a tag object reference which represents the structure element which acts as the list index. This means that no two elements of a list of structures may share the same value in the offset defined by the current attribute. This also means that the offset defined in this property is required by the hosting structure.]]></item>
 				</item>
 			</item>
 		</NODE>

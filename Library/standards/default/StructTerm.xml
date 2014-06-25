@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A term object holds the necessary information to <i>uniquely identify</i>, <i>document</i> and <i>share</i> a <i>generic term or concept</i> which is <i>not related to a specific context</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A term object holds the necessary information to uniquely identify, document and share a generic term or concept which is not related to a specific context.]]></item>
 				</item>
 			</item>
 		</TERM>

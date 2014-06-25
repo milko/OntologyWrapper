@@ -30,7 +30,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>continent</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the enumerated value describing the location continent.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -67,7 +67,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the location <em>country</em>. For historical reasons legacy countries are included.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the enumerated value describing the location country. For historical reasons legacy countries are included.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -95,7 +95,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A legacy country is one <em>which does not exist any more</em> or a <em>country code no more in use</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A legacy country is one which does not exist any more or a country code no more in use.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -138,7 +138,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>enumerated value</em> describing the <em>administrative unit</em> of the location, the code can describe either a <em>continent</em>, <em>country</em> or <em>country subdivision</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the enumerated value describing the administrative unit of the location, the code can describe either a continent, country or country subdivision.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -183,7 +183,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the primary administrative unit</em> below the country.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the name of the primary administrative unit below the country.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -221,7 +221,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the secondary administrative unit</em> below the primary administrative unit.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the name of the secondary administrative unit below the primary administrative unit.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -259,7 +259,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>name of the lowest administrative unit</em>, or <em>local name</em> of the location.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the name of the lowest administrative unit, or local name of the location.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -297,7 +297,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the <em>description</em> or <em>name</em> of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the description or name of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -337,7 +337,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level. For areas, this attribute should hold the <em>mean elevation</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location elevation in meters, positive values indicate above the sea level and negative values indicate below sea level. For areas, this attribute should hold the mean elevation.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -375,7 +375,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>minimum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location minimum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -413,7 +413,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>maximum elevation in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location maximum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -451,7 +451,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>elevation uncertainty in meters</em>, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location elevation uncertainty in meters, positive values indicate above the sea level and negative values indicate below sea level.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -3846,7 +3846,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude in decimal degrees</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude in decimal degrees.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">-90</item>
@@ -3886,7 +3886,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude degrees</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude degrees.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -3926,7 +3926,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude minutes</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude minutes.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -3966,7 +3966,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude seconds</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude seconds.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4004,7 +4004,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude hemisphere</em>, accepted values are <tt>N</tt> for <em>North</em> and <tt>S</tt> for <em>South</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude hemisphere, accepted values are N for North and S for South.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4042,7 +4042,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>latitude uncertainty in meters</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location latitude uncertainty in meters.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4080,7 +4080,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude in decimal degrees</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude in decimal degrees.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">-180</item>
@@ -4120,7 +4120,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude degrees</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude degrees.]]></item>
 				</item>
 			</item>
 			<item const="kTAG_MIN_RANGE">0</item>
@@ -4160,7 +4160,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude minutes</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude minutes.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4198,7 +4198,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude seconds</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude seconds.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4236,7 +4236,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude hemisphere</em>, accepted values are <tt>E</tt> for <em>East</em> and <tt>W</tt> for <em>West</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude hemisphere, accepted values are E for East and W for West.]]></item>
 				</item>
 			</item>
 		</TAG>
@@ -4274,7 +4274,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location <em>longitude uncertainty in meters</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the location longitude uncertainty in meters.]]></item>
 				</item>
 			</item>
 		</TAG>

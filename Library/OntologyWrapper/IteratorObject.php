@@ -759,6 +759,9 @@ abstract class IteratorObject implements \Iterator,
 						"Unable to create object: "
 					   ."missing object class." );								// !@! ==>
 				
+				//
+				// Get class.
+				//
 				$class = $theObject[ kTAG_CLASS ];
 				
 				return new $class( $this->collection()->dictionary(), $theObject );	// ==>

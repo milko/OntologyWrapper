@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The edge implements a <em>directed graph</em> by <em>relating a subject vertex</em> with an <em>object vertex</em> through a <em>predicate</em>, the direction of the relationship is <em>from the subject to the object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The edge implements a directed graph by relating a subject vertex with an object vertex through a predicate, the direction of the relationship is from the subject to the object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -47,7 +47,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This required attribute holds a <em>string</em> which represents the <em>combination of the subject, predicate and object</em> of the relationship. This attribute will be set automatically.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This required attribute holds a string which represents the combination of the subject, predicate and object of the relationship. This attribute will be set automatically.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -85,7 +85,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute represents the <em>origin of the relationship</em>, it is an <em>integer</em> value representing the <em>reference to a node instance</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute represents the origin of the relationship, it is an integer value representing the reference to a node instance.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -104,7 +104,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>integer</em> value <em>referencing a graph source vertex node</em>. The referenced node is stored in the <em>graph database</em>]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an integer value referencing a graph source vertex node. The referenced node is stored in the graph database]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -123,7 +123,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute represents the <em>type of relationship</em>, it is a <em>string</em> value representing the <em>reference to a term instance</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute represents the type of relationship, it is a string value representing the reference to a term instance.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -142,7 +142,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute represents the <em>destination of the relationship</em>, it is an <em>integer</em> value representing the <em>reference to a node instance</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute represents the destination of the relationship, it is an integer value representing the reference to a node instance.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -161,7 +161,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This attribute is an <em>integer</em> value <em>referencing a graph destination vertex node</em>. The referenced node is stored in the <em>graph database</em>]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute is an integer value referencing a graph destination vertex node. The referenced node is stored in the graph database]]></item>
 				</item>
 			</item>
 		</NODE>

@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>mixed</em> data type indicates that the referred property may take <em>any data type</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A mixed data type indicates that the referred property may take any data type.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -37,7 +37,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>string</em> data type indicates that the referred property may hold <em>UNICODE</em> characters, this type <em>does not include binary data</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A string data type indicates that the referred property may hold UNICODE characters, this type does not include binary data.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>integer</em> data type indicates that the referred property may hold a <em>32 or 64 bit integral numeric value</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An integer data type indicates that the referred property may hold a 32 or 64 bit integral numeric value.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -69,7 +69,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>float</em> data type indicates that the referred property may hold a <em>floating point number</em>, also known as <em>double</em> or <em>real</em>. The precision of such value is not inferred, in general it will be a <em>32 or 64 bit real</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A float data type indicates that the referred property may hold a floating point number, also known as double or real. The precision of such value is not inferred, in general it will be a 32 or 64 bit real.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -85,7 +85,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Boolean</em> values can take one of two states: <em>on or true</em>, or <em>off or false</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Boolean values can take one of two states: on or true, or off or false.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -105,7 +105,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>structure</em>, this means that the value will be an <em>object</em> or an array of objects if the data kind is a list.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a structure, this means that the value will be an object or an array of objects if the data kind is a list.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -121,7 +121,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of key/value pairs</em>, the key will be in general a string, while the value type is not inferred. This data type usually applies to arrays in which the key part is the discriminant and determines the type of the value, while traditional arrays are better defined by a fixed sata type and a list data kind.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a list of key/value pairs, the key will be in general a string, while the value type is not inferred. This data type usually applies to arrays in which the key part is the discriminant and determines the type of the value, while traditional arrays are better defined by a fixed sata type and a list data kind.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -137,7 +137,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of strings expressed in different languages</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:language</tt> persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the <tt>:text</tt> persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element may omit the language pair.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a list of strings expressed in different languages. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the :language persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the :text persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element may omit the language pair.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -153,7 +153,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>list of elements discriminated by their type</em>. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the <tt>:type</tt> persistent identifier as its key and the value represents the type of the element. The second pair has an unspecified tag persistent identifier which characterises the value of the element: the value of the first pair represents the type of the second pair value identified by the tag set in its key. No two elements may share the same type and only one element may omit the type pair.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a list of elements discriminated by their type. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the :type persistent identifier as its key and the value represents the type of the element. The second pair has an unspecified tag persistent identifier which characterises the value of the element: the value of the first pair represents the type of the second pair value identified by the tag set in its key. No two elements may share the same type and only one element may omit the type pair.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -169,7 +169,15 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This data type defines a <em>geometric shape</em>which is expressed as a GeoJSON construct, it is an array composed by two key/value elements:<ul><li><tt>type</tt>: The element indexed by this string contains the code indicating the type of the shape, these are the supported values:<ul><li><tt>Point</tt>: A point.<li><tt>LineString</tt>: A list of points.<li><tt>Polygon</tt>: A polygon, including its rings.</ul><li><tt>coordinates</tt>: The element indexed by this string contains the <em>geometry of the shape</em>, which has a structure depending on the shape type:<ul><li><tt>Point</tt>: The point is an array of two floating point numbers, respectively the <em>longitude</em> and <em>latitude</em>.<li><tt>LineString</tt>: A line string is an array of points expressed as the <tt>Point</tt> geometry.<li><tt>Polygon</tt>: A polygon is a list of rings whose geometry is like the <tt>LineString</em> geometry, except that the first and last point must match. The first ring represents the outer boundary of the polygon, the other rings are optional and represent holes in the polygon.</ul></ul>]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a geometric shapewhich is expressed as a GeoJSON construct, it is an array composed by two key/value elements:
+* type: The element indexed by this string contains the code indicating the type of the shape, these are the supported values:
+ * Point: A point.
+ * LineString: A list of points.
+ * Polygon: A polygon, including its rings.
+* coordinates: The element indexed by this string contains the geometry of the shape, which has a structure depending on the shape type:
+ * Point: The point is an array of two floating point numbers, respectively the longitude and latitude.
+ * LineString: A line string is an array of points expressed as the Point geometry.
+ * Polygon: A polygon is a list of rings whose geometry is like the LineString geometry, except that the first and last point must match. The first ring represents the outer boundary of the polygon, the other rings are optional and represent holes in the polygon.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -189,7 +197,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type is derived from the <em>string</em> type, it indicates a text <em>which is not intended for searching or for being indexed</em>. This type can be considered a textual blob.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type is derived from the string type, it indicates a text which is not intended for searching or for being indexed. This type can be considered a textual blob.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -205,7 +213,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>link</em> data type indicates that the referred property is a <em>string</em> representing an <em>URL</em> which is an internet link or network address.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A link data type indicates that the referred property is a string representing an URL which is an internet link or network address.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -221,7 +229,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>year</em> as an <em>integer</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a year as an integer.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -237,7 +245,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type defines a <em>date</em> in which <em>the day and month may be omitted</em>, it is a <em>string</em> providing the date in <tt>YYYYMMDD</tt> format in which the day, or the day and month do not need to be assigned. This type can be used as <em>a range</em> and <em>sorted</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type defines a date in which the day and month may be omitted, it is a string providing the date in YYYYMMDD format in which the day, or the day and month do not need to be assigned. This type can be used as a range and sorted.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -257,7 +265,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>enumerated</em> data type indicates that the referred property may only hold <em>a term reference</em>, that is, the <em>global identifier of a term object</em>. Enumerated values are by default strings and must refer to a term.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An enumerated data type indicates that the referred property may only hold a term reference, that is, the global identifier of a term object. Enumerated values are by default strings and must refer to a term.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -273,7 +281,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>enumerated set</em> data type indicates that the referred property may only hold <em>a list of term reference</em>, that is, an array of <em>term object global identifiers</em>. All the elements of this list must be unique.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An enumerated set data type indicates that the referred property may only hold a list of term reference, that is, an array of term object global identifiers. All the elements of this list must be unique.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -293,7 +301,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <i>term reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Term object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A term reference is a string that must correspond to the native identifier of a Term object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -309,7 +317,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <i>tag reference</i> is an <em>integer</em> that must correspond to the <em>sequence number of a Tag object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A tag reference is an integer that must correspond to the sequence number of a Tag object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -325,7 +333,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <i>node reference</i> is an <em>integer</em> that must correspond to the <em>netive identifier of a Node object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A node reference is an integer that must correspond to the netive identifier of a Node object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -341,7 +349,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <i>edge reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Edge object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An edge reference is a string that must correspond to the native identifier of an Edge object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -357,7 +365,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <i>entity reference</i> is a <em>string</em> that must correspond to the <em>native identifier of an Entity object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An entity reference is a string that must correspond to the native identifier of an Entity object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -373,7 +381,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <i>unit reference</i> is a <em>string</em> that must correspond to the <em>native identifier of a Unit object</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A unit reference is a string that must correspond to the native identifier of a Unit object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -389,7 +397,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <i>self reference</i> is a <em>reference to an object of the same class as the object that holds the reference</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A self reference is a reference to an object of the same class as the object that holds the reference.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -409,7 +417,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>time-stamp</em> holds <em>date and time information</em> indicating a specific point in time; <em>its format is dependent on the specific storage engine</em>]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A time-stamp holds date and time information indicating a specific point in time; its format is dependent on the specific storage engine]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -429,7 +437,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An instance</em> term can be considered as an instance of the <em>object it defines</em>. This type of terms will hold data, in addition to the metadata, regarding what it defines. In general, this kind of term will be an element of an enumerated set which can be used in place of what the element represents.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An instance term can be considered as an instance of the object it defines. This type of terms will hold data, in addition to the metadata, regarding what it defines. In general, this kind of term will be an element of an enumerated set which can be used in place of what the element represents.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -449,7 +457,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An entry point of a structure</em>. This kind represents a door or entry point of a tree or graph. It can be either the node from which the whole structure originates from, or a node that represents a specific thematic entry point. In general, such objects will have other attributes that will qualify the kind of the structure.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An entry point of a structure. This kind represents a door or entry point of a tree or graph. It can be either the node from which the whole structure originates from, or a node that represents a specific thematic entry point. In general, such objects will have other attributes that will qualify the kind of the structure.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -465,7 +473,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>data property</em>. The node features a <em>reference to the tag</em> which contains all the information defining and describing a data property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A data property. The node features a reference to the tag which contains all the information defining and describing a data property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -481,7 +489,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>controlled vocabulary</em> or an <em>enumerated set subset</em>. This kind describes a set of values representing an enumerated set, the element itself is not considered as an element of the set, it defines a formal controlled vocabulary.The ISO 3166 country codes could be considered an enumerated set.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A controlled vocabulary or an enumerated set subset. This kind describes a set of values representing an enumerated set, the element itself is not considered as an element of the set, it defines a formal controlled vocabulary.The ISO 3166 country codes could be considered an enumerated set.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -497,7 +505,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>An ontology</em>. This is a graph structure that represents an ontology, the item that bares this attribute is expected to be a root node, structures of this kind usually represent the full set of elements comprising an ontology which will be used by views to create thematic selections.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An ontology. This is a graph structure that represents an ontology, the item that bares this attribute is expected to be a root node, structures of this kind usually represent the full set of elements comprising an ontology which will be used by views to create thematic selections.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -513,7 +521,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A type or controlled vocabulary structure</em>. This is a structure that represents a type or controlled vocabulary, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). The main use of such a kind is to group all elements representing a type or controlled vocabulary that comprises the full set of attributes, views that reference such structures can be used to represent thematic subsets of such types or controlled vocabularies.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A type or controlled vocabulary structure. This is a structure that represents a type or controlled vocabulary, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). The main use of such a kind is to group all elements representing a type or controlled vocabulary that comprises the full set of attributes, views that reference such structures can be used to represent thematic subsets of such types or controlled vocabularies.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -529,7 +537,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A view of one or more structures</em>. This represents a view into an existing structure or structures, the item that bares this attribute is expected to be a root node and the structure is expected to be either a selection or an aggregation of elements from different existing structures. The main goal is to create specific thematic views.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A view of one or more structures. This represents a view into an existing structure or structures, the item that bares this attribute is expected to be a root node and the structure is expected to be either a selection or an aggregation of elements from different existing structures. The main goal is to create specific thematic views.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -545,7 +553,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A data template</em>. This is a view that represents a template, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Templates are generally used to import and export data recorded using elements from the ontologies.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A data template. This is a view that represents a template, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Templates are generally used to import and export data recorded using elements from the ontologies.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -561,7 +569,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A search form</em>. This is a view that represents a search form, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as search form templates where the branches represent categories and the leaf nodes the attributes to be searched.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A search form. This is a view that represents a search form, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as search form templates where the branches represent categories and the leaf nodes the attributes to be searched.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -577,7 +585,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A data structure</em>. This is a view that represents a data structure, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define the physical structure of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A data structure. This is a view that represents a data structure, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define the physical structure of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -593,7 +601,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A data schema</em>. This is a view that represents a data <em>schema or sub-structure</em>, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define common schemas that will be related to data structures.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A data schema. This is a view that represents a data schema or sub-structure, the item that bares this attribute is expected to be a root node and its structure must be a tree (at most one parent node). Structures of this kind can be used as templates to define common schemas that will be related to data structures.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -609,7 +617,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A feature or attribute of an object that can be described or measured</em>. This kind defines a feature, property or attribute of an object that can be described or measured. This kind of node will generally be found as a <em>leaf of the structure</em> describing an object. Plant height is a plant characteristic that belongs to the category of morphological traits: the latter is not a feature, while plant height is.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A feature or attribute of an object that can be described or measured. This kind defines a feature, property or attribute of an object that can be described or measured. This kind of node will generally be found as a leaf of the structure describing an object. Plant height is a plant characteristic that belongs to the category of morphological traits: the latter is not a feature, while plant height is.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -625,7 +633,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>A method or variation of an object's feature measurement</em>. This kind of node is required whenever an object's feature can be <em>measured in different ways</em> or with <em>different workflows</em>, <em>without becoming a different feature</em>. Plant height is an attribute of a plant which can be measured after a month or at flowering time; the attribute is the same, but the method is different.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A method or variation of an object's feature measurement. This kind of node is required whenever an object's feature can be measured in different ways or with different workflows, without becoming a different feature. Plant height is an attribute of a plant which can be measured after a month or at flowering time; the attribute is the same, but the method is different.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -641,7 +649,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>The scale or unit in which a measurement is expressed in</em>. This kind of node describes in what unit or scale a measurement is expressed in. Plant height may be measured in centimeters or inches, as well as in intervals or finite categories.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The scale or unit in which a measurement is expressed in. This kind of node describes in what unit or scale a measurement is expressed in. Plant height may be measured in centimeters or inches, as well as in intervals or finite categories.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -657,7 +665,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>element/em> of a <em>controlled vocabulary</em>. This kind describes an item belonging to an enumerated set, the item may also be nested. An ISO 3166 country code could be considered an enumeration node.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An element/em> of a controlled vocabulary. This kind describes an item belonging to an enumerated set, the item may also be nested. An ISO 3166 country code could be considered an enumeration node.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -673,7 +681,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>term reference</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A term reference.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -693,7 +701,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is a <em>list of values</em>, each <em>of the defined data type</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is a list of values, each of the defined data type.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -709,7 +717,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property can take on <em>one or more of a limited, and usually fixed, number of possible values</em>. In general, properties which take their values from an <em>enumerated set</em> of choices are of this kind.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property can take on one or more of a limited, and usually fixed, number of possible values. In general, properties which take their values from an enumerated set of choices are of this kind.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -725,7 +733,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one whose type of information is based in <em>quantities or quantifiable data</em> which is <em>continuous</em>. In general numerical values which can be aggregated in ranges fall under this category.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one whose type of information is based in quantities or quantifiable data which is continuous. In general numerical values which can be aggregated in ranges fall under this category.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -741,7 +749,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one which may <em>take an indefinite number of values</em>, which <em>differentiates it from a categorical</em> property, and whose values are <em>not continuous</em>, which <em>differentiates it from a quantitative property</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property is one which may take an indefinite number of values, which differentiates it from a categorical property, and whose values are not continuous, which differentiates it from a quantitative property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -757,7 +765,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>should not be available to clients for searching</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is should not be available to clients for searching.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -773,7 +781,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is <em>reserved by the object</em>, which means that it is automatically managed by the class and should not be explicitly set or modified by clients.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property is reserved by the object, which means that it is automatically managed by the class and should not be explicitly set or modified by clients.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -789,7 +797,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property <em>should not be displayed to clients</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the data property should not be displayed to clients.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -809,7 +817,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>incoming relationship</em> indicates that the relationship is <em>originating</em> from an <em>external vertex</em> directed to the current vertex.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An incoming relationship indicates that the relationship is originating from an external vertex directed to the current vertex.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -825,7 +833,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[An <em>outgoing relationship</em> indicates that the relationship is <em>originating</em> from the <em>current vertex</em> directed to an external vertex.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[An outgoing relationship indicates that the relationship is originating from the current vertex directed to an external vertex.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -841,7 +849,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A <em>bi-directional relationship</em> indicates that it is <em>both incoming and outgoing</em>, it <em>originates</em> from both the <em>current and external</em> vertices.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A bi-directional relationship indicates that it is both incoming and outgoing, it originates from both the current and external vertices.]]></item>
 				</item>
 			</item>
 		</TERM>

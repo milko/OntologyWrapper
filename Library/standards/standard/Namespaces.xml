@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Scientific nomenclature</em> of living organisms.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Scientific nomenclature of living organisms.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -37,7 +37,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Geographic and administrative</em> location.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic and administrative location.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Invormation regarding <em>institutions</em> and <em>inventories</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Invormation regarding institutions and inventories.]]></item>
 				</item>
 			</item>
 		</TERM>

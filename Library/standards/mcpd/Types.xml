@@ -18,7 +18,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>origin of the sample</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the origin of the sample.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -545,7 +545,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>biological status of the sample</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the biological status of the sample.]]></item>
 				</item>
 			</item>
 		</NODE>
@@ -922,7 +922,7 @@
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the <i>type of storage</i> in which the <i>sample is conserved</i>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the type of storage in which the sample is conserved.]]></item>
 				</item>
 			</item>
 		</NODE>

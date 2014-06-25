@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	FOREST GENE CONSERVATION UNITS STRUCTURE
-	Structure.xml
+	FOREST GENE CONSERVATION UNITS FORM
+	Form.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,21 +11,36 @@
 	
 	<!-- fcu -->
 	<META>
-		<NODE term="fcu" pid="struct:fcu">
+		<NODE term="fcu" pid="form:fcu">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
-				<item>:type:node:struct</item>
+				<item>:type:node:form</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a forest gene conservation unit.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all default search fields of a forest gene conservation unit.]]></item>
 				</item>
 			</item>
 		</NODE>
+	</META>
+
+	<!-- Unit properties -->
+
+	<META>
+		<NODE term="fcu:unit" pid="form:fcu:unit">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation unit fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:fcu</item>
+		</EDGE>
 	
-		<!-- Unit properties -->
-		
 		<!-- fcu:unit:number -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:unit:number</item>
@@ -38,10 +53,46 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- SCHEMA term=":location" pid="schema::location" -->
+		<!-- Country -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Primary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Secondary administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Lowest administrative unit -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Locality -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Minimum elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- Maximum elevation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:elevation:max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- fcu:unit:area -->
@@ -74,144 +125,117 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- fcu:unit:remarks-soil -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:unit:remarks-soil</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- fcu:unit:remarks -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:unit:remarks</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- fcu:unit:species -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:unit:species</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- fcu:population -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 	</META>
-	
-	<!-- Unit populations schema -->
-		
+
+	<!-- Target species -->
+
 	<META>
-		<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
+		<NODE term="fcu:population" pid="form:fcu:population">
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Target species fields.]]></item>
+				</item>
+			</item>
+		</NODE>
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">form:fcu</item>
+		</EDGE>
+		
+		<!-- :taxon:epithet -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- fcu:population:number -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:number</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:establishment -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:establishment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:last-visit -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:last-visit</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:status/:predicate:SCALE-OF/eufgis:PopulationStatus -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:status/:predicate:SCALE-OF/eufgis:PopulationStatus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:situ/:predicate:SCALE-OF/eufgis:PopulationSitu -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:situ/:predicate:SCALE-OF/eufgis:PopulationSitu</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:origin/:predicate:SCALE-OF/eufgis:PopulationOrigin -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:origin/:predicate:SCALE-OF/eufgis:PopulationOrigin</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:system/:predicate:SCALE-OF/eufgis:PopulationSystem -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:system/:predicate:SCALE-OF/eufgis:PopulationSystem</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:management/:predicate:SCALE-OF/eufgis:PopulationManagement -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:management/:predicate:SCALE-OF/eufgis:PopulationManagement</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:justification/:predicate:SCALE-OF/eufgis:PopulationJustification -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:justification/:predicate:SCALE-OF/eufgis:PopulationJustification</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:reproducing/:predicate:SCALE-OF/eufgis:PopulationReproducingTrees -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:reproducing/:predicate:SCALE-OF/eufgis:PopulationReproducingTrees</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:sex-ratio/:predicate:SCALE-OF/eufgis:PopulationSexRatio -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:sex-ratio/:predicate:SCALE-OF/eufgis:PopulationSexRatio</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:regeneration/:predicate:SCALE-OF/eufgis:PopulationRegeneration -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:regeneration/:predicate:SCALE-OF/eufgis:PopulationRegeneration</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:distribution/:predicate:SCALE-OF/eufgis:PopulationDistribution -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:distribution/:predicate:SCALE-OF/eufgis:PopulationDistribution</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 		
 		<!-- fcu:population:share -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:share</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
-		</EDGE>
-		
-		<!-- fcu:population:remarks -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">fcu:population:remarks</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
 		</EDGE>
 	</META>
 </METADATA>

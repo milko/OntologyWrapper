@@ -74,24 +74,14 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		link, which can take two forms:
  *	 <ul>
  *		<li><em>URL</em>: If the property contains an internet link, this element will hold
- *			the URL as a string.
+ *			the URL as a scalar string.
  *		<li><em>Object reference</em>: If the property contains an object reference, this
- *			element will hold the following structure:
- *		 <ul>
- *			<li><tt>id</tt>: The referenced object native identifier as a string.
- *			<li><tt>coll</tt>: The referenced object collection name.
- *		 </ul>
+ *			element will hold the service parameters needed to access the object.
  *		<li><em>Object sub-reference</em>: If the property contains an object sub-document,
- *			the element will hold the following structure:
- *		 <ul>
- *			<li><tt>id</tt>: The referenced object native identifier as a string.
- *			<li><tt>coll</tt>: The referenced object collection name.
- *			<li><tt>sub</tt>: The sub-document tag sequence number or native identifier.
- *			<li><tt>idx</tt>: The sub-document index, if the property holds a list of
- *				sub-documents.
- *		 </ul>
+ *			the element will hold the the service parameters needed to access the
+ *			sub-document.
  *	 </ul>
- *		In both cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
+ *		In all cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
  *		display name.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: This element holds the eventual
  *		sub-document as an array.
@@ -184,11 +174,6 @@ class ResultFormatter
 		$this->mResults = & $theResults;
 		
 		//
-		// Set results type.
-		//
-		$theIterator->resultType( kQUERY_ARRAY );
-		
-		//
 		// Store iterator.
 		//
 		$this->mIterator = $theIterator;
@@ -277,7 +262,8 @@ class ResultFormatter
 					= array_unique(
 						array_diff(
 							array_merge(
-								array_keys( $object ),
+								( is_array( $object ) ) ? array_keys( $object )
+														: $object->arrayKeys(),
 								$object[ kTAG_OBJECT_TAGS ] ),
 							$exclude ) );
 				
@@ -692,52 +678,38 @@ class ResultFormatter
 		// Init local storage.
 		//
 		$tag = $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];
-		
+	
 		//
-		// Handle arrays.
+		// Parse by type.
 		//
-		if( is_array( $theValue ) )
+		switch( $tag[ kTAG_DATA_TYPE ] )
 		{
-			//
-			// Iterate list.
-			//
-			$theResults = Array();
-			foreach( $theValue as $key => $value )
-			{
-				$theResults[ $key ] = NULL;
-				$this->resolveProperty(
-					$theWrapper,
-					$theTags,
-					$theResults[ $key ],
-					$value,
-					$theTag,
-					$theLanguage );
-			}
+			case kTYPE_ENUM:
+			case kTYPE_SET:
+				$this->resolveEnum(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_TYPED_LIST:
+				$this->resolveTypedList(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_BOOLEAN:
+				$this->resolveBoolean(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_MIXED:
+			case kTYPE_STRING:
+			case kTYPE_INT:
+			case kTYPE_FLOAT:
+			default:
+				$this->resolveScalar(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
 		
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-		{
-			//
-			// Parse by type.
-			//
-			switch( $tag[ kTAG_DATA_TYPE ] )
-			{
-				case kTYPE_ENUM:
-				case kTYPE_SET:
-					$this->resolveEnum( $theWrapper, $theResults, $theValue, $theLanguage );
-					break;
-				
-				case kTYPE_MIXED:
-				default:
-					$theResults = $theValue;
-					break;
-			}
-		
-		} // Scalar.
+		} // Parsed by type.
 			
 	} // resolveProperty.
 
@@ -753,42 +725,383 @@ class ResultFormatter
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
 	 * @param mixed					$theValue			Enumerated value.
 	 * @param string				$theLanguage		Default language code.
 	 *
 	 * @access protected
 	 */
 	protected function resolveEnum( Wrapper $theWrapper, &$theResults,
+														 &$theTag,
 														  $theValue,
 														  $theLanguage )
 	{
 		//
-		// Cache term.
+		// Handle array.
 		//
-		$this->cacheTerm( $theWrapper, $theValue, $theLanguage );
-		
-		//
-		// Reference term.
-		//
-		$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
-		
-		//
-		// Allocate data.
-		//
-		$theResults = Array();
-		
-		//
-		// Set label.
-		//
-		$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $term[ kTAG_LABEL ];
-		
-		//
-		// Set definition.
-		//
-		if( array_key_exists( kTAG_DEFINITION, $term ) )
-			$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		if( is_array( $theValue ) )
+		{
+			//
+			// Allocate results.
+			//
+			$theResults = Array();
 			
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveEnum(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveEnum(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Cache term.
+			//
+			$this->cacheTerm( $theWrapper, $theValue, $theLanguage );
+		
+			//
+			// Reference term.
+			//
+			$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
+		
+			//
+			// Allocate data.
+			//
+			if( ! is_array( $theResults ) )
+				$theResults = Array();
+		
+			//
+			// Set label.
+			//
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $term[ kTAG_LABEL ];
+		
+			//
+			// Set definition.
+			//
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		
+		} // Scalar value.
+		
 	} // resolveEnum.
+
+	 
+	/*===================================================================================
+	 *	resolveTypedList																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve typed list
+	 *
+	 * This method will resolve the provided typed list value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveTypedList( Wrapper $theWrapper, &$theResults,
+															  &$theTag,
+															   $theValue,
+															   $theLanguage )
+	{
+		//
+		// Handle single element.
+		//
+		if( count( $theValue ) == 1 )
+		{
+			//
+			// Handle typeless element.
+			//
+			if( ! array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+			{
+				//
+				// Handle text.
+				//
+				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
+					$theResults = $theValue[ 0 ][ kTAG_TEXT ];
+				
+				//
+				// Handle URL.
+				//
+				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+				{
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = 'View';
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $theValue[ 0 ][ kTAG_URL ];
+				
+				} // URL.
+			
+			} // Set data.
+			
+			//
+			// Handle typed value.
+			//
+			else
+			{
+				//
+				// Set type.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ 0 ][ kTAG_TYPE ];
+
+				//
+				// Handle text.
+				//
+				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				//
+				// Handle URL.
+				//
+				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+				{
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = 'View';
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $theValue[ 0 ][ kTAG_URL ];
+				
+				} // URL.
+			
+			} // Typed value.
+		
+		} // Single element.
+		
+		//
+		// Handle multiple elements.
+		//
+		else
+		{
+			//
+			// Iterate elements.
+			//
+			$keys = array_keys( $theValue );
+			foreach( $keys as $key )
+			{
+				//
+				// Allocate element.
+				//
+				$theResults[] = Array();
+				$ref = & $theResults[ count( $theResults ) - 1 ];
+				
+				//
+				// Handle typeless element.
+				//
+				if( ! array_key_exists( kTAG_TYPE, $theValue[ $key ] ) )
+					$ref = $theValue[ $key ][ kTAG_TEXT ];
+			
+				//
+				// Handle typed value.
+				//
+				else
+				{
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ $key ][ kTAG_TYPE ];
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = $theValue[ $key ][ kTAG_TEXT ];
+			
+				} // Typed value.
+			
+			} // Iterating elements.
+		
+		} // Multiple elements.
+			
+	} // resolveTypedList.
+
+	 
+	/*===================================================================================
+	 *	resolveBoolean																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve boolean
+	 *
+	 * This method will resolve the provided boolean value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveBoolean( Wrapper $theWrapper, &$theResults,
+															&$theTag,
+															 $theValue,
+															 $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveScalar(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveScalar(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults = ( $theValue ) ? 'Yes' : 'No';
+		
+	} // resolveBoolean.
+
+	 
+	/*===================================================================================
+	 *	resolveScalar																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve scalar
+	 *
+	 * This method will resolve the provided scalar value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveScalar( Wrapper $theWrapper, &$theResults,
+														   &$theTag,
+															$theValue,
+															$theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveScalar(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveScalar(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults = $theValue;
+		
+	} // resolveScalar.
 
 	 
 

@@ -37,7 +37,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Geographic and administrative</em> information of a <em>forest gene conservartion unit</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic and administrative information of a forest gene conservartion unit.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -47,13 +47,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation unit population]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation unit populations]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<em>Target managed species</em> information of a <em>forest fene conservartion unit</em>.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Target managed species information of a forest fene conservartion unit.]]></item>
 				</item>
 			</item>
 		</TERM>

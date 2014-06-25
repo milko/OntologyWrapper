@@ -21,7 +21,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This <em>namespace</em> groups all test terms of the ontology, these are elements used to test the system.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This namespace groups all test terms of the ontology, these are elements used to test the system.]]></item>
 				</item>
 			</item>
 		</TERM>
