@@ -1,448 +1,351 @@
+The elements of the following array are defined as follows:
+
+	- kAPI_PARAM_RESPONSE_FRMT_NAME: This element holds the data property name or label.
+	- kAPI_PARAM_RESPONSE_FRMT_INFO: This element holds the data property information or
+									 description.
+	- kAPI_PARAM_RESPONSE_FRMT_DISP: This element holds the data property display string, or
+									 list of display elements.
+	- kAPI_PARAM_RESPONSE_FRMT_LINK: This element holds the URL for properties that
+									 represent an internet link.
+	- kAPI_PARAM_RESPONSE_FRMT_SERV: If the property is an object reference, this element
+									 holds the list of parameters that can be used to call
+									 the service that will retrieve the data of the
+									 referenced object.
+	- kAPI_PARAM_RESPONSE_FRMT_SMAP: If the property is a shape, this element holds the list
+									 of parameters that can be used to call the service that
+									 will retrieve the marker information corresponding to
+									 the current shape.
+	- kAPI_PARAM_RESPONSE_FRMT_DOCU: If the property is a struct, this element holds the
+									 sub-document nested structure.
+
 [results] => Array
 	(
 		[:domain:forest://AUT/00023/1990;] => Array
 			(
-				[232] => Array
+				[24] => Array	// Scalar
 					(
-						[name] => Unit number
-						[info] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
-						[data] => AUT00023
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit number
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => AUT00023
 					)
 
-				[173] => Array
+				[25] => Array	// List of scalars
 					(
-						[name] => Country
-						[info] => This attribute holds the enumerated value describing the location country. For historical reasons legacy countries are included.
-						[data] => Array
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit number
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
-								[name] => Austria
-								[info] => Republic of Austria
+								AUT00023
+								AUT00022
 							)
-
 					)
 
-				[237] => Array
+				[43] => Array	// URL
 					(
-						[name] => Unit data collection date
-						[info] => Date in which the unit data was collected, the date should be expressed in YYYYMMDD format, where day and month may be omitted.
-						[data] => 1990
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Accession URL
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The original information held at the responsible institute.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => View
+						[kAPI_PARAM_RESPONSE_FRMT_LINK] => http://the.accession/123
 					)
 
-				[11] => Array
+				[32] => Array	// List of URLs
 					(
-						[name] => Reference version or date
-						[data] => 1990
-					)
-
-				[238] => Array
-					(
-						[name] => Date of the most recent visit
-						[info] => Date in which the unit data last visited, the date should be expressed in YYYYMMDD format, where day and month may be omitted.
-						[data] => 2000
-					)
-
-				[233] => Array
-					(
-						[name] => National unit number
-						[info] => Unit number from the national registry.
-						[data] => 214
-					)
-
-				[175] => Array
-					(
-						[name] => Primary administrative unit
-						[info] => This attribute holds the name of the primary administrative unit below the country.
-						[data] => Kärnten
-					)
-
-				[176] => Array
-					(
-						[name] => Secondary administrative unit
-						[info] => This attribute holds the name of the secondary administrative unit below the primary administrative unit.
-						[data] => St.Veit/Glan
-					)
-
-				[178] => Array
-					(
-						[name] => Locality
-						[info] => This attribute holds the description or name of the location, this might include the distance in kilometres and direction from the nearest town, village or map grid reference point.
-						[data] => Rev. Petschon - Abtlg. 3/12, 4/1, 4/2, 4/7, 4/8
-					)
-
-				[189] => Array
-					(
-						[name] => Decimal latitude
-						[info] => This attribute holds the location latitude in decimal degrees.
-						[data] => 46.819444444444
-					)
-
-				[195] => Array
-					(
-						[name] => Decimal longitude
-						[info] => This attribute holds the location longitude in decimal degrees.
-						[data] => 14.547777777778
-					)
-
-				[180] => Array
-					(
-						[name] => Minimum elevation
-						[info] => This attribute holds the location minimum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.
-						[data] => 600
-					)
-
-				[181] => Array
-					(
-						[name] => Maximum elevation
-						[info] => This attribute holds the location maximum elevation in meters, positive values indicate above the sea level and negative values indicate below sea level.
-						[data] => 760
-					)
-
-				[183] => Array
-					(
-						[name] => Datum
-						[info] => Datum of the projection used to obtain the coordinates.  If not provided ‘WGS 1984’ will be used. A horizontal geodetic datum based on an ellipsoid that has its origin at the earth's center of mass. Examples are the World Geodetic System of 1984, the North American Datum of 1983, and the Geodetic Datum of Australia of 1994. The first uses the WGS84 ellipsoid; the latter two use the GRS80 ellipsoid.
-						[data] => Array
-							(
-								[name] => WGS-84
-							)
-
-					)
-
-				[201] => Array
-					(
-						[name] => Coordinates restricted
-						[info] => This attribute indicates whether the coordinates may or may not be published.
-						[data] => No
-					)
-
-				[234] => Array
-					(
-						[name] => Surface area of the unit
-						[info] => Total surface area of the unit in hectares accuracy of 0.1 ha.
-						[data] => 14.2
-					)
-
-				[235] => Array
-					(
-						[name] => Ownership type of the unit
-						[data] => Array
-							(
-								[name] => Private
-							)
-
-					)
-
-				[236] => Array
-					(
-						[name] => Type and function of the unit
-						[data] => Array
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Accession URLs
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The original information held at the responsible institute.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
 								[0] => Array
 									(
-										[name] => Gene reserve forest
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Main
+										[kAPI_PARAM_RESPONSE_FRMT_LINK] => http://the.accession/123
+									)
+									
+								[1] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Secondary
+										[kAPI_PARAM_RESPONSE_FRMT_LINK] => http://the.accession/234
+									)
+									
+								[2] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => http://the.accession/234
+										[kAPI_PARAM_RESPONSE_FRMT_LINK] => http://the.accession/234
+									)
+							)
+					)
+
+				[22] => Array	// Enumeration
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Country
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds the enumerated value describing the location country. For historical reasons legacy countries are included.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+							(
+								[kAPI_PARAM_RESPONSE_FRMT_DISP] => Austria
+								[kAPI_PARAM_RESPONSE_FRMT_INFO] => Republic of Austria
+							)
+
+					)
+
+				[33] => Array	// Enumerated set
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Type and function of the unit
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+							(
+								[0] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Gene reserve forest
+										[kAPI_PARAM_RESPONSE_FRMT_INFO] => A forest that is a gene reserve.
 									)
 
 								[1] => Array
 									(
-										[name] => Forest area managed for wood production and /or multiple uses and services
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Forest area managed for wood production and /or multiple uses and services
 									)
 
 							)
 
 					)
 
-				[241] => Array
+				[56] => Array	// Typed list
 					(
-						[name] => All tree species growing in the unit
-						[info] => List of target and non target species growing in the unit.
-						[docu] => Array
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Telephone numbers
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds the list of telephone numbers.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
 								[0] => Array
 									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Acer pseudoplatanus
-											)
-
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => Work
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => +44 71 8792531
 									)
 
 								[1] => Array
 									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Picea abies
-											)
-
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => Home
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => +44 71 8792531
 									)
 
 								[2] => Array
 									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Fraxinus excelsior
-											)
-
-									)
-
-								[3] => Array
-									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Larix decidua
-											)
-
-									)
-
-								[4] => Array
-									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Fagus sylvatica
-											)
-
-									)
-
-								[5] => Array
-									(
-										[163] => Array
-											(
-												[name] => Scientific name
-												[data] => Abies alba
-											)
-
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => +44 71 8792531
 									)
 
 							)
 
 					)
 
-				[242] => Array
+				[99] => Array	// Object reference
 					(
-						[name] => Unit populations
-						[info] => Information on population target species growing in the unit.
-						[docu] => Array
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Holding institute
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The institute holding the accession.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Bioversity International
+						[kAPI_PARAM_RESPONSE_FRMT_SERV] => Array
+							(
+								kAPI_REQUEST_OPERATION => kAPI_OP_GET_UNIT
+								kAPI_REQUEST_LANGUAGE => 'en',
+								kAPI_REQUEST_PARAMETERS => Array
+									(
+										kAPI_PARAM_ID => ':domain:organisation/ITA303;'
+										kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+									)
+							)
+					)
+
+				[98] => Array	// Object references list
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Holding institutes
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The institutes holding the accession.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
 								[0] => Array
 									(
-										[163] => Array
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => IPGRI
+										[kAPI_PARAM_RESPONSE_FRMT_SERV] => Array
 											(
-												[name] => Scientific name
-												[data] => Larix decidua
-											)
-
-										[245] => Array
-											(
-												[name] => Last visit date
-												[info] => Date of the most recent visit.
-												[data] => 1990
-											)
-
-										[246] => Array
-											(
-												[name] => Population status
-												[info] => Status of the target tree population regarding the EUFORGEN common action plans.
-												[data] => Array
+												kAPI_REQUEST_OPERATION => kAPI_OP_GET_UNIT
+												kAPI_REQUEST_LANGUAGE => 'en',
+												kAPI_REQUEST_PARAMETERS => Array
 													(
-														[name] => Pending
+														kAPI_PARAM_ID => ':domain:organisation/ITA303;'
+														kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 													)
-
 											)
-
-										[247] => Array
-											(
-												[name] => Category of the population
-												[data] => Array
-													(
-														[name] => In situ
-													)
-
-											)
-
-										[248] => Array
-											(
-												[name] => Origin of the material
-												[data] => Array
-													(
-														[name] => Autochthonous
-													)
-
-											)
-
-										[249] => Array
-											(
-												[name] => Predominant silvicultural system
-												[data] => Array
-													(
-														[name] => Clear-cutting with natural regeneration
-														[info] => Seed trees or strips.
-													)
-
-											)
-
-										[250] => Array
-											(
-												[name] => Population management
-												[info] => Level of management allowed to favour the target species.
-												[data] => Array
-													(
-														[name] => Conservation through active intervention carried out
-													)
-
-											)
-
-										[251] => Array
-											(
-												[name] => Population justification
-												[info] => Main reason for carrying out gene conservation for this taxon.
-												[data] => Array
-													(
-														[name] => To maintain genetic diversity in large tree populations
-													)
-
-											)
-
-										[252] => Array
-											(
-												[name] => Population reproducing trees
-												[info] => Total number of reproducing trees per unit.
-												[data] => Array
-													(
-														[name] => 501 - 5000
-													)
-
-											)
-
-										[255] => Array
-											(
-												[name] => Distribution of the reproducing trees in the unit
-												[data] => Array
-													(
-														[name] => In stands
-													)
-
-											)
-
-										[256] => Array
-											(
-												[name] => Estimated share of the total area within the unit in which the species is occurring
-												[info] => Expressed as a percentage, from 0 to 100.
-												[data] => 100
-											)
-
 									)
-
+									
 								[1] => Array
 									(
-										[163] => Array
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Bioversity International
+										[kAPI_PARAM_RESPONSE_FRMT_SERV] => Array
 											(
-												[name] => Scientific name
-												[data] => Picea abies
-											)
-
-										[245] => Array
-											(
-												[name] => Last visit date
-												[info] => Date of the most recent visit.
-												[data] => 1990
-											)
-
-										[246] => Array
-											(
-												[name] => Population status
-												[info] => Status of the target tree population regarding the EUFORGEN common action plans.
-												[data] => Array
+												kAPI_REQUEST_OPERATION => kAPI_OP_GET_UNIT
+												kAPI_REQUEST_LANGUAGE => 'en',
+												kAPI_REQUEST_PARAMETERS => Array
 													(
-														[name] => Pending
+														kAPI_PARAM_ID => ':domain:organisation/ITA403;'
+														kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+													)
+											)
+									)
+							)
+					)
+
+				[101] => Array	// Shape
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Location
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => View location on map.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => View on map
+						[kAPI_PARAM_RESPONSE_FRMT_SMAP] => Array
+							(
+								kAPI_REQUEST_OPERATION => kAPI_OP_GET_UNIT
+								kAPI_REQUEST_LANGUAGE => 'en',
+								kAPI_REQUEST_PARAMETERS => Array
+									(
+										kAPI_PARAM_ID => ':domain:organisation/ITA303;'
+										kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
+									)
+							)
+					)
+
+				[102] => Array	// Struct
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Structure
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This is a structure.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
+						[kAPI_PARAM_RESPONSE_FRMT_DOCU] => Array
+							(
+								[163] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => Scientific name
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
+									)
+
+								[245] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => Last visit date
+										[kAPI_PARAM_RESPONSE_FRMT_INFO] => Date of the most recent visit.
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => 1990
+									)
+
+							)
+
+					)
+
+				[struct-list] => Array
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit populations
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => Information on population target species growing in the unit.
+						[kAPI_PARAM_RESPONSE_FRMT_DOCU] => Array
+							(
+								[0] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
+										[kAPI_PARAM_RESPONSE_FRMT_DOCU] => Array
+											(
+												[163] => Array
+													(
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Scientific name
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
 													)
 
-											)
-
-										[247] => Array
-											(
-												[name] => Category of the population
-												[data] => Array
+												[245] => Array
 													(
-														[name] => In situ
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Last visit date
+														[kAPI_PARAM_RESPONSE_FRMT_INFO] => Date of the most recent visit.
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => 1990
 													)
 
-											)
-
-										[248] => Array
-											(
-												[name] => Origin of the material
-												[data] => Array
+												[246] => Array
 													(
-														[name] => Autochthonous
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Population status
+														[kAPI_PARAM_RESPONSE_FRMT_INFO] => Status of the target tree population regarding the EUFORGEN common action plans.
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => Pending
+															)
+
 													)
 
-											)
-
-										[249] => Array
-											(
-												[name] => Predominant silvicultural system
-												[data] => Array
+												[247] => Array
 													(
-														[name] => Clear-cutting with natural regeneration
-														[info] => Seed trees or strips.
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Category of the population
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => In situ
+															)
+
 													)
 
-											)
-
-										[250] => Array
-											(
-												[name] => Population management
-												[info] => Level of management allowed to favour the target species.
-												[data] => Array
+												[248] => Array
 													(
-														[name] => Conservation through active intervention carried out
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Origin of the material
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => Autochthonous
+															)
+
 													)
 
-											)
-
-										[251] => Array
-											(
-												[name] => Population justification
-												[info] => Main reason for carrying out gene conservation for this taxon.
-												[data] => Array
+												[249] => Array
 													(
-														[name] => To maintain genetic diversity in large tree populations
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Predominant silvicultural system
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => Clear-cutting with natural regeneration
+																[kAPI_PARAM_RESPONSE_FRMT_INFO] => Seed trees or strips.
+															)
+
+													)
+											)
+									)
+								
+								[1] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
+										[kAPI_PARAM_RESPONSE_FRMT_DOCU] => Array
+											(
+												[163] => Array
+													(
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Scientific name
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Picea abies
 													)
 
-											)
-
-										[252] => Array
-											(
-												[name] => Population reproducing trees
-												[info] => Total number of reproducing trees per unit.
-												[data] => Array
+												[245] => Array
 													(
-														[name] => 501 - 5000
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Last visit date
+														[kAPI_PARAM_RESPONSE_FRMT_INFO] => Date of the most recent visit.
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => 1990
 													)
 
-											)
-
-										[255] => Array
-											(
-												[name] => Distribution of the reproducing trees in the unit
-												[data] => Array
+												[246] => Array
 													(
-														[name] => In stands
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Population status
+														[kAPI_PARAM_RESPONSE_FRMT_INFO] => Status of the target tree population regarding the EUFORGEN common action plans.
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => Pending
+															)
+
 													)
 
-											)
+												[247] => Array
+													(
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Category of the population
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => In situ
+															)
 
-										[256] => Array
-											(
-												[name] => Estimated share of the total area within the unit in which the species is occurring
-												[info] => Expressed as a percentage, from 0 to 100.
-												[data] => 100
-											)
+													)
 
+												[248] => Array
+													(
+														[kAPI_PARAM_RESPONSE_FRMT_NAME] => Origin of the material
+														[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+															(
+																[kAPI_PARAM_RESPONSE_FRMT_NAME] => Autochthonous
+															)
+
+													)
+											)
 									)
 
 							)

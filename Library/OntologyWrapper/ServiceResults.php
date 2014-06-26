@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ResultFormatter.php
+ * ServiceResults.php
  *
- * This file contains the definition of the {@link ResultFormatter} class.
+ * This file contains the definition of the {@link ServiceResults} class.
  */
 
 namespace OntologyWrapper;
@@ -13,7 +13,7 @@ use OntologyWrapper\IteratorObject;
 
 /*=======================================================================================
  *																						*
- *								ResultFormatter.php										*
+ *								ServiceResults.php										*
  *																						*
  *======================================================================================*/
 
@@ -25,14 +25,12 @@ use OntologyWrapper\IteratorObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 /**
- * Results formatter
+ * Service results formatter
  *
- * The duty of this object is to format the results of the provided iterator object into
- * a set of data elements which may be used by a client to display the results.
+ * The duty of this class is to format the results returned by services according to the
+ * format type indicated in the service {@link kAPI_PARAM_DATA} parameter.
  *
- * The object stores this structure in a data member, this data member is set with a
- * reference to the array that will receive the results. The structure is divided into two
- * main blocks, the first one is structured as follows:
+ * The class will fill two of the main blocks of the service response:
  *
  * <ul>
  *	<li><tt>{@link kAPI_RESPONSE_PAGING}</tt>: This element holds the iterator counters:
@@ -60,47 +58,24 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		name or label.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
  *		information or description.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the property data
- *		formatted as a string, if the property is a scalar, or an array if the property is
- *		an enumerated set: in this case the value will be formatted as an array of elements
- *		of the following structure:
- *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The enumerated value name or
- *			label.
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The enumerated value information
- *			or description.
- *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This tag indicates the property
- *		link, which can take two forms:
- *	 <ul>
- *		<li><em>URL</em>: If the property contains an internet link, this element will hold
- *			the URL as a string.
- *		<li><em>Object reference</em>: If the property contains an object reference, this
- *			element will hold the following structure:
- *		 <ul>
- *			<li><tt>id</tt>: The referenced object native identifier as a string.
- *			<li><tt>coll</tt>: The referenced object collection name.
- *		 </ul>
- *		<li><em>Object sub-reference</em>: If the property contains an object sub-document,
- *			the element will hold the following structure:
- *		 <ul>
- *			<li><tt>id</tt>: The referenced object native identifier as a string.
- *			<li><tt>coll</tt>: The referenced object collection name.
- *			<li><tt>sub</tt>: The sub-document tag sequence number or native identifier.
- *			<li><tt>idx</tt>: The sub-document index, if the property holds a list of
- *				sub-documents.
- *		 </ul>
- *	 </ul>
- *		In both cases the {@link kAPI_PARAM_RESPONSE_FRMT_DISP} element will hold the link
- *		display name.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: This element holds the eventual
- *		sub-document as an array.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data property
+ *		display string, or list of display elements.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
+ *		properties that represent an internet link.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
+ *		reference, this element holds the list of parameters that can be used to call the
+ *		service that will retrieve the data of the referenced object.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SMAP}</tt>: If the property is a shape, this
+ *		element holds the list of parameters that can be used to call the service that will
+ *		retrieve the marker information corresponding to the current shape.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a struct, this
+ *		element holds the sub-document nested structure.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 18/06/2014
+ *	@version	1.00 26/06/2014
  */
-class ResultFormatter
+class ServiceResults
 {
 	/**
 	 * Iterator.
@@ -114,7 +89,7 @@ class ResultFormatter
 	/**
 	 * Results.
 	 *
-	 * This protected data member holds the iterator aggregated results.
+	 * This protected data member holds a reference to the results container.
 	 *
 	 * @var array
 	 */
@@ -123,11 +98,20 @@ class ResultFormatter
 	/**
 	 * Cache.
 	 *
-	 * This protected data member holds the cache, indexed by collection name.
+	 * This protected data member holds the object cache.
 	 *
 	 * @var array
 	 */
 	protected $mCache = Array();
+
+	/**
+	 * Current object.
+	 *
+	 * This protected data member holds the iterated current object.
+	 *
+	 * @var PersistentObject
+	 */
+	protected $mCurrentObject = NULL;
 
 	/**
 	 * Processed.
@@ -162,9 +146,6 @@ class ResultFormatter
 	 * The iterator should have been paged by the caller: in this class we do not handle
 	 * paging and sorting, we simply scan the iterator.
 	 *
-	 * The constructor will store the iterator and exctract the relevant information from
-	 * it, it will then initialise the paging, dictionary and object blocks.
-	 *
 	 * @param IteratorObject		$theIterator		Iterator.
 	 * @param array					$theResults			Results array reference.
 	 *
@@ -173,30 +154,20 @@ class ResultFormatter
 	public function __construct( IteratorObject $theIterator, &$theResults )
 	{
 		//
-		// Check results.
-		//
-		if( ! is_array( $theResults ) )
-			$theResults = Array();
-		
-		//
-		// Set results.
-		//
-		$this->mResults = & $theResults;
-		
-		//
-		// Set results type.
-		//
-		$theIterator->resultType( kQUERY_ARRAY );
-		
-		//
 		// Store iterator.
 		//
 		$this->mIterator = $theIterator;
 		
 		//
-		// Init paging.
+		// Initialise results.
 		//
-		$this->mResults[ kAPI_RESPONSE_PAGING ]
+		if( ! is_array( $theResults ) )
+			$theResults = Array();
+		
+		//
+		// Init results paging.
+		//
+		$theResults[ kAPI_RESPONSE_PAGING ]
 			= array( kAPI_PAGING_AFFECTED => $theIterator->affectedCount(),
 					 kAPI_PAGING_ACTUAL => $theIterator->count(),
 					 kAPI_PAGING_SKIP => $theIterator->skip(),
@@ -205,7 +176,12 @@ class ResultFormatter
 		//
 		// Init results.
 		//
-		$this->mResults[ kAPI_RESPONSE_RESULTS ] = Array();
+		$theResults[ kAPI_RESPONSE_RESULTS ] = Array();
+		
+		//
+		// Save results.
+		//
+		$this->mResults = & $theResults;
 
 	} // Constructor.
 
@@ -220,13 +196,13 @@ class ResultFormatter
 
 	 
 	/*===================================================================================
-	 *	format																			*
+	 *	formatted																		*
 	 *==================================================================================*/
 
 	/**
-	 * <h4>Format and return results</h4>
+	 * Format and return results
 	 *
-	 * This method will iterate the results set aggregating the data, the method will return
+	 * This method will iterate the results set formatting the data, the method will return
 	 * the resulting array.
 	 *
 	 * @param string				$theLanguage		Default language code.
@@ -277,7 +253,8 @@ class ResultFormatter
 					= array_unique(
 						array_diff(
 							array_merge(
-								array_keys( $object ),
+								( is_array( $object ) ) ? array_keys( $object )
+														: $object->arrayKeys(),
 								$object[ kTAG_OBJECT_TAGS ] ),
 							$exclude ) );
 				
@@ -315,6 +292,75 @@ class ResultFormatter
 	} // format.
 
 	 
+	/*===================================================================================
+	 *	table																			*
+	 *==================================================================================*/
+
+	/**
+	 * Format and return table results
+	 *
+	 * This method will iterate the results set using the provided field set, the method
+	 * will return the resulting array.
+	 *
+	 * @param array					$theFields			List of fields.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access public
+	 * @return array				Aggregated results.
+	 */
+	public function table( $theFields, $theLanguage = NULL )
+	{
+		//
+		// Check if it needs to be processed.
+		//
+		if( ! $this->mProcessed )
+		{
+			//
+			// Init local storage.
+			//
+			$collection = $this->mIterator->collection();
+			$wrapper = $collection->dictionary();
+			$results = & $this->mResults[ kAPI_RESPONSE_RESULTS ];
+	
+			//
+			// Iterate.
+			//
+			foreach( $this->mIterator as $object )
+			{
+				//
+				// Cache tags.
+				//
+				$this->cacheTag( $wrapper, $theFields, $theLanguage );
+							
+				//
+				// Allocate object in results.
+				//
+				$results[ $object[ kTAG_NID ] ] = Array();
+				
+				//
+				// Process object.
+				//
+				$this->tableObject(
+					$wrapper,
+					$theFields,
+					$object,
+					$results[ $object[ kTAG_NID ] ],
+					$theLanguage );
+			
+			} // Iterating objects.
+		
+			//
+			// Signal processed.
+			//
+			$this->mProcessed = TRUE;
+	
+		} // Not processed.
+	
+		return $this->mResults;														// ==>
+	
+	} // table.
+
+	 
 
 /*=======================================================================================
  *																						*
@@ -322,6 +368,61 @@ class ResultFormatter
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	tableObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Table object
+	 *
+	 * This method will parse the provided object.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theTags			Object tags.
+	 * @param array					$theObject			Object array reference.
+	 * @param array					$theResults			Results array reference.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function tableObject( Wrapper $theWrapper, &$theTags,
+														 &$theObject,
+														 &$theResults,
+														  $theLanguage )
+	{
+		//
+		// Iterate object properties.
+		//
+		foreach( $theObject as $key => $value )
+		{
+			//
+			// Handle published tags.
+			//
+			if( in_array( $key, $theTags ) )
+			{
+				//
+				// Allocate property.
+				//
+				$theResults[ $key ] = Array();
+				
+				//
+				// Format property.
+				//
+				$this->formatProperty(
+					$theWrapper,
+					$theTags,
+					$theResults[ $key ],
+					$value,
+					$key,
+					$theLanguage );
+			
+			} // Publishable tag.
+
+		} // Iterated object properties.
+		
+	} // tableObject.
 
 	 
 	/*===================================================================================
@@ -568,52 +669,38 @@ class ResultFormatter
 		// Init local storage.
 		//
 		$tag = $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];
-		
+	
 		//
-		// Handle arrays.
+		// Parse by type.
 		//
-		if( is_array( $theValue ) )
+		switch( $tag[ kTAG_DATA_TYPE ] )
 		{
-			//
-			// Iterate list.
-			//
-			$theResults = Array();
-			foreach( $theValue as $key => $value )
-			{
-				$theResults[ $key ] = NULL;
-				$this->resolveProperty(
-					$theWrapper,
-					$theTags,
-					$theResults[ $key ],
-					$value,
-					$theTag,
-					$theLanguage );
-			}
+			case kTYPE_ENUM:
+			case kTYPE_SET:
+				$this->resolveEnum(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_TYPED_LIST:
+				$this->resolveTypedList(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_BOOLEAN:
+				$this->resolveBoolean(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
+			
+			case kTYPE_MIXED:
+			case kTYPE_STRING:
+			case kTYPE_INT:
+			case kTYPE_FLOAT:
+			default:
+				$this->resolveScalar(
+					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+				break;
 		
-		} // List of values.
-		
-		//
-		// Handle scalar.
-		//
-		else
-		{
-			//
-			// Parse by type.
-			//
-			switch( $tag[ kTAG_DATA_TYPE ] )
-			{
-				case kTYPE_ENUM:
-				case kTYPE_SET:
-					$this->resolveEnum( $theWrapper, $theResults, $theValue, $theLanguage );
-					break;
-				
-				case kTYPE_MIXED:
-				default:
-					$theResults = $theValue;
-					break;
-			}
-		
-		} // Scalar.
+		} // Parsed by type.
 			
 	} // resolveProperty.
 
@@ -629,42 +716,383 @@ class ResultFormatter
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
 	 * @param mixed					$theValue			Enumerated value.
 	 * @param string				$theLanguage		Default language code.
 	 *
 	 * @access protected
 	 */
 	protected function resolveEnum( Wrapper $theWrapper, &$theResults,
+														 &$theTag,
 														  $theValue,
 														  $theLanguage )
 	{
 		//
-		// Cache term.
+		// Handle array.
 		//
-		$this->cacheTerm( $theWrapper, $theValue, $theLanguage );
-		
-		//
-		// Reference term.
-		//
-		$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
-		
-		//
-		// Allocate data.
-		//
-		$theResults = Array();
-		
-		//
-		// Set label.
-		//
-		$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $term[ kTAG_LABEL ];
-		
-		//
-		// Set definition.
-		//
-		if( array_key_exists( kTAG_DEFINITION, $term ) )
-			$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		if( is_array( $theValue ) )
+		{
+			//
+			// Allocate results.
+			//
+			$theResults = Array();
 			
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveEnum(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveEnum(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Cache term.
+			//
+			$this->cacheTerm( $theWrapper, $theValue, $theLanguage );
+		
+			//
+			// Reference term.
+			//
+			$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
+		
+			//
+			// Allocate data.
+			//
+			if( ! is_array( $theResults ) )
+				$theResults = Array();
+		
+			//
+			// Set label.
+			//
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
+		
+			//
+			// Set definition.
+			//
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		
+		} // Scalar value.
+		
 	} // resolveEnum.
+
+	 
+	/*===================================================================================
+	 *	resolveTypedList																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve typed list
+	 *
+	 * This method will resolve the provided typed list value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveTypedList( Wrapper $theWrapper, &$theResults,
+															  &$theTag,
+															   $theValue,
+															   $theLanguage )
+	{
+		//
+		// Handle single element.
+		//
+		if( count( $theValue ) == 1 )
+		{
+			//
+			// Handle typeless element.
+			//
+			if( ! array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+			{
+				//
+				// Handle text.
+				//
+				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
+					$theResults = $theValue[ 0 ][ kTAG_TEXT ];
+				
+				//
+				// Handle URL.
+				//
+				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+				{
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = 'View';
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $theValue[ 0 ][ kTAG_URL ];
+				
+				} // URL.
+			
+			} // Set data.
+			
+			//
+			// Handle typed value.
+			//
+			else
+			{
+				//
+				// Set type.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ 0 ][ kTAG_TYPE ];
+
+				//
+				// Handle text.
+				//
+				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				//
+				// Handle URL.
+				//
+				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+				{
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = 'View';
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $theValue[ 0 ][ kTAG_URL ];
+				
+				} // URL.
+			
+			} // Typed value.
+		
+		} // Single element.
+		
+		//
+		// Handle multiple elements.
+		//
+		else
+		{
+			//
+			// Iterate elements.
+			//
+			$keys = array_keys( $theValue );
+			foreach( $keys as $key )
+			{
+				//
+				// Allocate element.
+				//
+				$theResults[] = Array();
+				$ref = & $theResults[ count( $theResults ) - 1 ];
+				
+				//
+				// Handle typeless element.
+				//
+				if( ! array_key_exists( kTAG_TYPE, $theValue[ $key ] ) )
+					$ref = $theValue[ $key ][ kTAG_TEXT ];
+			
+				//
+				// Handle typed value.
+				//
+				else
+				{
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ $key ][ kTAG_TYPE ];
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue[ $key ][ kTAG_TEXT ];
+			
+				} // Typed value.
+			
+			} // Iterating elements.
+		
+		} // Multiple elements.
+			
+	} // resolveTypedList.
+
+	 
+	/*===================================================================================
+	 *	resolveBoolean																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve boolean
+	 *
+	 * This method will resolve the provided boolean value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveBoolean( Wrapper $theWrapper, &$theResults,
+															&$theTag,
+															 $theValue,
+															 $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveScalar(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveScalar(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults = ( $theValue ) ? 'Yes' : 'No';
+		
+	} // resolveBoolean.
+
+	 
+	/*===================================================================================
+	 *	resolveScalar																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve scalar
+	 *
+	 * This method will resolve the provided scalar value.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveScalar( Wrapper $theWrapper, &$theResults,
+														   &$theTag,
+															$theValue,
+															$theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveScalar(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue[ 0 ],
+					$theLanguage );
+			
+			//
+			// Handle multiple values.
+			//
+			else
+			{
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$theResults[] = Array();
+				
+					//
+					// Load element.
+					//
+					$this->resolveScalar(
+						$theWrapper,
+						$theResults[ count( $theResults ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults = $theValue;
+		
+	} // resolveScalar.
 
 	 
 
@@ -755,7 +1183,11 @@ class ResultFormatter
 					= Tag::ResolveCollection(
 						Tag::ResolveDatabase( $theWrapper, TRUE ) )
 							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
-										kQUERY_ARRAY );
+										kQUERY_ARRAY,
+										array( kTAG_LABEL => TRUE,
+											   kTAG_DESCRIPTION => TRUE,
+											   kTAG_DATA_TYPE => TRUE,
+											   kTAG_DATA_KIND => TRUE ) );
 			
 				//
 				// Handle default language.
@@ -850,7 +1282,9 @@ class ResultFormatter
 					= Term::ResolveCollection(
 						Term::ResolveDatabase( $theWrapper, TRUE ) )
 							->matchOne( array( kTAG_NID => $theTerm ),
-										kQUERY_ARRAY );
+										kQUERY_ARRAY,
+										array( kTAG_LABEL => TRUE,
+											   kTAG_DEFINITION => TRUE ) );
 			
 				//
 				// Handle default language.
@@ -874,7 +1308,7 @@ class ResultFormatter
 
 	 
 
-} // class ResultFormatter.
+} // class ServiceResults.
 
 
 ?>

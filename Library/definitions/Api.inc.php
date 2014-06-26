@@ -913,6 +913,23 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *		a language code.
  *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
  *		holds the unit native identifier.
+ *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
+ *		indicates how the unit data should be formatted:
+ *	 <ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
+ *			table set.
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
+ *			{@link ResultAggregator} class.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
+ *			formatted record set.
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
+ *			fed to a map, it will be an array holding the following elements:
+ *		 <ul>
+ *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
+ *			<li><tt>kTAG_TYPE</tt>: The shape type.
+ *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
+ *		 </ul>
+ *	 </ul>
  * </ul>
  */
 define( "kAPI_OP_GET_UNIT",						'getUnit' );
@@ -1328,32 +1345,42 @@ define( "kAPI_PARAM_RESPONSE_FRMT_NAME",		'name' );
 define( "kAPI_PARAM_RESPONSE_FRMT_INFO",		'info' );
 
 /**
- * Property data (string/array).
+ * Property display (string/array).
  *
- * This tag indicates the property data, formatted as a string or array of strings.
+ * This tag indicates the property display data, formatted as a string or array of strings.
  */
-define( "kAPI_PARAM_RESPONSE_FRMT_DATA",		'data' );
+define( "kAPI_PARAM_RESPONSE_FRMT_DISP",		'disp' );
 
 /**
  * Property link (string/array).
  *
- * This tag indicates the property link, which can take two forms:
+ * This tag indicates the property URL as a string.
  *
- * <ul>
- *	<li><em>URL</em>: If the property contains an internet link, this element will hold the
- *		URL as a string.
- *	<li><em>Object reference</em>: If the property contains an object reference, this
- *		element will hold the following structure:
- *	 <ul>
- *		<li><tt>id</tt>: The referenced object native identifier as a string.
- *		<li><tt>coll</tt>: The referenced object collection name.
- *	 </ul>
- * </ul>
- *
- * In both cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
- * display name.
+ * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_SERV} and
+ * {@link kAPI_PARAM_RESPONSE_FRMT_SMAP}.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_LINK",		'link' );
+
+/**
+ * Property service (array).
+ *
+ * This tag indicates the property service as an array containing the service parameters.
+ *
+ * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_LINK} and
+ * {@link kAPI_PARAM_RESPONSE_FRMT_SMAP}.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_SERV",		'serv' );
+
+/**
+ * Property map service (array).
+ *
+ * This tag indicates the property map service as an array containing the service
+ * parameters, the service will return the coordinates of the object.
+ *
+ * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_LINK} and
+ * {@link kAPI_PARAM_RESPONSE_FRMT_SERV}.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_SMAP",		'smap' );
 
 /**
  * Property sub-document (array).

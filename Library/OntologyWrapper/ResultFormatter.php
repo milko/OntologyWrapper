@@ -27,12 +27,10 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 /**
  * Results formatter
  *
- * The duty of this object is to format the results of the provided iterator object into
- * a set of data elements which may be used by a client to display the results.
+ * The duty of this class is to format the results returned by services according to the
+ * format type indicated in the service {@link kAPI_PARAM_DATA} parameter.
  *
- * The object stores this structure in a data member, this data member is set with a
- * reference to the array that will receive the results. The structure is divided into two
- * main blocks, the first one is structured as follows:
+ * The class will fill two of the main blocks of the service response:
  *
  * <ul>
  *	<li><tt>{@link kAPI_RESPONSE_PAGING}</tt>: This element holds the iterator counters:
@@ -60,31 +58,18 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		name or label.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
  *		information or description.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DATA}</tt>: This element holds the property data
- *		formatted as a string, if the property is a scalar, or an array if the property is
- *		an enumerated set: in this case the value will be formatted as an array of elements
- *		of the following structure:
- *	 <ul>
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The enumerated value name or
- *			label.
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The enumerated value information
- *			or description.
- *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This tag indicates the property
- *		link, which can take two forms:
- *	 <ul>
- *		<li><em>URL</em>: If the property contains an internet link, this element will hold
- *			the URL as a scalar string.
- *		<li><em>Object reference</em>: If the property contains an object reference, this
- *			element will hold the service parameters needed to access the object.
- *		<li><em>Object sub-reference</em>: If the property contains an object sub-document,
- *			the element will hold the the service parameters needed to access the
- *			sub-document.
- *	 </ul>
- *		In all cases the {@link kAPI_PARAM_RESPONSE_FRMT_DATA} element will hold the link
- *		display name.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: This element holds the eventual
- *		sub-document as an array.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data property
+ *		display string, or list of display elements.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
+ *		properties that represent an internet link.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
+ *		reference, this element holds the list of parameters that can be used to call the
+ *		service that will retrieve the data of the referenced object.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SMAP}</tt>: If the property is a shape, this
+ *		element holds the list of parameters that can be used to call the service that will
+ *		retrieve the marker information corresponding to the current shape.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a struct, this
+ *		element holds the sub-document nested structure.
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -441,7 +426,20 @@ class ResultFormatter
 	/**
 	 * Format object
 	 *
-	 * This method will parse the provided object.
+	 * This method will iterate the provided object's properties and load the formatted
+	 * results into the provided results container.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theTags</b>: List of publishable tag sequence numbers, only offsets
+	 *		belonging to this list will be considered.
+	 *	<li><b>$theObject</b>: Reference to the source object or structure.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it will be
+	 *		the {@link kAPI_RESPONSE_RESULTS} element of the service response.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theTags			Object tags.
@@ -471,12 +469,12 @@ class ResultFormatter
 						PersistentObject::GetReferenceCounts() ) ) )
 			{
 				//
-				// Allocate property.
+				// Allocate property result.
 				//
 				$theResults[ $key ] = Array();
 				
 				//
-				// Format property.
+				// Format property result.
 				//
 				$this->formatProperty(
 					$theWrapper,
@@ -500,7 +498,21 @@ class ResultFormatter
 	/**
 	 * Format property
 	 *
-	 * This method will parse the provided property.
+	 * This method will load the property label, description and value into the provided
+	 * containser referenceo.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theTags</b>: List of publishable tag sequence numbers, only offsets
+	 *		belonging to this list will be considered.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it will be
+	 *		the array that will contain the current property formatted value elements.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theTag</b>: Property tag sequence number.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theTags			Object tags.
@@ -518,37 +530,91 @@ class ResultFormatter
 															 $theLanguage )
 	{
 		//
-		// Init local storage.
+		// Save property tag.
 		//
 		$tag = $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];
 		
 		//
-		// Load label.
+		// Set property label.
 		//
 		$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $tag[ kTAG_LABEL ];
 		
 		//
-		// Load description.
+		// Set property description.
 		//
 		if( array_key_exists( kTAG_DESCRIPTION, $tag ) )
 			$theResults[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $tag[ kTAG_DESCRIPTION ];
 		
 		//
-		// Handle lists.
+		// Set property value.
 		//
-		if( array_key_exists( kTAG_DATA_KIND, $tag )
-		 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+		$this->formatPropertyValue(
+			$theWrapper, $theTags, $theResults, $theValue, $tag, $theLanguage );
+			
+	} // formatProperty.
+
+	 
+	/*===================================================================================
+	 *	formatPropertyValue																*
+	 *==================================================================================*/
+
+	/**
+	 * Format property value
+	 *
+	 * This method will load the provided property value elements into the provided
+	 * container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theTags</b>: List of publishable tag sequence numbers, only offsets
+	 *		belonging to this list will be considered.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it will be
+	 *		the array that will contain the current property formatted value elements.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theTag</b>: Property tag sequence number.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theTags			Object tags.
+	 * @param array					$theResults			Results reference.
+	 * @param mixed					$theValue			Property value.
+	 * @param array					$theTag				Tag object.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function formatPropertyValue( Wrapper $theWrapper, &$theTags,
+																 &$theResults,
+																 &$theValue,
+																 &$theTag,
+																  $theLanguage )
+	{
+		//
+		// Handle structures.
+		//
+		if( $theTag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
 		{
 			//
-			// Handle structures
+			// Save container structure index offset.
 			//
-			if( $tag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+			$offset = ( array_key_exists( kTAG_TAG_STRUCT_IDX, $theTag ) )
+					? $theWrapper->getSerial( $theTag[ kTAG_TAG_STRUCT_IDX ] )
+					: NULL;
+			
+			//
+			// Handle lists.
+			//
+			if( array_key_exists( kTAG_DATA_KIND, $theTag )
+			 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
 			{
 				//
-				// Allocate data.
+				// Allocate structures list.
 				//
 				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
-				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
+				$list_ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
 				
 				//
 				// Iterate structures.
@@ -556,66 +622,56 @@ class ResultFormatter
 				foreach( $theValue as $value )
 				{
 					//
-					// Allocate structure.
+					// Allocate structure element.
 					//
-					$ref[] = Array();
+					$list_ref[] = Array();
+					$struct_ref = & $list_ref[ count( $list_ref ) - 1 ];
 					
 					//
-					// Parse structure.
+					// Set result display string.
+					//
+					if( array_key_exists( $offset, $value ) )
+						$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= $value[ $offset ];
+				
+					//
+					// Allocate result structure.
+					//
+					$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+				
+					//
+					// Set result structure.
 					//
 					$this->formatObject(
 						$theWrapper,
 						$theTags,
 						$value,
-						$ref[ count( $ref ) - 1 ],
+						$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
 						$theLanguage );
 				
-				} // Iterating structures.
+				} // Iterating structures list.
 			
-			} // Structure.
+			} // Structures list.
 			
 			//
-			// Handle scalars.
+			// Handle scalar structure.
 			//
 			else
 			{
 				//
-				// Allocate data.
+				// Set result display string.
 				//
-				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = Array();
+				if( array_key_exists( $offset, $theValue ) )
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ $offset ];
 				
 				//
-				// Load data.
-				//
-				$this->resolveProperty(
-					$theWrapper,
-					$theTags,
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ],
-					$theValue,
-					$theTag,
-					$theLanguage );
-			
-			} // Scalar.
-					
-		} // List.
-		
-		//
-		// Handle scalar.
-		//
-		else
-		{
-			//
-			// Handle structures
-			//
-			if( $tag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
-			{
-				//
-				// Allocate data.
+				// Allocate result structure.
 				//
 				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
 				
 				//
-				// Parse structure.
+				// Set result structure.
 				//
 				$this->formatObject(
 					$theWrapper,
@@ -624,30 +680,23 @@ class ResultFormatter
 					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
 					$theLanguage );
 			
-			} // Structure.
-			
-			//
-			// Handle scalars.
-			//
-			else
-			{
-				//
-				// Allocate data.
-				//
-				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = NULL;
-				$this->resolveProperty(
-					$theWrapper,
-					$theTags,
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ],
-					$theValue,
-					$theTag,
-					$theLanguage );
-			
-			} // Scalar.
+			} // Scalar structure.
 		
-		} // Scalar.
+		} // Structure.
+		
+		//
+		// Handle scalars.
+		//
+		else
+			$this->resolveProperty(
+				$theWrapper,
+				$theTags,
+				$theResults,
+				$theValue,
+				$theTag,
+				$theLanguage );
 			
-	} // formatProperty.
+	} // formatPropertyValue.
 
 	 
 	/*===================================================================================
@@ -657,13 +706,24 @@ class ResultFormatter
 	/**
 	 * Resolve property
 	 *
-	 * This method will resolve the provided property.
+	 * This method will parse the provided property value and load the formatted result into
+	 * the provided containser reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it will be
+	 *		the array that currently contains the property label and description.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param array					$theTags			Object tags.
 	 * @param array					$theResults			Results reference.
 	 * @param mixed					$theValue			Property value.
-	 * @param int					$theTag				Tag sequence number.
+	 * @param array					$theTag				Tag object.
 	 * @param string				$theLanguage		Default language code.
 	 *
 	 * @access protected
@@ -671,33 +731,43 @@ class ResultFormatter
 	protected function resolveProperty( Wrapper $theWrapper, &$theTags,
 															 &$theResults,
 															 &$theValue,
-															  $theTag,
+															 &$theTag,
 															  $theLanguage )
 	{
 		//
-		// Init local storage.
+		// Parse by property data  type.
 		//
-		$tag = $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];
-	
-		//
-		// Parse by type.
-		//
-		switch( $tag[ kTAG_DATA_TYPE ] )
+		switch( $theTag[ kTAG_DATA_TYPE ] )
 		{
 			case kTYPE_ENUM:
 			case kTYPE_SET:
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
 				$this->resolveEnum(
-					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+					$theWrapper,
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ],
+					$theTag,
+					$theValue,
+					$theLanguage );
 				break;
 			
 			case kTYPE_TYPED_LIST:
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
 				$this->resolveTypedList(
-					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+					$theWrapper,
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ],
+					$theTag,
+					$theValue,
+					$theLanguage );
+				break;
+			
+			case kTYPE_REF_UNIT:
+				$this->resolveUnitReference(
+					$theWrapper, $theResults, $theTag, $theValue, $theLanguage );
 				break;
 			
 			case kTYPE_BOOLEAN:
 				$this->resolveBoolean(
-					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+					$theWrapper, $theResults, $theTag, $theValue, $theLanguage );
 				break;
 			
 			case kTYPE_MIXED:
@@ -706,7 +776,11 @@ class ResultFormatter
 			case kTYPE_FLOAT:
 			default:
 				$this->resolveScalar(
-					$theWrapper, $theResults, $tag, $theValue, $theLanguage );
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue,
+					$theLanguage );
 				break;
 		
 		} // Parsed by type.
@@ -721,7 +795,19 @@ class ResultFormatter
 	/**
 	 * Resolve enumeration
 	 *
-	 * This method will resolve the provided enumerated value.
+	 * This method will resolve, parse and load the provided enumerated value into the
+	 * provided results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the {@link kAPI_PARAM_RESPONSE_FRMT_DISP} element of the results.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
@@ -733,19 +819,14 @@ class ResultFormatter
 	 */
 	protected function resolveEnum( Wrapper $theWrapper, &$theResults,
 														 &$theTag,
-														  $theValue,
+														 &$theValue,
 														  $theLanguage )
 	{
 		//
-		// Handle array.
+		// Handle list.
 		//
 		if( is_array( $theValue ) )
 		{
-			//
-			// Allocate results.
-			//
-			$theResults = Array();
-			
 			//
 			// Handle single value.
 			//
@@ -804,15 +885,9 @@ class ResultFormatter
 			$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
 		
 			//
-			// Allocate data.
-			//
-			if( ! is_array( $theResults ) )
-				$theResults = Array();
-		
-			//
 			// Set label.
 			//
-			$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $term[ kTAG_LABEL ];
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
 		
 			//
 			// Set definition.
@@ -832,7 +907,19 @@ class ResultFormatter
 	/**
 	 * Resolve typed list
 	 *
-	 * This method will resolve the provided typed list value.
+	 * This method will resolve, parse and load the provided typed list value into the
+	 * provided results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the {@link kAPI_PARAM_RESPONSE_FRMT_DISP} element of the results.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
@@ -844,7 +931,7 @@ class ResultFormatter
 	 */
 	protected function resolveTypedList( Wrapper $theWrapper, &$theResults,
 															  &$theTag,
-															   $theValue,
+															  &$theValue,
 															   $theLanguage )
 	{
 		//
@@ -853,71 +940,69 @@ class ResultFormatter
 		if( count( $theValue ) == 1 )
 		{
 			//
-			// Handle typeless element.
+			// Handle text value.
 			//
-			if( ! array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+			if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
 			{
 				//
-				// Handle text.
+				// Handle typed element.
 				//
-				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
-					$theResults = $theValue[ 0 ][ kTAG_TEXT ];
-				
-				//
-				// Handle URL.
-				//
-				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+				if( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
 				{
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = 'View';
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
-						= $theValue[ 0 ][ kTAG_URL ];
-				
-				} // URL.
+					//
+					// Set type.
+					//
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= $theValue[ 0 ][ kTAG_TYPE ];
 			
-			} // Set data.
-			
-			//
-			// Handle typed value.
-			//
-			else
-			{
-				//
-				// Set type.
-				//
-				$theResults[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ 0 ][ kTAG_TYPE ];
-
-				//
-				// Handle text.
-				//
-				if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ]
+					//
+					// Set text value.
+					//
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
 						= $theValue[ 0 ][ kTAG_TEXT ];
 				
-				//
-				// Handle URL.
-				//
-				elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
-				{
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = 'View';
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
-						= $theValue[ 0 ][ kTAG_URL ];
+				} // Typed.
 				
-				} // URL.
+				//
+				// Handle typeless element.
+				//
+				else
+					$theResults = $theValue[ 0 ][ kTAG_TEXT ];
+				
+			} // Text value.
 			
-			} // Typed value.
+			//
+			// Handle URL value.
+			//
+			elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+			{
+				//
+				// Set display to type.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+					? $theValue[ 0 ][ kTAG_TYPE ]
+					: $theValue[ 0 ][ kTAG_URL ];
+				
+				//
+				// Set value.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+					= $theValue[ 0 ][ kTAG_URL ];
+			
+			} // URL value.
 		
 		} // Single element.
 		
 		//
 		// Handle multiple elements.
 		//
-		else
+		elseif( count( $theValue ) > 1 )
 		{
 			//
 			// Iterate elements.
 			//
-			$keys = array_keys( $theValue );
-			foreach( $keys as $key )
+			foreach( $theValue as $value )
 			{
 				//
 				// Allocate element.
@@ -926,20 +1011,45 @@ class ResultFormatter
 				$ref = & $theResults[ count( $theResults ) - 1 ];
 				
 				//
-				// Handle typeless element.
+				// Handle text value.
 				//
-				if( ! array_key_exists( kTAG_TYPE, $theValue[ $key ] ) )
-					$ref = $theValue[ $key ][ kTAG_TEXT ];
-			
-				//
-				// Handle typed value.
-				//
-				else
+				if( array_key_exists( kTAG_TEXT, $value ) )
 				{
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $theValue[ $key ][ kTAG_TYPE ];
-					$ref[ kAPI_PARAM_RESPONSE_FRMT_DATA ] = $theValue[ $key ][ kTAG_TEXT ];
+					//
+					// Set type.
+					//
+					if( array_key_exists( kTAG_TYPE, $value ) )
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= $value[ kTAG_TYPE ];
+					
+					//
+					// Set value.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $value[ kTAG_TEXT ];
+				
+				} // Text value.
 			
-				} // Typed value.
+				//
+				// Handle URL value.
+				//
+				elseif( array_key_exists( kTAG_URL, $value ) )
+				{
+					//
+					// Set display.
+					//
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+						? $value[ kTAG_TYPE ]
+						: $value[ kTAG_URL ];
+				
+					//
+					// Set value.
+					//
+					$theResults[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $value[ kTAG_URL ];
+			
+				} // URL value.
 			
 			} // Iterating elements.
 		
@@ -949,13 +1059,166 @@ class ResultFormatter
 
 	 
 	/*===================================================================================
+	 *	resolveUnitReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve unit reference
+	 *
+	 * This method will resolve, parse and load the provided unit reference into the
+	 * provided results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveUnitReference( Wrapper $theWrapper, &$theResults,
+																  &$theTag,
+																  &$theValue,
+																   $theLanguage )
+	{
+		//
+		// Handle references list.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single element.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveUnitReference(
+					$theWrapper, 
+					$theResults,
+					$theTag,
+					$theValue [ 0 ],
+					$theLanguage );
+			
+			//
+			// handle multiple references.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate list.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$list = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+				
+				//
+				// Iterate references.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate result.
+					//
+					$list[] = Array();
+					
+					//
+					// Set value.
+					//
+					$this->resolveUnitReference(
+						$theWrapper, 
+						$list[ count( $list ) - 1 ],
+						$theTag,
+						$value,
+						$theLanguage );
+				
+				} // Iterating references.
+			
+			} // Multiple references.
+		
+		} // References list.
+		
+		//
+		// Handle scalar reference.
+		//
+		else
+		{
+			//
+			// Load referenced object.
+			//
+			$object
+				= UnitObject::ResolveCollection(
+					UnitObject::ResolveDatabase(
+						$theWrapper ) )
+						->matchOne(
+							array( kTAG_NID => $theValue ),
+							kQUERY_OBJECT );
+			if( $object !== NULL )
+			{
+				//
+				// Set object name.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $object->getName( $theLanguage );
+				
+				//
+				// Allocate service.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_SERV ] = Array();
+				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_SERV ];
+				
+				//
+				// Set service operation and language.
+				//
+				$ref[ kAPI_REQUEST_OPERATION ] = kAPI_OP_GET_UNIT;
+				$ref[ kAPI_REQUEST_LANGUAGE ] = $theLanguage;
+				
+				//
+				// Allocate service parameters.
+				//
+				$ref[ kAPI_REQUEST_PARAMETERS ] = Array();
+				$ref = & $ref[ kAPI_REQUEST_PARAMETERS ];
+				
+				//
+				// Set object identifier and data format.
+				//
+				$ref[ kAPI_PARAM_ID ] = $theValue;
+				$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_FORMAT;
+			
+			} // Found referenced object.
+		
+		} // Scalar reference.
+		
+	} // resolveUnitReference.
+
+	 
+	/*===================================================================================
 	 *	resolveBoolean																	*
 	 *==================================================================================*/
 
 	/**
 	 * Resolve boolean
 	 *
-	 * This method will resolve the provided boolean value.
+	 * This method will resolve, parse and load the provided boolean value into the provided
+	 * results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
@@ -967,7 +1230,7 @@ class ResultFormatter
 	 */
 	protected function resolveBoolean( Wrapper $theWrapper, &$theResults,
 															&$theTag,
-															 $theValue,
+															&$theValue,
 															 $theLanguage )
 	{
 		//
@@ -979,39 +1242,29 @@ class ResultFormatter
 			// Handle single value.
 			//
 			if( count( $theValue ) == 1 )
-				$this->resolveScalar(
-					$theWrapper,
-					$theResults,
-					$theTag,
-					$theValue[ 0 ],
-					$theLanguage );
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= ( $theValue[ 0 ] )
+					? 'Yes'
+					: 'No';
 			
 			//
 			// Handle multiple values.
 			//
-			else
+			elseif( count( $theValue ) > 1 )
 			{
+				//
+				// Allocate display elements.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
 				//
 				// Iterate list.
 				//
 				foreach( $theValue as $value )
-				{
-					//
-					// Allocate element.
-					//
-					$theResults[] = Array();
-				
-					//
-					// Load element.
-					//
-					$this->resolveScalar(
-						$theWrapper,
-						$theResults[ count( $theResults ) - 1 ],
-						$theTag,
-						$value,
-						$theLanguage );
-			
-				} // Iterating values.
+					$ref[] = ( $value )
+						   ? 'Yes'
+						   : 'No';
 			
 			} // More than one value.
 			
@@ -1021,7 +1274,10 @@ class ResultFormatter
 		// Handle scalar.
 		//
 		else
-			$theResults = ( $theValue ) ? 'Yes' : 'No';
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= ( $theValue )
+				? 'Yes'
+				: 'No';
 		
 	} // resolveBoolean.
 
@@ -1033,7 +1289,19 @@ class ResultFormatter
 	/**
 	 * Resolve scalar
 	 *
-	 * This method will resolve the provided scalar value.
+	 * This method will resolve, parse and load the provided scalar value into the provided
+	 * results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theResults			Results reference.
@@ -1045,7 +1313,7 @@ class ResultFormatter
 	 */
 	protected function resolveScalar( Wrapper $theWrapper, &$theResults,
 														   &$theTag,
-															$theValue,
+														   &$theValue,
 															$theLanguage )
 	{
 		//
@@ -1057,39 +1325,25 @@ class ResultFormatter
 			// Handle single value.
 			//
 			if( count( $theValue ) == 1 )
-				$this->resolveScalar(
-					$theWrapper,
-					$theResults,
-					$theTag,
-					$theValue[ 0 ],
-					$theLanguage );
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $theValue[ 0 ];
 			
 			//
 			// Handle multiple values.
 			//
-			else
+			elseif( count( $theValue ) > 1 )
 			{
+				//
+				// Allocate display elements.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
 				//
 				// Iterate list.
 				//
 				foreach( $theValue as $value )
-				{
-					//
-					// Allocate element.
-					//
-					$theResults[] = Array();
-				
-					//
-					// Load element.
-					//
-					$this->resolveScalar(
-						$theWrapper,
-						$theResults[ count( $theResults ) - 1 ],
-						$theTag,
-						$value,
-						$theLanguage );
-			
-				} // Iterating values.
+					$ref[] = $value;
 			
 			} // More than one value.
 			
@@ -1099,7 +1353,8 @@ class ResultFormatter
 		// Handle scalar.
 		//
 		else
-			$theResults = $theValue;
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= $theValue;
 		
 	} // resolveScalar.
 
