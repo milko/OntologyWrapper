@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ServiceResults.php
+ * ServiceDataFormatter.php
  *
- * This file contains the definition of the {@link ServiceResults} class.
+ * This file contains the definition of the {@link ServiceDataFormatter} class.
  */
 
 namespace OntologyWrapper;
@@ -13,7 +13,7 @@ use OntologyWrapper\IteratorObject;
 
 /*=======================================================================================
  *																						*
- *								ServiceResults.php										*
+ *								ServiceDataFormatter.php								*
  *																						*
  *======================================================================================*/
 
@@ -27,13 +27,24 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 /**
  * Service results formatter
  *
- * The duty of this class is to format the results returned by services according to the
- * format type indicated in the service {@link kAPI_PARAM_DATA} parameter.
+ * The duty of this class is to serialise query data returned by the services into a
+ * formatted set of data.
  *
- * The class will fill two of the main blocks of the service response:
+ * The class is instantiated with three items:
  *
  * <ul>
- *	<li><tt>{@link kAPI_RESPONSE_PAGING}</tt>: This element holds the iterator counters:
+ *	<li><tt>{@link iterator()}</tt>: The {@link IteratorObject} instance returned by a
+ *		service.
+ *	<li><tt>{@link format()}</tt>: The data format indicator.
+ *	<li><tt>{@link language()}</tt>: The default language for strings.
+ * </ul>
+ *
+ * Once the object is instantiated it can be serialised with the {@link serialise()} method
+ * which will populate two data members:
+ *
+ * <ul>
+ *	<li><tt>{@link paging()}</tt>: The paging information, which is an array structured as
+ *		follows:
  *	 <ul>
  *		<li><tt>{@link kAPI_PAGING_AFFECTED}</tt>: This element will hold an integer
  *			indicating the total number of records affected by the query; this value does
@@ -46,36 +57,35 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: This element will hold an integer indicating
  *			the maximum number of requested records.
  *	 </ul>
- * </ul>
- *
- * The second block is an array containing all the objects contained in the provided
- * iterator, each array element is indexed by the object's native identifier and the value
- * is formatted as a nested array of elements corresoinding to the object's data members and
- * structured as follows:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: This element holds the data property
- *		name or label.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data property
- *		information or description.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data property
- *		display string, or list of display elements.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
- *		properties that represent an internet link.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
- *		reference, this element holds the list of parameters that can be used to call the
- *		service that will retrieve the data of the referenced object.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SMAP}</tt>: If the property is a shape, this
- *		element holds the list of parameters that can be used to call the service that will
- *		retrieve the marker information corresponding to the current shape.
- *	<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a struct, this
- *		element holds the sub-document nested structure.
+ *	<li><tt>{@link data()}</tt>: The formatted iterator's data values, which is an array
+ *		containing all the objects fetaured by the provided iterator, each array element is
+ *		indexed by the object's native identifier and the value is formatted as a nested set
+ *		of arrays containing the following items:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: This element holds the data
+ *			property name or label, both at the property level as well as the value level.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: This element holds the data
+ *			property and value information or description.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DISP}</tt>: This element holds the data
+ *			property display string, or list of display elements.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_LINK}</tt>: This element holds the URL for
+ *			properties that represent an internet links.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
+ *			reference, this element holds the list of parameters that can be used to call
+ *			the service that will retrieve the data of the referenced object.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SMAP}</tt>: If the property is a shape, this
+ *			element holds the list of parameters that can be used to call the service that
+ *			will retrieve the marker information corresponding to a shape property.
+ *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a
+ *			sub-structure, this element will hold the sub-structure data formatted in the
+ *			same way as the root structure.
+ *	 </ul>
  * </ul>
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 26/06/2014
  */
-class ServiceResults
+class ServiceDataFormatter
 {
 	/**
 	 * Iterator.
@@ -87,9 +97,34 @@ class ServiceResults
 	protected $mIterator = NULL;
 
 	/**
+	 * Format.
+	 *
+	 * This protected data member holds the data format, it is an enumerated value that can
+	 * take one of the following values:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: <em>Column view.</em> This
+	 *		represents a formatted view of the object properties corresponding to the
+	 *		{@link UnitObject::ListOffsets()} set of properties corresponding to the
+	 *		object's domain; in this case the class assumes the iterator to contain objects
+	 *		belonging to a single domain. In this case the {@link data()} member will be
+	 *		an array of elements indexed by the object native identifier, containing the
+	 *		formatted object's properties.
+	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: <em>Aggregated view.</em> This
+	 *		represents a view in which all objects are stored in their original format,
+	 *		along with all other related objects. In this case the {@link data()} member
+	 *		will be an array of elements indexed by collection name containing the list of
+	 *		related objects belonging to the current collection.
+	 * </ul>
+	 *
+	 * @var string
+	 */
+	protected $mFormat = kAPI_RESULT_ENUM_DATA_COLUMN;
+
+	/**
 	 * Results.
 	 *
-	 * This protected data member holds a reference to the results container.
+	 * This protected data member holds the serialised data for the iterator.
 	 *
 	 * @var array
 	 */
@@ -1308,7 +1343,7 @@ class ServiceResults
 
 	 
 
-} // class ServiceResults.
+} // class ServiceDataFormatter.
 
 
 ?>
