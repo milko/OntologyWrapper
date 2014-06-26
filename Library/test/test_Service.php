@@ -173,7 +173,7 @@ try
 			)
 		),
 		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_COLUMN
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

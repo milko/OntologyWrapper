@@ -105,6 +105,15 @@ class ResultFormatter
 	protected $mCache = Array();
 
 	/**
+	 * Current.
+	 *
+	 * This protected data member holds the current object native identifier.
+	 *
+	 * @var mixed
+	 */
+	protected $mCurrent = NULL;
+
+	/**
 	 * Processed.
 	 *
 	 * This protected data member holds a flag indicating whether the iterator was
@@ -223,6 +232,11 @@ class ResultFormatter
 			//
 			foreach( $this->mIterator as $object )
 			{
+				//
+				// Save object identifier.
+				//
+				$this->mCurrent = $object[ kTAG_NID ];
+
 				//
 				// Get list of tags to be excluded from the object.
 				//
@@ -741,10 +755,9 @@ class ResultFormatter
 		{
 			case kTYPE_ENUM:
 			case kTYPE_SET:
-				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
 				$this->resolveEnum(
 					$theWrapper,
-					$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ],
+					$theResults,
 					$theTag,
 					$theValue,
 					$theLanguage );
@@ -765,15 +778,41 @@ class ResultFormatter
 					$theWrapper, $theResults, $theTag, $theValue, $theLanguage );
 				break;
 			
+			case kTYPE_SHAPE:
+				$this->resolveShape(
+					$theWrapper, $theResults, $theTag, $theValue, $theLanguage );
+				break;
+			
 			case kTYPE_BOOLEAN:
 				$this->resolveBoolean(
 					$theWrapper, $theResults, $theTag, $theValue, $theLanguage );
 				break;
 			
+			case kTYPE_INT:
+			default:
+				$this->resolveScalarInteger(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue,
+					$theLanguage );
+				break;
+			
+			case kTYPE_FLOAT:
+			default:
+				$this->resolveScalarFloat(
+					$theWrapper,
+					$theResults,
+					$theTag,
+					$theValue,
+					$theLanguage );
+				break;
+			
 			case kTYPE_MIXED:
 			case kTYPE_STRING:
-			case kTYPE_INT:
-			case kTYPE_FLOAT:
+			case kTYPE_TEXT:
+			case kTYPE_YEAR:
+			case kTYPE_DATE:
 			default:
 				$this->resolveScalar(
 					$theWrapper,
@@ -803,7 +842,7 @@ class ResultFormatter
 	 * <ul>
 	 *	<li><b>$theWrapper</b>: Data wrapper.
 	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
-	 *		references the {@link kAPI_PARAM_RESPONSE_FRMT_DISP} element of the results.
+	 *		references the element that contains the label and description.
 	 *	<li><b>$theTag</b>: Property tag object.
 	 *	<li><b>$theValue</b>: Reference to the source property.
 	 *	<li><b>$theLanguage</b>: Default language code.
@@ -841,8 +880,14 @@ class ResultFormatter
 			//
 			// Handle multiple values.
 			//
-			else
+			elseif( count( $theValue ) > 1 )
 			{
+				//
+				// Allocate list.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$list = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+				
 				//
 				// Iterate list.
 				//
@@ -851,14 +896,14 @@ class ResultFormatter
 					//
 					// Allocate element.
 					//
-					$theResults[] = Array();
+					$list[] = Array();
 				
 					//
 					// Load element.
 					//
 					$this->resolveEnum(
 						$theWrapper,
-						$theResults[ count( $theResults ) - 1 ],
+						$list[ count( $list ) - 1 ],
 						$theTag,
 						$value,
 						$theLanguage );
@@ -1200,6 +1245,73 @@ class ResultFormatter
 
 	 
 	/*===================================================================================
+	 *	resolveShape																	*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve shape
+	 *
+	 * This method will resolve, parse and load the provided shape into the provided results
+	 * container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveShape( Wrapper $theWrapper, &$theResults,
+														  &$theTag,
+														  &$theValue,
+														   $theLanguage )
+	{
+		//
+		// Set object name.
+		//
+		$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+			= 'View on map';
+		
+		//
+		// Allocate service.
+		//
+		$theResults[ kAPI_PARAM_RESPONSE_FRMT_SMAP ] = Array();
+		$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_SMAP ];
+		
+		//
+		// Set service operation and language.
+		//
+		$ref[ kAPI_REQUEST_OPERATION ] = kAPI_OP_GET_UNIT;
+		$ref[ kAPI_REQUEST_LANGUAGE ] = $theLanguage;
+		
+		//
+		// Allocate service parameters.
+		//
+		$ref[ kAPI_REQUEST_PARAMETERS ] = Array();
+		$ref = & $ref[ kAPI_REQUEST_PARAMETERS ];
+		
+		//
+		// Set object identifier and data format.
+		//
+		$ref[ kAPI_PARAM_ID ] = $this->mCurrent;
+		$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_MARKER;
+		
+	} // resolveShape.
+
+	 
+	/*===================================================================================
 	 *	resolveBoolean																	*
 	 *==================================================================================*/
 
@@ -1280,6 +1392,160 @@ class ResultFormatter
 				: 'No';
 		
 	} // resolveBoolean.
+
+	 
+	/*===================================================================================
+	 *	resolveScalarInteger															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve scalar integer
+	 *
+	 * This method will resolve, parse and load the provided scalar integer into the
+	 * provided results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveScalarInteger( Wrapper $theWrapper, &$theResults,
+																  &$theTag,
+																  &$theValue,
+																   $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= number_format( $theValue[ 0 ] );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate display elements.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+					$ref[] = number_format( $value );
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= number_format( $theValue );
+		
+	} // resolveScalarInteger.
+
+	 
+	/*===================================================================================
+	 *	resolveScalarFloat																*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve scalar integer
+	 *
+	 * This method will resolve, parse and load the provided scalar float into the
+	 * provided results container reference.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theWrapper</b>: Data wrapper.
+	 *	<li><b>$theResults</b>: Reference to the results container, in this case it
+	 *		references the results container featuring the label and description.
+	 *	<li><b>$theTag</b>: Property tag object.
+	 *	<li><b>$theValue</b>: Reference to the source property.
+	 *	<li><b>$theLanguage</b>: Default language code.
+	 * </ul>
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theResults			Results reference.
+	 * @param array					$theTag				Property tag.
+	 * @param mixed					$theValue			Enumerated value.
+	 * @param string				$theLanguage		Default language code.
+	 *
+	 * @access protected
+	 */
+	protected function resolveScalarFloat( Wrapper $theWrapper, &$theResults,
+																  &$theTag,
+																  &$theValue,
+																   $theLanguage )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= number_format( $theValue[ 0 ], 4 );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate display elements.
+				//
+				$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+					$ref[] = number_format( $value, 4 );
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theResults[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= number_format( $theValue, 4 );
+		
+	} // resolveScalarFloat.
 
 	 
 	/*===================================================================================
@@ -1450,6 +1716,7 @@ class ResultFormatter
 										kQUERY_ARRAY,
 										array( kTAG_LABEL => TRUE,
 											   kTAG_DESCRIPTION => TRUE,
+											   kTAG_TAG_STRUCT_IDX => TRUE,
 											   kTAG_DATA_TYPE => TRUE,
 											   kTAG_DATA_KIND => TRUE ) );
 			
