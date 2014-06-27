@@ -890,6 +890,7 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
  *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_RESPONSE_FRMT_NAME</tt>: The unit name.
  *			<li><tt>kTAG_TYPE</tt>: The shape type.
  *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
  *		 </ul>
@@ -926,6 +927,7 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
  *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_RESPONSE_FRMT_NAME</tt>: The unit name.
  *			<li><tt>kTAG_TYPE</tt>: The shape type.
  *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
  *		 </ul>

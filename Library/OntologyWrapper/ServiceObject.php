@@ -3419,6 +3419,11 @@ $rs_units = & $rs_units[ 'result' ];
 	protected function executeMarkerUnits( &$theContainer )
 	{
 		//
+		// Init local storage.
+		//
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		
+		//
 		// Execute request.
 		//
 		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
@@ -3427,8 +3432,7 @@ $rs_units = & $rs_units[ 'result' ];
 				UnitObject::ResolveDatabase(
 					$this->mWrapper ) )
 						->matchAll( $this->mFilter,
-									kQUERY_ARRAY,
-									array( $shape => TRUE ) );
+									kQUERY_OBJECT );
 		
 		//
 		// Set cursor limit.
@@ -3459,7 +3463,11 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load results.
 		//
-		$theContainer = array_values( iterator_to_array( $iterator ) );
+		foreach( $iterator as $object )
+			$theContainer[] = array( kTAG_NID => $object[ kTAG_NID ],
+									 $shape => $object[ $shape ],
+									 kAPI_PARAM_RESPONSE_FRMT_NAME
+									 	=> $object->getName( $language ) );
 		
 	} // executeMarkerUnits.
 

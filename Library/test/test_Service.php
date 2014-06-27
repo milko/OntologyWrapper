@@ -142,7 +142,7 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-///*
+/*
 	//
 	// Try matchUnits formatted.
 	//
@@ -192,7 +192,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 exit;
-//*/
+*/
 	//
 	// Try empty URL.
 	//
