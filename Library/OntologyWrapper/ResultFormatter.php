@@ -247,6 +247,7 @@ class ResultFormatter
 							   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
 						array( kTAG_DOMAIN, kTAG_AUTHORITY,
 							   kTAG_COLLECTION, kTAG_IDENTIFIER ),			// unit info,
+						array( kTAG_GEO_SHAPE ),							// shape,
 						array( kTAG_MIN_VAL, kTAG_MAX_VAL )	);				// ranges.
 								
 				//

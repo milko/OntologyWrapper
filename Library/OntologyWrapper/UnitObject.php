@@ -291,6 +291,61 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC NAME MANAGEMENT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	getName																			*
+	 *==================================================================================*/
+
+	/**
+	 * Get object name
+	 *
+	 * In this class we return the domain name, derived classes should first call the parent
+	 * method and catenate the local name with the parent name.
+	 *
+	 * @param string				$theLanguage		Name language.
+	 *
+	 * @access public
+	 * @return string				Object name.
+	 */
+	public function getName( $theLanguage )
+	{
+		//
+		// Check wrapper.
+		//
+		if( ($this->mDictionary !== NULL)
+		 && $this->offsetExists( kTAG_DOMAIN ) )
+		{
+			//
+			// Get domain.
+			//
+			$domain
+				= Term::ResolveCollection(
+					Term::ResolveDatabase(
+						$this->mDictionary ) )
+							->matchOne(
+								array( kTAG_NID => $this->offsetGet( kTAG_DOMAIN ) ),
+								kQUERY_ARRAY,
+								array( kTAG_LABEL => TRUE ) );
+			
+			return OntologyObject::SelectLanguageString(
+						$domain[ kTAG_LABEL ],
+						$theLanguage );												// ==>
+		
+		} // Has wrapper and domain.
+		
+		return NULL;																// ==>
+	
+	} // getName.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/

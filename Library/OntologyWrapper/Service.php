@@ -213,7 +213,7 @@ class Service extends ServiceObject
 				break;
 				
 			//
-			// Match domains.
+			// Match unit.
 			//
 			case kAPI_OP_GET_UNIT:
 				//

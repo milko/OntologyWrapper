@@ -127,7 +127,7 @@ class Inventory extends UnitObject
 	 * Get object name
 	 *
 	 * In this class we return the unit {@link kTAG_IDENTIFIER} and the
-	 * {@link kTAG_COLLECTION} separated by a slash.
+	 * {@link kTAG_COLLECTION} separated by a slash, concatenated to the domain name.
 	 *
 	 * @param string				$theLanguage		Name language.
 	 *
@@ -136,8 +136,16 @@ class Inventory extends UnitObject
 	 */
 	public function getName( $theLanguage )
 	{
-		return $this->offsetGet( kTAG_IDENTIFIER )
-			  .'/'.$this->offsetGet( kTAG_COLLECTION );								// ==>
+		//
+		// Init local storage
+		//
+		$name = parent::getName( $theLanguage );
+		
+		return ( $name !== NULL )
+			 ? ($name.' '.$this->offsetGet( kTAG_IDENTIFIER ).'/'
+						 .$this->offsetGet( kTAG_COLLECTION ))						// ==>
+			 : ($this->offsetGet( kTAG_IDENTIFIER ).'/'
+			   .$this->offsetGet( kTAG_COLLECTION ));								// ==>
 	
 	} // getName.
 

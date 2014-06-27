@@ -129,7 +129,7 @@ class Checklist extends UnitObject
 	 * Get object name
 	 *
 	 * In this class we return the checklist {@link kTAG_AUTHORITY}, {@link kTAG_COLLECTION}
-	 * and {@link kTAG_IDENTIFIER} separated by colons.
+	 * and {@link kTAG_IDENTIFIER} separated by colons, concatenated to the domain name.
 	 *
 	 * @param string				$theLanguage		Name language.
 	 *
@@ -139,9 +139,10 @@ class Checklist extends UnitObject
 	public function getName( $theLanguage )
 	{
 		//
-		// Init name
+		// Init local storage
 		//
 		$name = Array();
+		$domain = parent::getName( $theLanguage );
 		
 		//
 		// Set authority.
@@ -161,7 +162,9 @@ class Checklist extends UnitObject
 		if( $this->offsetExists( kTAG_IDENTIFIER ) )
 			$name[] = $this->offsetGet( kTAG_IDENTIFIER );
 		
-		return implode( ':', $name );												// ==>
+		return ( $domain !== NULL )
+			 ? ($domain.' '.implode( ':', $name ))									// ==>
+			 : implode( ':', $name );												// ==>
 	
 	} // getName.
 

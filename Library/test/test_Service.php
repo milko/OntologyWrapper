@@ -142,7 +142,7 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-/*
+///*
 	//
 	// Try matchUnits formatted.
 	//
@@ -160,22 +160,11 @@ try
 		kAPI_PAGING_LIMIT => 3,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			232 => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'AUT00001',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_EQUAL
-				)
-			)
-		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+		kAPI_PARAM_ID => ':domain:forest://AUT/00001/1996;',
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
 	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
@@ -192,7 +181,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 exit;
-*/
+//*/
 	//
 	// Try empty URL.
 	//
