@@ -223,6 +223,7 @@ class Service extends ServiceObject
 				{
 					case kAPI_PARAM_ID:
 					case kAPI_PARAM_DATA:
+					case kAPI_PARAM_SHAPE_OFFSET:
 						$this->offsetSet( $theKey, $theValue );
 						break;
 
@@ -851,6 +852,8 @@ class Service extends ServiceObject
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_MARKER:
+				$this->mFilter[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+					= array( '$exists' => TRUE );
 				$this->executeMarkerUnits(
 					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
 				break;

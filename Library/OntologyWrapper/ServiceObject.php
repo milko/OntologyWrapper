@@ -1107,6 +1107,9 @@ abstract class ServiceObject extends ContainerObject
 				"Missing results kind parameter." );							// !@! ==>
 		else
 		{
+			//
+			// Validate by format type.
+			//
 			switch( $tmp = $this->offsetGet( kAPI_PARAM_DATA ) )
 			{
 				case kAPI_RESULT_ENUM_DATA_MARKER:
@@ -3422,11 +3425,11 @@ $rs_units = & $rs_units[ 'result' ];
 		// Init local storage.
 		//
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 		
 		//
 		// Execute request.
 		//
-		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 		$iterator
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase(
