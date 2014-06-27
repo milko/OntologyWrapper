@@ -872,6 +872,33 @@ class MongoCollection extends CollectionObject
 	 */
 	public function getTimeStamp()							{	return new \MongoDate();	}
 
+	 
+	/*===================================================================================
+	 *	parseTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * In this class we convert the time-stamp 
+	 *
+	 * @param mixed					$theStamp			Time-stamp.
+	 *
+	 * @access public
+	 * @return string				Human readable time-stamp.
+	 */
+	public function parseTimeStamp( $theStamp )
+	{
+		//
+		// Check type.
+		//
+		if( $theStamp instanceof \MongoDate )
+			return date( "r", $theStamp->sec );										// ==>
+		
+		return (string) $theStamp;													// ==>
+	
+	} // parseTimeStamp.
+
 		
 
 /*=======================================================================================

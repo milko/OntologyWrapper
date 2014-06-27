@@ -24,6 +24,7 @@ The elements of the following array are defined as follows:
 			(
 				[24] => Array	// Scalar
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_SCALAR
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit number
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => AUT00023
@@ -31,17 +32,19 @@ The elements of the following array are defined as follows:
 
 				[25] => Array	// List of scalars
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_SCALAR
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit number
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
-								AUT00023
-								AUT00022
+								[0] => AUT00023
+								[1] => AUT00022
 							)
 					)
 
 				[43] => Array	// URL
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_LINK
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Accession URL
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The original information held at the responsible institute.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => View
@@ -50,6 +53,7 @@ The elements of the following array are defined as follows:
 
 				[32] => Array	// List of URLs
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_LINK
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Accession URLs
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The original information held at the responsible institute.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
@@ -76,6 +80,7 @@ The elements of the following array are defined as follows:
 
 				[22] => Array	// Enumeration
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_ENUM
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Country
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds the enumerated value describing the location country. For historical reasons legacy countries are included.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
@@ -88,6 +93,7 @@ The elements of the following array are defined as follows:
 
 				[33] => Array	// Enumerated set
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_ENUM
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Type and function of the unit
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
 							(
@@ -106,8 +112,22 @@ The elements of the following array are defined as follows:
 
 					)
 
+				[56] => Array	// Typed list (single)
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_TYPED
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Telephone numbers
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds the list of telephone numbers.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+							(
+								[kAPI_PARAM_RESPONSE_FRMT_NAME] => Work
+								[kAPI_PARAM_RESPONSE_FRMT_DISP] => +44 71 8792531
+							)
+
+					)
+
 				[56] => Array	// Typed list
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_TYPED
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Telephone numbers
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds the list of telephone numbers.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
@@ -133,8 +153,37 @@ The elements of the following array are defined as follows:
 
 					)
 
+				[57] => Array	// Language strings
+					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_TYPED
+						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Names
+						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This attribute holds a list of names expressed in different languages.
+						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
+							(
+								[0] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Tree
+									)
+
+								[1] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => it
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Albero
+									)
+
+								[2] => Array
+									(
+										[kAPI_PARAM_RESPONSE_FRMT_NAME] => fr
+										[kAPI_PARAM_RESPONSE_FRMT_DISP] => Arbre
+									)
+
+							)
+
+					)
+
 				[99] => Array	// Object reference
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_OBJECT
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Holding institute
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The institute holding the accession.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Bioversity International
@@ -152,6 +201,7 @@ The elements of the following array are defined as follows:
 
 				[98] => Array	// Object references list
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_OBJECT
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Holding institutes
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => The institutes holding the accession.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Array
@@ -190,10 +240,11 @@ The elements of the following array are defined as follows:
 
 				[101] => Array	// Shape
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_SHAPE
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Location
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => View location on map.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => View on map
-						[kAPI_PARAM_RESPONSE_FRMT_SMAP] => Array
+						[kAPI_PARAM_RESPONSE_FRMT_SERV] => Array
 							(
 								kAPI_REQUEST_OPERATION => kAPI_OP_GET_UNIT
 								kAPI_REQUEST_LANGUAGE => 'en',
@@ -207,6 +258,7 @@ The elements of the following array are defined as follows:
 
 				[102] => Array	// Struct
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_STRUCT
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Structure
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => This is a structure.
 						[kAPI_PARAM_RESPONSE_FRMT_DISP] => Larix decidua
@@ -231,6 +283,7 @@ The elements of the following array are defined as follows:
 
 				[struct-list] => Array
 					(
+						[kAPI_PARAM_RESPONSE_FRMT_TYPE] => kAPI_PARAM_RESPONSE_TYPE_STRUCT
 						[kAPI_PARAM_RESPONSE_FRMT_NAME] => Unit populations
 						[kAPI_PARAM_RESPONSE_FRMT_INFO] => Information on population target species growing in the unit.
 						[kAPI_PARAM_RESPONSE_FRMT_DOCU] => Array

@@ -890,6 +890,23 @@ abstract class CollectionObject extends ConnectionObject
 	 */
 	abstract public function getTimeStamp();
 
+	 
+	/*===================================================================================
+	 *	parseTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get time-stamp
+	 *
+	 * This method should return a formatted time stamp string.
+	 *
+	 * @param mixed					$theStamp			Time-stamp.
+	 *
+	 * @access public
+	 * @return string				Human readable time-stamp.
+	 */
+	abstract public function parseTimeStamp( $theStamp );
+
 		
 
 /*=======================================================================================

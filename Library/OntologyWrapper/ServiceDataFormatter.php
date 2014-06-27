@@ -73,9 +73,6 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SERV}</tt>: If the property is an object
  *			reference, this element holds the list of parameters that can be used to call
  *			the service that will retrieve the data of the referenced object.
- *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_SMAP}</tt>: If the property is a shape, this
- *			element holds the list of parameters that can be used to call the service that
- *			will retrieve the marker information corresponding to a shape property.
  *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_DOCU}</tt>: If the property is a
  *			sub-structure, this element will hold the sub-structure data formatted in the
  *			same way as the root structure.

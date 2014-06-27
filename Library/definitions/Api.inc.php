@@ -1331,6 +1331,102 @@ define( "kAPI_PARAM_RESPONSE_IDENT",			'ident' );
  *======================================================================================*/
 
 /**
+ * Property type (string).
+ *
+ * This tag indicates the type of the formatted property, it indicates how the
+ * {@link kAPI_PARAM_RESPONSE_FRMT_DISP} is structured and whether to expect additional
+ * parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_SCALAR}</tt>: Scalar or list of scalars.
+ *		This type represents a scalar value or a list of scalar values.
+ *		The {@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will contain either a scalar
+ *		value or a list of scalar values.
+ *		No other data related patameters should be expected.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_LINK}</tt>: URL or list of URLs.
+ *		This type represents a single or list of URL references consisting of a display
+ *		string and a web address.
+ *		If the response represents a single link, it will feature the display string in the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter and the web address in the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_LINK} parameter, both at the root level.
+ *		If the response represents a list of links, it will feature a single
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter structured as an array of elements
+ *		each holding a pair of {@link kAPI_PARAM_RESPONSE_FRMT_DISP} and
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_LINK} parameters.
+ *		No other data related patameters should be expected.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_ENUM}</tt>: Enumerated value or set.
+ *		This type represents an enumerated value or set of values.
+ *		If the response represents an enumerated value, the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will contain a
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter which represents the display value
+ *		and an optional {@link kAPI_PARAM_RESPONSE_FRMT_INFO} parameter representing the
+ *		description.
+ *		If the response represents an enumerated set of values, the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will be an array of elements, each
+ *		holding a {@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter and an optional
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_INFO} parameter.
+ *		No other data related patameters should be expected.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_TYPED}</tt>: Typed list.
+ *		This type represents a list of elements containing a type and a value.
+ *		If the response represents a single element, the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will contain a
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter representing the display string and
+ *		a {@link kAPI_PARAM_RESPONSE_FRMT_NAME} parameter representing the element type; if
+ *		the element does not feature the type, it will be converted to a scalar type.
+ *		If the response represents a list of elements, the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will contain a list of elements,
+ *		each featuring a {@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter representing the
+ *		display string and an optional {@link kAPI_PARAM_RESPONSE_FRMT_NAME} parameter
+ *		representing the element type.
+ *		No other data related patameters should be expected.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_OBJECT}</tt>: Object reference.
+ *		This type represents a reference to another object which should be presented as
+ *		a link which opens a page or section containing the details of the referenced
+ *		object.
+ *		If the response represents a single object reference, the
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter will hold the display name of the
+ *		object and the {@link kAPI_PARAM_RESPONSE_FRMT_SERV} parameter will contain the set
+ *		of service parameters that can be used to retrieve the object; this set can be
+ *		directly used to query the service.
+ *		If the response represents a list of object references, it will contain a single
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter which is an array of elements, each
+ *		containing a {@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter holding the display
+ *		name of the object and a {@link kAPI_PARAM_RESPONSE_FRMT_SERV} parameter contaning
+ *		the set of service parameters that can be used to retrieve the object; in this case
+ *		no other parameters, except {@link kAPI_PARAM_RESPONSE_FRMT_DISP}, are expected at
+ *		the root level.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_SHAPE}</tt>: Object shape.
+ *		This type represents the current object's shape, which can be used to retrieve the
+ *		object's coordinates in order to display the object's location on a map.
+ *		The structure of this response is identical to the
+ *		{@link kAPI_PARAM_RESPONSE_TYPE_OBJECT} structure.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_TYPE_STRUCT}</tt>: Substructure(s).
+ *		This type represents a sub-structure or list of sub-structures, it should be
+ *		represented as a disclosure triangle which may be opened to reveal the substructure
+ *		contents; sub-structures may be nested.
+ *		If the response represents a scalar structure, there should be a disclosure triangle
+ *		next to the label at the root level, the optional
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter represents the display value to be
+ *		set next to the label and the {@link kAPI_PARAM_RESPONSE_FRMT_DOCU} parameter
+ *		contains the structure values which should be parsed as the root object.
+ *		If the response represents a list of structures, there should be a disclosure
+ *		triangle next to the label at the root level which will reveal the elements of the
+ *		list; the {@link kAPI_PARAM_RESPONSE_FRMT_DOCU} parameter is an array containing the
+ *		elements of the structures list. Each element has a
+ *		{@link kAPI_PARAM_RESPONSE_FRMT_DISP} parameter which represents the structure name,
+ *		a disclosure triangle should be placed next to this item which should disclose that
+ *		structure's contents; the element has the {@link kAPI_PARAM_RESPONSE_FRMT_DOCU}
+ *		parameter which contains the structure values which should be parsed as the root
+ *		object.
+ * </ul>
+ *
+ * The above descriptions assume that the response contains the
+ * {@link kAPI_PARAM_RESPONSE_FRMT_NAME} and optional {@link kAPI_PARAM_RESPONSE_FRMT_INFO}
+ * parameters.
+ */
+define( "kAPI_PARAM_RESPONSE_FRMT_TYPE",		'type' );
+
+/**
  * Property name or label (string).
  *
  * This tag indicates the property name or label.
@@ -1355,9 +1451,6 @@ define( "kAPI_PARAM_RESPONSE_FRMT_DISP",		'disp' );
  * Property link (string/array).
  *
  * This tag indicates the property URL as a string.
- *
- * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_SERV} and
- * {@link kAPI_PARAM_RESPONSE_FRMT_SMAP}.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_LINK",		'link' );
 
@@ -1365,22 +1458,8 @@ define( "kAPI_PARAM_RESPONSE_FRMT_LINK",		'link' );
  * Property service (array).
  *
  * This tag indicates the property service as an array containing the service parameters.
- *
- * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_LINK} and
- * {@link kAPI_PARAM_RESPONSE_FRMT_SMAP}.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_SERV",		'serv' );
-
-/**
- * Property map service (array).
- *
- * This tag indicates the property map service as an array containing the service
- * parameters, the service will return the coordinates of the object.
- *
- * This element is mutually exclusive with {@link kAPI_PARAM_RESPONSE_FRMT_LINK} and
- * {@link kAPI_PARAM_RESPONSE_FRMT_SERV}.
- */
-define( "kAPI_PARAM_RESPONSE_FRMT_SMAP",		'smap' );
 
 /**
  * Property sub-document (array).
@@ -1388,6 +1467,59 @@ define( "kAPI_PARAM_RESPONSE_FRMT_SMAP",		'smap' );
  * This tag indicates the property sub-document as an array.
  */
 define( "kAPI_PARAM_RESPONSE_FRMT_DOCU",		'docu' );
+
+/*=======================================================================================
+ *	FORMATTED RESPONSE TYPES															*
+ *======================================================================================*/
+
+/**
+ * Scalar (string).
+ *
+ * This tag indicates a scalar response, which refers to a scalar value.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_SCALAR",		'scalar' );
+
+/**
+ * Link (string).
+ *
+ * This tag indicates a link response, which refers to an URL.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_LINK",		'link' );
+
+/**
+ * Enumeration (string).
+ *
+ * This tag indicates an enumerated response, which refers to an enumerated value or set.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_ENUM",		'enum' );
+
+/**
+ * Typed list (string).
+ *
+ * This tag indicates a typed list response, which refers to a list of typed values.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_TYPED",		'typed' );
+
+/**
+ * Object reference (string).
+ *
+ * This tag indicates an object reference response, which refers to another object.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_OBJECT",		'object' );
+
+/**
+ * Shape (string).
+ *
+ * This tag indicates a shape response, which refers to the object's shape.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_SHAPE",		'shape' );
+
+/**
+ * Struct (string).
+ *
+ * This tag indicates a structure response, which refers to a sub-structure.
+ */
+define( "kAPI_PARAM_RESPONSE_TYPE_STRUCT",		'struct' );
 
 /*=======================================================================================
  *	ENUMERATION LIST PARAMETERS															*
