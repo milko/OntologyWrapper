@@ -96,7 +96,6 @@ try
 	if( ! $wrapper->dictionaryFilled() )
 		$wrapper->loadTagCache();
 
-/*	
 	//
 	// Perform query.
 	//
@@ -106,72 +105,23 @@ try
 			OntologyWrapper\UnitObject::ResolveDatabase(
 				$wrapper ) )
 					->matchAll( $criteria,
-								kQUERY_ARRAY );
+								kQUERY_OBJECT );
 	
 	//
-	// Create formatter.
+	// Create serialiser.
 	//
-	$formatter = new OntologyWrapper\ResultFormatter( $rs, $results );
-	
-	//
-	// Format.
-	//
-	$formatter->format( 'en' );
+	$formatter
+		= new OntologyWrapper\UnitIteratorSerialiser(
+			$rs,
+			kAPI_RESULT_ENUM_DATA_MARKER,
+			'en',
+			':domain:forest',
+			57 );
 	
 	//
 	// Show.
 	//
-	var_dump( $results );
-*/
-	
-	//
-	// Try matchUnits with string search on ":name" contains "olive".
-	//
-	echo( '<h4>Try matchUnits with string search on ":name" contains "olive"</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PAGING_LIMIT => 3,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			kTAG_VERSION => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => '2009',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_EQUAL
-				)
-			)
-		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
+	var_dump( $formatter );
 }
 
 //
