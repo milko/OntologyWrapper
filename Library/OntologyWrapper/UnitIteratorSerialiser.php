@@ -905,7 +905,7 @@ class UnitIteratorSerialiser
 			//
 			// Set excluded offsets.
 			//
-			$this->setHiddenTags();
+			$this->setHiddenTags( $object );
 			
 			//
 			// Allocate data.
@@ -927,16 +927,22 @@ class UnitIteratorSerialiser
 					// Cache tag.
 					//
 					$tag = $this->cacheTag( $wrapper, $key );
+					
+					//
+					// Allocate property.
+					//
+					$data[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
+					$ref = & $data[ $tag[ kTAG_ID_SEQUENCE ] ];
 			
 					//
 					// Set labels.
 					//
-					$this->setTagLabel( $data, $tag );
+					$this->setTagLabel( $ref, $tag );
 			
 					//
 					// Set values.
 					//
-					$this->setDataValue( $data, $value, $tag );
+					$this->setDataValue( $ref, $value, $tag );
 				
 				} // Publishable tag.
 			
@@ -1230,9 +1236,11 @@ class UnitIteratorSerialiser
 	 *
 	 * By default we hide the object's internal and dynamic offsets.
 	 *
+	 * @param PersistentObject		$theObject			Object.
+	 *
 	 * @access protected
 	 */
-	protected function setHiddenTags()
+	protected function setHiddenTags( $theObject )
 	{
 		//
 		// Check format.
@@ -1242,7 +1250,7 @@ class UnitIteratorSerialiser
 			//
 			// Save object class.
 			//
-			$class = $object[ kTAG_CLASS ];
+			$class = $theObject[ kTAG_CLASS ];
 			
 			//
 			// Set exceptions.
@@ -1364,6 +1372,7 @@ class UnitIteratorSerialiser
 					case kTYPE_TYPED_LIST:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+						$this->formatTypedList( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1590,6 +1599,179 @@ class UnitIteratorSerialiser
 		} // Scalar value.
 		
 	} // formatEnumeration.
+
+	 
+	/*===================================================================================
+	 *	formatTypedList																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format typed list value
+	 *
+	 * The duty of this method is to format the provided typed list value or set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatTypedList( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle single element.
+		//
+		if( count( $theValue ) == 1 )
+		{
+			//
+			// Handle text value.
+			//
+			if( array_key_exists( kTAG_TEXT, $theValue[ 0 ] ) )
+			{
+				//
+				// Handle typed element.
+				//
+				if( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+				{
+					//
+					// Allocate element.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+					$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+					
+					//
+					// Set type.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= $theValue[ 0 ][ kTAG_TYPE ];
+			
+					//
+					// Set text value.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				} // Typed.
+				
+				//
+				// Handle typeless element.
+				//
+				else
+				{
+					//
+					// Change type.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+						= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+					
+					//
+					// Set scalar value.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				} // Reduce to scalar.
+				
+			} // Text value.
+			
+			//
+			// Handle URL value.
+			//
+			elseif( array_key_exists( kTAG_URL, $theValue[ 0 ] ) )
+			{
+				//
+				// Allocate element.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+				
+				//
+				// Set display to type.
+				//
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+					? $theValue[ 0 ][ kTAG_TYPE ]
+					: $theValue[ 0 ][ kTAG_URL ];
+				
+				//
+				// Set value.
+				//
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+					= $theValue[ 0 ][ kTAG_URL ];
+			
+			} // URL value.
+		
+		} // Single element.
+		
+		//
+		// Handle multiple elements.
+		//
+		elseif( count( $theValue ) > 1 )
+		{
+			//
+			// Allocate list.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
+			//
+			// Iterate elements.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Allocate element.
+				//
+				$list[] = Array();
+				$ref = & $list[ count( $theContainer ) - 1 ];
+				
+				//
+				// Handle text value.
+				//
+				if( array_key_exists( kTAG_TEXT, $value ) )
+				{
+					//
+					// Set type.
+					//
+					if( array_key_exists( kTAG_TYPE, $value ) )
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= $value[ kTAG_TYPE ];
+					
+					//
+					// Set value.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $value[ kTAG_TEXT ];
+				
+				} // Text value.
+			
+				//
+				// Handle URL value.
+				//
+				elseif( array_key_exists( kTAG_URL, $value ) )
+				{
+					//
+					// Set display.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= ( array_key_exists( kTAG_TYPE, $theValue[ 0 ] ) )
+						? $value[ kTAG_TYPE ]
+						: $value[ kTAG_URL ];
+				
+					//
+					// Set value.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_LINK ]
+						= $value[ kTAG_URL ];
+			
+				} // URL value.
+			
+			} // Iterating elements.
+		
+		} // Multiple elements.
+		
+	} // formatTypedList.
 
 	 
 	/*===================================================================================
