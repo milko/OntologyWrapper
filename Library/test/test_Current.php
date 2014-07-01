@@ -113,15 +113,24 @@ try
 	$formatter
 		= new OntologyWrapper\UnitIteratorSerialiser(
 			$rs,
-			kAPI_RESULT_ENUM_DATA_MARKER,
+			kAPI_RESULT_ENUM_DATA_COLUMN,
 			'en',
-			':domain:forest',
+			kDOMAIN_FOREST,
 			57 );
+	
+	//
+	// Format.
+	//
+	$formatter->serialise();
 	
 	//
 	// Show.
 	//
-	var_dump( $formatter );
+	var_dump( $formatter->paging() );
+	echo( '<hr />' );
+	var_dump( $formatter->dictionary() );
+	echo( '<hr />' );
+	var_dump( $formatter->data() );
 }
 
 //

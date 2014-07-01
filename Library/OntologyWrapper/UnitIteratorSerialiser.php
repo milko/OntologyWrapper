@@ -181,6 +181,16 @@ class UnitIteratorSerialiser
 	protected $mProcessed = FALSE;
 
 	/**
+	 * Traverse sub-structures flag.
+	 *
+	 * This protected data member holds the flag that determines whether to traverse
+	 * sub-substructures.
+	 *
+	 * @var boolean
+	 */
+	protected $mStructs = TRUE;
+
+	/**
 	 * Current unit.
 	 *
 	 * This protected data member holds the current unit object.
@@ -639,7 +649,7 @@ class UnitIteratorSerialiser
 	public function paging()
 	{
 		//
-		// Handle serialised iterator.
+		// Check processed flag.
 		//
 		if( $this->mProcessed )
 			return $this->mPaging;													// ==>
@@ -647,6 +657,32 @@ class UnitIteratorSerialiser
 		return NULL;																// ==>
 	
 	} // paging.
+
+	 
+	/*===================================================================================
+	 *	dictionary																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return dictionary information
+	 *
+	 * This method will return the dictionary information; if the iterator was not yet
+	 * serialised, the method will return <tt>NULL</tt>.
+	 *
+	 * @access public
+	 * @return array				Dictionary information or <tt>NULL</tt>.
+	 */
+	public function dictionary()
+	{
+		//
+		// Check processed flag.
+		//
+		if( $this->mProcessed )
+			return $this->mDictionary;												// ==>
+		
+		return NULL;																// ==>
+	
+	} // dictionary.
 
 	 
 	/*===================================================================================
@@ -665,7 +701,7 @@ class UnitIteratorSerialiser
 	public function data()
 	{
 		//
-		// Handle serialised iterator.
+		// Check processed flag.
 		//
 		if( $this->mProcessed )
 			return $this->mData;													// ==>
@@ -727,6 +763,11 @@ class UnitIteratorSerialiser
 					break;
 			
 			} // Parsed by format.
+			
+			//
+			// Signal processed.
+			//
+			$this->mProcessed = TRUE;
 		
 		} // Not already processed.
 	
@@ -755,8 +796,189 @@ class UnitIteratorSerialiser
 	 */
 	protected function serialiseColumns()
 	{
+		//
+		// Init local storage.
+		//
+		$this->mDictionary[ kAPI_DICTIONARY_LIST_COLS ] = Array();
+		$dict = & $this->mDictionary[ kAPI_DICTIONARY_LIST_COLS ];
+		$wrapper = $this->mIterator->collection()->dictionary();
+		
+		//
+		// Set table columns.
+		//
+		foreach( UnitObject::ListOffsets( $this->mDomain[ kTAG_NID ] ) as $col )
+		{
+			//
+			// Cache tag.
+			//
+			$tag = $this->cacheTag( $wrapper, $col );
+			
+			//
+			// Allocate labels.
+			//
+			$dict[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
+			
+			//
+			// Set labels.
+			//
+			$this->setTagLabel( $dict[ $tag[ kTAG_ID_SEQUENCE ] ], $tag );
+		
+		} // Iterating columns.
+		
+		//
+		// Iterate iterator.
+		//
+		$cols = array_keys( $dict );
+		foreach( $this->mIterator as $object )
+		{
+			//
+			// Save current unit.
+			//
+			$this->mCurrentUnit = $object;
+			
+			//
+			// Allocate data.
+			//
+			$this->mData[ $object[ kTAG_NID ] ] = Array();
+			$data = & $this->mData[ $object[ kTAG_NID ] ];
+			
+			//
+			// Iterate columns.
+			//
+			foreach( $cols as $col )
+			{
+				//
+				// Handle value.
+				//
+				if( ($value = $object[ $col ]) !== NULL )
+				{
+					//
+					// Allocate value.
+					//
+					$data[ $col ] = Array();
+					
+					//
+					// Format value.
+					//
+					$this->setDataValue(
+						$data[ $col ],
+						$value,
+						$this->mCache[ Tag::kSEQ_NAME ][ $col ] );
+				
+				} // Has column.
+			
+			} // Iterating columns.
+		
+		} // Iterating iterator.
 		
 	} // serialiseColumns.
+
+	 
+	/*===================================================================================
+	 *	serialiseFormatted																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise formatted
+	 *
+	 * This method will serialise the iterator data for formatted records
+	 *
+	 * @access protected
+	 */
+	protected function serialiseFormatted()
+	{
+		//
+		// Init local storage.
+		//
+		$wrapper = $this->mIterator->collection()->dictionary();
+		
+		//
+		// Iterate objects.
+		//
+		foreach( $this->mIterator as $object )
+		{
+			//
+			// Save current unit.
+			//
+			$this->mCurrentUnit = $object;
+			
+			//
+			// Set excluded offsets.
+			//
+			$this->setHiddenTags();
+			
+			//
+			// Allocate data.
+			//
+			$this->mData[ $object[ kTAG_NID ] ] = Array();
+			$data = & $this->mData[ $object[ kTAG_NID ] ];
+			
+			//
+			// Iterate object properties.
+			//
+			foreach( $object as $key => $value )
+			{
+				//
+				// Handle publishable tags.
+				//
+				if( ! in_array( $key, $this->mHidden ) )
+				{
+					//
+					// Cache tag.
+					//
+					$tag = $this->cacheTag( $wrapper, $key );
+			
+					//
+					// Set labels.
+					//
+					$this->setTagLabel( $data, $tag );
+			
+					//
+					// Set values.
+					//
+					$this->setDataValue( $data, $value, $tag );
+				
+				} // Publishable tag.
+			
+			} // Iterating object properties.
+		
+		} // Iterating objects.
+		
+	} // serialiseFormatted.
+
+	 
+	/*===================================================================================
+	 *	serialiseMarkers																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise markers
+	 *
+	 * This method will serialise the iterator data for markers
+	 *
+	 * @access protected
+	 */
+	protected function serialiseMarkers()
+	{
+		
+	} // serialiseMarkers.
+
+	 
+	/*===================================================================================
+	 *	serialiseRecords																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise records
+	 *
+	 * This method will serialise the iterator data for aggregated records
+	 *
+	 * @access protected
+	 */
+	protected function serialiseRecords()
+	{
+		
+	} // serialiseRecords.
 
 	 
 
@@ -1036,6 +1258,397 @@ class UnitIteratorSerialiser
 			$this->mHidden = Array();
 		
 	} // setHiddenTags.
+
+	 
+	/*===================================================================================
+	 *	setTagLabel																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set tag label
+	 *
+	 * The duty of this method is to set the provided container with the label and description
+	 * of the provided tag.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param array					$theTag				Tag array object.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_PARAM_RESPONSE_FRMT_NAME kAPI_PARAM_RESPONSE_FRMT_INFO
+	 */
+	protected function setTagLabel( &$theContainer, $theTag )
+	{
+		//
+		// Set label.
+		//
+		if( array_key_exists( kTAG_LABEL, $theTag ) )
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+				= $theTag[ kTAG_LABEL ];
+		
+		//
+		// Set description.
+		//
+		if( array_key_exists( kTAG_DESCRIPTION, $theTag ) )
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+				= $theTag[ kTAG_DESCRIPTION ];
+		
+	} // setTagLabel.
+
+	 
+	/*===================================================================================
+	 *	setDataValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set value
+	 *
+	 * The duty of this method is to set the provided container with the provided data
+	 * value.
+	 *
+	 * This method expcets the current offset to have been cached.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Tag array object.
+	 *
+	 * @access protected
+	 */
+	protected function setDataValue( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle structures.
+		//
+		if( $theTag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
+		{
+		
+		} // Structure.
+		
+		//
+		// Handle scalars.
+		//
+		else
+		{
+			//
+			// Handle list of scalars.
+			//
+			if( array_key_exists( kTAG_DATA_KIND, $theTag )
+			 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
+			{
+			
+			} // List of scalars.
+			
+			//
+			// Scalar.
+			//
+			else
+			{
+				//
+				// Format data.
+				//
+				switch( $theTag[ kTAG_DATA_TYPE ] )
+				{
+					//
+					// Enumerated values.
+					//
+					case kTYPE_SET:
+					case kTYPE_ENUM:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_ENUM;
+						$this->formatEnumeration( $theContainer, $theValue, $theTag );
+						break;
+			
+					//
+					// Typed list.
+					//
+					case kTYPE_TYPED_LIST:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+						break;
+			
+					//
+					// Language strings.
+					//
+					case kTYPE_LANGUAGE_STRINGS:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+						break;
+			
+					//
+					// Unit reference.
+					//
+					case kTYPE_REF_SELF:
+					case kTYPE_REF_UNIT:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_OBJECT;
+						break;
+			
+					//
+					// Geo JSON shape.
+					//
+					case kTYPE_SHAPE:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SHAPE;
+						break;
+			
+					//
+					// Boolean.
+					//
+					case kTYPE_BOOLEAN:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						break;
+			
+					//
+					// Integer.
+					//
+					case kTYPE_INT:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						break;
+			
+					//
+					// Float.
+					//
+					case kTYPE_FLOAT:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						break;
+			
+					//
+					// Time-stamp.
+					//
+					case kTYPE_TIME_STAMP:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						break;
+			
+					//
+					// Miscellanea.
+					//
+					case kTYPE_MIXED:
+					case kTYPE_STRING:
+					case kTYPE_TEXT:
+					case kTYPE_YEAR:
+					case kTYPE_DATE:
+					
+					//
+					// Other.
+					//
+					default:
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						$this->formatScalar( $theContainer, $theValue, $theTag );
+						break;
+				
+				} // Parsed data type.
+			
+			} // Scalar.
+		
+		} // Scalar.
+		
+	} // setDataValue.
+
+	 
+	/*===================================================================================
+	 *	formatEnumeration																*
+	 *==================================================================================*/
+
+	/**
+	 * Format enumerated value
+	 *
+	 * The duty of this method is to format the provided enumerated value or set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatEnumeration( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle list.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->formatEnumeration( $theContainer, $theValue[ 0 ], $theTag );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate list.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+				
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate element.
+					//
+					$list[] = Array();
+					$ref = & $list[ count( $list ) - 1 ];
+				
+					//
+					// Cache term.
+					//
+					$this->cacheTerm(
+						$this->mIterator->collection()->dictionary(),
+						$value );
+		
+					//
+					// Reference term.
+					//
+					$term = & $this->mCache[ Term::kSEQ_NAME ][ $value ];
+		
+					//
+					// Set label.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
+		
+					//
+					// Set definition.
+					//
+					if( array_key_exists( kTAG_DEFINITION, $term ) )
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+			
+				} // Iterating values.
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Cache term.
+			//
+			$this->cacheTerm(
+				$this->mIterator->collection()->dictionary(),
+				$theValue );
+		
+			//
+			// Reference term.
+			//
+			$term = & $this->mCache[ Term::kSEQ_NAME ][ $theValue ];
+		
+			//
+			// Allocate element.
+			//
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+			{
+				//
+				// Allocate element.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				
+				//
+				// Set reference.
+				//
+				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			}
+			else
+			{
+				//
+				// Update type.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				
+				//
+				// Set reference.
+				//
+				$ref = & $theContainer;
+			}
+			
+			//
+			// Set label.
+			//
+			$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $term[ kTAG_LABEL ];
+		
+			//
+			// Set definition.
+			//
+			if( array_key_exists( kTAG_DEFINITION, $term ) )
+				$ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ] = $term[ kTAG_DEFINITION ];
+		
+		} // Scalar value.
+		
+	} // formatEnumeration.
+
+	 
+	/*===================================================================================
+	 *	formatScalar																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format scalar value
+	 *
+	 * The duty of this method is to format the provided scalar value or set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatScalar( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$this->formatScalar( $theContainer, $theValue[ 0 ], $theTag );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate display elements.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
+				//
+				// Iterate list.
+				//
+				foreach( $theValue as $value )
+					$ref[] = $value;
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue;
+		
+	} // formatScalar.
 
 	 
 
