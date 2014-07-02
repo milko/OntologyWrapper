@@ -893,11 +893,6 @@ class UnitIteratorSerialiser
 	protected function serialiseFormatted()
 	{
 		//
-		// Init local storage.
-		//
-		$wrapper = $this->mIterator->collection()->dictionary();
-		
-		//
 		// Iterate objects.
 		//
 		foreach( $this->mIterator as $object )
@@ -924,32 +919,10 @@ class UnitIteratorSerialiser
 			foreach( $object as $key => $value )
 			{
 				//
-				// Handle publishable tags.
+				// Exclude hidden properties.
 				//
 				if( ! in_array( $key, $this->mHidden ) )
-				{
-					//
-					// Cache tag.
-					//
-					$tag = $this->cacheTag( $wrapper, $key );
-					
-					//
-					// Allocate property.
-					//
-					$data[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
-					$ref = & $data[ $tag[ kTAG_ID_SEQUENCE ] ];
-			
-					//
-					// Set labels.
-					//
-					$this->setTagLabel( $ref, $tag );
-			
-					//
-					// Set values.
-					//
-					$this->setDataValue( $ref, $value, $tag );
-				
-				} // Publishable tag.
+					$this->setProperty( $data, $key, $value );
 			
 			} // Iterating object properties.
 		
@@ -1002,6 +975,48 @@ class UnitIteratorSerialiser
 
 	 
 	/*===================================================================================
+	 *	setProperty																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set property
+	 *
+	 * The duty of this method is to cache the property tag, allocate the property in the
+	 * provided container, set the property labels and format the property value.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param string				$theOffset			Data offset.
+	 * @param mixed					$theValue			Data value.
+	 *
+	 * @access protected
+	 */
+	protected function setProperty( &$theContainer, $theOffset, $theValue )
+	{
+		//
+		// Cache tag.
+		//
+		$tag = $this->cacheTag( $this->mIterator->collection()->dictionary(), $theOffset );
+		
+		//
+		// Allocate property.
+		//
+		$theContainer[ $tag[ kTAG_ID_SEQUENCE ] ] = Array();
+		$ref = & $theContainer[ $tag[ kTAG_ID_SEQUENCE ] ];
+
+		//
+		// Set labels.
+		//
+		$this->setTagLabel( $ref, $tag );
+
+		//
+		// Set values.
+		//
+		$this->setDataValue( $ref, $theValue, $tag );
+		
+	} // setProperty.
+
+	 
+	/*===================================================================================
 	 *	setTagLabel																		*
 	 *==================================================================================*/
 
@@ -1047,7 +1062,7 @@ class UnitIteratorSerialiser
 	 * The duty of this method is to set the provided container with the provided data
 	 * value.
 	 *
-	 * This method expcets the current offset to have been cached.
+	 * This method expects the current offset tag to have been cached.
 	 *
 	 * @param array					$theContainer		Data container.
 	 * @param mixed					$theValue			Data value.
@@ -1062,7 +1077,118 @@ class UnitIteratorSerialiser
 		//
 		if( $theTag[ kTAG_DATA_TYPE ] == kTYPE_STRUCT )
 		{
-		
+			//
+			// Set type.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+				= kAPI_PARAM_RESPONSE_TYPE_STRUCT;
+			
+			//
+			// Save container structure index offset.
+			//
+			$offset = ( array_key_exists( kTAG_TAG_STRUCT_IDX, $theTag ) )
+					? $this->mIterator
+						->collection()
+							->dictionary()
+								->getSerial( $theTag[ kTAG_TAG_STRUCT_IDX ] )
+					: NULL;
+			
+			//
+			// Handle structures list.
+			//
+			if( array_key_exists( kTAG_DATA_KIND, $theTag )
+			 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
+			{
+				//
+				// Allocate list.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ];
+				
+				//
+				// Iterate structures.
+				//
+				foreach( $theValue as $struct )
+				{
+					//
+					// Allocate list element.
+					//
+					$list[] = Array();
+					$ref = & $list[ count( $list ) - 1 ];
+					
+					//
+					// Set type.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+						= kAPI_PARAM_RESPONSE_TYPE_STRUCT;
+			
+					//
+					// Set structure index string.
+					//
+					if( array_key_exists( $offset, $struct ) )
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= $struct[ $offset ];
+				
+					//
+					// Allocate structure.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+					
+					//
+					// Iterate structure properties.
+					//
+					foreach( $struct as $key => $value )
+					{
+						//
+						// Exclude hidden properties.
+						//
+						if( ! in_array( $key, $this->mHidden ) )
+							$this->setProperty(
+								$ref[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
+								$key,
+								$value );
+					
+					} // Iterating structure properties.
+				
+				} // Iterating list.
+			
+			} // Structures list.
+			
+			//
+			// Handle scalar structure.
+			//
+			else
+			{
+				//
+				// Set structure index string.
+				//
+				if( array_key_exists( $offset, $theValue ) )
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ $offset ];
+			
+				//
+				// Allocate structure.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ] = Array();
+				
+				//
+				// Iterate structure properties.
+				//
+				foreach( $theValue as $key => $value )
+				{
+					//
+					// Exclude hidden properties.
+					//
+					if( ! in_array( $key, $this->mHidden ) )
+						$this->setProperty(
+							$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DOCU ],
+							$key,
+							$value );
+				
+				} // Iterating structure properties.
+			
+			} // Scalar structure.
+			
 		} // Structure.
 		
 		//
@@ -1076,6 +1202,70 @@ class UnitIteratorSerialiser
 			if( array_key_exists( kTAG_DATA_KIND, $theTag )
 			 && in_array( kTYPE_LIST, $theTag[ kTAG_DATA_KIND ] ) )
 			{
+				//
+				// Parse by data type.
+				//
+				switch( $theTag[ kTAG_DATA_TYPE ] )
+				{
+					//
+					// Structured scalars.
+					//
+					case kTYPE_SET:
+					case kTYPE_TYPED_LIST:
+					case kTYPE_LANGUAGE_STRINGS:
+					case kTYPE_SHAPE:
+						//
+						// Allocate list.
+						//
+						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+						$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+						
+						//
+						// Iterate elements.
+						//
+						foreach( $theValue as $value )
+						{
+							//
+							// Allocate element.
+							//
+							$list[] = Array();
+							
+							//
+							// Format element.
+							//
+							$this->formatDataValue(
+								$list[ count( $list ) - 1 ],
+								$value,
+								$theTag );
+						
+						} // Iterating list.
+						
+						break;
+	
+					//
+					// Miscellanea.
+					//
+					case kTYPE_ENUM:
+					case kTYPE_REF_SELF:
+					case kTYPE_REF_UNIT:
+					case kTYPE_BOOLEAN:
+					case kTYPE_INT:
+					case kTYPE_FLOAT:
+					case kTYPE_MIXED:
+					case kTYPE_TIME_STAMP:
+					case kTYPE_STRING:
+					case kTYPE_TEXT:
+					case kTYPE_YEAR:
+					case kTYPE_DATE:
+			
+					//
+					// Other.
+					//
+					default:
+						$this->formatDataValue( $theContainer, $theValue, $theTag );
+						break;
+		
+				} // Parsed data type.
 			
 			} // List of scalars.
 			
@@ -1083,120 +1273,149 @@ class UnitIteratorSerialiser
 			// Scalar.
 			//
 			else
-			{
-				//
-				// Format data.
-				//
-				switch( $theTag[ kTAG_DATA_TYPE ] )
-				{
-					//
-					// Enumerated values.
-					//
-					case kTYPE_SET:
-					case kTYPE_ENUM:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_ENUM;
-						$this->formatEnumeration( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Typed list.
-					//
-					case kTYPE_TYPED_LIST:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
-						$this->formatTypedList( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Language strings.
-					//
-					case kTYPE_LANGUAGE_STRINGS:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
-						$this->formatLanguageStrings( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Unit reference.
-					//
-					case kTYPE_REF_SELF:
-					case kTYPE_REF_UNIT:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_OBJECT;
-						$this->formatUnitReference( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Geo JSON shape.
-					//
-					case kTYPE_SHAPE:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SHAPE;
-						$this->formatShape( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Boolean.
-					//
-					case kTYPE_BOOLEAN:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-						$this->formatBoolean( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Integer.
-					//
-					case kTYPE_INT:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-						$this->formatInteger( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Float.
-					//
-					case kTYPE_FLOAT:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-						$this->formatFloat( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Time-stamp.
-					//
-					case kTYPE_TIME_STAMP:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-						$this->formatTimeStamp( $theContainer, $theValue, $theTag );
-						break;
-			
-					//
-					// Miscellanea.
-					//
-					case kTYPE_MIXED:
-					case kTYPE_STRING:
-					case kTYPE_TEXT:
-					case kTYPE_YEAR:
-					case kTYPE_DATE:
-					
-					//
-					// Other.
-					//
-					default:
-						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
-							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
-						$this->formatScalar( $theContainer, $theValue, $theTag );
-						break;
-				
-				} // Parsed data type.
-			
-			} // Scalar.
+				$this->formatDataValue( $theContainer, $theValue, $theTag );
 		
 		} // Scalar.
 		
 	} // setDataValue.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED FORMATTING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	formatDataValue																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format value
+	 *
+	 * The duty of this method is to format and set the provided container with the provided
+	 * data value.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Tag array object.
+	 *
+	 * @access protected
+	 */
+	protected function formatDataValue( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Parse by data type.
+		//
+		switch( $theTag[ kTAG_DATA_TYPE ] )
+		{
+			//
+			// Enumerated values.
+			//
+			case kTYPE_SET:
+			case kTYPE_ENUM:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_ENUM;
+				$this->formatEnumeration( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Typed list.
+			//
+			case kTYPE_TYPED_LIST:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+				$this->formatTypedList( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Language strings.
+			//
+			case kTYPE_LANGUAGE_STRINGS:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+				$this->formatLanguageStrings( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Unit reference.
+			//
+			case kTYPE_REF_SELF:
+			case kTYPE_REF_UNIT:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_OBJECT;
+				$this->formatUnitReference( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Geo JSON shape.
+			//
+			case kTYPE_SHAPE:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SHAPE;
+				$this->formatShape( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Boolean.
+			//
+			case kTYPE_BOOLEAN:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatBoolean( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Integer.
+			//
+			case kTYPE_INT:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatInteger( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Float.
+			//
+			case kTYPE_FLOAT:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatFloat( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Time-stamp.
+			//
+			case kTYPE_TIME_STAMP:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatTimeStamp( $theContainer, $theValue, $theTag );
+				break;
+	
+			//
+			// Miscellanea.
+			//
+			case kTYPE_MIXED:
+			case kTYPE_STRING:
+			case kTYPE_TEXT:
+			case kTYPE_YEAR:
+			case kTYPE_DATE:
+			
+			//
+			// Other.
+			//
+			default:
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				$this->formatScalar( $theContainer, $theValue, $theTag );
+				break;
+		
+		} // Parsed data type.
+		
+	} // formatDataValue.
 
 	 
 	/*===================================================================================
