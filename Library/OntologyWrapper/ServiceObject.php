@@ -10,7 +10,6 @@ namespace OntologyWrapper;
 
 use OntologyWrapper\Wrapper;
 use OntologyWrapper\ContainerObject;
-use OntologyWrapper\ResultAggregator;
 use OntologyWrapper\UnitIteratorSerialiser;
 
 /*=======================================================================================
@@ -3452,7 +3451,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Execute request.
 		//
-		$rs
+		$iterator
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase(
 					$this->mWrapper ) )
@@ -3463,31 +3462,49 @@ $rs_units = & $rs_units[ 'result' ];
 		// Skip records.
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-			$rs->skip( (int) $tmp );
+			$iterator->skip( (int) $tmp );
 		
 		//
 		// Set cursor limit.
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
-			$rs->limit( (int) $tmp );
+			$iterator->limit( (int) $tmp );
 		
 		//
-		// Set table columns.
+		// Instantiate results formatter.
 		//
-		$this->addColumnsSelection(
-			$this->offsetGet( kAPI_PARAM_DOMAIN ),
-			kAPI_RESULT_ENUM_DATA_RECORD,
-			$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
+		$formatter
+			= new UnitIteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
+					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
 		
 		//
-		// Instantiate results aggregator.
+		// Serialise iterator.
 		//
-		$aggregator = new ResultAggregator( $rs, $this->mResponse );
+		$formatter->serialise();
 		
 		//
-		// Aggregate results.
+		// Set paging.
 		//
-		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set dictionary.
+		//
+		$elements = array( kAPI_DICTIONARY_COLLECTION, kAPI_DICTIONARY_REF_COUNT,
+						   kAPI_DICTIONARY_LIST_COLS, kAPI_DICTIONARY_IDS,
+						   kAPI_DICTIONARY_TAGS );
+		foreach( $elements as $element )
+			$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
+				= $formatter->dictionary()[ $element ];
+		
+		//
+		// Set data.
+		//
+		$theContainer = $formatter->data();
 		
 	} // executeClusterUnits.
 
@@ -4389,116 +4406,6 @@ $rs_units = & $rs_units[ 'result' ];
 										 $theTag ) );
 		
 	} // addTagMatchClause.
-
-	 
-	/*===================================================================================
-	 *	addColumnsSelection																*
-	 *==================================================================================*/
-
-	/**
-	 * Add columns selection.
-	 *
-	 * This method will load the dictionary {@link kAPI_DICTIONARY_LIST_COLS} field with the
-	 * default columns for the provided domain.
-	 *
-	 * The second parameter is the value of the {@link kAPI_PARAM_DATA} service parameter,
-	 * it determines the format of the columns and accepts the following values:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The columns will be a list of
-	 *		tag serial numbers.
-	 *	<li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The columns will be a list of
-	 *		elements containing the following items:
-	 *	 <ul>
-	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The tag label.
-	 *		<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The tag description.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param string				$theDomain			Domain.
-	 * @param string				$theFormat			Data format.
-	 * @param string				$theLanguage		Default language.
-	 *
-	 * @access protected
-	 * @return array				The columns selection.
-	 */
-	protected function addColumnsSelection( $theDomain, $theFormat, $theLanguage )
-	{
-		//
-		// Allocate dictionary.
-		//
-		if( ! array_key_exists( kAPI_RESULTS_DICTIONARY,
-								$this->mResponse ) )
-			$this->mResponse[ kAPI_RESULTS_DICTIONARY ] = Array();
-		
-		//
-		// Allocate columns.
-		//
-		if( ! array_key_exists( kAPI_DICTIONARY_LIST_COLS,
-								$this->mResponse[ kAPI_RESULTS_DICTIONARY ] ) )
-			$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ kAPI_DICTIONARY_LIST_COLS ]
-				= Array();
-		
-		//
-		// Get table columns.
-		//
-		$cols = UnitObject::ListOffsets( $theDomain );
-		if( count( $cols ) )
-		{
-			//
-			// Iterate tags.
-			//
-			foreach( $cols as $col )
-			{
-				//
-				// Convert to serial number.
-				//
-				if( (! is_int( $col ))
-				 && (!ctype_digit( $col )) )
-					$col = $this->mWrapper->getSerial( $col, TRUE );
-				
-				//
-				// Parse by data format.
-				//
-				switch( $theFormat )
-				{
-					case kAPI_RESULT_ENUM_DATA_RECORD:
-						$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-										[ kAPI_DICTIONARY_LIST_COLS ]
-										[] = $col;
-						break;
-				
-					default:
-						$tag = $this->mWrapper->getObject( $col, TRUE );
-						$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-										[ kAPI_DICTIONARY_LIST_COLS ]
-										[ $col ]
-										[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
-							= OntologyObject::SelectLanguageString(
-								$tag[ kTAG_LABEL ],
-								$theLanguage );
-						if( array_key_exists( kTAG_DESCRIPTION, $tag ) )
-							$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-											[ kAPI_DICTIONARY_LIST_COLS ]
-											[ $col ]
-											[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
-							= OntologyObject::SelectLanguageString(
-								$tag[ kTAG_DESCRIPTION ],
-								$theLanguage );
-						break;
-				
-				} // Parsed by data format.
-			
-			} // Iterating tags.
-			
-			return $this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-								   [ kAPI_DICTIONARY_LIST_COLS ];					// ==>
-		
-		} // Found columns.
-		
-		return $cols;																// ==>
-		
-	} // addColumnsSelection.
 
 	 
 

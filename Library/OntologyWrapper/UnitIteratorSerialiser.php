@@ -952,6 +952,23 @@ class UnitIteratorSerialiser
 	protected function serialiseRecords()
 	{
 		//
+		// Set columns in dictionary.
+		//
+		$this->setColumns();
+		
+		//
+		// Set collection.
+		//
+		$collection = $this->mIterator->collection()[ kTAG_CONN_COLL ];
+		$this->mDictionary[ kAPI_DICTIONARY_COLLECTION ] = $collection;
+		
+		//
+		// Set collection reference count offset.
+		//
+		$this->mDictionary[ kAPI_DICTIONARY_REF_COUNT ]
+			= PersistentObject::ResolveRefCountTag( $collection );
+		
+		//
 		// Iterate objects.
 		//
 		foreach( $this->mIterator as $object )
@@ -1038,8 +1055,7 @@ class UnitIteratorSerialiser
 			// Set tag identifier.
 			//
 			if( $this->mFormat == kAPI_RESULT_ENUM_DATA_RECORD )
-				$dict[ $tag[ kTAG_ID_SEQUENCE ] ]
-					= $tag[ kTAG_NID ];
+				$dict[] = $tag[ kTAG_ID_SEQUENCE ];
 			
 			//
 			// Format tag.
@@ -1091,42 +1107,43 @@ class UnitIteratorSerialiser
 				$this->cacheTag(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject,
+					FALSE );
 				break;
 				
 			case Term::kSEQ_NAME:
 				$this->cacheTerm(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject );
 				break;
 				
 			case Node::kSEQ_NAME:
 				$this->cacheNode(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject );
 				break;
 				
 			case Edge::kSEQ_NAME:
 				$this->cacheEdge(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject );
 				break;
 				
 			case UnitObject::kSEQ_NAME:
 				$this->cacheUnit(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject );
 				break;
 				
 			case User::kSEQ_NAME:
 				$this->cacheUser(
 					$this->mIterator->collection()->dictionary(),
 					$this->mData,
-					$theObject->getArrayCopy() );
+					$theObject );
 				break;
 		
 		} // Parsed collection name.
@@ -1464,6 +1481,266 @@ class UnitIteratorSerialiser
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	aggregateProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Aggregate property
+	 *
+	 * The duty of this method is to aggregate the provided offset tag and parse the
+	 * eventual structured value.
+	 *
+	 * @param string				$theClass			Object class.
+	 * @param string				$theOffset			Data offset.
+	 * @param mixed					$theValue			Data value.
+	 * @param boolean				$doTags				TRUE means recurse tags.
+	 *
+	 * @access protected
+	 */
+	protected function aggregateProperty( $theClass, $theOffset, $theValue,
+										  $doTags = TRUE )
+	{
+		//
+		// Cache tag.
+		//
+		$tag
+			= $this->cacheTag(
+				$this->mIterator->collection()->dictionary(),
+				$this->mData,
+				$theOffset,
+				FALSE );
+		
+		//
+		// Update dictionary tags xrefs.
+		//
+		$this->mDictionary[ kAPI_DICTIONARY_TAGS ]
+						  [ $tag[ kTAG_ID_SEQUENCE ] ]
+			= $tag[ kTAG_NID ];
+		
+		//
+		// Handle value.
+		//
+		switch( $tag[ kTAG_DATA_TYPE ] )
+		{
+			//
+			// Structures.
+			//
+			case kTYPE_STRUCT:
+				if( array_key_exists( kTAG_DATA_KIND, $tag )
+				 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+				{
+					foreach( $theValue as $struct )
+					{
+						foreach( $struct as $key => $value )
+						{
+							if( ! in_array( $key, $this->mHidden ) )
+								$this->aggregateProperty( $theClass, $key, $value );
+		
+						} // Iterating object properties.
+					}
+				}
+				else
+				{
+					foreach( $theValue as $key => $value )
+					{
+						if( ! in_array( $key, $this->mHidden ) )
+							$this->aggregateProperty( $theClass, $key, $value );
+		
+					} // Iterating object properties.
+				}
+				break;
+	
+			//
+			// Enumerated values.
+			//
+			case kTYPE_ENUM:
+				if( is_array( $theValue ) )
+				{
+					foreach( $theValue as $value )
+						$this->cacheTerm(
+							$this->mIterator->collection()->dictionary(),
+							$this->mData,
+							$value );
+				}
+				else
+					$this->cacheTerm(
+						$this->mIterator->collection()->dictionary(),
+						$this->mData,
+						$theValue );
+				break;
+	
+			//
+			// Enumerated sets.
+			//
+			case kTYPE_SET:
+				if( array_key_exists( kTAG_DATA_KIND, $tag )
+				 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+				{
+					foreach( $theValue as $value )
+					{
+						foreach( $value as $element )
+							$this->cacheTerm(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$element );
+					}
+				}
+				else
+				{
+					foreach( $theValue as $value )
+						$this->cacheTerm(
+							$this->mIterator->collection()->dictionary(),
+							$this->mData,
+							$value );
+				}
+				break;
+	
+			//
+			// Unit reference.
+			//
+			case kTYPE_REF_SELF:
+				switch( $theClass::kSEQ_NAME )
+				{
+					case Tag::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheTag(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheTag(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				
+					case Term::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheTerm(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheTerm(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				
+					case Node::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheNode(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheNode(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				
+					case Edge::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheEdge(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheEdge(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				
+					case UnitObject::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheUnit(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheUnit(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				
+					case User::kSEQ_NAME:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->cacheUser(
+									$this->mIterator->collection()->dictionary(),
+									$this->mData,
+									$value );
+						}
+						else
+							$this->cacheUser(
+								$this->mIterator->collection()->dictionary(),
+								$this->mData,
+								$theValue );
+						break;
+				}
+				break;
+				
+			case kTYPE_REF_UNIT:
+				if( is_array( $theValue ) )
+				{
+					foreach( $theValue as $value )
+						$this->cacheUnit(
+							$this->mIterator->collection()->dictionary(),
+							$this->mData,
+							$value );
+				}
+				else
+					$this->cacheUnit(
+						$this->mIterator->collection()->dictionary(),
+						$this->mData,
+						$theValue );
+				break;
+		
+		} // Parsed by data type.
+		
+		//
+		// Recurse tags.
+		//
+		if( $doTags )
+		{
+			//
+			// Handle tag tags.
+			//
+			foreach( $tag as $key => $value )
+			{
+				//
+				// Exclude hidden properties.
+				//
+				if( ! in_array( $key, $this->mHidden ) )
+					$this->aggregateProperty( 'OntologyWrapper\Tag', $key, $value, FALSE );
+		
+			} // Iterating tag tags.
+		
+		} // Recurse tags.
+		
+	} // aggregateProperty.
 
 	 
 	/*===================================================================================
@@ -2109,7 +2386,7 @@ class UnitIteratorSerialiser
 					$theTag );
 			
 			//
-			// handle multiple references.
+			// Handle multiple references.
 			//
 			elseif( count( $theValue ) > 1 )
 			{
@@ -2155,7 +2432,8 @@ class UnitIteratorSerialiser
 				= $this->cacheUnit(
 					$this->mIterator->collection()->dictionary(),
 					$this->mCache,
-					$theValue );
+					$theValue,
+					TRUE );
 			
 			//
 			// Set object name.
@@ -2563,25 +2841,31 @@ class UnitIteratorSerialiser
 	 * Load tag in cache
 	 *
 	 * This method will load the provided tag into the provided container, if not yet there,
-	 * and return the tag object as an array.
+	 * and return the cached tag as an array object.
 	 *
-	 * The provided parameter may be an array, in that case the method will add all the
-	 * provided tags and return an array of tag array objects indexed by tag sequence
-	 * number.
+	 * The provided parameter may be an array, in that case the method will interpret the
+	 * parameter as a list of references, add all the resolved objects to the provided
+	 * container and return an array indexed by object identifier, with as value the object
+	 * array.
+	 *
+	 * If the last parameter is <tt>TRUE</tt>, the tag identifier will be its sequence
+	 * number; if <tt>FALSE</tt>, its native identifier.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param mixed					$theTag				Tag native identifier or sequence.
+	 * @param mixed					$theValue			Tag reference or object.
+	 * @param boolean				$doSequence			TRUE, use sequence as identifier.
 	 *
 	 * @access protected
 	 * @return mixed				The cached tag or tags.
 	 */
-	protected function cacheTag( Wrapper $theWrapper, &$theContainer, $theTag )
+	protected function cacheTag( Wrapper $theWrapper, &$theContainer, $theValue,
+										 $doSequence = TRUE )
 	{
 		//
-		// Handle array.
+		// Handle list of references.
 		//
-		if( is_array( $theTag ) )
+		if( is_array( $theValue ) )
 		{
 			//
 			// Init local storage.
@@ -2589,79 +2873,124 @@ class UnitIteratorSerialiser
 			$result = Array();
 			
 			//
-			// Cache tags.
+			// Iterate list.
 			//
-			foreach( $theTag as $tag )
-			{
-				//
-				// Get tag.
-				//
-				$object = $this->cacheTag( $theWrapper, $theContainer, $tag );
-				
-				//
-				// Add tag.
-				//
-				if( ! array_key_exists( $tag, $result ) )
-					$result[ $tag ] = $object;
-			
-			} // Iterating tags.
-			
-			return $result;															// ==>
-		
-		} // Provided list of tags.
-		
-		//
-		// Handle scalar tag.
-		//
-		else
-		{
-			//
-			// Convert to sequence number.
-			//
-			if( (! is_int( $theTag ))
-			 && (! ctype_digit( $theTag )) )
-				$theTag = $theWrapper->getSerial( $theTag, TRUE );
-		
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Tag::kSEQ_NAME, $theContainer ) )
-				$theContainer[ Tag::kSEQ_NAME ] = Array();
-				
-			//
-			// Add tag.
-			//
-			if( ! array_key_exists( $theTag, $theContainer[ Tag::kSEQ_NAME ] ) )
+			foreach( $theValue as $value )
 			{
 				//
 				// Get object.
 				//
-				$theContainer[ Tag::kSEQ_NAME ][ $theTag ]
-					= Tag::ResolveCollection(
-						Tag::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
-										kQUERY_ARRAY );
+				$object
+					= $this->cacheTag(
+						$theWrapper, $theContainer, $value, $doSequence );
 				
+				//
+				// Save object.
+				//
+				if( ! array_key_exists( $value, $result ) )
+					$result[ $value ] = $object;
+			
+			} // Iterating list.
+			
+			return $result;															// ==>
+		
+		} // Provided list of references.
+		
+		//
+		// Handle scalar.
+		//
+		else
+		{
+			//
+			// Save collection name.
+			//
+			$collection = Tag::kSEQ_NAME;
+			
+			//
+			// Save identifier.
+			//
+			if( $theValue instanceof Tag )
+				$id = ( $doSequence )
+					? $theValue[ kTAG_ID_SEQUENCE ]
+					: $theValue[ kTAG_NID ];
+			else
+			{
+				if( $doSequence )
+					$id = ( is_int( $theValue )
+						 || ctype_digit( $theValue ) )
+						? (int) $theValue
+						: $theWrapper->getSerial( $theValue, TRUE );
+				else
+					$id
+						= $theWrapper
+							->getObject( $theValue, TRUE )
+								[ kTAG_NID ];
+			}
+			
+			//
+			// Allocate collection.
+			//
+			if( ! array_key_exists( $collection, $theContainer ) )
+				$theContainer[ $collection ] = Array();
+			
+			//
+			// Load object.
+			//
+			if( ! array_key_exists( $id, $theContainer[ $collection ] ) )
+			{
+				//
+				// Handle object.
+				//
+				if( $theValue instanceof Tag )
+					$theContainer[ $collection ][ $id ]
+						= $theValue->getArrayCopy();
+				
+				//
+				// Handle reference.
+				//
+				else
+				{
+					//
+					// Set criteria.
+					//
+					if( is_int( $id ) )
+						$criteria = array( kTAG_ID_SEQUENCE => $id );
+					else
+						$criteria = array( kTAG_NID => $id );
+						
+					//
+					// Get object.
+					//
+					$theContainer[ $collection ][ $id ]
+						= Tag::ResolveCollection(
+							Tag::ResolveDatabase( $theWrapper, TRUE ) )
+								->matchOne( $criteria,
+											kQUERY_ARRAY );
+				
+				} // Provided reference.
+			
 				//
 				// Normalise strings.
 				//
 				$strings = array( kTAG_LABEL, kTAG_DESCRIPTION );
 				foreach( $strings as $string )
 				{
-					if( array_key_exists(
-						$string, $theContainer[ Tag::kSEQ_NAME ][ $theTag ] ) )
-						$theContainer[ Tag::kSEQ_NAME ][ $theTag ][ $string ]
+					//
+					// Check string.
+					//
+					if( array_key_exists( $string, $theContainer[ $collection ][ $id ] ) )
+						$theContainer[ $collection ][ $id ][ $string ]
 							= OntologyObject::SelectLanguageString(
-								$theContainer[ Tag::kSEQ_NAME ][ $theTag ][ $string ],
+								$theContainer[ $collection ][ $id ][ $string ],
 								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
 			
-			return $theContainer[ Tag::kSEQ_NAME ][ $theTag ];						// ==>
+				} // Normalising strings.
+			
+			} // New entry.
 		
 		} // Provided scalar tag.
+		
+		return $theContainer[ Tag::kSEQ_NAME ][ $id ];								// ==>
 		
 	} // cacheTag.
 
@@ -2674,97 +3003,29 @@ class UnitIteratorSerialiser
 	 * Load term in cache
 	 *
 	 * This method will load the provided term into the provided container, if not yet
-	 * there, and return the tag object as an array.
+	 * there, and return the cached term as an array object.
 	 *
-	 * The provided parameter may be an array, in that case the method will add all the
-	 * provided terms and return an array of term array objects indexed by term native
-	 * identifier.
+	 * The provided parameter may be an array, in that case the method will interpret the
+	 * parameter as a list of references, add all the resolved objects to the provided
+	 * container and return an array indexed by object identifier, with as value the object
+	 * array.
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param string				$theTerm			Term native identifier.
+	 * @param mixed					$theValue			Term reference or object.
 	 *
 	 * @access protected
 	 * @return mixed				The cached term or terms.
 	 */
-	protected function cacheTerm( Wrapper $theWrapper, &$theContainer, $theTerm )
+	protected function cacheTerm( Wrapper $theWrapper, &$theContainer, $theValue )
 	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theTerm ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache terms.
-			//
-			foreach( $theTerm as $term )
-			{
-				//
-				// Get term.
-				//
-				$object = $this->cacheTerm( $theWrapper, $theContainer, $term );
-				
-				//
-				// Add term.
-				//
-				if( ! array_key_exists( $term, $result ) )
-					$result[ $term ] = $object;
-			
-			} // Iterating terms.
-			
-			return $result;															// ==>
-		
-		} // Provided list of terms.
-		
-		//
-		// Handle scalar term.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Term::kSEQ_NAME, $theContainer ) )
-				$theContainer[ Term::kSEQ_NAME ] = Array();
-				
-			//
-			// Add term.
-			//
-			if( ! array_key_exists( $theTerm, $theContainer[ Term::kSEQ_NAME ] ) )
-			{
-				//
-				// Get object.
-				//
-				$theContainer[ Term::kSEQ_NAME ][ $theTerm ]
-					= Term::ResolveCollection(
-						Term::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theTerm ), kQUERY_ARRAY );
-				
-				//
-				// Normalise strings.
-				//
-				$strings = array( kTAG_LABEL, kTAG_DEFINITION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $theContainer[ Term::kSEQ_NAME ][ $theTerm ] ) )
-						$theContainer[ Term::kSEQ_NAME ][ $theTerm ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$theContainer[ Term::kSEQ_NAME ][ $theTerm ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
-			
-			return $theContainer[ Term::kSEQ_NAME ][ $theTerm ];					// ==>
-		
-		} // Provided scalar term.
+		return $this->cacheObject(
+				$theWrapper,
+				$theContainer,
+				'OntologyWrapper\Term',
+				array( kTAG_LABEL, kTAG_DEFINITION ),
+				$theValue,
+				FALSE );															// ==>
 		
 	} // cacheTerm.
 
@@ -2785,89 +3046,20 @@ class UnitIteratorSerialiser
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param int					$theNode			Node native identifier.
+	 * @param mixed					$theValue			Node reference or object.
 	 *
 	 * @access protected
 	 * @return mixed				The cached node or nodes.
 	 */
-	protected function cacheNode( Wrapper $theWrapper, &$theContainer, $theNode )
+	protected function cacheNode( Wrapper $theWrapper, &$theContainer, $theValue )
 	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theNode ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache nodes.
-			//
-			foreach( $theNode as $node )
-			{
-				//
-				// Get node.
-				//
-				$object = $this->cacheNode( $theWrapper, $theContainer, $node );
-				
-				//
-				// Add node.
-				//
-				if( ! array_key_exists( $node, $result ) )
-					$result[ $node ] = $object;
-			
-			} // Iterating nodes.
-			
-			return $result;															// ==>
-		
-		} // Provided list of nodes.
-		
-		//
-		// Handle scalar node.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Node::kSEQ_NAME, $theContainer ) )
-				$theContainer[ Node::kSEQ_NAME ] = Array();
-				
-			//
-			// Add node.
-			//
-			if( ! array_key_exists( $theNode, $theContainer[ Node::kSEQ_NAME ] ) )
-			{
-				//
-				// Get object.
-				//
-				$theContainer[ Node::kSEQ_NAME ][ $theNode ]
-					= Node::ResolveCollection(
-						Node::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theNode ), kQUERY_ARRAY );
-				
-				//
-				// Normalise strings.
-				//
-				$strings = array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $theContainer[ Node::kSEQ_NAME ][ $theNode ] ) )
-						$theContainer[ Node::kSEQ_NAME ][ $theNode ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$theContainer[ Node::kSEQ_NAME ][ $theNode ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
-			
-			return $theContainer[ Node::kSEQ_NAME ][ $theNode ];					// ==>
-		
-		} // Provided scalar node.
+		return $this->cacheObject(
+				$theWrapper,
+				$theContainer,
+				'OntologyWrapper\Node',
+				array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION ),
+				$theValue,
+				FALSE );															// ==>
 		
 	} // cacheNode.
 
@@ -2888,89 +3080,20 @@ class UnitIteratorSerialiser
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param string				$theEdge			Edge native identifier.
+	 * @param mixed					$theValue			Edge reference or object.
 	 *
 	 * @access protected
 	 * @return mixed				The cached edge or edges.
 	 */
-	protected function cacheEdge( Wrapper $theWrapper, &$theContainer, $theEdge )
+	protected function cacheEdge( Wrapper $theWrapper, &$theContainer, $theValue )
 	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theEdge ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache edges.
-			//
-			foreach( $theEdge as $edge )
-			{
-				//
-				// Get edge.
-				//
-				$object = $this->cacheEdge( $theWrapper, $theContainer, $edge );
-				
-				//
-				// Add edge.
-				//
-				if( ! array_key_exists( $edge, $result ) )
-					$result[ $edge ] = $object;
-			
-			} // Iterating edges.
-			
-			return $result;															// ==>
-		
-		} // Provided list of edges.
-		
-		//
-		// Handle scalar edge.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Edge::kSEQ_NAME, $theContainer ) )
-				$theContainer[ Edge::kSEQ_NAME ] = Array();
-				
-			//
-			// Add edge.
-			//
-			if( ! array_key_exists( $theEdge, $theContainer[ Edge::kSEQ_NAME ] ) )
-			{
-				//
-				// Get object.
-				//
-				$theContainer[ Edge::kSEQ_NAME ][ $theEdge ]
-					= Edge::ResolveCollection(
-						Edge::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theEdge ), kQUERY_ARRAY );
-				
-				//
-				// Normalise strings.
-				//
-				$strings = array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $theContainer[ Edge::kSEQ_NAME ][ $theEdge ] ) )
-						$theContainer[ Edge::kSEQ_NAME ][ $theEdge ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$theContainer[ Edge::kSEQ_NAME ][ $theEdge ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
-			
-			return $theContainer[ Edge::kSEQ_NAME ][ $theEdge ];					// ==>
-		
-		} // Provided scalar edge.
+		return $this->cacheObject(
+				$theWrapper,
+				$theContainer,
+				'OntologyWrapper\Edge',
+				array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION ),
+				$theValue,
+				FALSE );															// ==>
 		
 	} // cacheEdge.
 
@@ -2990,68 +3113,22 @@ class UnitIteratorSerialiser
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param string				$theUnit			Term native identifier.
+	 * @param mixed					$theValue			Unit reference or object.
+	 * @param boolean				$doObject			TRUE means cache object.
 	 *
 	 * @access protected
 	 * @return mixed				The cached unit or units.
 	 */
-	protected function cacheUnit( Wrapper $theWrapper, $theContainer, $theUnit )
+	protected function cacheUnit( Wrapper $theWrapper, $theContainer, $theValue,
+										  $doObject = FALSE )
 	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theUnit ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache units.
-			//
-			foreach( $theUnit as $unit )
-			{
-				//
-				// Get unit.
-				//
-				$object = $this->cacheUnit( $theWrapper, $theContainer, $unit );
-				
-				//
-				// Add unit.
-				//
-				if( ! array_key_exists( $unit, $result ) )
-					$result[ $unit ] = $object;
-			
-			} // Iterating units.
-			
-			return $result;															// ==>
-		
-		} // Provided list of terms.
-		
-		//
-		// Handle scalar unit.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( UnitObject::kSEQ_NAME, $theContainer ) )
-				$theContainer[ UnitObject::kSEQ_NAME ] = Array();
-				
-			//
-			// Add unit.
-			//
-			if( ! array_key_exists( $theUnit, $theContainer[ UnitObject::kSEQ_NAME ] ) )
-				$theContainer[ UnitObject::kSEQ_NAME ][ $theUnit ]
-					= UnitObject::ResolveCollection(
-						UnitObject::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theUnit ), kQUERY_OBJECT );
-			
-			return $theContainer[ UnitObject::kSEQ_NAME ][ $theUnit ];				// ==>
-		
-		} // Provided scalar unit.
+		return $this->cacheObject(
+				$theWrapper,
+				$theContainer,
+				'OntologyWrapper\UnitObject',
+				array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION ),
+				$theValue,
+				$doObject );														// ==>
 		
 	} // cacheUnit.
 
@@ -3072,17 +3149,59 @@ class UnitIteratorSerialiser
 	 *
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theContainer		Data container.
-	 * @param string				$theUser			User native identifier.
+	 * @param mixed					$theValue			User reference or object.
+	 * @param boolean				$doObject			TRUE means cache object.
 	 *
 	 * @access protected
 	 * @return mixed				The cached user or users.
 	 */
-	protected function cacheUser( Wrapper $theWrapper, &$theContainer, $theUser )
+	protected function cacheUser( Wrapper $theWrapper, &$theContainer, $theValue,
+										  $doObject = FALSE )
+	{
+		return $this->cacheObject(
+				$theWrapper,
+				$theContainer,
+				'OntologyWrapper\User',
+				array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION ),
+				$theValue,
+				$doObject );														// ==>
+		
+	} // cacheUser.
+	
+	
+	/*===================================================================================
+	 *	cacheObject																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load object in cache
+	 *
+	 * This method will load the provided node into the provided container, if not yet
+	 * there, and return the cached node as an object or array object.
+	 *
+	 * The provided parameter may be an array, in that case the method will interpret the
+	 * parameter as a list of references, add all the resolved objects to the provided
+	 * container and return an array indexed by object identifier, with as value the object
+	 * or array object.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theContainer		Data container.
+	 * @param string				$theClass			Object class name.
+	 * @param array					$theStrings			Language string offsets.
+	 * @param mixed					$theValue			Object reference or object.
+	 * @param boolean				$doObject			TRUE means cache object.
+	 *
+	 * @access protected
+	 * @return mixed				The cached object or objects.
+	 */
+	protected function cacheObject( Wrapper $theWrapper, &$theContainer,
+											$theClass, $theStrings, $theValue,
+											$doObject = FALSE )
 	{
 		//
-		// Handle array.
+		// Handle list of references.
 		//
-		if( is_array( $theUser ) )
+		if( is_array( $theValue ) )
 		{
 			//
 			// Init local storage.
@@ -3090,76 +3209,94 @@ class UnitIteratorSerialiser
 			$result = Array();
 			
 			//
-			// Cache users.
+			// Iterate list.
 			//
-			foreach( $theUser as $user )
-			{
-				//
-				// Get user.
-				//
-				$object = $this->cacheUser( $theWrapper, $theContainer, $user );
-				
-				//
-				// Add user.
-				//
-				if( ! array_key_exists( $user, $result ) )
-					$result[ $user ] = $object;
-			
-			} // Iterating users.
-			
-			return $result;															// ==>
-		
-		} // Provided list of users.
-		
-		//
-		// Handle scalar user.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( User::kSEQ_NAME, $theContainer ) )
-				$theContainer[ User::kSEQ_NAME ] = Array();
-				
-			//
-			// Add user.
-			//
-			if( ! array_key_exists( $theUser, $theContainer[ User::kSEQ_NAME ] ) )
+			foreach( $theValue as $value )
 			{
 				//
 				// Get object.
 				//
-				$theContainer[ User::kSEQ_NAME ][ $theUser ]
-					= User::ResolveCollection(
-						User::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theUser ), kQUERY_ARRAY );
+				$object
+					= $this->cacheObject(
+						$theWrapper, $theContainer,
+						$theClass, $theStrings, $value,
+						$doObject );
 				
 				//
-				// Normalise strings.
+				// Save object.
 				//
-				$strings = array( kTAG_LABEL, kTAG_DEFINITION, kTAG_DESCRIPTION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $theContainer[ User::kSEQ_NAME ][ $theUser ] ) )
-						$theContainer[ User::kSEQ_NAME ][ $theUser ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$theContainer[ User::kSEQ_NAME ][ $theUser ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
+				if( ! array_key_exists( $value, $result ) )
+					$result[ $value ] = $object;
 			
-			return $theContainer[ User::kSEQ_NAME ][ $theUser ];					// ==>
+			} // Iterating list.
+			
+			return $result;															// ==>
 		
-		} // Provided scalar user.
+		} // Provided list of references.
 		
-	} // cacheUser.
+		//
+		// Init local storage.
+		//
+		$id = ( $theValue instanceof PersistentObject )
+			? $theValue[ kTAG_NID ]
+			: $theValue;
+		
+		//
+		// Allocate collection.
+		//
+		if( ! array_key_exists( $theClass::kSEQ_NAME, $theContainer ) )
+			$theContainer[ $theClass::kSEQ_NAME ] = Array();
+		
+		//
+		// Reference cache.
+		//
+		$cache = & $theContainer[ $theClass::kSEQ_NAME ];
+		
+		//
+		// Load object.
+		//
+		if( ! array_key_exists( $id, $cache ) )
+		{
+			//
+			// Load cache.
+			//
+			$cache[ $id ] = ( $theValue instanceof PersistentObject )
+						  ? ( ( $doObject )
+							? $theValue
+							: $theValue->getArrayCopy() )
+						  : $theClass::ResolveCollection(
+								$theClass::ResolveDatabase( $theWrapper, TRUE ) )
+									->matchOne( array( kTAG_NID => $id ),
+												( $doObject ) ? kQUERY_OBJECT
+															  : kQUERY_ARRAY );
+		
+			//
+			// Normalise strings.
+			//
+			foreach( $theStrings as $string )
+			{
+				//
+				// Check string.
+				//
+				if( ( $doObject
+				   && $cache[ $id ]->offsetExists( $string ) )
+				 || ( (! $doObject)
+				   && array_key_exists( $string, $cache[ $id ] ) ) )
+					$cache[ $id ][ $string ]
+						= OntologyObject::SelectLanguageString(
+							$cache[ $id ][ $string ],
+							$this->mLanguage );
+		
+			} // Normalising strings.
+		
+		} // New entry.
+		
+		return $cache[ $id ];														// ==>
+		
+	} // cacheObject.
+
 
 	 
-
 /*=======================================================================================
  *																						*
  *								PROTECTED PARSING UTILITIES								*
@@ -3193,30 +3330,42 @@ class UnitIteratorSerialiser
 	 *
 	 * @access protected
 	 */
-	protected function setHiddenTags( $theObject )
+	protected function setHiddenTags( PersistentObject $theObject )
 	{
+		//
+		// Save object class.
+		//
+		$class = $theObject[ kTAG_CLASS ];
+	
 		//
 		// Check format.
 		//
-		if( $this->mFormat == kAPI_RESULT_ENUM_DATA_FORMAT )
+		switch( $this->mFormat )
 		{
-			//
-			// Save object class.
-			//
-			$class = $theObject[ kTAG_CLASS ];
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+				//
+				// Set exceptions.
+				//
+				$this->mHidden
+					= array_merge(
+						$class::DynamicOffsets(),
+						$class::InternalOffsets() );
+				
+				break;
 			
-			//
-			// Set exceptions.
-			//
-			$this->mHidden
-				= array_merge(
-					$class::DynamicOffsets(),
-					$class::InternalOffsets() );
-		
-		} // Handle formatted.
-		
-		else
-			$this->mHidden = Array();
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+				//
+				// Set exceptions.
+				//
+				$this->mHidden
+					= $class::InternalOffsets();
+				
+				break;
+			
+			default:
+				$this->mHidden = Array();
+				break;
+		}
 		
 	} // setHiddenTags.
 

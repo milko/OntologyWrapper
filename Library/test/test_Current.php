@@ -166,7 +166,8 @@ try
 			)
 		),
 		kAPI_PARAM_DOMAIN => ':domain:organisation',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD
+	//	kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
