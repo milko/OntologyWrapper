@@ -768,6 +768,11 @@ class UnitIteratorSerialiser
 			// Signal processed.
 			//
 			$this->mProcessed = TRUE;
+			
+			//
+			// Clear cache.
+			//
+			$this->mCache = Array();
 		
 		} // Not already processed.
 	
@@ -990,282 +995,10 @@ class UnitIteratorSerialiser
 
 /*=======================================================================================
  *																						*
- *								PROTECTED CACHING INTERFACE								*
+ *								PROTECTED PARSING INTERFACE								*
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	cacheTag																		*
-	 *==================================================================================*/
-
-	/**
-	 * Load tag in cache
-	 *
-	 * This method will load the provided tag into the cache, if not yet there and return
-	 * the tag object as an array.
-	 *
-	 * The provided parameter may be an array, in that case the method will add all the
-	 * provided tags and return an array of tag array objects indexed by tag sequence
-	 * number.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theTag				Tag native identifier or sequence.
-	 *
-	 * @access protected
-	 */
-	protected function cacheTag( Wrapper $theWrapper, $theTag )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theTag ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache tags.
-			//
-			foreach( $theTag as $tag )
-			{
-				//
-				// Get tag.
-				//
-				$object = $this->cacheTag( $theWrapper, $tag );
-				
-				//
-				// Add tag.
-				//
-				if( ! array_key_exists( $tag, $result ) )
-					$result[ $tag ] = $object;
-			
-			} // Iterating tags.
-			
-			return $result;															// ==>
-		
-		} // Provided list of tags.
-		
-		//
-		// Handle scalar tag.
-		//
-		else
-		{
-			//
-			// Convert to sequence number.
-			//
-			if( (! is_int( $theTag ))
-			 && (! ctype_digit( $theTag )) )
-				$theTag = $theWrapper->getSerial( $theTag, TRUE );
-		
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Tag::kSEQ_NAME, $this->mCache ) )
-				$this->mCache[ Tag::kSEQ_NAME ] = Array();
-				
-			//
-			// Add tag.
-			//
-			if( ! array_key_exists( $theTag, $this->mCache[ Tag::kSEQ_NAME ] ) )
-			{
-				//
-				// Get object.
-				//
-				$this->mCache[ Tag::kSEQ_NAME ][ $theTag ]
-					= Tag::ResolveCollection(
-						Tag::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
-										kQUERY_ARRAY );
-				
-				//
-				// Normalise strings.
-				//
-				$strings = array( kTAG_LABEL, kTAG_DESCRIPTION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $this->mCache[ Tag::kSEQ_NAME ][ $theTag ] ) )
-						$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
-			
-			return $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];						// ==>
-		
-		} // Provided scalar tag.
-		
-	} // cacheTag.
-
-	 
-	/*===================================================================================
-	 *	cacheTerm																		*
-	 *==================================================================================*/
-
-	/**
-	 * Load tag in cache
-	 *
-	 * This method will load the provided tag into the cache, if not yet there and return
-	 * the tag object as an array.
-	 *
-	 * The provided parameter may be an array, in that case the method will add all the
-	 * provided tags and return an array of tag array objects indexed by tag sequence
-	 * number.
-	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param mixed					$theTerm			Term native identifier.
-	 *
-	 * @access protected
-	 */
-	protected function cacheTerm( Wrapper $theWrapper, $theTerm )
-	{
-		//
-		// Handle array.
-		//
-		if( is_array( $theTerm ) )
-		{
-			//
-			// Init local storage.
-			//
-			$result = Array();
-			
-			//
-			// Cache terms.
-			//
-			foreach( $theTerm as $term )
-			{
-				//
-				// Get term.
-				//
-				$object = $this->cacheTerm( $theWrapper, $term );
-				
-				//
-				// Add term.
-				//
-				if( ! array_key_exists( $term, $result ) )
-					$result[ $term ] = $object;
-			
-			} // Iterating terms.
-			
-			return $result;															// ==>
-		
-		} // Provided list of terms.
-		
-		//
-		// Handle scalar term.
-		//
-		else
-		{
-			//
-			// Check collection.
-			//
-			if( ! array_key_exists( Term::kSEQ_NAME, $this->mCache ) )
-				$this->mCache[ Term::kSEQ_NAME ] = Array();
-				
-			//
-			// Add term.
-			//
-			if( ! array_key_exists( $theTerm, $this->mCache[ Term::kSEQ_NAME ] ) )
-			{
-				//
-				// Get object.
-				//
-				$this->mCache[ Term::kSEQ_NAME ][ $theTerm ]
-					= Term::ResolveCollection(
-						Term::ResolveDatabase( $theWrapper, TRUE ) )
-							->matchOne( array( kTAG_NID => $theTerm ), kQUERY_ARRAY );
-				
-				//
-				// Normalise strings.
-				//
-				$strings = array( kTAG_LABEL, kTAG_DEFINITION );
-				foreach( $strings as $string )
-				{
-					if( array_key_exists(
-						$string, $this->mCache[ Term::kSEQ_NAME ][ $theTerm ] ) )
-						$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ $string ]
-							= OntologyObject::SelectLanguageString(
-								$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ $string ],
-								$this->mLanguage );
-				
-				} // Normalising strings.
-		
-			} // New entry.
-			
-			return $this->mCache[ Term::kSEQ_NAME ][ $theTerm ];					// ==>
-		
-		} // Provided scalar term.
-		
-	} // cacheTerm.
-
-	 
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PARSING UTILITIES								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	setHiddenTags																	*
-	 *==================================================================================*/
-
-	/**
-	 * Set hidden tags
-	 *
-	 * The duty of this method is to set the list of tags that should not be published.
-	 *
-	 * This is done according to the current data format, only the
-	 * <tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt> is relevant in this case, since the
-	 * <tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt> has a fixed set, the
-	 * <tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt> uses only the object native identifier
-	 * and the shape tag, and the <tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt> format
-	 * selects all properties.
-	 *
-	 * Once the method has completed, the {@link $mHidden} data member will hold the
-	 * list of tag sequence numbers which will not be published.
-	 *
-	 * By default we hide the object's internal and dynamic offsets.
-	 *
-	 * @param PersistentObject		$theObject			Object.
-	 *
-	 * @access protected
-	 */
-	protected function setHiddenTags( $theObject )
-	{
-		//
-		// Check format.
-		//
-		if( $this->mFormat == kAPI_RESULT_ENUM_DATA_FORMAT )
-		{
-			//
-			// Save object class.
-			//
-			$class = $theObject[ kTAG_CLASS ];
-			
-			//
-			// Set exceptions.
-			//
-			$this->mHidden
-				= array_merge(
-					$class::DynamicOffsets(),
-					$class::InternalOffsets() );
-		
-		} // Handle formatted.
-		
-		else
-			$this->mHidden = Array();
-		
-	} // setHiddenTags.
 
 	 
 	/*===================================================================================
@@ -1381,6 +1114,7 @@ class UnitIteratorSerialiser
 					case kTYPE_LANGUAGE_STRINGS:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_TYPED;
+						$this->formatLanguageStrings( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1390,6 +1124,7 @@ class UnitIteratorSerialiser
 					case kTYPE_REF_UNIT:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_OBJECT;
+						$this->formatUnitReference( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1398,6 +1133,7 @@ class UnitIteratorSerialiser
 					case kTYPE_SHAPE:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_SHAPE;
+						$this->formatShape( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1406,6 +1142,7 @@ class UnitIteratorSerialiser
 					case kTYPE_BOOLEAN:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						$this->formatBoolean( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1414,6 +1151,7 @@ class UnitIteratorSerialiser
 					case kTYPE_INT:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						$this->formatInteger( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1422,6 +1160,7 @@ class UnitIteratorSerialiser
 					case kTYPE_FLOAT:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						$this->formatFloat( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1430,6 +1169,7 @@ class UnitIteratorSerialiser
 					case kTYPE_TIME_STAMP:
 						$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 							= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+						$this->formatTimeStamp( $theContainer, $theValue, $theTag );
 						break;
 			
 					//
@@ -1466,7 +1206,7 @@ class UnitIteratorSerialiser
 	/**
 	 * Format enumerated value
 	 *
-	 * The duty of this method is to format the provided enumerated value or set into the
+	 * The duty of this method is to format the provided enumerated value and set into the
 	 * provided container.
 	 *
 	 * @param array					$theContainer		Data container.
@@ -1608,7 +1348,7 @@ class UnitIteratorSerialiser
 	/**
 	 * Format typed list value
 	 *
-	 * The duty of this method is to format the provided typed list value or set into the
+	 * The duty of this method is to format the provided typed list value and set into the
 	 * provided container.
 	 *
 	 * @param array					$theContainer		Data container.
@@ -1775,13 +1515,587 @@ class UnitIteratorSerialiser
 
 	 
 	/*===================================================================================
+	 *	formatLanguageStrings															*
+	 *==================================================================================*/
+
+	/**
+	 * Format language strings value
+	 *
+	 * The duty of this method is to format the provided language strings and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatLanguageStrings( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle single element.
+		//
+		if( count( $theValue ) == 1 )
+		{
+			//
+			// Handle language.
+			//
+			if( array_key_exists( kTAG_LANGUAGE, $theValue[ 0 ] ) )
+			{
+				//
+				// Handle language.
+				//
+				if( $theValue[ 0 ][ kTAG_LANGUAGE ] !== '0' )
+				{
+					//
+					// Allocate element.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+					$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+					
+					//
+					// Set language.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+						= $theValue[ 0 ][ kTAG_LANGUAGE ];
+					
+					//
+					// Set string.
+					//
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				} // Indicated language.
+				
+				//
+				// Handle no language.
+				//
+				else
+				{
+					//
+					// Correct type.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+						= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+					
+					//
+					// Set scalar value.
+					//
+					$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $theValue[ 0 ][ kTAG_TEXT ];
+				
+				} // Reduce to scalar.
+			
+			} // Provided language.
+			
+			//
+			// Handle no language.
+			//
+			else
+			{
+				//
+				// Correct type.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
+					= kAPI_PARAM_RESPONSE_TYPE_SCALAR;
+				
+				//
+				// Set scalar value.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+					= $theValue[ 0 ][ kTAG_TEXT ];
+			
+			} // Reduce to scalar.
+		
+		} // Single element.
+		
+		//
+		// Handle multiple elements.
+		//
+		elseif( count( $theValue ) > 1 )
+		{
+			//
+			// Allocate list.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+			$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+			
+			//
+			// Iterate strings.
+			//
+			foreach( $theValue as $value )
+			{
+				//
+				// Allocate element.
+				//
+				$list[] = Array();
+				$ref = & $list[ count( $theContainer ) - 1 ];
+				
+				//
+				// Handle language.
+				//
+				if( array_key_exists( kTAG_LANGUAGE, $value ) )
+				{
+					//
+					// Handle language.
+					//
+					if( $value[ kTAG_LANGUAGE ] !== '0' )
+					{
+						//
+						// Set language.
+						//
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+							= $value[ kTAG_LANGUAGE ];
+					
+						//
+						// Set string.
+						//
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= $value[ kTAG_TEXT ];
+				
+					} // Indicated language.
+				
+					//
+					// Handle no language.
+					//
+					else
+						$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+							= $value[ kTAG_TEXT ];
+			
+				} // Provided language.
+			
+				//
+				// Handle no language.
+				//
+				else
+					$ref[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+						= $value[ kTAG_TEXT ];
+			
+			} // Iterating strings.
+		
+		} // Multiple elements.
+		
+	} // formatLanguageStrings.
+
+	 
+	/*===================================================================================
+	 *	formatUnitReference																*
+	 *==================================================================================*/
+
+	/**
+	 * Format unit reference value
+	 *
+	 * The duty of this method is to format the provided unit reference and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatUnitReference( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle references list.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single element.
+			//
+			if( count( $theValue ) == 1 )
+				$this->resolveUnitReference(
+					$theContainer,
+					$theValue [ 0 ],
+					$theTag );
+			
+			//
+			// handle multiple references.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Allocate list.
+				//
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = Array();
+				$list = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ];
+				
+				//
+				// Iterate references.
+				//
+				foreach( $theValue as $value )
+				{
+					//
+					// Allocate result.
+					//
+					$list[] = Array();
+					
+					//
+					// Set value.
+					//
+					$this->resolveUnitReference(
+						$list[ count( $list ) - 1 ],
+						$value,
+						$theTag );
+				
+				} // Iterating references.
+			
+			} // Multiple references.
+		
+		} // References list.
+		
+		//
+		// Handle scalar reference.
+		//
+		else
+		{
+			//
+			// Cache referenced object.
+			//
+			$object
+				= $this->cacheUnit(
+					$this->mIterator->collection()->dictionary(),
+					$theValue );
+			
+			//
+			// Set object name.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+				= $object->getName( $this->mLanguage );
+			
+			//
+			// Allocate service.
+			//
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ] = Array();
+			$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ];
+			
+			//
+			// Set service operation and language.
+			//
+			$ref[ kAPI_REQUEST_OPERATION ] = kAPI_OP_GET_UNIT;
+			$ref[ kAPI_REQUEST_LANGUAGE ] = $this->mLanguage;
+			
+			//
+			// Allocate service parameters.
+			//
+			$ref[ kAPI_REQUEST_PARAMETERS ] = Array();
+			$ref = & $ref[ kAPI_REQUEST_PARAMETERS ];
+			
+			//
+			// Set object identifier and data format.
+			//
+			$ref[ kAPI_PARAM_ID ] = $theValue;
+			$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_FORMAT;
+		
+		} // Scalar reference.
+		
+	} // formatUnitReference.
+
+	 
+	/*===================================================================================
+	 *	formatShape																		*
+	 *==================================================================================*/
+
+	/**
+	 * Format shape value
+	 *
+	 * The duty of this method is to format the provided shape and set into the provided
+	 * container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatShape( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Set object name.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ]
+			= 'View on map';
+		
+		//
+		// Allocate service.
+		//
+		$theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ] = Array();
+		$ref = & $theContainer[ kAPI_PARAM_RESPONSE_FRMT_SERV ];
+		
+		//
+		// Set service operation and language.
+		//
+		$ref[ kAPI_REQUEST_OPERATION ] = kAPI_OP_GET_UNIT;
+		$ref[ kAPI_REQUEST_LANGUAGE ] = $this->mLanguage;
+		
+		//
+		// Allocate service parameters.
+		//
+		$ref[ kAPI_REQUEST_PARAMETERS ] = Array();
+		$ref = & $ref[ kAPI_REQUEST_PARAMETERS ];
+		
+		//
+		// Set object identifier and data format.
+		//
+		$ref[ kAPI_PARAM_ID ] = $this->mCurrentUnit[ kTAG_NID ];
+		$ref[ kAPI_PARAM_DATA ] = kAPI_RESULT_ENUM_DATA_MARKER;
+		
+	} // formatShape.
+
+	 
+	/*===================================================================================
+	 *	formatBoolean																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format boolean value
+	 *
+	 * The duty of this method is to format the provided boolean value and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatBoolean( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theValue = ( $theValue[ 0 ] ) ? 'Yes' : 'No';
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Convert values.
+				//
+				$keys = array_keys( $theValue );
+				foreach( $keys as $key )
+					$theValue[ $key ] = ( $theValue[ $key ] ) ? 'Yes' : 'No';
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theValue = ( $theValue ) ? 'Yes' : 'No';
+		
+		//
+		// Load container.
+		//
+		$this->formatScalar( $theContainer, $theValue, $theTag );
+		
+	} // formatBoolean.
+
+	 
+	/*===================================================================================
+	 *	formatInteger																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format integer value
+	 *
+	 * The duty of this method is to format the provided integer value and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatInteger( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theValue = number_format( $theValue[ 0 ] );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Convert values.
+				//
+				$keys = array_keys( $theValue );
+				foreach( $keys as $key )
+					$theValue[ $key ] = number_format( $theValue[ $key ] );
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theValue = number_format( $theValue );
+		
+		//
+		// Load container.
+		//
+		$this->formatScalar( $theContainer, $theValue, $theTag );
+		
+	} // formatInteger.
+
+	 
+	/*===================================================================================
+	 *	formatFloat																		*
+	 *==================================================================================*/
+
+	/**
+	 * Format float value
+	 *
+	 * The duty of this method is to format the provided float value and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatFloat( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theValue = number_format( $theValue[ 0 ], 4 );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Convert values.
+				//
+				$keys = array_keys( $theValue );
+				foreach( $keys as $key )
+					$theValue[ $key ] = number_format( $theValue[ $key ], 4 );
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theValue = number_format( $theValue, 4 );
+		
+		//
+		// Load container.
+		//
+		$this->formatScalar( $theContainer, $theValue, $theTag );
+		
+	} // formatFloat.
+
+	 
+	/*===================================================================================
+	 *	formatTimeStamp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format time stamp value
+	 *
+	 * The duty of this method is to format the provided time stamp value and set into the
+	 * provided container.
+	 *
+	 * @param array					$theContainer		Data container.
+	 * @param mixed					$theValue			Data value.
+	 * @param array					$theTag				Offset tag.
+	 *
+	 * @access protected
+	 */
+	protected function formatTimeStamp( &$theContainer, $theValue, $theTag )
+	{
+		//
+		// Init local storage.
+		//
+		$collection = $this->mIterator->collection();
+
+		//
+		// Handle array.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Handle single value.
+			//
+			if( count( $theValue ) == 1 )
+				$theValue
+					= $collection->parseTimeStamp( $theValue[ 0 ] );
+			
+			//
+			// Handle multiple values.
+			//
+			elseif( count( $theValue ) > 1 )
+			{
+				//
+				// Convert values.
+				//
+				$keys = array_keys( $theValue );
+				foreach( $keys as $key )
+					$theValue[ $key ]
+						= $collection->parseTimeStamp( $theValue[ $key ] );
+			
+			} // More than one value.
+			
+		} // List of values.
+		
+		//
+		// Handle scalar.
+		//
+		else
+			$theValue
+				= $collection->parseTimeStamp( $theValue );
+		
+		//
+		// Load container.
+		//
+		$this->formatScalar( $theContainer, $theValue, $theTag );
+		
+	} // formatTimeStamp.
+
+	 
+	/*===================================================================================
 	 *	formatScalar																	*
 	 *==================================================================================*/
 
 	/**
 	 * Format scalar value
 	 *
-	 * The duty of this method is to format the provided scalar value or set into the
+	 * The duty of this method is to format the provided scalar value and set into the
 	 * provided container.
 	 *
 	 * @param array					$theContainer		Data container.
@@ -1831,6 +2145,366 @@ class UnitIteratorSerialiser
 			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_DISP ] = $theValue;
 		
 	} // formatScalar.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CACHING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	cacheTag																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load tag in cache
+	 *
+	 * This method will load the provided tag into the cache, if not yet there and return
+	 * the tag object as an array.
+	 *
+	 * The provided parameter may be an array, in that case the method will add all the
+	 * provided tags and return an array of tag array objects indexed by tag sequence
+	 * number.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theTag				Tag native identifier or sequence.
+	 *
+	 * @access protected
+	 */
+	protected function cacheTag( Wrapper $theWrapper, $theTag )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theTag ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			
+			//
+			// Cache tags.
+			//
+			foreach( $theTag as $tag )
+			{
+				//
+				// Get tag.
+				//
+				$object = $this->cacheTag( $theWrapper, $tag );
+				
+				//
+				// Add tag.
+				//
+				if( ! array_key_exists( $tag, $result ) )
+					$result[ $tag ] = $object;
+			
+			} // Iterating tags.
+			
+			return $result;															// ==>
+		
+		} // Provided list of tags.
+		
+		//
+		// Handle scalar tag.
+		//
+		else
+		{
+			//
+			// Convert to sequence number.
+			//
+			if( (! is_int( $theTag ))
+			 && (! ctype_digit( $theTag )) )
+				$theTag = $theWrapper->getSerial( $theTag, TRUE );
+		
+			//
+			// Check collection.
+			//
+			if( ! array_key_exists( Tag::kSEQ_NAME, $this->mCache ) )
+				$this->mCache[ Tag::kSEQ_NAME ] = Array();
+				
+			//
+			// Add tag.
+			//
+			if( ! array_key_exists( $theTag, $this->mCache[ Tag::kSEQ_NAME ] ) )
+			{
+				//
+				// Get object.
+				//
+				$this->mCache[ Tag::kSEQ_NAME ][ $theTag ]
+					= Tag::ResolveCollection(
+						Tag::ResolveDatabase( $theWrapper, TRUE ) )
+							->matchOne( array( kTAG_ID_SEQUENCE => $theTag ),
+										kQUERY_ARRAY );
+				
+				//
+				// Normalise strings.
+				//
+				$strings = array( kTAG_LABEL, kTAG_DESCRIPTION );
+				foreach( $strings as $string )
+				{
+					if( array_key_exists(
+						$string, $this->mCache[ Tag::kSEQ_NAME ][ $theTag ] ) )
+						$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ $string ]
+							= OntologyObject::SelectLanguageString(
+								$this->mCache[ Tag::kSEQ_NAME ][ $theTag ][ $string ],
+								$this->mLanguage );
+				
+				} // Normalising strings.
+		
+			} // New entry.
+			
+			return $this->mCache[ Tag::kSEQ_NAME ][ $theTag ];						// ==>
+		
+		} // Provided scalar tag.
+		
+	} // cacheTag.
+
+	 
+	/*===================================================================================
+	 *	cacheTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load term in cache
+	 *
+	 * This method will load the provided term into the cache, if not yet there and return
+	 * the term object as an array.
+	 *
+	 * The provided parameter may be an array, in that case the method will add all the
+	 * provided terms and return an array of term array objects indexed by term native
+	 * identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theTerm			Term native identifier.
+	 *
+	 * @access protected
+	 */
+	protected function cacheTerm( Wrapper $theWrapper, $theTerm )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theTerm ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			
+			//
+			// Cache terms.
+			//
+			foreach( $theTerm as $term )
+			{
+				//
+				// Get term.
+				//
+				$object = $this->cacheTerm( $theWrapper, $term );
+				
+				//
+				// Add term.
+				//
+				if( ! array_key_exists( $term, $result ) )
+					$result[ $term ] = $object;
+			
+			} // Iterating terms.
+			
+			return $result;															// ==>
+		
+		} // Provided list of terms.
+		
+		//
+		// Handle scalar term.
+		//
+		else
+		{
+			//
+			// Check collection.
+			//
+			if( ! array_key_exists( Term::kSEQ_NAME, $this->mCache ) )
+				$this->mCache[ Term::kSEQ_NAME ] = Array();
+				
+			//
+			// Add term.
+			//
+			if( ! array_key_exists( $theTerm, $this->mCache[ Term::kSEQ_NAME ] ) )
+			{
+				//
+				// Get object.
+				//
+				$this->mCache[ Term::kSEQ_NAME ][ $theTerm ]
+					= Term::ResolveCollection(
+						Term::ResolveDatabase( $theWrapper, TRUE ) )
+							->matchOne( array( kTAG_NID => $theTerm ), kQUERY_ARRAY );
+				
+				//
+				// Normalise strings.
+				//
+				$strings = array( kTAG_LABEL, kTAG_DEFINITION );
+				foreach( $strings as $string )
+				{
+					if( array_key_exists(
+						$string, $this->mCache[ Term::kSEQ_NAME ][ $theTerm ] ) )
+						$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ $string ]
+							= OntologyObject::SelectLanguageString(
+								$this->mCache[ Term::kSEQ_NAME ][ $theTerm ][ $string ],
+								$this->mLanguage );
+				
+				} // Normalising strings.
+		
+			} // New entry.
+			
+			return $this->mCache[ Term::kSEQ_NAME ][ $theTerm ];					// ==>
+		
+		} // Provided scalar term.
+		
+	} // cacheTerm.
+
+	 
+	/*===================================================================================
+	 *	cacheUnit																		*
+	 *==================================================================================*/
+
+	/**
+	 * Load unit in cache
+	 *
+	 * This method will load the provided unit into the cache, if not yet there and return
+	 * the unit object.
+	 *
+	 * The provided parameter may be an array, in that case the method will add all the
+	 * provided units and return an array of unit objects indexed by unit native identifier.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theUnit			Term native identifier.
+	 *
+	 * @access protected
+	 */
+	protected function cacheUnit( Wrapper $theWrapper, $theUnit )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theUnit ) )
+		{
+			//
+			// Init local storage.
+			//
+			$result = Array();
+			
+			//
+			// Cache units.
+			//
+			foreach( $theUnit as $unit )
+			{
+				//
+				// Get unit.
+				//
+				$object = $this->cacheUnit( $theWrapper, $unit );
+				
+				//
+				// Add unit.
+				//
+				if( ! array_key_exists( $unit, $result ) )
+					$result[ $unit ] = $object;
+			
+			} // Iterating units.
+			
+			return $result;															// ==>
+		
+		} // Provided list of terms.
+		
+		//
+		// Handle scalar unit.
+		//
+		else
+		{
+			//
+			// Check collection.
+			//
+			if( ! array_key_exists( UnitObject::kSEQ_NAME, $this->mCache ) )
+				$this->mCache[ UnitObject::kSEQ_NAME ] = Array();
+				
+			//
+			// Add unit.
+			//
+			if( ! array_key_exists( $theUnit, $this->mCache[ UnitObject::kSEQ_NAME ] ) )
+				$this->mCache[ UnitObject::kSEQ_NAME ][ $theUnit ]
+					= UnitObject::ResolveCollection(
+						UnitObject::ResolveDatabase( $theWrapper, TRUE ) )
+							->matchOne( array( kTAG_NID => $theUnit ), kQUERY_OBJECT );
+			
+			return $this->mCache[ UnitObject::kSEQ_NAME ][ $theUnit ];				// ==>
+		
+		} // Provided scalar unit.
+		
+	} // cacheUnit.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PARSING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	setHiddenTags																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set hidden tags
+	 *
+	 * The duty of this method is to set the list of tags that should not be published.
+	 *
+	 * This is done according to the current data format, only the
+	 * <tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt> is relevant in this case, since the
+	 * <tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt> has a fixed set, the
+	 * <tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt> uses only the object native identifier
+	 * and the shape tag, and the <tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt> format
+	 * selects all properties.
+	 *
+	 * Once the method has completed, the {@link $mHidden} data member will hold the
+	 * list of tag sequence numbers which will not be published.
+	 *
+	 * By default we hide the object's internal and dynamic offsets.
+	 *
+	 * @param PersistentObject		$theObject			Object.
+	 *
+	 * @access protected
+	 */
+	protected function setHiddenTags( $theObject )
+	{
+		//
+		// Check format.
+		//
+		if( $this->mFormat == kAPI_RESULT_ENUM_DATA_FORMAT )
+		{
+			//
+			// Save object class.
+			//
+			$class = $theObject[ kTAG_CLASS ];
+			
+			//
+			// Set exceptions.
+			//
+			$this->mHidden
+				= array_merge(
+					$class::DynamicOffsets(),
+					$class::InternalOffsets() );
+		
+		} // Handle formatted.
+		
+		else
+			$this->mHidden = Array();
+		
+	} // setHiddenTags.
 
 	 
 

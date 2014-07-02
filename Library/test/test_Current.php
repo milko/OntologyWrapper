@@ -99,8 +99,8 @@ try
 	//
 	// Perform query.
 	//
-//	$criteria = array( kTAG_NID => ':domain:forest://AUT/00001/1996;' );
-	$criteria = array( kTAG_NID => ':domain:organisation://http://fao.org/wiews:ITA403;' );
+	$criteria = array( kTAG_NID => ':domain:forest://AUT/00001/1996;' );
+//	$criteria = array( kTAG_NID => ':domain:organisation://http://fao.org/wiews:ITA303;' );
 	$rs
 		= OntologyWrapper\UnitObject::ResolveCollection(
 			OntologyWrapper\UnitObject::ResolveDatabase(
@@ -116,7 +116,7 @@ try
 			$rs,
 			kAPI_RESULT_ENUM_DATA_FORMAT,
 			'en',
-			kDOMAIN_ORGANISATION,
+			kDOMAIN_FOREST,
 			57 );
 	
 	//
