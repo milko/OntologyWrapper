@@ -31,14 +31,14 @@ define( "kAPI_REQUEST_OPERATION",				'op' );
  *
  * This tag identifies the service default language.
  */
-define( "kAPI_REQUEST_LANGUAGE",				'lang' );
+define( "kAPI_REQUEST_LANGUAGE",				'ln' );
 
 /**
  * Parameters.
  *
  * This tag identifies the service request parameters.
  */
-define( "kAPI_REQUEST_PARAMETERS",				'param' );
+define( "kAPI_REQUEST_PARAMETERS",				'pr' );
 
 /*=======================================================================================
  *	RESPONSE																			*
@@ -253,14 +253,14 @@ define( "kAPI_DICTIONARY_COLLECTION",			'collection' );
  *
  * This tag indicates the collection reference count offset.
  */
-define( "kAPI_DICTIONARY_REF_COUNT",			'ref-count' );
+define( "kAPI_DICTIONARY_REF_COUNT",			'count-offset' );
 
 /**
  * Tags cross reference.
  *
  * This tag indicates the dictionary tags cross references.
  */
-define( "kAPI_DICTIONARY_TAGS",					'tags' );
+define( "kAPI_DICTIONARY_TAGS",					'tags-xref' );
 
 /**
  * IDs list.
@@ -305,7 +305,7 @@ define( "kAPI_OP_PING",							'ping' );
  * This operation requires no parameters, it will return the key/value list of all parameter
  * constants.
  */
-define( "kAPI_OP_LIST_CONSTANTS",				'list-constants' );
+define( "kAPI_OP_LIST_CONSTANTS",				'listConstants' );
 
 /**
  * List operator parameters.
@@ -336,7 +336,7 @@ define( "kAPI_OP_LIST_CONSTANTS",				'list-constants' );
  *	 </ul>
  * </ul>
  */
-define( "kAPI_OP_LIST_OPERATORS",				'list-operators' );
+define( "kAPI_OP_LIST_OPERATORS",				'listOperators' );
 
 /**
  * List reference count parameters.
@@ -349,7 +349,7 @@ define( "kAPI_OP_LIST_OPERATORS",				'list-operators' );
  * value holds the related tag holding the reference count, this value is the tag sequence
  * number.
  */
-define( "kAPI_OP_LIST_REF_COUNTS",				'list-ref-counts' );
+define( "kAPI_OP_LIST_REF_COUNTS",				'listRefCounts' );
 
 /**
  * Match tag labels.
@@ -541,7 +541,7 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
  * </ul>
  */
-define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagByLabel' );
+define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagsByLabel' );
 
 /**
  * Match term by label.
@@ -605,7 +605,7 @@ define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagByLabel' );
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
  * </ul>
  */
-define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermByLabel' );
+define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermsByLabel' );
 
 /**
  * Get tag enumerations.
@@ -889,10 +889,9 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
- *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
- *			<li><tt>kAPI_PARAM_RESPONSE_FRMT_NAME</tt>: The unit name.
- *			<li><tt>kTAG_TYPE</tt>: The shape type.
- *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
+ *			<li><tt>kAPI_PARAM_ID</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_DOMAIN</tt>: The unit domain.
+ *			<li><tt>kAPI_PARAM_SHAPE</tt>: The unit shape geometry.
  *		 </ul>
  *	 </ul>
  * </ul>
@@ -926,10 +925,9 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
  *			fed to a map, it will be an array holding the following elements:
  *		 <ul>
- *			<li><tt>kAPI_PARAM_RESPONSE_IDENT</tt>: The unit native identifier.
- *			<li><tt>kAPI_PARAM_RESPONSE_FRMT_NAME</tt>: The unit name.
- *			<li><tt>kTAG_TYPE</tt>: The shape type.
- *			<li><tt>kTAG_GEOMETRY</tt>: The shape geometry.
+ *			<li><tt>kAPI_PARAM_ID</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_DOMAIN</tt>: The unit domain.
+ *			<li><tt>kAPI_PARAM_SHAPE</tt>: The unit shape geometry.
  *		 </ul>
  *	 </ul>
  * </ul>
@@ -969,7 +967,7 @@ define( "kAPI_PARAM_PATTERN",					'pattern' );
  *
  * The service will only select those tags which have values in the provided collections.
  */
-define( "kAPI_PARAM_REF_COUNT",					'ref-count' );
+define( "kAPI_PARAM_REF_COUNT",					'has-values' );
 
 /**
  * Search collection (string).
@@ -1176,7 +1174,7 @@ define( "kAPI_PARAM_ID",						'id' );
  * This parameter is used by services selecting units, it indicates what type of unit to
  * select. The value is the enumerated set of the {@link kTAG_DOMAIN} unit property.
  */
-define( "kAPI_PARAM_DOMAIN",					'result-domain' );
+define( "kAPI_PARAM_DOMAIN",					'domain' );
 
 /**
  * Result type (string).
@@ -1199,7 +1197,7 @@ define( "kAPI_PARAM_DOMAIN",					'result-domain' );
  *
  * This parameter is ignored if the {@link kAPI_PARAM_DOMAIN} parameter is not provided.
  */
-define( "kAPI_PARAM_DATA",						'result-data' );
+define( "kAPI_PARAM_DATA",						'data' );
 
 /**
  * Result grouping (string).
@@ -1320,13 +1318,6 @@ define( "kAPI_PARAM_RESPONSE_COUNT",			'count' );
  * This parameter represents a list of sub-elements.
  */
 define( "kAPI_PARAM_RESPONSE_CHILDREN",			'children' );
-
-/**
- * Identifier (mixed).
- *
- * This parameter represents an identifier.
- */
-define( "kAPI_PARAM_RESPONSE_IDENT",			'ident' );
 
 /*=======================================================================================
  *	FORMATTED RESPONSE PARAMETERS														*
@@ -1579,13 +1570,6 @@ define( "kAPI_RESULT_ENUM_VALUE",				'value' );
 define( "kAPI_RESULT_ENUM_DATA_COLUMN",			'column' );
 
 /**
- * Record (string).
- *
- * This value indicates a result of type clustered records
- */
-define( "kAPI_RESULT_ENUM_DATA_RECORD",			'record' );
-
-/**
  * Formatted (string).
  *
  * This value indicates a result of type formatted records
@@ -1598,6 +1582,13 @@ define( "kAPI_RESULT_ENUM_DATA_FORMAT",			'formatted' );
  * This value indicates a result of type geographic markers
  */
 define( "kAPI_RESULT_ENUM_DATA_MARKER",			'marker' );
+
+/**
+ * Record (string).
+ *
+ * This value indicates a result of type clustered records
+ */
+define( "kAPI_RESULT_ENUM_DATA_RECORD",			'record' );
 
 /*=======================================================================================
  *	COLLECTION REFERENCE ENUMERATED SET													*

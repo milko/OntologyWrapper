@@ -10,6 +10,8 @@ namespace OntologyWrapper;
 
 use OntologyWrapper\Wrapper;
 use OntologyWrapper\ContainerObject;
+use OntologyWrapper\ResultAggregator;
+use OntologyWrapper\UnitIteratorSerialiser;
 
 /*=======================================================================================
  *																						*
@@ -965,7 +967,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			if( ! $this->offsetExists( kAPI_PARAM_DOMAIN ) )
 				throw new \Exception(
-					"Missing results type parameter." );						// !@! ==>
+					"Missing domain parameter." );								// !@! ==>
 	
 			//
 			// Assert limits.
@@ -2290,7 +2292,6 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_RESULT_ENUM_DESCR" ] = kAPI_RESULT_ENUM_DESCR;
 		$ref[ "kAPI_RESULT_ENUM_VALUE" ] = kAPI_RESULT_ENUM_VALUE;
 		$ref[ "kAPI_PARAM_RESPONSE_CHILDREN" ] = kAPI_PARAM_RESPONSE_CHILDREN;
-		$ref[ "kAPI_PARAM_RESPONSE_IDENT" ] = kAPI_PARAM_RESPONSE_IDENT;
 		
 		//
 		// Load operators.
@@ -3235,59 +3236,202 @@ $rs_units = & $rs_units[ 'result' ];
 	protected function executeTableUnits( &$theContainer )
 	{
 		//
-		// Get table columns.
-		//
-		$columns
-			= array_keys(
-				$this->addColumnsSelection(
-					$this->offsetGet( kAPI_PARAM_DOMAIN ),
-					kAPI_RESULT_ENUM_DATA_FORMAT,
-					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) ) );
-		
-		//
-		// Get table fields.
-		//
-		$fields = Array();
-		foreach( $columns as $col )
-			$fields[ $col ] = TRUE;
-		
-		//
 		// Execute request.
 		//
-		$rs
+		$iterator
 			= UnitObject::ResolveCollection(
 				UnitObject::ResolveDatabase(
 					$this->mWrapper ) )
 						->matchAll( $this->mFilter,
-									kQUERY_OBJECT,
-									$fields );
+									kQUERY_OBJECT );
 	
 		//
 		// Skip records.
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-			$rs->skip( (int) $tmp );
+			$iterator->skip( (int) $tmp );
 		
 		//
 		// Set cursor limit.
 		//
 		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
-			$rs->limit( (int) $tmp );
+			$iterator->limit( (int) $tmp );
 		
 		//
 		// Instantiate results formatter.
 		//
-		$formatter = new ResultFormatter( $rs, $this->mResponse );
+		$formatter
+			= new UnitIteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_COLUMN,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
+					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
 		
 		//
-		// Format results.
+		// Serialise iterator.
 		//
-		$formatter->table(
-			$columns,
-			$this->offsetGet( kAPI_REQUEST_LANGUAGE ),
-			FALSE );
+		$formatter->serialise();
+		
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set dictionary.
+		//
+		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
+						[ kAPI_DICTIONARY_LIST_COLS ]
+			= $formatter->dictionary()[ kAPI_DICTIONARY_LIST_COLS ];
+		
+		//
+		// Set data.
+		//
+		$theContainer = $formatter->data();
 		
 	} // executeTableUnits.
+
+
+	/*===================================================================================
+	 *	executeFormattedUnits															*
+	 *==================================================================================*/
+
+	/**
+	 * Format units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeFormattedUnits( &$theContainer )
+	{
+		//
+		// Execute request.
+		//
+		$iterator
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll( $this->mFilter,
+									kQUERY_OBJECT );
+	
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$iterator->skip( (int) $tmp );
+		
+		//
+		// Set cursor limit.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$iterator->limit( (int) $tmp );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter
+			= new UnitIteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
+					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
+		
+		//
+		// Serialise iterator.
+		//
+		$formatter->serialise();
+		
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set data.
+		//
+		$theContainer = $formatter->data();
+		
+	} // executeFormattedUnits.
+
+
+	/*===================================================================================
+	 *	executeMarkerUnits																*
+	 *==================================================================================*/
+
+	/**
+	 * Marker units.
+	 *
+	 * This method expects the filter data member set with the requested query.
+	 *
+	 * @param array					$theContainer		Reference to the results container.
+	 *
+	 * @access protected
+	 */
+	protected function executeMarkerUnits( &$theContainer )
+	{
+		//
+		// Init local storage.
+		//
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+		
+		//
+		// Execute request.
+		//
+		$iterator
+			= UnitObject::ResolveCollection(
+				UnitObject::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchAll(
+							$this->mFilter,
+							kQUERY_ARRAY,
+							array( kTAG_DOMAIN => TRUE,
+								   $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) => TRUE ) );
+		
+		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$iterator->skip( (int) $tmp );
+		
+		//
+		// Set cursor limit.
+		//
+		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+			$iterator->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		
+		//
+		// Instantiate results formatter.
+		//
+		$formatter
+			= new UnitIteratorSerialiser(
+					$iterator,										// Iterator.
+					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
+					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
+					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
+		
+		//
+		// Serialise iterator.
+		//
+		$formatter->serialise();
+		
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set data.
+		//
+		$theContainer = $formatter->data();
+		
+	} // executeMarkerUnits.
 
 
 	/*===================================================================================
@@ -3346,133 +3490,6 @@ $rs_units = & $rs_units[ 'result' ];
 		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
 		
 	} // executeClusterUnits.
-
-
-	/*===================================================================================
-	 *	executeFormattedUnits															*
-	 *==================================================================================*/
-
-	/**
-	 * Format units.
-	 *
-	 * This method expects the filter data member set with the requested query.
-	 *
-	 * @param array					$theContainer		Reference to the results container.
-	 *
-	 * @access protected
-	 */
-	protected function executeFormattedUnits( &$theContainer )
-	{
-		//
-		// Execute request.
-		//
-		$rs
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll( $this->mFilter,
-									kQUERY_OBJECT );
-	
-		//
-		// Skip records.
-		//
-		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
-			$rs->skip( (int) $tmp );
-		
-		//
-		// Set cursor limit.
-		//
-		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
-			$rs->limit( (int) $tmp );
-		
-		//
-		// Set table columns.
-		//
-		$this->addColumnsSelection(
-			$this->offsetGet( kAPI_PARAM_DOMAIN ),
-			kAPI_RESULT_ENUM_DATA_FORMAT,
-			$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );
-		
-		//
-		// Instantiate results formatter.
-		//
-		$formatter = new ResultFormatter( $rs, $this->mResponse );
-		
-		//
-		// Format results.
-		//
-		$formatter->format( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
-		
-	} // executeFormattedUnits.
-
-
-	/*===================================================================================
-	 *	executeMarkerUnits																*
-	 *==================================================================================*/
-
-	/**
-	 * Marker units.
-	 *
-	 * This method expects the filter data member set with the requested query.
-	 *
-	 * @param array					$theContainer		Reference to the results container.
-	 *
-	 * @access protected
-	 */
-	protected function executeMarkerUnits( &$theContainer )
-	{
-		//
-		// Init local storage.
-		//
-		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
-		
-		//
-		// Execute request.
-		//
-		$iterator
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll( $this->mFilter,
-									kQUERY_OBJECT );
-		
-		//
-		// Set cursor limit.
-		//
-		if( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-			$iterator->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
-		
-		//
-		// Init pageing.
-		//
-		$this->mResponse[ kAPI_RESPONSE_PAGING ]
-			= array( kAPI_PAGING_AFFECTED => $iterator->affectedCount(),
-					 kAPI_PAGING_ACTUAL => $iterator->count(),
-					 kAPI_PAGING_SKIP => $iterator->skip(),
-					 kAPI_PAGING_LIMIT => $iterator->limit() );
-		
-		//
-		// Init dictionary.
-		//
-		$collection = $iterator->collection()[ kTAG_CONN_COLL ];
-		$this->mResponse[ kAPI_RESULTS_DICTIONARY ]
-			= array( kAPI_DICTIONARY_COLLECTION => $collection,
-					 kAPI_DICTIONARY_REF_COUNT
-					 	=> PersistentObject::ResolveRefCountTag( $collection ),
-					 kAPI_DICTIONARY_IDS => Array(),
-					 kAPI_DICTIONARY_TAGS => Array() );
-		
-		//
-		// Load results.
-		//
-		foreach( $iterator as $object )
-			$theContainer[] = array( kTAG_NID => $object[ kTAG_NID ],
-									 $shape => $object[ $shape ],
-									 kAPI_PARAM_RESPONSE_FRMT_NAME
-									 	=> $object->getName( $language ) );
-		
-	} // executeMarkerUnits.
 
 		
 
