@@ -142,11 +142,11 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-///*
+/*
 	//
-	// Try matchUnits formatted.
+	// Map.
 	//
-	echo( '<h4>Try matchUnits formatted</h4>' );
+	echo( '<h4>Map</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -157,14 +157,23 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 3,
+		kAPI_PAGING_LIMIT => 5,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_ID => ':domain:accession://AUT001/Aegilops:BVAL-210005;',
+		kAPI_PARAM_CRITERIA => array
+		(
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+			)
+		),
+		kAPI_PARAM_DOMAIN => ':domain:forest',
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
 		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER
+		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
+								   kTAG_GEOMETRY => array( array( 9, 45 ),
+														   array( 18, 50 ) ) )
 	);
-	$request = "$base_url?op=".kAPI_OP_GET_UNIT;
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
@@ -181,7 +190,7 @@ try
 	echo( '<hr>' );
 	echo( '<hr>' );
 exit;
-//*/
+*/
 	//
 	// Try empty URL.
 	//
@@ -1778,16 +1787,16 @@ exit;
 	echo( 'Coordinates: ' );
 	$min_lon = $min_lat = 200;
 	$max_lon = $max_lat = -200;
-	foreach( $result[ kAPI_RESPONSE_RESULTS ] as $item )
+	foreach( $result[ kAPI_RESPONSE_RESULTS ][ 'features' ] as $item )
 	{
-		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ] < $min_lon )
-			$min_lon = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ];
-		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ] > $max_lon )
-			$max_lon = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 0 ];
-		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ] < $min_lat )
-			$min_lat = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ];
-		if( $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ] > $max_lat )
-			$max_lat = $item[ kTAG_GEO_SHAPE ][ kTAG_GEOMETRY ][ 1 ];
+		if( $item[ 'geometry' ][ 'coordinates' ][ 0 ] < $min_lon )
+			$min_lon = $item[ 'geometry' ][ 'coordinates' ][ 0 ];
+		if( $item[ 'geometry' ][ 'coordinates' ][ 0 ] > $max_lon )
+			$max_lon = $item[ 'geometry' ][ 'coordinates' ][ 0 ];
+		if( $item[ 'geometry' ][ 'coordinates' ][ 1 ] < $min_lat )
+			$min_lat = $item[ 'geometry' ][ 'coordinates' ][ 1 ];
+		if( $item[ 'geometry' ][ 'coordinates' ][ 1 ] > $max_lat )
+			$max_lat = $item[ 'geometry' ][ 'coordinates' ][ 1 ];
 	}
 	echo( "[$min_lon] [$min_lat] [$max_lon $max_lat]" );
 	echo( kSTYLE_DATA_POS );

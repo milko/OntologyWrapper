@@ -758,6 +758,52 @@ class Tag extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC CLUSTER INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetClusterKey																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get cluster key
+	 *
+	 * This method will return the tag cluster key associated to the provided terms list.
+	 *
+	 * By default we cluster tags by feature term.
+	 *
+	 * @param mixed					$theValue			Tag or tag terms.
+	 *
+	 * @static
+	 * @return string				Tag cluster key.
+	 */
+	static function GetClusterKey( $theValue )
+	{
+		//
+		// Handle tag.
+		//
+		if( $theValue instanceof Tag )
+			return ( is_array( $tmp = $theValue[ kTAG_TERMS ] ) )
+				 ? $tmp[ 0 ]														// ==>
+				 : NULL;															// ==>
+		
+		//
+		// handle terms path.
+		//
+		if( is_array( $theValue ) )
+			return $theValue[ 0 ];													// ==>
+		
+		return NULL;																// ==>
+	
+	} // GetClusterKey.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

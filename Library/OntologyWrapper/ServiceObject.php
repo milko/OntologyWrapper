@@ -10,7 +10,7 @@ namespace OntologyWrapper;
 
 use OntologyWrapper\Wrapper;
 use OntologyWrapper\ContainerObject;
-use OntologyWrapper\UnitIteratorSerialiser;
+use OntologyWrapper\IteratorSerialiser;
 
 /*=======================================================================================
  *																						*
@@ -1050,6 +1050,13 @@ abstract class ServiceObject extends ContainerObject
 		} // Provided shape.
 		
 		//
+		// Add shape offset to criteria.
+		//
+		elseif( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+			$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
+		
+		//
 		// Update criteria.
 		//
 		if( count( $criteria ) )
@@ -1697,7 +1704,7 @@ abstract class ServiceObject extends ContainerObject
 			//
 			// Get cluster key.
 			//
-			$cluster_key = ResultAggregator::GetTagClusterKey( $tag_object[ kTAG_TERMS ] );
+			$cluster_key = Tag::GetClusterKey( $tag_object[ kTAG_TERMS ] );
 			
 			//
 			// Create cluster entry.
@@ -2667,7 +2674,7 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Execute query.
 		//
-		$rs = $theCollection->matchAll( $criteria, kQUERY_ARRAY, $theFields );
+		$rs = $theCollection->matchAll( $criteria, kQUERY_OBJECT, $theFields );
 		
 		//
 		// Add affected count to paging.
@@ -2783,19 +2790,54 @@ abstract class ServiceObject extends ContainerObject
 	protected function executeMatchLabelObjectsResults( IteratorObject $theIterator )
 	{
 		//
+		// Skip records.
+		//
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+			$theIterator->skip( (int) $tmp );
+		
+		//
 		// Set cursor limit.
 		//
-		$theIterator->limit( (int) $this->offsetGet( kAPI_PAGING_LIMIT ) );
+		if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+			$theIterator->limit( (int) $tmp );
 		
 		//
-		// Instantiate results aggregator.
+		// Instantiate results formatter.
 		//
-		$aggregator = new ResultAggregator( $theIterator, $this->mResponse );
+		$formatter
+			= new IteratorSerialiser(
+					$theIterator,									// Iterator.
+					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );	// Language.
 		
 		//
-		// Aggregate results.
+		// Serialise iterator.
 		//
-		$aggregator->aggregate( $this->offsetGet( kAPI_REQUEST_LANGUAGE ), FALSE );
+		$formatter->serialise();
+		
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set dictionary.
+		//
+		$dictionary = $formatter->dictionary();
+		$elements = array( kAPI_DICTIONARY_COLLECTION, kAPI_DICTIONARY_REF_COUNT,
+						   kAPI_DICTIONARY_IDS, kAPI_DICTIONARY_TAGS,
+						   kAPI_DICTIONARY_CLUSTER );
+		foreach( $elements as $element )
+		{
+			if( array_key_exists( $element, $dictionary ) )
+				$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
+					= $dictionary[ $element ];
+		}
+		
+		//
+		// Set data.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $formatter->data();
 		
 	} // executeMatchLabelObjectsResults.
 
@@ -2884,6 +2926,14 @@ abstract class ServiceObject extends ContainerObject
 		// Init local storage.
 		//
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$fields = array( kTAG_LABEL => TRUE,
+						 kTAG_DEFINITION => TRUE );
+		$ref_count = $this->getRefCountTag( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
+		if( is_array( $ref_count )
+		 && (count( $ref_count ) > 1) )
+			$ref_count = array_shift( $ref_count );
+		if( $ref_count !== NULL )
+			$fields[ $ref_count ] = TRUE;
 		
 		//
 		// Load node.
@@ -2910,8 +2960,7 @@ abstract class ServiceObject extends ContainerObject
 						->matchOne(
 							array( kTAG_NID => $node[ kTAG_TERM ] ),
 							kQUERY_ARRAY,
-							array( kTAG_LABEL => TRUE,
-								   kTAG_DEFINITION => TRUE ) );
+							$fields );
 		
 		//
 		// Allocate element.
@@ -2961,6 +3010,14 @@ abstract class ServiceObject extends ContainerObject
 			$ref[ kAPI_RESULT_ENUM_VALUE ]
 				= ( in_array( kTYPE_NODE_ENUMERATION, $node[ kTAG_NODE_TYPE ] ) );
 		
+		//
+		// Set reference count.
+		//
+		if( ($ref_count !== NULL)
+		 && array_key_exists( $ref_count, $term ) )
+			$ref[ kAPI_PARAM_RESPONSE_COUNT ]
+				= $term[ $ref_count ];
+				
 		//
 		// Update affected count.
 		//
@@ -3260,7 +3317,7 @@ $rs_units = & $rs_units[ 'result' ];
 		// Instantiate results formatter.
 		//
 		$formatter
-			= new UnitIteratorSerialiser(
+			= new IteratorSerialiser(
 					$iterator,										// Iterator.
 					kAPI_RESULT_ENUM_DATA_COLUMN,					// Format.
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
@@ -3333,7 +3390,7 @@ $rs_units = & $rs_units[ 'result' ];
 		// Instantiate results formatter.
 		//
 		$formatter
-			= new UnitIteratorSerialiser(
+			= new IteratorSerialiser(
 					$iterator,										// Iterator.
 					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
@@ -3389,8 +3446,7 @@ $rs_units = & $rs_units[ 'result' ];
 						->matchAll(
 							$this->mFilter,
 							kQUERY_ARRAY,
-							array( kTAG_DOMAIN => TRUE,
-								   $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) => TRUE ) );
+							array( $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) => TRUE ) );
 		
 		//
 		// Skip records.
@@ -3408,9 +3464,9 @@ $rs_units = & $rs_units[ 'result' ];
 		// Instantiate results formatter.
 		//
 		$formatter
-			= new UnitIteratorSerialiser(
+			= new IteratorSerialiser(
 					$iterator,										// Iterator.
-					kAPI_RESULT_ENUM_DATA_FORMAT,					// Format.
+					kAPI_RESULT_ENUM_DATA_MARKER,					// Format.
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
 					$this->offsetGet( kAPI_PARAM_DOMAIN ),			// Domain.
 					$this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) );	// Shape.
@@ -3474,7 +3530,7 @@ $rs_units = & $rs_units[ 'result' ];
 		// Instantiate results formatter.
 		//
 		$formatter
-			= new UnitIteratorSerialiser(
+			= new IteratorSerialiser(
 					$iterator,										// Iterator.
 					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
 					$this->offsetGet( kAPI_REQUEST_LANGUAGE ),		// Language.
@@ -4406,6 +4462,74 @@ $rs_units = & $rs_units[ 'result' ];
 										 $theTag ) );
 		
 	} // addTagMatchClause.
+
+	 
+	/*===================================================================================
+	 *	getRefCountTag																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get reference count tag.
+	 *
+	 * This method will return the reference count tags related to the provided} value,
+	 * which should be the {@link kAPI_PARAM_REF_COUNT} service parameter.
+	 *
+	 * If the value is an array, the method will return an array indexed by the element
+	 * with as value the reference count tag; if the value has one element, the method will
+	 * return the reference count tag; if the value is missing, the method will return
+	 * <tt>NULL</tt>.
+	 *
+	 * @param array					$theCollection		Collection name.
+	 *
+	 * @access protected
+	 * @return mixed				Reference count tags.
+	 */
+	protected function getRefCountTag( $theCollection )
+	{
+		//
+		// Handle missing parameter.
+		//
+		if( $theCollection === NULL )
+			return NULL;															// ==>
+		
+		//
+		// Handle scalar.
+		//
+		if( ! is_array( $theCollection ) )
+		{
+			//
+			// Return tag.
+			//
+			switch( $theCollection )
+			{
+				case kAPI_PARAM_COLLECTION_TAG: return kTAG_TAG_COUNT;				// ==>
+				case kAPI_PARAM_COLLECTION_TERM: return kTAG_TERM_COUNT;			// ==>
+				case kAPI_PARAM_COLLECTION_NODE: return kTAG_NODE_COUNT;			// ==>
+				case kAPI_PARAM_COLLECTION_EDGE: return kTAG_EDGE_COUNT;			// ==>
+				case kAPI_PARAM_COLLECTION_UNIT: return kTAG_UNIT_COUNT;			// ==>
+				case kAPI_PARAM_COLLECTION_ENTITY: return kTAG_ENTITY_COUNT;		// ==>
+			}
+			
+			return NULL;															// ==>
+		
+		} // Scalar.
+	
+		//
+		// Handle single element.
+		//
+		if( count( $theCollection ) == 1 )
+			return $this->getRefCountTag( $theCollection[ 0 ] );					// ==>
+		
+		//
+		// Iterate elements.
+		//
+		$result = Array();
+		foreach( $tmp as $element )
+			$result[ $element ] = $this->getRefCountTag( $element );
+		
+		return $result;																// ==>
+		
+	} // getRefCountTag.
 
 	 
 

@@ -625,7 +625,7 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermsByLabel' );
  *		enumerated set, if this parameter is <tt>TRUE</tt>, the {@link kAPI_PAGING_LIMIT}
  *		parameter will be ignored.
  *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
- *		parameter detewrmines what value the result parameter {@link kAPI_RESULT_ENUM_VALUE}
+ *		parameter determines what value the result parameter {@link kAPI_RESULT_ENUM_VALUE}
  *		will hold: if provided, the parameter will hold the record count for that specific
  *		enumeration in the collection referenced by the value of
  *		{@link kAPI_PARAM_REF_COUNT}; if not provided, the {@link kAPI_RESULT_ENUM_VALUE}
@@ -659,6 +659,7 @@ define( "kAPI_OP_MATCH_TERM_BY_LABEL",			'matchTermsByLabel' );
  *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: The enumerated value identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_NODE}</tt>: The enumerated value node identifier.
  *	<li><tt>{@link kAPI_RESULT_ENUM_VALUE}</tt>: The selection flag or values count.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_COUNT}</tt>: The enumeration reference count.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The enumerated value label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The enumerated value description.
  *	<li><tt>{@link kAPI_RESULT_ENUM_KIND}</tt>: The enumerated value kind.
@@ -828,7 +829,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			formatted record set.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The service will return a set of
  *			geographic markers, each element will contain the unit {@link kTAG_NID} and the
- *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET}.
+ *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
+ *			which is required in this case.
  *	 </ul>
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
@@ -883,7 +885,7 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
  *			table set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
- *			{@link ResultAggregator} class.
+ *			{@link IteratorSerialiser} class.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
@@ -919,7 +921,7 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
  *			table set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
- *			{@link ResultAggregator} class.
+ *			{@link IteratorSerialiser} class.
  *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
  *			formatted record set.
  *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be

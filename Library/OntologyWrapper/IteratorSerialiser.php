@@ -1,9 +1,9 @@
 <?php
 
 /**
- * UnitIteratorSerialiser.php
+ * IteratorSerialiser.php
  *
- * This file contains the definition of the {@link UnitIteratorSerialiser} class.
+ * This file contains the definition of the {@link IteratorSerialiser} class.
  */
 
 namespace OntologyWrapper;
@@ -13,7 +13,7 @@ use OntologyWrapper\IteratorObject;
 
 /*=======================================================================================
  *																						*
- *								UnitIteratorSerialiser.php								*
+ *									IteratorSerialiser.php								*
  *																						*
  *======================================================================================*/
 
@@ -25,9 +25,9 @@ use OntologyWrapper\IteratorObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 /**
- * Unit iterator serialiser
+ * Iterator serialiser
  *
- * The duty of this class is to serialise unit query data returned by the services into a
+ * The duty of this class is to serialise query data returned by the services into a
  * formatted set of data. The goal is to serialise the paged results into a single structure
  * tagged by the API, providing a resolved set of data suited to be handled by user
  * interface clients.
@@ -87,7 +87,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 30/06/2014
  */
-class UnitIteratorSerialiser
+class IteratorSerialiser
 {
 	/**
 	 * Iterator.
@@ -927,13 +927,24 @@ class UnitIteratorSerialiser
 	protected function serialiseMarkers()
 	{
 		//
+		// Init local storage.
+		//
+		$shape = $this->mShape[ kTAG_ID_SEQUENCE ];
+		
+		//
+		// Init feature collection.
+		//
+		$this->mData = array( "type" => "FeatureCollection",
+							  "features" => Array() );
+		
+		//
 		// Iterate objects.
 		//
 		foreach( $this->mIterator as $object )
-			$this->mData[]
-				= array( kAPI_PARAM_ID => $object[ kTAG_NID ],
-						 kAPI_PARAM_DOMAIN => $object[ kTAG_DOMAIN ],
-						 kAPI_PARAM_SHAPE => $object[ $this->mShape[ kTAG_ID_SEQUENCE ] ] );
+			$this->mData[ "features" ][]
+				= array( 'type' => 'Feature',
+						'geometry' => $object[ $shape ],
+						 'properties' => array( 'id' => $object[ kTAG_NID ] ) );
 		
 	} // serialiseMarkers.
 
@@ -994,6 +1005,11 @@ class UnitIteratorSerialiser
 			$this->setRecord( $this->mData, $object );
 		
 		} // Iterating objects.
+		
+		//
+		// Cluster tags.
+		//
+		$this->clusterTags();
 		
 	} // serialiseRecords.
 
@@ -3370,8 +3386,67 @@ class UnitIteratorSerialiser
 	} // setHiddenTags.
 
 	 
+	/*===================================================================================
+	 *	clusterTags																		*
+	 *==================================================================================*/
 
-} // class UnitIteratorSerialiser.
+	/**
+	 * Cluster tags
+	 *
+	 * This method will update the response dictionary cluster.
+	 *
+	 * This method should only be called on tags query collections.
+	 *
+	 * @access protected
+	 */
+	protected function clusterTags()
+	{
+		//
+		// Init local storage.
+		//
+		if( $this->mIterator->collection()[ kTAG_CONN_COLL ] == Tag::kSEQ_NAME )
+		{
+			//
+			// Reference dictionary cluster.
+			//
+			$this->mDictionary[ kAPI_DICTIONARY_CLUSTER ] = Array();
+			$ref = & $this->mDictionary[ kAPI_DICTIONARY_CLUSTER ];
+			
+			//
+			// Iterate result identifiers.
+			//
+			foreach( $this->mDictionary[ kAPI_DICTIONARY_IDS ] as $id )
+			{
+				//
+				// Get cluster.
+				//
+				$cluster
+					= Tag::GetClusterKey(
+						$this->mData[ Tag::kSEQ_NAME ]
+									[ $id ]
+									[ kTAG_TERMS ] );
+				
+				//
+				// Create cluster.
+				//
+				if( ! array_key_exists( $cluster, $ref ) )
+					$ref[ $cluster ] = array( $id );
+				
+				//
+				// Update cluster.
+				//
+				elseif( ! array_key_exists( $id, $ref[ $cluster ] ) )
+					$ref[ $cluster ][] = $id;
+			
+			} // Iterating identifiers.
+		
+		} // Tags collection.
+	
+	} // clusterTags.
+
+	 
+
+} // class IteratorSerialiser.
 
 
 ?>

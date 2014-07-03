@@ -131,6 +131,6 @@ define( "kSTANDARDS_UNITS_MAX",			1000 );
  *
  * This tag indicates the maximum markers limit.
  */
-define( "kSTANDARDS_MARKERS_MAX",		500 );
+define( "kSTANDARDS_MARKERS_MAX",		10000 );
 
 ?>

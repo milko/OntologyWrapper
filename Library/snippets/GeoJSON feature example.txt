@@ -1,0 +1,14 @@
+{
+	"type": "Feature",
+	"geometry":
+	{
+		"type": "Point",
+		"coordinates": [-96.714439999999996189, 42.605829999999997426]
+	},
+	"properties":
+	{
+		"id": ":domain:accession://ALB017/Aegilops:AGB0499;",
+		"title": "Accession ALB017/Aegilops:AGB0499",
+		"domain" : "Accession"
+	}
+}

@@ -205,10 +205,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 
-$set = new OntologyWrapper\ResultAggregator( $test );
-echo( '<pre>' ); print_r( $set->aggregate( 'en' ) ); echo( '</pre>' );
-exit;
-
 	//
 	// Iterate objects.
 	//
