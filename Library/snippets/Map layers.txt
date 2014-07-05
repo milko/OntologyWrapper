@@ -1,0 +1,79 @@
+The map selection should be divided as follows:
+
+#### A. Empty base maps
+|*Provider*|*Title*|*Level*|
+|:---|:---|---:|
+|Esri.WorldImagery|*Satellite*|0|
+|Esri.WorldTerrain|*Terrain*|0|
+|Esri.WorldPhysical|*Physical*|0|
+
+
+#### B. Labelled base maps
+|*Provider*|*Title*|*Level*|
+|:---|:---|---:|
+|ThunderForest.OpenCycleMap|*Cycle*|0|
+|ThunderForest.Outdoors|*Outdoors*|0|
+|OpenStreetMap.Hot|*Streets*|0|
+|OpenStreetMap.BlackAndWhite|*Streets (black & white)*|0|
+
+
+#### C. Labels
+|*Provider*|*Title*|*Level*|
+|:---|:---|---:|
+|OpenMapSurfer.AdminBounds|*Boundaries*|110|
+|Acetate.roads|*Roads*|120|
+|Acetate.labels|*Labels*|130|
+
+
+#### D. Environmental layers
+*To be decided.*
+
+
+#### E. Climate layers
+|*Provider*|*Title*|*Level*|
+|:---|:---|---:|
+|OpenWeatherMap.Clouds|*Clouds*|310|
+|OpenWeatherMap.CloudsClassic|*Clouds (enhanced)*|310|
+|OpenWeatherMap.Precipitation|*Precipitation*|320|
+|OpenWeatherMap.PrecipitationClassic|*Precipitation (enhanced)*|320|
+|OpenWeatherMap.Rain|*Rain*|330|
+|OpenWeatherMap.RainClassic|*Rain (enhanced)*|330|
+|OpenWeatherMap.Pressure|*Pressure*|340|
+|OpenWeatherMap.PressureContour|*Pressure (contour)*|340|
+|OpenWeatherMap.Wind|*Wind*|350|
+|OpenWeatherMap.Temperature|*Temperature*|360|
+|OpenWeatherMap.Snow|*Snow*|370|
+
+
+The *level* column represents the default level.
+
+Level 0 represents the background, levels larger than zero represent the foreground. *If the library represents this in the inverse order, just look at this text upside-down*.
+
+All maps in layer groups **_A_** and **_B_** share a single level, **_0_**, which represents the background. Whenever a map is selected, the current contents of the level are replaced by the new one.
+
+Layer groups **_A_**, **_B_** and **_C_** have static levels, which means that their order cannot change.
+
+Layer groups **_D_** and **_E_** have dynamic levels, which means that the user may re-arrange them to change their background/foreground order. The preferred way would be to allow dragging the selected elements to indicate the order.
+
+Elements in map layer **_E_** which share the same default level are to be considered variations of the same layer: for instance, *Clouds* and *Clouds (enhanced)* represent the same layer, except that they are two variations of the same theme, this means that when their order is changed, both elements will share the new level.
+
+Whenever a map from layer **_A_** is selected, all other layers are enabled; when an element of layer **_B_** is selected, layer group **_C_** is *disabled*.
+
+The default layer map is *Esri.WorldImagery*.
+
+All layer group elements with a maximum zoom level lower than the current zoom level should be disabled; this means that maps become enabled as the used reduces the zoom level.
+
+
+
+================================================================================
+
+Levels assignment (Level 0 to N is background to foreground):
+- A and B => Level 0.
+- C level 1 - 99
+- D level 100 - 199
+- E level 200 - 299
+
+Behaviour:
+- The default map is Esri.WorldImagery
+- All layers that cannot display at the current zoom level must be disabled.
+- Levels C, D and E must be draggable, to allow changing the foreground/background order.

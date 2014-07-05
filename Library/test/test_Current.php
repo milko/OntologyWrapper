@@ -188,9 +188,9 @@ exit;
 */
 
 	//
-	// Try matchTermByLabel containing "italia".
+	// Test single field no data (group).
 	//
-	echo( '<h4>Try matchTermByLabel containing "italia"</h4>' );
+	echo( '<h4>Test single field no data (group)</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -201,12 +201,18 @@ exit;
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
+	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PAGING_LIMIT => 6,
-		kAPI_PARAM_PATTERN => 'italia',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
+		kAPI_PARAM_CRITERIA => array
+		(
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+			)
+		),
+		kAPI_PARAM_GROUP => array( ':location:country' )
 	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_TERM_BY_LABEL;
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );

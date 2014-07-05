@@ -3133,7 +3133,7 @@ abstract class ServiceObject extends ContainerObject
 		// Set sort.
 		//
 		$pipeline[] = array( '$sort' => array_count_values( $identifiers ) );
-		
+
 		//
 		// Aggregate.
 		//
