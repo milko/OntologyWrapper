@@ -1315,6 +1315,13 @@ define( "kAPI_PARAM_RECURSE",					'recurse' );
 define( "kAPI_PARAM_RESPONSE_COUNT",			'count' );
 
 /**
+ * Points (int).
+ *
+ * This parameter represents the points count.
+ */
+define( "kAPI_PARAM_RESPONSE_POINTS",			'points' );
+
+/**
  * Childern (int).
  *
  * This parameter represents a list of sub-elements.

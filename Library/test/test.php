@@ -707,8 +707,6 @@ foreach( $clusters as $cluster )
 	
 /******************************************************************************/
 
-/*
-
 	//
 	// Test aggregation framework.
 	//
@@ -724,35 +722,42 @@ foreach( $clusters as $cluster )
 	// Init local storage.
 	//
 	$pipeline = Array();
-	$grouping = array( '72' => '$72', '7' => '$7' );
 	
 	//
 	// Set match.
 	//
-	$pipeline[] = array( '$match' => array( '11' => array( '$gte' => '2014' ) ) );
+	$pipeline[]
+		= array(
+			'$match' => array(
+				'173' => 'iso:3166:1:alpha-3:AUT' ) );
 	
 	//
 	// Set project.
 	//
-	$pipeline[] = array( '$project' => array_count_values( array_keys( $grouping ) ) );
-	
-	//
-	// Set unwind.
-	//
-	$pipeline[] = array( '$unwind' => '$72' );
+	$pipeline[]
+		= array(
+			'$project' => array(
+				'7' => 1,
+				'173' => 1,
+				'57' => array(
+					'$cond' => array(
+						'if' => '$57.type',
+						'then' => 1,
+						'else' => 0 ) ) ) );
 	
 	//
 	// Set group.
 	//
-	$pipeline[] = array( '$group' => array( '_id' => $grouping,
-											'count' => array( '$sum' => 1 ) ) );
-	
-	//
-	// Set sort.
-	//
-	$pipeline[] = array( '$sort' => array( '_id.164' => 1,
-										   '_id.72' => 1,
-										   '_id.7' => 1 ) );
+	$pipeline[]
+		= array(
+			'$group' => array(
+				'_id' => array(
+					'173' => '$173',
+					'7' => '$7' ),
+					'count' => array(
+						'$sum' => 1 ),
+					'markers' => array(
+						'$sum' => '$57' ) ) );
 	
 	//
 	// Show.
@@ -771,49 +776,17 @@ foreach( $clusters as $cluster )
 	echo( '<h4>Results:</h4>' );
 	var_dump( iterator_to_array( $rs ) );
 	
-	//
-	// Transform.
-	//
-	$results = Array();
-	foreach( $rs as $record )
-	{
-		$ref = & $results;
-		if( array_key_exists( '164', $record[ '_id' ] ) )
-		{
-			if( ! array_key_exists( $record[ '_id' ][ '164' ], $ref ) )
-				$ref[ $record[ '_id' ][ '164' ] ] = Array();
-			$ref = & $ref[ $record[ '_id' ][ '164' ] ];
-		}
-		
-		if( array_key_exists( '72', $record[ '_id' ] ) )
-		{
-			if( ! array_key_exists( $record[ '_id' ][ '164' ], $ref ) )
-				$ref[ $record[ '_id' ][ '72' ] ] = Array();
-			$ref = & $ref[ $record[ '_id' ][ '72' ] ];
-		}
-		
-		if( array_key_exists( '7', $record[ '_id' ] ) )
-			$ref[ $record[ '_id' ][ '7' ] ]
-				= $record[ 'count' ];
-	}
-	
-	//
-	// Show.
-	//
-	echo( '<h4>Formatted:</h4>' );
-	echo( '<pre>' );
-	print_r( $results );
-	echo( '</pre>' );
-
-*/
-	
 /******************************************************************************/
+
+/*
 
 //
 // Decode URL.
 //
 
 var_dump( urldecode( 'op=matchUnits&lang=en&param=%7B%22limit%22:50,%22skipped%22:0,%22log-request%22:%22true%22,%22criteria%22:%7B%22:location:country%22:%7B%22input-type%22:%22input-enum%22,%22term%22:%5B%22%22%5D%7D%7D,%22result-domain%22:%22:domain:accession%22,%22result-data%22:%22record%22%7D' ) );
+
+*/
 
 	
 ?>

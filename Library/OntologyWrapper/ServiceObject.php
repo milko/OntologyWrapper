@@ -1052,7 +1052,8 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Add shape offset to criteria.
 		//
-		elseif( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+		elseif( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET )
+			 && (! $this->offsetExists( kAPI_PARAM_GROUP )) )
 			$criteria[ (string) $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
 				= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_SHAPE );
 		
@@ -2266,6 +2267,7 @@ abstract class ServiceObject extends ContainerObject
 		$ref[ "kAPI_PARAM_LOG_TRACE" ] = kAPI_PARAM_LOG_TRACE;
 		$ref[ "kAPI_PARAM_RECURSE" ] = kAPI_PARAM_RECURSE;
 		$ref[ "kAPI_PARAM_RESPONSE_COUNT" ] = kAPI_PARAM_RESPONSE_COUNT;
+		$ref[ "kAPI_PARAM_RESPONSE_POINTS" ] = kAPI_PARAM_RESPONSE_POINTS;
 		
 		//
 		// Load formatted request parameters.
@@ -3095,6 +3097,8 @@ abstract class ServiceObject extends ContainerObject
 		// Init local storage.
 		//
 		$pipeline = $grouping = $identifiers = Array();
+		$match = $project = $unwind = $group = $sort = Array();
+		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
 		foreach( $theGroup as $tmp )
 		{
@@ -3105,12 +3109,18 @@ abstract class ServiceObject extends ContainerObject
 		//
 		// Set match.
 		//
-		$pipeline[] = array( '$match' => $this->mFilter );
+		$match = $this->mFilter;
 		
 		//
 		// Set project.
 		//
-		$pipeline[] = array( '$project' => array_count_values( $theGroup ) );
+		$project = array_count_values( $theGroup );
+		if( $shape !== NULL )
+			$project[ $shape ]
+				= array( '$cond' => array(
+						 'if' => '$'.$shape.'.type',
+						 'then' => 1,
+						 'else' => 0 ) );
 		
 		//
 		// Set unwind.
@@ -3118,21 +3128,39 @@ abstract class ServiceObject extends ContainerObject
 		foreach( $theGroup as $tmp )
 		{
 			if( $this->mWrapper->getObject( $tmp, TRUE )[ kTAG_DATA_TYPE ] == kTYPE_SET )
-				$pipeline[] = array( '$unwind' => '$'.$tmp );
+				$unwind[] = array( '$unwind' => '$'.$tmp );
 		}
 		
 		//
 		// Set group.
 		//
-		$pipeline[] = array( '$group'
-						=> array( '_id' => $grouping,
-								  kAPI_PARAM_RESPONSE_COUNT
-								  	=> array( '$sum' => 1 ) ) );
+		$group
+			= array( '_id' => $grouping,
+					 kAPI_PARAM_RESPONSE_COUNT => array( '$sum' => 1 ) );
+		if( $shape !== NULL )
+			$group[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.kTAG_GEO_SHAPE );
 		
 		//
 		// Set sort.
 		//
-		$pipeline[] = array( '$sort' => array_count_values( $identifiers ) );
+		$sort = array_count_values( $identifiers );
+		
+		//
+		// Fill pipeline.
+		//
+		if( count( $match ) )
+			$pipeline[] = array( '$match' => $match );
+		if( count( $project ) )
+			$pipeline[] = array( '$project' => $project );
+		if( count( $unwind ) )
+		{
+			foreach( $unwind as $tmp )
+				$pipeline[] = $tmp;
+		}
+		if( count( $group ) )
+			$pipeline[] = array( '$group' => $group );
+		if( count( $sort ) )
+			$pipeline[] = array( '$sort' => $sort );
 
 		//
 		// Aggregate.
@@ -3143,7 +3171,6 @@ abstract class ServiceObject extends ContainerObject
 					$this->mWrapper ) )
 						->aggregate(
 							$pipeline );
-		
 		//
 		// Iterate results.
 		//
@@ -3248,8 +3275,13 @@ $rs_units = & $rs_units[ 'result' ];
 				// Handle leaf node.
 				//
 				if( $group == kTAG_DOMAIN )
+				{
 					$ref[ $term ][ kAPI_PARAM_RESPONSE_COUNT ]
 						= $record[ kAPI_PARAM_RESPONSE_COUNT ];
+					if( array_key_exists( kAPI_PARAM_RESPONSE_POINTS, $record ) )
+						$ref[ $term ][ kAPI_PARAM_RESPONSE_POINTS ]
+							= $record[ kAPI_PARAM_RESPONSE_POINTS ];
+				}
 				
 				//
 				// Handle container node.

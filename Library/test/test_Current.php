@@ -210,6 +210,7 @@ exit;
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 			)
 		),
+		kAPI_PARAM_SHAPE_OFFSET => 57,
 		kAPI_PARAM_GROUP => array( ':location:country' )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
