@@ -136,7 +136,7 @@ try
 	var_dump( $formatter->data() );
 */
 
-/*
+///*
 	//
 	// Map.
 	//
@@ -185,7 +185,7 @@ try
 	echo( '<hr>' );
 var_dump( json_encode( $result[ 'results' ] ) );
 exit;
-*/
+//*/
 
 	//
 	// Test single field no data (group).

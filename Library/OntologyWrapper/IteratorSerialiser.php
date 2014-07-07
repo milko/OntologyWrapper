@@ -944,7 +944,9 @@ class IteratorSerialiser
 			$this->mData[ "features" ][]
 				= array( 'type' => 'Feature',
 						'geometry' => $object[ $shape ],
-						 'properties' => array( 'id' => $object[ kTAG_NID ] ) );
+						'properties' => array(
+							kAPI_PARAM_ID => $object[ kTAG_NID ],
+							kAPI_PARAM_DOMAIN => $this->mDomain[ kTAG_NID ] ) );
 		
 	} // serialiseMarkers.
 
@@ -3365,7 +3367,8 @@ class IteratorSerialiser
 				$this->mHidden
 					= array_merge(
 						$class::DynamicOffsets(),
-						$class::InternalOffsets() );
+						$class::InternalOffsets(),
+						array( kTAG_GEO_SHAPE ) );		// Added shape to excluded.
 				
 				break;
 			
