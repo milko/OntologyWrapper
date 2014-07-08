@@ -1881,7 +1881,8 @@ abstract class ServiceObject extends ContainerObject
 					//
 					// Handle empty search pattern.
 					//
-					if( ! strlen( $criteria[ kAPI_PARAM_PATTERN ] ) )
+					if( ($criteria[ kAPI_PARAM_PATTERN ] !== FALSE)
+					 && (! strlen( $criteria[ kAPI_PARAM_PATTERN ] )) )
 					{
 						$has_values = FALSE;
 						break;

@@ -136,7 +136,7 @@ try
 	var_dump( $formatter->data() );
 */
 
-///*
+/*
 	//
 	// Map.
 	//
@@ -185,12 +185,12 @@ try
 	echo( '<hr>' );
 var_dump( json_encode( $result[ 'results' ] ) );
 exit;
-//*/
+*/
 
 	//
-	// Test single field no data (group).
+	// Test single field with data indexed (group).
 	//
-	echo( '<h4>Test single field no data (group)</h4>' );
+	echo( '<h4>Test single field with data indexed (group)</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -205,13 +205,13 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:country' => array
+			':location:restricted' => array
 			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
+				kAPI_PARAM_PATTERN => FALSE
 			)
 		),
-		kAPI_PARAM_SHAPE_OFFSET => 57,
-		kAPI_PARAM_GROUP => array( ':location:country' )
+		kAPI_PARAM_GROUP => kTAG_DOMAIN
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
