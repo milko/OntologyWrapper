@@ -2574,7 +2574,7 @@ abstract class ServiceObject extends ContainerObject
 	 * @param array					$theFields			Fields selection.
 	 *
 	 * @access protected
-	 * @return IteratorObject		Matched data or <tt>NULL</tt>.
+	 * @return ObjectIterator		Matched data or <tt>NULL</tt>.
 	 *
 	 * @uses stringMatchPattern()
 	 */
@@ -2718,11 +2718,11 @@ abstract class ServiceObject extends ContainerObject
 	 * This method will use the provided cursor to fill the service results with the
 	 * requested label strings.
 	 *
-	 * @param IteratorObject		$theIterator		Iterator object.
+	 * @param ObjectIterator		$theIterator		Iterator object.
 	 *
 	 * @access protected
 	 */
-	protected function executeMatchLabelStringsResults( IteratorObject $theIterator )
+	protected function executeMatchLabelStringsResults( ObjectIterator $theIterator )
 	{
 		//
 		// Iterate results.
@@ -2798,11 +2798,11 @@ abstract class ServiceObject extends ContainerObject
 	 * This method will use the provided cursor to fill the service results with the
 	 * requested label objects.
 	 *
-	 * @param IteratorObject		$theIterator		Iterator object.
+	 * @param ObjectIterator		$theIterator		Iterator object.
 	 *
 	 * @access protected
 	 */
-	protected function executeMatchLabelObjectsResults( IteratorObject $theIterator )
+	protected function executeMatchLabelObjectsResults( ObjectIterator $theIterator )
 	{
 		//
 		// Skip records.
@@ -2867,12 +2867,12 @@ abstract class ServiceObject extends ContainerObject
 	 * This method expects an iterator containing a list of enumerations and a reference to
 	 * the results element that will receive the results.
 	 *
-	 * @param IteratorObject		$theIterator		Iterator object.
+	 * @param ObjectIterator		$theIterator		Iterator object.
 	 * @param array					$theContainer		Reference to the results container.
 	 *
 	 * @access protected
 	 */
-	protected function executeLoadEnumerations( IteratorObject $theIterator,
+	protected function executeLoadEnumerations( ObjectIterator $theIterator,
 															  &$theContainer )
 	{
 		//

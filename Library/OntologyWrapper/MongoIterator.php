@@ -20,13 +20,13 @@ use OntologyWrapper\MongoCollection;
 /**
  * Mongo iterator object
  *
- * This <i>concrete</i> class derived from {@link IteratorObject} implements a query
+ * This <i>concrete</i> class derived from {@link ObjectIterator} implements a query
  * iterator which uses a {@link MongoCursor} instance as the object cursor.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/03/2014
  */
-class MongoIterator extends IteratorObject
+class MongoIterator extends ObjectIterator
 {
 		
 

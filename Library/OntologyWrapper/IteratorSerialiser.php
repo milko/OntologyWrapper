@@ -9,7 +9,7 @@
 namespace OntologyWrapper;
 
 use OntologyWrapper\ContainerObject;
-use OntologyWrapper\IteratorObject;
+use OntologyWrapper\ObjectIterator;
 
 /*=======================================================================================
  *																						*
@@ -94,7 +94,7 @@ class IteratorSerialiser
 	 *
 	 * This protected data member holds the iterator.
 	 *
-	 * @var IteratorObject
+	 * @var ObjectIterator
 	 */
 	protected $mIterator = NULL;
 
@@ -232,7 +232,7 @@ class IteratorSerialiser
 	 * The iterator should have been paged by the caller: in this class we do not handle
 	 * paging and sorting, we simply scan the iterator.
 	 *
-	 * @param IteratorObject		$theIterator		Iterator.
+	 * @param ObjectIterator		$theIterator		Iterator.
 	 * @param string				$theFormat			Data format.
 	 * @param string				$theLanguage		Default language.
 	 * @param string				$theDomain			Optional domain for columns.
@@ -240,7 +240,7 @@ class IteratorSerialiser
 	 *
 	 * @access public
 	 */
-	public function __construct( IteratorObject $theIterator,
+	public function __construct( ObjectIterator $theIterator,
 												$theFormat,
 												$theLanguage,
 												$theDomain = NULL,
@@ -303,18 +303,18 @@ class IteratorSerialiser
 	 *
 	 * The method does not allow resetting the iterator.
 	 *
-	 * @param IteratorObject		$theIterator		Iterator.
+	 * @param ObjectIterator		$theIterator		Iterator.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
-	 * @return IteratorObject		Current or previous iterator.
+	 * @return ObjectIterator		Current or previous iterator.
 	 */
 	public function iterator( $theIterator = NULL, $getOld = FALSE )
 	{
 		//
 		// Handle new iterator.
 		//
-		if( $theIterator instanceof IteratorObject )
+		if( $theIterator instanceof ObjectIterator )
 		{
 			//
 			// Save old iterator.

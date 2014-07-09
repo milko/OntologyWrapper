@@ -1,9 +1,9 @@
 <?php
 
 /**
- * IteratorObject.php
+ * ObjectIterator.php
  *
- * This file contains the definition of the {@link IteratorObject} class.
+ * This file contains the definition of the {@link ObjectIterator} class.
  */
 
 namespace OntologyWrapper;
@@ -12,17 +12,17 @@ use OntologyWrapper\CollectionObject;
 
 /*=======================================================================================
  *																						*
- *									IteratorObject.php									*
+ *									ObjectIterator.php									*
  *																						*
  *======================================================================================*/
 
 /**
- * Iterator object
+ * Object iterator
  *
- * This <i>abstract</i> class represents the template of iterator objects which are used to
- * scan the results of a query. The class implements the {@link Iterator} and
- * {@link Countable} interfaces and it declares a series of prototypes to be implemented by
- * derived concrete classes.
+ * This <i>abstract</i> class represents the template of iterators which are used to scan
+ * a set of objects belonging to the same collection. The class implements the
+ * {@link Iterator} and {@link Countable} interfaces and it declares a series of prototypes
+ * to be implemented by derived concrete classes.
  *
  * In this class the {@link Iterator} and {@link Countable} interfaces are proxies of the
  * cursor data member, all calls are routed to the cursor, in concrete derived classes you
@@ -42,7 +42,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/03/2014
  */
-abstract class IteratorObject implements \Iterator,
+abstract class ObjectIterator implements \Iterator,
 										 \Countable
 {
 	/**
@@ -789,7 +789,7 @@ abstract class IteratorObject implements \Iterator,
 
 	 
 
-} // class IteratorObject.
+} // class ObjectIterator.
 
 
 ?>

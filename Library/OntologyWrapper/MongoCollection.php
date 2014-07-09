@@ -299,7 +299,7 @@ class MongoCollection extends CollectionObject
 	 * @param array					$theKey				Key offset.
 	 *
 	 * @access public
-	 * @return IteratorObject		Matched data iterator.
+	 * @return ObjectIterator		Matched data iterator.
 	 */
 	public function matchAll( $theCriteria = Array(),
 							  $theResult = kQUERY_DEFAULT,

@@ -484,7 +484,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * @param array					$theKey				Key offset.
 	 *
 	 * @access public
-	 * @return IteratorObject		Matched data iterator.
+	 * @return ObjectIterator		Matched data iterator.
 	 */
 	abstract public function matchAll( $theCriteria = Array(),
 									   $theResult = kQUERY_DEFAULT,
@@ -500,7 +500,7 @@ abstract class CollectionObject extends ConnectionObject
 	 * Return all objects
 	 *
 	 * This method should select all the objects of the collection and return an iterator,
-	 * this iterator is not an instance of {@link IteratorObject}, but the cursor of the
+	 * this iterator is not an instance of {@link ObjectIterator}, but the cursor of the
 	 * native database engine; by default it should be an iterator whose elements are array
 	 * representations of the selected objects.
 	 *

@@ -184,12 +184,12 @@ abstract class DictionaryObject extends ContainerObject
 	 *	<li><b>$theLife</b>: Lifetime of the dictionary entry in seconds, 0 means permanent.
 	 * </ul>
 	 *
-	 * @param IteratorObject		$theTags			Tag iterator.
+	 * @param ObjectIterator		$theTags			Tag iterator.
 	 * @param integer				$theLife			Elements lifetime.
 	 *
 	 * @access public
 	 */
-	public function setTagsByIterator( IteratorObject $theTags, $theLife = 0 )
+	public function setTagsByIterator( ObjectIterator $theTags, $theLife = 0 )
 	{
 		//
 		// Set iterator key to tag sequence number.
