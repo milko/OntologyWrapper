@@ -188,9 +188,9 @@ exit;
 */
 
 	//
-	// Test single field with data indexed (group).
+	// Try matchTagLabels containing "count".
 	//
-	echo( '<h4>Test single field with data indexed (group)</h4>' );
+	echo( '<h4>Try matchTagLabels containing "count"</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -201,19 +201,12 @@ exit;
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':location:restricted' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT,
-				kAPI_PARAM_PATTERN => FALSE
-			)
-		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'count',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
 	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_LABELS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
