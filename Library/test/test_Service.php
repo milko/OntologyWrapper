@@ -714,12 +714,23 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+	
+	//
+	// Locate sub-section.
+	//
+	foreach( $result[ kAPI_RESPONSE_RESULTS ] as $enum )
+	{
+		if( $enum[ kAPI_RESULT_ENUM_TERM ] == ':type:entity:100' )
+		{
+			$node = $enum[ kAPI_RESULT_ENUM_NODE ];
+			break;
+		}
+	}
 
 	//
 	// Try getNodeEnumerations for ":type:entity:100".
 	//
 	echo( '<h4>Try getNodeEnumerations for ":type:entity:100"</h4>' );
-	$node = $result[ kAPI_RESPONSE_RESULTS ][ 0 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -750,12 +761,23 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	
+	//
+	// Locate sub-section.
+	//
+	foreach( $result[ kAPI_RESPONSE_RESULTS ] as $enum )
+	{
+		if( $enum[ kAPI_RESULT_ENUM_TERM ] == ':type:entity:120' )
+		{
+			$node = $enum[ kAPI_RESULT_ENUM_NODE ];
+			break;
+		}
+	}
 
 	//
 	// Try getNodeEnumerations for ":type:entity:120".
 	//
 	echo( '<h4>Try getNodeEnumerations for ":type:entity:120"</h4>' );
-	$node = $result[ kAPI_RESPONSE_RESULTS ][ 1 ][ kAPI_RESULT_ENUM_NODE ];
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );

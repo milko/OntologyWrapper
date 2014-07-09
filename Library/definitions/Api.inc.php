@@ -972,25 +972,6 @@ define( "kAPI_PARAM_PATTERN",					'pattern' );
 define( "kAPI_PARAM_REF_COUNT",					'has-values' );
 
 /**
- * Search collection (string).
- *
- * This tag defines the requested search collection.
- *
- * This parameter is a string which indicates which collection we intend to search, the
- * value must be taken from the following enumerated set:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: Tags.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: Terms.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: Nodes.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: Edges.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: Units.
- *	<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: Entities.
- * </ul>
- */
-define( "kAPI_PARAM_COLLECTION",				'collection' );
-
-/**
  * Tag (string/int).
  *
  * This tag defines the requested tag.
