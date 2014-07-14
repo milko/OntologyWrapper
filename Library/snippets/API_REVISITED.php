@@ -729,27 +729,6 @@ define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
  * String input (string).
  *
  * This parameter indicates a form string input.
- *
- * A form element of this type should feature the following elements:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list (required), a
- *		string containing the search pattern.
- *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: The search operator (required), one of the
- *		following:
- *	 <ul>
- *		<li><tt>{@link kOPERATOR_EQUAL}</tt>: <em>Equality</em>.
- *		<li><tt>{@link kOPERATOR_EQUAL_NOT}</tt>: <em>Inequality</em>.
- *		<li><tt>{@link kOPERATOR_PREFIX}</tt>: <em>Starts with</em>.
- *		<li><tt>{@link kOPERATOR_CONTAINS}</tt>: <em>Contains</em>.
- *		<li><tt>{@link kOPERATOR_SUFFIX}</tt>: <em>Ends with</em>.
- *		<li><tt>{@link kOPERATOR_REGEX}</tt>: <em>Regular expression</em>.
- *	 </ul>
- *		and any of the following:
- *	 <ul>
- *		<li><tt>{@link kOPERATOR_NOCASE}</tt>: <em>Case and accent insensitive</em>.
- *	 </ul>
- * </ul>
  */
 define( "kAPI_PARAM_INPUT_STRING",				'input-string' );
 
@@ -757,19 +736,6 @@ define( "kAPI_PARAM_INPUT_STRING",				'input-string' );
  * Range input (string).
  *
  * This parameter indicates a form range input.
- *
- * A form element of this type should feature the following elements:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_RANGE_MIN}</tt>: Minimum range (required).
- *	<li><tt>{@link kAPI_PARAM_RANGE_MAX}</tt>: Maximum range (required).
- *	<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: The search operator (optional, defaults to
- *		{@link kOPERATOR_IRANGE}), one of the following:
- *	 <ul>
- *		<li><tt>{@link kOPERATOR_IRANGE}</tt>: <em>Range inclusive</em>.
- *		<li><tt>{@link kOPERATOR_ERANGE}</tt>: <em>Range exclusive</em>.
- *	 </ul>
- * </ul>
  */
 define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
 
@@ -777,12 +743,6 @@ define( "kAPI_PARAM_INPUT_RANGE",				'input-range' );
  * Enumeration input (string).
  *
  * This parameter indicates a form enumneration input.
- *
- * A form element of this type should feature the following elements:
- *
- * <ul>
- *	<li><tt>{@link kAPI_RESULT_ENUM_TERM}</tt>: Enumerated set (required).
- * </ul>
  */
 define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
 
@@ -790,26 +750,6 @@ define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
  * Shape input (string).
  *
  * This parameter indicates a form shape input.
- *
- * A form element of this type should feature the following elements:
- *
- * <ul>
- *	<li><tt>{@link kAPI_RESULT_SHAPE}</tt>: The shape (required). The value should be a
- *		GeoJSON structure amon the following types:
- *	 <ul>
- *		<li><tt>Point</tt>: The service will select the first 100 records (or less with the
- *			limits parameter) closest to the provided point and less than the provided
- *			distance.
- *		<li><tt>Circle</tt>: The service will select the first 100 records (or less with the
- *			limits parameter) closest to the provided point and within the provided radius.
- *		<li><tt>Polygon</tt>: The service will select all the records within the provided
- *			polygon, excluding eventual polygon holes.
- *		<li><tt>Rect</tt>: The service will select all the records within the provided
- *			rectangle.
- *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: The tag reference to the shape property.
- *		meters from the provided point (required if the shape is a point).
- * </ul>
  */
 define( "kAPI_PARAM_INPUT_SHAPE",				'input-shape' );
 
@@ -817,13 +757,6 @@ define( "kAPI_PARAM_INPUT_SHAPE",				'input-shape' );
  * Default input (string).
  *
  * This parameter indicates a form default input.
- *
- * A form element of this type should feature the following elements:
- *
- * <ul>
- *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The value to match (required), an equality test
- *		will be applied.
- * </ul>
  */
 define( "kAPI_PARAM_INPUT_DEFAULT",				'input-default' );
 

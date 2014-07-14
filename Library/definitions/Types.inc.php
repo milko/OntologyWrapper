@@ -91,7 +91,7 @@ define( "kTYPE_ARRAY",							':type:array' );
  * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
  * second pair has the {@link kTAG_TEXT} as its key and the value represents the text
  * expressed in the language defined by the first pair. No two elements may share the same
- * language and only one element may omit the language pair.
+ * language and only one element may omit the language.
  */
 define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
 
@@ -103,7 +103,7 @@ define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
  * tag as its key and the value represents the type of the element. The second pair has
  * an unspecified tag as the key and the value represents the element's value qualified by
  * the previous pair. No two elements may share the same type and only one element may omit
- * the type pair.
+ * the type.
  */
 define( "kTYPE_TYPED_LIST",						':type:typed-list' );
 
