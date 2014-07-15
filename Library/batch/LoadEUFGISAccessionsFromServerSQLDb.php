@@ -474,7 +474,6 @@ try
 						case ':location:longitude:sec':
 						case ':location:longitude:hem':
 						case ':location:longitude':
-						case ':location:elevation':
 						case 'mcpd:DONORDESCR':
 						case 'mcpd:DONORNUMB':
 						case 'mcpd:BREDDESCR':
@@ -484,6 +483,11 @@ try
 						case 'mcpd:REMARKS':
 						case ':unit:version':
 							$object[ $key ] = $value;
+							break;
+			
+						case ':location:elevation':
+							$object[ ':location:elevation:min' ] = $value;
+							$object[ ':location:elevation:max' ] = $value;
 							break;
 			
 						case ':taxon:names':
