@@ -382,6 +382,16 @@ try
 					   		$object->offsetGet( ':location:latitude' ) ) ) );
 		
 		//
+		// Set average elevation.
+		//
+		if( $object->offsetExists( ':location:elevation:min' )
+		 && $object->offsetExists( ':location:elevation:max' ) )
+			$object->offsetSet( ':location:elevation',
+								(int) (($this->offsetGet( ':location:elevation:max' )
+									-	$this->offsetGet( ':location:elevation:min' ))
+									/	2) );
+		
+		//
 		// Load populations.
 		//
 		$rsp = $db->execute( "SELECT * FROM `EUFGIS_POPULATIONS` "

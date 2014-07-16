@@ -955,6 +955,65 @@ abstract class PersistentObject extends OntologyObject
 	
 	} // commit.
 
+	 
+	/*===================================================================================
+	 *	dump																			*
+	 *==================================================================================*/
+
+	/**
+	 * Dump the object
+	 *
+	 * This method will dump the object in the provided formatusing the provided moptions.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theFormat</b>: The format in which the object should be dumped:
+	 *	 <ul>
+	 *		<li><tt>xml</tt>: XML.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will generate a single XML element containing the object.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param string				$theFormat			Dump format.
+	 *
+	 * @access public
+	 * @return string				The dumped object.
+	 *
+	 * @throws Exception
+	 */
+	public function dump( $theWrapper = NULL, $theFormat = 'xml' )
+	{
+		//
+		// Resolve wrapper.
+		//
+		$this->resolveWrapper( $theWrapper );
+	
+		//
+		// Collect untracked offsets.
+		//
+		$class = get_class( $this );
+		$untracked = array_merge( $class::InternalOffsets(),
+								  $class::ExternalOffsets(),
+								  $class::DynamicOffsets() );
+		
+		//
+		// Dump object.
+		//
+		switch( $theFormat )
+		{
+			case 'xml':
+				return $this->dumpXML( $theWrapper, $untracked );								// ==>
+		}
+		
+		throw new \Exception(
+			"Unable to dump object: "
+		   ."invalid or unsupported format[$theFormat]." );						// !@! ==>
+	
+	} // dump.
+
 	
 
 /*=======================================================================================
@@ -1646,8 +1705,7 @@ abstract class PersistentObject extends OntologyObject
 	/**
 	 * Return external offsets
 	 *
-	 * In this class we return the offsets which keep track of the object structure and ist
-	 * references:
+	 * In this class we return the following offsets:
 	 *
 	 * <ul>
 	 *	<li><em>Reference counting offsets</em>:
@@ -1664,6 +1722,15 @@ abstract class PersistentObject extends OntologyObject
 	 *			object.
 	 *		<li><tt>{@link kTAG_ENTITY_COUNT}</tt>: Number of entities referencing the
 	 *			current object.
+	 *	 </ul>
+	 *	<li><em>Offset tracking offsets</em>:
+	 *	 <ul>
+	 *		<li><tt>{@link kTAG_TAG_OFFSETS}</tt>: Tag object offsets.
+	 *		<li><tt>{@link kTAG_TERM_OFFSETS}</tt>: Term object offsets.
+	 *		<li><tt>{@link kTAG_NODE_OFFSETS}</tt>: Node object offsets.
+	 *		<li><tt>{@link kTAG_EDGE_OFFSETS}</tt>: Edge object offsets.
+	 *		<li><tt>{@link kTAG_UNIT_OFFSETS}</tt>: Unit object offsets.
+	 *		<li><tt>{@link kTAG_ENTITY_OFFSETS}</tt>: Entity object offsets.
 	 *	 </ul>
 	 *	<li><em>Time-stamp offsets</em>:
 	 *	 <ul>
@@ -1682,6 +1749,9 @@ abstract class PersistentObject extends OntologyObject
 			array( kTAG_TAG_COUNT, kTAG_TERM_COUNT,
 				   kTAG_NODE_COUNT, kTAG_EDGE_COUNT,
 				   kTAG_UNIT_COUNT, kTAG_ENTITY_COUNT ),
+			array( kTAG_TAG_OFFSETS, kTAG_TERM_OFFSETS,
+				   kTAG_NODE_OFFSETS, kTAG_EDGE_OFFSETS,
+				   kTAG_UNIT_OFFSETS, kTAG_ENTITY_OFFSETS ),
 			array( kTAG_RECORD_CREATED, kTAG_RECORD_MODIFIED ) );					// ==>
 	
 	} // ExternalOffsets.
@@ -5147,6 +5217,123 @@ MILKO - Need to check.
 		$theProperties[ kTAG_NID ] = $this->offsetGet( kTAG_NID );
 	
 	} // setGraphProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED DUMP UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	dumpXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Dump the current object in XML format
+	 *
+	 * The method will return the XML representation of the object as an XML string.
+	 *
+	 * The provided parameter represents dynamic and run-time offsets that are managed by
+	 * the object's persistent framework.
+	 *
+	 * The method will generate a single XML element containing the object.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access public
+	 * @return string				The object as an XML element.
+	 */
+	public function dumpXML( Wrapper $theWrapper, $theUntracked )
+	{
+		//
+		// Initialise XML structure.
+		//
+		$xml = new \SimpleXMLElement( kXML_STANDARDS_BASE );
+		
+		//
+		// Create unit.
+		//
+		$unit = $xml->addChild( 'UNIT' );
+		$unit->addAttribute( 'class', get_class( $this ) );
+		
+		//
+		// Traverse object.
+		//
+		foreach( $this as $key => $value )
+			$this->dumpXMLProperty( $theWrapper, $unit, $key, $value, $theUntracked );
+		
+		return $xml->asXML();														// ==>
+	
+	} // dumpXML.
+
+	 
+	/*===================================================================================
+	 *	dumpXMLProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Dump the property into the XML
+	 *
+	 * The method will load the provided property into the provided XML container.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param SimpleXMLElement		$theXML				XML container (parent).
+	 * @param string				$theOffset			Property offset.
+	 * @param mixed					$theValue			Property value.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access public
+	 */
+	public function dumpXMLProperty( Wrapper $theWrapper, \SimpleXMLElement $theXML,
+											 $theOffset, $theValue, $theUntracked )
+	{
+		//
+		// Skip internal offsets.
+		//
+		if( ! in_array( $theOffset, static::InternalOffsets() ) )
+		{
+			//
+			// Load tag.
+			//
+			$tag = $theWrapper->getObject( static::resolveOffset( $theOffset, TRUE ) );
+		
+			//
+			// Skip dynamic tags.
+			//
+			if( ! in_array( $tag[ kTAG_ID_SEQUENCE ], $theUntracked ) )
+			{
+				//
+				// Create element.
+				//
+				$element = $theXML->addChild( 'item' );
+				$element->addAttribute( 'tag', $tag[ kTAG_NID ] );
+				
+				//
+				// Parse by data type.
+				//
+				switch( $tag[ kTAG_DATA_TYPE ] )
+				{
+					case kTYPE_STRING:
+						$node = dom_import_simplexml( $element );
+						$tmp = $node->ownerDocument;
+						$node->appendChild( $tmp->createCDATASection( $theValue ) );
+						break;
+					
+					case kTYPE_MIXED:
+						break;
+				
+				} // Parsed by data type.
+		
+			} // Not a dynamic tag.
+		
+		} // Not an internal offset.
+	
+	} // dumpXMLProperty.
 
 		
 

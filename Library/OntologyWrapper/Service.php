@@ -521,9 +521,13 @@ class Service extends ContainerObject
 			case kAPI_PARAM_ID:
 			case kAPI_PARAM_DOMAIN:
 			case kAPI_PARAM_DATA:
-			case kAPI_PARAM_SHAPE:
 			case kAPI_PARAM_SHAPE_OFFSET:
 				if( strlen( $theValue ) )
+					$this->offsetSet( $theKey, $theValue );
+				break;
+
+			case kAPI_PARAM_SHAPE:
+				if( is_array( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
 				break;
 
