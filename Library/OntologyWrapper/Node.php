@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Tag;
 use OntologyWrapper\Term;
 use OntologyWrapper\Edge;
@@ -103,7 +103,7 @@ require_once( kPATH_DEFINITIONS_ROOT."/Domains.inc.php" );
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Node extends PersistentObject
+class Node extends MetadataObject
 {
 	/**
 	 * Type trait.
@@ -1124,6 +1124,99 @@ class Node extends PersistentObject
 							array( kTAG_TAG, kTAG_TERM ) );							// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the {@link kTAG_TAG}, {@link kTAG_TERM} and
+	 * {@link kTAG_ID_PERSISTENT} offsets to the untracked offsets list, since these are set
+	 * in the unit node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		
+		//
+		// Add tag, term and persistent identifier to untracked.
+		//
+		$theUntracked = array_merge( $theUntracked,
+									 array( kTAG_TAG, kTAG_TERM, kTAG_ID_PERSISTENT ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>NODE</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		//
+		// Create element.
+		//
+		$element = parent::xmlUnitElement( $theRoot )->addChild( 'NODE' );
+		
+		//
+		// Set tag.
+		//
+		if( $this->offsetExists( kTAG_TAG ) )
+			$element->addAttribute( 'tag', $this->offsetGet( kTAG_TAG ) );
+		
+		//
+		// Set term.
+		//
+		if( $this->offsetExists( kTAG_TERM ) )
+			$element->addAttribute( 'term', $this->offsetGet( kTAG_TERM ) );
+		
+		//
+		// Set persistent identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_PERSISTENT ) )
+			$element->addAttribute( 'pid', $this->offsetGet( kTAG_ID_PERSISTENT ) );
+		
+		return $element;															// ==>
+	
+	} // xmlUnitElement.
 
 		
 

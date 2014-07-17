@@ -571,6 +571,35 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC EXPORT INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	XMLRootElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML root element
+	 *
+	 * In this class we return the <tt>UNITS</tt> root element.
+	 *
+	 * @static
+	 * @return SimpleXMLElement		XML export root element.
+	 */
+	static function XMLRootElement()
+	{
+		return new \SimpleXMLElement(
+						str_replace( '@@@', 'UNITS', kXML_STANDARDS_BASE ) );		// ==>
+	
+	} // XMLRootElement.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -762,6 +791,36 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED EXPORT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>UNIT</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return $theRoot->addChild( 'UNIT' );										// ==>
+	
+	} // xmlUnitElement.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED GRAPH UTILITIES								*
  *																						*
  *======================================================================================*/
@@ -801,6 +860,48 @@ abstract class UnitObject extends PersistentObject
 		$theProperties[ 'GID' ] = $this->offsetGet( kTAG_NID );
 	
 	} // setGraphProperties.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the class name to the unit element.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		$unit->addAttribute( 'class', get_class( $this ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
 
 	 
 

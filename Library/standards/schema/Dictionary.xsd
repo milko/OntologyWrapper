@@ -299,12 +299,15 @@
 				</xs:annotation>
 				<xs:element minOccurs="0" maxOccurs="unbounded" ref="item"/>
 			</xs:sequence>
-
+			
+			<!-- Tag references -->
+			
 			<xs:attribute name="tag" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute can be used to identify the tag holding the current element's
-						data, in this case it references a Tag native identifier.
+						This attribute can be used to qualify the current element as an offset
+						identified by a tag reference, in this case the attribute value is a string
+						representing a Tag object native identifier.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -312,18 +315,40 @@
 			<xs:attribute name="seq" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute can be used to identify the tag holding the current element's
-						data, in this case it references a Tag sequence number.
+						This attribute can be used to qualify the current element as an offset
+						identified by a tag reference, in this case the attribute value is a string
+						representing a Tag object sequence number.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-
+			
+			<!-- Node references -->
+			
+			<xs:attribute name="node" type="node-ref-type">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute can be used to qualify the current element as a node reference,
+						the attribute value is an enumerated set that indicates how the element value
+						should be interpreted:
+						tag - the element value is a tag native identifier;
+						term - the element value is a term native identifier;
+						node - the element value is a node native identifier;
+						pid - the element value is a node persistent identifier.
+						The last two options represent a univoque node reference; when using the first
+						two options, the resulting master node will be resolved by default.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<!-- Key references -->
+			
 			<xs:attribute name="const" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute can be used to identify the tag holding the current element's
-						data, in this case it references a constant that should be defined by the
-						software that will parse the file.
+						This attribute can be used to qualify the current element as either a root
+						property, or as a sub-structure element, in this case the attribute value
+						references a constant that should be defined and resolved by the software
+						that will parse the file.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -331,28 +356,14 @@
 			<xs:attribute name="key" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
-						This attribute is used by nested items representing array elements,
-						it holds the string representing the array element's key.
+						This attribute can be used to qualify the current element as either a root
+						property, or as a sub-structure element, in this case the attribute value
+						represents the actual offset or element key.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 			
-			<xs:attribute name="node" type="node-ref-type">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">
-						This attribute indicates that the element value references a Node object,
-						the attribute is required when providing node references.
-						Depending on the attribute value:
-						tag - the value is a tag native identifier;
-						term - the value is a term native identifier;
-						node - the value is a node native identifier;
-						pid - the value is a node persistent identifier.
-						When providing pid or node, the referenced node is univoque;
-						when providing the other options, a master node will be
-						resolved by default.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
+			<!-- Structure references -->
 			
 			<xs:attribute name="struct" type="xs:string">
 				<xs:annotation>
@@ -403,11 +414,11 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-
+	
 	<!-- ============================================================ -->
-	<!-- 							DATA							  -->
+	<!-- 							UNITS							  -->
 	<!-- ============================================================ -->
-
+	
 	<!-- ROOT -->
 	<xs:element name="UNITS">
 		<xs:annotation>
@@ -415,7 +426,7 @@
 				This is the root element for units blocks.
 			</xs:documentation>
 		</xs:annotation>
-
+		
 		<xs:complexType>
 			<xs:annotation>
 				<xs:documentation xml:lang="en">
@@ -427,7 +438,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
+	
 	<!-- UNIT -->
 	<xs:element name="UNIT">
 		<xs:annotation>
@@ -435,7 +446,7 @@
 				Each unit represents a unit object.
 			</xs:documentation>
 		</xs:annotation>
-
+		
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element minOccurs="1" maxOccurs="unbounded" ref="item">
@@ -446,14 +457,14 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-
+			
 			<xs:attribute name="class" use="required" type="xs:string">
 				<xs:annotation>
 					<xs:documentation xml:lang="en">
 						This attribute represents the class of the unit, it will be used to
-						instantiate the object. Note that the class name should not inlude the
+						instantiate the object. Note that the class name should not include the
 						namespace, it is the responsibility of the script which will parse the
-						XML file to resplve the namespace.
+						XML file to resolve the namespace.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
@@ -472,6 +483,79 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
+	
+	<!-- ============================================================ -->
+	<!-- 						ENTITIES							  -->
+	<!-- ============================================================ -->
+	
+	<!-- ROOT -->
+	<xs:element name="USERS">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				This is the root element for user blocks.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation xml:lang="en">
+					The entity block is the users transaction unit.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="USER"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- UNIT -->
+	<xs:element name="USER">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				Each element represents a user object.
+			</xs:documentation>
+		</xs:annotation>
+		
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="unbounded" ref="item">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">
+							List of user attributes.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			
+			<xs:attribute name="class" use="required" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						This attribute represents the class of the user, it will be used to
+						instantiate the object. Note that the class name should not include the
+						namespace, it is the responsibility of the script which will parse the
+						XML file to resolve the namespace.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			
+			<xs:attribute name="set" type="xs:string">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						Modification reference. This attribute must hold the persistent identifier
+						of a user: if provided, it means that the properties of the current block
+						will be added or replace those in the user corresponding to the native
+						identifier provided in this attribute. Note that the block properties are
+						assumed to be at the root level, this means that to modify a nested
+						property you must provide the full root level enclosing property.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- ============================================================ -->
+	<!-- 							TYPES							  -->
+	<!-- ============================================================ -->
 	
 	<!-- Node reference type -->
 	<xs:simpleType name="node-ref-type">

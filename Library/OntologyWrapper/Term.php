@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
 use OntologyWrapper\CollectionObject;
@@ -98,7 +98,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Term extends PersistentObject
+class Term extends MetadataObject
 {
 	/**
 	 * Label trait.
@@ -807,6 +807,99 @@ class Term extends PersistentObject
 								   kTAG_ID_LOCAL ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	exportXMLObject																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the current object in XML format
+	 *
+	 * We overload this method to add the {@link kTAG_NAMESPACE} and {@link kTAG_ID_LOCAL}
+	 * offsets to the untracked offsets list, since these are set in the unit node
+	 * attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
+	{
+		//
+		// Create unit.
+		//
+		$unit = static::xmlUnitElement( $theContainer );
+		
+		//
+		// Add namespace and local identifier to untracked.
+		//
+		$theUntracked = array_merge( $theUntracked,
+									 array( kTAG_NAMESPACE, kTAG_ID_LOCAL ) );
+		
+		//
+		// Traverse object.
+		//
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
+	
+	} // exportXMLObject.
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>TERM</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		//
+		// Create element.
+		//
+		$element = parent::xmlUnitElement( $theRoot )->addChild( 'TERM' );
+		
+		//
+		// Set namespace.
+		//
+		if( $this->offsetExists( kTAG_NAMESPACE ) )
+			$element->addAttribute( 'ns', $this->offsetGet( kTAG_NAMESPACE ) );
+		
+		//
+		// Set local identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_LOCAL ) )
+			$element->addAttribute( 'lid', $this->offsetGet( kTAG_ID_LOCAL ) );
+		
+		//
+		// Set native identifier.
+		//
+		if( $this->offsetExists( kTAG_NID ) )
+			$element->addAttribute( 'pid', $this->offsetGet( kTAG_NID ) );
+		
+		return $element;															// ==>
+	
+	} // xmlUnitElement.
 
 		
 

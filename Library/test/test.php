@@ -707,6 +707,7 @@ foreach( $clusters as $cluster )
 	
 /******************************************************************************/
 
+/*
 	//
 	// Test aggregation framework.
 	//
@@ -775,6 +776,8 @@ foreach( $clusters as $cluster )
 	//
 	echo( '<h4>Results:</h4>' );
 	var_dump( iterator_to_array( $rs ) );
+
+*/
 	
 /******************************************************************************/
 
@@ -787,6 +790,28 @@ foreach( $clusters as $cluster )
 var_dump( urldecode( 'op=matchUnits&lang=en&param=%7B%22limit%22:50,%22skipped%22:0,%22log-request%22:%22true%22,%22criteria%22:%7B%22:location:country%22:%7B%22input-type%22:%22input-enum%22,%22term%22:%5B%22%22%5D%7D%7D,%22result-domain%22:%22:domain:accession%22,%22result-data%22:%22record%22%7D' ) );
 
 */
+	
+/******************************************************************************/
+
+//
+// Simple XML tests.
+//
+
+$xml = new SimpleXMLElement( '<root />' );
+$element = $xml->addChild( 'element' );
+
+echo( htmlspecialchars( $xml->asXML() ) );
+echo( '<hr />' );
+
+$element[ 0 ] = 'prova 1';
+
+echo( htmlspecialchars( $xml->asXML() ) );
+echo( '<hr />' );
+
+$xml->element = 'prova 2';
+
+echo( htmlspecialchars( $xml->asXML() ) );
+echo( '<hr />' );
 
 	
 ?>

@@ -149,20 +149,4 @@ define( "kDIR_STANDARDS_QTL",					'qtl' );
  */
 define( "kDIR_STANDARDS_GR",					'gr' );
 
-/*=======================================================================================
- *	XML STANDARDS BASE HEADER															*
- *======================================================================================*/
-
-/**
- * Standards base XML header.
- *
- * This constant holds the default base XML structure for all standards files.
- */
-define( "kXML_STANDARDS_BASE",
-		'<?xml version="1.0" encoding="UTF-8"?>'
-	   .'<METADATA '
-	   .'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-	   .'xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">'
-	   .'</METADATA>' );
-
 ?>

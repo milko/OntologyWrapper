@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									test_ObjectDumpXML.php								*
+ *								test_ObjectExportXML.php								*
  *																						*
  *======================================================================================*/
 
@@ -135,14 +135,77 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );<br/>' );
-	$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );;
+	$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );
 	echo( '$xml = $test->dump();' );
-	$xml = $test->dump();
+	$xml = $test->export();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	echo( '<pre>' ); print_r( htmlspecialchars( $xml ) ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( htmlspecialchars( $xml->asXML() ) ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load forest from database.
+	//
+	echo( '<h4>Load forest from database</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\ForestUnit( $wrapper, ":domain:forest://AUT/00001/1996;" );<br/>' );
+	$test = new OntologyWrapper\ForestUnit( $wrapper, ":domain:forest://AUT/00001/1996;" );
+	echo( '$xml = $test->dump();' );
+	$xml = $test->export();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( htmlspecialchars( $xml->asXML() ) ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load organization from database.
+	//
+	echo( '<h4>Load organization from database</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\FAOInstitute( $wrapper, ":domain:organisation://http://fao.org/wiews:ITA406;" );<br/>' );
+	$test = new OntologyWrapper\FAOInstitute( $wrapper, ":domain:organisation://http://fao.org/wiews:ITA406;" );
+	echo( '$xml = $test->dump();' );
+	$xml = $test->export();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( htmlspecialchars( $xml->asXML() ) ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load term from database.
+	//
+	echo( '<h4>Load term from database</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\Term( $wrapper, "iso:3166:1:alpha-3:ITA" );<br/>' );
+	$test = new OntologyWrapper\Term( $wrapper, "iso:3166:1:alpha-3:ITA" );
+	echo( '$xml = $test->dump();' );
+	$xml = $test->export();
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( htmlspecialchars( $xml->asXML() ) ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

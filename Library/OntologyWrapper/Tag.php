@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Term;
 use OntologyWrapper\ServerObject;
 use OntologyWrapper\DatabaseObject;
@@ -199,7 +199,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/02/2014
  */
-class Tag extends PersistentObject
+class Tag extends MetadataObject
 {
 	/**
 	 * Label trait.
@@ -1253,6 +1253,36 @@ class Tag extends PersistentObject
 								   kTAG_DATA_TYPE, kTAG_DATA_KIND ) );				// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>TAG</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return parent::xmlUnitElement( $theRoot )->addChild( 'TAG' );				// ==>
+	
+	} // xmlUnitElement.
 
 		
 

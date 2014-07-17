@@ -148,6 +148,35 @@ class User extends Individual
 
 /*=======================================================================================
  *																						*
+ *								STATIC EXPORT INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	XMLRootElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML root element
+	 *
+	 * In this class we return the <tt>USERS</tt> root element.
+	 *
+	 * @static
+	 * @return SimpleXMLElement		XML export root element.
+	 */
+	static function XMLRootElement()
+	{
+		return new \SimpleXMLElement(
+						str_replace( '@@@', 'USERS', kXML_STANDARDS_BASE ) );		// ==>
+	
+	} // XMLRootElement.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -219,6 +248,36 @@ class User extends Individual
 						 \ArrayObject::offsetExists( kTAG_CONN_PASS ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>USER</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return $theRoot->addChild( 'USER' );										// ==>
+	
+	} // xmlUnitElement.
 
 	 
 

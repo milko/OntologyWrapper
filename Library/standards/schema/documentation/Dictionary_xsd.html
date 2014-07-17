@@ -16,11 +16,13 @@
 				'properties_EDGE', 
 				'properties_UNITS', 
 				'properties_UNIT', 
+				'properties_USERS', 
+				'properties_USER', 
 				'properties_item_tag', 
 				'properties_item_seq', 
+				'properties_item_node', 
 				'properties_item_const', 
 				'properties_item_key', 
-				'properties_item_node', 
 				'properties_item_struct', 
 				'properties_item_index', 
 				'properties_item_value', 
@@ -35,7 +37,9 @@
 				'properties_NODE_set', 
 				'properties_EDGE_set', 
 				'properties_UNIT_class', 
-				'properties_UNIT_set');
+				'properties_UNIT_set', 
+				'properties_USER_class', 
+				'properties_USER_set');
 var facetsBoxes= new Array('facets_node-ref-type', 
 				'facets_item_node');
 var usedByBoxes= new Array('usedBy_META', 
@@ -45,12 +49,13 @@ var usedByBoxes= new Array('usedBy_META',
 				'usedBy_NODE', 
 				'usedBy_EDGE', 
 				'usedBy_UNIT', 
+				'usedBy_USER', 
 				'usedBy_node-ref-type', 
 				'usedBy_item_tag', 
 				'usedBy_item_seq', 
+				'usedBy_item_node', 
 				'usedBy_item_const', 
 				'usedBy_item_key', 
-				'usedBy_item_node', 
 				'usedBy_item_struct', 
 				'usedBy_item_index', 
 				'usedBy_item_value', 
@@ -65,7 +70,9 @@ var usedByBoxes= new Array('usedBy_META',
 				'usedBy_NODE_set', 
 				'usedBy_EDGE_set', 
 				'usedBy_UNIT_class', 
-				'usedBy_UNIT_set');
+				'usedBy_UNIT_set', 
+				'usedBy_USER_class', 
+				'usedBy_USER_set');
 var sourceBoxes= new Array('source_METADATA', 
 				'source_META', 
 				'source_TERM', 
@@ -75,12 +82,14 @@ var sourceBoxes= new Array('source_METADATA',
 				'source_EDGE', 
 				'source_UNITS', 
 				'source_UNIT', 
+				'source_USERS', 
+				'source_USER', 
 				'source_node-ref-type', 
 				'source_item_tag', 
 				'source_item_seq', 
+				'source_item_node', 
 				'source_item_const', 
 				'source_item_key', 
-				'source_item_node', 
 				'source_item_struct', 
 				'source_item_index', 
 				'source_item_value', 
@@ -95,7 +104,9 @@ var sourceBoxes= new Array('source_METADATA',
 				'source_NODE_set', 
 				'source_EDGE_set', 
 				'source_UNIT_class', 
-				'source_UNIT_set');
+				'source_UNIT_set', 
+				'source_USER_class', 
+				'source_USER_set');
 var instanceBoxes= new Array('instance_METADATA', 
 				'instance_META', 
 				'instance_TERM', 
@@ -104,7 +115,9 @@ var instanceBoxes= new Array('instance_METADATA',
 				'instance_NODE', 
 				'instance_EDGE', 
 				'instance_UNITS', 
-				'instance_UNIT');
+				'instance_UNIT', 
+				'instance_USERS', 
+				'instance_USER');
 var diagramBoxes= new Array('diagram_METADATA', 
 				'diagram_META', 
 				'diagram_TERM', 
@@ -114,6 +127,8 @@ var diagramBoxes= new Array('diagram_METADATA',
 				'diagram_EDGE', 
 				'diagram_UNITS', 
 				'diagram_UNIT', 
+				'diagram_USERS', 
+				'diagram_USER', 
 				'diagram_node-ref-type');
 var annotationBoxes= new Array('annotations_METADATA', 
 				'annotations_META', 
@@ -124,12 +139,14 @@ var annotationBoxes= new Array('annotations_METADATA',
 				'annotations_EDGE', 
 				'annotations_UNITS', 
 				'annotations_UNIT', 
+				'annotations_USERS', 
+				'annotations_USER', 
 				'annotations_node-ref-type', 
 				'annotations_item_tag', 
 				'annotations_item_seq', 
+				'annotations_item_node', 
 				'annotations_item_const', 
 				'annotations_item_key', 
-				'annotations_item_node', 
 				'annotations_item_struct', 
 				'annotations_item_index', 
 				'annotations_item_value', 
@@ -144,13 +161,16 @@ var annotationBoxes= new Array('annotations_METADATA',
 				'annotations_NODE_set', 
 				'annotations_EDGE_set', 
 				'annotations_UNIT_class', 
-				'annotations_UNIT_set');
+				'annotations_UNIT_set', 
+				'annotations_USER_class', 
+				'annotations_USER_set');
 var attributesBoxes= new Array('attributes_TERM', 
 				'attributes_item', 
 				'attributes_TAG', 
 				'attributes_NODE', 
 				'attributes_EDGE', 
-				'attributes_UNIT');
+				'attributes_UNIT', 
+				'attributes_USER');
 var modelBoxes= new Array('model_METADATA', 
 				'model_META', 
 				'model_TERM', 
@@ -159,7 +179,9 @@ var modelBoxes= new Array('model_METADATA',
 				'model_NODE', 
 				'model_EDGE', 
 				'model_UNITS', 
-				'model_UNIT');
+				'model_UNIT', 
+				'model_USERS', 
+				'model_USER');
 
       
         var button_prefix = 'button_';
@@ -479,10 +501,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -532,7 +550,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_METADATA" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_METADATA');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_METADATA" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_METADATA.png" usemap="#Dictionary_xsd_Element_METADATA" /><map name="Dictionary_xsd_Element_METADATA" id="Dictionary_xsd_Element_METADATA">
+                           <div id="diagram_METADATA" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_METADATA.jpeg" usemap="#Dictionary_xsd_Element_METADATA" /><map name="Dictionary_xsd_Element_METADATA" id="Dictionary_xsd_Element_METADATA">
                                  <area alt="Dictionary_xsd.tmp#META" href="Dictionary_xsd.html#META" coords="232,6,293,30" /></map></div>
                         </td>
                      </tr>
@@ -607,10 +625,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -661,7 +675,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_META" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_META');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_META" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_META.png" usemap="#Dictionary_xsd_Element_META" /><map name="Dictionary_xsd_Element_META" id="Dictionary_xsd_Element_META">
+                           <div id="diagram_META" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_META.jpeg" usemap="#Dictionary_xsd_Element_META" /><map name="Dictionary_xsd_Element_META" id="Dictionary_xsd_Element_META">
                                  <area alt="Dictionary_xsd.tmp#TERM" href="Dictionary_xsd.html#TERM" coords="201,2,261,26" />
                                  <area alt="Dictionary_xsd.tmp#TAG" href="Dictionary_xsd.html#TAG" coords="201,66,255,90" />
                                  <area alt="Dictionary_xsd.tmp#NODE" href="Dictionary_xsd.html#NODE" coords="201,130,263,154" />
@@ -774,10 +788,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -828,7 +838,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_TERM" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_TERM');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_TERM" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_TERM.png" usemap="#Dictionary_xsd_Element_TERM" /><map name="Dictionary_xsd_Element_TERM" id="Dictionary_xsd_Element_TERM">
+                           <div id="diagram_TERM" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_TERM.jpeg" usemap="#Dictionary_xsd_Element_TERM" /><map name="Dictionary_xsd_Element_TERM" id="Dictionary_xsd_Element_TERM">
                                  <area alt="Dictionary_xsd.tmp#TERM_ns" href="Dictionary_xsd.html#TERM_ns" coords="122,40,235,82" />
                                  <area alt="Dictionary_xsd.tmp#TERM_lid" href="Dictionary_xsd.html#TERM_lid" coords="122,135,235,177" />
                                  <area alt="Dictionary_xsd.tmp#TERM_pid" href="Dictionary_xsd.html#TERM_pid" coords="122,230,235,272" />
@@ -1029,10 +1039,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -1089,16 +1095,16 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_item" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_item');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_item" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_item.png" usemap="#Dictionary_xsd_Element_item" /><map name="Dictionary_xsd_Element_item" id="Dictionary_xsd_Element_item">
+                           <div id="diagram_item" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_item.jpeg" usemap="#Dictionary_xsd_Element_item" /><map name="Dictionary_xsd_Element_item" id="Dictionary_xsd_Element_item">
                                  <area alt="Dictionary_xsd.tmp#item_tag" href="Dictionary_xsd.html#item_tag" coords="116,40,229,82" />
                                  <area alt="Dictionary_xsd.tmp#item_seq" href="Dictionary_xsd.html#item_seq" coords="116,135,229,177" />
-                                 <area alt="Dictionary_xsd.tmp#item_const" href="Dictionary_xsd.html#item_const" coords="116,230,229,272" />
-                                 <area alt="Dictionary_xsd.tmp#item_key" href="Dictionary_xsd.html#item_key" coords="116,325,229,367" />
-                                 <area alt="Dictionary_xsd.tmp#item_node" href="Dictionary_xsd.html#item_node" coords="116,420,258,462" />
-                                 <area alt="Dictionary_xsd.tmp#item_struct" href="Dictionary_xsd.html#item_struct" coords="116,515,229,557" />
-                                 <area alt="Dictionary_xsd.tmp#item_index" href="Dictionary_xsd.html#item_index" coords="116,623,229,665" />
-                                 <area alt="Dictionary_xsd.tmp#item_value" href="Dictionary_xsd.html#item_value" coords="116,718,229,760" />
-                                 <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="214,824,257,848" /></map></div>
+                                 <area alt="Dictionary_xsd.tmp#item_node" href="Dictionary_xsd.html#item_node" coords="116,230,258,272" />
+                                 <area alt="Dictionary_xsd.tmp#item_const" href="Dictionary_xsd.html#item_const" coords="116,325,229,367" />
+                                 <area alt="Dictionary_xsd.tmp#item_key" href="Dictionary_xsd.html#item_key" coords="116,433,229,475" />
+                                 <area alt="Dictionary_xsd.tmp#item_struct" href="Dictionary_xsd.html#item_struct" coords="116,541,229,583" />
+                                 <area alt="Dictionary_xsd.tmp#item_index" href="Dictionary_xsd.html#item_index" coords="116,649,229,691" />
+                                 <area alt="Dictionary_xsd.tmp#item_value" href="Dictionary_xsd.html#item_value" coords="116,744,229,786" />
+                                 <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="214,850,257,874" /></map></div>
                         </td>
                      </tr>
                      <tr>
@@ -1131,7 +1137,7 @@ var modelBoxes= new Array('model_METADATA',
                               <table class="usedByTable">
                                  <tr>
                                     <td class="firstColumn">Elements </td>
-                                    <td><b><a href="Dictionary_xsd.html#EDGE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">EDGE</a></b>, <b><a href="Dictionary_xsd.html#NODE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE</a></b>, <b><a href="Dictionary_xsd.html#TAG" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TAG</a></b>, <b><a href="Dictionary_xsd.html#TERM" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM</a></b>, <b><a href="Dictionary_xsd.html#UNIT" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNIT</a></b>, <b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
+                                    <td><b><a href="Dictionary_xsd.html#EDGE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">EDGE</a></b>, <b><a href="Dictionary_xsd.html#NODE" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">NODE</a></b>, <b><a href="Dictionary_xsd.html#TAG" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TAG</a></b>, <b><a href="Dictionary_xsd.html#TERM" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">TERM</a></b>, <b><a href="Dictionary_xsd.html#UNIT" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">UNIT</a></b>, <b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b>, <b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
                                  </tr>
                               </table>
                            </div>
@@ -1189,9 +1195,10 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a constant that should be defined by the</span><span class="tI">
-</span><span class="tT">software that will parse the file.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as either a root</span><span class="tI">
+</span><span class="tT">property, or as a sub-structure element, in this case the attribute value</span><span class="tI">
+</span><span class="tT">references a constant that should be defined and resolved by the software</span><span class="tI">
+</span><span class="tT">that will parse the file.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -1225,8 +1232,9 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute is used by nested items representing array elements,</span><span class="tI">
-</span><span class="tT">it holds the string representing the array element's key.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as either a root</span><span class="tI">
+</span><span class="tT">property, or as a sub-structure element, in this case the attribute value</span><span class="tI">
+</span><span class="tT">represents the actual offset or element key.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -1240,16 +1248,15 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute indicates that the element value references a Node object,</span><span class="tI">
-</span><span class="tT">the attribute is required when providing node references.</span><span class="tI">
-</span><span class="tT">Depending on the attribute value:</span><span class="tI">
-</span><span class="tT">tag - the value is a tag native identifier;</span><span class="tI">
-</span><span class="tT">term - the value is a term native identifier;</span><span class="tI">
-</span><span class="tT">node - the value is a node native identifier;</span><span class="tI">
-</span><span class="tT">pid - the value is a node persistent identifier.</span><span class="tI">
-</span><span class="tT">When providing pid or node, the referenced node is univoque;</span><span class="tI">
-</span><span class="tT">when providing the other options, a master node will be</span><span class="tI">
-</span><span class="tT">resolved by default.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as a node reference,</span><span class="tI">
+</span><span class="tT">the attribute value is an enumerated set that indicates how the element value</span><span class="tI">
+</span><span class="tT">should be interpreted:</span><span class="tI">
+</span><span class="tT">tag - the element value is a tag native identifier;</span><span class="tI">
+</span><span class="tT">term - the element value is a term native identifier;</span><span class="tI">
+</span><span class="tT">node - the element value is a node native identifier;</span><span class="tI">
+</span><span class="tT">pid - the element value is a node persistent identifier.</span><span class="tI">
+</span><span class="tT">The last two options represent a univoque node reference; when using the first</span><span class="tI">
+</span><span class="tT">two options, the resulting master node will be resolved by default.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -1263,8 +1270,9 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a Tag sequence number.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as an offset</span><span class="tI">
+</span><span class="tT">identified by a tag reference, in this case the attribute value is a string</span><span class="tI">
+</span><span class="tT">representing a Tag object sequence number.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -1303,8 +1311,9 @@ var modelBoxes= new Array('model_METADATA',
                                        <div class="annotation">
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
-                                                <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a Tag native identifier.</span></pre></td>
+                                                <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as an offset</span><span class="tI">
+</span><span class="tT">identified by a tag reference, in this case the attribute value is a string</span><span class="tI">
+</span><span class="tT">representing a Tag object native identifier.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -1355,31 +1364,35 @@ var modelBoxes= new Array('model_METADATA',
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:element</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tAN"> ref=</span><span class="tAV">"item"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- Tag references --&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"tag"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a Tag native identifier.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as an offset identified by a tag reference, in this case the attribute value is a string representing a Tag object native identifier.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"seq"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a Tag sequence number.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as an offset identified by a tag reference, in this case the attribute value is a string representing a Tag object sequence number.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- Node references --&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"node"</span><span class="tAN"> type=</span><span class="tAV">"node-ref-type"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as a node reference, the attribute value is an enumerated set that indicates how the element value should be interpreted: tag - the element value is a tag native identifier; term - the element value is a term native identifier; node - the element value is a node native identifier; pid - the element value is a node persistent identifier. The last two options represent a univoque node reference; when using the first two options, the resulting master node will be resolved by default.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- Key references --&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"const"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a constant that should be defined by the software that will parse the file.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as either a root property, or as a sub-structure element, in this case the attribute value references a constant that should be defined and resolved by the software that will parse the file.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"key"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute is used by nested items representing array elements, it holds the string representing the array element's key.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as either a root property, or as a sub-structure element, in this case the attribute value represents the actual offset or element key.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"node"</span><span class="tAN"> type=</span><span class="tAV">"node-ref-type"</span><span class="tEl">&gt;</span><span class="tI">
-      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute indicates that the element value references a Node object, the attribute is required when providing node references. Depending on the attribute value: tag - the value is a tag native identifier; term - the value is a term native identifier; node - the value is a node native identifier; pid - the value is a node persistent identifier. When providing pid or node, the referenced node is univoque; when providing the other options, a master node will be resolved by default.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
-      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- Structure references --&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"struct"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
         </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute is used to indicate in which container structure the current element should be stored, this and the next two attributes can be used to provide individual structure elements at the root level without the need to shape the XML as the actual structure. The value of this attribute should be a Tag object native identifier, this tag should be of type struct. If the tag is not a list, the value of the current element will be set in the offset indicated by the other tag reference attributes and that offset will be stored as an element of the structure indicated by this attribute, in this case, the next two attributes should be omitted; if the tag is a list, the next two attributes are required to identify which element of the list of structures is to receive the current element.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
@@ -1401,10 +1414,6 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -1456,7 +1465,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_TAG" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_TAG');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_TAG" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_TAG.png" usemap="#Dictionary_xsd_Element_TAG" /><map name="Dictionary_xsd_Element_TAG" id="Dictionary_xsd_Element_TAG">
+                           <div id="diagram_TAG" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_TAG.jpeg" usemap="#Dictionary_xsd_Element_TAG" /><map name="Dictionary_xsd_Element_TAG" id="Dictionary_xsd_Element_TAG">
                                  <area alt="Dictionary_xsd.tmp#TAG_set" href="Dictionary_xsd.html#TAG_set" coords="116,40,229,82" />
                                  <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="214,159,268,183" /></map></div>
                         </td>
@@ -1593,10 +1602,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -1647,7 +1652,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_NODE" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_NODE');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_NODE" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_NODE.png" usemap="#Dictionary_xsd_Element_NODE" /><map name="Dictionary_xsd_Element_NODE" id="Dictionary_xsd_Element_NODE">
+                           <div id="diagram_NODE" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_NODE.jpeg" usemap="#Dictionary_xsd_Element_NODE" /><map name="Dictionary_xsd_Element_NODE" id="Dictionary_xsd_Element_NODE">
                                  <area alt="Dictionary_xsd.tmp#NODE_tag" href="Dictionary_xsd.html#NODE_tag" coords="124,40,237,82" />
                                  <area alt="Dictionary_xsd.tmp#NODE_term" href="Dictionary_xsd.html#NODE_term" coords="124,135,237,177" />
                                  <area alt="Dictionary_xsd.tmp#NODE_pid" href="Dictionary_xsd.html#NODE_pid" coords="124,230,237,272" />
@@ -1852,10 +1857,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -1906,7 +1907,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_EDGE" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_EDGE');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_EDGE" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_EDGE.png" usemap="#Dictionary_xsd_Element_EDGE" /><map name="Dictionary_xsd_Element_EDGE" id="Dictionary_xsd_Element_EDGE">
+                           <div id="diagram_EDGE" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_EDGE.jpeg" usemap="#Dictionary_xsd_Element_EDGE" /><map name="Dictionary_xsd_Element_EDGE" id="Dictionary_xsd_Element_EDGE">
                                  <area alt="Dictionary_xsd.tmp#EDGE_set" href="Dictionary_xsd.html#EDGE_set" coords="121,40,234,82" />
                                  <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="219,159,273,183" /></map></div>
                         </td>
@@ -2041,10 +2042,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2094,7 +2091,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_UNITS" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_UNITS');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_UNITS" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_UNITS.png" usemap="#Dictionary_xsd_Element_UNITS" /><map name="Dictionary_xsd_Element_UNITS" id="Dictionary_xsd_Element_UNITS">
+                           <div id="diagram_UNITS" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_UNITS.jpeg" usemap="#Dictionary_xsd_Element_UNITS" /><map name="Dictionary_xsd_Element_UNITS" id="Dictionary_xsd_Element_UNITS">
                                  <area alt="Dictionary_xsd.tmp#UNIT" href="Dictionary_xsd.html#UNIT" coords="203,6,260,30" /></map></div>
                         </td>
                      </tr>
@@ -2169,10 +2166,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2222,7 +2215,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_UNIT" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_UNIT');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_UNIT" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_UNIT.png" usemap="#Dictionary_xsd_Element_UNIT" /><map name="Dictionary_xsd_Element_UNIT" id="Dictionary_xsd_Element_UNIT">
+                           <div id="diagram_UNIT" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_UNIT.jpeg" usemap="#Dictionary_xsd_Element_UNIT" /><map name="Dictionary_xsd_Element_UNIT" id="Dictionary_xsd_Element_UNIT">
                                  <area alt="Dictionary_xsd.tmp#UNIT_class" href="Dictionary_xsd.html#UNIT_class" coords="119,40,232,82" />
                                  <area alt="Dictionary_xsd.tmp#UNIT_set" href="Dictionary_xsd.html#UNIT_set" coords="119,135,232,177" />
                                  <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="197,254,251,278" /></map></div>
@@ -2313,9 +2306,9 @@ var modelBoxes= new Array('model_METADATA',
                                           <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                              <tr>
                                                 <td width="100%"><pre><span class="tT">This attribute represents the class of the unit, it will be used to</span><span class="tI">
-</span><span class="tT">instantiate the object. Note that the class name should not inlude the</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not include the</span><span class="tI">
 </span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
-</span><span class="tT">XML file to resplve the namespace.</span></pre></td>
+</span><span class="tT">XML file to resolve the namespace.</span></pre></td>
                                              </tr>
                                           </table>
                                        </div>
@@ -2367,7 +2360,7 @@ var modelBoxes= new Array('model_METADATA',
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not inlude the namespace, it is the responsibility of the script which will parse the XML file to resplve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not include the namespace, it is the responsibility of the script which will parse the XML file to resolve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"set"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
@@ -2382,9 +2375,338 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="USERS"></a><div class="componentTitle">Element <span class="qname">USERS</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
                      <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_USERS');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_USERS" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This is the root element for user blocks.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_USERS');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_USERS" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_USERS.jpeg" usemap="#Dictionary_xsd_Element_USERS" /><map name="Dictionary_xsd_Element_USERS" id="Dictionary_xsd_Element_USERS">
+                                 <area alt="Dictionary_xsd.tmp#USER" href="Dictionary_xsd.html#USER" coords="204,6,262,30" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_USERS');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_USERS" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('model_USERS');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="model_USERS" style="display:block"><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER+</a></b></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_USERS');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_USERS" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;USERS</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;USER</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">set=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/USER&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/USERS&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_USERS" type="image" src="img/btM.gif" value="-" onclick="switchState('source_USERS');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_USERS" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"USERS"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is the root element for user blocks.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The entity block is the users transaction unit.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:element</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tAN"> ref=</span><span class="tAV">"USER"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="USER"></a><div class="componentTitle">Element <span class="qname">USER</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_USER" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Each element represents a user object.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_USER');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_USER" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Element_USER.jpeg" usemap="#Dictionary_xsd_Element_USER" /><map name="Dictionary_xsd_Element_USER" id="Dictionary_xsd_Element_USER">
+                                 <area alt="Dictionary_xsd.tmp#USER_class" href="Dictionary_xsd.html#USER_class" coords="120,40,233,82" />
+                                 <area alt="Dictionary_xsd.tmp#USER_set" href="Dictionary_xsd.html#USER_set" coords="120,135,233,177" />
+                                 <area alt="Dictionary_xsd.tmp#item" href="Dictionary_xsd.html#item" coords="198,254,252,278" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_USER" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_USER" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#USERS" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USERS</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('model_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="model_USER" style="display:block"><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item+</a></b></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_USER" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;USER</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">set=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;item</span><span class="tT"> </span><span class="tAN">const=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">index=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">key=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">node=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">seq=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">struct=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">tag=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">value=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/item&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/USER&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_USER" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Dictionary_xsd.html#USER_class" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">class</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">This attribute represents the class of the user, it will be used to</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not include the</span><span class="tI">
+</span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
+</span><span class="tT">XML file to resolve the namespace.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Dictionary_xsd.html#USER_set" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">set</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Modification reference. This attribute must hold the persistent identifier</span><span class="tI">
+</span><span class="tT">of a user: if provided, it means that the properties of the current block</span><span class="tI">
+</span><span class="tT">will be added or replace those in the user corresponding to the native</span><span class="tI">
+</span><span class="tT">identifier provided in this attribute. Note that the block properties are</span><span class="tI">
+</span><span class="tT">assumed to be at the root level, this means that to modify a nested</span><span class="tI">
+</span><span class="tT">property you must provide the full root level enclosing property.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_USER" type="image" src="img/btM.gif" value="-" onclick="switchState('source_USER');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_USER" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"USER"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Each element represents a user object.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:element</span><span class="tAN"> minOccurs=</span><span class="tAV">"1"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tAN"> ref=</span><span class="tAV">"item"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">List of user attributes.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the user, it will be used to instantiate the object. Note that the class name should not include the namespace, it is the responsibility of the script which will parse the XML file to resolve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"set"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Modification reference. This attribute must hold the persistent identifier of a user: if provided, it means that the properties of the current block will be added or replace those in the user corresponding to the native identifier provided in this attribute. Note that the block properties are assumed to be at the root level, this means that to modify a nested property you must provide the full root level enclosing property.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
                      </tr>
                   </tbody>
                </table>
@@ -2437,7 +2759,7 @@ var modelBoxes= new Array('model_METADATA',
                            <div class="floatRight"><input id="button_diagram_node-ref-type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_node-ref-type');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_node-ref-type" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Simple_Type_node-ref-type.png" /></div>
+                           <div id="diagram_node-ref-type" style="display:block"><img alt="Diagram" border="0" src="img/Dictionary_xsd_Simple_Type_node-ref-type.jpeg" /></div>
                         </td>
                      </tr>
                      <tr>
@@ -2595,10 +2917,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -2635,8 +2953,9 @@ var modelBoxes= new Array('model_METADATA',
                               <div class="annotation">
                                  <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                     <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a Tag native identifier.</span></pre></td>
+                                       <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as an offset</span><span class="tI">
+</span><span class="tT">identified by a tag reference, in this case the attribute value is a string</span><span class="tI">
+</span><span class="tT">representing a Tag object native identifier.</span></pre></td>
                                     </tr>
                                  </table>
                               </div>
@@ -2690,17 +3009,13 @@ var modelBoxes= new Array('model_METADATA',
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"tag"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a Tag native identifier.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as an offset identified by a tag reference, in this case the attribute value is a string representing a Tag object native identifier.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
                                  </tr>
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -2738,8 +3053,9 @@ var modelBoxes= new Array('model_METADATA',
                               <div class="annotation">
                                  <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                     <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a Tag sequence number.</span></pre></td>
+                                       <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as an offset</span><span class="tI">
+</span><span class="tT">identified by a tag reference, in this case the attribute value is a string</span><span class="tI">
+</span><span class="tT">representing a Tag object sequence number.</span></pre></td>
                                     </tr>
                                  </table>
                               </div>
@@ -2793,224 +3109,13 @@ var modelBoxes= new Array('model_METADATA',
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"seq"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a Tag sequence number.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as an offset identified by a tag reference, in this case the attribute value is a string representing a Tag object sequence number.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
                                  </tr>
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </td>
-            <td class="rt_lineRight"></td>
-         </tr>
-         <tr>
-            <td class="rt_cornerBottomLeft"></td>
-            <td class="rt_lineBottom"></td>
-            <td class="rt_cornerBottomRight"></td>
-         </tr>
-      </table><a id="item_const"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b> / @const</span></div>
-      <table class="rt">
-         <tr>
-            <td class="rt_cornerTopLeft"></td>
-            <td class="rt_lineTop"></td>
-            <td class="rt_cornerTopRight"></td>
-         </tr>
-         <tr>
-            <td class="rt_lineLeft"></td>
-            <td class="rt_content">
-               <table class="component">
-                  <tbody>
-                     <tr>
-                        <td class="firstColumn"><b>Namespace</b></td>
-                        <td>No namespace</td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Annotations</b></div>
-                           <div class="floatRight"><input id="button_annotations_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_item_const');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="annotations_item_const" style="display:block">
-                              <div class="annotation">
-                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
-                                    <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute can be used to identify the tag holding the current element's</span><span class="tI">
-</span><span class="tT">data, in this case it references a constant that should be defined by the</span><span class="tI">
-</span><span class="tT">software that will parse the file.</span></pre></td>
-                                    </tr>
-                                 </table>
-                              </div>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Type</b></td>
-                        <td><b>xs:string</b></td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Properties</b></div>
-                           <div class="floatRight"><input id="button_properties_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_item_const');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="properties_item_const" style="display:block">
-                              <table class="propertiesTable">
-                                 <tr>
-                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
-                                    <td><b>simple</b></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Used by</b></div>
-                           <div class="floatRight"><input id="button_usedBy_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_item_const');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="usedBy_item_const" style="display:block">
-                              <table class="usedByTable">
-                                 <tr>
-                                    <td class="firstColumn">Element </td>
-                                    <td><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Source</b></div>
-                           <div class="floatRight"><input id="button_source_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('source_item_const');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="source_item_const" style="display:block">
-                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
-                                 <tr>
-                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"const"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to identify the tag holding the current element's data, in this case it references a constant that should be defined by the software that will parse the file.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
-</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </td>
-            <td class="rt_lineRight"></td>
-         </tr>
-         <tr>
-            <td class="rt_cornerBottomLeft"></td>
-            <td class="rt_lineBottom"></td>
-            <td class="rt_cornerBottomRight"></td>
-         </tr>
-      </table><a id="item_key"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b> / @key</span></div>
-      <table class="rt">
-         <tr>
-            <td class="rt_cornerTopLeft"></td>
-            <td class="rt_lineTop"></td>
-            <td class="rt_cornerTopRight"></td>
-         </tr>
-         <tr>
-            <td class="rt_lineLeft"></td>
-            <td class="rt_content">
-               <table class="component">
-                  <tbody>
-                     <tr>
-                        <td class="firstColumn"><b>Namespace</b></td>
-                        <td>No namespace</td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Annotations</b></div>
-                           <div class="floatRight"><input id="button_annotations_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_item_key');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="annotations_item_key" style="display:block">
-                              <div class="annotation">
-                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
-                                    <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute is used by nested items representing array elements,</span><span class="tI">
-</span><span class="tT">it holds the string representing the array element's key.</span></pre></td>
-                                    </tr>
-                                 </table>
-                              </div>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Type</b></td>
-                        <td><b>xs:string</b></td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Properties</b></div>
-                           <div class="floatRight"><input id="button_properties_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_item_key');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="properties_item_key" style="display:block">
-                              <table class="propertiesTable">
-                                 <tr>
-                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
-                                    <td><b>simple</b></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Used by</b></div>
-                           <div class="floatRight"><input id="button_usedBy_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_item_key');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="usedBy_item_key" style="display:block">
-                              <table class="usedByTable">
-                                 <tr>
-                                    <td class="firstColumn">Element </td>
-                                    <td><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn">
-                           <div class="floatLeft"><b>Source</b></div>
-                           <div class="floatRight"><input id="button_source_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('source_item_key');" class="control" /></div>
-                        </td>
-                        <td>
-                           <div id="source_item_key" style="display:block">
-                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
-                                 <tr>
-                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"key"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute is used by nested items representing array elements, it holds the string representing the array element's key.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
-</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
-                                 </tr>
-                              </table>
-                           </div>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3048,16 +3153,15 @@ var modelBoxes= new Array('model_METADATA',
                               <div class="annotation">
                                  <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                     <tr>
-                                       <td width="100%"><pre><span class="tT">This attribute indicates that the element value references a Node object,</span><span class="tI">
-</span><span class="tT">the attribute is required when providing node references.</span><span class="tI">
-</span><span class="tT">Depending on the attribute value:</span><span class="tI">
-</span><span class="tT">tag - the value is a tag native identifier;</span><span class="tI">
-</span><span class="tT">term - the value is a term native identifier;</span><span class="tI">
-</span><span class="tT">node - the value is a node native identifier;</span><span class="tI">
-</span><span class="tT">pid - the value is a node persistent identifier.</span><span class="tI">
-</span><span class="tT">When providing pid or node, the referenced node is univoque;</span><span class="tI">
-</span><span class="tT">when providing the other options, a master node will be</span><span class="tI">
-</span><span class="tT">resolved by default.</span></pre></td>
+                                       <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as a node reference,</span><span class="tI">
+</span><span class="tT">the attribute value is an enumerated set that indicates how the element value</span><span class="tI">
+</span><span class="tT">should be interpreted:</span><span class="tI">
+</span><span class="tT">tag - the element value is a tag native identifier;</span><span class="tI">
+</span><span class="tT">term - the element value is a term native identifier;</span><span class="tI">
+</span><span class="tT">node - the element value is a node native identifier;</span><span class="tI">
+</span><span class="tT">pid - the element value is a node persistent identifier.</span><span class="tI">
+</span><span class="tT">The last two options represent a univoque node reference; when using the first</span><span class="tI">
+</span><span class="tT">two options, the resulting master node will be resolved by default.</span></pre></td>
                                     </tr>
                                  </table>
                               </div>
@@ -3200,7 +3304,7 @@ var modelBoxes= new Array('model_METADATA',
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"node"</span><span class="tAN"> type=</span><span class="tAV">"node-ref-type"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute indicates that the element value references a Node object, the attribute is required when providing node references. Depending on the attribute value: tag - the value is a tag native identifier; term - the value is a term native identifier; node - the value is a node native identifier; pid - the value is a node persistent identifier. When providing pid or node, the referenced node is univoque; when providing the other options, a master node will be resolved by default.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as a node reference, the attribute value is an enumerated set that indicates how the element value should be interpreted: tag - the element value is a tag native identifier; term - the element value is a term native identifier; node - the element value is a node native identifier; pid - the element value is a node persistent identifier. The last two options represent a univoque node reference; when using the first two options, the resulting master node will be resolved by default.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
                                  </tr>
@@ -3208,9 +3312,206 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="item_const"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b> / @const</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
                      <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_item_const');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_item_const" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as either a root</span><span class="tI">
+</span><span class="tT">property, or as a sub-structure element, in this case the attribute value</span><span class="tI">
+</span><span class="tT">references a constant that should be defined and resolved by the software</span><span class="tI">
+</span><span class="tT">that will parse the file.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_item_const');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_item_const" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_item_const');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_item_const" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_item_const" type="image" src="img/btM.gif" value="-" onclick="switchState('source_item_const');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_item_const" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"const"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as either a root property, or as a sub-structure element, in this case the attribute value references a constant that should be defined and resolved by the software that will parse the file.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="item_key"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b> / @key</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_item_key');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_item_key" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This attribute can be used to qualify the current element as either a root</span><span class="tI">
+</span><span class="tT">property, or as a sub-structure element, in this case the attribute value</span><span class="tI">
+</span><span class="tT">represents the actual offset or element key.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_item_key');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_item_key" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_item_key');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_item_key" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#item" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">item</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_item_key" type="image" src="img/btM.gif" value="-" onclick="switchState('source_item_key');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_item_key" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"key"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute can be used to qualify the current element as either a root property, or as a sub-structure element, in this case the attribute value represents the actual offset or element key.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
                      </tr>
                   </tbody>
                </table>
@@ -3321,10 +3622,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3428,10 +3725,6 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3538,10 +3831,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3640,10 +3929,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -3741,10 +4026,6 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3847,10 +4128,6 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -3956,10 +4233,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4064,10 +4337,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4167,10 +4436,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4269,10 +4534,6 @@ var modelBoxes= new Array('model_METADATA',
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -4378,10 +4639,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4486,10 +4743,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4592,10 +4845,6 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
-                     </tr>
                   </tbody>
                </table>
             </td>
@@ -4633,9 +4882,9 @@ var modelBoxes= new Array('model_METADATA',
                                  <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                     <tr>
                                        <td width="100%"><pre><span class="tT">This attribute represents the class of the unit, it will be used to</span><span class="tI">
-</span><span class="tT">instantiate the object. Note that the class name should not inlude the</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not include the</span><span class="tI">
 </span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
-</span><span class="tT">XML file to resplve the namespace.</span></pre></td>
+</span><span class="tT">XML file to resolve the namespace.</span></pre></td>
                                     </tr>
                                  </table>
                               </div>
@@ -4689,17 +4938,13 @@ var modelBoxes= new Array('model_METADATA',
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
-    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not inlude the namespace, it is the responsibility of the script which will parse the XML file to resplve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the unit, it will be used to instantiate the object. Note that the class name should not include the namespace, it is the responsibility of the script which will parse the XML file to resolve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
                                  </tr>
                               </table>
                            </div>
                         </td>
-                     </tr>
-                     <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
                      </tr>
                   </tbody>
                </table>
@@ -4804,9 +5049,209 @@ var modelBoxes= new Array('model_METADATA',
                            </div>
                         </td>
                      </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="USER_class"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b> / @class</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
                      <tr>
-                        <td class="firstColumn"><b>Schema location</b></td>
-                        <td>file:/Library/WebServer/Library/OntologyWrapper/Library/standards/schema/Dictionary.xsd</td>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_USER_class" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_USER_class');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_USER_class" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This attribute represents the class of the user, it will be used to</span><span class="tI">
+</span><span class="tT">instantiate the object. Note that the class name should not include the</span><span class="tI">
+</span><span class="tT">namespace, it is the responsibility of the script which will parse the</span><span class="tI">
+</span><span class="tT">XML file to resolve the namespace.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_USER_class" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_USER_class');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_USER_class" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">use</td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_USER_class" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_USER_class');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_USER_class" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_USER_class" type="image" src="img/btM.gif" value="-" onclick="switchState('source_USER_class');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_USER_class" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"class"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This attribute represents the class of the user, it will be used to instantiate the object. Note that the class name should not include the namespace, it is the responsibility of the script which will parse the XML file to resolve the namespace.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="USER_set"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b> / @set</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_USER_set" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_USER_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_USER_set" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Modification reference. This attribute must hold the persistent identifier</span><span class="tI">
+</span><span class="tT">of a user: if provided, it means that the properties of the current block</span><span class="tI">
+</span><span class="tT">will be added or replace those in the user corresponding to the native</span><span class="tI">
+</span><span class="tT">identifier provided in this attribute. Note that the block properties are</span><span class="tI">
+</span><span class="tT">assumed to be at the root level, this means that to modify a nested</span><span class="tI">
+</span><span class="tT">property you must provide the full root level enclosing property.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_USER_set" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_USER_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_USER_set" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_USER_set" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_USER_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_USER_set" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="Dictionary_xsd.html#USER" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Dictionary.xsd')">USER</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_USER_set" type="image" src="img/btM.gif" value="-" onclick="switchState('source_USER_set');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_USER_set" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"set"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tAN"> xml:lang=</span><span class="tAV">"en"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Modification reference. This attribute must hold the persistent identifier of a user: if provided, it means that the properties of the current block will be added or replace those in the user corresponding to the native identifier provided in this attribute. Note that the block properties are assumed to be at the root level, this means that to modify a nested property you must provide the full root level enclosing property.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
                      </tr>
                   </tbody>
                </table>

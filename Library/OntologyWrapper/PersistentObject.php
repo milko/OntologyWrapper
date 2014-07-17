@@ -957,34 +957,45 @@ abstract class PersistentObject extends OntologyObject
 
 	 
 	/*===================================================================================
-	 *	dump																			*
+	 *	export																			*
 	 *==================================================================================*/
 
 	/**
-	 * Dump the object
+	 * Export the object
 	 *
-	 * This method will dump the object in the provided formatusing the provided moptions.
+	 * This method will export the object in the provided format using the provided options.
 	 *
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theFormat</b>: The format in which the object should be dumped:
+	 *	<li><b>$theFormat</b>: The format in which the object should be exported:
 	 *	 <ul>
-	 *		<li><tt>xml</tt>: XML.
+	 *		<li><tt>xml</tt>: XML, the result of the method will be a SimpleXMLElement
+	 *			object.
 	 *	 </ul>
+	 *	<li><b>$theContainer</b>: The container in which the object is to be exported; the
+	 *		type of this value depends on the format:
+	 *	 <ul>
+	 *		<li><tt>xml</tt>: A SimpleXMLElement object.
+	 *	 </ul>
+	 *		Or <tt>NULL</tt> to have the method create it.
+	 *	<li><b>$theWrapper</b>: The data wrapper related to the object, this parameter may
+	 *		be omitted if the object was instantiated with a wrapper.
 	 * </ul>
 	 *
-	 * The method will generate a single XML element containing the object.
+	 * The exported object is to be assumed a new object, this means that you should only
+	 * use this method if the exported objects are to be inserted.
 	 *
-	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param string				$theFormat			Dump format.
+	 * @param mixed					$theContainer		Dump container.
+	 * @param Wrapper				$theWrapper			Data wrapper.
 	 *
 	 * @access public
-	 * @return string				The dumped object.
+	 * @return mixed				The dumped object.
 	 *
 	 * @throws Exception
 	 */
-	public function dump( $theWrapper = NULL, $theFormat = 'xml' )
+	public function export( $theFormat = 'xml', $theContainer = NULL, $theWrapper = NULL )
 	{
 		//
 		// Resolve wrapper.
@@ -995,9 +1006,9 @@ abstract class PersistentObject extends OntologyObject
 		// Collect untracked offsets.
 		//
 		$class = get_class( $this );
-		$untracked = array_merge( $class::InternalOffsets(),
-								  $class::ExternalOffsets(),
-								  $class::DynamicOffsets() );
+		$excluded = array_merge( $class::InternalOffsets(),
+								 $class::ExternalOffsets(),
+								 $class::DynamicOffsets() );
 		
 		//
 		// Dump object.
@@ -1005,14 +1016,34 @@ abstract class PersistentObject extends OntologyObject
 		switch( $theFormat )
 		{
 			case 'xml':
-				return $this->dumpXML( $theWrapper, $untracked );								// ==>
+				//
+				// Create container.
+				//
+				if( $theContainer === NULL )
+					$theContainer = static::XMLRootElement();
+				//
+				// Validate container.
+				//
+				elseif( ! ($theContainer instanceof \SimpleXMLElement) )
+					throw new \Exception(
+						"Unable to dump object: "
+					   ."invalid or unsupported XML container." );				// !@! ==>
+				//
+				// Load container.
+				//
+				$this->exportXMLObject( $theContainer, $theWrapper, $excluded );	// ==>
+				
+				break;
+			
+			default:
+				throw new \Exception(
+					"Unable to dump object: "
+				   ."invalid or unsupported format [$theFormat]." );			// !@! ==>
 		}
 		
-		throw new \Exception(
-			"Unable to dump object: "
-		   ."invalid or unsupported format[$theFormat]." );						// !@! ==>
+		return $theContainer;														// ==>
 	
-	} // dump.
+	} // export.
 
 	
 
@@ -5222,118 +5253,329 @@ MILKO - Need to check.
 
 /*=======================================================================================
  *																						*
- *								PROTECTED DUMP UTILITIES								*
+ *								PROTECTED EXPORT UTILITIES								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	dumpXML																			*
+	 *	exportXMLObject																	*
 	 *==================================================================================*/
 
 	/**
-	 * Dump the current object in XML format
+	 * Export the current object in XML format
 	 *
-	 * The method will return the XML representation of the object as an XML string.
+	 * The method will return the XML representation of the object as a SimpleXMLElement
+	 * object.
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The root XML node element.
+	 *	<li><b>$theWrapper</b>: The data wrapper related to the object.
+	 *	<li><b>$theUntracked</b>: The list of offsets to be excluded.
+	 * </ul>
 	 *
 	 * The provided parameter represents dynamic and run-time offsets that are managed by
 	 * the object's persistent framework.
 	 *
 	 * The method will generate a single XML element containing the object.
 	 *
+	 * @param SimpleXMLElement		$theContainer		Dump container.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param array					$theUntracked		List of untracked offsets.
 	 *
-	 * @access public
-	 * @return string				The object as an XML element.
+	 * @access protected
 	 */
-	public function dumpXML( Wrapper $theWrapper, $theUntracked )
+	protected function exportXMLObject( \SimpleXMLElement $theContainer,
+										Wrapper			  $theWrapper,
+														  $theUntracked )
 	{
-		//
-		// Initialise XML structure.
-		//
-		$xml = new \SimpleXMLElement( kXML_STANDARDS_BASE );
-		
 		//
 		// Create unit.
 		//
-		$unit = $xml->addChild( 'UNIT' );
-		$unit->addAttribute( 'class', get_class( $this ) );
+		$unit = static::xmlUnitElement( $theContainer );
 		
 		//
 		// Traverse object.
 		//
-		foreach( $this as $key => $value )
-			$this->dumpXMLProperty( $theWrapper, $unit, $key, $value, $theUntracked );
-		
-		return $xml->asXML();														// ==>
+		$this->exportXMLStructure( $this, $unit, $theWrapper, $theUntracked );
 	
-	} // dumpXML.
+	} // exportXMLObject.
 
 	 
 	/*===================================================================================
-	 *	dumpXMLProperty																	*
+	 *	exportXMLStructure																*
 	 *==================================================================================*/
 
 	/**
-	 * Dump the property into the XML
+	 * Export the provided structure to XML
+	 *
+	 * The method will load the provided structure into the provided XML container.
+	 *
+	 * @param mixed					$theStructure		Structure to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param array					$theUntracked		List of untracked offsets.
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLStructure(					 $theStructure,
+										   \SimpleXMLElement $theContainer,
+										   Wrapper			 $theWrapper,
+															 $theUntracked )
+	{
+		//
+		// Check structure.
+		//
+		if( is_array( $theStructure )
+		 || ($theStructure instanceof \ArrayObject) )
+		{
+			//
+			// Traverse structure.
+			//
+			foreach( $theStructure as $offset => $property )
+			{
+				//
+				// Handle only numeric offsets.
+				//
+				if( is_int( $offset )
+				 || ctype_digit( $offset ) )
+				{
+					//
+					// Load tag.
+					//
+					$tag = $theWrapper->getObject( static::resolveOffset( $offset, TRUE ) );
+				
+					//
+					// Skip dynamic tags.
+					//
+					if( ! in_array( $tag[ kTAG_ID_SEQUENCE ], $theUntracked ) )
+					{
+						//
+						// Create element.
+						//
+						$element = $theContainer->addChild( 'item' );
+						$element->addAttribute( 'tag', $tag[ kTAG_NID ] );
+					
+						//
+						// Handle list.
+						//
+						if( array_key_exists( kTAG_DATA_KIND, $tag )
+						 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+						{
+							//
+							// Iterate list.
+							//
+							foreach( $property as $value )
+							{
+								//
+								// Create item.
+								//
+								$item = $element->addChild( 'item' );
+				
+								//
+								// Export property.
+								//
+								$this->exportXMLProperty(
+									$value, $item, $theWrapper, $theUntracked, $tag );
+			
+							} // Iterating list.
+					
+						} // List.
+					
+						//
+						// Handle scalar.
+						//
+						else
+							$this->exportXMLProperty(
+								$property, $element, $theWrapper, $theUntracked, $tag );
+		
+					} // Not a dynamic tag.
+				
+				} // Numeric offset.
+		
+			} // Traversing structure.
+		
+		} // Provided iterator.
+		
+		else
+			throw new \Exception(
+				"Unable to export object: "
+			   ."invalid or unsupported structure iterator." );					// !@! ==>
+	
+	} // exportXMLStructure.
+
+	 
+	/*===================================================================================
+	 *	exportXMLProperty																*
+	 *==================================================================================*/
+
+	/**
+	 * Export the provided property to XML
 	 *
 	 * The method will load the provided property into the provided XML container.
 	 *
+	 * @param mixed					$theProperty		Property to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
 	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param SimpleXMLElement		$theXML				XML container (parent).
-	 * @param string				$theOffset			Property offset.
-	 * @param mixed					$theValue			Property value.
 	 * @param array					$theUntracked		List of untracked offsets.
+	 * @param array					$theTag				Property tag.
 	 *
-	 * @access public
+	 * @access protected
 	 */
-	public function dumpXMLProperty( Wrapper $theWrapper, \SimpleXMLElement $theXML,
-											 $theOffset, $theValue, $theUntracked )
+	protected function exportXMLProperty(					$theProperty,
+										  \SimpleXMLElement $theContainer,
+										  Wrapper			$theWrapper,
+															$theUntracked,
+															$theTag )
 	{
 		//
-		// Skip internal offsets.
+		// Parse by data type.
 		//
-		if( ! in_array( $theOffset, static::InternalOffsets() ) )
+		switch( $theTag[ kTAG_DATA_TYPE ] )
+		{
+			case kTYPE_STRUCT:
+				$this->exportXMLStructure(
+					$theProperty, $theContainer, $theWrapper, $theUntracked );
+				break;
+			
+			case kTYPE_LANGUAGE_STRINGS:
+			case kTYPE_TYPED_LIST:
+				foreach( $theProperty as $element )
+				{
+					$tmp0 = $theContainer->addChild( 'item' );
+					foreach( $element as $key => $value )
+					{
+						$tmp1 = $tmp0->addChild( 'item' );
+						$tmp1->addAttribute( 'key', $key );
+						$node = dom_import_simplexml( $tmp1 );
+						$tmp = $node->ownerDocument;
+						$node->appendChild( $tmp->createCDATASection( $value ) );
+					}
+				}
+				break;
+			
+			case kTYPE_SHAPE:
+				$tmp0 = $theContainer->addChild( 'item', $theProperty[ kTAG_TYPE ] );
+				$tmp0->addAttribute( 'key', kTAG_TYPE );
+				$tmp0 = $theContainer->addChild( 'item' );
+				$tmp0->addAttribute( 'key', kTAG_GEOMETRY );
+				$this->exportXMLArray( $theProperty[ kTAG_GEOMETRY ], $tmp0 );
+				break;
+			
+			case kTYPE_ENUM:
+				$theContainer[ 0 ] = $theProperty;
+				break;
+			
+			case kTYPE_SET:
+				foreach( $theProperty as $element )
+					$theContainer->addChild( 'item', $element );
+				break;
+			
+			case kTYPE_ARRAY:
+				foreach( $theProperty as $key => $value )
+				{
+					$tmp0 = $theContainer->addChild( 'item', $value );
+					$tmp0->addAttribute( 'key', $key );
+				}
+				break;
+			
+			case kTYPE_BOOLEAN:
+				$theProperty = (int) $theProperty;
+			case kTYPE_STRING:
+			case kTYPE_TEXT:
+			case kTYPE_URL:
+			case kTYPE_YEAR:
+			case kTYPE_DATE:
+			case kTYPE_INT:
+			case kTYPE_FLOAT:
+			case kTYPE_REF_TAG:
+			case kTYPE_REF_TERM:
+			case kTYPE_REF_NODE:
+			case kTYPE_REF_EDGE:
+			case kTYPE_REF_ENTITY:
+			case kTYPE_REF_UNIT:
+			case kTYPE_REF_SELF:
+				$node = dom_import_simplexml( $theContainer );
+				$tmp = $node->ownerDocument;
+				$node->appendChild( $tmp->createCDATASection( $theProperty ) );
+				break;
+			
+			case kTYPE_MIXED:
+				break;
+		
+		} // Parsed by data type.
+	
+	} // exportXMLProperty.
+
+	 
+	/*===================================================================================
+	 *	exportXMLArray																	*
+	 *==================================================================================*/
+
+	/**
+	 * Export the provided array to XML
+	 *
+	 * The method will load the provided array into the provided XML container, the method
+	 * expects an array or a series of nested arrays.
+	 *
+	 * @param mixed					$theProperty		Property to export.
+	 * @param SimpleXMLElement		$theContainer		XML container (parent).
+	 *
+	 * @access protected
+	 */
+	protected function exportXMLArray(					 $theProperty,
+									   \SimpleXMLElement $theContainer )
+	{
+		//
+		// Handle array.
+		//
+		if( is_array( $theProperty ) )
 		{
 			//
-			// Load tag.
+			// Create element.
 			//
-			$tag = $theWrapper->getObject( static::resolveOffset( $theOffset, TRUE ) );
-		
+			$node = $theContainer->addChild( 'item' );
+			
 			//
-			// Skip dynamic tags.
+			// Iterate array.
 			//
-			if( ! in_array( $tag[ kTAG_ID_SEQUENCE ], $theUntracked ) )
-			{
-				//
-				// Create element.
-				//
-				$element = $theXML->addChild( 'item' );
-				$element->addAttribute( 'tag', $tag[ kTAG_NID ] );
-				
-				//
-				// Parse by data type.
-				//
-				switch( $tag[ kTAG_DATA_TYPE ] )
-				{
-					case kTYPE_STRING:
-						$node = dom_import_simplexml( $element );
-						$tmp = $node->ownerDocument;
-						$node->appendChild( $tmp->createCDATASection( $theValue ) );
-						break;
-					
-					case kTYPE_MIXED:
-						break;
-				
-				} // Parsed by data type.
+			foreach( $theProperty as $element )
+				$this->exportXMLArray( $element, $node );
 		
-			} // Not a dynamic tag.
+		} // Array.
 		
-		} // Not an internal offset.
+		//
+		// Handle scalar.
+		//
+		else
+			$theContainer->addChild( 'item', $theProperty );
 	
-	} // dumpXMLProperty.
+	} // exportXMLArray.
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * This method should return the default XML unit element as a SimpleXMLElement object.
+	 *
+	 * The method expects the root element, it will add the unit element to it and return
+	 * the newly created child element.
+	 *
+	 * Derived concrete classes must implement this method.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	abstract protected function xmlUnitElement( \SimpleXMLElement $theRoot );
 
 		
 

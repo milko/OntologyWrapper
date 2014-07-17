@@ -508,10 +508,10 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_1 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_2 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_3 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_1 = MetadataObject::XMLRootElement();
+			$xml_2 = MetadataObject::XMLRootElement();
+			$xml_3 = MetadataObject::XMLRootElement();
+			$xml_xref = MetadataObject::XMLRootElement();
 			
 			//
 			// Set target files name.
@@ -1040,8 +1040,8 @@ if( kOPTION_VERBOSE )
 			// Open XML structures.
 			//
 			$xml_1 = simplexml_load_file( $file_1 );
-			$xml_2b = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_2t = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_2b = MetadataObject::XMLRootElement();
+			$xml_2t = MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
 			
 			//
@@ -1513,7 +1513,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_5 = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_5 = MetadataObject::XMLRootElement();
 			
 			//
 			// Set target files name.
@@ -1740,12 +1740,12 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_2 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_3 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_n = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_sub = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_location = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_2 = MetadataObject::XMLRootElement();
+			$xml_3 = MetadataObject::XMLRootElement();
+			$xml_n = MetadataObject::XMLRootElement();
+			$xml_sub = MetadataObject::XMLRootElement();
+			$xml_xref = MetadataObject::XMLRootElement();
+			$xml_location = MetadataObject::XMLRootElement();
 			
 			//
 			// Load counry subsets file.
@@ -2333,9 +2333,9 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_3 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_4 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_n = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_3 = MetadataObject::XMLRootElement();
+			$xml_4 = MetadataObject::XMLRootElement();
+			$xml_n = MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
 			$xml_location = simplexml_load_file( $file_location );
 			
@@ -2853,9 +2853,9 @@ if( kOPTION_VERBOSE )
 			// Open XML structures.
 			//
 			$xml_2 = simplexml_load_file( $file_2 );
-			$xml_sub = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_sub = MetadataObject::XMLRootElement();
 			$xml_xref = simplexml_load_file( $file_xref );
-			$xml_location = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_location = MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate XML file.
@@ -3522,11 +3522,11 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_al = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_an = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_hl = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_hn = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_al = MetadataObject::XMLRootElement();
+			$xml_an = MetadataObject::XMLRootElement();
+			$xml_hl = MetadataObject::XMLRootElement();
+			$xml_hn = MetadataObject::XMLRootElement();
+			$xml_xref = MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate active entries.
@@ -4001,9 +4001,9 @@ if( kOPTION_VERBOSE )
 			//
 			// Open XML structures.
 			//
-			$xml_4 = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_n = new SimpleXMLElement( kXML_STANDARDS_BASE );
-			$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+			$xml_4 = MetadataObject::XMLRootElement();
+			$xml_n = MetadataObject::XMLRootElement();
+			$xml_xref = MetadataObject::XMLRootElement();
 			
 			//
 			// Iterate XML file.
@@ -4345,7 +4345,7 @@ if( kOPTION_VERBOSE )
 		$xml_in = simplexml_load_file( $file_in );
 		$xml_3 = simplexml_load_file( $file_3 );
 		$xml_33 = simplexml_load_file( $file_33 );
-		$xml_xref = new SimpleXMLElement( kXML_STANDARDS_BASE );
+		$xml_xref = MetadataObject::XMLRootElement();
 		
 		//
 		// Iterate terms.

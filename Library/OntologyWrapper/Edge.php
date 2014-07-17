@@ -8,7 +8,7 @@
 
 namespace OntologyWrapper;
 
-use OntologyWrapper\PersistentObject;
+use OntologyWrapper\MetadataObject;
 use OntologyWrapper\Term;
 use OntologyWrapper\Node;
 use OntologyWrapper\ServerObject;
@@ -87,7 +87,7 @@ use OntologyWrapper\CollectionObject;
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 11/02/2014
  */
-class Edge extends PersistentObject
+class Edge extends MetadataObject
 {
 	/**
 	 * Default collection name.
@@ -837,6 +837,36 @@ class Edge extends PersistentObject
 								   kTAG_PREDICATE ) );								// ==>
 	
 	} // lockedOffsets.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED EXPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	xmlUnitElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return XML unit element
+	 *
+	 * In this class we return the <tt>EDGE</tt> element.
+	 *
+	 * @param SimpleXMLElement		$theRoot			Root container.
+	 *
+	 * @access protected
+	 * @return SimpleXMLElement		XML export unit element.
+	 */
+	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
+	{
+		return parent::xmlUnitElement( $theRoot )->addChild( 'EDGE' );				// ==>
+	
+	} // xmlUnitElement.
 
 		
 
