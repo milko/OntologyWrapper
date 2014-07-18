@@ -233,7 +233,7 @@ var_dump( iterator_to_array( $x ) );
 	// Connect.
 	//
 	$m = new MongoClient();
-	$d = $m->selectDB( 'USERS' );
+	$d = $m->selectDB( kIO_XML_USERS );
 	$c = $d->selectCollection( 'CUser' );
 	
 	//

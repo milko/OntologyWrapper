@@ -1896,16 +1896,16 @@ class Wrapper extends Dictionary
 		$xml = new \SimpleXMLElement( $theFile, NULL, TRUE );
 		switch( $root = $xml->getName() )
 		{
-			case 'METADATA':
+			case kIO_XML_METADATA:
 				$this->loadXMLMetadata( $xml );
 				break;
 		
-			case 'ENTITIES':
-				$this->loadXMLEntities( $xml );
+			case kIO_XML_UNITS:
+				$this->loadXMLUnits( $xml );
 				break;
 		
-			case 'UNITS':
-				$this->loadXMLUnits( $xml );
+			case kIO_XML_USERS:
+				$this->loadXMLUsers( $xml );
 				break;
 			
 			default:
@@ -2178,14 +2178,14 @@ class Wrapper extends Dictionary
 		//
 		// Iterate meta-blocks.
 		//
-		foreach( $theXML->{'META'} as $block )
+		foreach( $theXML->{kIO_XML_TRANS_META} as $block )
 			$this->loadXMLRootBlock( $block );
 	
 	} // loadXMLMetadata.
 
 	 
 	/*===================================================================================
-	 *	loadXMLEntities																	*
+	 *	loadXMLUsers																	*
 	 *==================================================================================*/
 
 	/**
@@ -2200,10 +2200,10 @@ class Wrapper extends Dictionary
 	 *
 	 * @access protected
 	 */
-	protected function loadXMLEntities( \SimpleXMLElement $theXML )
+	protected function loadXMLUsers( \SimpleXMLElement $theXML )
 	{
 	
-	} // loadXMLEntities.
+	} // loadXMLUsers.
 
 	 
 	/*===================================================================================
@@ -2227,7 +2227,7 @@ class Wrapper extends Dictionary
 		//
 		// Iterate meta-blocks.
 		//
-		foreach( $theXML->{'UNIT'} as $block )
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $block )
 			$this->loadXMLUnit( $block );
 	
 	} // loadXMLUnits.
@@ -2256,31 +2256,31 @@ class Wrapper extends Dictionary
 		//
 		// Iterate terms.
 		//
-		foreach( $theXML->{'TERM'} as $item )
+		foreach( $theXML->{kIO_XML_META_TERM} as $item )
 			$this->loadXMLTerm( $item, $cache );
 	
 		//
 		// Iterate tags.
 		//
-		foreach( $theXML->{'TAG'} as $item )
+		foreach( $theXML->{kIO_XML_META_TAG} as $item )
 			$this->loadXMLTag( $item, $cache );
 	
 		//
 		// Iterate nodes.
 		//
-		foreach( $theXML->{'NODE'} as $item )
+		foreach( $theXML->{kIO_XML_META_NODE} as $item )
 			$this->loadXMLNode( $item, $cache );
 	
 		//
 		// Iterate edges.
 		//
-		foreach( $theXML->{'EDGE'} as $item )
+		foreach( $theXML->{kIO_XML_META_EDGE} as $item )
 			$this->loadXMLEdge( $item, $cache );
 	
 		//
 		// Iterate edges.
 		//
-		foreach( $theXML->{'UNIT'} as $item )
+		foreach( $theXML->{kIO_XML_TRANS_UNITS} as $item )
 			$this->loadXMLUnit( $item );
 	
 	} // loadXMLRootBlock.
@@ -2307,16 +2307,16 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Tag( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Tag( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Tag( $this );
 		
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -2354,17 +2354,17 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Term( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Term( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Term( $this );
 		
 		//
 		// Load attributes.
 		//
-		$tmp = array( 'ns' => kTAG_NAMESPACE,
-					  'lid' => kTAG_ID_LOCAL,
-					  'pid' => kTAG_NID );
+		$tmp = array( kIO_XML_ATTR_NAMESPACE => kTAG_NAMESPACE,
+					  kIO_XML_ATTR_ID_LOCAL => kTAG_ID_LOCAL,
+					  kIO_XML_ATTR_ID_PERSISTENT => kTAG_NID );
 		foreach( $tmp as $key => $tag )
 		{
 			if( isset( $theXML[ $key ] ) )
@@ -2374,8 +2374,8 @@ class Wrapper extends Dictionary
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -2413,17 +2413,17 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Node( $this, (int) (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Node( $this, (int) (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Node( $this );
 		
 		//
 		// Get tag or term from attributes.
 		//
-		$tmp = array( 'tag' => kTAG_TAG,
-					  'term' => kTAG_TERM,
-					  'pid' => kTAG_ID_PERSISTENT );
+		$tmp = array( kIO_XML_ATTR_REF_TAG => kTAG_TAG,
+					  kIO_XML_ATTR_REF_TERM => kTAG_TERM,
+					  kIO_XML_ATTR_ID_PERSISTENT => kTAG_ID_PERSISTENT );
 		foreach( $tmp as $key => $tag )
 		{
 			if( isset( $theXML[ $key ] ) )
@@ -2460,8 +2460,8 @@ class Wrapper extends Dictionary
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -2499,16 +2499,16 @@ class Wrapper extends Dictionary
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new Edge( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new Edge( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new Edge( $this );
 		
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Load subject from cache.
@@ -2617,21 +2617,21 @@ class Wrapper extends Dictionary
 		//
 		// Get class.
 		//
-		$class = (string) $theXML[ 'class' ];
+		$class = (string) $theXML[ kIO_XML_ATTR_QUAL_CLASS ];
 		
 		//
 		// Instantiate object.
 		//
-		if( isset( $theXML[ 'set' ] ) )
-			$object = new $class( $this, (string) $theXML[ 'set' ] );
+		if( isset( $theXML[ kIO_XML_ATTR_UPDATE ] ) )
+			$object = new $class( $this, (string) $theXML[ kIO_XML_ATTR_UPDATE ] );
 		else
 			$object = new $class( $this );
 		
 		//
 		// Load properties.
 		//
-		foreach( $theXML->{'item'} as $element )
-			$this->loadXMLElement( $element, $object );
+		foreach( $theXML->{kIO_XML_DATA} as $element )
+			$this->parseXMLElement( $element, $object );
 		
 		//
 		// Commit.
@@ -2642,7 +2642,7 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
-	 *	loadXMLElement																	*
+	 *	parseXMLElement																	*
 	 *==================================================================================*/
 
 	/**
@@ -2665,7 +2665,7 @@ class Wrapper extends Dictionary
 	 *
 	 * @throws Exception
 	 */
-	protected function loadXMLElement( \SimpleXMLElement $theElement,
+	protected function parseXMLElement( \SimpleXMLElement $theElement,
 									   PersistentObject  $theObject )
 	{
 		//
@@ -2730,29 +2730,31 @@ class Wrapper extends Dictionary
 		//
 		// Determine tag.
 		//
-		if( isset( $theElement[ 'tag' ] ) )
-			$key = $theObject->resolveOffset( (string) $theElement[ 'tag' ], TRUE );
-		elseif( isset( $theElement[ 'seq' ] ) )
-			$key = (string) $theElement[ 'seq' ];
-		elseif( isset( $theElement[ 'const' ] ) )
-			$key = constant( (string) $theElement[ 'const' ] );
+		if( isset( $theElement[ kIO_XML_ATTR_REF_TAG ] ) )
+			$key
+				= $theObject->resolveOffset(
+					(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );
+		elseif( isset( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] ) )
+			$key = (string) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];
+		elseif( isset( $theElement[ kIO_XML_ATTR_QUAL_CONST ] ) )
+			$key = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );
 		
 		//
 		// Handle array element key.
 		//
-		elseif( isset( $theElement[ 'key' ] ) )
-			$key = (string) $theElement[ 'key' ];
+		elseif( isset( $theElement[ kIO_XML_ATTR_QUAL_KEY ] ) )
+			$key = (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ];
 		
 		//
 		// Handle node reference.
 		//
-		if( isset( $theElement[ 'node' ] ) )
-			$theNode = (string) $theElement[ 'node' ];
+		if( isset( $theElement[ kIO_XML_ATTR_REF_NODE ] ) )
+			$theNode = (string) $theElement[ kIO_XML_ATTR_REF_NODE ];
 		
 		//
 		// Handle scalar.
 		//
-		if( ! count( $theElement->{'item'} ) )
+		if( ! count( $theElement->{kIO_XML_DATA} ) )
 		{
 			//
 			// Resolve node.
@@ -2764,7 +2766,7 @@ class Wrapper extends Dictionary
 				//
 				switch( $theNode )
 				{
-					case 'tag':
+					case kIO_XML_ATTR_NODE_TAG:
 						$value
 							= Node::GetTagMaster(
 								$this,
@@ -2772,7 +2774,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'seq':
+					case kIO_XML_ATTR_NODE_SEQ:
 						$value
 							= Node::GetTagMaster(
 								$this,
@@ -2780,7 +2782,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'term':
+					case kIO_XML_ATTR_NODE_TERM:
 						$value
 							= Node::GetTermMaster(
 								$this,
@@ -2788,7 +2790,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'pid':
+					case kIO_XML_ATTR_NODE_PID:
 						$value
 							= Node::GetPidNode(
 								$this,
@@ -2796,7 +2798,7 @@ class Wrapper extends Dictionary
 								kQUERY_ASSERT | kQUERY_NID );
 						break;
 				
-					case 'node':
+					case kIO_XML_ATTR_NODE_ID:
 						$value = (string) $theElement;
 						break;
 					
@@ -2888,7 +2890,7 @@ class Wrapper extends Dictionary
 			//
 			// Load elements.
 			//
-			foreach( $theElement->{'item'} as $element )
+			foreach( $theElement->{kIO_XML_DATA} as $element )
 				$this->parseXMLItem( $value, $element, $theObject, $theNode );
 	
 		} // Array property.

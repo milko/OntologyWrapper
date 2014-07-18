@@ -25,6 +25,13 @@ use OntologyWrapper\OntologyObject;
 require_once( kPATH_DEFINITIONS_ROOT."/Query.inc.php" );
 
 /**
+ * Import/Export API.
+ *
+ * This file contains the import/export API definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
+
+/**
  * Persistent object
  *
  * This <i>abstract</i> class is the ancestor of all classes representing objects that can
@@ -991,7 +998,7 @@ abstract class PersistentObject extends OntologyObject
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 *
 	 * @access public
-	 * @return mixed				The dumped object.
+	 * @return mixed				The exported object.
 	 *
 	 * @throws Exception
 	 */
@@ -1268,84 +1275,7 @@ abstract class PersistentObject extends OntologyObject
  *======================================================================================*/
 
 
-	 
-	/*===================================================================================
-	 *	CreateIndexes																	*
-	 *==================================================================================*/
-
-	/**
-	 * Create indexes
-	 *
-	 * This method will create the default indexes for the current class.
-	 *
-	 * In this class we index the following offsets:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kTAG_MASTER}</tt>: This will speed the search for the master object.
-	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This will help the selection of objects
-	 *		based on the searched offsets.
-	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This is necessary to speed referencial
-	 *		integrity.
-	 * </ul>
-	 *
-	 * @param DatabaseObject		$theDatabase		Database reference.
-	 *
-	 * @static
-	 * @return CollectionObject		The collection.
-	 */
-	static function CreateIndexes( DatabaseObject $theDatabase )
-	{
-		//
-		// Get and open collection.
-		//
-		$collection = $theDatabase->collection( static::kSEQ_NAME );
 		
-		//
-		// Set master.
-		//
-		$collection->createIndex( array( kTAG_MASTER => 1 ),
-								  array( "name" => "MASTER",
-								  		 "sparse" => TRUE ) );
-		
-		//
-		// Set tags.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_TAGS => 1 ),
-								  array( "name" => "TAGS" ) );
-		
-		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
-		// Set reference counts.
-		//
-		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
-								  array( "name" => "TAG-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
-								  array( "name" => "TERM-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
-								  array( "name" => "NODE-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
-								  array( "name" => "EDGE-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
-								  array( "name" => "UNIT-REFS",
-								  		 "sparse" => TRUE ) );
-		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
-								  array( "name" => "ENTITY-REFS",
-								  		 "sparse" => TRUE ) );
-		
-		return $collection;															// ==>
-	
-	} // CreateIndexes.
-
-
 	/*===================================================================================
 	 *	Delete																			*
 	 *==================================================================================*/
@@ -1445,6 +1375,202 @@ abstract class PersistentObject extends OntologyObject
 	} // Delete.
 
 	 
+
+/*=======================================================================================
+ *																						*
+ *									STATIC IMPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Import																			*
+	 *==================================================================================*/
+
+	/**
+	 * Import
+	 *
+	 * This method can be used to instantiate an object from an export container, the
+	 * method expects the data wrapper and the export container.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theContainer		Export container.
+	 *
+	 * @static
+	 * @return PersistentObject		The imported object.
+	 *
+	 * @throws Exception
+	 */
+	static function Import( Wrapper $theWrapper, $theContainer )
+	{
+		//
+		// Handle XML export.
+		//
+		if( $theContainer instanceof \SimpleXMLElement )
+			return static::ImportXML( $theWrapper, $theContainer );					// ==>
+		
+		throw new \Exception(
+			"Unable to import: "
+		   ."invalid or unsupported export format." );							// !@! ==>
+	
+	} // Import.
+
+		
+	/*===================================================================================
+	 *	ImportXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Import
+	 *
+	 * This method will instantiate an object from the provided XML container.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param SimpleXMLElement		$theContainer		Export container.
+	 *
+	 * @static
+	 * @return PersistentObject		The imported object.
+	 *
+	 * @throws Exception
+	 */
+	static function ImportXML( Wrapper $theWrapper, \SimpleXMLElement $theContainer )
+	{
+		//
+		// Parse by root node.
+		//
+		switch( $tmp = $theContainer->getName() )
+		{
+			case kIO_XML_META_TAG:
+				$object = new Tag( $theWrapper );
+				break;
+		
+			case kIO_XML_META_TERM:
+				$object = new Term( $theWrapper );
+				break;
+		
+			case kIO_XML_META_NODE:
+				$object = new Node( $theWrapper );
+				break;
+		
+			case kIO_XML_META_EDGE:
+				$object = new Edge( $theWrapper );
+				break;
+		
+			case kIO_XML_TRANS_UNITS:
+			case kIO_XML_TRANS_USERS:
+				$class = (string) $theContainer[ kIO_XML_ATTR_QUAL_CLASS ];
+				if( strlen( $class ) )
+					$object = new $class( $theWrapper );
+				else
+					throw new \Exception(
+						"Unable to import: "
+					   ."missing object class." );								// !@! ==>
+				break;
+			
+			default:
+				throw new \Exception(
+					"Unable to import: "
+				   ."invalid root node [$tmp]." );								// !@! ==>
+		
+		} // Parsed root node.
+		
+		//
+		// Load data.
+		//
+		$object->loadXML( $theContainer );
+		
+		return $object;																// ==>
+	
+	} // ImportXML.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								STATIC PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	CreateIndexes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create indexes
+	 *
+	 * This method will create the default indexes for the current class.
+	 *
+	 * In this class we index the following offsets:
+	 *
+	 * <ul>
+	 *	<li><tt>{@link kTAG_MASTER}</tt>: This will speed the search for the master object.
+	 *	<li><tt>{@link kTAG_OBJECT_TAGS}</tt>: This will help the selection of objects
+	 *		based on the searched offsets.
+	 *	<li><tt>{@link kTAG_OBJECT_OFFSETS}</tt>: This is necessary to speed referencial
+	 *		integrity.
+	 * </ul>
+	 *
+	 * @param DatabaseObject		$theDatabase		Database reference.
+	 *
+	 * @static
+	 * @return CollectionObject		The collection.
+	 */
+	static function CreateIndexes( DatabaseObject $theDatabase )
+	{
+		//
+		// Get and open collection.
+		//
+		$collection = $theDatabase->collection( static::kSEQ_NAME );
+		
+		//
+		// Set master.
+		//
+		$collection->createIndex( array( kTAG_MASTER => 1 ),
+								  array( "name" => "MASTER",
+								  		 "sparse" => TRUE ) );
+		
+		//
+		// Set tags.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_TAGS => 1 ),
+								  array( "name" => "TAGS" ) );
+		
+		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
+		// Set reference counts.
+		//
+		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),
+								  array( "name" => "TAG-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_TERM_COUNT => 1 ),
+								  array( "name" => "TERM-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_NODE_COUNT => 1 ),
+								  array( "name" => "NODE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_EDGE_COUNT => 1 ),
+								  array( "name" => "EDGE-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_UNIT_COUNT => 1 ),
+								  array( "name" => "UNIT-REFS",
+								  		 "sparse" => TRUE ) );
+		$collection->createIndex( array( kTAG_ENTITY_COUNT => 1 ),
+								  array( "name" => "ENTITY-REFS",
+								  		 "sparse" => TRUE ) );
+		
+		return $collection;															// ==>
+	
+	} // CreateIndexes.
+
+
 	/*===================================================================================
 	 *	DeleteFieldsSelection															*
 	 *==================================================================================*/
@@ -5356,8 +5482,8 @@ MILKO - Need to check.
 						//
 						// Create element.
 						//
-						$element = $theContainer->addChild( 'item' );
-						$element->addAttribute( 'tag', $tag[ kTAG_NID ] );
+						$element = $theContainer->addChild( kIO_XML_DATA );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $tag[ kTAG_NID ] );
 					
 						//
 						// Handle list.
@@ -5373,7 +5499,7 @@ MILKO - Need to check.
 								//
 								// Create item.
 								//
-								$item = $element->addChild( 'item' );
+								$item = $element->addChild( kIO_XML_DATA );
 				
 								//
 								// Export property.
@@ -5445,11 +5571,11 @@ MILKO - Need to check.
 			case kTYPE_TYPED_LIST:
 				foreach( $theProperty as $element )
 				{
-					$tmp0 = $theContainer->addChild( 'item' );
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
 					foreach( $element as $key => $value )
 					{
-						$tmp1 = $tmp0->addChild( 'item' );
-						$tmp1->addAttribute( 'key', $key );
+						$tmp1 = $tmp0->addChild( kIO_XML_DATA );
+						$tmp1->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
 						$node = dom_import_simplexml( $tmp1 );
 						$tmp = $node->ownerDocument;
 						$node->appendChild( $tmp->createCDATASection( $value ) );
@@ -5458,10 +5584,10 @@ MILKO - Need to check.
 				break;
 			
 			case kTYPE_SHAPE:
-				$tmp0 = $theContainer->addChild( 'item', $theProperty[ kTAG_TYPE ] );
-				$tmp0->addAttribute( 'key', kTAG_TYPE );
-				$tmp0 = $theContainer->addChild( 'item' );
-				$tmp0->addAttribute( 'key', kTAG_GEOMETRY );
+				$tmp0 = $theContainer->addChild( kIO_XML_DATA, $theProperty[ kTAG_TYPE ] );
+				$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_TYPE );
+				$tmp0 = $theContainer->addChild( kIO_XML_DATA );
+				$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, kTAG_GEOMETRY );
 				$this->exportXMLArray( $theProperty[ kTAG_GEOMETRY ], $tmp0 );
 				break;
 			
@@ -5471,14 +5597,14 @@ MILKO - Need to check.
 			
 			case kTYPE_SET:
 				foreach( $theProperty as $element )
-					$theContainer->addChild( 'item', $element );
+					$theContainer->addChild( kIO_XML_DATA, $element );
 				break;
 			
 			case kTYPE_ARRAY:
 				foreach( $theProperty as $key => $value )
 				{
-					$tmp0 = $theContainer->addChild( 'item', $value );
-					$tmp0->addAttribute( 'key', $key );
+					$tmp0 = $theContainer->addChild( kIO_XML_DATA, $value );
+					$tmp0->addAttribute( kIO_XML_ATTR_QUAL_KEY, $key );
 				}
 				break;
 			
@@ -5537,7 +5663,7 @@ MILKO - Need to check.
 			//
 			// Create element.
 			//
-			$node = $theContainer->addChild( 'item' );
+			$node = $theContainer->addChild( kIO_XML_DATA );
 			
 			//
 			// Iterate array.
@@ -5551,7 +5677,7 @@ MILKO - Need to check.
 		// Handle scalar.
 		//
 		else
-			$theContainer->addChild( 'item', $theProperty );
+			$theContainer->addChild( kIO_XML_DATA, $theProperty );
 	
 	} // exportXMLArray.
 
@@ -5576,6 +5702,233 @@ MILKO - Need to check.
 	 * @return SimpleXMLElement		XML export unit element.
 	 */
 	abstract protected function xmlUnitElement( \SimpleXMLElement $theRoot );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED IMPORT UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * This method will load the object with the data contained in the provided XML
+	 * container.
+	 *
+	 * In this class the method will process all the {@link kIO_XML_DATA} element of the
+	 * root node, derived classes should overload this method to handle root level
+	 * attributes.
+	 *
+	 * The object is expected to have its wrapper set.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Export container.
+	 *
+	 * @access protected
+	 */
+	protected function loadXML( \SimpleXMLElement $theContainer )
+	{
+		//
+		// Iterate nodes.
+		//
+		foreach( $theContainer->{kIO_XML_DATA} as $element )
+		{
+			//
+			// Init local storage.
+			//
+			$value = NULL;
+			
+			//
+			// parse XML element.
+			//
+			$offset = $this->parseXMLElement( $element, $value );
+			
+			//
+			// Load object.
+			//
+			$this->offsetSet( $offset, $value );
+		
+		} // Iterating root elements.
+	
+	} // loadXML.
+
+	 
+	/*===================================================================================
+	 *	parseXMLElement																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse XML element
+	 *
+	 * The duty of this method is to parse the provided XML element and return the element
+	 * value in the provided reference parameter and the element offset as the result.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param mixed					$theContainer		Value container.
+	 *
+	 * @access protected
+	 * @return string				Offset.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseXMLElement( \SimpleXMLElement $theElement, &$theContainer )
+	{
+		//
+		// Get offset from tag reference.
+		//
+		if( $theElement[ kIO_XML_ATTR_REF_TAG ] !== NULL )
+			$offset = $this->resolveOffset(
+				(string) $theElement[ kIO_XML_ATTR_REF_TAG ], TRUE );
+		
+		//
+		// Get offset from tag sequence number.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ] !== NULL )
+			$offset = (int) $theElement[ kIO_XML_ATTR_REF_TAG_SEQ ];
+		
+		//
+		// Get offset from constant.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_CONST ] !== NULL )
+			$offset = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_CONST ] );
+		
+		//
+		// Get offset from key.
+		//
+		elseif( $theElement[ kIO_XML_ATTR_QUAL_KEY ] !== NULL )
+			$offset = constant( (string) $theElement[ kIO_XML_ATTR_QUAL_KEY ] );
+		
+		//
+		// Handle array.
+		//
+		elseif( ! count( $theElement->attributes() ) )
+		{
+		}
+		
+		else
+			throw new \Exception(
+				"Unable to load XML element: "
+			   ."missing tag reference." );										// !@! ==>
+		
+		//
+		// Handle value.
+		//
+		$theContainer = $this->parseXMLItem( $theElement, $offset );
+		
+		return $offset;																// ==>
+	
+	} // parseXMLElement.
+
+	 
+	/*===================================================================================
+	 *	parseXMLItem																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse XML item
+	 *
+	 * The duty of this method is to parse the provided XML element and return the element
+	 * value in the provided reference parameter and the element offset as the result.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param string				$theOffset			Property offset.
+	 *
+	 * @access protected
+	 * @return mixed				Property value.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseXMLItem( \SimpleXMLElement $theElement, $theOffset )
+	{
+		//
+		// Handle node reference.
+		//
+		if( ($tmp = $theElement[ kIO_XML_ATTR_REF_NODE ]) !== NULL )
+			return $this->parseXMLNodeReference( $theElement, (string) $tmp );		// ==>
+	
+	} // parseXMLItem.
+
+	 
+	/*===================================================================================
+	 *	parseXMLNodeReference															*
+	 *==================================================================================*/
+
+	/**
+	 * Parse XML node reference
+	 *
+	 * The duty of this method is to parse the provided XML node reference element and
+	 * return the reference value.
+	 *
+	 * The method expects the XML element and the reference type.
+	 *
+	 * @param SimpleXMLElement		$theElement			XML element.
+	 * @param string				$theType			Reference type.
+	 *
+	 * @access protected
+	 * @return mixed				Node reference.
+	 *
+	 * @throws Exception
+	 */
+	protected function parseXMLNodeReference( \SimpleXMLElement $theElement, $theType )
+	{
+		//
+		// Parse reference type.
+		//
+		switch( $theType )
+		{
+			case kIO_XML_ATTR_NODE_TAG:
+				return
+					Node::GetTagMaster(
+						$this->mDictionary,
+						(string) $theElement,
+						kQUERY_ASSERT | kQUERY_NID )
+							[ kTAG_NID ];											// ==>
+		
+			case kIO_XML_ATTR_NODE_SEQ:
+				return
+					Node::GetTagMaster(
+						$this->mDictionary,
+						(int) (string) $theElement,
+						kQUERY_ASSERT | kQUERY_NID )
+							[ kTAG_NID ];											// ==>
+				break;
+		
+			case kIO_XML_ATTR_NODE_TERM:
+				return
+					Node::GetTermMaster(
+						$this->mDictionary,
+						(string) $theElement,
+						kQUERY_ASSERT | kQUERY_NID )
+							[ kTAG_NID ];											// ==>
+				break;
+		
+			case kIO_XML_ATTR_NODE_PID:
+				return
+					Node::GetPidNode(
+						$this->mDictionary,
+						(string) $theElement,
+						kQUERY_ASSERT | kQUERY_NID )
+							[ kTAG_NID ];											// ==>
+				break;
+		
+			case kIO_XML_ATTR_NODE_ID:
+				return (int) (string) $theElement;									// ==>
+				break;
+		
+		} // Parsed node reference type.
+		
+		throw new \Exception(
+			"Unable to set property: "
+		   ."invalid node reference type [$tmp]." );							// !@! ==>
+	
+	} // parseXMLNodeReference.
 
 		
 

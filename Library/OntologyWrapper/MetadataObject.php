@@ -56,7 +56,8 @@ abstract class MetadataObject extends PersistentObject
 	static function XMLRootElement()
 	{
 		return new \SimpleXMLElement(
-						str_replace( '@@@', 'METADATA', kXML_STANDARDS_BASE ) );	// ==>
+						str_replace(
+							'@@@', kIO_XML_METADATA, kXML_STANDARDS_BASE ) );		// ==>
 	
 	} // XMLRootElement.
 
@@ -94,10 +95,10 @@ abstract class MetadataObject extends PersistentObject
 		//
 		// Handle transaction element.
 		//
-		if( $theRoot->getName() == 'META' )
+		if( $theRoot->getName() == kIO_XML_TRANS_META )
 			return $theRoot;														// ==>
 		
-		return $theRoot->addChild( 'META' );										// ==>
+		return $theRoot->addChild( kIO_XML_TRANS_META );							// ==>
 	
 	} // xmlUnitElement.
 

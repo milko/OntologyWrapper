@@ -62,9 +62,9 @@ use OntologyWrapper\Institution;
  *		after being encoded for this database.
  * </ul>
  *
- * The {@link import()} method takes care of populating the object from a FAO/WIEWS record,
- * rather than populating the record with the member accessor methods, you should use this
- * one instead.
+ * The {@link importFAO()} method takes care of populating the object from a FAO/WIEWS
+ * record, rather than populating the record with the member accessor methods, you should
+ * use this one instead.
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 08/03/2014
@@ -461,7 +461,7 @@ class FAOInstitute extends Institution
 									// Load new record.
 									//
 									$new = new static( $theWrapper );
-									$new->import( $data, $header );
+									$new->importFAO( $data, $header );
 									
 									//
 									// Try loading existing.
@@ -806,7 +806,7 @@ class FAOInstitute extends Institution
 
 	 
 	/*===================================================================================
-	 *	import																			*
+	 *	importFAO																		*
 	 *==================================================================================*/
 
 	/**
@@ -823,7 +823,7 @@ class FAOInstitute extends Institution
 	 *
 	 * @access protected
 	 */
-	protected function import( &$theRecord, $theHeader )
+	protected function importFAO( &$theRecord, $theHeader )
 	{
 		//
 		// Check record.
@@ -905,7 +905,7 @@ class FAOInstitute extends Institution
 		$address[] = substr( $this->offsetGet( kTAG_IDENTIFIER ), 0, 3 );
 		$this->EntityMail( NULL, implode( "\n", $address ) );
 
-	} // import.
+	} // importFAO.
 
 	 
 	/*===================================================================================

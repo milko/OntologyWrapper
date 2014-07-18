@@ -67,12 +67,12 @@ EOT;
 	// Load xml.
 	//
 	$xml = new \SimpleXMLElement( kPATH_STANDARDS_ROOT."/default/Tags.xml", NULL, TRUE );
-	foreach( $xml->{'META'} as $block )
+	foreach( $xml->{kIO_XML_TRANS_META} as $block )
 	{
 		//
 		// Iterate tags.
 		//
-		foreach( $block->{'TAG'} as $tag )
+		foreach( $block->{kIO_XML_META_TAG} as $tag )
 		{
 			//
 			// Init loop storage.
@@ -99,13 +99,13 @@ EOT;
 			//
 			// Iterate items.
 			//
-			foreach( $tag->{'item'} as $item )
+			foreach( $tag->{kIO_XML_DATA} as $item )
 			{
 				//
 				// Handle terms.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_TERMS') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_TERMS') )
 				{
 					foreach( $item->item as $tmp )
 						$terms[] = (string) $tmp;
@@ -114,15 +114,15 @@ EOT;
 				//
 				// Handle type.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_DATA_TYPE') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_DATA_TYPE') )
 					$type = (string) $item;
 			
 				//
 				// Handle kind.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_DATA_KIND') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_DATA_KIND') )
 				{
 					foreach( $item->item as $tmp )
 						$kind[] = "'".(string) $tmp."'";
@@ -131,22 +131,22 @@ EOT;
 				//
 				// Handle minimum range.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_MIN_RANGE') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_MIN_RANGE') )
 					$min = (float) (string) $item;
 			
 				//
 				// Handle maximum range.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_MAX_RANGE') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_MAX_RANGE') )
 					$max = (float) (string) $item;
 			
 				//
 				// Handle data pattern.
 				//
-				if( isset( $item[ 'const' ] )
-				 && ($item[ 'const' ] == 'kTAG_PATTERN') )
+				if( isset( $item[ kIO_XML_ATTR_QUAL_CONST ] )
+				 && ($item[ kIO_XML_ATTR_QUAL_CONST ] == 'kTAG_PATTERN') )
 					$pattern = (string) $item;
 			
 			} // Iterating tag items.

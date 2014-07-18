@@ -169,7 +169,8 @@ class User extends Individual
 	static function XMLRootElement()
 	{
 		return new \SimpleXMLElement(
-						str_replace( '@@@', 'USERS', kXML_STANDARDS_BASE ) );		// ==>
+						str_replace(
+							'@@@', kIO_XML_USERS, kXML_STANDARDS_BASE ) );			// ==>
 	
 	} // XMLRootElement.
 
@@ -275,7 +276,7 @@ class User extends Individual
 	 */
 	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
 	{
-		return $theRoot->addChild( 'USER' );										// ==>
+		return $theRoot->addChild( kIO_XML_TRANS_USERS );							// ==>
 	
 	} // xmlUnitElement.
 

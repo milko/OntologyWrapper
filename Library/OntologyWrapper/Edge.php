@@ -864,7 +864,7 @@ class Edge extends MetadataObject
 	 */
 	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
 	{
-		return parent::xmlUnitElement( $theRoot )->addChild( 'EDGE' );				// ==>
+		return parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_EDGE );	// ==>
 	
 	} // xmlUnitElement.
 

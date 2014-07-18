@@ -540,28 +540,28 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_3->addChild( 'META' );
+					$unit = $xml_3->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_3 );
-					$term->addAttribute( 'lid', $id3 );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_3 );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id3 );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_3 = $term->addChild( 'item' );
-					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$item = $element_syn_3->addChild( 'item', $id3 );
+					$element_syn_3 = $term->addChild( kIO_XML_DATA );
+					$element_syn_3->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$item = $element_syn_3->addChild( kIO_XML_DATA, $id3 );
 					
 					//
 					// Init term names.
@@ -603,8 +603,8 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'inverted_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'inverted_name' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_inverted_name );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_inverted_name );
 					
 					} // Has inverted name.
 					
@@ -614,8 +614,8 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'common_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'common_name' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_common_name );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_common_name );
 					
 					} // Has common name.
 					
@@ -625,8 +625,8 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'status' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'status' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_status );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_status );
 					
 					} // Has status.
 
@@ -639,8 +639,8 @@ if( kOPTION_VERBOSE )
 						if( $tmp == 'L' )
 							$tmp = 'R';
 						$tmp = $ns_scope.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-						$element = $term->addChild( 'item', $tmp );
-						$element->addAttribute( 'tag', $ns_scope );
+						$element = $term->addChild( kIO_XML_DATA, $tmp );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_scope );
 					
 					} // Has scope.
 
@@ -652,19 +652,19 @@ if( kOPTION_VERBOSE )
 						$tmp = trim( (string) $record[ 'type' ] );
 						if( $tmp == 'Genetic, Ancient' )
 						{
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'tag', $ns_type );
+							$element = $term->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_type );
 							$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'A';
-							$item = $element->addChild( 'item', $tmp );
+							$item = $element->addChild( kIO_XML_DATA, $tmp );
 							$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.'Genetic';
-							$item = $element->addChild( 'item', $tmp );
+							$item = $element->addChild( kIO_XML_DATA, $tmp );
 						}
 						else
 						{
-							$element = $term->addChild( 'item' );
-							$element->addAttribute( 'tag', $ns_type );
+							$element = $term->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_type );
 							$tmp = $ns_type.kTOKEN_NAMESPACE_SEPARATOR.$tmp;
-							$element->addChild( 'item', $tmp );
+							$element->addChild( kIO_XML_DATA, $tmp );
 						}
 					
 					} // Has type.
@@ -672,24 +672,24 @@ if( kOPTION_VERBOSE )
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_3 );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_3 );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Reset cross reference data.
@@ -711,7 +711,7 @@ if( kOPTION_VERBOSE )
 						// Add term synonym.
 						//
 						if( ! count( $element_syn_3->xpath( "item[text()='$id1']" ) ) )
-							$element_syn_3->addChild( 'item', $id1 );
+							$element_syn_3->addChild( kIO_XML_DATA, $id1 );
 						
 						//
 						// Create part 1 code.
@@ -721,50 +721,50 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_1->addChild( 'META' );
+							$unit = $xml_1->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_1 );
-							$term->addAttribute( 'lid', $id1 );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_1 );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id1 );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_1 = $term->addChild( 'item' );
-							$element_syn_1->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_1->addChild( 'item', $id1 );
-							$element_syn_1->addChild( 'item', $id3 );
+							$element_syn_1 = $term->addChild( kIO_XML_DATA );
+							$element_syn_1->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_1->addChild( kIO_XML_DATA, $id1 );
+							$element_syn_1->addChild( kIO_XML_DATA, $id3 );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_1 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_1 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New part 1 element.
 						
@@ -772,20 +772,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to part 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has part 1 code.
 					
@@ -804,7 +804,7 @@ if( kOPTION_VERBOSE )
 						// Add term synonym.
 						//
 						if( ! count( $element_syn_3->xpath( "item[text()='$id2']" ) ) )
-							$element_syn_3->addChild( 'item', $id2 );
+							$element_syn_3->addChild( kIO_XML_DATA, $id2 );
 						
 						//
 						// Create part 2 code.
@@ -814,55 +814,55 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_2->addChild( 'META' );
+							$unit = $xml_2->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_2 );
-							$term->addAttribute( 'lid', $id2 );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_2 );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id2 );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_2 = $term->addChild( 'item' );
-							$element_syn_2->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_2->addChild( 'item', $id2 );
-							$element_syn_2->addChild( 'item', $id3 );
+							$element_syn_2 = $term->addChild( kIO_XML_DATA );
+							$element_syn_2->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_2->addChild( kIO_XML_DATA, $id2 );
+							$element_syn_2->addChild( kIO_XML_DATA, $id3 );
 							if( $id1 !== NULL )
 							{
-								$element_syn_2->addChild( 'item', $id1 );
-								$element_syn_1->addChild( 'item', $id2 );
+								$element_syn_2->addChild( kIO_XML_DATA, $id1 );
+								$element_syn_1->addChild( kIO_XML_DATA, $id2 );
 							}
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_2 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New part 2 element.
 						
@@ -870,20 +870,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to part 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has part 2 code.
 					
@@ -895,30 +895,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference part 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference part 1 from part 2.
 						//
 						if( $gid2 !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gid2 );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gid1 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has part 2.
 					
@@ -932,30 +932,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference part 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference part 2 from part 1.
 						//
 						if( $gid1 !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gid1 );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gid2 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has part 1.
 					
@@ -1088,22 +1088,22 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_2b->addChild( 'META' );
+					$unit = $xml_2b->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_2b );
-					$term->addAttribute( 'lid', $id2b );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_2b );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id2b );
 					
 					//
 					// Set master.
 					//
 					if( $id1 !== NULL )
 					{
-						$element = $term->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_MASTER' );
+						$element = $term->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 					} // Has master reference.
 					
@@ -1145,32 +1145,32 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'common_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'common_name' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_common_name );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_common_name );
 				
 					} // Has common name.
 					
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_2b );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_2b );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Cross reference part 1.
@@ -1181,20 +1181,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 					
 						//
 						// Relate to part 1 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2b );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2b );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has part 1.
 				
@@ -1214,22 +1214,22 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_2t->addChild( 'META' );
+					$unit = $xml_2t->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_2t );
-					$term->addAttribute( 'lid', $id2t );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_2t );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id2t );
 			
 					//
 					// Set master.
 					//
 					if( $id1 !== NULL )
 					{
-						$element = $term->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_MASTER' );
+						$element = $term->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 					} // Has master reference.
 					
@@ -1278,32 +1278,32 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'common_name' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'common_name' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_common_name );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_common_name );
 				
 					} // Has common name.
 					
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_2t );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_2t );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Cross reference part 1.
@@ -1314,20 +1314,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 					
 						//
 						// Relate to part 1 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2t );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2t );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has part 1.
 				
@@ -1347,20 +1347,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Cross reference part 1 code.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2b );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2b );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 				
 					} // Has part 1 code.
 				
@@ -1373,20 +1373,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Cross reference bibliographical code.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2b );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2t );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2b );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2t );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 				
 					} // Has part 1 code.
 				
@@ -1406,20 +1406,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Cross reference part 1 code.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid1 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2t );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid1 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2t );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 				
 					} // Has part 1 code.
 				
@@ -1432,20 +1432,20 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Cross reference terminological code.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2t );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2b );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2t );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2b );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 				
 					} // Has part 1 code.
 				
@@ -1529,7 +1529,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit_xref = $xml_xref->addChild( 'META' );
+			$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 			
 			//
 			// Load elements.
@@ -1550,28 +1550,28 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_5->addChild( 'META' );
+					$unit = $xml_5->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_5 );
-					$term->addAttribute( 'lid', $id5 );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_5 );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id5 );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_5 = $term->addChild( 'item' );
-					$element_syn_5->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$item = $element_syn_5->addChild( 'item', $id5 );
+					$element_syn_5 = $term->addChild( kIO_XML_DATA );
+					$element_syn_5->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$item = $element_syn_5->addChild( kIO_XML_DATA, $id5 );
 					
 					//
 					// Init term names.
@@ -1601,24 +1601,24 @@ if( kOPTION_VERBOSE )
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to class.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_5 );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_5 );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle parent.
@@ -1644,15 +1644,15 @@ if( kOPTION_VERBOSE )
 							//
 							// Relate to parent.
 							//
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gid5 );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gid5parent );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gid5 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_SUBSET_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gid5parent );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 							
 						} // Iterating parents.
 					
@@ -1783,29 +1783,29 @@ if( kOPTION_VERBOSE )
 					//
 					// Create units.
 					//
-					$unit = $xml_3->addChild( 'META' );
-					$loc_unit = $xml_location->addChild( 'META' );
+					$unit = $xml_3->addChild( kIO_XML_TRANS_META );
+					$loc_unit = $xml_location->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_3 );
-					$term->addAttribute( 'lid', $id3 );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_3 );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id3 );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_3 = $term->addChild( 'item' );
-					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_3->addChild( 'item', $id3 );
+					$element_syn_3 = $term->addChild( kIO_XML_DATA );
+					$element_syn_3->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$element_syn_3->addChild( kIO_XML_DATA, $id3 );
 					
 					//
 					// Init term names.
@@ -1859,30 +1859,30 @@ if( kOPTION_VERBOSE )
 					//
 					// Create country node.
 					//
-					$node = $unit->addChild( 'NODE' );
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$node = $unit->addChild( kIO_XML_META_NODE );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Create location node.
 					//
-					$loc_node = $loc_unit->addChild( 'NODE' );
-					$loc_node->addAttribute( 'term', $gid3 );
-					$loc_node->addAttribute( 'pid', $pid_loc );
-					$loc_element = $loc_node->addChild( 'item' );
-					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$loc_node = $loc_unit->addChild( kIO_XML_META_NODE );
+					$loc_node->addAttribute( kIO_XML_ATTR_REF_TERM, $gid3 );
+					$loc_node->addAttribute( kIO_XML_ATTR_ID_PERSISTENT, $pid_loc );
+					$loc_element = $loc_node->addChild( kIO_XML_DATA );
+					$loc_element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$loc_item = $loc_element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate country to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_3 );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_3 );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle alpha 2.
@@ -1918,54 +1918,54 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit_sub = $xml_sub->addChild( 'META' );
+							$unit_sub = $xml_sub->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term_sub = $unit_sub->addChild( 'TERM' );
-							$term_sub->addAttribute( 'ns', $ns_location );
-							$term_sub->addAttribute( 'lid', $id_sub );
+							$term_sub = $unit_sub->addChild( kIO_XML_META_TERM );
+							$term_sub->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_location );
+							$term_sub->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id_sub );
 					
 							//
 							// Set label.
 							//
-							$element_sub = $term_sub->addChild( 'item' );
-							$element_sub->addAttribute( 'const', 'kTAG_LABEL' );
-							$element_sub = $element_sub->addChild( 'item' );
-							$item_sub = $element_sub->addChild( 'item', 'en' );
-							$item_sub->addAttribute( 'const', 'kTAG_LANGUAGE' );
-							$item_sub = $element_sub->addChild( 'item', $sub_name );
-							$item_sub->addAttribute( 'const', 'kTAG_TEXT' );
+							$element_sub = $term_sub->addChild( kIO_XML_DATA );
+							$element_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_LABEL' );
+							$element_sub = $element_sub->addChild( kIO_XML_DATA );
+							$item_sub = $element_sub->addChild( kIO_XML_DATA, 'en' );
+							$item_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_LANGUAGE' );
+							$item_sub = $element_sub->addChild( kIO_XML_DATA, $sub_name );
+							$item_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TEXT' );
 					
 							//
 							// Set synonyms.
 							//
-							$element_syn_sub = $term_sub->addChild( 'item' );
-							$element_syn_sub->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_sub->addChild( 'item', $id_sub );
+							$element_syn_sub = $term_sub->addChild( kIO_XML_DATA );
+							$element_syn_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_sub->addChild( kIO_XML_DATA, $id_sub );
 					
 							//
 							// Create node.
 							//
-							$node_sub = $unit_sub->addChild( 'NODE' );
+							$node_sub = $unit_sub->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Relate to parent.
 							//
-							$edge_sub = $unit_sub->addChild( 'EDGE' );
-							$element_sub = $edge_sub->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element_sub = $edge_sub->addChild( 'item', $pid_loc );
-							$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element_sub->addAttribute( 'node', 'pid' );
+							$edge_sub = $unit_sub->addChild( kIO_XML_META_EDGE );
+							$element_sub = $edge_sub->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element_sub = $edge_sub->addChild( kIO_XML_DATA, $pid_loc );
+							$element_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element_sub->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_NODE_PID );
 						
 						} // Iterating subdivisions.
 					
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $id2 );
+						$element_syn_3->addChild( kIO_XML_DATA, $id2 );
 						
 						//
 						// Create alpha 2 code.
@@ -1975,50 +1975,50 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_2->addChild( 'META' );
+							$unit = $xml_2->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_2 );
-							$term->addAttribute( 'lid', $id2 );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_2 );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id2 );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_2 = $term->addChild( 'item' );
-							$element_syn_2->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_2->addChild( 'item', $id2 );
-							$element_syn_2->addChild( 'item', $id3 );
+							$element_syn_2 = $term->addChild( kIO_XML_DATA );
+							$element_syn_2->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_2->addChild( kIO_XML_DATA, $id2 );
+							$element_syn_2->addChild( kIO_XML_DATA, $id3 );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_2 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New alpha 2 element.
 						
@@ -2026,37 +2026,37 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to alpha 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						//
 						// Cross-reference location.
 						//
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
 					
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has alpha 2 code.
 					
@@ -2074,7 +2074,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $idn );
+						$element_syn_3->addChild( kIO_XML_DATA, $idn );
 						
 						//
 						// Create numeric code.
@@ -2084,55 +2084,55 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_n->addChild( 'META' );
+							$unit = $xml_n->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_n );
-							$term->addAttribute( 'lid', $idn );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_n );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idn );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_n = $term->addChild( 'item' );
-							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_n->addChild( 'item', $idn );
-							$element_syn_n->addChild( 'item', $id3 );
+							$element_syn_n = $term->addChild( kIO_XML_DATA );
+							$element_syn_n->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_n->addChild( kIO_XML_DATA, $idn );
+							$element_syn_n->addChild( kIO_XML_DATA, $id3 );
 							if( $id2 !== NULL )
 							{
-								$element_syn_n->addChild( 'item', $id2 );
-								$element_syn_2->addChild( 'item', $idn );
+								$element_syn_n->addChild( kIO_XML_DATA, $id2 );
+								$element_syn_2->addChild( kIO_XML_DATA, $idn );
 							}
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_n );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_n );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New numeric code.
 						
@@ -2140,37 +2140,37 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to alpha 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						//
 						// Cross-reference location.
 						//
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
 					
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has numeric code.
 					
@@ -2182,30 +2182,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference alpha 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid2 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference alpha 2 from numeric.
 						//
 						if( $gidn !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gidn );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gid2 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gidn );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has numeric.
 					
@@ -2219,30 +2219,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference alpha 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference alpha 2 from numeric.
 						//
 						if( $gid2 !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gid2 );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gidn );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gid2 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gidn );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has part 1.
 					
@@ -2368,29 +2368,29 @@ if( kOPTION_VERBOSE )
 					//
 					// Create units.
 					//
-					$unit = $xml_3->addChild( 'META' );
-					$loc_unit = $xml_location->addChild( 'META' );
+					$unit = $xml_3->addChild( kIO_XML_TRANS_META );
+					$loc_unit = $xml_location->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_3 );
-					$term->addAttribute( 'lid', $id3 );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_3 );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id3 );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_3 = $term->addChild( 'item' );
-					$element_syn_3->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_3->addChild( 'item', $id3 );
+					$element_syn_3 = $term->addChild( kIO_XML_DATA );
+					$element_syn_3->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$element_syn_3->addChild( kIO_XML_DATA, $id3 );
 					
 					//
 					// Init term names.
@@ -2432,47 +2432,47 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'date_withdrawn' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'date_withdrawn' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_date_witdrawn );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_date_witdrawn );
 					}
 					
 					//
 					// Create country node.
 					//
-					$node = $unit->addChild( 'NODE' );
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$node = $unit->addChild( kIO_XML_META_NODE );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Create location node.
 					//
-					$loc_node = $loc_unit->addChild( 'NODE' );
-					$loc_node->addAttribute( 'term', $gid3 );
-					$loc_node->addAttribute( 'pid', $pid_loc );
-					$loc_element = $loc_node->addChild( 'item' );
-					$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$loc_item = $loc_element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$loc_node = $loc_unit->addChild( kIO_XML_META_NODE );
+					$loc_node->addAttribute( kIO_XML_ATTR_REF_TERM, $gid3 );
+					$loc_node->addAttribute( kIO_XML_ATTR_ID_PERSISTENT, $pid_loc );
+					$loc_element = $loc_node->addChild( kIO_XML_DATA );
+					$loc_element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$loc_item = $loc_element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate location node to country subdivisions.
 					//
-					$edge = $loc_unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_country_sub );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_country_sub );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Relate country to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_3 );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_3 );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle alpha 4.
@@ -2488,7 +2488,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $id4 );
+						$element_syn_3->addChild( kIO_XML_DATA, $id4 );
 						
 						//
 						// Create alpha 4 code.
@@ -2498,50 +2498,50 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_4->addChild( 'META' );
+							$unit = $xml_4->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_4 );
-							$term->addAttribute( 'lid', $id4 );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_4 );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id4 );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_4 = $term->addChild( 'item' );
-							$element_syn_4->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_4->addChild( 'item', $id4 );
-							$element_syn_4->addChild( 'item', $id3 );
+							$element_syn_4 = $term->addChild( kIO_XML_DATA );
+							$element_syn_4->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_4->addChild( kIO_XML_DATA, $id4 );
+							$element_syn_4->addChild( kIO_XML_DATA, $id3 );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_4 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_4 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New alpha 4 element.
 						
@@ -2549,37 +2549,37 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to alpha 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						//
 						// Cross-reference location.
 						//
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
 					
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has alpha 4 code.
 					
@@ -2597,7 +2597,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_3->addChild( 'item', $idn );
+						$element_syn_3->addChild( kIO_XML_DATA, $idn );
 						
 						//
 						// Create numeric code.
@@ -2607,55 +2607,55 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_n->addChild( 'META' );
+							$unit = $xml_n->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_n );
-							$term->addAttribute( 'lid', $idn );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_n );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idn );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid3 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid3 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_n = $term->addChild( 'item' );
-							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_n->addChild( 'item', $idn );
-							$element_syn_n->addChild( 'item', $id3 );
+							$element_syn_n = $term->addChild( kIO_XML_DATA );
+							$element_syn_n->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_n->addChild( kIO_XML_DATA, $idn );
+							$element_syn_n->addChild( kIO_XML_DATA, $id3 );
 							if( $id4 !== NULL )
 							{
-								$element_syn_n->addChild( 'item', $id4 );
-								$element_syn_4->addChild( 'item', $idn );
+								$element_syn_n->addChild( kIO_XML_DATA, $id4 );
+								$element_syn_4->addChild( kIO_XML_DATA, $idn );
 							}
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_n );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_n );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New numeric code.
 						
@@ -2663,37 +2663,37 @@ if( kOPTION_VERBOSE )
 						// Create cross reference unit.
 						//
 						if( $unit_xref === NULL )
-							$unit_xref = $xml_xref->addChild( 'META' );
+							$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 						
 						//
 						// Relate to alpha 3 element.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						//
 						// Cross-reference location.
 						//
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
 					
-						$edge = $loc_unit->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $loc_unit->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has numeric code.
 					
@@ -2705,30 +2705,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference alpha 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference alpha 4 from numeric.
 						//
 						if( $idn !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gidn );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gid4 );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gidn );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has numeric.
 					
@@ -2742,30 +2742,30 @@ if( kOPTION_VERBOSE )
 						//
 						// Reference alpha 3.
 						//
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid3 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid3 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 						//
 						// Cross reference alpha 4 from numeric.
 						//
 						if( $id4 !== NULL )
 						{
-							$edge = $unit_xref->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', $gid4 );
-							$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-							$element->addAttribute( 'node', 'term' );
-							$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $gidn );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $gidn );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // Has alpha 4.
 					
@@ -2960,28 +2960,28 @@ if( kOPTION_VERBOSE )
 									//
 									// Create unit.
 									//
-									$unit = $xml_sub->addChild( 'META' );
-									$unit_sub = $xml_location->addChild( 'META' );
+									$unit = $xml_sub->addChild( kIO_XML_TRANS_META );
+									$unit_sub = $xml_location->addChild( kIO_XML_TRANS_META );
 					
 									//
 									// Create term.
 									//
-									$term = $unit->addChild( 'TERM' );
-									$term->addAttribute( 'ns', $ns_sub );
-									$term->addAttribute( 'lid', $idsub );
+									$term = $unit->addChild( kIO_XML_META_TERM );
+									$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_sub );
+									$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idsub );
 					
 									//
 									// Set type property.
 									//
-									$element = $term->addChild( 'item', $type );
-									$element->addAttribute( 'tag', $ns_type );
+									$element = $term->addChild( kIO_XML_DATA, $type );
+									$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_type );
 					
 									//
 									// Set term synonyms.
 									//
-									$element = $term->addChild( 'item' );
-									$element->addAttribute( 'const', 'kTAG_SYNONYM' );
-									$element->addChild( 'item', $idsub );
+									$element = $term->addChild( kIO_XML_DATA );
+									$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+									$element->addChild( kIO_XML_DATA, $idsub );
 					
 									//
 									// Init term names.
@@ -3011,44 +3011,44 @@ if( kOPTION_VERBOSE )
 									//
 									// Create subdivision node.
 									//
-									$node = $unit->addChild( 'NODE' );
-									$element = $node->addChild( 'item' );
-									$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-									$item = $element->addChild( 'item',
+									$node = $unit->addChild( kIO_XML_META_NODE );
+									$element = $node->addChild( kIO_XML_DATA );
+									$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+									$item = $element->addChild( kIO_XML_DATA,
 																kTYPE_NODE_ENUMERATION );
 									
 									//
 									// Create location node.
 									//
-									$node_sub = $unit_sub->addChild( 'NODE' );
-									$node_sub->addAttribute( 'term', $gidsub );
-									$node_sub->addAttribute( 'pid', $pid_loc );
-									$loc_element = $node_sub->addChild( 'item' );
-									$loc_element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-									$loc_item = $loc_element->addChild( 'item',
+									$node_sub = $unit_sub->addChild( kIO_XML_META_NODE );
+									$node_sub->addAttribute( kIO_XML_ATTR_REF_TERM, $gidsub );
+									$node_sub->addAttribute( kIO_XML_ATTR_ID_PERSISTENT, $pid_loc );
+									$loc_element = $node_sub->addChild( kIO_XML_DATA );
+									$loc_element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+									$loc_item = $loc_element->addChild( kIO_XML_DATA,
 																kTYPE_NODE_ENUMERATION );
 					
 									//
 									// Relate subdivision to parent.
 									//
-									$edge = $unit->addChild( 'EDGE' );
+									$edge = $unit->addChild( kIO_XML_META_EDGE );
 									$element = $edge->addChild(
-										'item', kPREDICATE_ENUM_OF );
-									$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$element = $edge->addChild( 'item', $ns_sub );
-									$element->addAttribute( 'const', 'kTAG_OBJECT' );
-									$element->addAttribute( 'node', 'term' );
+										kIO_XML_DATA, kPREDICATE_ENUM_OF );
+									$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+									$element = $edge->addChild( kIO_XML_DATA, $ns_sub );
+									$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+									$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 									
 									//
 									// Relate location to subset.
 									//
-									$edge_sub = $unit_sub->addChild( 'EDGE' );
+									$edge_sub = $unit_sub->addChild( kIO_XML_META_EDGE );
 									$element_sub = $edge_sub->addChild(
-										'item', kPREDICATE_ENUM_OF );
-									$element_sub->addAttribute( 'const', 'kTAG_PREDICATE' );
-									$element_sub = $edge_sub->addChild( 'item', $gid_subset );
-									$element_sub->addAttribute( 'const', 'kTAG_OBJECT' );
-									$element_sub->addAttribute( 'node', 'term' );
+										kIO_XML_DATA, kPREDICATE_ENUM_OF );
+									$element_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+									$element_sub = $edge_sub->addChild( kIO_XML_DATA, $gid_subset );
+									$element_sub->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+									$element_sub->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 									
 									//
 									// Determine supersets.
@@ -3076,26 +3076,26 @@ if( kOPTION_VERBOSE )
 									// Create cross reference unit.
 									//
 									if( $unit_xref === NULL )
-										$unit_xref = $xml_xref->addChild( 'META' );
+										$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 									
 									//
 									// Add subset relationships.
 									//
 									foreach( $parents as $parent )
 									{
-										$edge = $unit_xref->addChild( 'EDGE' );
-										$element = $edge->addChild( 'item', $gidsub );
+										$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+										$element = $edge->addChild( kIO_XML_DATA, $gidsub );
 										$element->addAttribute(
-											'const', 'kTAG_SUBJECT' );
-										$element->addAttribute( 'node', 'term' );
+											kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+										$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 										$element = $edge->addChild(
-											'item', kPREDICATE_SUBSET_OF );
+											kIO_XML_DATA, kPREDICATE_SUBSET_OF );
 										$element->addAttribute(
-											'const', 'kTAG_PREDICATE' );
-										$element = $edge->addChild( 'item', $parent );
+											kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+										$element = $edge->addChild( kIO_XML_DATA, $parent );
 										$element->addAttribute(
-											'const', 'kTAG_OBJECT' );
-										$element->addAttribute( 'node', 'term' );
+											kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+										$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 									}
 									
 								} // Has entry code.
@@ -3211,20 +3211,20 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit_xref = $xml_xref->addChild( 'META' );
+			$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 			
 			//
 			// Write current relationship.
 			//
-			$edge = $unit_xref->addChild( 'EDGE' );
-			$element = $edge->addChild( 'item', $subject );
-			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-			$element->addAttribute( 'node', 'term' );
-			$element = $edge->addChild( 'item', kPREDICATE_VALID );
-			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-			$element = $edge->addChild( 'item', $object );
-			$element->addAttribute( 'const', 'kTAG_OBJECT' );
-			$element->addAttribute( 'node', 'term' );
+			$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+			$element = $edge->addChild( kIO_XML_DATA, $subject );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+			$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_VALID );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+			$element = $edge->addChild( kIO_XML_DATA, $object );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 			
 			//
 			// Locate subject.
@@ -3276,15 +3276,15 @@ if( kOPTION_VERBOSE )
 				$subject_gid = $subject_nns.kTOKEN_NAMESPACE_SEPARATOR.$subject_num;
 				$object_gid = $object_nns.kTOKEN_NAMESPACE_SEPARATOR.$object_num;
 				
-				$edge = $unit_xref->addChild( 'EDGE' );
-				$element = $edge->addChild( 'item', $subject_gid );
-				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-				$element->addAttribute( 'node', 'term' );
-				$element = $edge->addChild( 'item', kPREDICATE_VALID );
-				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-				$element = $edge->addChild( 'item', $object_gid );
-				$element->addAttribute( 'const', 'kTAG_OBJECT' );
-				$element->addAttribute( 'node', 'term' );
+				$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+				$element = $edge->addChild( kIO_XML_DATA, $subject_gid );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+				$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+				$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_VALID );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+				$element = $edge->addChild( kIO_XML_DATA, $object_gid );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+				$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 			}
 		
 		} // Iterating valid relationships.
@@ -3320,20 +3320,20 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit_xref = $xml_xref->addChild( 'META' );
+			$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 			
 			//
 			// Write current relationship.
 			//
-			$edge = $unit_xref->addChild( 'EDGE' );
-			$element = $edge->addChild( 'item', $subject );
-			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-			$element->addAttribute( 'node', 'term' );
-			$element = $edge->addChild( 'item', kPREDICATE_LEGACY );
-			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-			$element = $edge->addChild( 'item', $object );
-			$element->addAttribute( 'const', 'kTAG_OBJECT' );
-			$element->addAttribute( 'node', 'term' );
+			$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+			$element = $edge->addChild( kIO_XML_DATA, $subject );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+			$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_LEGACY );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+			$element = $edge->addChild( kIO_XML_DATA, $object );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 			
 			//
 			// Locate subject.
@@ -3385,15 +3385,15 @@ if( kOPTION_VERBOSE )
 				$subject_gid = $subject_nns.kTOKEN_NAMESPACE_SEPARATOR.$subject_num;
 				$object_gid = $object_nns.kTOKEN_NAMESPACE_SEPARATOR.$object_num;
 				
-				$edge = $unit_xref->addChild( 'EDGE' );
-				$element = $edge->addChild( 'item', $subject_gid );
-				$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-				$element->addAttribute( 'node', 'term' );
-				$element = $edge->addChild( 'item', kPREDICATE_LEGACY );
-				$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-				$element = $edge->addChild( 'item', $object_gid );
-				$element->addAttribute( 'const', 'kTAG_OBJECT' );
-				$element->addAttribute( 'node', 'term' );
+				$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+				$element = $edge->addChild( kIO_XML_DATA, $subject_gid );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+				$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+				$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_LEGACY );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+				$element = $edge->addChild( kIO_XML_DATA, $object_gid );
+				$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+				$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 			}
 		
 		} // Iterating legacy relationships.
@@ -3427,20 +3427,20 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit_xref = $xml_xref->addChild( 'META' );
+			$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 			
 			//
 			// Write current relationship.
 			//
-			$edge = $unit_xref->addChild( 'EDGE' );
-			$element = $edge->addChild( 'item', $subject );
-			$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-			$element->addAttribute( 'node', 'term' );
-			$element = $edge->addChild( 'item', kPREDICATE_SUBSET_OF );
-			$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-			$element = $edge->addChild( 'item', $object );
-			$element->addAttribute( 'const', 'kTAG_OBJECT' );
-			$element->addAttribute( 'node', 'term' );
+			$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+			$element = $edge->addChild( kIO_XML_DATA, $subject );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+			$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_SUBSET_OF );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+			$element = $edge->addChild( kIO_XML_DATA, $object );
+			$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+			$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 			
 			//
 			// Locate subject.
@@ -3552,28 +3552,28 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_al->addChild( 'META' );
+					$unit = $xml_al->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_al );
-					$term->addAttribute( 'lid', $idal );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_al );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idal );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_l = $term->addChild( 'item' );
-					$element_syn_l->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_l->addChild( 'item', $idal );
+					$element_syn_l = $term->addChild( kIO_XML_DATA );
+					$element_syn_l->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$element_syn_l->addChild( kIO_XML_DATA, $idal );
 					
 					//
 					// Init term names.
@@ -3603,24 +3603,24 @@ if( kOPTION_VERBOSE )
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_al );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_al );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle numeric code.
@@ -3636,7 +3636,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_l->addChild( 'item', $idan );
+						$element_syn_l->addChild( kIO_XML_DATA, $idan );
 						
 						//
 						// Create numeric code.
@@ -3646,77 +3646,77 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_an->addChild( 'META' );
+							$unit = $xml_an->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_an );
-							$term->addAttribute( 'lid', $idan );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_an );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idan );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gidal );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gidal );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_n = $term->addChild( 'item' );
-							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_n->addChild( 'item', $idan );
-							$element_syn_n->addChild( 'item', $idal );
+							$element_syn_n = $term->addChild( kIO_XML_DATA );
+							$element_syn_n->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_n->addChild( kIO_XML_DATA, $idan );
+							$element_syn_n->addChild( kIO_XML_DATA, $idal );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_an );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_an );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New numeric element.
 						
 						//
 						// Relate with letter element.
 						//
-						$unit_xref = $xml_xref->addChild( 'META' );
+						$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidan );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidal );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidan );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidal );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidal );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidan );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidal );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidan );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has numeric code.
 				
@@ -3748,28 +3748,28 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_hl->addChild( 'META' );
+					$unit = $xml_hl->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_hl );
-					$term->addAttribute( 'lid', $idhl );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_hl );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idhl );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_l = $term->addChild( 'item' );
-					$element_syn_l->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_l->addChild( 'item', $idhl );
+					$element_syn_l = $term->addChild( kIO_XML_DATA );
+					$element_syn_l->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$element_syn_l->addChild( kIO_XML_DATA, $idhl );
 					
 					//
 					// Init term names.
@@ -3802,31 +3802,31 @@ if( kOPTION_VERBOSE )
 					if( $record[ 'date_withdrawn' ] !== NULL )
 					{
 						$tmp = (string) $record[ 'date_withdrawn' ];
-						$element = $term->addChild( 'item', htmlspecialchars( $tmp ) );
-						$element->addAttribute( 'tag', $ns_date_witdrawn );
+						$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $tmp ) );
+						$element->addAttribute( kIO_XML_ATTR_REF_TAG, $ns_date_witdrawn );
 					}
 					
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_hl );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_hl );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle numeric code.
@@ -3842,7 +3842,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_l->addChild( 'item', $idhn );
+						$element_syn_l->addChild( kIO_XML_DATA, $idhn );
 						
 						//
 						// Create numeric code.
@@ -3852,77 +3852,77 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_hn->addChild( 'META' );
+							$unit = $xml_hn->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_hn );
-							$term->addAttribute( 'lid', $idhn );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_hn );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idhn );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gidhl );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gidhl );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_n = $term->addChild( 'item' );
-							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_n->addChild( 'item', $idhn );
-							$element_syn_n->addChild( 'item', $idhl );
+							$element_syn_n = $term->addChild( kIO_XML_DATA );
+							$element_syn_n->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_n->addChild( kIO_XML_DATA, $idhn );
+							$element_syn_n->addChild( kIO_XML_DATA, $idhl );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_hn );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_hn );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New numeric element.
 						
 						//
 						// Relate with letter element.
 						//
-						$unit_xref = $xml_xref->addChild( 'META' );
+						$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidhn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidhl );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidhn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidhl );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidhl );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidhn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidhl );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidhn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has numeric code.
 				
@@ -4029,28 +4029,28 @@ if( kOPTION_VERBOSE )
 					//
 					// Create unit.
 					//
-					$unit = $xml_4->addChild( 'META' );
+					$unit = $xml_4->addChild( kIO_XML_TRANS_META );
 					
 					//
 					// Create term.
 					//
-					$term = $unit->addChild( 'TERM' );
-					$term->addAttribute( 'ns', $ns_4 );
-					$term->addAttribute( 'lid', $id4 );
+					$term = $unit->addChild( kIO_XML_META_TERM );
+					$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_4 );
+					$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $id4 );
 					
 					//
 					// Set term instance.
 					//
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_TERM_TYPE' );
-					$element->addChild( 'item', kTYPE_TERM_INSTANCE );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TERM_TYPE' );
+					$element->addChild( kIO_XML_DATA, kTYPE_TERM_INSTANCE );
 					
 					//
 					// Set term synonyms.
 					//
-					$element_syn_4 = $term->addChild( 'item' );
-					$element_syn_4->addAttribute( 'const', 'kTAG_SYNONYM' );
-					$element_syn_4->addChild( 'item', $id4 );
+					$element_syn_4 = $term->addChild( kIO_XML_DATA );
+					$element_syn_4->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+					$element_syn_4->addChild( kIO_XML_DATA, $id4 );
 					
 					//
 					// Init term names.
@@ -4080,24 +4080,24 @@ if( kOPTION_VERBOSE )
 					//
 					// Create node.
 					//
-					$node = $unit->addChild( 'NODE' );
+					$node = $unit->addChild( kIO_XML_META_NODE );
 					
 					//
 					// Set node type.
 					//
-					$element = $node->addChild( 'item' );
-					$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-					$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+					$element = $node->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+					$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 					//
 					// Relate to parent.
 					//
-					$edge = $unit->addChild( 'EDGE' );
-					$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-					$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-					$element = $edge->addChild( 'item', $ns_4 );
-					$element->addAttribute( 'const', 'kTAG_OBJECT' );
-					$element->addAttribute( 'node', 'term' );
+					$edge = $unit->addChild( kIO_XML_META_EDGE );
+					$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+					$element = $edge->addChild( kIO_XML_DATA, $ns_4 );
+					$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+					$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					//
 					// Handle numeric code.
@@ -4113,7 +4113,7 @@ if( kOPTION_VERBOSE )
 						//
 						// Add term synonym.
 						//
-						$element_syn_4->addChild( 'item', $idn );
+						$element_syn_4->addChild( kIO_XML_DATA, $idn );
 						
 						//
 						// Create numeric code.
@@ -4123,77 +4123,77 @@ if( kOPTION_VERBOSE )
 							//
 							// Create unit.
 							//
-							$unit = $xml_n->addChild( 'META' );
+							$unit = $xml_n->addChild( kIO_XML_TRANS_META );
 					
 							//
 							// Create term.
 							//
-							$term = $unit->addChild( 'TERM' );
-							$term->addAttribute( 'ns', $ns_n );
-							$term->addAttribute( 'lid', $idn );
+							$term = $unit->addChild( kIO_XML_META_TERM );
+							$term->addAttribute( kIO_XML_ATTR_NAMESPACE, $ns_n );
+							$term->addAttribute( kIO_XML_ATTR_ID_LOCAL, $idn );
 					
 							//
 							// Set master.
 							//
-							$element = $term->addChild( 'item', $gid4 );
-							$element->addAttribute( 'const', 'kTAG_MASTER' );
+							$element = $term->addChild( kIO_XML_DATA, $gid4 );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_MASTER' );
 					
 							//
 							// Set term synonyms.
 							//
-							$element_syn_n = $term->addChild( 'item' );
-							$element_syn_n->addAttribute( 'const', 'kTAG_SYNONYM' );
-							$element_syn_n->addChild( 'item', $idn );
-							$element_syn_n->addChild( 'item', $id4 );
+							$element_syn_n = $term->addChild( kIO_XML_DATA );
+							$element_syn_n->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SYNONYM' );
+							$element_syn_n->addChild( kIO_XML_DATA, $idn );
+							$element_syn_n->addChild( kIO_XML_DATA, $id4 );
 					
 							//
 							// Create node.
 							//
-							$node = $unit->addChild( 'NODE' );
+							$node = $unit->addChild( kIO_XML_META_NODE );
 					
 							//
 							// Set node type.
 							//
-							$element = $node->addChild( 'item' );
-							$element->addAttribute( 'const', 'kTAG_NODE_TYPE' );
-							$item = $element->addChild( 'item', kTYPE_NODE_ENUMERATION );
+							$element = $node->addChild( kIO_XML_DATA );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_NODE_TYPE' );
+							$item = $element->addChild( kIO_XML_DATA, kTYPE_NODE_ENUMERATION );
 					
 							//
 							// Relate to parent.
 							//
-							$edge = $unit->addChild( 'EDGE' );
-							$element = $edge->addChild( 'item', kPREDICATE_ENUM_OF );
-							$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-							$element = $edge->addChild( 'item', $ns_n );
-							$element->addAttribute( 'const', 'kTAG_OBJECT' );
-							$element->addAttribute( 'node', 'term' );
+							$edge = $unit->addChild( kIO_XML_META_EDGE );
+							$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_ENUM_OF );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+							$element = $edge->addChild( kIO_XML_DATA, $ns_n );
+							$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+							$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 						
 						} // New numeric element.
 						
 						//
 						// Relate with alpha-4 element.
 						//
-						$unit_xref = $xml_xref->addChild( 'META' );
+						$unit_xref = $xml_xref->addChild( kIO_XML_TRANS_META );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 
-						$edge = $unit_xref->addChild( 'EDGE' );
-						$element = $edge->addChild( 'item', $gid4 );
-						$element->addAttribute( 'const', 'kTAG_SUBJECT' );
-						$element->addAttribute( 'node', 'term' );
-						$element = $edge->addChild( 'item', kPREDICATE_XREF_EXACT );
-						$element->addAttribute( 'const', 'kTAG_PREDICATE' );
-						$element = $edge->addChild( 'item', $gidn );
-						$element->addAttribute( 'const', 'kTAG_OBJECT' );
-						$element->addAttribute( 'node', 'term' );
+						$edge = $unit_xref->addChild( kIO_XML_META_EDGE );
+						$element = $edge->addChild( kIO_XML_DATA, $gid4 );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_SUBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
+						$element = $edge->addChild( kIO_XML_DATA, kPREDICATE_XREF_EXACT );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_PREDICATE' );
+						$element = $edge->addChild( kIO_XML_DATA, $gidn );
+						$element->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_OBJECT' );
+						$element->addAttribute( kIO_XML_ATTR_REF_NODE, kIO_XML_ATTR_REF_TERM );
 					
 					} // Has numeric code.
 				
@@ -4371,7 +4371,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Get alpha-3 identifiers.
 			//
-			$gid3 = (string) $rec_term[ 'set' ];
+			$gid3 = (string) $rec_term[ kIO_XML_ATTR_UPDATE ];
 			$id3 = substr( $gid3, strlen( $gid3 ) - 3 );
 			
 			//
@@ -4432,7 +4432,7 @@ if( kOPTION_VERBOSE )
 			//
 			// Create cross reference unit.
 			//
-			$unit = $xml_xref->addChild( 'META' );
+			$unit = $xml_xref->addChild( kIO_XML_TRANS_META );
 			
 			//
 			// Iterate enumerations.
@@ -4442,16 +4442,16 @@ if( kOPTION_VERBOSE )
 				//
 				// Create term.
 				//
-				$term = $unit->addChild( 'TERM' );
-				$term->addAttribute( 'set', $enum );
+				$term = $unit->addChild( kIO_XML_META_TERM );
+				$term->addAttribute( kIO_XML_ATTR_UPDATE, $enum );
 				
 				//
 				// Set version.
 				//
 				if( $version !== NULL )
 				{
-					$element = $term->addChild( 'item', htmlspecialchars( $version ) );
-					$element->addAttribute( 'tag', 'wbi:version' );
+					$element = $term->addChild( kIO_XML_DATA, htmlspecialchars( $version ) );
+					$element->addAttribute( kIO_XML_ATTR_REF_TAG, 'wbi:version' );
 				
 				} // Has version.
 				
@@ -4460,11 +4460,11 @@ if( kOPTION_VERBOSE )
 				//
 				if( count( $items ) )
 				{
-					$element = $term->addChild( 'item' );
-					$element->addAttribute( 'tag', 'wbi:group' );
+					$element = $term->addChild( kIO_XML_DATA );
+					$element->addAttribute( kIO_XML_ATTR_REF_TAG, 'wbi:group' );
 					
 					foreach( $items as $item )
-						$element->addChild( 'item', $item );
+						$element->addChild( kIO_XML_DATA, $item );
 				
 				} // Has categories.
 			
@@ -4512,8 +4512,8 @@ if( kOPTION_VERBOSE )
 		//
 		// Create language strings list element.
 		//
-		$element = $theElement->addChild( 'item' );
-		$element->addAttribute( 'tag', $theTag );
+		$element = $theElement->addChild( kIO_XML_DATA );
+		$element->addAttribute( kIO_XML_ATTR_REF_TAG, $theTag );
 		
 		//
 		// Iterate strings.
@@ -4523,19 +4523,19 @@ if( kOPTION_VERBOSE )
 			//
 			// Create string list element.
 			//
-			$item = $element->addChild( 'item' );
+			$item = $element->addChild( kIO_XML_DATA );
 			
 			//
 			// Create language item.
 			//
-			$tmp = $item->addChild( 'item', $language );
-			$tmp->addAttribute( 'const', 'kTAG_LANGUAGE' );
+			$tmp = $item->addChild( kIO_XML_DATA, $language );
+			$tmp->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_LANGUAGE' );
 			
 			//
 			// Create language item.
 			//
-			$tmp = $item->addChild( 'item', htmlspecialchars( $string ) );
-			$tmp->addAttribute( 'const', 'kTAG_TEXT' );
+			$tmp = $item->addChild( kIO_XML_DATA, htmlspecialchars( $string ) );
+			$tmp->addAttribute( kIO_XML_ATTR_QUAL_CONST, 'kTAG_TEXT' );
 		
 		} // Iterating language strings.
 

@@ -1176,6 +1176,52 @@ class Node extends MetadataObject
 
 	 
 	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * In this class we overload the inherited method to handle the {@link kTAG_TAG},
+	 * {@link kTAG_TERM} and {@link kTAG_ID_PERSISTENT} offsets whose data is found in the
+	 * root node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Export container (unit).
+	 *
+	 * @access public
+	 */
+	public function loadXML( \SimpleXMLElement $theContainer )
+	{
+		//
+		// Load tag reference.
+		//
+		if( $theContainer[ kIO_XML_ATTR_REF_TAG ] !== NULL )
+			$this[ kTAG_TAG ]
+				= (string) $theContainer[ kIO_XML_ATTR_REF_TAG ];
+	
+		//
+		// Load term reference.
+		//
+		if( $theContainer[ kIO_XML_ATTR_REF_TERM ] !== NULL )
+			$this[ kTAG_TERM ]
+				= (string) $theContainer[ kIO_XML_ATTR_REF_TERM ];
+	
+		//
+		// Load persistent identifier.
+		//
+		if( $theContainer[ kIO_XML_ATTR_ID_PERSISTENT ] !== NULL )
+			$this[ kTAG_ID_PERSISTENT ]
+				= (string) $theContainer[ kIO_XML_ATTR_ID_PERSISTENT ];
+		
+		//
+		// Load other data.
+		//
+		parent::loadXML( $theContainer );
+	
+	} // loadXML.
+
+	
+	/*===================================================================================
 	 *	xmlUnitElement																	*
 	 *==================================================================================*/
 
@@ -1194,25 +1240,28 @@ class Node extends MetadataObject
 		//
 		// Create element.
 		//
-		$element = parent::xmlUnitElement( $theRoot )->addChild( 'NODE' );
+		$element = parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_NODE );
 		
 		//
 		// Set tag.
 		//
 		if( $this->offsetExists( kTAG_TAG ) )
-			$element->addAttribute( 'tag', $this->offsetGet( kTAG_TAG ) );
+			$element->addAttribute( kIO_XML_ATTR_REF_TAG,
+									$this->offsetGet( kTAG_TAG ) );
 		
 		//
 		// Set term.
 		//
 		if( $this->offsetExists( kTAG_TERM ) )
-			$element->addAttribute( 'term', $this->offsetGet( kTAG_TERM ) );
+			$element->addAttribute( kIO_XML_ATTR_REF_TERM,
+									$this->offsetGet( kTAG_TERM ) );
 		
 		//
 		// Set persistent identifier.
 		//
 		if( $this->offsetExists( kTAG_ID_PERSISTENT ) )
-			$element->addAttribute( 'pid', $this->offsetGet( kTAG_ID_PERSISTENT ) );
+			$element->addAttribute( kIO_XML_ATTR_ID_PERSISTENT,
+									$this->offsetGet( kTAG_ID_PERSISTENT ) );
 		
 		return $element;															// ==>
 	

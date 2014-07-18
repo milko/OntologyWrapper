@@ -136,7 +136,7 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	echo( '$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );<br/>' );
 	$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );
-	echo( '$xml = $test->dump();' );
+	echo( '$xml = $test->export();' );
 	$xml = $test->export();
 	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
@@ -206,6 +206,99 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
 	echo( '<pre>' ); print_r( htmlspecialchars( $xml->asXML() ) ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+		
+	//
+	// Load accession from XML.
+	//
+	echo( '<h4>Load accession from XML</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );<br/>' );
+	$test = new OntologyWrapper\Accession( $wrapper, ":domain:accession://AUT001/Aegilops:BVAL-210005;" );
+	echo( '$xml = $test->export();<br/>' );
+	$xml = $test->export();
+	echo( '$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );<br/>' );
+	$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load forest from XML.
+	//
+	echo( '<h4>Load forest from XML</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\ForestUnit( $wrapper, ":domain:forest://AUT/00001/1996;" );<br/>' );
+	$test = new OntologyWrapper\ForestUnit( $wrapper, ":domain:forest://AUT/00001/1996;" );
+	echo( '$xml = $test->export();<br/>' );
+	$xml = $test->export();
+	echo( '$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );<br/>' );
+	$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load organisation from XML.
+	//
+	echo( '<h4>Load organisation from XML</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\FAOInstitute( $wrapper, ":domain:organisation://http://fao.org/wiews:ITA406;" );<br/>' );
+	$test = new OntologyWrapper\FAOInstitute( $wrapper, ":domain:organisation://http://fao.org/wiews:ITA406;" );
+	echo( '$xml = $test->export();<br/>' );
+	$xml = $test->export();
+	echo( '$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );<br/>' );
+	$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_UNITS} );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+		
+	//
+	// Load term from XML.
+	//
+	echo( '<h4>Load term from XML</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( '$test = new OntologyWrapper\Term( $wrapper, "iso:3166:1:alpha-3:ITA" );<br/>' );
+	$test = new OntologyWrapper\Term( $wrapper, "iso:3166:1:alpha-3:ITA" );
+	echo( '$xml = $test->export();<br/>' );
+	$xml = $test->export();
+	echo( '$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_META}->{kIO_XML_META_TERM} );<br/>' );
+	$test = OntologyWrapper\PersistentObject::Import( $wrapper, $xml->{kIO_XML_TRANS_META}->{kIO_XML_META_TERM} );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' ); print_r( $test->getArrayCopy() ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

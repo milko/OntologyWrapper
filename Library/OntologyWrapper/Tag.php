@@ -1280,7 +1280,7 @@ class Tag extends MetadataObject
 	 */
 	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
 	{
-		return parent::xmlUnitElement( $theRoot )->addChild( 'TAG' );				// ==>
+		return parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_TAG );	// ==>
 	
 	} // xmlUnitElement.
 

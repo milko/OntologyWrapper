@@ -859,6 +859,44 @@ class Term extends MetadataObject
 
 	 
 	/*===================================================================================
+	 *	loadXML																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load from XML
+	 *
+	 * In this class we overload the inherited method to handle the {@link kTAG_NAMESPACE}
+	 * and {@link kTAG_ID_LOCAL} offsets whose data is found in the root node attributes.
+	 *
+	 * @param SimpleXMLElement		$theContainer		Export container (unit).
+	 *
+	 * @access public
+	 */
+	public function loadXML( \SimpleXMLElement $theContainer )
+	{
+		//
+		// Load namespace.
+		//
+		if( $theContainer[ kIO_XML_ATTR_NAMESPACE ] !== NULL )
+			$this[ kTAG_NAMESPACE ]
+				= (string) $theContainer[ kIO_XML_ATTR_NAMESPACE ];
+	
+		//
+		// Load local identifier.
+		//
+		if( $theContainer[ kIO_XML_ATTR_ID_LOCAL ] !== NULL )
+			$this[ kTAG_ID_LOCAL ]
+				= (string) $theContainer[ kIO_XML_ATTR_ID_LOCAL ];
+		
+		//
+		// Load other data.
+		//
+		parent::loadXML( $theContainer );
+	
+	} // loadXML.
+
+	
+	/*===================================================================================
 	 *	xmlUnitElement																	*
 	 *==================================================================================*/
 
@@ -877,25 +915,28 @@ class Term extends MetadataObject
 		//
 		// Create element.
 		//
-		$element = parent::xmlUnitElement( $theRoot )->addChild( 'TERM' );
+		$element = parent::xmlUnitElement( $theRoot )->addChild( kIO_XML_META_TERM );
 		
 		//
 		// Set namespace.
 		//
 		if( $this->offsetExists( kTAG_NAMESPACE ) )
-			$element->addAttribute( 'ns', $this->offsetGet( kTAG_NAMESPACE ) );
+			$element->addAttribute( kIO_XML_ATTR_NAMESPACE,
+									$this->offsetGet( kTAG_NAMESPACE ) );
 		
 		//
 		// Set local identifier.
 		//
 		if( $this->offsetExists( kTAG_ID_LOCAL ) )
-			$element->addAttribute( 'lid', $this->offsetGet( kTAG_ID_LOCAL ) );
+			$element->addAttribute( kIO_XML_ATTR_ID_LOCAL,
+									$this->offsetGet( kTAG_ID_LOCAL ) );
 		
 		//
 		// Set native identifier.
 		//
 		if( $this->offsetExists( kTAG_NID ) )
-			$element->addAttribute( 'pid', $this->offsetGet( kTAG_NID ) );
+			$element->addAttribute( kIO_XML_ATTR_ID_PERSISTENT,
+									$this->offsetGet( kTAG_NID ) );
 		
 		return $element;															// ==>
 	

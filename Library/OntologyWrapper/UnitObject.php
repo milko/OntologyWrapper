@@ -592,7 +592,8 @@ abstract class UnitObject extends PersistentObject
 	static function XMLRootElement()
 	{
 		return new \SimpleXMLElement(
-						str_replace( '@@@', 'UNITS', kXML_STANDARDS_BASE ) );		// ==>
+						str_replace(
+							'@@@', kIO_XML_UNITS, kXML_STANDARDS_BASE ) );			// ==>
 	
 	} // XMLRootElement.
 
@@ -813,7 +814,7 @@ abstract class UnitObject extends PersistentObject
 	 */
 	protected function xmlUnitElement( \SimpleXMLElement $theRoot )
 	{
-		return $theRoot->addChild( 'UNIT' );										// ==>
+		return $theRoot->addChild( kIO_XML_TRANS_UNITS );							// ==>
 	
 	} // xmlUnitElement.
 
@@ -894,7 +895,7 @@ abstract class UnitObject extends PersistentObject
 		// Create unit.
 		//
 		$unit = static::xmlUnitElement( $theContainer );
-		$unit->addAttribute( 'class', get_class( $this ) );
+		$unit->addAttribute( kIO_XML_ATTR_QUAL_CLASS, get_class( $this ) );
 		
 		//
 		// Traverse object.
