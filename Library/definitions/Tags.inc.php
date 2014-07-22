@@ -61,7 +61,7 @@ define( "kTAG_TYPE",					'type' );
  * This tag holds a <em>string</em> which represents a specific <em>language name or
  * code</em>, this tag is generally used as an element of a structure for indicating the
  * element's language. It is a required element of properties of type
- * {@link kTYPE_LANGUAGE_STRINGS}.
+ * {@link kTYPE_LANGUAGE_STRING} and {@link kTYPE_LANGUAGE_STRINGS}.
  */
 define( "kTAG_LANGUAGE",				'lang' );
 
@@ -72,7 +72,8 @@ define( "kTAG_LANGUAGE",				'lang' );
  *
  * This tag holds a <em>string</em> which represents a <em>text</em>, this tag is generally
  * used as an element of a structure for indicating the element's text. It is a required
- * element of properties of type {@link kTYPE_LANGUAGE_STRINGS}.
+ * element of properties of type {@link kTYPE_LANGUAGE_STRING} and
+ * {@link kTYPE_LANGUAGE_STRINGS}.
  */
 define( "kTAG_TEXT",					'text' );
 
@@ -510,7 +511,7 @@ define( "kTAG_NAME",					29 );
  * Label (<code>:label</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+ *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRING}
  * </ul>
  *
  * This tag holds a <em>list of strings<em> representing <en>labels of an object in several
@@ -523,7 +524,7 @@ define( "kTAG_LABEL",					30 );
  * Definition (<code>:definition</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+ *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRING}
  * </ul>
  *
  * This tag holds a <em>list of texts<em> representing <en>definitions of an object in
@@ -537,7 +538,7 @@ define( "kTAG_DEFINITION",				31 );
  * Description (<code>:description</code)
  *
  * <ul>
- *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRINGS}
+ *	<li><em>Type</em>: {@link kTYPE_LANGUAGE_STRING}
  * </ul>
  *
  * This tag holds a <em>list of texts<em> representing <en>descriptions of an object in

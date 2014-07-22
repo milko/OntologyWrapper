@@ -1,0 +1,1372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	PRECIPITATION ATTRIBUTES
+	PrecipitationAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Monthly precipitation structure -->
+	
+	<!-- :environment:precipitation -->
+	<META>
+		<TERM ns=":environment" lid="precipitation">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Monthly precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Monthly precipitation of location.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Environment January precipitation -->
+	
+	<!-- :environment:precipitation:01-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="01-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:01-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:01-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:01-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="01-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:01-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:01-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:01-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="01-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:01-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:01-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment February precipitation -->
+	
+	<!-- :environment:precipitation:02-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="02-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:02-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:02-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:02-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="02-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:02-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:02-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:02-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="02-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:02-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:02-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment March precipitation -->
+	
+	<!-- :environment:precipitation:03-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="03-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:03-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:03-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:03-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="03-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:03-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:03-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:03-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="03-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:03-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:03-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment April precipitation -->
+	
+	<!-- :environment:precipitation:04-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="04-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:04-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:04-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:04-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="04-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:04-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:04-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:04-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="04-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:04-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:04-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment May precipitation -->
+	
+	<!-- :environment:precipitation:05-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="05-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:05-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:05-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:05-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="05-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:05-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:05-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:05-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="05-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:05-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:05-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment June precipitation -->
+	
+	<!-- :environment:precipitation:06-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="06-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:06-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:06-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:06-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="06-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:06-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:06-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:06-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="06-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:06-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:06-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment July precipitation -->
+	
+	<!-- :environment:precipitation:07-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="07-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:07-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:07-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:07-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="07-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:07-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:07-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:07-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="07-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:07-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:07-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment August precipitation -->
+	
+	<!-- :environment:precipitation:08-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="08-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:08-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:08-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:08-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="08-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:08-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:08-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:08-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="08-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:08-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:08-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment September precipitation -->
+	
+	<!-- :environment:precipitation:09-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="09-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:09-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:09-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:09-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="09-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:09-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:09-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:09-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="09-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:09-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:09-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment October precipitation -->
+	
+	<!-- :environment:precipitation:10-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="10-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:10-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:10-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:10-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="10-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:10-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:10-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:10-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="10-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:10-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:10-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment November precipitation -->
+	
+	<!-- :environment:precipitation:11-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="11-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:11-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:11-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:11-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="11-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:11-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:11-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:11-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="11-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:11-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:11-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment December precipitation -->
+	
+	<!-- :environment:precipitation:12-min -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="12-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December minimum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:12-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December minimum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:12-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:12-mean -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="12-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December mean precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:12-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December mean precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:12-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+	<!-- :environment:precipitation:12-max -->
+	<META>
+		<TERM ns=":environment:precipitation" lid="12-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December maximum precipitation</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:precipitation:12-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December maximum precipitation.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:precipitation:12-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
+		</EDGE>
+	</META>
+</METADATA>

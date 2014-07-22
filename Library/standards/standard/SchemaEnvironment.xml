@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ENVIRONMENT SCHEMA
+	SchemaEnvironment.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- SCHEMA -->
+	
+	<!-- :environment -->
+	<META>
+		<NODE term=":environment" pid="schema::environment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:schema</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing environmental properties of an object.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- Environment distance -->
+		
+		<!-- :environment:distance-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:distance-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:distance-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Environment elevation -->
+		
+		<!-- :environment:elevation-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:elevation-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:elevation-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Monthly temperature -->
+		
+		<!-- :environment:temperature -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Monthly precipitation -->
+		
+		<!-- :environment:precipitation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Bioclimatic values -->
+		
+		<!-- :environment:bio -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Global environment stratification -->
+		
+		<!-- :environment:gens -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:gens</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:gens:clim -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:gens:clim</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:gens:zone -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:gens:zone</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Global land cover -->
+		
+		<!-- :environment:globcov -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:globcov</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Hanmonised world soil -->
+		
+		<!-- :environment:hwsd -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:hwsd</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Global human footprint -->
+		
+		<!-- :environment:ghf -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:ghf</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

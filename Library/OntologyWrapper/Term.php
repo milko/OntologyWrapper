@@ -54,7 +54,7 @@ use OntologyWrapper\CollectionObject;
  *	<li><tt>{@link kTAG_LABEL}</tt>: <em>Label</em>. The label represents the <i>name or
  *		short description</i> of the term that the current object defines. All terms
  *		<em>should</em> have a label, since this is how human users will be able to identify
- *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRINGS} data type,
+ *		and select them. This attribute has the {@link kTYPE_LANGUAGE_STRING} data type,
  *		which is constituted by a list of elements in which the {@link kTAG_LANGUAGE} item
  *		holds the label language code and the {@link kTAG_TEXT} holds the label text. To
  *		populate and handle labels by language, use the {@link Label()} offset accessor
@@ -65,7 +65,7 @@ use OntologyWrapper\CollectionObject;
  *		defines. The definition is similar to the <em>description</em>, except that while
  *		the description provides context specific information, the definition should not.
  *		All terms <em>should</em> have a definition, if the object label is not enough to
- *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRINGS}
+ *		provide a sufficient definition. Definitions have the {@link kTYPE_LANGUAGE_STRING}
  *		data type in which the {@link kTAG_LANGUAGE} element holds the definition language
  *		code and the {@link kTAG_TEXT} holds the definition text. To populate and handle
  *		definitions by language, use the {@link Definition()} offset accessor method.

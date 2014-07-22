@@ -123,7 +123,7 @@ define( "kQUERY_LIMIT_DEFAULT",			50 );
  * Default language.
  *
  * This string value indicates the default language code for properties of type
- * {@link kTYPE_LANGUAGE_STRINGS}.
+ * {@link kTYPE_LANGUAGE_STRING} and {@link kTYPE_LANGUAGE_STRINGS}.
  */
 define( "kQUERY_LANG_DEFAULT",			'en' );
 

@@ -290,19 +290,19 @@ abstract class PersistentObject extends OntologyObject
 		kTAG_LABEL => array
 		(
 			kTAG_NID	=> ':label',
-			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_DEFINITION => array
 		(
 			kTAG_NID	=> ':definition',
-			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_DESCRIPTION => array
 		(
 			kTAG_NID	=> ':description',
-			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRINGS,
+			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_NOTE => array
@@ -4313,6 +4313,7 @@ abstract class PersistentObject extends OntologyObject
 			case kTYPE_SET:
 			case kTYPE_ARRAY:
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				if( ! is_array( $theProperty ) )
 					throw new \Exception(
@@ -4534,6 +4535,7 @@ MILKO - Need to check.
 			// Language strings.
 			//
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				//
 				// Init loop storage.
@@ -5567,8 +5569,9 @@ MILKO - Need to check.
 					$theProperty, $theContainer, $theWrapper, $theUntracked );
 				break;
 			
-			case kTYPE_LANGUAGE_STRINGS:
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
+			case kTYPE_LANGUAGE_STRINGS:
 				foreach( $theProperty as $element )
 				{
 					$tmp0 = $theContainer->addChild( kIO_XML_DATA );
@@ -5741,19 +5744,14 @@ MILKO - Need to check.
 		foreach( $theContainer->{kIO_XML_DATA} as $element )
 		{
 			//
-			// Init local storage.
+			// Init loop storage.
 			//
 			$value = NULL;
 			
 			//
 			// parse XML element.
 			//
-			$offset = $this->parseXMLElement( $element, $value );
-			
-			//
-			// Load object.
-			//
-			$this->offsetSet( $offset, $value );
+			$this->parseXMLElement( $element, $value );
 		
 		} // Iterating root elements.
 	
@@ -5780,6 +5778,30 @@ MILKO - Need to check.
 	 */
 	protected function parseXMLElement( \SimpleXMLElement $theElement, &$theContainer )
 	{
+		//
+		// Parse element offset.
+		//
+		$offset = $this->parseXMLElementOffset( $theElement );
+		
+		//
+		// Parse element value.
+		//
+		$value = $this->parseXMLElementValue( $theElement, $theContainer );
+		
+		//
+		// Handle sub-structure.
+		//
+		if( is_array( $theContainer ) )
+			$theContainer[ $offset ] = $value;
+		
+		//
+		// Handle property.
+		//
+		else
+			$this->offsetSet( $offset, $value );
+		
+		
+		
 		//
 		// Get offset from tag reference.
 		//

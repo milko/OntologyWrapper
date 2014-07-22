@@ -3226,7 +3226,8 @@ class Service extends ContainerObject
 			//
 			$criteria[ (string) kTAG_DATA_TYPE ]
 				= array( '$nin' => array( kTYPE_MIXED, kTYPE_STRUCT, kTYPE_ARRAY,
-										  kTYPE_LANGUAGE_STRINGS, kTYPE_TYPED_LIST,
+										  kTYPE_LANGUAGE_STRING, kTYPE_LANGUAGE_STRINGS,
+										  kTYPE_TYPED_LIST,
 										  kTYPE_SHAPE, kTYPE_REF_TAG, kTYPE_REF_TERM,
 										  kTYPE_REF_NODE, kTYPE_REF_EDGE, kTYPE_REF_UNIT,
 										  kTYPE_REF_ENTITY, kTYPE_REF_SELF,

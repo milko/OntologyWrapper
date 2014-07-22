@@ -126,18 +126,34 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_LANGUAGE_STRINGS -->
-		<TERM ns=":type" lid="language-strings">
+		<!-- kTYPE_LANGUAGE_STRING -->
+		<TERM ns=":type" lid="language-string">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Language strings</item>
+					<item const="kTAG_TEXT">Language string list</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This data type defines a list of strings expressed in different languages. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the :language persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the :text persistent identifier as its key and the value represents the text expressed in the language defined in the first pair. No two elements may share the same language and only one element may omit the language pair.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_LANGUAGE_STRINGS -->
+		<TERM ns=":type" lid="language-strings">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Language strings list</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data type defines a list of strings expressed in different languages. The list elements are composed by two key/value pairs. The first pair has the tag corresponding to the :language persistent identifier as its key and the value represents the language code. The second pair has the tag corresponding to the :text persistent identifier as its key and the value represents the list of strings expressed in the language defined in the first pair. No two elements may share the same language and only one element may omit the language pair.]]></item>
 				</item>
 			</item>
 		</TERM>

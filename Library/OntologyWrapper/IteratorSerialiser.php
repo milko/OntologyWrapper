@@ -1424,6 +1424,7 @@ class IteratorSerialiser
 					//
 					case kTYPE_SET:
 					case kTYPE_TYPED_LIST:
+					case kTYPE_LANGUAGE_STRING:
 					case kTYPE_LANGUAGE_STRINGS:
 					case kTYPE_SHAPE:
 						//
@@ -1806,6 +1807,7 @@ class IteratorSerialiser
 			//
 			// Language strings.
 			//
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_TYPE ]
 					= kAPI_PARAM_RESPONSE_TYPE_TYPED;

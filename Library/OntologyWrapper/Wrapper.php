@@ -61,6 +61,13 @@ require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
 require_once( kPATH_STANDARDS_ROOT."/iso/iso.inc.php" );
 
 /**
+ * Import/Export API.
+ *
+ * This file contains the import/export API definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/ImportExport.xml.inc.php" );
+
+/**
  * Wrapper
  *
  * This class extends its ancestor to wrap an interface around the various components of the
@@ -1780,6 +1787,22 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/EnvironmentAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ClimaticAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/PrecipitationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TemperatureAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		//
 		// Load XML schema files.
 		//
@@ -1791,6 +1814,10 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaEnvironment.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

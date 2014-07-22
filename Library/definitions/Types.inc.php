@@ -84,7 +84,7 @@ define( "kTYPE_STRUCT",							':type:struct' );
 define( "kTYPE_ARRAY",							':type:array' );
 
 /**
- * Language string elements list.
+ * String list by language.
  *
  * This data type defines a <em>list of strings expressed in different languages</em>. The
  * list elements are composed by <em>two key/value pairs</em>. The first pair has the
@@ -92,6 +92,18 @@ define( "kTYPE_ARRAY",							':type:array' );
  * second pair has the {@link kTAG_TEXT} as its key and the value represents the text
  * expressed in the language defined by the first pair. No two elements may share the same
  * language and only one element may omit the language.
+ */
+define( "kTYPE_LANGUAGE_STRING",				':type:language-string' );
+
+/**
+ * Strings list by language.
+ *
+ * This data type defines a <em>list of strings expressed in different languages</em>. The
+ * list elements are composed by <em>two key/value pairs</em>. The first pair has the
+ * {@link kTAG_LANGUAGE} tag as its key and the value represents the language code. The
+ * second pair has the {@link kTAG_TEXT} as its key and the value represents the list of
+ * strings expressed in the language defined by the first pair. No two elements may share
+ * the same language and only one element may omit the language.
  */
 define( "kTYPE_LANGUAGE_STRINGS",				':type:language-strings' );
 

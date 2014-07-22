@@ -1156,7 +1156,7 @@
 			{
 				case kTYPE_ARRAY:
 				case kTYPE_SET:
-				case kTYPE_LANGUAGE_STRINGS:
+				case kTYPE_LANGUAGE_STRING:
 					if( ! is_array( $theIterator->current() ) )
 						throw new \Exception(
 							"Invalid offset value in [$theOffset]: "
@@ -1266,7 +1266,7 @@
 				//
 				// Language strings.
 				//
-				case kTYPE_LANGUAGE_STRINGS:
+				case kTYPE_LANGUAGE_STRING:
 					//
 					// Iterate language strings.
 					//

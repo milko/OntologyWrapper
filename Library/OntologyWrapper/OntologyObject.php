@@ -751,9 +751,9 @@ abstract class OntologyObject extends ContainerObject
 	/**
 	 * Return language string
 	 *
-	 * This method expects the value from a property of type {@link kTYPE_LANGUAGE_STRINGS}
-	 * and a language code, its duty is to return the string matching the language code, or
-	 * the default string.
+	 * This method expects the value from a property of type {@link kTYPE_LANGUAGE_STRING}
+	 * or {@link kTYPE_LANGUAGE_STRINGS} and a language code, its duty is to return the
+	 * string matching the language code, or the default string.
 	 *
 	 * The method will perform the following steps:
 	 *
@@ -889,6 +889,7 @@ abstract class OntologyObject extends ContainerObject
 			// Language strings.
 			//
 			case kTYPE_TYPED_LIST:
+			case kTYPE_LANGUAGE_STRING:
 			case kTYPE_LANGUAGE_STRINGS:
 				//
 				// To DO.
@@ -1637,6 +1638,7 @@ abstract class OntologyObject extends ContainerObject
 			//
 			if( ($type == kTYPE_SET)
 			 || ($type == kTYPE_TYPED_LIST)
+			 || ($type == kTYPE_LANGUAGE_STRING)
 			 || ($type == kTYPE_LANGUAGE_STRINGS)
 			 || in_array( kTYPE_LIST, $kind ) )
 				return TRUE;														// ==>

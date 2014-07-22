@@ -1,0 +1,4036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	TEMPERATURE ATTRIBUTES
+	TemperatureAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Monthly temperature structure -->
+	
+	<!-- :environment:temperature -->
+	<META>
+		<TERM ns=":environment" lid="temperature">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Monthly temperature</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Monthly temperature of location.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Environment January minimum temperature -->
+	
+	<!-- :environment:temperature:01-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment January mean temperature -->
+	
+	<!-- :environment:temperature:01-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment January maximum temperature -->
+	
+	<!-- :environment:temperature:01-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:01-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="01-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">January maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:01-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location January maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:01-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment February minimum temperature -->
+	
+	<!-- :environment:temperature:02-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment February mean temperature -->
+	
+	<!-- :environment:temperature:02-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment February maximum temperature -->
+	
+	<!-- :environment:temperature:02-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:02-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="02-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">February maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:02-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location February maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:02-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment March minimum temperature -->
+	
+	<!-- :environment:temperature:03-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment March mean temperature -->
+	
+	<!-- :environment:temperature:03-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment March maximum temperature -->
+	
+	<!-- :environment:temperature:03-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:03-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="03-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">March maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:03-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location March maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:03-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment April minimum temperature -->
+	
+	<!-- :environment:temperature:04-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment April mean temperature -->
+	
+	<!-- :environment:temperature:04-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment April maximum temperature -->
+	
+	<!-- :environment:temperature:04-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:04-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="04-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">April maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:04-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location April maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:04-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment May minimum temperature -->
+	
+	<!-- :environment:temperature:05-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment May mean temperature -->
+	
+	<!-- :environment:temperature:05-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment May maximum temperature -->
+	
+	<!-- :environment:temperature:05-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:05-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="05-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">May maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:05-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location May maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:05-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment June minimum temperature -->
+	
+	<!-- :environment:temperature:06-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment June mean temperature -->
+	
+	<!-- :environment:temperature:06-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment June maximum temperature -->
+	
+	<!-- :environment:temperature:06-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:06-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="06-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">June maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:06-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location June maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:06-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment July minimum temperature -->
+	
+	<!-- :environment:temperature:07-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment July mean temperature -->
+	
+	<!-- :environment:temperature:07-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment July maximum temperature -->
+	
+	<!-- :environment:temperature:07-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:07-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="07-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">July maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:07-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location July maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:07-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment August minimum temperature -->
+	
+	<!-- :environment:temperature:08-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment August mean temperature -->
+	
+	<!-- :environment:temperature:08-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment August maximum temperature -->
+	
+	<!-- :environment:temperature:08-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:08-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="08-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">August maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:08-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location August maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:08-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment September minimum temperature -->
+	
+	<!-- :environment:temperature:09-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment September mean temperature -->
+	
+	<!-- :environment:temperature:09-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment September maximum temperature -->
+	
+	<!-- :environment:temperature:09-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:09-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="09-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">September maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:09-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location September maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:09-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment October minimum temperature -->
+	
+	<!-- :environment:temperature:10-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment October mean temperature -->
+	
+	<!-- :environment:temperature:10-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment October maximum temperature -->
+	
+	<!-- :environment:temperature:10-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:10-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="10-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">October maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:10-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location October maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:10-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment November minimum temperature -->
+	
+	<!-- :environment:temperature:11-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment November mean temperature -->
+	
+	<!-- :environment:temperature:11-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment November maximum temperature -->
+	
+	<!-- :environment:temperature:11-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:11-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="11-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">November maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:11-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location November maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:11-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment December minimum temperature -->
+	
+	<!-- :environment:temperature:12-min-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-min-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December minimum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-min-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December minimum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-min-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-min-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-min-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December minimum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-min-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December minimum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-min-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-min-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-min-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December minimum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-min-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December minimum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-min-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment December mean temperature -->
+	
+	<!-- :environment:temperature:12-mean-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-mean-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December mean temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-mean-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December mean temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-mean-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-mean-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-mean-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December mean temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-mean-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December mean temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-mean-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-mean-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-mean-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December mean temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-mean-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December mean temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-mean-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	
+	<!-- Environment December maximum temperature -->
+	
+	<!-- :environment:temperature:12-max-min -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-max-min">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December maximum temperature (minimum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-max-min</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December maximum temperature (minimum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-max-min">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-max-mean -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-max-mean">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December maximum temperature (mean)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-max-mean</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December maximum temperature (mean).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-max-mean">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+	<!-- :environment:temperature:12-max-max -->
+	<META>
+		<TERM ns=":environment:temperature" lid="12-max-max">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">December maximum temperature (maximum)</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:temperature:12-max-max</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Location December maximum temperature (maximum).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:temperature:12-max-max">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:environment:temperature</item>
+		</EDGE>
+	</META>
+</METADATA>

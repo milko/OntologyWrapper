@@ -2456,38 +2456,6 @@
 		</NODE>
 	</META>
 	
-	<!-- :taxon:valid -->
-	<META>
-		<TERM ns=":taxon" lid="valid">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Valid scientific name</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The valid or preferred scientific name related to the current taxon.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:taxon:valid</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:categorical</item>
-			</item>
-		</TAG>
-		<NODE tag=":taxon:valid">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
 	<!-- :taxon:infraspecies -->
 	<META>
 		<TERM ns=":taxon" lid="infraspecies">
@@ -2570,6 +2538,71 @@
 		</NODE>
 	</META>
 	
+	<!-- :taxon:valid -->
+	<META>
+		<TERM ns=":taxon" lid="valid">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Valid scientific name</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The valid or preferred scientific name related to the current taxon.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:valid</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:valid">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:synonym -->
+	<META>
+		<TERM ns=":taxon" lid="synonym">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name synonyms</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms related to the current taxon.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:synonym</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:synonym">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :taxon:names -->
 	<META>
 		<TERM ns=":taxon" lid="names">
@@ -2590,10 +2623,9 @@
 			<item const="kTAG_TERMS">
 				<item>:taxon:names</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:list</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:names">
@@ -3395,6 +3427,38 @@
 	
 	<!-- Taxonomic reference attributes -->
 	
+	<!-- :taxon:id -->
+	<META>
+		<TERM ns=":taxon" lid="id">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name identifier</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Taxon identifier or published link.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:id</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:id">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :taxon:reference -->
 	<META>
 		<TERM ns=":taxon" lid="reference">
@@ -3407,7 +3471,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A link to the resource in which the scientific name is published.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomy used by compiler to identify the material.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -3418,9 +3482,210 @@
 			<item const="kTAG_DATA_TYPE">:type:url</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:list</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:reference">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:synref -->
+	<META>
+		<TERM ns=":taxon" lid="synref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Scientific name synonyms references</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms references related to the current taxon.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:synref</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:synref">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Taxonomic gene pool attributes -->
+	
+	<!-- :taxon:chromosome-number -->
+	<META>
+		<TERM ns=":taxon" lid="chromosome-number">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Chromosome number</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Chromosome number of the species.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:chromosome-number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:chromosome-number">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:genepool -->
+	<META>
+		<TERM ns=":taxon" lid="genepool">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Gene Pool</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene Pool to which the taxon belongs.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:genepool</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:genepool">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:genepool-ref -->
+	<META>
+		<TERM ns=":taxon" lid="genepool-ref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Gene Pool reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Gene Pool concept applied.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:genepool-ref</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:genepool-ref">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:group -->
+	<META>
+		<TERM ns=":taxon" lid="group">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon group</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxon group to which the taxon belongs, this group uses taxonomic classifications of the crop genus as a proxy for relative crossability.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:group</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:group">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:group-ref -->
+	<META>
+		<TERM ns=":taxon" lid="group-ref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon group reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Citation of reference source for Taxon Group concept applied.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:group-ref</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:group-ref">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

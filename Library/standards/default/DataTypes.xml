@@ -118,7 +118,7 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_LANGUAGE_STRINGS -->
+	<!-- kTYPE_LANGUAGE_STRING -->
 	<META>
 		<NODE term=":type:language-strings">
 			<item const="kTAG_NODE_TYPE">
