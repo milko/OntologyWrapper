@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE CHECKLIST ATTRIBUTES
+	ChecklistAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Checklist attributes -->
+	
+	<!-- cwr:ck:CWRCODE -->
+	<META>
+		<TERM ns="cwr:ck" lid="CWRCODE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National CWR checklist code]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:CWRCODE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CWRCODE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the National CWR checklist.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:ck:CWRCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- cwr:ck:NUMB -->
+	<META>
+		<TERM ns="cwr:ck" lid="NUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National CWR checklist edition number]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:NUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Code identifying the edition of the National CWR checklist made up of the edition number and the year of publication.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:ck:NUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- :inventory:INSTCODE -->
+	
+	<!-- cwr:ck:TYPE -->
+	<META>
+		<TERM ns="cwr:ck" lid="TYPE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Type of checklist]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:TYPE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>TYPE</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:ck:TYPE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="cwr:ck:TYPE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This qualifies the type of the crop wild relative checklist.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:ck:TYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:ck:TYPE</item>
+		</EDGE>
+	</META>
+	
+	<!-- cwr:REF -->
+	
+	<!-- cwr:URL -->
+	
+	<!-- :taxon:regnum -->
+
+	<!-- :taxon:phylum -->
+
+	<!-- :taxon:classis -->
+
+	<!-- :taxon:ordo -->
+
+	<!-- :taxon:familia -->
+
+	<!-- :taxon:genus -->
+
+	<!-- :taxon:species -->
+
+	<!-- :taxon:species:author -->
+
+	<!-- :taxon:infraspecies -->
+	
+	<!-- :taxon:infraspecies:author -->
+
+	<!-- :taxon:id -->
+
+	<!-- :taxon:reference -->
+
+	<!-- :taxon:synonym -->
+
+	<!-- :taxon:synref -->
+
+	<!-- :taxon:names -->
+
+	<!-- :taxon:crop -->
+
+	<!-- :taxon:chromosome-number -->
+
+	<!-- :taxon:genepool -->
+
+	<!-- :taxon:group -->
+
+	<!-- :taxon:group-ref -->
+
+	<!-- :taxon:cross -->
+	
+	<!-- :taxon:threat -->
+	
+	<!-- :taxon:ecovalue -->
+	
+	<!-- :taxon:ecovalue-ref -->
+	
+	<!-- cwr:ck:REMARKS -->
+	<META>
+		<TERM ns="cwr:ck" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:ck:REMARKS</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:ck:REMARKS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+</METADATA>

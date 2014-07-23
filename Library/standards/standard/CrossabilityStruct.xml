@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	CROSSABILITY ATTRIBUTES
-	CrossabilityAttributes.xml
+	CrossabilityStruct.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -40,6 +40,11 @@
 				</item>
 			</item>
 		</TAG>
+		<NODE tag=":taxon:cross">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- Crossability attributes -->
@@ -75,6 +80,11 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:species</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:cross</item>
+		</EDGE>
 	</META>
 	
 	<!-- :taxon:cross:methods -->
@@ -108,6 +118,11 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:methods</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:cross</item>
+		</EDGE>
 	</META>
 	
 	<!-- :taxon:cross:success -->
@@ -141,5 +156,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross:success</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:cross</item>
+		</EDGE>
 	</META>
 </METADATA>
