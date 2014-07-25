@@ -136,11 +136,10 @@ try
 	var_dump( $formatter->data() );
 */
 
-/*
 	//
-	// Map.
+	// Many fields.
 	//
-	echo( '<h4>Map</h4>' );
+	echo( '<h4>Many fields</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -151,21 +150,38 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-		kAPI_PAGING_LIMIT => 5,
+	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':location:country' => array
+			kAPI_PARAM_FULL_TEXT_OFFSET => array
 			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
+				kAPI_PARAM_PATTERN => 'burgenland'
+			),
+			':taxon:genus' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'hordeum',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
+			),
+			':taxon:species' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
+				kAPI_PARAM_PATTERN => 'vulgare',
+				kAPI_PARAM_OPERATOR => array
+				(
+					kOPERATOR_CONTAINS,
+					kOPERATOR_NOCASE
+				)
 			)
 		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
-								   kTAG_GEOMETRY => array( array( 9, 45 ),
-														   array( 18, 50 ) ) )
+		kAPI_PARAM_GROUP => Array()
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -178,52 +194,6 @@ try
 	$response = file_get_contents( $request );
 	$result = json_decode( $response, TRUE );
 	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-var_dump( json_encode( $result[ 'results' ] ) );
-exit;
-*/
-
-	//
-	// Get FCU structure offsets flattened.
-	//
-	echo( '<h4>Get FCU structure offsets flattened</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 0 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Get FCU structure offsets structured.
-	//
-	echo( '<h4>Get FCU structure offsets structured</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 1 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Get FCU structure tags structured.
-	//
-	echo( '<h4>Get FCU structure tags structured</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 2 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

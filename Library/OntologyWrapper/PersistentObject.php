@@ -613,6 +613,12 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':record:modified',
 			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
 			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+		),
+		kTAG_ROLES => array
+		(
+			kTAG_NID	=> ':roles',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL )
 		)
 	);
 
@@ -1719,8 +1725,8 @@ abstract class PersistentObject extends OntologyObject
 						Edge::ResolveDatabase( $theWrapper ) );						// ==>
 				
 			case User::kSEQ_NAME:
-				return EntityObject::ResolveCollection(
-						EntityObject::ResolveDatabase( $theWrapper ) );				// ==>
+				return User::ResolveCollection(
+						User::ResolveDatabase( $theWrapper ) );						// ==>
 				
 			case UnitObject::kSEQ_NAME:
 				return UnitObject::ResolveCollection(

@@ -122,7 +122,7 @@ catch( Exception $error )
 	//
 	header( 'Content-type: application/json' );
 	
-	exit( JsonEncode( $this->mResponse ) );											// ==>
+	exit( JsonEncode( $response ) );												// ==>
 }
 
 /*=======================================================================================

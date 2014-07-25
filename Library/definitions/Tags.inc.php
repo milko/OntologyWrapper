@@ -101,6 +101,18 @@ define( "kTAG_URL",						'url' );
  */
 define( "kTAG_GEOMETRY",				'coordinates' );
 
+/**
+ * Full text enumerated values (<code>enums</code>)
+ *
+ * Data type: kTYPE_STRING
+ * Data kind: kTYPE_LIST
+ *
+ * This offset is automatically filled with the resolved lavels of all enumerated values of
+ * the object in the default language, the fields is used to add the enumerated values to
+ * the full-text search.
+ */
+define( "kTAG_ENUM_FULL_TEXT",			'enum' );
+
 /*=======================================================================================
  *	OBJECT IDENTIFICATION TAGS															*
  *======================================================================================*/
@@ -1189,6 +1201,20 @@ define( "kTAG_ENTITY_NATIONALITY",		79 );
  * or valid entity.
  */
 define( "kTAG_ENTITY_VALID",			80 );
+
+/*=======================================================================================
+ *	MANAGEMENT OFFSETS																	*
+ *======================================================================================*/
+
+/**
+ * Roles
+ *
+ * This tag indicates the list of roles a user or service has in regards to the system, the
+ * value is a set of string values which are defined and managed by the user interface
+ * system.
+ */
+//define( "kTAG_ROLES",					81 );
+define( "kTAG_ROLES",					303 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

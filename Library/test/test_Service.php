@@ -828,7 +828,7 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature1' => array
+			':location:country' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
 			)
@@ -869,10 +869,10 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature1' => array
+			':location:country' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'one',
+				kAPI_PARAM_PATTERN => 'iso:3166:1:alpha-3:ITA',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
@@ -1821,6 +1821,86 @@ exit;
 			$max_lat = $item[ 'geometry' ][ 'coordinates' ][ 1 ];
 	}
 	echo( "[$min_lon] [$min_lat] [$max_lon $max_lat]" );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Add user.
+	//
+	echo( '<h4>Add user</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_OBJECT => array( kTAG_CONN_USER => 'test',
+									kTAG_CONN_PASS => 'testpass',
+									kTAG_NAME => 'Test',
+									kTAG_ENTITY_FNAME => 'First',
+									kTAG_ENTITY_LNAME => 'Last',
+									kTAG_ROLES => array( 'admin', 'manager' ) )
+	);
+	$request = "$base_url?op=".kAPI_OP_ADD_USER;
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	echo( '<pre>' );
+	print_r( array( kAPI_REQUEST_OPERATION => kAPI_OP_ADD_USER,
+					kAPI_REQUEST_PARAMETERS => $param ) );
+	echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	//
+	// Try getUser clustered.
+	//
+	echo( '<h4>Try getUser clustered</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
+		kAPI_PARAM_ID => aray( 'test', 'testpass' )
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_USER;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

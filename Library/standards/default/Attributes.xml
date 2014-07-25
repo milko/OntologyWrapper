@@ -1380,4 +1380,24 @@
 			</item>
 		</TERM>
 	</META>
+	
+	<!-- Management attributes -->
+	
+	<META>
+		<!-- kTAG_ROLES -->
+		<TERM ns="" lid="roles">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Roles</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The list of roles a user or service covers in the hosting system.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 </METADATA>

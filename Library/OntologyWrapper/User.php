@@ -31,6 +31,8 @@ use OntologyWrapper\Individual;
  *	<li><tt>{@link kTAG_CONN_PASS}</tt>: <em>User password</em>. This optional attribute can
  *		be set if the individual is also a user of the system, in that case this attribute
  *		can hold the user password credentials.
+ *	<li><tt>{@link kTAG_ROLES}</tt>: <em>Roles</em>. This attribute can be used to set the
+ *		user roles.
  * </ul>
  *
  * The above two properties are required.
@@ -140,7 +142,7 @@ class User extends Individual
 	static function DefaultOffsets()
 	{
 		return array_merge( parent::DefaultOffsets(),
-							array( kTAG_CONN_USER, kTAG_CONN_PASS ) );				// ==>
+							array( kTAG_CONN_USER, kTAG_CONN_PASS, kTAG_ROLES ) );	// ==>
 	
 	} // DefaultOffsets.
 
@@ -249,6 +251,54 @@ class User extends Individual
 						 \ArrayObject::offsetExists( kTAG_CONN_PASS ) );
 	
 	} // postOffsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitPrepare																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare object before commit
+	 *
+	 * In this class we overload this method to set the default domain, authority and
+	 * collection, if not yet set.
+	 *
+	 * Once we do this, we call the parent method.
+	 *
+	 * @param reference				$theTags			Property tags and offsets.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 */
+	protected function preCommitPrepare( &$theTags, &$theRefs )
+	{
+		//
+		// Check domain.
+		//
+		if( ! $this->offsetExists( kTAG_DOMAIN ) )
+			$this->offsetSet( kTAG_DOMAIN, static::kDEFAULT_DOMAIN );
+		
+		//
+		// Check user code.
+		//
+		if( ! $this->offsetExists( kTAG_IDENTIFIER ) )
+			$this->offsetSet( kTAG_IDENTIFIER, $this->offsetGet( kTAG_CONN_USER ) );
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitPrepare( $theTags, $theRefs );
+	
+	} // preCommitPrepare.
 
 		
 

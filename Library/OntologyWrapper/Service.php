@@ -349,6 +349,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
+	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
 	 * </ul>
 	 *
 	 * If the operation is not recognised, the method will raise an exception.
@@ -378,6 +380,8 @@ class Service extends ContainerObject
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_GET_UNIT:
+			case kAPI_OP_ADD_USER:
+			case kAPI_OP_GET_USER:
 				$this->offsetSet( kAPI_REQUEST_OPERATION, $op );
 				break;
 			
@@ -482,24 +486,6 @@ class Service extends ContainerObject
 	 * Both the key and the value are provided as references, this may allow derived classes
 	 * to transform parameters.
 	 *
-	 * In this class we handle the following parameters:
-	 *
-	 * <ul>
-	 *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: String match pattern.
-	 *	<li><tt>{@link kAPI_PAGING_SKIP}</tt>: Recordset skip value.
-	 *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: Recordset limits value.
-	 *	<li><tt>{@link kAPI_PARAM_LOG_REQUEST}</tt>: Log request.
-	 *	<li><tt>{@link kAPI_PARAM_LOG_TRACE}</tt>: Log trace.
-	 *	<li><tt>{@link kAPI_PARAM_RECURSE}</tt>: Recurse structures.
-	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
-	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
-	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
-	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
-	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
-	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
-	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
-	 * </ul>
-	 *
 	 * Derived classes should handle their custom parameters or call the parent method, any
 	 * parameter which is not handled will be ignored.
 	 *
@@ -518,11 +504,16 @@ class Service extends ContainerObject
 			case kAPI_PARAM_PATTERN:
 			case kAPI_PARAM_TAG:
 			case kAPI_PARAM_NODE:
-			case kAPI_PARAM_ID:
 			case kAPI_PARAM_DOMAIN:
 			case kAPI_PARAM_DATA:
 			case kAPI_PARAM_SHAPE_OFFSET:
 				if( strlen( $theValue ) )
+					$this->offsetSet( $theKey, $theValue );
+				break;
+
+			case kAPI_PARAM_ID:
+				if( is_array( $theValue )
+				 || strlen( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
 				break;
 
@@ -582,6 +573,16 @@ class Service extends ContainerObject
 			case kAPI_PARAM_RECURSE:
 				$theValue = (boolean) $theValue;
 				$this->offsetSet( $theKey, $theValue );
+				break;
+
+			case kAPI_PARAM_OBJECT:
+				if( is_array( $theValue ) )
+				{
+					$object = new User( $this->mWrapper );
+					foreach( $theValue as $key => $value )
+						$object[ $key ] = $value;
+					$this->offsetSet( $theKey, $object );
+				}
 				break;
 		}
 	
@@ -674,6 +675,8 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
+	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
 	 * </ul>
 	 *
 	 * Any unrecognised operation will raise an exception.
@@ -720,6 +723,14 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_GET_UNIT:
 				$this->validateGetUnit();
+				break;
+				
+			case kAPI_OP_GET_USER:
+				$this->validateGetUser();
+				break;
+				
+			case kAPI_OP_ADD_USER:
+				$this->validateAddUser();
 				break;
 			
 			default:
@@ -1188,7 +1199,7 @@ class Service extends ContainerObject
 		//
 		// Update criteria.
 		//
-		if( count( $criteria ) )
+		if( is_array( $criteria ) )
 			$this->offsetSet( kAPI_PARAM_CRITERIA, $criteria );
 		
 		//
@@ -1280,6 +1291,66 @@ class Service extends ContainerObject
 		}
 		
 	} // validateGetUnit.
+
+	 
+	/*===================================================================================
+	 *	validateGetUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get user service.
+	 *
+	 * This method will call the unit validation process, then check whether the identifier
+	 * parameter has the correct format.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateGetUser()
+	{
+		//
+		// Call unit validation process.
+		//
+		$this->validateGetUnit();
+
+		//
+		// Validate identifier.
+		//
+		$param = $this->offsetExists( kAPI_PARAM_ID );
+		if( is_array( $param )
+		 && (count( $param ) != 2) )
+			throw new \Exception(
+				"Invalid user identifier parameter format." );					// !@! ==>
+		
+	} // validateGetUser.
+
+	 
+	/*===================================================================================
+	 *	validateAddUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate add user service.
+	 *
+	 * This method will ensure the user object was set.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateAddUser()
+	{
+		//
+		// Validate identifier.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_OBJECT ) )
+			throw new \Exception(
+				"Missing or invalid user object." );							// !@! ==>
+		
+	} // validateAddUser.
 
 	 
 	/*===================================================================================
@@ -1746,7 +1817,8 @@ class Service extends ContainerObject
 	 *
 	 * @throws Exception
 	 *
-	 * @see kAPI_PARAM_INPUT_STRING kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
+	 * @see kAPI_PARAM_INPUT_TEXT kAPI_PARAM_INPUT_STRING
+	 * @see kAPI_PARAM_INPUT_RANGE kAPI_PARAM_INPUT_ENUM
 	 */
 	protected function validateSearchCriteria()
 	{
@@ -1764,11 +1836,18 @@ class Service extends ContainerObject
 		foreach( $tmp as $key => $val )
 		{
 			//
-			// Handle tag sequence numbers.
+			// Handle tags.
 			//
-			if( is_int( $key )
-			 || ctype_digit( $key ) )
-				$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+			if( $key != kAPI_PARAM_FULL_TEXT_OFFSET )
+			{
+				//
+				// Handle tag sequence numbers.
+				//
+				if( is_int( $key )
+				 || ctype_digit( $key ) )
+					$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+			
+			} // Not a full-text search.
 			
 			//
 			// Set criteria.
@@ -1794,22 +1873,42 @@ class Service extends ContainerObject
 					->getIndexedOffsets();
 		
 		//
-		// Load tags.
+		// Select tag fields.
 		//
 		$fields = array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
 						 kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
 						 $offsets_tag => TRUE );
-		$criteria = array( kTAG_NID => ( ( count( $value ) > 1 )
-									   ? array( '$in' => array_keys( $value ) )
-									   : key( $value ) ) );
-		$tags
-			= iterator_to_array(
-				PersistentObject::ResolveCollectionByName(
-					$this->mWrapper, Tag::kSEQ_NAME )
-					->matchAll(
-						$criteria,
-						kQUERY_ARRAY,
-						$fields ) );
+		
+		//
+		// Filter tags only.
+		//
+		$tags = array_diff( array_keys( $value ), array( kAPI_PARAM_FULL_TEXT_OFFSET ) );
+		
+		//
+		// Search tags.
+		//
+		if( count( $tags ) )
+		{
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_NID => ( ( count( $tags ) > 1 )
+										   ? array( '$in' => array_values( $tags ) )
+										   : $tags[ 0 ] ) );
+			
+			//
+			// Select tags.
+			//
+			$tags
+				= iterator_to_array(
+					PersistentObject::ResolveCollectionByName(
+						$this->mWrapper, Tag::kSEQ_NAME )
+						->matchAll(
+							$criteria,
+							kQUERY_ARRAY,
+							$fields ) );
+		
+		} // Has tags.
 
 		//
 		// Iterate criteria.
@@ -1817,23 +1916,85 @@ class Service extends ContainerObject
 		foreach( $value as $tag => $criteria )
 		{
 			//
-			// Get tag object.
+			// Handle full-text search.
 			//
-			if( array_key_exists( $tag, $tags ) )
-				$tag_object = & $tags[ $tag ];
+			if( $tag == kAPI_PARAM_FULL_TEXT_OFFSET )
+			{
+				//
+				// Check pattern.
+				//
+				if( ! array_key_exists( kAPI_PARAM_PATTERN, $criteria ) )
+					throw new \Exception(
+						"Missing search pattern for full text search." );		// !@! ==>
+				
+				//
+				// Create cluster entry.
+				//
+				$this->mFilter[ kAPI_PARAM_FULL_TEXT_OFFSET ]
+					= array( kAPI_PARAM_VALUE_COUNT => 1,
+							 kAPI_PARAM_CRITERIA => Array() );
+				
+				//
+				// Reference cluster, values counter and criteria.
+				//
+				$cluster_ref = & $this->mFilter[ kAPI_PARAM_FULL_TEXT_OFFSET ];
+				$criteria_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
+				
+				//
+				// Allocate criteria.
+				//
+				$criteria_ref[ kAPI_PARAM_FULL_TEXT_OFFSET ] = Array();
+				$criteria_ref = & $criteria_ref[ kAPI_PARAM_FULL_TEXT_OFFSET ];
+							 
+				//
+				// Set input and data types.
+				//
+				$criteria_ref[ kAPI_PARAM_INPUT_TYPE ] = $criteria[ kAPI_PARAM_INPUT_TYPE ];
+		
+				//
+				// Set index flag.
+				//
+				$criteria_ref[ kAPI_PARAM_INDEX ] = TRUE;
+		
+				//
+				// Set pattern.
+				//
+				$criteria_ref[ kAPI_PARAM_PATTERN ] = $criteria[ kAPI_PARAM_PATTERN ];
+		
+				//
+				// Set offsets.
+				//
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( '$text' );
+				
+				continue;													// =>
+			
+			} // Full text search.
+			
+			//
+			// Handle tag reference.
+			//
 			else
-				throw new \Exception(
-					"Unknown property [$tag]." );								// !@! ==>
+			{
+				//
+				// Get tag object.
+				//
+				if( array_key_exists( $tag, $tags ) )
+					$tag_object = & $tags[ $tag ];
+				else
+					throw new \Exception(
+						"Unknown property [$tag]." );							// !@! ==>
 			
-			//
-			// Get tag sequence number.
-			//
-			$tag_sequence = $tag_object[ kTAG_ID_SEQUENCE ];
+				//
+				// Get tag sequence number.
+				//
+				$tag_sequence = $tag_object[ kTAG_ID_SEQUENCE ];
 			
-			//
-			// Get cluster key.
-			//
-			$cluster_key = Tag::GetClusterKey( $tag_object[ kTAG_TERMS ] );
+				//
+				// Get cluster key.
+				//
+				$cluster_key = Tag::GetClusterKey( $tag_object[ kTAG_TERMS ] );
+			
+			} // Tag reference.
 			
 			//
 			// Create cluster entry.
@@ -2232,6 +2393,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
+	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 * </ul>
 	 *
 	 * Derived classes can parse their custom operations or call the parent method.
@@ -2294,6 +2456,13 @@ class Service extends ContainerObject
 				$this->executeGetUnit();
 				break;
 				
+			case kAPI_OP_ADD_USER:
+				$this->executeAddUser();
+				break;
+				
+			case kAPI_OP_GET_USER:
+				$this->executeGetUser();
+				break;
 		}
 		
 	} // executeRequest.
@@ -2406,6 +2575,8 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
+		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;
+		$ref[ "kAPI_OP_GET_USER" ] = kAPI_OP_GET_USER;
 		
 		
 		//
@@ -2414,18 +2585,21 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_PATTERN" ] = kAPI_PARAM_PATTERN;
 		$ref[ "kAPI_PARAM_REF_COUNT" ] = kAPI_PARAM_REF_COUNT;
 		$ref[ "kAPI_PARAM_TAG" ] = kAPI_PARAM_TAG;
+		$ref[ "kAPI_PARAM_TERM" ] = kAPI_PARAM_TERM;
 		$ref[ "kAPI_PARAM_NODE" ] = kAPI_PARAM_NODE;
 		$ref[ "kAPI_PARAM_OPERATOR" ] = kAPI_PARAM_OPERATOR;
 		$ref[ "kAPI_PARAM_RANGE_MIN" ] = kAPI_PARAM_RANGE_MIN;
 		$ref[ "kAPI_PARAM_RANGE_MAX" ] = kAPI_PARAM_RANGE_MAX;
 		$ref[ "kAPI_PARAM_INPUT_TYPE" ] = kAPI_PARAM_INPUT_TYPE;
 		$ref[ "kAPI_PARAM_CRITERIA" ] = kAPI_PARAM_CRITERIA;
+		$ref[ "kAPI_PARAM_OBJECT" ] = kAPI_PARAM_OBJECT;
 		$ref[ "kAPI_PARAM_ID" ] = kAPI_PARAM_ID;
 		$ref[ "kAPI_PARAM_DOMAIN" ] = kAPI_PARAM_DOMAIN;
 		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
+		$ref[ "kAPI_PARAM_FULL_TEXT_OFFSET" ] = kAPI_PARAM_FULL_TEXT_OFFSET;
 		
 		//
 		// Load generic request flag parameters.
@@ -2506,6 +2680,7 @@ class Service extends ContainerObject
 		//
 		// Load form input enumerated set.
 		//
+		$ref[ "kAPI_PARAM_INPUT_TEXT" ] = kAPI_PARAM_INPUT_TEXT;
 		$ref[ "kAPI_PARAM_INPUT_STRING" ] = kAPI_PARAM_INPUT_STRING;
 		$ref[ "kAPI_PARAM_INPUT_RANGE" ] = kAPI_PARAM_INPUT_RANGE;
 		$ref[ "kAPI_PARAM_INPUT_ENUM" ] = kAPI_PARAM_INPUT_ENUM;
@@ -2966,7 +3141,8 @@ class Service extends ContainerObject
 		//
 		if( $this->offsetExists( kAPI_PARAM_GROUP ) )
 			$this->executeGroupUnits( $this->offsetGet( kAPI_PARAM_GROUP ),
-									  $this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+									  $this->mResponse[ kAPI_RESPONSE_RESULTS ],
+									  UnitObject::kSEQ_NAME );
 	
 		//
 		// Return individual results.
@@ -2980,22 +3156,26 @@ class Service extends ContainerObject
 			{
 				case kAPI_RESULT_ENUM_DATA_COLUMN:
 					$this->executeTableUnits(
-						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+						UnitObject::kSEQ_NAME );
 					break;
 			
 				case kAPI_RESULT_ENUM_DATA_RECORD:
 					$this->executeClusterUnits(
-						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+						UnitObject::kSEQ_NAME );
 					break;
 			
 				case kAPI_RESULT_ENUM_DATA_FORMAT:
 					$this->executeFormattedUnits(
-						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+						UnitObject::kSEQ_NAME );
 					break;
 			
 				case kAPI_RESULT_ENUM_DATA_MARKER:
 					$this->executeMarkerUnits(
-						$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+						$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+						UnitObject::kSEQ_NAME );
 					break;
 			
 			} // Parsed result type.
@@ -3037,27 +3217,117 @@ class Service extends ContainerObject
 		{
 			case kAPI_RESULT_ENUM_DATA_COLUMN:
 				$this->executeTableUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					UnitObject::kSEQ_NAME );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_RECORD:
 				$this->executeClusterUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					UnitObject::kSEQ_NAME );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_FORMAT:
 				$this->executeFormattedUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					UnitObject::kSEQ_NAME );
 				break;
 		
 			case kAPI_RESULT_ENUM_DATA_MARKER:
 				$this->mFilter[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
 					= array( '$exists' => TRUE );
 				$this->executeMarkerUnits(
-					$this->mResponse[ kAPI_RESPONSE_RESULTS ] );
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					UnitObject::kSEQ_NAME );
 				break;
 		
 		} // Parsed result type.
+		
+	} // executeGetUnit.
+
+	 
+	/*===================================================================================
+	 *	executeGetUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Get user.
+	 *
+	 * The method will match the user and return a clustered, formatted or marker result.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetUser()
+	{
+		//
+		// Set filter.
+		//
+		$param = $this->offsetGet( kAPI_PARAM_ID );
+		$this->mFilter = ( is_array( $param ) )
+					   ? array( kTAG_CONN_USER => array_shift( $param ),
+					   			kTAG_CONN_PASS => array_shift( $param ) )
+					   : array( kTAG_NID => $this->offsetGet( kAPI_PARAM_ID ) );
+		
+		//
+		// Initialise result.
+		//
+		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= Array();
+
+		//
+		// Parse by result type.
+		//
+		switch( $this->offsetGet( kAPI_PARAM_DATA ) )
+		{
+			case kAPI_RESULT_ENUM_DATA_COLUMN:
+				$this->executeTableUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					User::kSEQ_NAME );
+				break;
+		
+			case kAPI_RESULT_ENUM_DATA_RECORD:
+				$this->executeClusterUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					User::kSEQ_NAME );
+				break;
+		
+			case kAPI_RESULT_ENUM_DATA_FORMAT:
+				$this->executeFormattedUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					User::kSEQ_NAME );
+				break;
+		
+			case kAPI_RESULT_ENUM_DATA_MARKER:
+				$this->mFilter[ $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) ]
+					= array( '$exists' => TRUE );
+				$this->executeMarkerUnits(
+					$this->mResponse[ kAPI_RESPONSE_RESULTS ],
+					User::kSEQ_NAME );
+				break;
+		
+		} // Parsed result type.
+		
+	} // executeGetUser.
+
+	 
+	/*===================================================================================
+	 *	executeAddUser																	*
+	 *==================================================================================*/
+
+	/**
+	 * Add user.
+	 *
+	 * The method will add the provided user to the database.
+	 *
+	 * @access protected
+	 */
+	protected function executeAddUser()
+	{
+		//
+		// Add or replace.
+		//
+		$this->offsetGet( kAPI_PARAM_OBJECT )->commit();
 		
 	} // executeGetUnit.
 
@@ -3689,10 +3959,11 @@ class Service extends ContainerObject
 	 *
 	 * @param array					$theGroup			Groupings list.
 	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
 	 *
 	 * @access protected
 	 */
-	protected function executeGroupUnits( $theGroup, &$theContainer )
+	protected function executeGroupUnits( $theGroup, &$theContainer, $theCollection )
 	{
 		//
 		// Init local storage.
@@ -3767,11 +4038,10 @@ class Service extends ContainerObject
 		// Aggregate.
 		//
 		$rs_units
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->aggregate(
-							$pipeline );
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->aggregate(
+						$pipeline );
 		//
 		// Iterate results.
 		//
@@ -3919,20 +4189,20 @@ $rs_units = & $rs_units[ 'result' ];
 	 * This method expects the filter data member set with the requested query.
 	 *
 	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
 	 *
 	 * @access protected
 	 */
-	protected function executeTableUnits( &$theContainer )
+	protected function executeTableUnits( &$theContainer, $theCollection )
 	{
 		//
 		// Execute request.
 		//
 		$iterator
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll( $this->mFilter,
-									kQUERY_OBJECT );
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->matchAll(
+						$this->mFilter, kQUERY_OBJECT );
 	
 		//
 		// Skip records.
@@ -3992,20 +4262,20 @@ $rs_units = & $rs_units[ 'result' ];
 	 * This method expects the filter data member set with the requested query.
 	 *
 	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
 	 *
 	 * @access protected
 	 */
-	protected function executeFormattedUnits( &$theContainer )
+	protected function executeFormattedUnits( &$theContainer, $theCollection )
 	{
 		//
 		// Execute request.
 		//
 		$iterator
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll( $this->mFilter,
-									kQUERY_OBJECT );
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->matchAll(
+						$this->mFilter, kQUERY_OBJECT );
 	
 		//
 		// Skip records.
@@ -4058,10 +4328,11 @@ $rs_units = & $rs_units[ 'result' ];
 	 * This method expects the filter data member set with the requested query.
 	 *
 	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
 	 *
 	 * @access protected
 	 */
-	protected function executeMarkerUnits( &$theContainer )
+	protected function executeMarkerUnits( &$theContainer, $theCollection )
 	{
 		//
 		// Init local storage.
@@ -4073,13 +4344,12 @@ $rs_units = & $rs_units[ 'result' ];
 		// Execute request.
 		//
 		$iterator
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll(
-							$this->mFilter,
-							kQUERY_ARRAY,
-							array( $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) => TRUE ) );
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->matchAll(
+						$this->mFilter,
+						kQUERY_ARRAY,
+						array( $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET ) => TRUE ) );
 		
 		//
 		// Skip records.
@@ -4132,20 +4402,20 @@ $rs_units = & $rs_units[ 'result' ];
 	 * This method expects the filter data member set with the requested query.
 	 *
 	 * @param array					$theContainer		Reference to the results container.
+	 * @param string				$theCollection		collection name.
 	 *
 	 * @access protected
 	 */
-	protected function executeClusterUnits( &$theContainer )
+	protected function executeClusterUnits( &$theContainer, $theCollection )
 	{
 		//
 		// Execute request.
 		//
 		$iterator
-			= UnitObject::ResolveCollection(
-				UnitObject::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll( $this->mFilter,
-									kQUERY_OBJECT );
+			= PersistentObject::ResolveCollectionByName(
+				$this->mWrapper, $theCollection )
+					->matchAll(
+						$this->mFilter, kQUERY_OBJECT );
 	
 		//
 		// Skip records.
@@ -4183,12 +4453,16 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Set dictionary.
 		//
+		$dictionary = $formatter->dictionary();
 		$elements = array( kAPI_DICTIONARY_COLLECTION, kAPI_DICTIONARY_REF_COUNT,
 						   kAPI_DICTIONARY_LIST_COLS, kAPI_DICTIONARY_IDS,
 						   kAPI_DICTIONARY_TAGS );
 		foreach( $elements as $element )
-			$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
-				= $formatter->dictionary()[ $element ];
+		{
+			if( array_key_exists( $element, $dictionary ) )
+				$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
+					= $dictionary[ $element ];
+		}
 		
 		//
 		// Set data.
@@ -4655,6 +4929,22 @@ $rs_units = & $rs_units[ 'result' ];
 							//
 							switch( $criteria[ kAPI_PARAM_INPUT_TYPE ] )
 							{
+								//
+								// Full-text search.
+								//
+								case kAPI_PARAM_INPUT_TEXT:
+									$clause
+										= array( '$search'
+													=> $criteria[ kAPI_PARAM_PATTERN ] );
+									
+									if( ($parent_cri !== NULL)
+									 || ($offsets_count > 1) )
+										$criteria_ref[] = array( $offset => $clause );
+									else
+										$criteria_ref[ $offset ] = $clause;
+										
+									break;
+					
 								//
 								// Strings.
 								//

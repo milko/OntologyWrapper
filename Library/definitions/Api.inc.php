@@ -753,9 +753,15 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *				identifies the kind of form input control, the value is taken from an
  *				enumerated set and it determines which other items are to be expected:
  *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_INPUT_TEXT}</tt>: Full-text search:
+ *				 <ul>
+ *					<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern.
+ *				 </ul>
+ *					Note that in this case the index cannot hold the tag reference, you must
+ *					set this element's index to {@link kAPI_PARAM_FULL_TEXT_OFFSET}.
  *				<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: String search:
  *				 <ul>
- *					<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list.
+ *					<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern.
  *					<li><tt>{@link kAPI_PARAM_OPERATOR}</tt>: <em>Operator</em>. This
  *						required parameter indicates what kind of match should be applied to
  *						the matched strings, it is an array that must contain one of the
@@ -936,6 +942,58 @@ define( "kAPI_OP_MATCH_UNITS",					'matchUnits' );
  */
 define( "kAPI_OP_GET_UNIT",						'getUnit' );
 
+/**
+ * Add user.
+ *
+ * This tag defines the add user operation.
+ *
+ * The service will add or replace the provided user.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_OBJECT}</tt>: <em>Object</em>. The user object to be added or
+ *		replaced.
+ * </ul>
+ */
+define( "kAPI_OP_ADD_USER",						'addUser' );
+
+/**
+ * Get user.
+ *
+ * This tag defines the get user operation.
+ *
+ * The service will return a user matching the provided identifier as a clustered result.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: <em>Identifier</em>. This required parameter
+ *		holds the user native identifier or the user code/password combination as an array.
+ *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Data type</em>. This required parameter
+ *		indicates how the unit data should be formatted:
+ *	 <ul>
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_COLUMN}</tt>: The service will return a
+ *			table set.
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_RECORD}</tt>: The results are clustered by the
+ *			{@link IteratorSerialiser} class.
+ *		 <li><tt>{@link kAPI_RESULT_ENUM_DATA_FORMAT}</tt>: The service will return a
+ *			formatted record set.
+ *		<li><tt>{@link kAPI_RESULT_ENUM_DATA_MARKER}</tt>: The results are destined to be
+ *			fed to a map, it will be an array holding the following elements:
+ *		 <ul>
+ *			<li><tt>kAPI_PARAM_ID</tt>: The unit native identifier.
+ *			<li><tt>kAPI_PARAM_DOMAIN</tt>: The unit domain.
+ *			<li><tt>kAPI_PARAM_SHAPE</tt>: The unit shape geometry.
+ *		 </ul>
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_OP_GET_USER",						'getUser' );
+
 /*=======================================================================================
  *	REQUEST PARAMETERS																	*
  *======================================================================================*/
@@ -980,6 +1038,15 @@ define( "kAPI_PARAM_REF_COUNT",					'has-values' );
  * referencing a tag native identifier.
  */
 define( "kAPI_PARAM_TAG",						'tag' );
+
+/**
+ * Term (string).
+ *
+ * This tag defines the requested term.
+ *
+ * This parameter represents a string referencing a term native identifier.
+ */
+define( "kAPI_PARAM_TERM",						'term' );
 
 /**
  * Node (int).
@@ -1052,6 +1119,7 @@ define( "kAPI_PARAM_RANGE_MAX",					'max' );
  * take one of the following values:
  *
  * <ul>
+ *	<li><tt>{@link kAPI_PARAM_INPUT_TEXT}</tt>: A full-text search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: A string search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: A range search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: An enumerated set selection control.
@@ -1080,6 +1148,12 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  *			identifies the kind of form input control, the value is taken from an enumerated
  *			set and it determines which other items are to be expected:
  *		 <ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_TEXT}</tt>: Full-text search:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern.
+ *			 </ul>
+ *				Note that in this case the index cannot hold the tag reference, you must
+ *				set this element's index to {@link kAPI_PARAM_FULL_TEXT_OFFSET}.
  *			<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: String search:
  *			 <ul>
  *				<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list.
@@ -1138,6 +1212,15 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  * </ul>
  */
 define( "kAPI_PARAM_CRITERIA",					'criteria' );
+
+/**
+ * Object (array).
+ *
+ * This tag defines the object.
+ *
+ * The parameter is an array containing the object to be set or replaced.
+ */
+define( "kAPI_PARAM_OBJECT",					'object' );
 
 /**
  * Object identifier (mixed).
@@ -1245,6 +1328,13 @@ define( "kAPI_PARAM_SHAPE",						'shape' );
  * identifier.
  */
 define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
+
+/**
+ * Full-text search tag (string).
+ *
+ * This tag defines the full-text search offset, which does not correspond to any offset.
+ */
+define( "kAPI_PARAM_FULL_TEXT_OFFSET",			'$search' );
 
 /*=======================================================================================
  *	GENERIC FLAG REQUEST PARAMETERS														*
@@ -1629,6 +1719,23 @@ define( "kAPI_PARAM_COLLECTION_ENTITY",			'_entities' );
 /*=======================================================================================
  *	FORM INPUT TYPE ENUMERATED SET														*
  *======================================================================================*/
+
+/**
+ * Full-text input (string).
+ *
+ * This parameter indicates a form full-text input.
+ *
+ * A form element of this type should feature the following elements:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_PATTERN}</tt>: The search pattern strings list (required), a
+ *		string containing the search pattern.
+ * </ul>
+ *
+ * <b>Note that when using this type of input, the tag reference must be
+ * {@link kAPI_PARAM_FULL_TEXT_OFFSET}</b>.
+ */
+define( "kAPI_PARAM_INPUT_TEXT",				'input-text' );
 
 /**
  * String input (string).

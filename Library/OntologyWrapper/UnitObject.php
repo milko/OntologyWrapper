@@ -106,8 +106,9 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * The constructor will automatically set the object domain to the default class domain.
 	 *
-	 * @param ConnectionObject		$theContainer		Persistent store.
-	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param mixed					$theContainer		Data wrapper or properties.
+	 * @param mixed					$theIdentifier		Object identifier or properties.
+	 * @param boolean				$doAssert			Raise exception if not resolved.
 	 *
 	 * @access public
 	 *
@@ -115,12 +116,14 @@ abstract class UnitObject extends PersistentObject
 	 * @uses TermCount()
 	 * @uses isInited()
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $doAssert = TRUE )
 	{
 		//
 		// Load object with contents.
 		//
-		parent::__construct( $theContainer, $theIdentifier );
+		parent::__construct( $theContainer, $theIdentifier, $doAssert );
 		
 		//
 		// Set default domain.

@@ -120,7 +120,7 @@
 		</TAG>
 	</META>
 	
-	<!-- Unit identification tags -->
+	<!-- Unit classification tags -->
 	
 	<META>
 		<!-- 7 -->
@@ -1243,7 +1243,7 @@
 	<!-- Default attributes -->
 	
 	<META>
-		<!-- 67 -->
+		<!-- 57 -->
 		<!-- kTAG_GEO_SHAPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1263,7 +1263,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 68 -->
+		<!-- 58 -->
 		<!-- kTAG_RECORD_CREATED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1282,7 +1282,7 @@
 			</item>
 		</TAG>
 		
-		<!-- 69 -->
+		<!-- 59 -->
 		<!-- kTAG_RECORD_MODIFIED -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1305,7 +1305,7 @@
 	<!-- Connection attributes -->
 	
 	<META>
-		<!-- 70 -->
+		<!-- 60 -->
 		<!-- kTAG_CONN_PROTOCOL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1329,7 +1329,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 71 -->
+		<!-- 61 -->
 		<!-- kTAG_CONN_HOST -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1353,7 +1353,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 72 -->
+		<!-- 62 -->
 		<!-- kTAG_CONN_PORT -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1377,7 +1377,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 73 -->
+		<!-- 63 -->
 		<!-- kTAG_CONN_USER -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1403,7 +1403,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 74 -->
+		<!-- 64 -->
 		<!-- kTAG_CONN_PASS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1429,7 +1429,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 75 -->
+		<!-- 65 -->
 		<!-- kTAG_CONN_BASE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1453,7 +1453,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 76 -->
+		<!-- 66 -->
 		<!-- kTAG_CONN_COLL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1477,7 +1477,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 77 -->
+		<!-- 67 -->
 		<!-- kTAG_CONN_OPTS -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1505,7 +1505,7 @@
 	<!-- Entity attributes -->
 	
 	<META>
-		<!-- 78 -->
+		<!-- 68 -->
 		<!-- kTAG_ENTITY_FNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1523,7 +1523,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 79 -->
+		<!-- 69 -->
 		<!-- kTAG_ENTITY_LNAME -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1541,7 +1541,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 80 -->
+		<!-- 70 -->
 		<!-- kTAG_ENTITY_TYPE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1559,7 +1559,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 81 -->
+		<!-- 71 -->
 		<!-- kTAG_ENTITY_KIND -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1577,7 +1577,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 82 -->
+		<!-- 72 -->
 		<!-- kTAG_ENTITY_ACRONYM -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1602,7 +1602,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 83 -->
+		<!-- 73 -->
 		<!-- kTAG_ENTITY_MAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1626,7 +1626,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 84 -->
+		<!-- 74 -->
 		<!-- kTAG_ENTITY_EMAIL -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1650,7 +1650,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 5 -->
+		<!-- 75 -->
 		<!-- kTAG_ENTITY_LINK -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1674,7 +1674,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 6 -->
+		<!-- 76 -->
 		<!-- kTAG_ENTITY_PHONE -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1698,7 +1698,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 87 -->
+		<!-- 77 -->
 		<!-- kTAG_ENTITY_FAX -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1722,7 +1722,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 88 -->
+		<!-- 78 -->
 		<!-- kTAG_ENTITY_AFFILIATION -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1740,7 +1740,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 89 -->
+		<!-- 79 -->
 		<!-- kTAG_ENTITY_NATIONALITY -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1764,7 +1764,7 @@
 			</item>
 		</TAG>
 	
-		<!-- 90 -->
+		<!-- 80 -->
 		<!-- kTAG_ENTITY_VALID -->
 		<TAG>
 			<item const="kTAG_TERMS">
@@ -1778,6 +1778,29 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[This attribute holds the reference to the valid, current or preferred entity. This is used to keep track of historical entity records when these entities become obsolete or defunct.]]></item>
+				</item>
+			</item>
+		</TAG>
+	</META>
+	
+	<!-- Management attributes -->
+	
+	<META>
+		<!-- 81 -->
+		<!-- kTAG_ROLES -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:roles</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds a list of strings representing the roles a user or service may cover in the current system.]]></item>
 				</item>
 			</item>
 		</TAG>
