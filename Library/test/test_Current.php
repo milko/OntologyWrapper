@@ -158,6 +158,11 @@ try
 			kAPI_PARAM_FULL_TEXT_OFFSET => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
+				kAPI_PARAM_PATTERN => 'feniglia'
+			)/*,
+			kAPI_PARAM_FULL_TEXT_OFFSET => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
 				kAPI_PARAM_PATTERN => 'burgenland'
 			),
 			':taxon:genus' => array
@@ -179,8 +184,9 @@ try
 					kOPERATOR_CONTAINS,
 					kOPERATOR_NOCASE
 				)
-			)
+			)*/
 		),
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
 		kAPI_PARAM_GROUP => Array()
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;

@@ -1156,6 +1156,35 @@ class Service extends ContainerObject
 			}
 	
 		} // Group not provided.
+		
+		//
+		// Validate shape offset.
+		//
+		if( $this->offsetExists( kAPI_PARAM_SHAPE_OFFSET ) )
+		{
+			//
+			// Get shape offset.
+			//
+			$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
+			
+			//
+			// Handle numeric offsets.
+			//
+			if( is_int( $shape )
+			 || ctype_digit( $shape ) )
+				$shape = (int) $shape;
+			
+			//
+			// Handle textual offsets.
+			//
+			else
+				$this->offsetSet(
+					kAPI_PARAM_SHAPE_OFFSET,
+					$this->mWrapper->getSerial(
+						$shape,
+						TRUE ) );
+		
+		} // Provided shape offset.
 	
 		//
 		// Validate shape.
@@ -1882,7 +1911,11 @@ class Service extends ContainerObject
 		//
 		// Filter tags only.
 		//
-		$tags = array_diff( array_keys( $value ), array( kAPI_PARAM_FULL_TEXT_OFFSET ) );
+		$tags
+			= array_values(
+				array_diff(
+					array_keys( $value ),
+					array( kAPI_PARAM_FULL_TEXT_OFFSET ) ) );
 		
 		//
 		// Search tags.
