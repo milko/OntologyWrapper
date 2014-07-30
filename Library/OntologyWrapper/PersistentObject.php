@@ -2964,6 +2964,11 @@ abstract class PersistentObject extends OntologyObject
 		//
 		foreach( static::DynamicOffsets() as $offset )
 			$this->offsetUnset( $offset );
+		
+		//
+		// Remove full text enumerations.
+		//
+		OntologyObject::offsetUnset( kTAG_ENUM_FULL_TEXT );
 	
 		//
 		// Parse object.
@@ -3822,7 +3827,23 @@ abstract class PersistentObject extends OntologyObject
 		// Update object.
 		//
 		if( $doValidate )
+		{
+			//
+			// Save full-text enumerations.
+			//
+			$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+			
+			//
+			// Replace data.
+			//
 			$this->exchangeArray( $object );
+			
+			//
+			// Reset full-text enumerations.
+			//
+			$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
+		
+		} // Validated object.
 	
 	} // parseObject.
 
@@ -4492,18 +4513,39 @@ MILKO - Need to check.
 					throw new \Exception(
 						"Unresolved reference in [$thePath]: "
 					   ."($val)." );											// !@! ==>
+				
+				//
+				// Fill full-text enumerated values.
+				//
+				if( ($theType == kTYPE_ENUM)
+				 || ($theType == kTYPE_SET) )
+					$this->addEnumToFullText( $val );
 			
 			} // Iterating references list.
 		
 		} // List of references.
 		
 		//
-		// Assert reference.
+		// Handle reference.
 		//
-		elseif( ! $collection->matchOne( array( kTAG_NID => $theProperty ), kQUERY_COUNT ) )
-			throw new \Exception(
-				"Unresolved reference in [$thePath]: "
-			   ."($theProperty)." );											// !@! ==>
+		else
+		{
+			//
+			// Assert.
+			//
+			if( ! $collection->matchOne( array( kTAG_NID => $theProperty ), kQUERY_COUNT ) )
+				throw new \Exception(
+					"Unresolved reference in [$thePath]: "
+				   ."($theProperty)." );										// !@! ==>
+			
+			//
+			// Fill full-text enumerated values.
+			//
+			if( ($theType == kTYPE_ENUM)
+			 || ($theType == kTYPE_SET) )
+				$this->addEnumToFullText( $theProperty );
+		
+		} // Scalar reference.
 		
 	} // validateReference.
 
@@ -4890,7 +4932,11 @@ MILKO - Need to check.
 	 */
 	protected function lockedOffsets()
 	{
-		return array_merge( $this->InternalOffsets(), (array) kTAG_MASTER );		// ==>
+		return array_merge(
+			array_diff(
+				$this->InternalOffsets(),
+				(array) kTAG_ENUM_FULL_TEXT ),
+			(array) kTAG_MASTER );													// ==>
 	
 	} // lockedOffsets.
 
@@ -6209,6 +6255,63 @@ MILKO - Need to check.
 		return $result;																// ==>
 	
 	} // compareObjectReferences.
+
+	 
+	/*===================================================================================
+	 *	addEnumToFullText																*
+	 *==================================================================================*/
+
+	/**
+	 * Add enumerated value to full text
+	 *
+	 * This method will add the label of the provided term to the
+	 * {@link kTAG_ENUM_FULL_TEXT} of the current object.
+	 *
+	 * The method assumes the current object has its wrapper set and the default language
+	 * definition is in the includes.
+	 *
+	 * If the term is not resolved, the method will do nothing.
+	 *
+	 * @param string				$theTerm			Term native identifier.
+	 *
+	 * @access protected
+	 *
+	 * @see kTAG_ENUM_FULL_TEXT
+	 */
+	protected function addEnumToFullText( $theTerm )
+	{
+		//
+		// Instantiate term.
+		//
+		$term = new Term( $this->mDictionary, $theTerm );
+		if( $term->isCommitted() )
+		{
+			//
+			// Select default label.
+			//
+			$label = self::SelectLanguageString( $term[ kTAG_LABEL ], kSTANDARDS_LANGUAGE );
+			
+			//
+			// Load full-text enumerations.
+			//
+			$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+			if( $enums === NULL )
+				$enums = Array();
+			
+			//
+			// Set enumeration.
+			//
+			if( ! in_array( $label, $enums ) )
+				$enums[] = $label;
+			
+			//
+			// Update property.
+			//
+			$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
+		
+		} // Found term.
+	
+	} // addEnumToFullText.
 
 	 
 

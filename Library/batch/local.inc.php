@@ -47,6 +47,17 @@ define( "kGRAPH_SERVICE",	'/Users/milko/Library/LaunchAgents/org.neo4j.server.pl
 define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
 
 /*=======================================================================================
+ *	DEFAULT VALUES																		*
+ *======================================================================================*/
+
+/**
+ * Default language.
+ *
+ * This tag indicates the default language.
+ */
+define( "kSTANDARDS_LANGUAGE",			'en' );
+
+/*=======================================================================================
  *	STANDARDS SUB-FOLDER NAMES															*
  *======================================================================================*/
 
