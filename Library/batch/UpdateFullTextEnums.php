@@ -16,7 +16,7 @@
 
 /*=======================================================================================
  *																						*
- *									UpdateObjects.php									*
+ *								UpdateFullTextEnums.php									*
  *																						*
  *======================================================================================*/
 
@@ -64,11 +64,16 @@ if( $argc < 2 )
 //
 $mongo = $argv[ 1 ];
 $graph = ( $argc > 2 ) ? $argv[ 2 ] : NULL;
+
+//
+// Init local storage.
+//
+$limit = 10000;
  
 //
 // Inform.
 //
-echo( "\n==> Updating forests.\n" );
+echo( "\n==> Updating full-text enumerated values for full-text search.\n" );
 
 //
 // Try.
@@ -152,15 +157,34 @@ try
 	echo( "  • Scanning...\n" );
 	$criteria = array( kTAG_ENUM_FULL_TEXT => array( '$exists' => FALSE ) );
 	$rs = $collection->matchAll( $criteria, kQUERY_OBJECT );
-	echo( "    ".$rs->count()." records.\n" );
-	foreach( $rs as $object )
+	
+	//
+	// Iterate.
+	//
+	while( $rs->count() )
 	{
 		//
-		// Update object.
+		// Inform.
 		//
-		$object->commit( $wrapper );
+		echo( "    ".$rs->count()." records.\n" );
+		
+		//
+		// Set limit.
+		//
+		$rs->limit( $limit );
+		
+		//
+		// Iterate recordset.
+		//
+		foreach( $rs as $object )
+			$object->commit( $wrapper );
+		
+		//
+		// Read.
+		//
+		$rs = $collection->matchAll( $criteria, kQUERY_OBJECT );
 	
-	} // Iterating 
+	} // Iterated.
 
 	echo( "\nDone!\n" );
 }
