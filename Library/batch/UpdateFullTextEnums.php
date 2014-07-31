@@ -203,10 +203,6 @@ catch( \Exception $error )
 //
 finally
 {
-	if( $rsu instanceof ADORecordSet )
-		$rsu->Close();
-	if( $db instanceof ADOConnection )
-		$db->Close();
 }
 
 ?>

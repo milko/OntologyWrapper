@@ -2966,9 +2966,9 @@ abstract class PersistentObject extends OntologyObject
 			$this->offsetUnset( $offset );
 		
 		//
-		// Remove full text enumerations.
+		// Initialise full text enumerations.
 		//
-		OntologyObject::offsetUnset( kTAG_ENUM_FULL_TEXT );
+		$this->offsetSet( kTAG_ENUM_FULL_TEXT, Array() );
 	
 		//
 		// Parse object.
@@ -6287,27 +6287,35 @@ MILKO - Need to check.
 		if( $term->isCommitted() )
 		{
 			//
-			// Select default label.
+			// Get term labels.
 			//
-			$label = self::SelectLanguageString( $term[ kTAG_LABEL ], kSTANDARDS_LANGUAGE );
+			$label = $term[ kTAG_LABEL ];
+			if( is_array( $label ) )
+			{
+				//
+				// Select default label.
+				//
+				$label = self::SelectLanguageString( $label, kSTANDARDS_LANGUAGE );
 			
-			//
-			// Load full-text enumerations.
-			//
-			$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
-			if( $enums === NULL )
-				$enums = Array();
+				//
+				// Load full-text enumerations.
+				//
+				$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+				if( $enums === NULL )
+					$enums = Array();
 			
-			//
-			// Set enumeration.
-			//
-			if( ! in_array( $label, $enums ) )
-				$enums[] = $label;
+				//
+				// Set enumeration.
+				//
+				if( ! in_array( $label, $enums ) )
+					$enums[] = $label;
 			
-			//
-			// Update property.
-			//
-			$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
+				//
+				// Update property.
+				//
+				$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
+			
+			} // Has labels.
 		
 		} // Found term.
 	
