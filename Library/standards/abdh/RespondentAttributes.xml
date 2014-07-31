@@ -55,6 +55,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>GENDER_HHH</item>
@@ -240,6 +241,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>MARIT_STAT</item>
@@ -340,6 +342,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>SPOUSE_STAT</item>
@@ -510,6 +513,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>REL_RESP_HHH</item>

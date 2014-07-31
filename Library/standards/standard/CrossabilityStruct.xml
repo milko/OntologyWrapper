@@ -73,6 +73,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:list</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:cross:species">
@@ -111,6 +112,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:list</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:cross:methods">

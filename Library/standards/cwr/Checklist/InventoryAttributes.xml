@@ -26,6 +26,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>NIENUMB</item>
@@ -63,6 +64,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>CRITPRIORI</item>
@@ -2485,6 +2487,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>METHCRITPRIORI</item>

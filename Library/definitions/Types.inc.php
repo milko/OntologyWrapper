@@ -493,6 +493,14 @@ define( "kTYPE_NODE_TERM",						':type:node:term' );
 define( "kTYPE_LIST",							':type:list' );
 
 /**
+ * Full-text.
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>.
+ */
+define( "kTYPE_FULL_TEXT",						':type:full-text' );
+
+/**
  * Categorical.
  *
  * A <i>categorical</i> property is one which can take on one of a limited, and usually

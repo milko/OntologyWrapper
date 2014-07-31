@@ -18,6 +18,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -40,6 +41,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -62,6 +64,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -80,6 +83,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -102,6 +106,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 		</TAG>
 		<NODE>

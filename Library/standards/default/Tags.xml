@@ -618,6 +618,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -636,6 +637,7 @@
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -654,6 +656,7 @@
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -672,6 +675,7 @@
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1514,6 +1518,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1532,6 +1537,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1550,6 +1556,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1568,6 +1575,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
@@ -1587,6 +1595,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>
@@ -1749,6 +1758,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_LABEL">
 				<item>

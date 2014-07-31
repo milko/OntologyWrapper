@@ -18,6 +18,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitNumber</item>
@@ -45,6 +46,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitGeneNumber</item>
@@ -103,6 +105,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitOwnership</item>
@@ -130,6 +133,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitType</item>
@@ -209,6 +213,7 @@
 			<item const="kTAG_DATA_TYPE">:type:text</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitSoilRemarks</item>
@@ -236,6 +241,7 @@
 			<item const="kTAG_DATA_TYPE">:type:text</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitRemarks</item>
@@ -263,6 +269,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>UnitSpecies</item>
@@ -325,6 +332,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationUnitNumber</item>
@@ -402,6 +410,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationStatus</item>
@@ -435,6 +444,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationSitu</item>
@@ -462,6 +472,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationOrigin</item>
@@ -489,6 +500,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationSystem</item>
@@ -516,6 +528,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationManagement</item>
@@ -549,6 +562,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationJustification</item>
@@ -582,6 +596,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationReproducingTrees</item>
@@ -615,6 +630,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationSexRatio</item>
@@ -648,6 +664,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationRegeneration</item>
@@ -675,6 +692,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationRegeneration</item>
@@ -727,6 +745,7 @@
 			<item const="kTAG_DATA_TYPE">:type:text</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>PopulationRemarks</item>

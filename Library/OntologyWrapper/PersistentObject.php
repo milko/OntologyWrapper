@@ -285,25 +285,25 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':name',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_LABEL => array
 		(
 			kTAG_NID	=> ':label',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_DEFINITION => array
 		(
 			kTAG_NID	=> ':definition',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_DESCRIPTION => array
 		(
 			kTAG_NID	=> ':description',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_NOTE => array
 		(
@@ -528,31 +528,31 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':entity:fname',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_LNAME => array
 		(
 			kTAG_NID	=> ':entity:lname',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_TYPE => array
 		(
 			kTAG_NID	=> ':type:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_KIND => array
 		(
 			kTAG_NID	=> ':kind:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_ACRONYM => array
 		(
 			kTAG_NID	=> ':entity:acronym',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_MAIL => array
 		(
@@ -594,7 +594,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':entity:nationality',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
 		),
 		kTAG_ENTITY_VALID => array
 		(

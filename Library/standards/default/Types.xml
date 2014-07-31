@@ -722,6 +722,22 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_FULL_TEXT -->
+		<TERM ns=":type" lid="full-text">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Full-text</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property value is taken into consideration by full-text searches.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_CATEGORICAL -->
 		<TERM ns=":type" lid="categorical">
 			<item const="kTAG_LABEL">
