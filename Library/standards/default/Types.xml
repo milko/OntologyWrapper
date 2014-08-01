@@ -738,6 +738,38 @@
 			</item>
 		</TERM>
 		
+		<!-- kTYPE_SUMMARY -->
+		<TERM ns=":type" lid="summary">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Summary</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property can be used to group results in a summary.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_LOOKUP -->
+		<TERM ns=":type" lid="lookup">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Lookup</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property can be searched upon usin auto-complete.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
 		<!-- kTYPE_CATEGORICAL -->
 		<TERM ns=":type" lid="categorical">
 			<item const="kTAG_LABEL">

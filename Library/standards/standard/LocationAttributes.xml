@@ -27,6 +27,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -65,6 +66,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -137,6 +139,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -183,6 +186,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -222,6 +226,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -495,6 +500,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>

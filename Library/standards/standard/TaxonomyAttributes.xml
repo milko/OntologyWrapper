@@ -73,6 +73,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -145,6 +146,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superregnum">
@@ -200,6 +202,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:regnum">
@@ -252,6 +255,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subregnum">
@@ -304,6 +308,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraregnum">
@@ -358,6 +363,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superphylum">
@@ -414,6 +420,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:phylum">
@@ -471,6 +478,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subphylum">
@@ -523,6 +531,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraphylum">
@@ -575,6 +584,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:microphylum">
@@ -629,6 +639,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superclassis">
@@ -685,6 +696,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:classis">
@@ -742,6 +754,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subclassis">
@@ -794,6 +807,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraclassis">
@@ -846,6 +860,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:parvclassis">
@@ -900,6 +915,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:legio">
@@ -952,6 +968,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:cohors">
@@ -1009,6 +1026,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:magnordo">
@@ -1060,6 +1078,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superordo">
@@ -1115,6 +1134,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:grandordo">
@@ -1170,6 +1190,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:mirordo">
@@ -1226,6 +1247,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:ordo">
@@ -1295,6 +1317,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subordo">
@@ -1351,6 +1374,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraordo">
@@ -1406,6 +1430,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:parvordo">
@@ -1460,6 +1485,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superfamilia">
@@ -1514,6 +1540,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:familia">
@@ -1608,6 +1635,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subfamilia">
@@ -1662,6 +1690,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:supertribus">
@@ -1766,6 +1795,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subtribus">
@@ -1827,6 +1857,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:genus">
@@ -2122,6 +2153,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:species">
@@ -2697,6 +2729,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE term=":taxon:crop">
@@ -3345,6 +3378,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:annex-1">
@@ -3820,6 +3854,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:repsystem">
@@ -3918,6 +3953,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:bredsystem">
@@ -4016,6 +4052,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:sexstructure">
@@ -4134,6 +4171,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:pollination">
@@ -4352,6 +4390,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -4656,6 +4695,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:lifespan">
@@ -4754,6 +4794,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:seed-dispersal">

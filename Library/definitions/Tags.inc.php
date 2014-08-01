@@ -102,14 +102,14 @@ define( "kTAG_URL",						'url' );
 define( "kTAG_GEOMETRY",				'coordinates' );
 
 /**
- * Full text enumerated values (<code>enums</code>)
+ * Full text values (<code>enum</code>)
  *
  * Data type: kTYPE_STRING
  * Data kind: kTYPE_LIST
  *
- * This offset is automatically filled with the resolved lavels of all enumerated values of
- * the object in the default language, the fields is used to add the enumerated values to
- * the full-text search.
+ * This offset is automatically filled with all distinct values coming from all properties
+ * whose tag has a kind of {@link kTYPE_FULL_TEXT}, enumerated values will be resolved to
+ * the default language label. This field will be indexed for full-text search.
  */
 define( "kTAG_ENUM_FULL_TEXT",			'enum' );
 

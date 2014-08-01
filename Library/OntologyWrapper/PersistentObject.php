@@ -153,7 +153,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':unit:domain',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_SUMMARY, kTYPE_LOOKUP )
 		),
 		kTAG_AUTHORITY => array
 		(
@@ -255,7 +255,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':category',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
 		),
 		kTAG_DATA_TYPE => array
 		(
@@ -540,13 +540,13 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':type:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_KIND => array
 		(
 			kTAG_NID	=> ':kind:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_ACRONYM => array
 		(
@@ -594,7 +594,7 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':entity:nationality',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_VALID => array
 		(
@@ -1530,6 +1530,11 @@ abstract class PersistentObject extends OntologyObject
 		// Get and open collection.
 		//
 		$collection = $theDatabase->collection( static::kSEQ_NAME );
+		
+		//
+		// Set full-text search.
+		//
+		$collection->createIndex( array( kTAG_ENUM_FULL_TEXT => 'text' ) );
 		
 		//
 		// Set master.
@@ -3988,7 +3993,8 @@ abstract class PersistentObject extends OntologyObject
 				//
 				else
 					static::OffsetTypes(
-						$this->mDictionary, $tag,
+						$this->mDictionary,
+						$tag,
 						$type, $kind,
 						$min, $max, $pattern,
 						TRUE );
@@ -4677,7 +4683,7 @@ MILKO - Need to check.
 	 * @access protected
 	 */
 	public function loadTagInformation( &$theTags,
-										&$theKind, $theType,
+										$theKind, $theType,
 										$theMin, $theMax, $thePattern,
 										$thePath, $theTag )
 	{

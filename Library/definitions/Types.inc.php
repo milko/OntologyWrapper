@@ -501,6 +501,21 @@ define( "kTYPE_LIST",							':type:list' );
 define( "kTYPE_FULL_TEXT",						':type:full-text' );
 
 /**
+ * Summary.
+ *
+ * A <em>summary</em> property is one which can be used to group results in a summary.
+ */
+define( "kTYPE_SUMMARY",						':type:summary' );
+
+/**
+ * Lookup.
+ *
+ * A <em>lookup</em> property is a textual field that can be searched with auto-complete,
+ * this implies that the property must be indexed.
+ */
+define( "kTYPE_LOOKUP",							':type:lookup' );
+
+/**
  * Categorical.
  *
  * A <i>categorical</i> property is one which can take on one of a limited, and usually

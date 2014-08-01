@@ -19,6 +19,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -42,6 +43,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -84,6 +86,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE>
@@ -107,6 +110,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE>

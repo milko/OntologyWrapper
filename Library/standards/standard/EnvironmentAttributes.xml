@@ -275,6 +275,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":environment:gens:clim">
@@ -453,6 +454,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":environment:gens:zone">
@@ -851,6 +853,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":environment:globcov">
@@ -1463,6 +1466,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":environment:hwsd">

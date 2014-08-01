@@ -14,6 +14,11 @@
 				<item>wbi:group</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
 		</TAG>
 		<NODE tag="wbi:group">
 			<item const="kTAG_NODE_TYPE">
@@ -55,6 +60,9 @@
 				<item>wbi:version</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
 		</TAG>
 		<NODE tag="wbi:version">
 			<item const="kTAG_NODE_TYPE">

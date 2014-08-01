@@ -98,8 +98,8 @@
 		</NODE>
 	</META>
 	
-	<!-- abdh:STATE -->
 	<!-- :location:admin-1 -->
+	<!-- abdh:STATE -->
 	<META>
 		<TERM ns="abdh" lid="STATE">
 			<item const="kTAG_LABEL">
@@ -117,6 +117,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>STATE</item>
@@ -129,8 +130,8 @@
 		</NODE>
 	</META>
 	
-	<!-- abdh:DISTRICT -->
 	<!-- :location:admin-2 -->
+	<!-- abdh:DISTRICT -->
 	<META>
 		<TERM ns="abdh" lid="DISTRICT">
 			<item const="kTAG_LABEL">
@@ -148,6 +149,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DISTRICT</item>
@@ -160,8 +162,8 @@
 		</NODE>
 	</META>
 	
-	<!-- abdh:DISTRICT -->
 	<!-- :location:admin-3 -->
+	<!-- abdh:DISTRICT -->
 	<META>
 		<TERM ns="abdh" lid="BLOCKS">
 			<item const="kTAG_LABEL">
@@ -191,8 +193,8 @@
 		</NODE>
 	</META>
 	
-	<!-- abdh:VILLAGE -->
 	<!-- :location:locality -->
+	<!-- abdh:VILLAGE -->
 	<META>
 		<TERM ns="abdh" lid="VILLAGE">
 			<item const="kTAG_LABEL">
@@ -269,6 +271,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>LANDSCAPE</item>
