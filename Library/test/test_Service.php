@@ -1888,7 +1888,7 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_RECORD,
-		kAPI_PARAM_ID => aray( 'test', 'testpass' )
+		kAPI_PARAM_ID => array( 'test', 'testpass' )
 	);
 	$request = "$base_url?op=".kAPI_OP_GET_USER;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

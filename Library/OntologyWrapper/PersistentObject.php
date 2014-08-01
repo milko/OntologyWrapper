@@ -4055,7 +4055,8 @@ abstract class PersistentObject extends OntologyObject
 							//
 							$class
 								= $this->parseProperty(
-									$element_ref, $type,
+									$element_ref,
+									$type, $kind,
 									$min, $max, $pattern,
 									$offset, $doValidate );
 						
@@ -4112,7 +4113,8 @@ abstract class PersistentObject extends OntologyObject
 					//
 					$class
 						= $this->parseProperty(
-							$property_ref, $type,
+							$property_ref,
+							$type, $kind,
 							$min, $max, $pattern,
 							$offset, $doValidate );
 				
@@ -4176,6 +4178,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param array					$theKind			Data kind.
 	 * @param mixed					$theMin				Minimum data range.
 	 * @param mixed					$theMax				Maximum data range.
 	 * @param string				$thePattern			Data pattern.
@@ -4192,7 +4195,8 @@ abstract class PersistentObject extends OntologyObject
 	 * @uses castProperty()
 	 */
 	protected function parseProperty( &$theProperty,
-									   $theType, $theMin, $theMax, $thePattern,
+									   $theType, $theKind,
+									   $theMin, $theMax, $thePattern,
 									   $thePath, $doValidate )
 	{
 		//
@@ -4200,7 +4204,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		if( $doValidate )
 			$this->validateProperty(
-				$theProperty, $theType, $theMin, $theMax, $thePattern, $thePath );
+				$theProperty, $theType, $theKind, $theMin, $theMax, $thePattern, $thePath );
 		
 		//
 		// Get reference class.
@@ -4232,6 +4236,11 @@ abstract class PersistentObject extends OntologyObject
 				$theProperty, $theType, $thePath );
 		
 		} // Validate.
+		
+		//
+		// Add to full-text index.
+		//
+		$this->addToFullText( $theProperty, kSTANDARDS_LANGUAGE, $theType, $theKind );
 		
 		return $class;																// ==>
 		
@@ -4325,6 +4334,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @param mixed					$theProperty		Property.
 	 * @param string				$theType			Data type.
+	 * @param array					$theKind			Data kind.
 	 * @param mixed					$theMin				Receives minimum data range.
 	 * @param mixed					$theMax				Receives maximum data range.
 	 * @param string				$thePattern			Receives data pattern.
@@ -4334,7 +4344,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @throws Exception
 	 */
-	protected function validateProperty( &$theProperty, $theType,
+	protected function validateProperty( &$theProperty, $theType, $theKind,
 										  $theMin, $theMax, $thePattern,
 										  $thePath )
 	{
@@ -4519,13 +4529,6 @@ MILKO - Need to check.
 					throw new \Exception(
 						"Unresolved reference in [$thePath]: "
 					   ."($val)." );											// !@! ==>
-				
-				//
-				// Fill full-text enumerated values.
-				//
-				if( ($theType == kTYPE_ENUM)
-				 || ($theType == kTYPE_SET) )
-					$this->addEnumToFullText( $val );
 			
 			} // Iterating references list.
 		
@@ -4543,13 +4546,6 @@ MILKO - Need to check.
 				throw new \Exception(
 					"Unresolved reference in [$thePath]: "
 				   ."($theProperty)." );										// !@! ==>
-			
-			//
-			// Fill full-text enumerated values.
-			//
-			if( ($theType == kTYPE_ENUM)
-			 || ($theType == kTYPE_SET) )
-				$this->addEnumToFullText( $theProperty );
 		
 		} // Scalar reference.
 		
@@ -6264,11 +6260,11 @@ MILKO - Need to check.
 
 	 
 	/*===================================================================================
-	 *	addEnumToFullText																*
+	 *	addToFullText																	*
 	 *==================================================================================*/
 
 	/**
-	 * Add enumerated value to full text
+	 * Add value to full text
 	 *
 	 * This method will add the label of the provided term to the
 	 * {@link kTAG_ENUM_FULL_TEXT} of the current object.
@@ -6278,54 +6274,117 @@ MILKO - Need to check.
 	 *
 	 * If the term is not resolved, the method will do nothing.
 	 *
-	 * @param string				$theTerm			Term native identifier.
+	 * @param mixed					$theValue			Value to add.
+	 * @param string				$theLanguage		Text language.
+	 * @param string				$theType			Tag type.
+	 * @param array					$theKind			Tag kind.
 	 *
 	 * @access protected
 	 *
 	 * @see kTAG_ENUM_FULL_TEXT
 	 */
-	protected function addEnumToFullText( $theTerm )
+	protected function addToFullText( $theValue, $theLanguage, $theType, $theKind )
 	{
 		//
-		// Instantiate term.
+		// Check value.
 		//
-		$term = new Term( $this->mDictionary, $theTerm );
-		if( $term->isCommitted() )
+		if( $theValue !== NULL )
 		{
 			//
-			// Get term labels.
+			// Check kind.
 			//
-			$label = $term[ kTAG_LABEL ];
-			if( is_array( $label ) )
+			if( in_array( kTYPE_FULL_TEXT, $theKind ) )
 			{
 				//
-				// Select default label.
+				// Parse by type.
 				//
-				$label = self::SelectLanguageString( $label, kSTANDARDS_LANGUAGE );
+				switch( $theType )
+				{
+					case kTYPE_TEXT:
+					case kTYPE_STRING:
+						if( is_array( $theValue ) )
+						{
+							foreach( $theValue as $value )
+								$this->addToFullText(
+									$value,
+									$theLanguage,
+									$theType,
+									$theKind );
+						}
+						else
+						{
+							$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+							if( $text === NULL )
+								$text = Array();
+							if( ! in_array( $theValue, $text ) )
+							{
+								$text[] = (string) $theValue;
+								$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+							}
+						}
+						break;
 			
-				//
-				// Load full-text enumerations.
-				//
-				$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
-				if( $enums === NULL )
-					$enums = Array();
+					case kTYPE_LANGUAGE_STRING:
+					case kTYPE_LANGUAGE_STRINGS:
+						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+						if( $text === NULL )
+							$text = Array();
+						foreach( $theValue as $value )
+						{
+							if( array_key_exists( kTAG_TEXT, $value ) )
+							{
+								if( (! array_key_exists( kTAG_LANGUAGE, $value ))
+								 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+								{
+									if( ! in_array( $value[ kTAG_TEXT ], $text ) )
+										$text[] = (string) $value[ kTAG_TEXT ];
+								}
+							}
+						}
+						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+						break;
 			
-				//
-				// Set enumeration.
-				//
-				if( ! in_array( $label, $enums ) )
-					$enums[] = $label;
+					case kTYPE_TYPED_LIST:
+						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+						if( $text === NULL )
+							$text = Array();
+						foreach( $theValue as $value )
+						{
+							if( array_key_exists( kTAG_TEXT, $value ) )
+							{
+								if( ! in_array( $value[ kTAG_TEXT ], $text ) )
+									$text[] = (string) $value[ kTAG_TEXT ];
+							}
+						}
+						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+						break;
 			
-				//
-				// Update property.
-				//
-				$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
-			
-			} // Has labels.
+					case kTYPE_SET:
+						foreach( $theValue as $value )
+							$this->addToFullText(
+								$value,
+								$theLanguage,
+								kTYPE_ENUM,
+								$theKind );
+						break;
 		
-		} // Found term.
+					case kTYPE_ENUM:
+						$term = new Term( $this->mDictionary, $theValue );
+						if( $term->isCommitted() )
+							$this->addToFullText(
+								$term[ kTAG_LABEL ],
+								$theLanguage,
+								kTYPE_LANGUAGE_STRINGS,
+								$theKind );
+						break;
+		
+				} // Parsed by type.
+			
+			} // Add to full-text.
+		
+		} // Value provided.
 	
-	} // addEnumToFullText.
+	} // addToFullText.
 
 	 
 
