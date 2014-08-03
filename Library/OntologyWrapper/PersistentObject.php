@@ -6325,7 +6325,6 @@ MILKO - Need to check.
 						break;
 			
 					case kTYPE_LANGUAGE_STRING:
-					case kTYPE_LANGUAGE_STRINGS:
 						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
 						if( $text === NULL )
 							$text = Array();
@@ -6338,6 +6337,28 @@ MILKO - Need to check.
 								{
 									if( ! in_array( $value[ kTAG_TEXT ], $text ) )
 										$text[] = (string) $value[ kTAG_TEXT ];
+								}
+							}
+						}
+						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+						break;
+			
+					case kTYPE_LANGUAGE_STRINGS:
+						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+						if( $text === NULL )
+							$text = Array();
+						foreach( $theValue as $value )
+						{
+							if( array_key_exists( kTAG_TEXT, $value ) )
+							{
+								if( (! array_key_exists( kTAG_LANGUAGE, $value ))
+								 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+								{
+									foreach( $value[ kTAG_TEXT ] as $element )
+									{
+										if( ! in_array( $element, $text ) )
+											$text[] = (string) $element;
+									}
 								}
 							}
 						}
@@ -6374,7 +6395,7 @@ MILKO - Need to check.
 							$this->addToFullText(
 								$term[ kTAG_LABEL ],
 								$theLanguage,
-								kTYPE_LANGUAGE_STRINGS,
+								kTYPE_LANGUAGE_STRING,
 								$theKind );
 						break;
 		

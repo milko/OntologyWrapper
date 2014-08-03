@@ -1053,10 +1053,11 @@ class Node extends MetadataObject
 			//
 			$this->offsetSet(
 				kTAG_NID,
-				static::ResolveCollection(
-					static::ResolveDatabase( $this->mDictionary, TRUE ) )
-						->getSequenceNumber(
-							static::kSEQ_NAME ) );
+				(int)
+					static::ResolveCollection(
+						static::ResolveDatabase( $this->mDictionary, TRUE ) )
+							->getSequenceNumber(
+								static::kSEQ_NAME ) );
 		
 		} // Not committed.
 	

@@ -3418,6 +3418,12 @@ class IteratorSerialiser
 			$ref = & $this->mDictionary[ kAPI_DICTIONARY_CLUSTER ];
 			
 			//
+			// Check identifiers.
+			//
+			if( ! array_key_exists( kAPI_DICTIONARY_IDS, $this->mDictionary ) )
+				$this->mDictionary[ kAPI_DICTIONARY_IDS ] = Array();
+			
+			//
 			// Iterate result identifiers.
 			//
 			foreach( $this->mDictionary[ kAPI_DICTIONARY_IDS ] as $id )

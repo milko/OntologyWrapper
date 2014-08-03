@@ -2020,7 +2020,7 @@ class Service extends ContainerObject
 				//
 				// Get tag sequence number.
 				//
-				$tag_sequence = $tag_object[ kTAG_ID_SEQUENCE ];
+				$tag_sequence = (int) $tag_object[ kTAG_ID_SEQUENCE ];
 			
 				//
 				// Get cluster key.
@@ -3512,12 +3512,6 @@ class Service extends ContainerObject
 			$criteria[ (string) kTAG_DATA_KIND ] = array( '$ne' => kTAG_PRIVATE_SEARCH );
 			
 			//
-			// Filter internal tags.
-			//
-			$criteria[ (string) kTAG_NID ]
-				= array( '$nin' => array_merge( UnitObject::InternalOffsets() ) );
-			
-			//
 			// Filter untracked tags.
 			//
 			$criteria[ (string) kTAG_ID_SEQUENCE ]
@@ -4070,6 +4064,11 @@ class Service extends ContainerObject
 		//
 		// Aggregate.
 		//
+//
+// MILKO - There must be a bug in the PHP driver:
+//		   this operation fails saying that element 0 of the pipeline
+//		   is not an object, this fails also when setting that element to an object.
+//
 		$rs_units
 			= PersistentObject::ResolveCollectionByName(
 				$this->mWrapper, $theCollection )

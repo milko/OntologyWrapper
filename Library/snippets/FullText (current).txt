@@ -2,3 +2,21 @@ Current full-text tags (excluding enumerations).
 ------------------------------------------------
 
 db.getCollection("_units").ensureIndex( { "enum" : "text", "72" : "text", "203" : "text", "202" : "text", "175" : "text", "176" : "text", "177" : "text", "178" : "text", "29" : "text", "163" : "text", "143" : "text", "149" : "text", "166" : "text", "168" : "text", "155" : "text", "145" : "text", "148" : "text", "147" : "text", "264" : "text", "283" : "text", "284" : "text", "265" : "text", "266" : "text", "269" : "text", "278" : "text", "268" : "text", "274" : "text", "267" : "text", "261" : "text", "281" : "text", "286" : "text", "287" : "text", "289" : "text", "257" : "text", "233" : "text", "232" : "text", "240" : "text", "239" : "text", "113" : "text", "207" : "text", "206" : "text", "217" : "text", "216" : "text", "212" : "text", "210" : "text", "221" : "text", "222" : "text", "226" : "text", "205" : "text", "208" : "text", "231" : "text" }, { name: "FULLTEXT" } )
+
+================================================================================
+
+Restore full-text procedure:
+---------------------------
+
+Delete full-text index:
+use PGRDG;
+db.getCollection("_units").dropIndex("FULLTEXT");
+
+Remove full-text field:
+db.getCollection("_units").update( {}, { $unset: { "enum": "" } }, { multi: true } );
+
+Add string fields to full-text:
+db.getCollection("_tags").update( { "5" : { "$in" : [ 72, 203, 202, 175, 176, 177, 178, 29, 163, 143, 149, 166, 168, 155, 145, 148, 147, 264, 283, 284, 265, 266, 269, 278, 268, 274, 267, 261, 281, 286, 287, 289, 257, 233, 232, 240, 239, 113, 207, 206, 217, 216, 212, 210, 221, 222, 226, 205, 208, 231 ] } }, { $addToSet: { "26": ":type:full-text" } }, { multi: true } );
+
+Add enumerated fields to full-text:
+db.getCollection("_tags").update( { "25" : { $in : [ ":type:enum", ":type:enum-set" ] } }, { $addToSet: { "26": ":type:full-text" } }, { multi: true } );

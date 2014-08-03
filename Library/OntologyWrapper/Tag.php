@@ -1138,8 +1138,7 @@ class Tag extends MetadataObject
 			if( ! \ArrayObject::offsetExists( kTAG_ID_SEQUENCE ) )
 				$this->offsetSet(
 					kTAG_ID_SEQUENCE,
-					$collection->getSequenceNumber(
-						static::kSEQ_NAME ) );
+					(int) $collection->getSequenceNumber( static::kSEQ_NAME ) );
 		
 		} // Not committed.
 	

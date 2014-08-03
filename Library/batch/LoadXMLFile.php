@@ -52,7 +52,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 // Parse arguments.
 //
 if( $argc < 3 )
-	exit( "Usage: script.php [XML file path] [database DSN] [graph DSN].\n" );		// ==>
+	exit( "Usage: "
+		 ."script.php "
+		 ."[XML file path] "
+		 ."[mongo database DSN] "	// mongodb://localhost:27017/PGRDG
+		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
 
 //
 // Load arguments.
