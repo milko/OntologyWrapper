@@ -2,8 +2,8 @@
 include( 'convex_hull.php' );
 
 $points = Array();
-for( $i = 0; $i < 100000; $i++ )
-	$points[] = array( rand( 0, 1000000 ), rand( 0, 1000000 ) );
+for( $i = 0; $i < 10000; $i++ )
+	$points[] = array( rand( -180, 180 ), rand( -90, 90 ) );
 
 $hull = new ConvexHull( $points );
 

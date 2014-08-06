@@ -137,9 +137,9 @@ try
 */
 
 	//
-	// Many fields.
+	// Test group.
 	//
-	echo( '<h4>Many fields</h4>' );
+	echo( '<h4>Test group</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE );
@@ -150,44 +150,17 @@ try
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			kAPI_PARAM_FULL_TEXT_OFFSET => array
+			':location:country' => array
 			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
-				kAPI_PARAM_PATTERN => 'feniglia'
-			)/*,
-			kAPI_PARAM_FULL_TEXT_OFFSET => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_TEXT,
-				kAPI_PARAM_PATTERN => 'burgenland'
-			),
-			':taxon:genus' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'hordeum',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			),
-			':taxon:species' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'vulgare',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			)*/
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
+			)
 		),
 		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_GROUP => Array()
+		kAPI_PARAM_GROUP => array( '242.163', '242.255' )
+	//	kAPI_PARAM_GROUP => Array()
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

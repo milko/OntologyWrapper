@@ -822,7 +822,7 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
  *		provided, the service will return the results of the type provided in this
  *		parameter, if it is not provided, the next parameter is required. If this parameter
- *		is provided, the next parameter will be ignored; the results will be clustered.
+ *		is provided, the next parameter will be ignored.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Results format</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} parameter was provided, it indicates what
  *		kind of data the service should return:
@@ -1840,7 +1840,7 @@ define( "kAPI_PARAM_INPUT_SHAPE",				'input-shape' );
 define( "kAPI_PARAM_INPUT_DEFAULT",				'input-default' );
 
 /*=======================================================================================
- *	INTERNAL PARAMETERS																	*
+ *	GENERIC PARAMETERS																	*
  *======================================================================================*/
 
 /**
@@ -1871,6 +1871,33 @@ define( "kAPI_PARAM_VALUE_COUNT",				'values' );
  * may also be provided as part of a criteria to specify which offsets should be searched.
  */
 define( "kAPI_PARAM_OFFSETS",					'offsets' );
+
+/**
+ * Group data (array).
+ *
+ * This parameter collects details of the {@link kAPI_PARAM_GROUP} parameter elements which
+ * are needed to handle summaries, it is an array structured as follows:
+ *
+ * <ul>
+ *	<li><tt>key</tt>: The tag sequence number, this means that one can only use a tag once
+ *		in a summary, tags found in different structures can only appear once.
+ *	<li><tt>value</tt>: The value is an array containing the following information:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_OFFSETS}</tt>: Element offset.
+ *		<li><tt>{@link kAPI_PARAM_DATA_TYPE}</tt>: Element tag data type.
+ *		<li><tt>{@link kAPI_PARAM_GROUP_LIST}</tt>: List count.
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_PARAM_GROUP_DATA",				'group-data' );
+
+/**
+ * List flag (int).
+ *
+ * This parameter holds a value that indicates how many times the summary group element
+ * must be unwinded.
+ */
+define( "kAPI_PARAM_GROUP_LIST",				'group-list' );
 
 
 ?>

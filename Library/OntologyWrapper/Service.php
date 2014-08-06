@@ -26,6 +26,13 @@ use OntologyWrapper\IteratorSerialiser;
 require_once( kPATH_DEFINITIONS_ROOT."/Api.inc.php" );
 
 /**
+ * Tags.
+ *
+ * This file contains the tag definitions.
+ */
+require_once( kPATH_DEFINITIONS_ROOT."/Tags.inc.php" );
+
+/**
  * Predicates.
  *
  * This file contains the predicates definitions.
@@ -993,72 +1000,9 @@ class Service extends ContainerObject
 			$this->offsetUnset( kAPI_PAGING_LIMIT );
 			
 			//
-			// Get value.
+			// Validat group.
 			//
-			$tmp = $this->offsetGet( kAPI_PARAM_GROUP );
-			
-			//
-			// Convert group into an array.
-			//
-			if( ! is_array( $tmp ) )
-				$tmp = array( $tmp );
-			
-			//
-			// Save groups.
-			//
-			$groups = $tmp;
-			
-			//
-			// Set default group.
-			//
-			if( ! count( $tmp ) )
-				$tmp[] = kTAG_DOMAIN;
-			
-			//
-			// Check group elements.
-			//
-			foreach( $tmp as $key => $value )
-			{
-				//
-				// Serialise tag native references.
-				//
-				$tmp[ $key ]
-					= ( (! is_int( $value ))
-				   && (! ctype_digit( $value )) )
-					? $this->mWrapper->getSerial( $value, TRUE )
-					: (int) $value;
-				$type
-					= $this->mWrapper
-						->getObject( $tmp[ $key ], TRUE )[ kTAG_DATA_TYPE ];
-				
-				//
-				// Assert enumerated set.
-				//
-				if( ($type != kTYPE_SET)
-				 && ($type != kTYPE_ENUM) )
-					throw new \Exception(
-						"Group element [ "
-					   .$tmp[ $key ]
-					   ."] must be an enumerated set." );						// !@! ==>
-			}
-			
-			//
-			// Add domain.
-			//
-			if( ! in_array( kTAG_DOMAIN, $tmp ) )
-				$tmp[] = kTAG_DOMAIN;
-			
-			//
-			// Assert domain.
-			//
-			elseif( $tmp[ count( $tmp ) - 1 ] != kTAG_DOMAIN )
-				throw new \Exception(
-					"Domain must be last group element." );						// !@! ==>
-			
-			//
-			// Update parameter.
-			//
-			$this->offsetSet( kAPI_PARAM_GROUP, $tmp );
+			$this->validateGroup();
 			
 			//
 			// Collect untracked offsets.
@@ -1070,26 +1014,35 @@ class Service extends ContainerObject
 			//
 			// Add groups to criteria.
 			//
-			$keys = array_keys( $groups );
-			foreach( $keys as $key )
+			foreach( array_keys( $this->offsetGet( kAPI_PARAM_GROUP_DATA ) ) as $tag )
 			{
+				//
+				// Skip domain.
+				//
+				if( $tag == kTAG_DOMAIN )
+					continue;												// =>
+				
 				//
 				// Skip untracked offsets.
 				//
-				if( in_array( $tmp[ $key ], $untracked ) )
+				if( in_array( $tag, $untracked ) )
 					continue;												// =>
 				
 				//
 				// Skip existing.
 				//
-				if( array_key_exists( $groups[ $key ], $criteria ) )
+				if( array_key_exists( $tag, $criteria ) )
 					continue;												// =>
 				
 				//
 				// Add to criteria.
+				// Note that we set default input type,
+				// without checking the element data type:
+				// this is because we provide no value,
+				// so the type is not evaluated.
 				//
-				$criteria[ $groups[ $key ] ]
-					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM );
+				$criteria[ $tag ]
+					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT );
 			
 			} // Iterating groups.
 	
@@ -1380,453 +1333,6 @@ class Service extends ContainerObject
 				"Missing or invalid user object." );							// !@! ==>
 		
 	} // validateAddUser.
-
-	 
-	/*===================================================================================
-	 *	validateStringMatchOperator														*
-	 *==================================================================================*/
-
-	/**
-	 * Validate string match operator.
-	 *
-	 * This method will validate the operator parameter passed to all service operations
-	 * which match strings, the method will perform the following operations:
-	 *
-	 * <ul>
-	 *	<li>Assert that the parameter is an array.
-	 *	<li>Assert that the array is not empty.
-	 *	<li>Assert that the parameter contains no more than one main operator.
-	 *	<li>Assert that the parameter contains at least one main operator.
-	 * </ul>
-	 *
-	 * If the operator is missing we will assume by default contains case and accent
-	 * insensitive.
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * @param string				$theValue			Operator value.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kOPERATOR_EQUAL kOPERATOR_EQUAL_NOT kOPERATOR_PREFIX
-	 * @see kOPERATOR_CONTAINS kOPERATOR_SUFFIX kOPERATOR_REGEX
-	 */
-	protected function validateStringMatchOperator( &$theValue )
-	{
-		//
-		// Check if set.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Check format.
-			//
-			if( ! is_array( $theValue ) )
-				throw new \Exception(
-					"Invalid operator parameter format." );						// !@! ==>
-		
-			//
-			// Check count.
-			//
-			if( ! count( $theValue ) )
-				throw new \Exception(
-					"Empty operator parameter." );								// !@! ==>
-		
-			//
-			// Init local storage.
-			//
-			$opts = array( kOPERATOR_EQUAL, kOPERATOR_EQUAL_NOT, kOPERATOR_PREFIX,
-						   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX/*, kOPERATOR_REGEX*/ );
-		
-			//
-			// Check operator.
-			//
-			$main = array_intersect( $opts, $theValue );
-			if( count( $main ) > 1 )
-				throw new \Exception(
-					"Too many operator options." );								// !@! ==>
-			if( ! count( $main ) )
-				throw new \Exception(
-					"Missing main operator option in parameter." );				// !@! ==>
-		
-		} // Provided.
-		
-		//
-		// Set default operator.
-		//
-		else
-			$theValue = array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE );
-		
-	} // validateStringMatchOperator.
-
-	 
-	/*===================================================================================
-	 *	validateRangeMatchOperator														*
-	 *==================================================================================*/
-
-	/**
-	 * Validate range match operator.
-	 *
-	 * This method will validate the operator parameter passed to all service operations
-	 * which match ranges, the method will perform the following operations:
-	 *
-	 * <ul>
-	 *	<li>Assert that the parameter is an array.
-	 *	<li>Assert that the array is not empty.
-	 *	<li>Assert that the parameter contains no more than one main operator.
-	 *	<li>Assert that the parameter contains at least one main operator.
-	 * </ul>
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * @param string				$theValue			Operator value.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kOPERATOR_IRANGE kOPERATOR_ERANGE
-	 */
-	protected function validateRangeMatchOperator( &$theValue )
-	{
-		//
-		// Check if set.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Check format.
-			//
-			if( ! is_array( $theValue ) )
-				throw new \Exception(
-					"Invalid operator parameter format." );						// !@! ==>
-		
-			//
-			// Check count.
-			//
-			if( ! count( $theValue ) )
-				throw new \Exception(
-					"Empty operator parameter." );								// !@! ==>
-		
-			//
-			// Init local storage.
-			//
-			$opts = array( kOPERATOR_IRANGE, kOPERATOR_ERANGE );
-		
-			//
-			// Check operator.
-			//
-			$main = array_intersect( $opts, $theValue );
-			if( count( $main ) > 1 )
-				throw new \Exception(
-					"Too many operator options." );								// !@! ==>
-			if( ! count( $main ) )
-				throw new \Exception(
-					"Missing main operator option in parameter." );				// !@! ==>
-		
-		} // Provided.
-		
-		//
-		// Set default operator.
-		//
-		else
-			$theValue = array( kOPERATOR_IRANGE );
-		
-	} // validateRangeMatchOperator.
-
-	 
-	/*===================================================================================
-	 *	validateCollection																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate collection reference.
-	 *
-	 * This method will validate the collection parameter.
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * This method expects the collection parameter to be an array if provided.
-	 *
-	 * @param array					$theValue			Collection.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_COLLECTION_TAG kAPI_PARAM_COLLECTION_TERM
-	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
-	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
-	 */
-	protected function validateCollection( $theValue )
-	{
-		//
-		// Check if set.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Init local storage.
-			//
-			$collections
-				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
-						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
-						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
-			
-			//
-			// Iterate values.
-			//
-			foreach( $theValue as $collection )
-			{
-				if( ! in_array( $collection, $collections ) )
-					throw new \Exception(
-						"Invalid or unsupported collection "
-					   ."[$collection]." );										// !@! ==>
-			}
-		
-		} // Provided.
-		
-	} // validateCollection.
-
-	 
-	/*===================================================================================
-	 *	validateRecurseFlag																*
-	 *==================================================================================*/
-
-	/**
-	 * Validate recurse flag.
-	 *
-	 * This method will validate the recurse flag parameter passed to all service
-	 * operations which may recursively traverse structures.
-	 *
-	 * The method will remove paging if the {@link kAPI_PARAM_RECURSE} flag was provided;
-	 * if the flag was not provided, the method will set the default limits to the provided
-	 * maximum value, or raise an exception if both the flag and limits are missing.
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * @param int					$theLimit			Default limits.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 */
-	protected function validateRecurseFlag( $theLimit )
-	{
-		//
-		// Handle flag.
-		//
-		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
-		{
-			//
-			// Reset paging.
-			//
-			$this->offsetUnset( kAPI_PAGING_SKIP );
-			$this->offsetUnset( kAPI_PAGING_LIMIT );
-		}
-		
-		//
-		// Handle missing limits.
-		//
-		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
-		{
-			//
-			// Handle limits overflow.
-			//
-			if( ((int) $this->offsetGet( kAPI_PAGING_LIMIT )) > $theLimit )
-				$this->offsetSet( kAPI_PAGING_LIMIT, $theLimit );
-		}
-		
-		//
-		// Require limits.
-		//
-		else
-			throw new \Exception(
-				"Missing required limits parameter." );							// !@! ==>
-		
-	} // validateRecurseFlag.
-
-	 
-	/*===================================================================================
-	 *	validateShape																	*
-	 *==================================================================================*/
-
-	/**
-	 * Validate shape
-	 *
-	 * This method will validate the shape parameter passed to all service operations which
-	 * should select objects based on geographic queries.
-	 *
-	 * Any error will raise an exception.
-	 *
-	 * @param array					$theValue			Shape value.
-	 *
-	 * @access protected
-	 *
-	 * @throws Exception
-	 *
-	 * @see kAPI_PARAM_SHAPE
-	 */
-	protected function validateShape( &$theValue )
-	{
-		//
-		// Check if set.
-		//
-		if( $theValue !== NULL )
-		{
-			//
-			// Check format.
-			//
-			if( ! is_array( $theValue ) )
-				throw new \Exception(
-					"Invalid shape parameter: "
-				   ."the value is not an array." );								// !@! ==>
-		
-			//
-			// Check shape structure.
-			//
-			if( (! array_key_exists( kTAG_TYPE, $theValue ))
-			 || (! array_key_exists( kTAG_GEOMETRY, $theValue ))
-			 || (! is_array( $theValue[ kTAG_GEOMETRY ] )) )
-				throw new \Exception(
-					"Invalid shape geometry." );								// !@! ==>
-			
-			//
-			// Check shape contents.
-			//
-			$geom = $theValue[ kTAG_GEOMETRY ];
-			switch( $type = $theValue[ kTAG_TYPE ] )
-			{
-				//
-				// Points and circles.
-				//
-				case 'Point':
-				case 'Circle':
-					//
-					// Check geometry elements.
-					//
-					if( count( $geom ) != 2 )
-						throw new \Exception(
-							"Geometry for [$type] "
-						   ."must have two elements." );						// !@! ==>
-					
-					//
-					// Check coordinates structure.
-					//
-					if( ! is_array( $geom[ 0 ] ) )
-						throw new \Exception(
-							"The first element of [$type] "
-						   ."must be an array." );								// !@! ==>
-					
-					//
-					// Check coordinates.
-					//
-					if( count( $geom[ 0 ] ) != 2 )
-						throw new \Exception(
-							"The first element of [$type] "
-						   ."must contain a pair of coordinates." );			// !@! ==>
-					
-					//
-					// Cast coordinates.
-					//
-					$geom[ 0 ][ 0 ] = (double) $geom[ 0 ][ 0 ];
-					$geom[ 0 ][ 1 ] = (double) $geom[ 0 ][ 1 ];
-					
-					//
-					// Cast distance.
-					//
-					if( $type == 'Point' )
-						$geom[ 1] = (int) $geom[ 1 ];
-					
-					break;
-							
-				case 'Rect':
-					//
-					// Check geometry elements.
-					//
-					if( count( $geom ) != 2 )
-						throw new \Exception(
-							"Geometry for [$type] "
-						   ."must have two elements." );						// !@! ==>
-					
-					//
-					// Check coordinates structure.
-					//
-					if( ! is_array( $geom[ 0 ] ) )
-						throw new \Exception(
-							"The first element of [$type] "
-						   ."must contain the bottom left coordinates." );		// !@! ==>
-					
-					if( ! is_array( $geom[ 1 ] ) )
-						throw new \Exception(
-							"The second element of [$type] "
-						   ."must contain the upper right coordinates." );		// !@! ==>
-					
-					//
-					// Cast coordinates.
-					//
-					for( $i = 0; $i < 2; $i ++ )
-					{
-						for( $j = 0; $j < 2; $j ++ )
-							$geom[ $i ][ $j ]
-								= (double) $geom[ $i ][ $j ];
-					}
-					
-					break;
-					
-				case 'Polygon':
-					//
-					// Traverse geometry.
-					//
-					for( $i = 0; $i < count( $geom ); $i++ )
-					{
-						//
-						// Check ring.
-						//
-						if( ! is_array( $geom[ $i ] ) )
-							throw new \Exception(
-								"Invalid ring structure for [$type]." );		// !@! ==>
-						
-						//
-						// Check vertices.
-						//
-						for( $j = 0; $j < count( $geom[ $i ] ); $j++ )
-						{
-							if( ! is_array( $geom[ $i ][ $j ] ) )
-								throw new \Exception(
-									"Invalid vertex for [$type]." );			// !@! ==>
-							
-							if( count( $geom[ $i ][ $j ] ) != 2 )
-								throw new \Exception(
-									"Invalid vertex for [$type]"
-								   ."a vertex must have two elements." );		// !@! ==>
-							
-							//
-							// Cast.
-							//
-							$geom[ $i ][ $j ][ 0 ] = (double) $geom[ $i ][ $j ][ 0 ];
-							$geom[ $i ][ $j ][ 1 ] = (double) $geom[ $i ][ $j ][ 1 ];
-						}
-					}
-					
-					break;
-			
-				default:
-					throw new \Exception(
-						"Invalid shape type [$type]." );						// !@! ==>
-		
-			} // Parsing shape type.
-			
-			//
-			// Update geometry.
-			//
-			$theValue[ kTAG_GEOMETRY ] = $geom;
-		
-		} // Provided.
-		
-	} // validateShape.
 
 	 
 	/*===================================================================================
@@ -2393,6 +1899,616 @@ class Service extends ContainerObject
 		
 	} // validateSearchCriteria.
 
+	 
+	/*===================================================================================
+	 *	validateStringMatchOperator														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate string match operator.
+	 *
+	 * This method will validate the operator parameter passed to all service operations
+	 * which match strings, the method will perform the following operations:
+	 *
+	 * <ul>
+	 *	<li>Assert that the parameter is an array.
+	 *	<li>Assert that the array is not empty.
+	 *	<li>Assert that the parameter contains no more than one main operator.
+	 *	<li>Assert that the parameter contains at least one main operator.
+	 * </ul>
+	 *
+	 * If the operator is missing we will assume by default contains case and accent
+	 * insensitive.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param string				$theValue			Operator value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kOPERATOR_EQUAL kOPERATOR_EQUAL_NOT kOPERATOR_PREFIX
+	 * @see kOPERATOR_CONTAINS kOPERATOR_SUFFIX kOPERATOR_REGEX
+	 */
+	protected function validateStringMatchOperator( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid operator parameter format." );						// !@! ==>
+		
+			//
+			// Check count.
+			//
+			if( ! count( $theValue ) )
+				throw new \Exception(
+					"Empty operator parameter." );								// !@! ==>
+		
+			//
+			// Init local storage.
+			//
+			$opts = array( kOPERATOR_EQUAL, kOPERATOR_EQUAL_NOT, kOPERATOR_PREFIX,
+						   kOPERATOR_CONTAINS, kOPERATOR_SUFFIX/*, kOPERATOR_REGEX*/ );
+		
+			//
+			// Check operator.
+			//
+			$main = array_intersect( $opts, $theValue );
+			if( count( $main ) > 1 )
+				throw new \Exception(
+					"Too many operator options." );								// !@! ==>
+			if( ! count( $main ) )
+				throw new \Exception(
+					"Missing main operator option in parameter." );				// !@! ==>
+		
+		} // Provided.
+		
+		//
+		// Set default operator.
+		//
+		else
+			$theValue = array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE );
+		
+	} // validateStringMatchOperator.
+
+	 
+	/*===================================================================================
+	 *	validateRangeMatchOperator														*
+	 *==================================================================================*/
+
+	/**
+	 * Validate range match operator.
+	 *
+	 * This method will validate the operator parameter passed to all service operations
+	 * which match ranges, the method will perform the following operations:
+	 *
+	 * <ul>
+	 *	<li>Assert that the parameter is an array.
+	 *	<li>Assert that the array is not empty.
+	 *	<li>Assert that the parameter contains no more than one main operator.
+	 *	<li>Assert that the parameter contains at least one main operator.
+	 * </ul>
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param string				$theValue			Operator value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kOPERATOR_IRANGE kOPERATOR_ERANGE
+	 */
+	protected function validateRangeMatchOperator( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid operator parameter format." );						// !@! ==>
+		
+			//
+			// Check count.
+			//
+			if( ! count( $theValue ) )
+				throw new \Exception(
+					"Empty operator parameter." );								// !@! ==>
+		
+			//
+			// Init local storage.
+			//
+			$opts = array( kOPERATOR_IRANGE, kOPERATOR_ERANGE );
+		
+			//
+			// Check operator.
+			//
+			$main = array_intersect( $opts, $theValue );
+			if( count( $main ) > 1 )
+				throw new \Exception(
+					"Too many operator options." );								// !@! ==>
+			if( ! count( $main ) )
+				throw new \Exception(
+					"Missing main operator option in parameter." );				// !@! ==>
+		
+		} // Provided.
+		
+		//
+		// Set default operator.
+		//
+		else
+			$theValue = array( kOPERATOR_IRANGE );
+		
+	} // validateRangeMatchOperator.
+
+	 
+	/*===================================================================================
+	 *	validateCollection																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate collection reference.
+	 *
+	 * This method will validate the collection parameter.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * This method expects the collection parameter to be an array if provided.
+	 *
+	 * @param array					$theValue			Collection.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_COLLECTION_TAG kAPI_PARAM_COLLECTION_TERM
+	 * @see kAPI_PARAM_COLLECTION_NODE kAPI_PARAM_COLLECTION_EDGE
+	 * @see kAPI_PARAM_COLLECTION_UNIT kAPI_PARAM_COLLECTION_ENTITY
+	 */
+	protected function validateCollection( $theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Init local storage.
+			//
+			$collections
+				= array( kAPI_PARAM_COLLECTION_TAG, kAPI_PARAM_COLLECTION_TERM,
+						 kAPI_PARAM_COLLECTION_NODE, kAPI_PARAM_COLLECTION_EDGE,
+						 kAPI_PARAM_COLLECTION_UNIT, kAPI_PARAM_COLLECTION_ENTITY );
+			
+			//
+			// Iterate values.
+			//
+			foreach( $theValue as $collection )
+			{
+				if( ! in_array( $collection, $collections ) )
+					throw new \Exception(
+						"Invalid or unsupported collection "
+					   ."[$collection]." );										// !@! ==>
+			}
+		
+		} // Provided.
+		
+	} // validateCollection.
+
+	 
+	/*===================================================================================
+	 *	validateRecurseFlag																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate recurse flag.
+	 *
+	 * This method will validate the recurse flag parameter passed to all service
+	 * operations which may recursively traverse structures.
+	 *
+	 * The method will remove paging if the {@link kAPI_PARAM_RECURSE} flag was provided;
+	 * if the flag was not provided, the method will set the default limits to the provided
+	 * maximum value, or raise an exception if both the flag and limits are missing.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param int					$theLimit			Default limits.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 */
+	protected function validateRecurseFlag( $theLimit )
+	{
+		//
+		// Handle flag.
+		//
+		if( $this->offsetExists( kAPI_PARAM_RECURSE ) )
+		{
+			//
+			// Reset paging.
+			//
+			$this->offsetUnset( kAPI_PAGING_SKIP );
+			$this->offsetUnset( kAPI_PAGING_LIMIT );
+		}
+		
+		//
+		// Handle missing limits.
+		//
+		elseif( $this->offsetExists( kAPI_PAGING_LIMIT ) )
+		{
+			//
+			// Handle limits overflow.
+			//
+			if( ((int) $this->offsetGet( kAPI_PAGING_LIMIT )) > $theLimit )
+				$this->offsetSet( kAPI_PAGING_LIMIT, $theLimit );
+		}
+		
+		//
+		// Require limits.
+		//
+		else
+			throw new \Exception(
+				"Missing required limits parameter." );							// !@! ==>
+		
+	} // validateRecurseFlag.
+
+	 
+	/*===================================================================================
+	 *	validateGroup																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate group offset
+	 *
+	 * This method will validate the provided group offset and raise an exception if the
+	 * related tag does not have the {@link kTYPE_SUMMARY} kind.
+	 *
+	 * The method will set the normalised list of group leaf tag sequence numbers in the
+	 * {@link kAPI_PARAM_GROUP} parameter and collect all group element information in the
+	 * internal {@link kAPI_PARAM_GROUP_DATA} parameter.
+	 *
+	 * Group elements can be provided as tag native identifiers or offsets.
+	 *
+	 * @param array					$theSequences		Receives tag sequence numbers.
+	 *
+	 * @access protected
+	 * @return array				Normalised group list.
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_GROUP kAPI_PARAM_GROUP_DATA
+	 */
+	protected function validateGroup()
+	{
+		//
+		// Init local storage.
+		//
+		$data = Array();
+		$group = $this->offsetGet( kAPI_PARAM_GROUP );
+		
+		//
+		// Handle default group.
+		//
+		if( (! is_array( $group ))
+		 || (! count( $group )) )
+			$group = array( kTAG_DOMAIN );
+		
+		//
+		// Normalise list.
+		//
+		$group = array_values( array_unique( $group ) );
+		
+		//
+		// Check domain position.
+		//
+		$tmp = array_search( kTAG_DOMAIN, $group );
+		if( $tmp
+		 && ($tmp != (count( $group ) - 1)) )
+			throw new \Exception(
+				"Domain must be last group element." );							// !@! ==>
+		
+		//
+		// Add domain.
+		//
+		if( $tmp === FALSE )
+			$group[] = kTAG_DOMAIN;
+		
+		//
+		// Update group parameter.
+		//
+		$this->offsetSet( kAPI_PARAM_GROUP, $group );
+	
+		//
+		// Iterate group elements.
+		//
+		foreach( $group as $key => $element )
+		{
+			//
+			// Init loop storage.
+			//
+			$structs = Array();
+			
+			//
+			// Handle tag serial number.
+			//
+			if( is_int( $element )
+			 || ctype_digit( $element ) )
+			 	$tag = $this->mWrapper->getObject( (int) $element, TRUE );
+		
+			//
+			// Handle tag native identifier.
+			//
+			elseif( ($tmp = $this->mWrapper->getSerial( $element, FALSE )) !== NULL )
+			 	$tag = $this->mWrapper->getObject( (int) $tmp, TRUE );
+		
+			//
+			// Handle offset.
+			//
+			else
+			{
+				//
+				// Split structures.
+				//
+				$tmp = explode( '.', $element );
+				if( count( $tmp ) > 1 )
+				 	$tag
+				 		= $this->mWrapper->getObject(
+				 			(int) $tmp[ count( $tmp ) - 1 ], TRUE );
+			
+				else
+					throw new \Exception(
+						"Invalid group element [$element]." );					// !@! ==>
+				
+				//
+				// Collect structures.
+				//
+				for( $i = 0; $i < (count( $tmp ) - 1); $i++ )
+					$structs[ $i ] = $tmp[ $i ];
+		
+			} // Offset.
+		
+			//
+			// Check kind.
+			//
+			if( (! array_key_exists( kTAG_DATA_KIND, $tag ))
+			 || (! in_array( kTYPE_SUMMARY, $tag[ kTAG_DATA_KIND ] )) )
+				throw new \Exception(
+					"Invalid kind for group element [$element]." );				// !@! ==>
+			
+			//
+			// Set index.
+			//
+			$index = $tag[ kTAG_ID_SEQUENCE ];
+		
+			//
+			// Load element info.
+			//
+			$data[ $index ] = Array();
+			$data[ $index ][ kAPI_PARAM_OFFSETS ] = $element;
+			$data[ $index ][ kAPI_PARAM_DATA_TYPE ] = $tag[ kTAG_DATA_TYPE ];
+			
+			//
+			// Count lists.
+			//
+			$count = 0;
+			if( $tag[ kTAG_DATA_TYPE ] == kTYPE_SET )
+				$count++;
+			foreach( $structs as $struct )
+			{
+				$tag = $this->mWrapper->getObject( (int) $struct, TRUE );
+				if( array_key_exists( kTAG_DATA_KIND, $tag )
+				 && in_array( kTYPE_LIST, $tag[ kTAG_DATA_KIND ] ) )
+					$count++;
+			}
+			
+			//
+			// Set lists count.
+			//
+			$data[ $index ][ kAPI_PARAM_GROUP_LIST ] = $count;
+	
+		} // Iterating group.
+		
+		//
+		// Load group information.
+		//
+		$this->offsetSet( kAPI_PARAM_GROUP_DATA, $data );
+		
+	} // validateGroup.
+
+	 
+	/*===================================================================================
+	 *	validateShape																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate shape
+	 *
+	 * This method will validate the shape parameter passed to all service operations which
+	 * should select objects based on geographic queries.
+	 *
+	 * Any error will raise an exception.
+	 *
+	 * @param array					$theValue			Shape value.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_SHAPE
+	 */
+	protected function validateShape( &$theValue )
+	{
+		//
+		// Check if set.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Check format.
+			//
+			if( ! is_array( $theValue ) )
+				throw new \Exception(
+					"Invalid shape parameter: "
+				   ."the value is not an array." );								// !@! ==>
+		
+			//
+			// Check shape structure.
+			//
+			if( (! array_key_exists( kTAG_TYPE, $theValue ))
+			 || (! array_key_exists( kTAG_GEOMETRY, $theValue ))
+			 || (! is_array( $theValue[ kTAG_GEOMETRY ] )) )
+				throw new \Exception(
+					"Invalid shape geometry." );								// !@! ==>
+			
+			//
+			// Check shape contents.
+			//
+			$geom = $theValue[ kTAG_GEOMETRY ];
+			switch( $type = $theValue[ kTAG_TYPE ] )
+			{
+				//
+				// Points and circles.
+				//
+				case 'Point':
+				case 'Circle':
+					//
+					// Check geometry elements.
+					//
+					if( count( $geom ) != 2 )
+						throw new \Exception(
+							"Geometry for [$type] "
+						   ."must have two elements." );						// !@! ==>
+					
+					//
+					// Check coordinates structure.
+					//
+					if( ! is_array( $geom[ 0 ] ) )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must be an array." );								// !@! ==>
+					
+					//
+					// Check coordinates.
+					//
+					if( count( $geom[ 0 ] ) != 2 )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must contain a pair of coordinates." );			// !@! ==>
+					
+					//
+					// Cast coordinates.
+					//
+					$geom[ 0 ][ 0 ] = (double) $geom[ 0 ][ 0 ];
+					$geom[ 0 ][ 1 ] = (double) $geom[ 0 ][ 1 ];
+					
+					//
+					// Cast distance.
+					//
+					if( $type == 'Point' )
+						$geom[ 1] = (int) $geom[ 1 ];
+					
+					break;
+							
+				case 'Rect':
+					//
+					// Check geometry elements.
+					//
+					if( count( $geom ) != 2 )
+						throw new \Exception(
+							"Geometry for [$type] "
+						   ."must have two elements." );						// !@! ==>
+					
+					//
+					// Check coordinates structure.
+					//
+					if( ! is_array( $geom[ 0 ] ) )
+						throw new \Exception(
+							"The first element of [$type] "
+						   ."must contain the bottom left coordinates." );		// !@! ==>
+					
+					if( ! is_array( $geom[ 1 ] ) )
+						throw new \Exception(
+							"The second element of [$type] "
+						   ."must contain the upper right coordinates." );		// !@! ==>
+					
+					//
+					// Cast coordinates.
+					//
+					for( $i = 0; $i < 2; $i ++ )
+					{
+						for( $j = 0; $j < 2; $j ++ )
+							$geom[ $i ][ $j ]
+								= (double) $geom[ $i ][ $j ];
+					}
+					
+					break;
+					
+				case 'Polygon':
+					//
+					// Traverse geometry.
+					//
+					for( $i = 0; $i < count( $geom ); $i++ )
+					{
+						//
+						// Check ring.
+						//
+						if( ! is_array( $geom[ $i ] ) )
+							throw new \Exception(
+								"Invalid ring structure for [$type]." );		// !@! ==>
+						
+						//
+						// Check vertices.
+						//
+						for( $j = 0; $j < count( $geom[ $i ] ); $j++ )
+						{
+							if( ! is_array( $geom[ $i ][ $j ] ) )
+								throw new \Exception(
+									"Invalid vertex for [$type]." );			// !@! ==>
+							
+							if( count( $geom[ $i ][ $j ] ) != 2 )
+								throw new \Exception(
+									"Invalid vertex for [$type]"
+								   ."a vertex must have two elements." );		// !@! ==>
+							
+							//
+							// Cast.
+							//
+							$geom[ $i ][ $j ][ 0 ] = (double) $geom[ $i ][ $j ][ 0 ];
+							$geom[ $i ][ $j ][ 1 ] = (double) $geom[ $i ][ $j ][ 1 ];
+						}
+					}
+					
+					break;
+			
+				default:
+					throw new \Exception(
+						"Invalid shape type [$type]." );						// !@! ==>
+		
+			} // Parsing shape type.
+			
+			//
+			// Update geometry.
+			//
+			$theValue[ kTAG_GEOMETRY ] = $geom;
+		
+		} // Provided.
+		
+	} // validateShape.
+
 		
 
 /*=======================================================================================
@@ -2688,17 +2804,27 @@ class Service extends ContainerObject
 		$ref[ "kOPERATOR_ERANGE" ] = kOPERATOR_ERANGE;
 		
 		//
+		// Load modifiers.
+		//
+		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
+		
+		//
+		// Generic parameters.
+		//
+		$ref[ "kAPI_PARAM_INDEX" ] = kAPI_PARAM_INDEX;
+		$ref[ "kAPI_PARAM_DATA_TYPE" ] = kAPI_PARAM_DATA_TYPE;
+		$ref[ "kAPI_PARAM_VALUE_COUNT" ] = kAPI_PARAM_VALUE_COUNT;
+		$ref[ "kAPI_PARAM_OFFSETS" ] = kAPI_PARAM_OFFSETS;
+		$ref[ "kAPI_PARAM_GROUP_DATA" ] = kAPI_PARAM_GROUP_DATA;
+		$ref[ "kAPI_PARAM_GROUP_LIST" ] = kAPI_PARAM_GROUP_DATA;
+		
+		//
 		// Load result type parameters.
 		//
 		$ref[ "kAPI_RESULT_ENUM_DATA_COLUMN" ] = kAPI_RESULT_ENUM_DATA_COLUMN;
 		$ref[ "kAPI_RESULT_ENUM_DATA_RECORD" ] = kAPI_RESULT_ENUM_DATA_RECORD;
 		$ref[ "kAPI_RESULT_ENUM_DATA_FORMAT" ] = kAPI_RESULT_ENUM_DATA_FORMAT;
 		$ref[ "kAPI_RESULT_ENUM_DATA_MARKER" ] = kAPI_RESULT_ENUM_DATA_MARKER;
-		
-		//
-		// Load modifiers.
-		//
-		$ref[ "kOPERATOR_NOCASE" ] = kOPERATOR_NOCASE;
 		
 		//
 		// Load collection reference enumerated set.
@@ -3995,71 +4121,106 @@ class Service extends ContainerObject
 		//
 		// Init local storage.
 		//
-		$pipeline = $grouping = $identifiers = Array();
-		$match = $project = $unwind = $group = $sort = Array();
+		$pipeline = Array();
 		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-		foreach( $theGroup as $tmp )
-		{
-			$grouping[ $tmp ] = '$'.$tmp;
-			$identifiers[ $tmp ] = "_id.$tmp";
-		}
+		$groups = $this->offsetGet( kAPI_PARAM_GROUP_DATA );
+		if( count( $groups ) == 1 )
+			$domain = key( $groups );
 		
 		//
 		// Set match.
 		//
-		$match = $this->mFilter;
+		$pipeline[] = array( '$match' => $this->mFilter );
 		
 		//
-		// Set project.
+		// Set project 1.
 		//
-		$project = array_count_values( $theGroup );
+		$tmp = Array();
+		foreach( $groups as $key => $value )
+			$tmp[ (string) $key ] = '$'.$value[ kAPI_PARAM_OFFSETS ];
 		if( $shape !== NULL )
-			$project[ $shape ]
+			$tmp[ $shape ]
 				= array( '$cond' => array(
 						 'if' => '$'.$shape.'.type',
 						 'then' => 1,
 						 'else' => 0 ) );
+		$pipeline[] = array( '$project' => $tmp );
 		
 		//
-		// Set unwind.
+		// Set unwind(s).
 		//
-		foreach( $theGroup as $tmp )
+		foreach( $groups as $key => $value )
 		{
-			if( $this->mWrapper->getObject( $tmp, TRUE )[ kTAG_DATA_TYPE ] == kTYPE_SET )
-				$unwind[] = array( '$unwind' => '$'.$tmp );
+			if( $tmp = $value[ kAPI_PARAM_GROUP_LIST ] )
+			{
+				while( $tmp-- )
+					$pipeline[] = array( '$unwind' => '$'.$key );
+			}
 		}
 		
 		//
-		// Set group.
+		// Set group1.
 		//
-		$group
-			= array( '_id' => $grouping,
-					 kAPI_PARAM_RESPONSE_COUNT => array( '$sum' => 1 ) );
-		if( $shape !== NULL )
-			$group[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.kTAG_GEO_SHAPE );
+		if( count( $groups ) > 1 )
+		{
+			$tmp = array( '_id' => Array() );
+			$tmp[ '_id' ][ 'id' ] = '$_id';
+			foreach( array_keys( $groups ) as $element )
+				$tmp[ '_id' ][ $element ] = '$'.$element;
+			if( $shape !== NULL )
+				$tmp[ $shape ] = array( '$sum' => '$'.$shape );
+			$pipeline[] = array( '$group' => $tmp );
+		}
+		
+		//
+		// Set project 2.
+		//
+		if( count( $groups ) > 1 )
+		{
+			if( $shape !== NULL )
+			{
+				$tmp = Array();
+				$tmp[ '_id' ] = '$_id';
+				$tmp[ $shape ] = array(
+					'$cond' => array(
+						'if' => '$'.$shape,
+						'then' => 1,
+						'else' => 0 ) );
+				$pipeline[] = array( '$project' => $tmp );
+			}
+		}
+		
+		//
+		// Set group2.
+		//
+		if( count( $groups ) > 1 )
+		{
+			$tmp = array( '_id' => Array() );
+			foreach( array_keys( $groups ) as $element )
+				$tmp[ '_id' ][ $element ] = '$_id.'.$element;
+			$tmp[ kAPI_PARAM_RESPONSE_COUNT ] = array( '$sum' => 1 );
+			if( $shape !== NULL )
+				$tmp[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.$shape );
+			$pipeline[] = array( '$group' => $tmp );
+		}
+		else
+		{
+			$tmp = array( '_id' => Array() );
+			$tmp[ '_id' ][ $domain ] = '$'.$domain;
+			$tmp[ kAPI_PARAM_RESPONSE_COUNT ] = array( '$sum' => 1 );
+			if( $shape !== NULL )
+				$tmp[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.$shape );
+			$pipeline[] = array( '$group' => $tmp );
+		}
 		
 		//
 		// Set sort.
 		//
-		$sort = array_count_values( $identifiers );
-		
-		//
-		// Fill pipeline.
-		//
-		if( count( $match ) )
-			$pipeline[] = array( '$match' => $match );
-		if( count( $project ) )
-			$pipeline[] = array( '$project' => $project );
-		if( count( $unwind ) )
-		{
-			foreach( $unwind as $tmp )
-				$pipeline[] = $tmp;
-		}
-		if( count( $group ) )
-			$pipeline[] = array( '$group' => $group );
-		if( count( $sort ) )
-			$pipeline[] = array( '$sort' => $sort );
+		$tmp = Array();
+		foreach( array_keys( $groups ) as $element )
+			$tmp[ "_id.$element" ] = 1;
+		$pipeline[] = array( '$sort' => $tmp );
 
 		//
 		// Aggregate.
@@ -4074,6 +4235,7 @@ class Service extends ContainerObject
 				$this->mWrapper, $theCollection )
 					->aggregate(
 						$pipeline );
+						
 		//
 		// Iterate results.
 		//
@@ -4081,51 +4243,77 @@ class Service extends ContainerObject
 // MILKO - Need to do this if aggregate doesn't use cursor.
 //
 $rs_units = & $rs_units[ 'result' ];
-		$tmp = Array();
-		foreach( $rs_units as $record )
+		
+		//
+		// Collect enumerated summary elements.
+		//
+		$enums = Array();
+		foreach( $groups as $tag => $group )
+		{
+			switch( $group[ kAPI_PARAM_DATA_TYPE ] )
+			{
+				case kTYPE_SET:
+				case kTYPE_ENUM:
+					$enums[] = $tag;
+					break;
+			}
+			
+			//
+			// Collect terms.
+			//
+			$tmp = Array();
+			if( count( $enums ) )
+			{
+				foreach( $rs_units as $record )
+				{
+					foreach( $record[ kTAG_NID ] as $key => $value )
+					{
+						if( in_array( $key, $enums ) )
+						{
+							if( ! in_array( $value, $tmp ) )
+								$tmp[] = $value;
+						}
+					}
+				}
+			}
+		}
+		
+		//
+		// Resolve enumerated summary elements.
+		//
+		if( count( $tmp ) )
 		{
 			//
 			// Collect terms.
 			//
-			foreach( $record[ kTAG_NID ] as $term )
+			$rs_terms
+				= Term::ResolveCollection(
+					Term::ResolveDatabase(
+						$this->mWrapper ) )
+							->matchAll(
+								array( kTAG_NID => array( '$in' => $tmp ) ),
+								kQUERY_ARRAY,
+								array( kTAG_LABEL => TRUE, kTAG_DEFINITION => TRUE ) );
+		
+			//
+			// Load terms.
+			//
+			$terms = Array();
+			$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+			foreach( $rs_terms as $key => $value )
 			{
-				if( ! in_array( $term, $tmp ) )
-					$tmp[] = $term;
-			
-			} // Iterating terms.
+				$terms[ $key ] = Array();
+				if( array_key_exists( kTAG_LABEL, $value ) )
+					$terms[ $key ][ kTAG_LABEL ]
+						= OntologyObject::SelectLanguageString(
+							$value[ kTAG_LABEL ], $language );
+				if( array_key_exists( kTAG_DEFINITION, $value ) )
+					$terms[ $key ][ kTAG_DEFINITION ]
+						= OntologyObject::SelectLanguageString(
+							$value[ kTAG_DEFINITION ], $language );
 		
-		} // Collecting tags.
-		
-		//
-		// Resolve terms.
-		//
-		$rs_terms
-			= Term::ResolveCollection(
-				Term::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchAll(
-							array( kTAG_NID => array( '$in' => $tmp ) ),
-							kQUERY_ARRAY,
-							array( kTAG_LABEL => TRUE, kTAG_DEFINITION => TRUE ) );
-		
-		//
-		// Load terms.
-		//
-		$terms = Array();
-		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
-		foreach( $rs_terms as $key => $value )
-		{
-			$terms[ $key ] = Array();
-			if( array_key_exists( kTAG_LABEL, $value ) )
-				$terms[ $key ][ kTAG_LABEL ]
-					= OntologyObject::SelectLanguageString(
-						$value[ kTAG_LABEL ], $language );
-			if( array_key_exists( kTAG_DEFINITION, $value ) )
-				$terms[ $key ][ kTAG_DEFINITION ]
-					= OntologyObject::SelectLanguageString(
-						$value[ kTAG_DEFINITION ], $language );
-		
-		} // Loading temrs.
+			} // Loading temrs.
+		}
 		
 		//
 		// Serialise group.
@@ -4140,49 +4328,76 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			// Iterate groups.
 			//
-			foreach( $theGroup as $group )
+			foreach( $groups as $tag => $group )
 			{
 				//
-				// Get term.
+				// Get value.
 				//
-				$term = $record[ '_id' ][ $group ];
-				$term_ref = & $terms[ $term ];
+				$value = $record[ '_id' ][ $tag ];
 				
 				//
 				// Create element.
 				//
-				if( ! array_key_exists( $term, $ref ) )
+				if( ! array_key_exists( $value, $ref ) )
 				{
 					//
 					// Allocate element.
 					//
-					$ref[ $term ] = Array();
+					$ref[ $value ] = Array();
 					
 					//
-					// Load label.
+					// Set offset.
 					//
-					if( array_key_exists( kTAG_LABEL, $term_ref ) )
-						$ref[ $term ][ kTAG_LABEL ]
-							= $term_ref[ kTAG_LABEL ];
+					$ref[ $value ][ kAPI_PARAM_OFFSETS ] = $group[ kAPI_PARAM_OFFSETS ];
 					
 					//
-					// Load definition.
+					// Set pattern.
 					//
-					if( array_key_exists( kTAG_DEFINITION, $term_ref ) )
-						$ref[ $term ][ kTAG_DEFINITION ]
-							= $term_ref[ kTAG_DEFINITION ];
-				
+					$ref[ $value ][ kAPI_PARAM_PATTERN ] = $value;
+					
+					//
+					// Handle enumeration.
+					//
+					if( in_array( $tag, $enums ) )
+					{
+						//
+						// Reference term.
+						//
+						$term_ref = $terms[ $value ];
+						
+						//
+						// Load label.
+						//
+						if( array_key_exists( kTAG_LABEL, $term_ref ) )
+							$ref[ $value ][ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+								= $term_ref[ kTAG_LABEL ];
+					
+						//
+						// Load definition.
+						//
+						if( array_key_exists( kTAG_DEFINITION, $term_ref ) )
+							$ref[ $value ][ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+								= $term_ref[ kTAG_DEFINITION ];
+						
+					} // Enumerated value.
+					
+					//
+					// Handle non-enumerated value.
+					//
+					else
+						$ref[ $value ][ kAPI_PARAM_RESPONSE_FRMT_NAME ] = $value;
+					
 				} // New element.
 				
 				//
 				// Handle leaf node.
 				//
-				if( $group == kTAG_DOMAIN )
+				if( $tag == kTAG_DOMAIN )
 				{
-					$ref[ $term ][ kAPI_PARAM_RESPONSE_COUNT ]
+					$ref[ $value ][ kAPI_PARAM_RESPONSE_COUNT ]
 						= $record[ kAPI_PARAM_RESPONSE_COUNT ];
 					if( array_key_exists( kAPI_PARAM_RESPONSE_POINTS, $record ) )
-						$ref[ $term ][ kAPI_PARAM_RESPONSE_POINTS ]
+						$ref[ $value ][ kAPI_PARAM_RESPONSE_POINTS ]
 							= $record[ kAPI_PARAM_RESPONSE_POINTS ];
 				}
 				
@@ -4194,13 +4409,13 @@ $rs_units = & $rs_units[ 'result' ];
 					//
 					// Allocate children container.
 					//
-					if( ! array_key_exists( kAPI_PARAM_RESPONSE_CHILDREN, $ref[ $term ] ) )
-						$ref[ $term ][ kAPI_PARAM_RESPONSE_CHILDREN ] = Array();
+					if( ! array_key_exists( kAPI_PARAM_RESPONSE_CHILDREN, $ref[ $value ] ) )
+						$ref[ $value ][ kAPI_PARAM_RESPONSE_CHILDREN ] = Array();
 					
 					//
 					// Point to container.
 					//
-					$ref = & $ref[ $term ][ kAPI_PARAM_RESPONSE_CHILDREN ];
+					$ref = & $ref[ $value ][ kAPI_PARAM_RESPONSE_CHILDREN ];
 				
 				} // Container node.
 			
