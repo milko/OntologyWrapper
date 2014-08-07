@@ -1379,6 +1379,38 @@
 				</item>
 			</item>
 		</TERM>
+	
+		<!-- kTAG_ENTITY_PGP_KEY -->
+		<TERM ns=":entity" lid="pgp-key">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">PGP public key</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The PGP public key of the entity.]]></item>
+				</item>
+			</item>
+		</TERM>
+	
+		<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
+		<TERM ns=":entity" lid="pgp-fingerprint">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">PGP fingerprint</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The PGP fingerprint of the entity.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 	
 	<!-- Management attributes -->

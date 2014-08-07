@@ -1202,6 +1202,30 @@ define( "kTAG_ENTITY_NATIONALITY",		79 );
  */
 define( "kTAG_ENTITY_VALID",			80 );
 
+/**
+ * Entity PGP public key (<code>:entity:pgp-key</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_STRING}
+ * </ul>
+ *
+ * This tag holds the <em>PGP public key</em> which identifies a specific <em>user</em>.
+ */
+define( "kTAG_ENTITY_PGP_KEY",			304 );
+//define( "kTAG_ENTITY_PGP_KEY",			81 );
+
+/**
+ * Entity PGP fingerprint (<code>:entity:pgp-fingerprint</code)
+ *
+ * <ul>
+ *	<li><em>Type</em>: {@link kTYPE_TEXT}
+ * </ul>
+ *
+ * This tag holds the <em>PGP fingerprint</em> which identifies a specific <em>user</em>.
+ */
+define( "kTAG_ENTITY_PGP_FINGERPRINT",	305 );
+//define( "kTAG_ENTITY_PGP_FINGERPRINT",	82 );
+
 /*=======================================================================================
  *	MANAGEMENT OFFSETS																	*
  *======================================================================================*/
@@ -1213,8 +1237,8 @@ define( "kTAG_ENTITY_VALID",			80 );
  * value is a set of string values which are defined and managed by the user interface
  * system.
  */
-//define( "kTAG_ROLES",					81 );
 define( "kTAG_ROLES",					303 );
+//define( "kTAG_ROLES",					83 );
 
 /*=======================================================================================
  *	OPERATION OFFSETS																	*

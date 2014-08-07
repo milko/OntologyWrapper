@@ -1791,12 +1791,48 @@
 				</item>
 			</item>
 		</TAG>
+	
+		<!-- 81 -->
+		<!-- kTAG_ENTITY_PGP_KEY -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:pgp-key</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the PGP public key of the entity, this is used to implement a secure authentication for users.]]></item>
+				</item>
+			</item>
+		</TAG>
+	
+		<!-- 82 -->
+		<!-- kTAG_ENTITY_PGP_FINGERPRINT -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:entity:pgp-fingerprint</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This attribute holds the PGP fingerprint of the entity, this is used to implement a secure authentication for users.]]></item>
+				</item>
+			</item>
+		</TAG>
 	</META>
 	
 	<!-- Management attributes -->
 	
 	<META>
-		<!-- 81 -->
+		<!-- 83 -->
 		<!-- kTAG_ROLES -->
 		<TAG>
 			<item const="kTAG_TERMS">

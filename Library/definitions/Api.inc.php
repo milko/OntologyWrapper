@@ -1123,8 +1123,10 @@ define( "kAPI_PARAM_RANGE_MAX",					'max' );
  *	<li><tt>{@link kAPI_PARAM_INPUT_STRING}</tt>: A string search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_RANGE}</tt>: A range search control.
  *	<li><tt>{@link kAPI_PARAM_INPUT_ENUM}</tt>: An enumerated set selection control.
- *	<li><tt>{@link kAPI_PARAM_INPUT_SHAPE}</tt>: An geographic area; note that this will not
+ *	<li><tt>{@link kAPI_PARAM_INPUT_SHAPE}</tt>: A geographic area; note that this will not
  *		come from a traditional form element, but rather from a map selection.
+ *	<li><tt>{@link kAPI_PARAM_INPUT_OFFSET}</tt>: An offset presence; note that this will
+ *		not come from a traditional form element, but rather from a group request.
  * </ul>
  */
 define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
@@ -1140,7 +1142,8 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  * Each element is structured as follows:
  *
  * <ul>
- *	<li><em>index</em>: The index of the item must contain the tag's native identifier.
+ *	<li><em>index</em>: The index of the item must contain the tag's native identifier, or
+ *		the offset in case of a {@link kAPI_PARAM_INPUT_OFFSET} input type.
  *	<li><em>value</em>: The value of the item will contain the search criteria for the tag
  *		provided in the index, it is an array fraturing the following elements:
  *	 <ul>
@@ -1203,6 +1206,33 @@ define( "kAPI_PARAM_INPUT_TYPE",				'input-type' );
  *					term native identifiers corresponding to the enumerated values to be
  *					matched.
  *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_SHAPE}</tt>: A geographic area; note that this
+ *				will not come from a traditional form element, but rather from a map
+ *				selection.
+ *			 <ul>
+ *				<li><tt>{@link kAPI_RESULT_SHAPE}</tt>: The shape (required). The value
+ *					should be a GeoJSON structure amon the following types:
+ *				 <ul>
+ *					<li><tt>Point</tt>: The service will select the first 100 records (or
+ *						less with the limits parameter) closest to the provided point and
+ *						less than the provided distance.
+ *					<li><tt>Circle</tt>: The service will select the first 100 records (or
+ *						less with the limits parameter) closest to the provided point and
+ *						within the provided radius.
+ *					<li><tt>Polygon</tt>: The service will select all the records within the
+ *						provided polygon, excluding eventual polygon holes.
+ *					<li><tt>Rect</tt>: The service will select all the records within the
+ *						provided rectangle.
+ *				 </ul>
+ *				<li><tt>{@link kAPI_PARAM_SHAPE_OFFSET}</tt>: The tag reference to the shape
+ *					property. meters from the provided point (required if the shape is a
+ *					point).
+ *			 </ul>
+ *			<li><tt>{@link kAPI_PARAM_INPUT_OFFSET}</tt>: An offset presence. This kind of
+ *				input is used to ensure the presence of specific offsets, rather than of
+ *				specific tags, this will not come from a traditional form element, but it
+ *				will be provided by a summary group request. This type does not contain any
+ *				element, since the offset is indicated in the array element index.
  *			<li><tt>{@link kAPI_PARAM_OFFSETS}</tt>: <em>Selected offsets</em>. If this parameter
  *				is omitted, the selection criteria will apply to all offsets in which the
  *				current tag is used, this parameter can be used to provide a specific set of
@@ -1824,6 +1854,18 @@ define( "kAPI_PARAM_INPUT_ENUM",				'input-enum' );
  * </ul>
  */
 define( "kAPI_PARAM_INPUT_SHAPE",				'input-shape' );
+
+/**
+ * Offset presence (array).
+ *
+ * This parameter indicates an offset assertion.
+ *
+ * This will generally be provided as a computed value, rather than from a traditional form,
+ * it ensures that a specific offset is present.
+ *
+ * The offset is indicated in the array element index and no other parameter is required.
+ */
+define( "kAPI_PARAM_INPUT_OFFSET",				'input-offset' );
 
 /**
  * Default input (string).

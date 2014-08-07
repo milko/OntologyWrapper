@@ -1014,7 +1014,7 @@ class Service extends ContainerObject
 			//
 			// Add groups to criteria.
 			//
-			foreach( array_keys( $this->offsetGet( kAPI_PARAM_GROUP_DATA ) ) as $tag )
+			foreach( $this->offsetGet( kAPI_PARAM_GROUP_DATA ) as $tag => $data )
 			{
 				//
 				// Skip domain.
@@ -1029,20 +1029,28 @@ class Service extends ContainerObject
 					continue;												// =>
 				
 				//
+				// Get leaf offset.
+				//
+				$offset = explode( '.', $tag );
+				$offset = $offset[ count( $offset ) - 1 ];
+				
+				//
 				// Skip existing.
 				//
-				if( array_key_exists( $tag, $criteria ) )
+				if( array_key_exists( $offset, $criteria ) )
 					continue;												// =>
 				
 				//
-				// Add to criteria.
-				// Note that we set default input type,
-				// without checking the element data type:
-				// this is because we provide no value,
-				// so the type is not evaluated.
+				// Add tag to criteria.
 				//
-				$criteria[ $tag ]
+				$criteria[ $offset ]
 					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_DEFAULT );
+				
+				//
+				// Add offset to criteria.
+				//
+				$criteria[ $data[ kAPI_PARAM_OFFSETS ] ]
+					= array( kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_OFFSET );
 			
 			} // Iterating groups.
 	
@@ -1367,23 +1375,53 @@ class Service extends ContainerObject
 		//
 		// Resolve tags.
 		//
-		$value = Array();
+		$value = $tags = Array();
 		foreach( $tmp as $key => $val )
 		{
 			//
-			// Handle tags.
+			// Handle offsets.
 			//
-			if( $key != kAPI_PARAM_FULL_TEXT_OFFSET )
+			if( $val[ kAPI_PARAM_INPUT_TYPE ] == kAPI_PARAM_INPUT_OFFSET )
 			{
 				//
-				// Handle tag sequence numbers.
+				// Resolve offset elements.
 				//
-				if( is_int( $key )
-				 || ctype_digit( $key ) )
-					$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
+				foreach( explode( '.', $key ) as $offset )
+				{
+					$tag = $this->mWrapper->getObject( (int) $offset, TRUE )[ kTAG_NID ];
+					if( ! in_array( $tag, $tags ) )
+						$tags[] = $tag;
+				}
+				
+			} // Offset input.
 			
-			} // Not a full-text search.
+			//
+			// Handle inputs.
+			//
+			else
+			{
+				//
+				// Handle tags.
+				//
+				if( $key != kAPI_PARAM_FULL_TEXT_OFFSET )
+				{
+					//
+					// Handle tag sequence numbers.
+					//
+					if( is_int( $key )
+					 || ctype_digit( $key ) )
+						$key = $this->mWrapper->getObject( (int) $key, TRUE )[ kTAG_NID ];
 			
+					//
+					// Add tag.
+					//
+					if( ! in_array( $key, $tags ) )
+						$tags[] = $key;
+			
+				} // Not a full-text search.
+			
+			} // Not an offset assertion.
+	
 			//
 			// Set criteria.
 			//
@@ -1413,15 +1451,6 @@ class Service extends ContainerObject
 		$fields = array( kTAG_NID => TRUE, kTAG_ID_SEQUENCE => TRUE,
 						 kTAG_TERMS => TRUE, kTAG_DATA_TYPE => TRUE,
 						 $offsets_tag => TRUE );
-		
-		//
-		// Filter tags only.
-		//
-		$tags
-			= array_values(
-				array_diff(
-					array_keys( $value ),
-					array( kAPI_PARAM_FULL_TEXT_OFFSET ) ) );
 		
 		//
 		// Search tags.
@@ -1508,6 +1537,66 @@ class Service extends ContainerObject
 				continue;													// =>
 			
 			} // Full text search.
+			
+			//
+			// Handle offset assertion.
+			//
+			elseif( $criteria[ kAPI_PARAM_INPUT_TYPE ] == kAPI_PARAM_INPUT_OFFSET )
+			{
+				//
+				// Create cluster entry.
+				//
+				$this->mFilter[ $tag ]
+					= array( kAPI_PARAM_VALUE_COUNT => 1,
+							 kAPI_PARAM_CRITERIA => Array() );
+				
+				//
+				// Reference cluster, values counter and criteria.
+				//
+				$cluster_ref = & $this->mFilter[ $tag ];
+				$criteria_ref = & $cluster_ref[ kAPI_PARAM_CRITERIA ];
+				
+				//
+				// Extract leaf tag.
+				//
+				$tmp = explode( '.', $tag );
+				$tmp = kTAG_OBJECT_OFFSETS.'.'.$tmp[ count( $tmp ) - 1 ];
+				
+				//
+				// Allocate criteria.
+				//
+				$criteria_ref[ $tmp ] = Array();
+				$criteria_ref = & $criteria_ref[ $tmp ];
+							 
+				//
+				// Set input and data types.
+				//
+				$criteria_ref[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_STRING;
+				$criteria_ref[ kAPI_PARAM_DATA_TYPE ] = kTYPE_STRING;
+		
+				//
+				// Set index flag.
+				//
+				$criteria_ref[ kAPI_PARAM_INDEX ] = TRUE;
+				
+				//
+				// Set pattern.
+				//
+				$criteria_ref[ kAPI_PARAM_PATTERN ] = (string) $tag;
+				
+				//
+				// Set operator.
+				//
+				$criteria_ref[ kAPI_PARAM_OPERATOR ] = array( kOPERATOR_EQUAL );
+				
+				//
+				// Set offsets.
+				//
+				$criteria_ref[ kAPI_PARAM_OFFSETS ] = array( $tmp );
+				
+				continue;													// =>
+			
+			} // Offset assertion.
 			
 			//
 			// Handle tag reference.
@@ -2844,6 +2933,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_INPUT_RANGE" ] = kAPI_PARAM_INPUT_RANGE;
 		$ref[ "kAPI_PARAM_INPUT_ENUM" ] = kAPI_PARAM_INPUT_ENUM;
 		$ref[ "kAPI_PARAM_INPUT_SHAPE" ] = kAPI_PARAM_INPUT_SHAPE;
+		$ref[ "kAPI_PARAM_INPUT_OFFSET" ] = kAPI_PARAM_INPUT_OFFSET;
 		$ref[ "kAPI_PARAM_INPUT_DEFAULT" ] = kAPI_PARAM_INPUT_DEFAULT;
 		
 	} // executeListParameterConstants.
@@ -4125,13 +4215,13 @@ class Service extends ContainerObject
 		$shape = $this->offsetGet( kAPI_PARAM_SHAPE_OFFSET );
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
 		$groups = $this->offsetGet( kAPI_PARAM_GROUP_DATA );
-		if( count( $groups ) == 1 )
-			$domain = key( $groups );
+		$list = 0;
 		
 		//
 		// Set match.
 		//
-		$pipeline[] = array( '$match' => $this->mFilter );
+		if( count( $this->mFilter ) )
+			$pipeline[] = array( '$match' => $this->mFilter );
 		
 		//
 		// Set project 1.
@@ -4154,16 +4244,20 @@ class Service extends ContainerObject
 		{
 			if( $tmp = $value[ kAPI_PARAM_GROUP_LIST ] )
 			{
+				$list += $tmp;
 				while( $tmp-- )
 					$pipeline[] = array( '$unwind' => '$'.$key );
 			}
 		}
 		
 		//
-		// Set group1.
+		// Handle array summary elements.
 		//
-		if( count( $groups ) > 1 )
+		if( $list )
 		{
+			//
+			// Set group1.
+			//
 			$tmp = array( '_id' => Array() );
 			$tmp[ '_id' ][ 'id' ] = '$_id';
 			foreach( array_keys( $groups ) as $element )
@@ -4171,13 +4265,10 @@ class Service extends ContainerObject
 			if( $shape !== NULL )
 				$tmp[ $shape ] = array( '$sum' => '$'.$shape );
 			$pipeline[] = array( '$group' => $tmp );
-		}
 		
-		//
-		// Set project 2.
-		//
-		if( count( $groups ) > 1 )
-		{
+			//
+			// Set project 2.
+			//
 			if( $shape !== NULL )
 			{
 				$tmp = Array();
@@ -4189,13 +4280,10 @@ class Service extends ContainerObject
 						'else' => 0 ) );
 				$pipeline[] = array( '$project' => $tmp );
 			}
-		}
 		
-		//
-		// Set group2.
-		//
-		if( count( $groups ) > 1 )
-		{
+			//
+			// Set group2.
+			//
 			$tmp = array( '_id' => Array() );
 			foreach( array_keys( $groups ) as $element )
 				$tmp[ '_id' ][ $element ] = '$_id.'.$element;
@@ -4203,16 +4291,26 @@ class Service extends ContainerObject
 			if( $shape !== NULL )
 				$tmp[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.$shape );
 			$pipeline[] = array( '$group' => $tmp );
-		}
+		
+		} // Array summary elements.
+		
+		//
+		// Handle scalar summary elements.
+		//
 		else
 		{
+			//
+			// Set group.
+			//
 			$tmp = array( '_id' => Array() );
-			$tmp[ '_id' ][ $domain ] = '$'.$domain;
+			foreach( array_keys( $groups ) as $element )
+				$tmp[ '_id' ][ $element ] = '$'.$element;
 			$tmp[ kAPI_PARAM_RESPONSE_COUNT ] = array( '$sum' => 1 );
 			if( $shape !== NULL )
 				$tmp[ kAPI_PARAM_RESPONSE_POINTS ] = array( '$sum' => '$'.$shape );
 			$pipeline[] = array( '$group' => $tmp );
-		}
+		
+		} // Scalar summary elements.
 		
 		//
 		// Set sort.
@@ -4234,7 +4332,8 @@ class Service extends ContainerObject
 			= PersistentObject::ResolveCollectionByName(
 				$this->mWrapper, $theCollection )
 					->aggregate(
-						$pipeline );
+						$pipeline,
+						array( 'allowDiskUse' => true ) );
 						
 		//
 		// Iterate results.
