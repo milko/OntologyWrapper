@@ -152,7 +152,6 @@ try
 	$criteria
 		= array( kTAG_NID => array(
 			'$in' => array(
-				'fcu:population', 'fcu:unit:species',
 				':taxon:genus', ':taxon:species', ':taxon:epithet' ) ) );
 	$rs = $collection->matchAll( $criteria, kQUERY_ARRAY );
 	foreach( $rs as $record )
@@ -180,28 +179,62 @@ try
 	//
 	// Iterate.
 	//
+	$lists = array( 'fcu:population', 'fcu:unit:species' );
 	foreach( $rs as $object )
 	{
 		//
-		// Handle populations.
+		// Iterate structures.
 		//
-		$list = $object[ 'fcu:population' ];
-		if( is_array( $list ) )
+		foreach( $lists as $list )
 		{
-			foreach( $list as $key => $value )
+			//
+			// Get property.
+			//
+			$struct = $object[ $list ];
+			if( is_array( $struct ) )
 			{
-				//
-				// Get taxon.
-				//
-				$taxon = $value[ $tags[ ':taxon:epithet' ] ];
+				foreach( $struct as $key => $value )
+				{
+					//
+					// Get elements.
+					//
+					$taxon = $value[ $tags[ ':taxon:epithet' ] ];
 				
+					//
+					// Get genus and species.
+					//
+					$pos = strpos( $taxon, ' ' );
+					if( $pos !== FALSE )
+					{
+						$genus = substr( $taxon, 0, $pos );
+						$species = substr( $taxon, $pos + 1 );
+					}
+					else
+					{
+						$genus = $taxon;
+						$species = NULL;
+					}
+				
+					//
+					// Set genus and species.
+					//
+					if( strlen( $genus ) )
+						$struct[ $key ][ $tags[ ':taxon:genus' ] ] = $genus;
+					if( strlen( $species ) )
+						$struct[ $key ][ $tags[ ':taxon:species' ] ] = $species;
+				}
+			
 				//
-				// Set genus.
+				// Update object.
 				//
-var_dump( $taxon );
-exit;
+				$object[ $list ] = $struct;
 			}
 		}
+		
+		//
+		// Save object.
+		//
+		$object->commit();
 	
 	} // Iterated.
 

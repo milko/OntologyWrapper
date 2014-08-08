@@ -416,6 +416,20 @@ define( "kAPI_OP_LIST_REF_COUNTS",				'listRefCounts' );
 define( "kAPI_OP_MATCH_TAG_LABELS",				'matchTagLabels' );
 
 /**
+ * Match tag summary labels.
+ *
+ * This tag defines the match tag summary labels operation.
+ *
+ * The service will return a list of tag label strings corresponding to the provided
+ * pattern, language, operator and limit, these labels will only come from tags which can be
+ * included in summaries.
+ *
+ * This service expects the same parameters as the {@link kAPI_OP_MATCH_TAG_LABELS} service,
+ * except that the result will filter only labels from summary tags.
+ */
+define( "kAPI_OP_MATCH_TAG_SUMMARY_LABELS",		'matchTagSummaryLabels' );
+
+/**
  * Match term labels.
  *
  * This tag defines the match term labels operation.
@@ -482,7 +496,7 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
 /**
  * Match tag by label.
  *
- * This tag defines the match tag by label operation.
+ * This tag defines the match summary tags by label operation.
  *
  * The service will return a list of tag objects whose label matches the provided pattern,
  * language, operator and limit.
@@ -542,6 +556,20 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
  * </ul>
  */
 define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagsByLabel' );
+
+/**
+ * Match summary tags by label.
+ *
+ * This tag defines the match tag by label operation.
+ *
+ * The service will return a list of tag objects whose label matches the provided pattern,
+ * language, operator and limit; these labels will only come from tags which can be included
+ * in summaries.
+ *
+ * This service expects the same parameters as the {@link kAPI_OP_MATCH_TAG_BY_LABEL}
+ * service, except that the result will include only summary tags.
+ */
+define( "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL",	'matchSummaryTagsByLabel' );
 
 /**
  * Match term by label.
@@ -819,10 +847,6 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *				offsets.
  *		 </ul>
  *	 </ul>
- *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
- *		provided, the service will return the results of the type provided in this
- *		parameter, if it is not provided, the next parameter is required. If this parameter
- *		is provided, the next parameter will be ignored.
  *	<li><tt>{@link kAPI_PARAM_DATA}</tt>: <em>Results format</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} parameter was provided, it indicates what
  *		kind of data the service should return:
@@ -838,6 +862,10 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *			value contained in the offset provided in the {@link kAPI_PARAM_SHAPE_OFFSET},
  *			which is required in this case.
  *	 </ul>
+ *	<li><tt>{@link kAPI_PARAM_DOMAIN}</tt>: <em>Results domain</em>. If this parameter is
+ *		provided, the service will return the results of the type provided in this
+ *		parameter, if it is not provided, the next parameter is required. If this parameter
+ *		is provided, the next parameter will be ignored.
  *	<li><tt>{@link kAPI_PARAM_GROUP}</tt>: <em>Group results</em>. This parameter must be
  *		provided if the {@link kAPI_PARAM_DOMAIN} is omitted: the value may be a string or
  *		an array of strings representing the tag native identifiers or sequence numbers by
@@ -847,6 +875,14 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		the tags are provided, only the leaf elements will contain the record counts.
  *		<em>Note that the leaf element will always be the {@link kTAG_DOMAIN} property, if
  *		missing from the provided parametrer it will be added</em>.
+ *	<li><tt>{@link kAPI_PARAM_SUMMARY}</tt>: <em>Summary selection</em>. This parameter
+ *		should be provided if you reach this query from a summary page with more than one
+ *		element (including the default domain property), it is structured as an array in
+ *		which the elements key represents the offset and the elements value the match
+ *		value. <em>Note that you should not provide the domain leaf element in this
+ *		parameter, the domain value should be instead provided in the
+ *		{@link kAPI_PARAM_DOMAIN} parameter.</em> This parameter will be ignored if the
+ *		{@link kAPI_PARAM_GROUP} parameter was provided.
  *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is
  *		provided, the service will add the provided shape to the filter, the parameter is
  *		structured as a GeoJson shape of which the following types are supported:
@@ -1309,6 +1345,21 @@ define( "kAPI_PARAM_DATA",						'data' );
  * element to the last; only the leaf elements will hold the record count.
  */
 define( "kAPI_PARAM_GROUP",						'grouping' );
+
+/**
+ * Result summary (array).
+ *
+ * This tag defines the results summary matches.
+ *
+ * This parameter is used by services originating from a summary results set, it is an array
+ * containing the offset and match value of all the elements of the current summary element.
+ *
+ * The elements key represents the offset and the value the match value. When providing
+ * values in this parameter, you should not provide the leaf element of the summary, by
+ * default the domain: this element's value belongs in the {@link @link kAPI_PARAM_DOMAIN}
+ * parameter.
+ */
+define( "kAPI_PARAM_SUMMARY",						'summary' );
 
 /**
  * Geographic shape (shape).

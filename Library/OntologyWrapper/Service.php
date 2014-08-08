@@ -350,8 +350,10 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL}</tt>: Match summary tag by label.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
@@ -380,8 +382,10 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_OPERATORS:
 			case kAPI_OP_LIST_REF_COUNTS:
 			case kAPI_OP_MATCH_TAG_LABELS:
+			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
 			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
@@ -508,6 +512,10 @@ class Service extends ContainerObject
 		//
 		switch( $theKey )
 		{
+			case kAPI_PARAM_SUMMARY:
+				$this->offsetSet( $theKey, $theValue );
+				break;
+
 			case kAPI_PARAM_PATTERN:
 			case kAPI_PARAM_TAG:
 			case kAPI_PARAM_NODE:
@@ -676,8 +684,10 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL}</tt>: Match summary tag by label.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
@@ -710,8 +720,10 @@ class Service extends ContainerObject
 				break;
 			
 			case kAPI_OP_MATCH_TAG_LABELS:
+			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
 			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				$this->validateMatchLabelStrings();
 				break;
@@ -990,6 +1002,7 @@ class Service extends ContainerObject
 			//
 			// Reset results type.
 			//
+			$this->offsetUnset( kAPI_PARAM_SUMMARY );
 			$this->offsetUnset( kAPI_PARAM_DOMAIN );
 			$this->offsetUnset( kAPI_PARAM_DATA );
 	
@@ -1113,6 +1126,30 @@ class Service extends ContainerObject
 						throw new \Exception(
 							"Invalid result type [$tmp]." );					// !@! ==>
 						break;
+				}
+			}
+			
+			//
+			// Validate summaries.
+			//
+			if( $this->offsetExists( kAPI_PARAM_SUMMARY ) )
+			{
+				$tmp = $this->offsetGet( kAPI_PARAM_SUMMARY );
+				if( ! is_array( $tmp ) )
+					throw new \Exception(
+						"Invalid summaries list, expecting an array." );		// !@! ==>
+				if( ! count( $tmp ) )
+					$this->offsetUnset( kAPI_PARAM_SUMMARY );
+				else
+				{
+					foreach( $tmp as $offset => $value )
+					{
+						$element
+							= $this->buildCriteria(
+								$offset, $value, array( $offset ) );
+						$offsets = explode( '.', $offset );
+						$criteria[ $offsets[ count( $offsets ) - 1 ] ] = $element;
+					}
 				}
 			}
 	
@@ -2625,8 +2662,10 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL}</tt>: Match summary tag by label.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
@@ -2662,7 +2701,9 @@ class Service extends ContainerObject
 			case kAPI_OP_LIST_REF_COUNTS:
 				$this->executeListReferenceCountParameters();
 				break;
+				
 			case kAPI_OP_MATCH_TAG_LABELS:
+			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 				$this->executeMatchTagLabels();
 				break;
 				
@@ -2671,6 +2712,7 @@ class Service extends ContainerObject
 				break;
 				
 			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
 				$this->executeMatchTagByLabel();
 				break;
 				
@@ -2807,7 +2849,9 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_LIST_REF_COUNTS" ] = kAPI_OP_LIST_REF_COUNTS;
 		$ref[ "kAPI_OP_MATCH_TAG_LABELS" ] = kAPI_OP_MATCH_TAG_LABELS;
 		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
+		$ref[ "kAPI_OP_MATCH_TAG_SUMMARY_LABELS" ] = kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
+		$ref[ "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL" ] = kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
@@ -2835,6 +2879,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_DOMAIN" ] = kAPI_PARAM_DOMAIN;
 		$ref[ "kAPI_PARAM_DATA" ] = kAPI_PARAM_DATA;
 		$ref[ "kAPI_PARAM_GROUP" ] = kAPI_PARAM_GROUP;
+		$ref[ "kAPI_PARAM_SUMMARY" ] = kAPI_PARAM_SUMMARY;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
 		$ref[ "kAPI_PARAM_FULL_TEXT_OFFSET" ] = kAPI_PARAM_FULL_TEXT_OFFSET;
@@ -3788,6 +3833,17 @@ class Service extends ContainerObject
 		}
 		
 		//
+		// Handle summary tags.
+		//
+		switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
+		{
+			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
+			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
+				$criteria[ kTAG_DATA_KIND ] = kTYPE_SUMMARY;
+				break;
+		}
+		
+		//
 		// Execute query.
 		//
 		$rs = $theCollection->matchAll( $criteria, kQUERY_OBJECT, $theFields );
@@ -3918,42 +3974,18 @@ class Service extends ContainerObject
 			$theIterator->limit( (int) $tmp );
 		
 		//
-		// Instantiate results formatter.
+		// Format by operation.
 		//
-		$formatter
-			= new IteratorSerialiser(
-					$theIterator,									// Iterator.
-					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
-					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );	// Language.
-		
-		//
-		// Serialise iterator.
-		//
-		$formatter->serialise();
-		
-		//
-		// Set paging.
-		//
-		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
-		
-		//
-		// Set dictionary.
-		//
-		$dictionary = $formatter->dictionary();
-		$elements = array( kAPI_DICTIONARY_COLLECTION, kAPI_DICTIONARY_REF_COUNT,
-						   kAPI_DICTIONARY_IDS, kAPI_DICTIONARY_TAGS,
-						   kAPI_DICTIONARY_CLUSTER );
-		foreach( $elements as $element )
+		switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
 		{
-			if( array_key_exists( $element, $dictionary ) )
-				$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
-					= $dictionary[ $element ];
+			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
+				$this->executeSerialiseSummaryTags( $theIterator );
+				break;
+			
+			default:
+				$this->executeSerialiseResults( $theIterator );
+				break;
 		}
-		
-		//
-		// Set data.
-		//
-		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $formatter->data();
 		
 	} // executeMatchLabelObjectsResults.
 
@@ -4817,6 +4849,157 @@ $rs_units = & $rs_units[ 'result' ];
 		
 	} // executeClusterUnits.
 
+
+	/*===================================================================================
+	 *	executeSerialiseResults															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise results.
+	 *
+	 * This method will userialise the data from the provided iterator.
+	 *
+	 * @param ObjectIterator		$theIterator		Iterator object.
+	 *
+	 * @access protected
+	 */
+	protected function executeSerialiseResults( ObjectIterator $theIterator )
+	{
+		//
+		// Instantiate results formatter.
+		//
+		$formatter
+			= new IteratorSerialiser(
+					$theIterator,									// Iterator.
+					kAPI_RESULT_ENUM_DATA_RECORD,					// Format.
+					$this->offsetGet( kAPI_REQUEST_LANGUAGE ) );	// Language.
+		
+		//
+		// Serialise iterator.
+		//
+		$formatter->serialise();
+		
+		//
+		// Set paging.
+		//
+		$this->mResponse[ kAPI_RESPONSE_PAGING ] = $formatter->paging();
+		
+		//
+		// Set dictionary.
+		//
+		$dictionary = $formatter->dictionary();
+		$elements = array( kAPI_DICTIONARY_COLLECTION, kAPI_DICTIONARY_REF_COUNT,
+						   kAPI_DICTIONARY_IDS, kAPI_DICTIONARY_TAGS,
+						   kAPI_DICTIONARY_CLUSTER );
+		foreach( $elements as $element )
+		{
+			if( array_key_exists( $element, $dictionary ) )
+				$this->mResponse[ kAPI_RESULTS_DICTIONARY ][ $element ]
+					= $dictionary[ $element ];
+		}
+		
+		//
+		// Set data.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $formatter->data();
+		
+	} // executeSerialiseResults.
+
+
+	/*===================================================================================
+	 *	executeSerialiseSummaryTags														*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise summary tags.
+	 *
+	 * This method will serialise the data from the provided iterator which is expected to
+	 * hold a list of summary tag objects.
+	 *
+	 * @param ObjectIterator		$theIterator		Iterator object.
+	 *
+	 * @access protected
+	 */
+	protected function executeSerialiseSummaryTags( ObjectIterator $theIterator )
+	{
+		//
+		// Init local storage.
+		//
+		$results = Array();
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		
+		//
+		// Iterate tags.
+		//
+		foreach( $theIterator as $object )
+		{
+			//
+			// Check tag offsets.
+			//
+			$offsets = $object->offsetGet( kTAG_UNIT_OFFSETS );
+			if( is_array( $offsets ) )
+			{
+				//
+				// Iterate tag offsets.
+				//
+				foreach( $offsets as $offset )
+				{
+					//
+					// Allocate offset.
+					//
+					$results[ $offset ] = Array();
+					$offset_ref = & $results[ $offset ];
+				
+					//
+					// Explode structures.
+					//
+					$structs = explode( '.', $offset );
+					foreach( $structs as $struct )
+					{
+						//
+						// Allocate struct element.
+						//
+						$offset_ref[ $struct ] = Array();
+						$struct_ref = & $offset_ref[ $struct ];
+					
+						//
+						// Resolve structure tag.
+						//
+						$tag = ( $struct == $object[ kTAG_ID_SEQUENCE ] )
+							 ? $object
+							 : $this->mWrapper->getObject( (int) $struct, TRUE );
+			
+						//
+						// Set tag label.
+						//
+						if( $tag[ kTAG_LABEL ] )
+							$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+								= OntologyObject::SelectLanguageString(
+									$tag[ kTAG_LABEL ], $language );
+			
+						//
+						// Set tag description.
+						//
+						if( $tag[ kTAG_DESCRIPTION ] )
+							$struct_ref[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+								= OntologyObject::SelectLanguageString(
+									$tag[ kTAG_DESCRIPTION ], $language );
+				
+					} // Iterating structure.
+			
+				} // Iterating tag offsets.
+			
+			} // Has offsets.
+		
+		} // Iterated iterator.
+		
+		//
+		// Set data.
+		//
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = $results;
+		
+	} // executeSerialiseSummaryTags.
+
 		
 
 /*=======================================================================================
@@ -5473,6 +5656,104 @@ $rs_units = & $rs_units[ 'result' ];
 		return $result;																// ==>
 		
 	} // getRefCountTag.
+
+	 
+	/*===================================================================================
+	 *	buildCriteria																	*
+	 *==================================================================================*/
+
+	/**
+	 * Build criteria entry.
+	 *
+	 * This method will return a criteria entry according to the provided parameters; it is
+	 * the responsibility of the caller to manage the criteria element key.
+	 *
+	 * The match is assumed an exact match.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value.
+	 * @param array					$theOffsets			Offsets list.
+	 *
+	 * @access protected
+	 * @return array				Criteria record.
+	 */
+	protected function buildCriteria( $theOffset, $theValue, $theOffsets = NULL )
+	{
+		//
+		// Init local storage.
+		//
+		$criteria = Array();
+		
+		//
+		// Get leaf tag.
+		//
+		$tag = explode( '.', $theOffset );
+		$tag = $tag[ count( $tag ) - 1 ];
+		if( is_int( $tag )
+		 || ctype_digit( $tag ) )
+			$tag = (int) $tag;
+		else
+			$tag = $this->mWrapper->getSerial( $tag, TRUE );
+		$tag = $this->mWrapper->getObject( $tag, TRUE );
+		
+		//
+		// Handle by type.
+		//
+		switch( $type = $tag[ kTAG_DATA_TYPE ] )
+		{
+			case kTYPE_STRING:
+			case kTYPE_TEXT:
+			case kTYPE_URL:
+			case kTYPE_YEAR:
+			case kTYPE_DATE:
+				$criteria[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_STRING;
+				$criteria[ kAPI_PARAM_PATTERN ] = (string) $theValue;
+				$criteria[ kAPI_PARAM_OPERATOR ] = array( kOPERATOR_EQUAL );
+				break;
+			
+			case kTYPE_INT:
+				$criteria[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_DEFAULT;
+				$criteria[ kAPI_PARAM_PATTERN ] = (int) $theValue;
+				break;
+			
+			case kTYPE_FLOAT:
+				$criteria[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_DEFAULT;
+				$criteria[ kAPI_PARAM_PATTERN ] = (double) $theValue;
+				break;
+			
+			case kTYPE_BOOLEAN:
+				$criteria[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_DEFAULT;
+				$criteria[ kAPI_PARAM_PATTERN ] = (boolean) $theValue;
+				break;
+			
+			case kTYPE_ENUM:
+			case kTYPE_SET:
+				$criteria[ kAPI_PARAM_INPUT_TYPE ] = kAPI_PARAM_INPUT_ENUM;
+				if( is_array( $theValue ) )
+				{
+					$tmp = Array();
+					foreach( $theValue as $value )
+						$tmp[] = (string) $value;
+					$criteria[ kAPI_RESULT_ENUM_TERM ] = $tmp;
+				}
+				else
+					$criteria[ kAPI_RESULT_ENUM_TERM ] = array( (string) $theValue );
+				break;
+			
+			default:
+				throw new \Exception(
+					"Invalid or unsupported type [$type]." );					// !@! ==>
+		}
+		
+		//
+		// Handle offsets.
+		//
+		if( is_array( $theOffsets ) )
+			$criteria[ kAPI_PARAM_OFFSETS ] = $theOffsets;
+		
+		return $criteria;															// ==>
+		
+	} // buildCriteria.
 
 	 
 
