@@ -1,0 +1,199 @@
+Ti mando le istruzioni per il workflow dei summaries.
+
+STEP 1: autocomplete con nome del campo da selezionare.
+	
+	$param
+		= urlencode(
+			json_encode(
+				array(
+				//	kAPI_PARAM_LOG_REQUEST => TRUE,
+					kAPI_PAGING_LIMIT => 50,
+					kAPI_PARAM_PATTERN => 'gen',
+					kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+					kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT ) ) );
+	$request = kAPI_REQUEST_OPERATION."=".kAPI_OP_MATCH_TAG_SUMMARY_LABELS."&"
+			  .kAPI_REQUEST_LANGUAGE."=en&"
+			  .kAPI_REQUEST_PARAMETERS."=".$param;
+
+	$response = file_get_contents( "$base_url?$request" );
+	
+Il risultato è:
+
+    [results] => Array
+        (
+            [0] => Status of long-term viable regeneration
+            [1] => Genus
+        )
+
+Da gestire come autocomplete del advanced search, eccetto che è solo consentito
+selezionare una scelta.
+
+STEP 2: l'utente seleziona "Genus"
+	
+	$param
+		= urlencode(
+			json_encode(
+				array(
+				//	kAPI_PARAM_LOG_REQUEST => TRUE,
+					kAPI_PAGING_LIMIT => 50,
+					kAPI_PARAM_PATTERN => 'Genus',
+					kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL ),
+					kAPI_PARAM_EXCLUDED_TAGS => Array(),
+					kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT ) ) );
+	$request = kAPI_REQUEST_OPERATION."=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL."&"
+			  .kAPI_REQUEST_LANGUAGE."=en&"
+			  .kAPI_REQUEST_PARAMETERS."=".$param;
+
+	$response = file_get_contents( "$base_url?$request" );
+	
+Il risultato è:
+
+    [results] => Array
+        (
+            [149] => Array
+                (
+                    [tag] => 149
+                    [149] => Array
+                        (
+                            [name] => Genus
+                        )
+
+                )
+
+            [241.149] => Array
+                (
+                    [tag] => 149
+                    [241] => Array
+                        (
+                            [name] => All tree species growing in the unit
+                            [info] => List of target and non target species growing in the unit.
+                        )
+
+                    [149] => Array
+                        (
+                            [name] => Genus
+                        )
+
+                )
+
+            [242.149] => Array
+                (
+                    [tag] => 149
+                    [242] => Array
+                        (
+                            [name] => Unit populations
+                            [info] => Information on population target species growing in the unit.
+                        )
+
+                    [149] => Array
+                        (
+                            [name] => Genus
+                        )
+
+                )
+
+        )
+
+Il risultato è strutturato in questo modo:
+
+	- La chiave dell'elemento è l'ID della selezione - lo chiamiamo [ID].
+	- Ogni elemento ha i seguenti item:
+	  • kAPI_PARAM_TAG ('tag'): Questo elemento rappresenta l'identificatore del tag - lo
+	  	chiamiamo [TAG].
+	  • Tutti gli altri elementi rappresentano la label e la descrizione delle strutture e
+	    sotto-strutture nelle quali si trova il tag, in ordine: dalla struttura root
+	    all'elemento foglia.
+
+L'utente deve selezionare UNO degli elementi della risposta (o nessuno - Cancel).
+Ogni elemento deve contenere la label e la descrizione indentati, o in altro modo, così da
+illustrare la struttura: per esempio: i dati di ID=242.149 devono essere mostrati in modo
+tale da far capire che 242 contiene 149.
+
+STEP 3: Una volta che l'utente ha selezionato un elemento, ti salvi in una lista [ID] e
+		[TAG]. L'utente può premere search oppure cercare un altro campo, in quest'ultimo
+		caso devi passare nel parametro kAPI_PARAM_EXCLUDED_TAGS tutti i [TAG] della lista,
+		ecco l'esempio:
+
+	$param
+		= urlencode(
+			json_encode(
+				array(
+				//	kAPI_PARAM_LOG_REQUEST => TRUE,
+					kAPI_PAGING_LIMIT => 50,
+					kAPI_PARAM_PATTERN => 'Genus',
+					kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL ),
+==================>	kAPI_PARAM_EXCLUDED_TAGS => array( 149 ),
+					kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT ) ) );
+	$request = kAPI_REQUEST_OPERATION."=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL."&"
+			  .kAPI_REQUEST_LANGUAGE."=en&"
+			  .kAPI_REQUEST_PARAMETERS."=".$param;
+
+	$response = file_get_contents( "$base_url?$request" );
+
+I parametri sono gli stessi, eccetto che per kAPI_PARAM_EXCLUDED_TAGS che contiene la
+selezione corrente. In questo caso abbiamo cercato di nuovo 'genus', se l'utente non è
+scemo cercherà qualcos'altro, e non dovremo avere risultati, perché abbiamo aggiunto il
+tag di 'genus' agli elementi da scartare in kAPI_PARAM_EXCLUDED_TAGS.
+
+Ogni volta che l'utente seleziona un elemento dell'autocomplete, passiamo di nuovo allo
+STEP 2.
+
+STEP 4: L'utente preme il bottone Search, la procedura è la stessa di quando si preme il
+bottone Search nello advanced search.
+
+Devi esserti salvato il contenuto del parametro kAPI_PARAM_CRITERIA passato sia dal text
+search o dallo advanced search e chiami questo servizio:
+
+	$param
+		= urlencode(
+			json_encode(
+				array(
+				//	kAPI_PARAM_LOG_REQUEST => TRUE,
+					kAPI_PARAM_CRITERIA => ... dal form o dal text search,
+					kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+					kAPI_PARAM_GROUP => array( '242.149' ) ) ) );
+	$request = kAPI_REQUEST_OPERATION."=".kAPI_OP_MATCH_UNITS."&"
+			  .kAPI_REQUEST_LANGUAGE."=en&"
+			  .kAPI_REQUEST_PARAMETERS."=".$param;
+
+	$response = file_get_contents( "$base_url?$request" );
+
+Il risultato è:
+
+    [results] => Array
+        (
+            [Abies] => Array
+                (
+                    [offsets] => 242.149
+                    [pattern] => Abies
+                    [name] => Abies
+                    [children] => Array
+                        (
+                            [:domain:forest] => Array
+                                (
+                                    [offsets] => 7
+                                    [pattern] => :domain:forest
+                                    [name] => Forest
+                                    [info] => The domain of forest gene conservation units and their target species populations.
+                                    [count] => 331
+                                    [points] => 327
+                                )
+
+                        )
+
+                )
+
+				...
+	
+Come puoi vedere la chiamata è identica a quella che fai dalla form di ricerca, eccetto che
+passi nel parametro kAPI_PARAM_GROUP la lista dei [TAG] nell'ordine in cui l'utente li ha
+cercati (oppure nell'ordine nel quale l'utente li ha messi se riusciamo a fare una
+interfaccia per cambiare l'ordine della lista).
+
+In questo caso l'utente ha scelto l'elemento con ID=242.149
+
+STEP 5. Il risultato dello step 4 è il summary, mentre fino ad ora avresti solo ricevuto
+gli elementi foglia, ora ricevi anche i rami. "Abies" contiene i dati dell'elemento padre,
+mentre nel parametro ("children").
+
+Lunedì vediamo insieme come gestire questo step...

@@ -408,6 +408,9 @@ define( "kAPI_OP_LIST_REF_COUNTS",				'listRefCounts' );
  *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
+ *	<li><tt>{@link kAPI_PARAM_EXCLUDED_TAGS}</tt>: <em>Tags to skip</em>. This optional
+ *		parameter can be used to provide a list of tags that should be excluded from the
+ *		search.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -550,6 +553,9 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
  *			zero.
  *	 </ul>
  *		The filter will be chained in <tt>AND</tt>.
+ *	<li><tt>{@link kAPI_PARAM_EXCLUDED_TAGS}</tt>: <em>Tags to skip</em>. This optional
+ *		parameter can be used to provide a list of tags that should be excluded from the
+ *		search.
  *	<li><tt>{@link kAPI_PAGING_LIMIT}</tt>: <em>Limit</em>. This required parameter
  *		indicates the maximum number of elements to be returned. If omitted, it will be
  *		set to the default constant {@link kSTANDARDS_STRINGS_LIMIT}.
@@ -568,6 +574,29 @@ define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagsByLabel' );
  *
  * This service expects the same parameters as the {@link kAPI_OP_MATCH_TAG_BY_LABEL}
  * service, except that the result will include only summary tags.
+ *
+ * The result is an array of elements representing the disting offsets of the tags selected
+ * by the label:
+ *
+ * <ul>
+ *	<li><em>key</em>: The offset.
+ *	<li><em>value</em>: An array structured as follows:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_TAG}</tt>: This element holds that tag sequence number of
+ *			the offset's tag.
+ *		<li><em>Other elements</em>: The other elements of the array represent in order the
+ *			tags that comprise the offset, starting from the root structure and ending with
+ *			the leaf tag:
+ *		 <ul>
+ *			<li><em>key</em>: The tag sequence number.
+ *			<li><em>value</em>: An array holding the following elements:
+ *			 <ul>
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The tag label.
+ *				<li><tt>{@link kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The tag description.
+ *			 </ul>
+ *		 </ul>
+ *	 </ul>
+ * </ul>
  */
 define( "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL",	'matchSummaryTagsByLabel' );
 
@@ -1359,7 +1388,7 @@ define( "kAPI_PARAM_GROUP",						'grouping' );
  * default the domain: this element's value belongs in the {@link @link kAPI_PARAM_DOMAIN}
  * parameter.
  */
-define( "kAPI_PARAM_SUMMARY",						'summary' );
+define( "kAPI_PARAM_SUMMARY",					'summary' );
 
 /**
  * Geographic shape (shape).
@@ -1409,6 +1438,17 @@ define( "kAPI_PARAM_SHAPE",						'shape' );
  * identifier.
  */
 define( "kAPI_PARAM_SHAPE_OFFSET",				'shape-offset' );
+
+/**
+ * Excluded tags (array).
+ *
+ * This tag defines the excluded tags list.
+ *
+ * This parameter can be used to prevent the search from covering the tags provided in the
+ * list, the elements may be the tag native identifier or the tag squence number. This
+ * parameter is generally used by services selecting tags or tag labels.
+ */
+define( "kAPI_PARAM_EXCLUDED_TAGS",				'exclude-tags' );
 
 /**
  * Full-text search tag (string).

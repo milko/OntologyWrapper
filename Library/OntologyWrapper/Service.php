@@ -533,6 +533,8 @@ class Service extends ContainerObject
 				break;
 
 			case kAPI_PARAM_SHAPE:
+			case kAPI_PARAM_CRITERIA:
+			case kAPI_PARAM_EXCLUDED_TAGS:
 				if( is_array( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
 				break;
@@ -540,11 +542,6 @@ class Service extends ContainerObject
 			case kAPI_PARAM_OPERATOR:
 				$this->parseStringMatchOperator( $theValue );
 				$this->offsetSet( $theKey, $theValue );
-				break;
-		
-			case kAPI_PARAM_CRITERIA:
-				if( is_array( $theValue ) )
-					$this->offsetSet( $theKey, $theValue );
 				break;
 
 			case kAPI_PARAM_REF_COUNT:
@@ -835,6 +832,39 @@ class Service extends ContainerObject
 		//
 		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
 			$this->validateCollection( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
+		
+		//
+		// Check excluded tags.
+		//
+		if( $this->offsetExists( kAPI_PARAM_EXCLUDED_TAGS ) )
+		{
+			switch( $this->offsetGet( kAPI_REQUEST_OPERATION ) )
+			{
+				case kAPI_OP_MATCH_TAG_LABELS:
+				case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
+				case kAPI_OP_MATCH_TAG_BY_LABEL:
+				case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
+					if( count( $tmp = $this->offsetGet( kAPI_PARAM_EXCLUDED_TAGS ) ) )
+					{
+						foreach( $tmp as $key => $value )
+						{
+							if( (! is_int( $value ))
+							 && (! ctype_digit( $value )) )
+								$value = $this->mWrapper->getSerial( $value, TRUE );
+							$value
+								= $this->mWrapper
+									->getObject( $value, TRUE )[ kTAG_ID_SEQUENCE ];
+							$tmp[ $key ] = $value;
+						}
+						$this->offsetSet( kAPI_PARAM_EXCLUDED_TAGS, array_unique( $tmp ) );
+						break;
+					}
+				
+				default:
+					$this->offsetUnset( kAPI_PARAM_EXCLUDED_TAGS );
+					break;
+			}
+		}
 		
 	} // validateMatchLabelStrings.
 
@@ -2882,6 +2912,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_PARAM_SUMMARY" ] = kAPI_PARAM_SUMMARY;
 		$ref[ "kAPI_PARAM_SHAPE" ] = kAPI_PARAM_SHAPE;
 		$ref[ "kAPI_PARAM_SHAPE_OFFSET" ] = kAPI_PARAM_SHAPE_OFFSET;
+		$ref[ "kAPI_PARAM_EXCLUDED_TAGS" ] = kAPI_PARAM_EXCLUDED_TAGS;
 		$ref[ "kAPI_PARAM_FULL_TEXT_OFFSET" ] = kAPI_PARAM_FULL_TEXT_OFFSET;
 		
 		//
@@ -3775,8 +3806,14 @@ class Service extends ContainerObject
 			//
 			// Filter untracked tags.
 			//
+			$excluded = ( $this->offsetExists( kAPI_PARAM_EXCLUDED_TAGS ) )
+					  ? $this->offsetGet( kAPI_PARAM_EXCLUDED_TAGS )
+					  : Array();
 			$criteria[ (string) kTAG_ID_SEQUENCE ]
-				= array( '$nin' => UnitObject::UnmanagedOffsets() );
+				= array( '$nin' => array_values(
+					array_unique(
+						array_merge(
+							$excluded, UnitObject::UnmanagedOffsets() ) ) ) );
 			
 			//
 			// Filter unsupported types.
@@ -4950,6 +4987,11 @@ $rs_units = & $rs_units[ 'result' ];
 					$results[ $offset ] = Array();
 					$offset_ref = & $results[ $offset ];
 				
+					//
+					// Set tag reference.
+					//
+					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_SEQUENCE );
+					
 					//
 					// Explode structures.
 					//
