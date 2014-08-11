@@ -1020,9 +1020,22 @@ class Service extends ContainerObject
 		//
 		// Get criteria.
 		//
-		$criteria = ( $this->offsetExists( kAPI_PARAM_CRITERIA ) )
-				  ? $this->offsetGet( kAPI_PARAM_CRITERIA )
-				  : Array();
+		$tmp = ( $this->offsetExists( kAPI_PARAM_CRITERIA ) )
+			 ? $this->offsetGet( kAPI_PARAM_CRITERIA )
+			 : Array();
+		
+		//
+		// Resolve criteria tag references.
+		//
+		$criteria = Array();
+		foreach( $tmp as $key => $value )
+		{
+			if( (! is_int( $key ))
+			 || (! ctype_digit( $key )) )
+				$key = $this->mWrapper->getSerial( $key, TRUE );
+			
+			$criteria[ $key ] = $value;
+		}
 		
 		//
 		// Validate group.
@@ -1043,7 +1056,7 @@ class Service extends ContainerObject
 			$this->offsetUnset( kAPI_PAGING_LIMIT );
 			
 			//
-			// Validat group.
+			// Validate group.
 			//
 			$this->validateGroup();
 			
@@ -2409,7 +2422,10 @@ class Service extends ContainerObject
 			// Handle tag native identifier.
 			//
 			elseif( ($tmp = $this->mWrapper->getSerial( $element, FALSE )) !== NULL )
+			{
 			 	$tag = $this->mWrapper->getObject( (int) $tmp, TRUE );
+			 	$element = $tag[ kTAG_ID_SEQUENCE ];
+			 }
 		
 			//
 			// Handle offset.
@@ -4993,6 +5009,11 @@ $rs_units = & $rs_units[ 'result' ];
 					$offset_ref[ kAPI_PARAM_TAG ] = $object->offsetGet( kTAG_ID_SEQUENCE );
 					
 					//
+					// Reference structure.
+					//
+					$struct_ref = & $offset_ref;
+					
+					//
 					// Explode structures.
 					//
 					$structs = explode( '.', $offset );
@@ -5001,8 +5022,8 @@ $rs_units = & $rs_units[ 'result' ];
 						//
 						// Allocate struct element.
 						//
-						$offset_ref[ $struct ] = Array();
-						$struct_ref = & $offset_ref[ $struct ];
+						$struct_ref[ kAPI_PARAM_RESPONSE_CHILDREN ] = Array();
+						$struct_ref = & $struct_ref[ kAPI_PARAM_RESPONSE_CHILDREN ];
 					
 						//
 						// Resolve structure tag.

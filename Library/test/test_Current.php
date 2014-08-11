@@ -161,7 +161,7 @@ try
 		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
 	//	kAPI_PARAM_GROUP => Array()
 		kAPI_PARAM_GROUP => array( '242.149' )
-	//	kAPI_PARAM_GROUP => array( '242.163', '242.255' )
+	//	kAPI_PARAM_GROUP => array( '242.149', '242.255' )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');

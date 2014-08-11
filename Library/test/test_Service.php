@@ -142,55 +142,6 @@ try
 	if( kDEBUG_PARENT )
 		echo( "<h3>Current class test</h3>" );
 	
-/*
-	//
-	// Map.
-	//
-	echo( '<h4>Map</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PAGING_LIMIT => 5,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':location:country' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
-			)
-		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_MARKER,
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-		kAPI_PARAM_SHAPE => array( kTAG_TYPE => 'Rect',
-								   kTAG_GEOMETRY => array( array( 9, 45 ),
-														   array( 18, 50 ) ) )
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-exit;
-*/
 	//
 	// Try empty URL.
 	//
@@ -497,6 +448,80 @@ exit;
 	echo( '<hr>' );
 
 	//
+	// Try matchTagSummaryLabels containing "gen".
+	//
+	echo( '<h4>Try matchTagSummaryLabels containing "gen"</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'gen',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try matchTagSummaryLabels containing "gen" excluding element.
+	//
+	echo( '<h4>Try matchTagSummaryLabels containing "gen" excluding element</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'gen',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+		kAPI_PARAM_EXCLUDED_TAGS => array( 254 ),
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// Try matchTagByLabel containing "count".
 	//
 	echo( '<h4>Try matchTagByLabel containing "count"</h4>' );
@@ -626,6 +651,82 @@ exit;
 		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_TERM_BY_LABEL;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Try matchSummaryTagsByLabel containing "gen".
+	//
+	echo( '<h4>Try matchSummaryTagsByLabel containing "gen"</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'gen',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	//
+	// Try matchSummaryTagsByLabel containing "gen" excluding element.
+	//
+	echo( '<h4>Try matchSummaryTagsByLabel containing "gen" excluding element</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PAGING_LIMIT => 50,
+		kAPI_PARAM_PATTERN => 'gen',
+		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
+		kAPI_PARAM_EXCLUDED_TAGS => array( 254 ),
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
 	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
 	echo( htmlspecialchars($request) );
@@ -811,6 +912,48 @@ exit;
 	echo( '<hr>' );
 
 	//
+	// Test group.
+	//
+	echo( '<h4>Test group</h4>' );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_CRITERIA => array
+		(
+			':location:country' => array
+			(
+				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
+			)
+		),
+		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
+		kAPI_PARAM_GROUP => array( '242.149', '242.255' )
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_DATA_PRE );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// Test single field no data (group).
 	//
 	echo( '<h4>Test single field no data (group)</h4>' );
@@ -912,15 +1055,15 @@ exit;
 	echo( kSTYLE_HEAD_PRE );
 	$param = array
 	(
-	//	kAPI_PAGING_LIMIT => 10,
+		kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature2' => array
+			':unit:version' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_RANGE,
-				kAPI_PARAM_RANGE_MIN => 10,
-				kAPI_PARAM_RANGE_MAX => 20,
+				kAPI_PARAM_RANGE_MIN => 1990,
+				kAPI_PARAM_RANGE_MAX => 2000,
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_ERANGE
@@ -963,57 +1106,10 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature4' => array
+			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'FIVE',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			)
-		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test single field with multiple offsets indexed (group).
-	//
-	echo( '<h4>Test single field with multiple offsets indexed (group)</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PAGING_LIMIT => 10,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':test:feature5' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'six',
+				kAPI_PARAM_PATTERN => 'aegilops',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
@@ -1057,20 +1153,20 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature4' => array
+			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'FIVE',
+				kAPI_PARAM_PATTERN => 'aegilops',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
 					kOPERATOR_NOCASE
 				)
 			),
-			':test:feature5' => array
+			':taxon:species' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'six',
+				kAPI_PARAM_PATTERN => 'cylindrica',
 				kAPI_PARAM_OPERATOR => array
 				(
 					kOPERATOR_CONTAINS,
@@ -1115,11 +1211,11 @@ exit;
 		kAPI_PARAM_LOG_REQUEST => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
-			':test:feature4' => array
+			':taxon:genus' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
 			),
-			':test:feature5' => array
+			':taxon:infraspecies' => array
 			(
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
 			)
@@ -1140,115 +1236,6 @@ exit;
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test two fields (group).
-	//
-	echo( '<h4>Test two fields (group)</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PAGING_LIMIT => 10,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':test:feature1' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING
-			),
-			':test:feature4' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'FIVE',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			)
-		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Test two fields with values (group).
-	//
-	echo( '<h4>Test two fields with values (group)</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-	//	kAPI_PAGING_LIMIT => 10,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':test:feature1' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'one',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			),
-			':test:feature4' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_STRING,
-				kAPI_PARAM_PATTERN => 'FIVE',
-				kAPI_PARAM_OPERATOR => array
-				(
-					kOPERATOR_CONTAINS,
-					kOPERATOR_NOCASE
-				)
-			)
-		),
-		kAPI_PARAM_GROUP => kTAG_DOMAIN
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
 	echo( '<hr>' );
 
 	//
@@ -1267,6 +1254,7 @@ exit;
 	(
 	//	kAPI_PAGING_LIMIT => 10,
 		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
 		kAPI_PARAM_CRITERIA => array
 		(
 			':type:entity' => array
@@ -1274,7 +1262,7 @@ exit;
 				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM
 			)
 		),
-		kAPI_PARAM_GROUP => ':type:entity'
+		kAPI_PARAM_GROUP => array( ':type:entity' )
 	);
 	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
 	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
@@ -1326,6 +1314,7 @@ exit;
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+exit;
 
 	//
 	// Map.
