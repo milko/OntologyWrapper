@@ -1030,8 +1030,9 @@ class Service extends ContainerObject
 		$criteria = Array();
 		foreach( $tmp as $key => $value )
 		{
-			if( (! is_int( $key ))
-			 || (! ctype_digit( $key )) )
+			if( ($key != kAPI_PARAM_FULL_TEXT_OFFSET)
+			 && ( (! is_int( $key ))
+			   || (! ctype_digit( $key )) ) )
 				$key = $this->mWrapper->getSerial( $key, TRUE );
 			
 			$criteria[ $key ] = $value;
