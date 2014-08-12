@@ -350,6 +350,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
@@ -386,6 +387,7 @@ class Service extends ContainerObject
 			case kAPI_OP_MATCH_TAG_SUMMARY_LABELS:
 			case kAPI_OP_MATCH_TERM_LABELS:
 			case kAPI_OP_MATCH_TAG_BY_LABEL:
+			case kAPI_OP_MATCH_TAG_BY_IDENTIFIER:
 			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
@@ -519,7 +521,6 @@ class Service extends ContainerObject
 				break;
 
 			case kAPI_PARAM_PATTERN:
-			case kAPI_PARAM_TAG:
 			case kAPI_PARAM_NODE:
 			case kAPI_PARAM_DOMAIN:
 			case kAPI_PARAM_DATA:
@@ -529,6 +530,7 @@ class Service extends ContainerObject
 				break;
 
 			case kAPI_PARAM_ID:
+			case kAPI_PARAM_TAG:
 				if( is_array( $theValue )
 				 || strlen( $theValue ) )
 					$this->offsetSet( $theKey, $theValue );
@@ -683,6 +685,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
@@ -726,6 +729,10 @@ class Service extends ContainerObject
 			case kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL:
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				$this->validateMatchLabelStrings();
+				break;
+				
+			case kAPI_OP_MATCH_TAG_BY_IDENTIFIER:
+				$this->validateMatchTagByIdentifier();
 				break;
 				
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
@@ -874,6 +881,84 @@ class Service extends ContainerObject
 		}
 		
 	} // validateMatchLabelStrings.
+
+	 
+	/*===================================================================================
+	 *	validateMatchTagByIdentifier													*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get tag by identifier service.
+	 *
+	 * This method will check whether the tag identifier was provided and will normalise it
+	 * in an array.
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_TAG
+	 */
+	protected function validateMatchTagByIdentifier()
+	{
+		//
+		// Check parameter.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_TAG ) )
+			throw new \Exception(
+				"Missing required tag parameter." );							// !@! ==>
+		
+		//
+		// Get parameter.
+		//
+		$tags = $this->offsetGet( kAPI_PARAM_TAG );
+		
+		//
+		// Normalise parameter.
+		//
+		if( ! is_array( $tags ) )
+			$tags = array( $tags );
+		
+		//
+		// Resolve tags.
+		//
+		$list = Array();
+		foreach( $tags as $tag )
+		{
+			//
+			// Handle serial number.
+			//
+			if( is_int( $tag )
+			 || ctype_digit( $tag ) )
+			{
+				$tag = $this->mWrapper->getObject( (int) $tag, FALSE );
+				if( $tag )
+					$tag = $tag[ kTAG_NID ];
+			}
+			
+			//
+			// Handle string offsets.
+			//
+			else
+			{
+				$tag = $this->mWrapper->getSerial( $tag, FALSE );
+				if( $tag )
+					$tag = $this->mWrapper->getObject( $tag, TRUE )[ kTAG_NID ];
+			}
+			
+			//
+			// Add tag.
+			//
+			if( $tag )
+				$list[ $tag ] = $tag;
+		}
+		
+		//
+		// Set parameter.
+		//
+		$this->offsetSet( kAPI_PARAM_TAG, array_values( $list ) );
+		
+	} // validateMatchTagByIdentifier.
 
 	 
 	/*===================================================================================
@@ -1026,32 +1111,49 @@ class Service extends ContainerObject
 		$id = $this->offsetGet( kAPI_PARAM_NODE );
 		
 		//
-		// Check node type.
+		// Get nodes collection.
 		//
-		$node
+		$collection
 			= Node::ResolveCollection(
 				Node::ResolveDatabase(
-					$this->mWrapper ) )
-						->matchOne(
-							array( kTAG_NID => $id ),
-							kQUERY_ARRAY );
-		if( ! $node )
+					$this->mWrapper ) );
+		
+		//
+		// Resolve node.
+		//
+		if( ! $node
+			= $collection
+				->matchOne(
+					array( kTAG_NID => $id ),
+					kQUERY_ARRAY,
+					array( kTAG_NODE_TYPE => TRUE ) ) )
 			$node
-				= Node::ResolveCollection(
-					Node::ResolveDatabase(
-						$this->mWrapper ) )
-							->matchOne(
-								array( kTAG_ID_PERSISTENT => $id ),
-								kQUERY_ARRAY );
+				= $collection
+					->matchOne(
+						array( kTAG_ID_PERSISTENT => $id ),
+						kQUERY_ASSERT | kQUERY_ARRAY,
+						array( kTAG_NODE_TYPE => TRUE ) );
+		
+		//
+		// Assert node.
+		//
 		if( ! $node )
 			throw new \Exception(
 				"Invalid node reference [$id]." );								// !@! ==>
 		
+		//
+		// Assert root and form types.
+		//
 		if( (! array_key_exists( kTAG_NODE_TYPE, $node ))
 		 || (! in_array( kTYPE_NODE_ROOT, $node[ kTAG_NODE_TYPE ] ))
 		 || (! in_array( kTYPE_NODE_FORM, $node[ kTAG_NODE_TYPE ] )) )
 			throw new \Exception(
 				"Node must be a root form." );									// !@! ==>
+		
+		//
+		// Save node native identifier.
+		//
+		$this->offsetSet( kAPI_PARAM_NODE, $node[ kTAG_NID ] );
 		
 	} // validateGetNodeForm.
 
@@ -2785,6 +2887,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_LIST_OPERATORS}</tt>: List operator parameters.
 	 *	<li><tt>{@link kAPI_OP_LIST_REF_COUNTS}</tt>: List reference count parameters.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_LABELS}</tt>: Match tag labels.
+	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_IDENTIFIER}</tt>: Match tag by identifier.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_SUMMARY_LABELS}</tt>: Match summary tag labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_LABELS}</tt>: Match term labels.
 	 *	<li><tt>{@link kAPI_OP_MATCH_TAG_BY_LABEL}</tt>: Match tag by labels.
@@ -2792,6 +2895,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 * </ul>
@@ -2839,12 +2943,20 @@ class Service extends ContainerObject
 				$this->executeMatchTagByLabel();
 				break;
 				
+			case kAPI_OP_MATCH_TAG_BY_IDENTIFIER:
+				$this->executeMatchTagByIdentifier();
+				break;
+				
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 				$this->executeMatchTermByLabel();
 				break;
 				
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 				$this->executeGetTagEnumerations();
+				break;
+				
+			case kAPI_OP_GET_NODE_FORM:
+				$this->executeGetNodeForm();
 				break;
 				
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
@@ -2974,6 +3086,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_MATCH_TERM_LABELS" ] = kAPI_OP_MATCH_TERM_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_SUMMARY_LABELS" ] = kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
 		$ref[ "kAPI_OP_MATCH_TAG_BY_LABEL" ] = kAPI_OP_MATCH_TAG_BY_LABEL;
+		$ref[ "kAPI_OP_MATCH_TAG_BY_IDENTIFIER" ] = kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
 		$ref[ "kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL" ] = kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
@@ -3314,6 +3427,79 @@ class Service extends ContainerObject
 
 	 
 	/*===================================================================================
+	 *	executeMatchTagByIdentifier														*
+	 *==================================================================================*/
+
+	/**
+	 * Match tag by identifier.
+	 *
+	 * The method will resolve the appropriate collection and pass it to the
+	 * {@link executeMatchLabelObjects()} method.
+	 *
+	 * @access protected
+	 *
+	 * @uses ResolveDatabase()
+	 * @uses ResolveCollection()
+	 * @uses executeMatchLabelObjects()
+	 */
+	protected function executeMatchTagByIdentifier()
+	{
+		//
+		// Init local storage.
+		//
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		$this->mResponse[ kAPI_RESPONSE_RESULTS ] = Array();
+		
+		//
+		// Get tags list.
+		//
+		$tags = $this->offsetGet( kAPI_PARAM_TAG );
+		if( count( $tags ) )
+		{
+			//
+			// Match tags.
+			//
+			$criteria = array( kTAG_NID => array( '$in' => $tags ) );
+			$rs
+				= Tag::ResolveCollection(
+					Tag::ResolveDatabase(
+						$this->mWrapper ) )
+							->matchAll(
+								array( kTAG_NID => array( '$in' => $tags ) ),
+								kQUERY_OBJECT );
+			
+			//
+			// Skip records.
+			//
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_SKIP )) > 0 )
+				$rs->skip( (int) $tmp );
+		
+			//
+			// Set cursor limit.
+			//
+			if( ($tmp = $this->offsetGet( kAPI_PAGING_LIMIT )) !== NULL )
+				$rs->limit( (int) $tmp );
+		
+			//
+			// Format results.
+			//
+			$this->executeSerialiseResults( $rs );
+		
+		} // Something to search.
+		
+		//
+		// Handle no results.
+		//
+		else
+		{
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_AFFECTED ] =
+			$this->mResponse[ kAPI_RESPONSE_PAGING ][ kAPI_PAGING_ACTUAL ] = 0;
+		}
+		
+	} // executeMatchTagByIdentifier.
+
+	 
+	/*===================================================================================
 	 *	executeMatchTermByLabel															*
 	 *==================================================================================*/
 
@@ -3523,6 +3709,42 @@ class Service extends ContainerObject
 		} // has enumerations.
 		
 	} // executeGetNodeEnumerations.
+
+	 
+	/*===================================================================================
+	 *	executeGetNodeForm																*
+	 *==================================================================================*/
+
+	/**
+	 * Get node form.
+	 *
+	 * The method will return the form structure corresponding to the node stored in
+	 * {@link kAPI_PARAM_NODE}.
+	 *
+	 * @access protected
+	 */
+	protected function executeGetNodeForm()
+	{
+		//
+		// Init local storage.
+		//
+		$node = $this->offsetGet( kAPI_PARAM_NODE );
+		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
+		
+		//
+		// Initialise result.
+		//
+		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ]
+				= Array();
+		
+		//
+		// Traverse form structure.
+		//
+		$this->traverseFormStructure(
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language );
+		
+	} // executeGetNodeForm.
 
 	 
 	/*===================================================================================
@@ -5895,6 +6117,229 @@ $rs_units = & $rs_units[ 'result' ];
 		return $criteria;															// ==>
 		
 	} // buildCriteria.
+
+	 
+	/*===================================================================================
+	 *	traverseFormStructure															*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse form structure.
+	 *
+	 * This method will traverse the structure of the provided form node, loading the
+	 * information in the provided container.
+	 *
+	 * The information is loaded as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>{@lnk kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The node label, or the label of
+	 *		the element the node references.
+	 *	<li><tt>{@lnk kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The node description, the
+	 *		definition of the term, or the description of the tag.
+	 *	<li><tt>{@lnk kAPI_PARAM_TAG}</tt>: If the node references a tag, the tag's native
+	 *		identifier.
+	 *	<li><tt>{@lnk kAPI_PARAM_RESPONSE_CHILDREN}</tt>: If there are nodes relating to
+	 *		the provided node via the {@link kPREDICATE_PROPERTY_OF} or
+	 *		{@link kPREDICATE_SUBCLASS_OF} predicates, these elements will be loaded in this
+	 *		property; in the latter predicate case, the related node will act as a proxy for
+	 *		the current element.
+	 * </ul>
+	 *
+	 * If any element cannot be resolved, the method will raise an exception.
+	 *
+	 * @param array					$theContainer		Receives information.
+	 * @param int					$theNode			Node native identifier.
+	 * @param string				$theLanguage		Default language.
+	 *
+	 * @access protected
+	 * @return array				Criteria record.
+	 */
+	protected function traverseFormStructure( &$theContainer, $theNode, $theLanguage )
+	{
+		//
+		// Allocate element.
+		//
+		$index = count( $theContainer );
+		$theContainer[ $index ] = Array();
+		
+		//
+		// Load element information.
+		//
+		$this->loadNodeElementInfo( $theContainer[ $index ], $theNode, $theLanguage );
+		
+		//
+		// Allocate children.
+		//
+		$children = Array();
+		
+		//
+		// Load related nodes.
+		//
+		$this->traverseFormEdges( $children, $theNode, $theLanguage );
+		
+		//
+		// Set children.
+		//
+		if( count( $children ) )
+			$theContainer[ $index ][ kAPI_PARAM_RESPONSE_CHILDREN ] = $children;
+		
+	} // traverseFormStructure.
+
+	 
+	/*===================================================================================
+	 *	traverseFormEdges																*
+	 *==================================================================================*/
+
+	/**
+	 * Traverse form edges.
+	 *
+	 * This method will scan the edges that point to the provided node, recursing subclass
+	 * predicates.
+	 *
+	 * If any element cannot be resolved, the method will raise an exception.
+	 *
+	 * @param array					$theContainer		Receives information.
+	 * @param int					$theNode			Node native identifier.
+	 * @param string				$theLanguage		Default language.
+	 *
+	 * @access protected
+	 * @return array				Criteria record.
+	 */
+	protected function traverseFormEdges( &$theContainer, $theNode, $theLanguage )
+	{
+		//
+		// Get related elements.
+		//
+		$edges
+			= Edge::ResolveCollection(
+				Edge::ResolveDatabase( $this->mWrapper ) )
+					->matchAll(
+						array( kTAG_OBJECT => $theNode,
+							   kTAG_PREDICATE
+									=> array( '$in'
+										=> array( kPREDICATE_PROPERTY_OF,
+												  kPREDICATE_SUBCLASS_OF ) ) ),
+						kQUERY_ARRAY,
+						array( kTAG_SUBJECT => TRUE,
+							   kTAG_PREDICATE => TRUE ) );
+		
+		//
+		// Iterate related.
+		//
+		foreach( $edges as $edge )
+		{
+			//
+			// Recurse subclasses.
+			//
+			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
+				$this->traverseFormEdges(
+					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage );
+			
+			//
+			// Load node information.
+			//
+			$this->traverseFormStructure(
+				$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage );
+		
+		} // Iterating related.
+		
+	} // traverseFormEdges.
+
+	 
+	/*===================================================================================
+	 *	loadNodeElementInfo																*
+	 *==================================================================================*/
+
+	/**
+	 * Load node element information.
+	 *
+	 * This method will load the provided container with the information pertaining to the
+	 * provided node, the information will be set as follows:
+	 *
+	 * <ul>
+	 *	<li><tt>{@lnk kAPI_PARAM_RESPONSE_FRMT_NAME}</tt>: The node label, or the label of
+	 *		the element the node references.
+	 *	<li><tt>{@lnk kAPI_PARAM_RESPONSE_FRMT_INFO}</tt>: The node description, the
+	 *		definition of the term, or the description of the tag.
+	 *	<li><tt>{@lnk kAPI_PARAM_TAG}</tt>: If the node references a tag, the tag's native
+	 *		identifier.
+	 * </ul>
+	 *
+	 * If the node cannot be resolved, the method will raise an exception.
+	 *
+	 * @param array					$theContainer		Receives information.
+	 * @param mixed					$theNode			Node native identifier.
+	 * @param string				$theLanguage		Default language.
+	 *
+	 * @access protected
+	 * @return array				Criteria record.
+	 */
+	protected function loadNodeElementInfo( &$theContainer, $theNode, $theLanguage )
+	{
+		//
+		// Init local storage.
+		//
+		$collection
+			= Node::ResolveCollection(
+				Node::ResolveDatabase(
+					$this->mWrapper ) );
+		$referenced = NULL;
+		
+		//
+		// Resolve node.
+		//
+		$node
+			= $collection
+				->matchOne(
+					array( kTAG_NID => $theNode ),
+					kQUERY_ASSERT | kQUERY_OBJECT );
+		
+		//
+		// Set label.
+		//
+		if( $node->offsetExists( kTAG_LABEL ) )
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+				= OntologyObject::SelectLanguageString(
+					$node->offsetGet( kTAG_LABEL ), $theLanguage );
+		
+		else
+		{
+			$referenced = $node->getReferenced();
+			if( $referenced->offsetExists( kTAG_LABEL ) )
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_NAME ]
+					= OntologyObject::SelectLanguageString(
+						$referenced->offsetGet( kTAG_LABEL ), $theLanguage );
+		}
+		
+		//
+		// Set description.
+		//
+		if( $node->offsetExists( kTAG_DESCRIPTION ) )
+			$theContainer[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+			= OntologyObject::SelectLanguageString(
+				$node->offsetGet( kTAG_DESCRIPTION ), $theLanguage );
+		else
+		{
+			if( $referenced === NULL )
+				$referenced = $node->getReferenced();
+			if( $referenced->offsetExists( kTAG_DESCRIPTION ) )
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= OntologyObject::SelectLanguageString(
+						$referenced->offsetGet( kTAG_DESCRIPTION ), $theLanguage );
+			elseif( $referenced->offsetExists( kTAG_DEFINITION ) )
+				$theContainer[ kAPI_PARAM_RESPONSE_FRMT_INFO ]
+					= OntologyObject::SelectLanguageString(
+						$referenced->offsetGet( kTAG_DEFINITION ), $theLanguage );
+		}
+		
+		//
+		// Set tag identifier.
+		//
+		if( $node->offsetExists( kTAG_TAG ) )
+			$theContainer[ kAPI_PARAM_TAG ]
+				= $node->offsetGet( kTAG_TAG );
+		
+	} // loadNodeElementInfo.
 
 	 
 

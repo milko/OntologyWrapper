@@ -136,43 +136,76 @@ try
 	var_dump( $formatter->data() );
 */
 
+/*
 	//
-	// Get FCU structure offsets flattened.
+	// Test getNodeForm.
 	//
-	echo( '<h4>Get FCU structure offsets flattened</h4>' );
+	echo( '<h4>Test getNodeForm</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+	//	kAPI_PARAM_NODE => 'form::taxon',
+		kAPI_PARAM_NODE => 'form:mcpd',
+		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
+	);
+	$request = "$base_url?op=".kAPI_OP_GET_NODE_FORM;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 0 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
+*/
+
 	//
-	// Get FCU structure offsets structured.
+	// Test getTagByIdentifier.
 	//
-	echo( '<h4>Get FCU structure offsets structured</h4>' );
+	echo( '<h4>Test getTagByIdentifier</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 1 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE );
+	echo( 'Request:' );
+	echo( kSTYLE_HEAD_POS );
 	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	//
-	// Get FCU structure tags structured.
-	//
-	echo( '<h4>Get FCU structure tags structured</h4>' );
-	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE );
+	$param = array
+	(
+		kAPI_PARAM_LOG_REQUEST => TRUE,
+		kAPI_PARAM_LOG_TRACE => TRUE,
+		kAPI_REQUEST_LANGUAGE => 'en',
+	//	kAPI_PARAM_TAG => 'mcpd:ACCENUMB'
+	//	kAPI_PARAM_TAG => array( 'mcpd:ACCENUMB', 'mcpd:ACCENAME' )
+		kAPI_PARAM_TAG => 'pippo'
+	);
+	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_BY_IDENTIFIER;
+	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
+	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
+	echo( htmlspecialchars($request) );
+	echo( kSTYLE_HEAD_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 2 );
-	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
+	$response = file_get_contents( $request );
+	$result = json_decode( $response, TRUE );
+	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

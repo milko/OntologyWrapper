@@ -564,6 +564,23 @@ define( "kAPI_OP_MATCH_TERM_LABELS",			'matchTermLabels' );
 define( "kAPI_OP_MATCH_TAG_BY_LABEL",			'matchTagsByLabel' );
 
 /**
+ * Match tag by identifier.
+ *
+ * This tag defines the match tag by identifier operation.
+ *
+ * The service will return the tag whose native identifier or serial number matches the
+ * provided parameter.
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_TAG}</tt>: This element holds the tag identifier(s).
+ *	<li><tt>{@link kAPI_REQUEST_LANGUAGE}</tt>: <em>Language</em>. If the parameter is
+ *		omitted, the {@link kSTANDARDS_LANGUAGE} constant will be used. The value represents
+ *		a language code.
+ * </ul>
+ */
+define( "kAPI_OP_MATCH_TAG_BY_IDENTIFIER",		'matchTagByIdentifier' );
+
+/**
  * Match summary tags by label.
  *
  * This tag defines the match tag by label operation.

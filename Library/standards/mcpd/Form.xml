@@ -38,7 +38,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- :inventory:NICODE -->
@@ -67,7 +67,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:ACCENUMB -->
@@ -102,7 +102,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- Rank -->
@@ -183,7 +183,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:COLLDATE -->
@@ -278,7 +278,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:BREDCODE -->
@@ -313,7 +313,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:COLLSRC -->
@@ -360,7 +360,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:ACQDATE -->
@@ -407,7 +407,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:mcpd</item>
+			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
 	
 		<!-- mcpd:MLSSTAT -->
