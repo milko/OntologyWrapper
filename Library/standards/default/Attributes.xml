@@ -47,13 +47,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Shape type</item>
+					<item const="kTAG_TEXT">Type</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This offset represents the type of a shape, this string is used to indicate  what type of object the shape represents. This offset is followed by the coordinates offset that contains the shape geometry.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The type is used as an element of an object to qualify or provide its type.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -63,13 +63,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Shape geometry</item>
+					<item const="kTAG_TEXT">Geometry</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This offset represents the geometry of a shape, this string labels the coordinates lists that comprise a shape geometry. This offset is preceded by the type offset that contains the shape type.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The geometry is used as an element of an object to define its geometric shape.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -105,7 +105,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A local identifier is used to uniquely identify objects within a namespace.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The local identifier is used to provide a unique identifier within a specific namespace.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -121,7 +121,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A persistent identifier is immutable and represents a global identifier.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The persistent identifier represents an immutable global unique identifier.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -153,7 +153,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A sequence number is an identifier which is unique across objects belonging to the same collection, this identifier is serial, in that it is assigned at commit time and subsequently incremented.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The sequence number is a global unique identifier which is dynamically assigned, this identifier is serial, in that it is assigned at commit time and subsequently incremented.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -169,7 +169,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A graph reference is an identifier which relates the current object with an element of a graph or ontology.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The graph reference is the unique identifier of a graph element.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -205,7 +205,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The authority identifies who is responsible for the identification and documentation of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The authority identifies the entity responsible for the object and its information.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -237,7 +237,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The identifier is used to disambiguate objects of the same domain and collection.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The identifier is used to disambiguate objects belonging to the same domain and collection.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -253,7 +253,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Versions are used to identify iterations of the same object in time, they may also be used to provide a temporal stamp to the information.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Versions are used to identify iterations of the same object in time.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -269,7 +269,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Synonyms are alternate identifiers of the object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Synonyms are alternative ways of referring to an object, these may also be identifiers not formally defined in the current system.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -369,7 +369,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The reference to the origin vertex of a directed graph relationship in the graph.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The reference to the origin vertex of a directed graph relationship in a graph.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -417,7 +417,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The reference to the destination vertex of a directed graph relationship in the graph.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The reference to the destination vertex of a directed graph relationship in a graph.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -469,7 +469,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the data type, of a property, it describes the internal representation of a value.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The data type of a property or value.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -485,7 +485,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the data attributes of a property, it describes the structure and cardinality of a data property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The data attributes of a property or value.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -501,7 +501,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the type of a term object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The type of a term object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -517,7 +517,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This qualifies the type of a node object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The type of a node object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -537,7 +537,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the name of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The name of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -553,7 +553,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a label or short description.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The label or short description of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -569,7 +569,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A definition provides detailed information about an object without reference to a specific context.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A definition provides detailed information regarding an object without reference of its context.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -585,7 +585,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[A description is a descriptive text that provides documentation on an object. A description should provide information related to context.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A description provides detailed information regarding an object in a specific context.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -601,7 +601,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a collection of notes or comments.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A collection of notes or comments.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -617,7 +617,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a collection of examples or instances illustrating various uses of a property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[A collection of examples or instances illustrating various uses of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -669,7 +669,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the number of tag references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of tag objects featuring a specific property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -685,7 +685,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the number of term references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of term objects featuring a specific property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -701,7 +701,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the number of node references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of node objects featuring a specific property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -717,7 +717,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents a number of edge references.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the number of edge objects featuring a specific property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -735,7 +735,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in a tag object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in tag objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -751,7 +751,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in a term object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in term objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -767,7 +767,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in a node object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in node objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -783,7 +783,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in an edge object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in edge objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -799,7 +799,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in an entity object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in entity objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -815,7 +815,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The path to a leaf offset featured in a unit object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The list of paths or locations within a structure in which a specific property can be found in unit objects.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -831,7 +831,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the list of tags featured as leaf offsets and their relative offset paths.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the list of tags featured as leaf offsets.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -895,7 +895,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This represents the index of a container structure.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This represents the property reference which represents the index within a container structure.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -931,7 +931,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the minimum range value of a property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the minimum allowed range value of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -963,7 +963,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the maximum range value of a property.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the maximum allowed range value of a property.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -979,7 +979,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the regular expression that validates a string.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the regular expression which validates a string.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -999,7 +999,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This indicates the geographic location and geometry of an object.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This indicates the default geographic location and geometry of an object.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1147,7 +1147,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[<EM>Database collection name.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Database collection name.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1163,7 +1163,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Connection list of options.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[List of connection options.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1375,7 +1375,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The valid, current or preferred entity.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The valid, current or preferred entity reference.]]></item>
 				</item>
 			</item>
 		</TERM>
