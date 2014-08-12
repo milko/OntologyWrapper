@@ -4036,7 +4036,7 @@
 	
 	<!-- :taxon:sexstructure -->
 	<META>
-		<TERM ns=":taxon" lid="repsystem">
+		<TERM ns=":taxon" lid="sexstructure">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

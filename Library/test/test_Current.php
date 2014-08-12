@@ -137,203 +137,42 @@ try
 */
 
 	//
-	// Test group.
+	// Get FCU structure offsets flattened.
 	//
-	echo( '<h4>Test group</h4>' );
+	echo( '<h4>Get FCU structure offsets flattened</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':location:country' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			)
-		),
-		kAPI_PARAM_SHAPE_OFFSET => kTAG_GEO_SHAPE,
-	//	kAPI_PARAM_GROUP => Array()
-		kAPI_PARAM_GROUP => array( '242.149' )
-	//	kAPI_PARAM_GROUP => array( '242.149', '242.255' )
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 0 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-
-/*
+	
 	//
-	// Test summary.
+	// Get FCU structure offsets structured.
 	//
-	echo( '<h4>Test summary</h4>' );
+	echo( '<h4>Get FCU structure offsets structured</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PAGING_LIMIT => 10,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PARAM_CRITERIA => array
-		(
-			':location:country' => array
-			(
-				kAPI_PARAM_INPUT_TYPE => kAPI_PARAM_INPUT_ENUM,
-			)
-		),
-		kAPI_PARAM_DOMAIN => ':domain:forest',
-		kAPI_PARAM_DATA => kAPI_RESULT_ENUM_DATA_FORMAT,
-	//	kAPI_PARAM_SUMMARY => Array()
-	//	kAPI_PARAM_SUMMARY => array( '242.149' => 'Abies' )
-		kAPI_PARAM_SUMMARY => array( '242.149' => 'Abies',
-									 '242.255' => "eufgis:PopulationDistribution:1" )
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_UNITS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 1 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-*/
-
-
+	
 	//
-	// Try matchTagSummaryLabels.
+	// Get FCU structure tags structured.
 	//
-	echo( '<h4>Try matchTagSummaryLabels</h4>' );
+	echo( '<h4>Get FCU structure tags structured</h4>' );
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PAGING_LIMIT => 50,
-		kAPI_PARAM_PATTERN => 'gen',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
-		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_TAG_SUMMARY_LABELS;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Try matchSummaryTagsByLabel.
-	//
-	echo( '<h4>Try matchSummaryTagsByLabel</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PAGING_LIMIT => 50,
-		kAPI_PARAM_PATTERN => 'Genus',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_EQUAL ),
-		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
-	echo( kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-
-	//
-	// Try matchSummaryTagsByLabel with excluded.
-	//
-	echo( '<h4>Try matchSummaryTagsByLabel with excluded</h4>' );
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	echo( 'Request:' );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE );
-	$param = array
-	(
-		kAPI_PARAM_LOG_TRACE => TRUE,
-		kAPI_PARAM_LOG_REQUEST => TRUE,
-		kAPI_PAGING_LIMIT => 50,
-		kAPI_PARAM_PATTERN => 'genus',
-		kAPI_PARAM_OPERATOR => array( kOPERATOR_CONTAINS, kOPERATOR_NOCASE ),
-		kAPI_PARAM_EXCLUDED_TAGS => array( 149 ),
-		kAPI_PARAM_REF_COUNT => kAPI_PARAM_COLLECTION_UNIT
-	);
-	$request = "$base_url?op=".kAPI_OP_MATCH_SUMMARY_TAG_BY_LABEL;
-	$request .= ('&'.kAPI_REQUEST_LANGUAGE.'=en');
-	$request .= ('&'.kAPI_REQUEST_PARAMETERS.'='.urlencode( json_encode( $param ) ));
-	echo( htmlspecialchars($request) );
-	echo( kSTYLE_HEAD_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_DATA_PRE );
-	$response = file_get_contents( $request );
-	$result = json_decode( $response, TRUE );
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	$offsets = $wrapper->collectStructureOffsets( 'struct:fcu', 2 );
+	echo( '<pre>' ); print_r( $offsets ); echo( '</pre>' );
 	echo( kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );

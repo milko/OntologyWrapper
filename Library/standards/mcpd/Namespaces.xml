@@ -84,8 +84,8 @@
 			</item>
     	</TERM>
     	
-    	<!-- mcpd:source -->
-		<TERM ns="mcpd" lid="source">
+    	<!-- mcpd:management -->
+		<TERM ns="mcpd" lid="management">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

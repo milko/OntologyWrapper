@@ -357,6 +357,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
@@ -389,6 +390,7 @@ class Service extends ContainerObject
 			case kAPI_OP_MATCH_TERM_BY_LABEL:
 			case kAPI_OP_GET_TAG_ENUMERATIONS:
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
+			case kAPI_OP_GET_NODE_FORM:
 			case kAPI_OP_MATCH_UNITS:
 			case kAPI_OP_GET_UNIT:
 			case kAPI_OP_ADD_USER:
@@ -688,6 +690,7 @@ class Service extends ContainerObject
 	 *	<li><tt>{@link kAPI_OP_MATCH_TERM_BY_LABEL}</tt>: Match term by labels.
 	 *	<li><tt>{@link kAPI_OP_GET_TAG_ENUMERATIONS}</tt>: Get tag enumerations.
 	 *	<li><tt>{@link kAPI_OP_GET_NODE_ENUMERATIONS}</tt>: Get node enumerations.
+	 *	<li><tt>{@link kAPI_OP_GET_NODE_FORM}</tt>: Get node form.
 	 *	<li><tt>{@link kAPI_OP_MATCH_UNITS}</tt>: Match domains.
 	 *	<li><tt>{@link kAPI_OP_ADD_USER}</tt>: Add user.
 	 *	<li><tt>{@link kAPI_OP_GET_USER}</tt>: Get user.
@@ -731,6 +734,10 @@ class Service extends ContainerObject
 				
 			case kAPI_OP_GET_NODE_ENUMERATIONS:
 				$this->validateGetNodeEnumerations();
+				break;
+				
+			case kAPI_OP_GET_NODE_FORM:
+				$this->validateGetNodeForm();
 				break;
 				
 			case kAPI_OP_MATCH_UNITS:
@@ -978,6 +985,75 @@ class Service extends ContainerObject
 		$this->validateRecurseFlag( kSTANDARDS_ENUMS_LIMIT );
 		
 	} // validateGetNodeEnumerations.
+
+	 
+	/*===================================================================================
+	 *	validateGetNodeForm																*
+	 *==================================================================================*/
+
+	/**
+	 * Validate get node enumerations service.
+	 *
+	 * This method will validate all service operations which return node enumerated sets,
+	 * the method will perform the following actions:
+	 *
+	 * <ul>
+	 *	<li><em>Check node</em>: If the parameter is missing, the method will raise an
+	 *		exception.
+	 *	<li><em>Check limit</em>: The limit will be reset if the recurse parameter is
+	 *		provided, if not, the limit is required and will be set to the
+	 *		{@link kSTANDARDS_ENUMS_LIMIT} constant if larger.
+	 * </ul>
+	 *
+	 * @access protected
+	 *
+	 * @throws Exception
+	 *
+	 * @see kAPI_PARAM_NODE
+	 */
+	protected function validateGetNodeForm()
+	{
+		//
+		// Check parameter.
+		//
+		if( ! $this->offsetExists( kAPI_PARAM_NODE ) )
+			throw new \Exception(
+				"Missing required node parameter." );							// !@! ==>
+		
+		//
+		// Get node reference.
+		//
+		$id = $this->offsetGet( kAPI_PARAM_NODE );
+		
+		//
+		// Check node type.
+		//
+		$node
+			= Node::ResolveCollection(
+				Node::ResolveDatabase(
+					$this->mWrapper ) )
+						->matchOne(
+							array( kTAG_NID => $id ),
+							kQUERY_ARRAY );
+		if( ! $node )
+			$node
+				= Node::ResolveCollection(
+					Node::ResolveDatabase(
+						$this->mWrapper ) )
+							->matchOne(
+								array( kTAG_ID_PERSISTENT => $id ),
+								kQUERY_ARRAY );
+		if( ! $node )
+			throw new \Exception(
+				"Invalid node reference [$id]." );								// !@! ==>
+		
+		if( (! array_key_exists( kTAG_NODE_TYPE, $node ))
+		 || (! in_array( kTYPE_NODE_ROOT, $node[ kTAG_NODE_TYPE ] ))
+		 || (! in_array( kTYPE_NODE_FORM, $node[ kTAG_NODE_TYPE ] )) )
+			throw new \Exception(
+				"Node must be a root form." );									// !@! ==>
+		
+	} // validateGetNodeForm.
 
 	 
 	/*===================================================================================
@@ -2902,6 +2978,7 @@ class Service extends ContainerObject
 		$ref[ "kAPI_OP_MATCH_TERM_BY_LABEL" ] = kAPI_OP_MATCH_TERM_BY_LABEL;
 		$ref[ "kAPI_OP_GET_TAG_ENUMERATIONS" ] = kAPI_OP_GET_TAG_ENUMERATIONS;
 		$ref[ "kAPI_OP_GET_NODE_ENUMERATIONS" ] = kAPI_OP_GET_NODE_ENUMERATIONS;
+		$ref[ "kAPI_OP_GET_NODE_FORM" ] = kAPI_OP_GET_NODE_FORM;
 		$ref[ "kAPI_OP_MATCH_UNITS" ] = kAPI_OP_MATCH_UNITS;
 		$ref[ "kAPI_OP_GET_UNIT" ] = kAPI_OP_GET_UNIT;
 		$ref[ "kAPI_OP_ADD_USER" ] = kAPI_OP_ADD_USER;

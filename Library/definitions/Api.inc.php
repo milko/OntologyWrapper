@@ -786,6 +786,58 @@ define( "kAPI_OP_GET_TAG_ENUMERATIONS",			'getTagEnumerations' );
 define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
 
 /**
+ * Get node form.
+ *
+ * This tag defines the get node form operation.
+ *
+ * The service will return the structure related to the provided form node, if the provided
+ * node is not a form, the method will raise an exception.
+ *
+ * This operation expects the following parameters:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_NODE}</tt>: <em>Node</em>. This required parameter is an
+ *		integer referencing the node native identifier.
+ *	<li><tt>{@link kAPI_PARAM_REF_COUNT}</tt>: <em>Reference count</em>. This optional
+ *		parameter detewrmines what value the result parameter {@link kAPI_RESULT_ENUM_VALUE}
+ *		will hold: if provided, the parameter will hold the record count for that specific
+ *		enumeration in the collection referenced by the value of
+ *		{@link kAPI_PARAM_REF_COUNT}; if not provided, the {@link kAPI_RESULT_ENUM_VALUE}
+ *		hold <tt>TRUE</tt> if the enumeration is selectable. The value of this parameter
+ *		is a reference to the collection in which nthe enumeration is featured:
+ *	 <ul>
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TAG}</tt>: <em>Tag references</em>. Select only
+ *			those tags which have their {@link kTAG_TAG_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_TERM}</tt>: <em>Term references</em>. Select
+ *			only those tags which have their {@link kTAG_TERM_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_NODE}</tt>: <em>Node references</em>. Select
+ *			only those tags which have their {@link kTAG_NODE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_EDGE}</tt>: <em>Edge references</em>. Select
+ *			only those tags which have their {@link kTAG_EDGE_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_UNIT}</tt>: <em>Unit references</em>. Select
+ *			only those tags which have their {@link kTAG_UNIT_COUNT} greater than zero.
+ *		<li><tt>{@link kAPI_PARAM_COLLECTION_ENTITY}</tt>: <em>Entity references</em>.
+ *			Select only those tags which have their {@link kTAG_ENTITY_COUNT} greater than
+ *			zero.
+ *	 </ul>
+ * </ul>
+ *
+ * The result will be returned in the {@link kAPI_RESPONSE_RESULTS} section of the response,
+ * it will be an array whose elements are structured as follows:
+ *
+ * <ul>
+ *	<li><tt>{@link kAPI_PARAM_ID}</tt>: This item will be set with the native identifier of
+ *		a tag, if the element references a tag, or it will be missing if the element
+ *		references a term.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The tag ot term label.
+ *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The tag or term description.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_CHILDREN}</tt>: The children of the element in the
+ *		same format as here.
+ * </ul>
+ */
+define( "kAPI_OP_GET_NODE_FORM",				'getNodeForm' );
+
+/**
  * Match units.
  *
  * This tag defines the match units operation.

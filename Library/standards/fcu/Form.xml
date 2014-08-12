@@ -148,12 +148,6 @@
 			<item const="kTAG_SUBJECT" node="pid">form:fcu</item>
 		</EDGE>
 		
-		<!-- :taxon:epithet -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- fcu:population:number -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">fcu:population:number</item>
