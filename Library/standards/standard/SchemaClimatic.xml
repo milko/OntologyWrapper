@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	BIOCLIMATIC SCHEMA
+	SchemaClimatic.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Bioclimatic variables structure -->
+	
+	<!-- :environment:bio -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:environment:bio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Bioclimatic values of location.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":environment:bio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	
+		<!-- :environment:bio:01 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:01</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:02 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:02</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:03 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:03</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:04 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:04</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:05 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:05</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:06 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:06</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:07 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:07</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:08 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:08</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:09 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:09</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:10 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:10</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:11 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:11</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:12 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:12</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:13 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:13</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:14 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:14</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:15 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:15</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:16 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:16</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:17 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:17</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:18 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:18</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:19 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:19</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

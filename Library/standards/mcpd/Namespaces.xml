@@ -32,6 +32,12 @@
 					<item const="kTAG_TEXT"><![CDATA[Inventory]]></item>
 				</item>
 			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inventory passport descriptors]]></item>
+				</item>
+			</item>
     	</TERM>
     	
     	<!-- mcpd:identification -->
@@ -42,17 +48,13 @@
 					<item const="kTAG_TEXT"><![CDATA[Identification]]></item>
 				</item>
 			</item>
-    	</TERM>
-    	
-    	<!-- mcpd:taxonomy -->
-		<TERM ns="mcpd" lid="taxonomy">
-			<item const="kTAG_LABEL">
+			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxonomy]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Identification passport descriptors]]></item>
 				</item>
 			</item>
-    	</TERM>
+	   	</TERM>
     	
     	<!-- mcpd:collecting -->
 		<TERM ns="mcpd" lid="collecting">
@@ -60,6 +62,12 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Collecting event]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting event descriptors]]></item>
 				</item>
 			</item>
     	</TERM>
@@ -72,6 +80,12 @@
 					<item const="kTAG_TEXT"><![CDATA[Breeding event]]></item>
 				</item>
 			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding event descriptors]]></item>
+				</item>
+			</item>
     	</TERM>
     	
     	<!-- mcpd:source -->
@@ -80,6 +94,12 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Source]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Source descriptors]]></item>
 				</item>
 			</item>
     	</TERM>
@@ -92,6 +112,12 @@
 					<item const="kTAG_TEXT"><![CDATA[Management]]></item>
 				</item>
 			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Management descriptors]]></item>
+				</item>
+			</item>
     	</TERM>
     	
     	<!-- mcpd:status -->
@@ -100,6 +126,12 @@
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
 					<item const="kTAG_TEXT"><![CDATA[Status]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Status descriptors]]></item>
 				</item>
 			</item>
     	</TERM>

@@ -40,12 +40,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
 		</EDGE>
-	
-		<!-- :inventory:NICODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 		
 		<!-- mcpd:INSTCODE -->
 		<EDGE>
@@ -89,87 +83,6 @@
 		</EDGE>
 	</META>
 
-	<!-- Taxonomy attributes -->
-
-	<META>
-		<NODE term="mcpd:taxonomy" pid="form:mcpd:taxonomy">
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Accession taxonomy attributes.]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form:mcpd</item>
-		</EDGE>
-	
-		<!-- Rank -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:rank</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Family -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:familia</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Genus -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Species -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:species</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- Species authority -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:species:author</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Infraspecies epithet -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- Infraspecies author -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:infraspecies:author</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Scientific name -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Reference -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:reference</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- URL -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:url</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Common taxon names -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	</META>
-
 	<!-- Collecting event -->
 
 	<META>
@@ -204,63 +117,15 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- mcpd:COLLDESCR -->
+		<!-- mcpd:LATITUDE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:COLLDESCR</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:LATITUDE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Administrative unit -->
+		<!-- mcpd:LONGITUDE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- Country -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Primary administrative unit -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Secondary administrative unit -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Lowest administrative unit -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Locality -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Decimal latitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Decimal longitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Elevation -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:LONGITUDE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
@@ -384,12 +249,6 @@
 		<!-- mcpd:DUPLDESCR -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLDESCR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- mcpd:ACCEURL -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCEURL</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

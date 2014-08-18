@@ -627,49 +627,6 @@
 		</EDGE>
 	</META>
 
-	<!-- Taxonomic references -->
-
-	<META>
-    	<!-- :taxon:reference-attributes -->
-		<TERM ns=":taxon" lid="reference-attributes">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[References]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Taxonomic references.]]></item>
-				</item>
-			</item>
-    	</TERM>
-		<NODE pid="form::taxon:reference-attributes" />
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form::taxon</item>
-		</EDGE>
-		
-		<!-- :taxon:id -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:id</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	
-		<!-- :taxon:reference -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:reference</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- :taxon:synref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:synref</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	</META>
-
 	<!-- Gene pools & groups -->
 
 	<META>
@@ -705,20 +662,10 @@
 			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		<!-- :taxon:genepool-ref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genepool-ref</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 		
 		<!-- :taxon:group -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:group</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :taxon:group-ref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:group-ref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
@@ -744,11 +691,6 @@
 		<!-- :taxon:ecovalue -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		<!-- :taxon:ecovalue-ref -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

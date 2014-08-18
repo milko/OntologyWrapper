@@ -848,6 +848,8 @@ define( "kAPI_OP_GET_NODE_ENUMERATIONS",		'getNodeEnumerations' );
  *		references a term.
  *	<li><tt>{@link kAPI_RESULT_ENUM_LABEL}</tt>: The tag ot term label.
  *	<li><tt>{@link kAPI_RESULT_ENUM_DESCR}</tt>: The tag or term description.
+ *	<li><tt>{@link kAPI_PARAM_RESPONSE_COUNT}</tt>: The reference count, if a tag and the
+ *		{@link kAPI_PARAM_REF_COUNT} parameter was provided.
  *	<li><tt>{@link kAPI_PARAM_RESPONSE_CHILDREN}</tt>: The children of the element in the
  *		same format as here.
  * </ul>

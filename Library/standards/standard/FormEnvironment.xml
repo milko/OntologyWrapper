@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ENVIRONMENT FORM
+	FormEnvironment.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :environment -->
+	<META>
+		<NODE term=":environment" pid="form::environment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common environment search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- Reference -->
+
+	<META>
+    	<!-- :environment:reference -->
+		<TERM ns=":environment" lid="reference">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Reference]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Environmental data reference.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE pid="form::environment:reference" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+	
+		<!-- :environment:elevation-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:elevation-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:elevation-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:elevation-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:distance-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:distance-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:distance-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:distance-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Stratification -->
+
+	<META>
+    	<!-- :environment:stratification -->
+		<TERM ns=":environment" lid="stratification">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Stratification]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Environmental stratification.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE pid="form::environment:stratification" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+	
+		<!-- :environment:gens:clim -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:gens:clim</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:gens:zone -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:gens:zone</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:globcov -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:globcov</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:hwsd -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:hwsd</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:ghf -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:ghf</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Bioclimatic variables -->
+
+	<META>
+    	<!-- :environment:bio -->
+		<NODE term=":environment:bio" pid="form::environment:bio" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+		
+		<!-- :environment:bio:01 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:01</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:02 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:02</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:03 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:03</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:04 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:04</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:05 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:05</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:06 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:06</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:07 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:07</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:08 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:08</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:09 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:09</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:10 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:10</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:11 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:11</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:12 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:12</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:13 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:13</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:14 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:14</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:15 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:15</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:16 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:16</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:17 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:17</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:18 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:18</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :environment:bio:19 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:bio:19</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Monthly temperature -->
+
+	<META>
+    	<!-- :environment:temperature -->
+		<NODE term=":environment:temperature" pid="form::environment:temperature" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:01-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:01-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:01-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:01-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:01-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:02-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:02-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:02-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:02-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:02-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:03-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:03-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:03-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:03-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:03-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:04-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:04-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:04-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:04-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:04-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:05-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:05-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:05-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:05-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:05-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:06-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:06-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:06-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:06-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:06-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:07-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:07-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:07-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:07-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:07-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:08-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:08-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:08-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:08-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:08-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:09-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:09-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:09-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:09-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:09-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:10-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:10-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:10-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:10-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:10-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:11-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:11-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:11-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:11-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:11-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:12-min-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-min-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-min-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-min-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:12-mean-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-mean-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-mean-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-mean-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :environment:temperature:12-max-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-max-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:temperature:12-max-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:temperature:12-max-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Monthly precipitation -->
+
+	<META>
+    	<!-- :environment:precipitation -->
+		<NODE term=":environment:precipitation" pid="form::environment:precipitation" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+		
+		<!-- :environment:precipitation:01-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:01-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:01-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:02-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:02-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:02-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:03-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:03-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:03-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:04-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:04-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:04-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:05-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:05-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:05-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:06-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:06-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:06-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:07-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:07-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:07-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:08-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:08-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:08-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:09-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:09-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:09-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:10-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:10-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:10-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:11-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:11-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:11-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- :environment:precipitation:12-min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:12-mean -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-mean</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		<!-- :environment:precipitation:12-max -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-max</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

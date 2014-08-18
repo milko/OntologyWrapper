@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	MULTICROP PASSPORT DESCRIPTOR ATTRIBUTES
+	MULTICROP PASSPORT DESCRIPTORS
 	Attributes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
-		
+	
+	<!-- MULTICROP PASSPORT DESCRIPTOR PROPERTIES -->
+	
+	<!-- :inventory:dataset -->
+	<!-- :inventory:NICODE -->
+	<!-- :inventory:INSTCODE -->
+	
+	<!-- mcpd:INSTCODE -->
 	<META>
-		<!-- mcpd:INSTCODE -->
 		<TERM ns="mcpd" lid="INSTCODE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -17,8 +23,35 @@
 				</item>
 			</item>
 		</TERM>
-		
-		<!-- mcpd:ACCENUMB -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:INSTCODE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>INSTCODE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The FAO/WIEWS code of the institute holding the accession.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:INSTCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- mcpd:ACCENUMB -->
+	<META>
 		<TERM ns="mcpd" lid="ACCENUMB">
 			<item const="kTAG_LABEL">
 				<item>
@@ -27,8 +60,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:ACCENUMB</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ACCENUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This code serves as a unique identifier for accessions within a genebank collection, and is assigned when a sample is entered into the genebank collection.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:ACCENUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:ACCENAME -->
+	<!-- mcpd:ACCENAME -->
+	<META>
 		<TERM ns="mcpd" lid="ACCENAME">
 			<item const="kTAG_LABEL">
 				<item>
@@ -37,8 +96,35 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:ACCENAME</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ACCENAME</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Either registered or other formal designations given to the accession. First letter uppercase.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:ACCENAME">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:OTHERNUMB -->
+	<!-- mcpd:OTHERNUMB -->
+	<META>
 		<TERM ns="mcpd" lid="OTHERNUMB">
 			<item const="kTAG_LABEL">
 				<item>
@@ -47,14 +133,43 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:OTHERNUMB</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>OTHERNUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Any other identification known to exist in other collections for this accession. Use the following system: INSTCODE:ACCENUMB. When the institute is not known, the number should be preceded by a colon.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:OTHERNUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- :taxon:genus -->
-		<!-- :taxon:species -->
-		<!-- :taxon:species:author -->
-		<!-- :taxon:infraspecies -->
-		<!-- :taxon:infraspecies:author -->
+	<!-- :taxon:genus -->
+	<!-- :taxon:species -->
+	<!-- :taxon:species:author -->
+	<!-- :taxon:infraspecies -->
+	<!-- :taxon:infraspecies:author -->
 		
-		<!-- mcpd:COLLDATE -->
+	<!-- Collecting event -->
+	
+	<!-- mcpd:COLLDATE -->
+	<META>
 		<TERM ns="mcpd" lid="COLLDATE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -63,8 +178,27 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:COLLDATE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CROPNAME</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:COLLDATE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:COLLNUMB -->
+	<!-- mcpd:COLLNUMB -->
+	<META>
 		<TERM ns="mcpd" lid="COLLNUMB">
 			<item const="kTAG_LABEL">
 				<item>
@@ -73,8 +207,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:COLLNUMB</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COLLNUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Original number assigned by the collector(s) of the sample, normally composed of the name or initials of the collector(s) followed by a number. This number is essential for identifying duplicates held in different collections.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:COLLNUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:COLLCODE -->
+	<!-- mcpd:COLLCODE -->
+	<META>
 		<TERM ns="mcpd" lid="COLLCODE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -83,8 +243,25 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:COLLCODE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_SYNONYM">
+				<item>COLLCODE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:COLLCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:COLLDESCR -->
+	<!-- mcpd:COLLDESCR -->
+	<META>
 		<TERM ns="mcpd" lid="COLLDESCR">
 			<item const="kTAG_LABEL">
 				<item>
@@ -93,11 +270,30 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:COLLDESCR</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COLLDESCR</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:COLLDESCR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- :location:country -->
-		<!-- :location:locality -->
+	<!-- SCHEMA term=":location" pid="schema::location" -->
 		
-		<!-- mcpd:LATITUDE -->
+	<!-- mcpd:LATITUDE -->
+	<META>
 		<TERM ns="mcpd" lid="LATITUDE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -106,8 +302,27 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:LATITUDE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LATITUDE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:LATITUDE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:LONGITUDE -->
+	<!-- mcpd:LONGITUDE -->
+	<META>
 		<TERM ns="mcpd" lid="LONGITUDE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -116,10 +331,27 @@
 				</item>
 			</item>
 		</TERM>
-		
-		<!-- :location:elevation -->
-		
-		<!-- mcpd:BREDCODE -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:LONGITUDE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>LONGITUDE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:LONGITUDE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- mcpd:BREDCODE -->
+	<META>
 		<TERM ns="mcpd" lid="BREDCODE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -128,8 +360,25 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:BREDCODE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_SYNONYM">
+				<item>BREDCODE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:BREDCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:BREDDESCR -->
+	<!-- mcpd:BREDDESCR -->
+	<META>
 		<TERM ns="mcpd" lid="BREDDESCR">
 			<item const="kTAG_LABEL">
 				<item>
@@ -138,8 +387,28 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:BREDDESCR</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>BREDDESCR</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:BREDDESCR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:ANCEST -->
+	<!-- mcpd:ANCEST -->
+	<META>
 		<TERM ns="mcpd" lid="ANCEST">
 			<item const="kTAG_LABEL">
 				<item>
@@ -148,8 +417,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:ANCEST</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>BREDDESCR</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information about either pedigree or other description of ancestral information (i.e. parent variety in case of mutant or selection).]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:ANCEST">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:COLLSRC -->
+	<!-- mcpd:COLLSRC -->
+	<META>
 		<TERM ns="mcpd" lid="COLLSRC">
 			<item const="kTAG_LABEL">
 				<item>
@@ -158,8 +452,556 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:COLLSRC</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>COLLSRC</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:COLLSRC">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="mcpd:COLLSRC">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the origin of the sample.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:COLLSRC</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:10 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:11 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest/woodland]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: forest/woodland.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:12 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Shrubland]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: shrubland.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:13 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Grassland]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: grassland.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:14 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="14">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Desert/tundra]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: desert/tundra.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:15 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="15">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Aquatic habitat]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild habitat: aquatic habitat.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:20 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:21 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="21">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: field.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:22 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="22">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Orchard]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: orchard.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:23 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="23">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Backyard, kitchen or home garden (urban, peri-urban or rural)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: backyard, kitchen or home garden (urban, peri-urban or rural).]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:24 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="24">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Fallow land]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: fallow land.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:25 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="25">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pasture]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: pasture.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:26 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="26">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm store]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: farm store.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:27 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="27">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Threshing floor]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: threshing floor.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:28 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="28">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Park]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Farm or cultivated habitat: park.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:20</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:30 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Market or shop]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:40 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Institute, Experimental station, Research organization, Genebank]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:50 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="50">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed company]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:60 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="60">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy, disturbed or ruderal habitat]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:61 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="61">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Roadside]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy, disturbed or ruderal habitat: roadside.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:60</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:COLLSRC:62 -->
+	<META>
+		<TERM ns="mcpd:COLLSRC" lid="62">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field margin]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy, disturbed or ruderal habitat: field margin.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:COLLSRC:60</item>
+		</EDGE>
+	</META>
 		
-		<!-- mcpd:SAMPSTAT -->
+	<!-- mcpd:SAMPSTAT -->
+	<META>
 		<TERM ns="mcpd" lid="SAMPSTAT">
 			<item const="kTAG_LABEL">
 				<item>
@@ -168,8 +1010,406 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:SAMPSTAT</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SAMPSTAT</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:SAMPSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="mcpd:SAMPSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the biological status of the sample.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:SAMPSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:100 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="100">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:110 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="110">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Natural]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: natural.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:100</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:120 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="120">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Semi-natural/wild]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: semi-natural/wild.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:100</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:130 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="130">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Semi-natural/sown]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild: semi-natural/sown.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:100</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:200 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="200">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Weedy]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:300 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="300">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Traditional cultivar/landrace]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:400 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="400">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:410 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="410">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeder's line]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:400</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:411 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="411">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Synthetic population]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - synthetic population.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:410</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:412 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="412">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Hybrid]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - Hybrid.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:410</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:413 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="413">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Founder stock/base population]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - Founder stock/base population.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:410</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:414 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="414">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inbred line (parent of hybrid cultivar)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - inbred line.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:410</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:415 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="415">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Segregating population]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: breeder's line - segregating population.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:410</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:420 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="420">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Mutant/genetic stock]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Breeding/research material: mutant/genetic stock.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT:400</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:SAMPSTAT:500 -->
+	<META>
+		<TERM ns="mcpd:SAMPSTAT" lid="500">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Advanced/improved cultivar]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:SAMPSTAT</item>
+		</EDGE>
+	</META>
 		
-		<!-- mcpd:DONORCODE -->
+	<!-- mcpd:DONORCODE -->
+	<META>
 		<TERM ns="mcpd" lid="DONORCODE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -178,8 +1418,25 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:DONORCODE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_SYNONYM">
+				<item>DONORCODE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:DONORCODE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:DONORDESCR -->
+	<!-- mcpd:DONORDESCR -->
+	<META>
 		<TERM ns="mcpd" lid="DONORDESCR">
 			<item const="kTAG_LABEL">
 				<item>
@@ -188,8 +1445,28 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:DONORDESCR</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DONORDESCR</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:DONORDESCR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:DONORNUMB -->
+	<!-- mcpd:DONORNUMB -->
+	<META>
 		<TERM ns="mcpd" lid="DONORNUMB">
 			<item const="kTAG_LABEL">
 				<item>
@@ -198,8 +1475,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:DONORNUMB</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DONORNUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Number assigned to an accession by the donor.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:DONORNUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:ACQDATE -->
+	<!-- mcpd:ACQDATE -->
+	<META>
 		<TERM ns="mcpd" lid="ACQDATE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -208,8 +1511,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:ACQDATE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ACQDATE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date on which the accession entered the collection.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:ACQDATE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:STORAGE -->
+	<!-- mcpd:STORAGE -->
+	<META>
 		<TERM ns="mcpd" lid="STORAGE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -218,8 +1546,210 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:STORAGE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>STORAGE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The procedure by which the germplasm is maintained.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:STORAGE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="mcpd:STORAGE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the type of storage in which the sample is conserved.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:STORAGE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:STORAGE</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:10 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="10">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed collection]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:11 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="11">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Short term]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed collection: short term.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:12 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="12">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Medium term]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed collection: medium term.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:13 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="13">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Long term]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed collection: long term.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE:10</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:20 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="20">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Field collection]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:30 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="30">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In vitro collection (Slow growth)]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:STORAGE:40 -->
+	<META>
+		<TERM ns="mcpd:STORAGE" lid="40">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Cryopreserved collection]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:STORAGE</item>
+		</EDGE>
+	</META>
 		
-		<!-- mcpd:DUPLSITE -->
+	<!-- mcpd:DUPLSITE -->
+	<META>
 		<TERM ns="mcpd" lid="DUPLSITE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -228,8 +1758,25 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:DUPLSITE</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
+			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_SYNONYM">
+				<item>DUPLSITE</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:DUPLSITE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:DUPLDESCR -->
+	<!-- mcpd:DUPLDESCR -->
+	<META>
 		<TERM ns="mcpd" lid="DUPLDESCR">
 			<item const="kTAG_LABEL">
 				<item>
@@ -238,8 +1785,28 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:DUPLDESCR</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DUPLDESCR</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:DUPLDESCR">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:ACCEURL -->
+	<!-- mcpd:ACCEURL -->
+	<META>
 		<TERM ns="mcpd" lid="ACCEURL">
 			<item const="kTAG_LABEL">
 				<item>
@@ -248,8 +1815,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:ACCEURL</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>ACCEURL</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[URL linking to additional data about the accession either in the holding genebank or from another source.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:ACCEURL">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 		
-		<!-- mcpd:MLSSTAT -->
+	<!-- mcpd:MLSSTAT -->
+	<META>
 		<TERM ns="mcpd" lid="MLSSTAT">
 			<item const="kTAG_LABEL">
 				<item>
@@ -264,8 +1856,89 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:MLSSTAT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The coded status of an accession with regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture. Provides the information, whether the accession is included in the MLS.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:MLSSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="mcpd:MLSSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the different status that an accession may have in regards to the Multilateral System (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:MLSSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:MLSSTAT:1 -->
+	<META>
+		<TERM ns="mcpd:MLSSTAT" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part of the MLS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:MLSSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:MLSSTAT:0 -->
+	<META>
+		<TERM ns="mcpd:MLSSTAT" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not part of the MLS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:MLSSTAT</item>
+		</EDGE>
+	</META>
 		
-		<!-- mcpd:AEGISSTAT -->
+	<!-- mcpd:AEGISSTAT -->
+	<META>
 		<TERM ns="mcpd" lid="AEGISSTAT">
 			<item const="kTAG_LABEL">
 				<item>
@@ -280,8 +1953,89 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:AEGISSTAT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">The coded status of an accession with regards to the European Genebank Integrated System (AEGIS). Provides the information, whether the accession is conserved for AEGIS.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:AEGISSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="mcpd:AEGISSTAT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type enumerates the different status that an accession may have in regards to the European Genebank Integrated System (AEGIS).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:AEGISSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:AEGISSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:AEGISSTAT:1 -->
+	<META>
+		<TERM ns="mcpd:AEGISSTAT" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Part of AEGIS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AEGISSTAT</item>
+		</EDGE>
+	</META>
+	<!-- mcpd:AEGISSTAT:0 -->
+	<META>
+		<TERM ns="mcpd:AEGISSTAT" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not part of AEGIS]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">mcpd:AEGISSTAT</item>
+		</EDGE>
+	</META>
 		
-		<!-- mcpd:AVAILABLE -->
+	<!-- mcpd:AVAILABLE -->
+	<META>
 		<TERM ns="mcpd" lid="AVAILABLE">
 			<item const="kTAG_LABEL">
 				<item>
@@ -296,20 +2050,28 @@
 				</item>
 			</item>
 		</TERM>
-		
-		<!-- mcpd:REMARKS -->
-		<TERM ns="mcpd" lid="REMARKS">
-			<item const="kTAG_LABEL">
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:AVAILABLE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
+					<item const="kTAG_TEXT">The coded status indicating the accession availability.</item>
 				</item>
 			</item>
-		</TERM>
-	</META>
-	
-	<!-- mcpd:AVAILABLE -->
-	<META>
+		</TAG>
+		<NODE tag="mcpd:AVAILABLE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 		<NODE term="mcpd:AVAILABLE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
@@ -322,6 +2084,11 @@
 				</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">mcpd:AVAILABLE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">mcpd:AVAILABLE</item>
+		</EDGE>
 	</META>
 	<!-- mcpd:AVAILABLE:1 -->
 	<META>
@@ -362,5 +2129,35 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">mcpd:AVAILABLE</item>
 		</EDGE>
+	</META>
+		
+	<!-- mcpd:REMARKS -->
+	<META>
+		<TERM ns="mcpd" lid="REMARKS">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>mcpd:REMARKS</item>
+    		</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>REMARKS</item>
+			</item>
+		</TAG>
+		<NODE tag="mcpd:REMARKS">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 </METADATA>

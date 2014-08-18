@@ -7,7 +7,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Monthly precipitation structure -->
+	<!-- Monthly precipitation -->
 	
 	<!-- :environment:precipitation -->
 	<META>
@@ -19,23 +19,6 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>:environment:precipitation</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Monthly precipitation of location.</item>
-				</item>
-			</item>
-		</TAG>
-		<NODE tag=":environment:precipitation">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 	</META>
 	
 	<!-- Environment January precipitation -->
@@ -70,11 +53,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:01-mean -->
 	<META>
@@ -106,11 +84,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:01-max -->
 	<META>
@@ -142,11 +115,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:01-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment February precipitation -->
@@ -181,11 +149,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:02-mean -->
 	<META>
@@ -217,11 +180,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:02-max -->
 	<META>
@@ -253,11 +211,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:02-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment March precipitation -->
@@ -292,11 +245,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:03-mean -->
 	<META>
@@ -328,11 +276,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:03-max -->
 	<META>
@@ -364,11 +307,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:03-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment April precipitation -->
@@ -403,11 +341,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:04-mean -->
 	<META>
@@ -439,11 +372,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:04-max -->
 	<META>
@@ -475,11 +403,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:04-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment May precipitation -->
@@ -514,11 +437,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:05-mean -->
 	<META>
@@ -550,11 +468,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:05-max -->
 	<META>
@@ -586,11 +499,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:05-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment June precipitation -->
@@ -625,11 +533,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:06-mean -->
 	<META>
@@ -661,11 +564,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:06-max -->
 	<META>
@@ -697,11 +595,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:06-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment July precipitation -->
@@ -736,11 +629,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:07-mean -->
 	<META>
@@ -772,11 +660,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:07-max -->
 	<META>
@@ -808,11 +691,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:07-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment August precipitation -->
@@ -847,11 +725,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:08-mean -->
 	<META>
@@ -883,11 +756,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:08-max -->
 	<META>
@@ -919,11 +787,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:08-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment September precipitation -->
@@ -958,11 +821,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:09-mean -->
 	<META>
@@ -994,11 +852,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:09-max -->
 	<META>
@@ -1030,11 +883,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:09-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment October precipitation -->
@@ -1069,11 +917,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:10-mean -->
 	<META>
@@ -1105,11 +948,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:10-max -->
 	<META>
@@ -1141,11 +979,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:10-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment November precipitation -->
@@ -1180,11 +1013,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:11-mean -->
 	<META>
@@ -1216,11 +1044,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:11-max -->
 	<META>
@@ -1252,11 +1075,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:11-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	
 	<!-- Environment December precipitation -->
@@ -1291,11 +1109,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:12-mean -->
 	<META>
@@ -1327,11 +1140,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-mean</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 	<!-- :environment:precipitation:12-max -->
 	<META>
@@ -1363,10 +1171,5 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:precipitation:12-max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:environment:precipitation</item>
-		</EDGE>
 	</META>
 </METADATA>

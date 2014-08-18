@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	DEFAULT NAMESPACES
+	Namespaces.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Namespaces -->
+	
+	<META>
+		<!-- Default namespace -->
+		<TERM lid="">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Default namespace</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This namespace groups all default or built-in terms of the ontology, these are the elements that will be used to build the ontology itself.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Domain -->
+		<TERM ns="" lid="domain">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Domain</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The domain represents the kind or class, it indicates what an object is.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Type -->
+		<TERM ns="" lid="type">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Type</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The type describes the nature or composition of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Kind -->
+		<TERM ns="" lid="kind">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Kind</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The kind describes the function or context of an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Category -->
+		<TERM ns="" lid="category">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Category</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Categories are used to group, tag or qualify objects.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Offset -->
+		<TERM ns="" lid="offset">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Offset</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The offset represents a path to a leaf offset.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Predicate -->
+		<TERM ns="" lid="predicate">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Predicate</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A predicate qualifies a directed graph relationship.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Relationship -->
+		<TERM ns="" lid="relationship">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Relationship</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A relationship represents the term of a directed graph relation.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Reference -->
+		<TERM ns=":type" lid="ref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Reference</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A reference represents a link to an object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Reference count -->
+		<TERM ns="" lid="ref-count">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Reference count</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A reference count keeps track of how many objects reference the current object.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Connection -->
+		<TERM ns="" lid="connection">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Connection</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A connection groups network connection related attributes.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Record -->
+		<TERM ns="" lid="record">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Record</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The record namespace groups all terms which deal with data record specific information.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Entity -->
+		<TERM ns="" lid="entity">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Entity</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[An entity groups organisation, institution or person related attributes.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- Unit -->
+		<TERM ns="" lid="unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Unit</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[A unit is an object that can be considered an independant entity and not a part or component of another object.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+</METADATA>

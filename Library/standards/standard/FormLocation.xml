@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	LOCATION FORM
+	FormLocation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :location -->
+	<META>
+		<NODE term=":location" pid="form::location">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common location search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- Administrative unit -->
+
+	<META>
+    	<!-- :location:admin-unit -->
+		<TERM ns=":location" lid="admin-unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Administrative unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Location administrative unit.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE pid="form::location:admin-unit" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- :location:admin -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:admin-1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:admin-2 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:admin-3 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+
+	<!-- Geographic unit -->
+
+	<META>
+    	<!-- :location:geo-unit -->
+		<TERM ns=":location" lid="geo-unit">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic unit]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Location geographic unit.]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE pid="form::location:geo-unit" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::location</item>
+		</EDGE>
+	
+		<!-- :location:datum -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:datum</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:latitude:hem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:latitude:deg -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:latitude:min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:latitude:sec -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:latitude:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:longitude:hem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:hem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:longitude:deg -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:deg</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:longitude:min -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:min</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:longitude:sec -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:sec</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:longitude:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

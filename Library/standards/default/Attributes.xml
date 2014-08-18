@@ -442,22 +442,6 @@
 	<!-- Object category attributes -->
 	
 	<META>
-		<!-- kTAG_CATEGORY -->
-		<TERM ns="" lid="category">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Category</item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The category to which an object belongs.]]></item>
-				</item>
-			</item>
-		</TERM>
-	
 		<!-- kTAG_DATA_TYPE -->
 		<TERM ns=":type" lid="data">
 			<item const="kTAG_LABEL">

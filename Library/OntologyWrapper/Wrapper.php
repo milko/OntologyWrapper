@@ -1564,30 +1564,31 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Load default XML files.
+		// Load MCPD namespace XML files.
 		//
 		if( $doLog )
-			echo( "  • Loading default MCPD files.\n" );
+			echo( "  • Loading MCPD namespace files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Namespaces.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		//
+		// Load MCPD attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading MCPD attribute files.\n" );
+
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Attributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/mcpd/Types.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/mcpd/Tags.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/mcpd/Structure.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
+		//
+		// Load MCPD form XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading MCPD form files.\n" );
+
 		
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Form.xml';
 		if( $doLog ) echo( "    - $file\n" );
@@ -1775,11 +1776,15 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML attribute files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
+		$file = kPATH_STANDARDS_ROOT.'/standard/ClimaticAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
+		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/EnvironmentalAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1787,11 +1792,7 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/EnvironmentAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/standard/ClimaticAttributes.xml';
+		$file = kPATH_STANDARDS_ROOT.'/standard/LocationAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1799,7 +1800,29 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/TaxonomyAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/standard/TemperatureAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ThreatAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityStruct.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ThreatStruct.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1809,7 +1832,7 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML schema files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaClimatic.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1817,7 +1840,49 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaPrecipitation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTemperature.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaEnvironment.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML form files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML form files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormLocation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormThreat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormEnvironment.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

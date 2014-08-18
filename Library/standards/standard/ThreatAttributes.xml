@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	THREAT ATTRIBUTES
+	ThreatAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Threat -->
+	
+	<META>
+		<!-- :taxon:threat -->
+		<TERM ns=":taxon" lid="threat">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threats</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information about taxon threat status.]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- Threat attributes -->
+	
+	<!-- :taxon:threat:assessment -->
+	<META>
+		<TERM ns=":taxon:threat" lid="assessment">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Red list assessment level</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:assessment</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:assessment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:threat:assessment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the red list assessment geographic level.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:threat:assessment</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat:assessment</item>
+		</EDGE>
+	</META>
+	<!-- taxon:threat:assessment:1 -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Global]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:assessment</item>
+		</EDGE>
+	</META>
+	<!-- taxon:threat:assessment:2 -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Regional]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:assessment</item>
+		</EDGE>
+	</META>
+	<!-- taxon:threat:assessment:3 -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[National]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:assessment</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:threat:region -->
+	<META>
+		<TERM ns=":taxon:threat" lid="region">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Region of assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:region</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:region">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:country -->
+	<META>
+		<TERM ns=":taxon:threat" lid="country">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Country of assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:country</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:country">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">iso:3166:1:alpha-3</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat:country</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:threat:other-red-list-criteria -->
+	<META>
+		<TERM ns=":taxon:threat" lid="other-red-list-criteria">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Other Red List categories and criteria</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:other-red-list-criteria</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Red List category, criteria and subcriteria that apply to the taxon as a result of the Red listing process using the alternative system, if the taxon has not been assessed using the IUCN Red List Categories and Criteria Version 3.1.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:other-red-list-criteria">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:assessment:year -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="year">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Year of IUCN Red List assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:assessment:year</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Year in which Red List assessment was carried out [YYYY].</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:assessment:year">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:assessment:url -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="url">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">URL publication details of Red List assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:assessment:url</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:url</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">URL linking to the additional Red List assessment publication details.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:assessment:url">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:assessment:ref -->
+	<META>
+		<TERM ns=":taxon:threat:assessment" lid="ref">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">References details of Red List assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:assessment:ref</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Any bibliographic references related to the publication of the checklist, the format should include the author, date, title, journal, volume and page number or the DOI number.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:assessment:ref">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:status -->
+	<META>
+		<TERM ns=":taxon:threat" lid="status">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Taxon status</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:status</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Indication of the status of the taxon in the country (TDWG-POSS).</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:status">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:threat:status">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the the status of the taxon in the country (TDWG-POSS).]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:threat:status</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:1 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Native]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The taxon is indigenous within the area concerned, and there is evidence that it has a history there, or circumstantial evidence of occurrence in one or more natural or semi-natural plant communities.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:2 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Assumed to be native]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Assumed to be Native in the area concerned. The assumption may be made, for example, on the basis of evidence of vegetation community structure etc.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:3 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Doubtfully native]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[There is doubt as to whether the status of the plant in the area concerned is native, as defined above, or not. All records about the native status of the plant in the area are in doubt.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:4 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Formerly native (extinct)]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The plant is native, doubtfully native or assumed to be native in the area concerned and has become Extinct as such. The criterion of extinction is that the plant was not found (as a native) after repeated searches of known or likely areas (i.e. sites within the area covered by the record), even though the plant may be extant elsewhere.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:5 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not native]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The plant is definitely not native (as defined above) in the area concerned.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:6 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="6">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Recorded as native in error]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The plant has been recorded as native in the area concerned but all of those records have been disproved or discounted. A known fallacious native record must have been made, and it must be known that the plant does not occur as a native in the area to use this record.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:7 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="7">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No information]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[There is no information as to whether the plant is native or not in the area concerned.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:8 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="8">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[None]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This is included so as to identify any situations that may arise which cannot be covered by the above values.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:status:9 -->
+	<META>
+		<TERM ns=":taxon:threat:status" lid="9">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not applicable]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This data field does not in any way apply to the plant in this area.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:threat:period -->
+	<META>
+		<TERM ns=":taxon:threat" lid="period">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Period of occurrence of threat</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:period</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:period">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term=":taxon:threat:period">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type qualifies the period of occurrence of the threat.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">:taxon:threat:period</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">:taxon:threat:period</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:period:1 -->
+	<META>
+		<TERM ns=":taxon:threat:period" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Past]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:period</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:period:2 -->
+	<META>
+		<TERM ns=":taxon:threat:period" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Present]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:period</item>
+		</EDGE>
+	</META>
+	<!-- :taxon:threat:period:3 -->
+	<META>
+		<TERM ns=":taxon:threat:period" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Future]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:threat:period</item>
+		</EDGE>
+	</META>
+</METADATA>

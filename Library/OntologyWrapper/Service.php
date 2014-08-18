@@ -1106,6 +1106,12 @@ class Service extends ContainerObject
 				"Missing required node parameter." );							// !@! ==>
 		
 		//
+		// Check reference count.
+		//
+		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
+			$this->validateCollection( $this->offsetGet( kAPI_PARAM_REF_COUNT ) );
+		
+		//
 		// Get node reference.
 		//
 		$id = $this->offsetGet( kAPI_PARAM_NODE );
@@ -3732,6 +3738,46 @@ class Service extends ContainerObject
 		$language = $this->offsetGet( kAPI_REQUEST_LANGUAGE );
 		
 		//
+		// Add collection reference count.
+		//
+		$ref_count = NULL;
+		if( $this->offsetExists( kAPI_PARAM_REF_COUNT ) )
+		{
+			//
+			// Iterate collections.
+			//
+			foreach( $this->offsetGet( kAPI_PARAM_REF_COUNT ) as $collection )
+			{
+				switch( $collection )
+				{
+					case kAPI_PARAM_COLLECTION_TAG:
+						$ref_count = (string) kTAG_TAG_COUNT;
+						break;
+					
+					case kAPI_PARAM_COLLECTION_TERM:
+						$ref_count = (string) kTAG_TERM_COUNT;
+						break;
+					
+					case kAPI_PARAM_COLLECTION_NODE:
+						$ref_count = (string) kTAG_NODE_COUNT;
+						break;
+					
+					case kAPI_PARAM_COLLECTION_EDGE:
+						$ref_count = (string) kTAG_EDGE_COUNT;
+						break;
+					
+					case kAPI_PARAM_COLLECTION_UNIT:
+						$ref_count = (string) kTAG_UNIT_COUNT;
+						break;
+					
+					case kAPI_PARAM_COLLECTION_ENTITY:
+						$ref_count = (string) kTAG_ENTITY_COUNT;
+						break;
+				}
+			}
+		}
+		
+		//
 		// Initialise result.
 		//
 		if( ! array_key_exists( kAPI_RESPONSE_RESULTS, $this->mResponse ) )
@@ -3742,7 +3788,7 @@ class Service extends ContainerObject
 		// Traverse form structure.
 		//
 		$this->traverseFormStructure(
-			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language );
+			$this->mResponse[ kAPI_RESPONSE_RESULTS ], $node, $language, $ref_count );
 		
 	} // executeGetNodeForm.
 
@@ -6150,11 +6196,14 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param int					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
 	 * @return array				Criteria record.
 	 */
-	protected function traverseFormStructure( &$theContainer, $theNode, $theLanguage )
+	protected function traverseFormStructure( &$theContainer, $theNode,
+															  $theLanguage,
+															  $theRefCount = NULL )
 	{
 		//
 		// Allocate element.
@@ -6165,7 +6214,8 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load element information.
 		//
-		$this->loadNodeElementInfo( $theContainer[ $index ], $theNode, $theLanguage );
+		$this->loadNodeElementInfo(
+			$theContainer[ $index ], $theNode, $theLanguage, $theRefCount );
 		
 		//
 		// Allocate children.
@@ -6175,7 +6225,7 @@ $rs_units = & $rs_units[ 'result' ];
 		//
 		// Load related nodes.
 		//
-		$this->traverseFormEdges( $children, $theNode, $theLanguage );
+		$this->traverseFormEdges( $children, $theNode, $theLanguage, $theRefCount );
 		
 		//
 		// Set children.
@@ -6201,11 +6251,14 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param int					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
 	 * @return array				Criteria record.
 	 */
-	protected function traverseFormEdges( &$theContainer, $theNode, $theLanguage )
+	protected function traverseFormEdges( &$theContainer, $theNode,
+														  $theLanguage,
+														  $theRefCount = NULL )
 	{
 		//
 		// Get related elements.
@@ -6233,13 +6286,13 @@ $rs_units = & $rs_units[ 'result' ];
 			//
 			if( $edge[ kTAG_PREDICATE ] == kPREDICATE_SUBCLASS_OF )
 				$this->traverseFormEdges(
-					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage );
+					$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
 			
 			//
 			// Load node information.
 			//
 			$this->traverseFormStructure(
-				$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage );
+				$theContainer, $edge[ kTAG_SUBJECT ], $theLanguage, $theRefCount );
 		
 		} // Iterating related.
 		
@@ -6270,11 +6323,14 @@ $rs_units = & $rs_units[ 'result' ];
 	 * @param array					$theContainer		Receives information.
 	 * @param mixed					$theNode			Node native identifier.
 	 * @param string				$theLanguage		Default language.
+	 * @param string				$theRefCount		Reference count tag.
 	 *
 	 * @access protected
 	 * @return array				Criteria record.
 	 */
-	protected function loadNodeElementInfo( &$theContainer, $theNode, $theLanguage )
+	protected function loadNodeElementInfo( &$theContainer, $theNode,
+															$theLanguage,
+															$theRefCount = NULL )
 	{
 		//
 		// Init local storage.
@@ -6336,8 +6392,24 @@ $rs_units = & $rs_units[ 'result' ];
 		// Set tag identifier.
 		//
 		if( $node->offsetExists( kTAG_TAG ) )
+		{
+			//
+			// Set tag reference.
+			//
 			$theContainer[ kAPI_PARAM_TAG ]
 				= $node->offsetGet( kTAG_TAG );
+			
+			//
+			// Set reference count.
+			//
+			if( $theRefCount !== NULL )
+			{
+				$theContainer[ kAPI_PARAM_RESPONSE_COUNT ]
+					= ( $referenced->offsetExists( $theRefCount ) )
+					? $referenced->offsetGet( $theRefCount )
+					: 0;
+			}
+		}
 		
 	} // loadNodeElementInfo.
 
