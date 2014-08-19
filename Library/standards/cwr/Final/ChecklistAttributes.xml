@@ -129,57 +129,115 @@
 			<item const="kTAG_OBJECT" node="tag">cwr:ck:TYPE</item>
 		</EDGE>
 	</META>
+	<!-- cwr:ck:TYPE:1 -->
+	<META>
+		<TERM ns="cwr:ck:TYPE" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Complete CWR checklist]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of all CWR found in the country, a list of names and authorities.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:ck:TYPE</item>
+		</EDGE>
+	</META>
+	<!-- cwr:ck:TYPE:2 -->
+	<META>
+		<TERM ns="cwr:ck:TYPE" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Annotated CWR checklist]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of all CWR found in the country, with additional information to aid prioritization of the checklist.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:ck:TYPE</item>
+		</EDGE>
+	</META>
+	<!-- cwr:ck:TYPE:3 -->
+	<META>
+		<TERM ns="cwr:ck:TYPE" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Priority CWR checklist]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Partial list of CWR found in the country that has been reduced in number from the complete CWR checklist through prioritization, a list of names and authorities.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:ck:TYPE</item>
+		</EDGE>
+	</META>
 	
 	<!-- cwr:REF -->
-	
 	<!-- cwr:URL -->
 	
 	<!-- :taxon:regnum -->
-
 	<!-- :taxon:phylum -->
-
 	<!-- :taxon:classis -->
-
 	<!-- :taxon:ordo -->
-
 	<!-- :taxon:familia -->
-
 	<!-- :taxon:genus -->
-
 	<!-- :taxon:species -->
-
 	<!-- :taxon:species:author -->
-
 	<!-- :taxon:infraspecies -->
-	
 	<!-- :taxon:infraspecies:author -->
-
+	
 	<!-- :taxon:id -->
-
 	<!-- :taxon:reference -->
-
 	<!-- :taxon:synonym -->
-
 	<!-- :taxon:synref -->
-
 	<!-- :taxon:names -->
-
 	<!-- :taxon:crop -->
-
 	<!-- :taxon:chromosome-number -->
-
 	<!-- :taxon:genepool -->
-
 	<!-- :taxon:group -->
-
 	<!-- :taxon:group-ref -->
-
+	
 	<!-- :taxon:cross -->
 	
 	<!-- :taxon:threat -->
 	
 	<!-- :taxon:ecovalue -->
-	
 	<!-- :taxon:ecovalue-ref -->
 	
 	<!-- cwr:ck:REMARKS -->

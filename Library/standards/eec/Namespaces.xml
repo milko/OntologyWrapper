@@ -9,19 +9,19 @@
 	
 	<!-- Namespaces -->
 	
-	<!-- iucn -->
+	<!-- eec -->
 	<META>
-		<TERM lid="iucn">
+		<TERM lid="eec">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[IUCN Controlled Vocabulary]]></item>
+					<item const="kTAG_TEXT"><![CDATA[EEC Controlled Vocabulary]]></item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The set of term definitions used by International Union for Conservation of Nature.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[The set of term definitions used by the European Union.]]></item>
 				</item>
 			</item>
 		</TERM>

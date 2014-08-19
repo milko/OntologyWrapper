@@ -44,4 +44,28 @@
 			</item>
     	</TERM>
     </META>
+	
+    <!-- cwr:pp -->
+    <META>
+        <TERM ns="cwr" lid="pp">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative population]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
+	
+    <!-- cwr:st -->
+    <META>
+        <TERM ns="cwr" lid="st">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative site]]></item>
+				</item>
+			</item>
+    	</TERM>
+    </META>
 </METADATA>

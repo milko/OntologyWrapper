@@ -25,8 +25,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitNumber</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This number is the unique identifier of the unit described. This number should not be duplicated or reassigned to another unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:number">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:gene-number -->
+	<!-- fcu:unit:gene-number -->
+	<META>
 		<TERM ns="fcu:unit" lid="gene-number">
 			<item const="kTAG_LABEL">
 				<item>
@@ -41,8 +67,45 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:gene-number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitGeneNumber</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unit number from the national registry.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:gene-number">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:area -->
+	<!-- :location:country -->
+	<!-- :location:admin-1 -->
+	<!-- :location:admin-2 -->
+	<!-- :location:admin-3 -->
+	<!-- :location:locality -->
+	<!-- :location:elevation:min -->
+	<!-- :location:elevation:max -->
+	<!-- :location:datum -->
+	<!-- :location:latitude -->
+	<!-- :location:longitude -->
+	
+	<!-- fcu:unit:area -->
+	<META>
 		<TERM ns="fcu:unit" lid="area">
 			<item const="kTAG_LABEL">
 				<item>
@@ -51,8 +114,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:area</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:float</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitArea</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total surface area of the unit in hectares accuracy of 0.1 ha.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:area">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:ownership -->
+	<!-- fcu:unit:ownership -->
+	<META>
 		<TERM ns="fcu:unit" lid="ownership">
 			<item const="kTAG_LABEL">
 				<item>
@@ -61,8 +149,126 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:ownership</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitOwnership</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:ownership">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:unit:ownership">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the ownership of the unit.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:unit:ownership</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:unit:ownership</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:ownership:Public -->
+	<META>
+		<TERM ns="fcu:unit:ownership" lid="Public">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Public]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:ownership</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:ownership:Private -->
+	<META>
+		<TERM ns="fcu:unit:ownership" lid="Private">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Private]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:ownership</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:ownership:Both -->
+	<META>
+		<TERM ns="fcu:unit:ownership" lid="Both">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Both]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:ownership</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:ownership:Other -->
+	<META>
+		<TERM ns="fcu:unit:ownership" lid="Other">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:ownership</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:unit:type -->
+	<!-- fcu:unit:type -->
+	<META>
 		<TERM ns="fcu:unit" lid="type">
 			<item const="kTAG_LABEL">
 				<item>
@@ -71,8 +277,158 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:type</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitType</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:type">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:unit:type">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the type of the unit.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:unit:type</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:unit:type</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:type:1 -->
+	<META>
+		<TERM ns="fcu:unit:type" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Gene reserve forest]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:type</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:type:2 -->
+	<META>
+		<TERM ns="fcu:unit:type" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Biodiversity conservation]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Habitats and/or species]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:type</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:type:3 -->
+	<META>
+		<TERM ns="fcu:unit:type" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed stand]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:type</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:type:4 -->
+	<META>
+		<TERM ns="fcu:unit:type" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Protective forest area]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Soil, water, timber line, etc]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:type</item>
+		</EDGE>
+	</META>
+	<!-- fcu:unit:type:5 -->
+	<META>
+		<TERM ns="fcu:unit:type" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Forest area managed for wood production and /or multiple uses and services]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:unit:type</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:unit:data-collection -->
+	<!-- fcu:unit:data-collection -->
+	<META>
 		<TERM ns="fcu:unit" lid="data-collection">
 			<item const="kTAG_LABEL">
 				<item>
@@ -81,8 +437,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:data-collection</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitDataCollectionYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date in which the unit data was collected, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:data-collection">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:last-visit -->
+	<!-- fcu:unit:last-visit -->
+	<META>
 		<TERM ns="fcu:unit" lid="last-visit">
 			<item const="kTAG_LABEL">
 				<item>
@@ -91,8 +472,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:last-visit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitLastVisitYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date in which the unit data last visited, the date should be expressed in <kbd>YYYYMMDD</kbd> format, where day and month may be omitted.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:last-visit">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:remarks-soil -->
+	<!-- fcu:unit:remarks-soil -->
+	<META>
 		<TERM ns="fcu:unit" lid="remarks-soil">
 			<item const="kTAG_LABEL">
 				<item>
@@ -101,8 +507,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:remarks-soil</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitSoilRemarks</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks on specific soil characteristics of the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:remarks-soil">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:remarks -->
+	<!-- fcu:unit:remarks -->
+	<META>
 		<TERM ns="fcu:unit" lid="remarks">
 			<item const="kTAG_LABEL">
 				<item>
@@ -111,8 +543,34 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:remarks</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitRemarks</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Remarks on other specific characteristics of the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:remarks">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:unit:species -->
+	<!-- fcu:unit:species -->
+	<META>
 		<TERM ns="fcu:unit" lid="species">
 			<item const="kTAG_LABEL">
 				<item>
@@ -121,12 +579,71 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:unit:species</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>UnitSpecies</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[List of target and non target species growing in the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:unit:species">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 	
 	<!-- Population attributes -->
 	
+	<!-- fcu:population -->
 	<META>
-		<!-- fcu:population:number -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unit populations]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information on population target species growing in the unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:genus -->
+	<!-- :taxon:species -->
+	<!-- :taxon:epithet -->
+	
+	<!-- fcu:population:number -->
+	<META>
 		<TERM ns="fcu:population" lid="number">
 			<item const="kTAG_LABEL">
 				<item>
@@ -135,8 +652,28 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:number</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationUnitNumber</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:number">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:population:establishment -->
+	<!-- fcu:population:establishment -->
+	<META>
 		<TERM ns="fcu:population" lid="establishment">
 			<item const="kTAG_LABEL">
 				<item>
@@ -145,8 +682,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:establishment</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationEstablishmentYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date of establishment of the gene conservation unit for the taxon.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:establishment">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:population:last-visit -->
+	<!-- fcu:population:last-visit -->
+	<META>
 		<TERM ns="fcu:population" lid="last-visit">
 			<item const="kTAG_LABEL">
 				<item>
@@ -155,8 +717,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:last-visit</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:date</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationEstablishmentYear</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Date of the most recent visit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:last-visit">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:population:status -->
+	<!-- fcu:population:status -->
+	<META>
 		<TERM ns="fcu:population" lid="status">
 			<item const="kTAG_LABEL">
 				<item>
@@ -165,8 +752,112 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:status</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationStatus</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Status of the target tree population regarding the EUFORGEN common action plans.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:status">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:status">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the status of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:status</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:status</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:status:1 -->
+	<META>
+		<TERM ns="fcu:population:status" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Included]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:status</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:status:2 -->
+	<META>
+		<TERM ns="fcu:population:status" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Not included]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:status</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:status:3 -->
+	<META>
+		<TERM ns="fcu:population:status" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Pending]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:status</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:situ -->
+	<!-- fcu:population:situ -->
+	<META>
 		<TERM ns="fcu:population" lid="situ">
 			<item const="kTAG_LABEL">
 				<item>
@@ -175,8 +866,86 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:situ</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSitu</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:situ">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:situ">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the situ of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:situ</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:situ</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:situ:1 -->
+	<META>
+		<TERM ns="fcu:population:situ" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In situ]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:situ</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:situ:2 -->
+	<META>
+		<TERM ns="fcu:population:situ" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Ex situ]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:situ</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:origin -->
+	<!-- fcu:population:origin -->
+	<META>
 		<TERM ns="fcu:population" lid="origin">
 			<item const="kTAG_LABEL">
 				<item>
@@ -185,8 +954,106 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:origin</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationOrigin</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:origin">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:origin">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the origin of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:origin</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:origin</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:origin:1 -->
+	<META>
+		<TERM ns="fcu:population:origin" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Autochthonous]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:origin</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:origin:2 -->
+	<META>
+		<TERM ns="fcu:population:origin" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Introduced]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:origin</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:origin:3 -->
+	<META>
+		<TERM ns="fcu:population:origin" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unknown]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:origin</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:system -->
+	<!-- fcu:population:system -->
+	<META>
 		<TERM ns="fcu:population" lid="system">
 			<item const="kTAG_LABEL">
 				<item>
@@ -195,8 +1062,184 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:system</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSystem</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:system">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:system">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the silvicultural system of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:system</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:1 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coppice]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:2 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with artificial regeneration]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Planting or seeding.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:3 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with natural regeneration]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Seed trees or strips.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:4 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Shelterwood systems]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:5 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Close-to-natural forestry]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Continuous cover forest, selective logging.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:system:6 -->
+	<META>
+		<TERM ns="fcu:population:system" lid="6">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No silviculture]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:system</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:management -->
+	<!-- fcu:population:management -->
+	<META>
 		<TERM ns="fcu:population" lid="management">
 			<item const="kTAG_LABEL">
 				<item>
@@ -205,8 +1248,112 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:management</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationManagement</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Level of management allowed to favour the target species.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:management">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:management">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the management of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:management</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:management</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:management:1 -->
+	<META>
+		<TERM ns="fcu:population:management" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No intervention allowed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:management</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:management:2 -->
+	<META>
+		<TERM ns="fcu:population:management" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Minimum intervention allowed]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:management</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:management:3 -->
+	<META>
+		<TERM ns="fcu:population:management" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Conservation through active intervention carried out]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:management</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:justification -->
+	<!-- fcu:population:justification -->
+	<META>
 		<TERM ns="fcu:population" lid="justification">
 			<item const="kTAG_LABEL">
 				<item>
@@ -215,8 +1362,112 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:justification</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationJustification</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Main reason for carrying out gene conservation for this taxon.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:justification">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:justification">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the justification for the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:justification</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:justification</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:justification:1 -->
+	<META>
+		<TERM ns="fcu:population:justification" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To maintain genetic diversity in large tree populations]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:justification</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:justification:2 -->
+	<META>
+		<TERM ns="fcu:population:justification" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To conserve specific adaptive and/or phenotypic traits in marginal or scattered tree populations which are often relatively small]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:justification</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:justification:3 -->
+	<META>
+		<TERM ns="fcu:population:justification" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[To conserve rare or endangered tree species with populations consisting of a low number of remaining individuals]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:justification</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:reproducing -->
+	<!-- fcu:population:reproducing -->
+	<META>
 		<TERM ns="fcu:population" lid="reproducing">
 			<item const="kTAG_LABEL">
 				<item>
@@ -225,8 +1476,132 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:reproducing</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationReproducingTrees</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Total number of reproducing trees per unit.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:reproducing">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:reproducing">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the number of reproducing trees in the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:reproducing</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:reproducing</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:reproducing:1 -->
+	<META>
+		<TERM ns="fcu:population:reproducing" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[15 - 50]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:reproducing</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:reproducing:2 -->
+	<META>
+		<TERM ns="fcu:population:reproducing" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[51 - 500]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:reproducing</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:reproducing:3 -->
+	<META>
+		<TERM ns="fcu:population:reproducing" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[501 - 5000]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:reproducing</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:reproducing:4 -->
+	<META>
+		<TERM ns="fcu:population:reproducing" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[> 5000]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:reproducing</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:sex-ratio -->
+	<!-- fcu:population:sex-ratio -->
+	<META>
 		<TERM ns="fcu:population" lid="sex-ratio">
 			<item const="kTAG_LABEL">
 				<item>
@@ -235,8 +1610,112 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:sex-ratio</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationSexRatio</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[If appropriate]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:sex-ratio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:sex-ratio">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the sex ratio in the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:sex-ratio</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:sex-ratio</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:sex-ratio:1 -->
+	<META>
+		<TERM ns="fcu:population:sex-ratio" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Predominately males]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:sex-ratio</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:sex-ratio:2 -->
+	<META>
+		<TERM ns="fcu:population:sex-ratio" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Even sex ratio]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:sex-ratio</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:sex-ratio:3 -->
+	<META>
+		<TERM ns="fcu:population:sex-ratio" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Predominately females]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:sex-ratio</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:regeneration -->
+	<!-- fcu:population:regeneration -->
+	<META>
 		<TERM ns="fcu:population" lid="regeneration">
 			<item const="kTAG_LABEL">
 				<item>
@@ -245,8 +1724,106 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:regeneration</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationRegeneration</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:regeneration">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:regeneration">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the long-term regeneration status of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:regeneration</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:regeneration</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:regeneration:1 -->
+	<META>
+		<TERM ns="fcu:population:regeneration" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Continuous]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:regeneration</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:regeneration:2 -->
+	<META>
+		<TERM ns="fcu:population:regeneration" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sporadic]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:regeneration</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:regeneration:3 -->
+	<META>
+		<TERM ns="fcu:population:regeneration" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Requires management intervention]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:regeneration</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:distribution -->
+	<!-- fcu:population:distribution -->
+	<META>
 		<TERM ns="fcu:population" lid="distribution">
 			<item const="kTAG_LABEL">
 				<item>
@@ -255,8 +1832,106 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:distribution</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationDistribution</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:distribution">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="fcu:population:distribution">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This type assesses the distribution of the population.]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">fcu:population:distribution</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">fcu:population:distribution</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:distribution:1 -->
+	<META>
+		<TERM ns="fcu:population:distribution" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In stands]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:distribution</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:distribution:2 -->
+	<META>
+		<TERM ns="fcu:population:distribution" lid="2">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Scattered]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:distribution</item>
+		</EDGE>
+	</META>
+	<!-- fcu:population:distribution:3 -->
+	<META>
+		<TERM ns="fcu:population:distribution" lid="3">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[In groups]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">fcu:population:distribution</item>
+		</EDGE>
+	</META>
 	
-		<!-- fcu:population:share -->
+	<!-- fcu:population:share -->
+	<META>
 		<TERM ns="fcu:population" lid="share">
 			<item const="kTAG_LABEL">
 				<item>
@@ -265,8 +1940,33 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:share</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationShare</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Expressed as a percentage, from 0 to 100.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:share">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
 	
-		<!-- fcu:population:remarks -->
+	<!-- fcu:population:remarks -->
+	<META>
 		<TERM ns="fcu:population" lid="remarks">
 			<item const="kTAG_LABEL">
 				<item>
@@ -275,5 +1975,23 @@
 				</item>
 			</item>
 		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>fcu:population:remarks</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:text</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>PopulationRemarks</item>
+			</item>
+		</TAG>
+		<NODE tag="fcu:population:remarks">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
 	</META>
 </METADATA>

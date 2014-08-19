@@ -1533,6 +1533,122 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadFAOStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load FAO standards
+	 *
+	 * This method can be used to load the FAO standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadFAOStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading FAO standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load FAO: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fao/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/fao/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadFAOStandards.
+
+	 
+	/*===================================================================================
+	 *	loadEECStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load EEC standards
+	 *
+	 * This method can be used to load the EEC standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadEECStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading EEC standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load EEC: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/eec/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/eec/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadEECStandards.
+
+	 
+	/*===================================================================================
 	 *	loadMCPDStandards																*
 	 *==================================================================================*/
 
@@ -1567,28 +1683,15 @@ class Wrapper extends Dictionary
 		// Load MCPD namespace XML files.
 		//
 		if( $doLog )
-			echo( "  • Loading MCPD namespace files.\n" );
+			echo( "  • Loading MCPD files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Namespaces.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
-		//
-		// Load MCPD attribute XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading MCPD attribute files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Attributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
-		//
-		// Load MCPD form XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading MCPD form files.\n" );
-
 		
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Form.xml';
 		if( $doLog ) echo( "    - $file\n" );
@@ -1629,31 +1732,23 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Load default XML files.
+		// Load namespace XML files.
 		//
 		if( $doLog )
-			echo( "  • Loading default FCU files.\n" );
+			echo( "  • Loading FCU files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/fcu/Namespaces.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
+
 		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Types.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Tags.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
+
 		$file = kPATH_STANDARDS_ROOT.'/fcu/Structure.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
+
 		$file = kPATH_STANDARDS_ROOT.'/fcu/Form.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -1780,6 +1875,10 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ConservationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
 		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -1819,6 +1918,10 @@ class Wrapper extends Dictionary
 			echo( "  • Loading XML structure files.\n" );
 		
 		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityStruct.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/ConservationStruct.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1863,6 +1966,10 @@ class Wrapper extends Dictionary
 			echo( "  • Loading XML form files.\n" );
 		
 		$file = kPATH_STANDARDS_ROOT.'/standard/FormCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/FormConservation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		

@@ -148,6 +148,31 @@ try
 	$wrapper->loadIUCNStandards( TRUE );
 	
 	//
+	// Load FAO Standards.
+	//
+	$wrapper->loadFAOStandards( TRUE );
+	
+	//
+	// Load EEC Standards.
+	//
+	$wrapper->loadEECStandards( TRUE );
+	
+	//
+	// Load standards.
+	//
+	$wrapper->loadStandards( TRUE );
+	
+	//
+	// Load MCPD standards.
+	//
+	$wrapper->loadMCPDStandards( TRUE );
+	
+	//
+	// Load FCU standards.
+	//
+	$wrapper->loadFCUStandards( TRUE );
+	
+	//
 	// Reset dictionary.
 	//
 	$wrapper->loadTagCache();

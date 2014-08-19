@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	THREAT ATTRIBUTES
+	THREAT STRUCTURE
 	ThreatStruct.xml
 -->
 <METADATA
@@ -89,6 +89,36 @@
 		<!-- :taxon:threat:assessment:ref -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:assessment:ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:ucode -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:ucode</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:udescr -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:udescr</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:uauth -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:uauth</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat:national:year -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:national:year</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

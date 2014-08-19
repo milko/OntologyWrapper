@@ -1055,4 +1055,36 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>
+	
+	<!-- Land use -->
+	
+	<!-- :environment:landuse -->
+	<META>
+    	<!-- :environment:landuse -->
+		<TERM ns=":environment" lid="landuse">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Land use]]></item>
+				</item>
+			</item>
+    	</TERM>
+		<NODE pid="form::environment:landuse" />
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form::environment</item>
+		</EDGE>
+	
+		<!-- fao:landuse -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">fao:landuse</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- eec:CORINE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">eec:CORINE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
 </METADATA>

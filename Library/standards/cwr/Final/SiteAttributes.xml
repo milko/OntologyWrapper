@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE SITE ATTRIBUTES
+	SiteAttributes.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Site -->
+	
+	<!-- cwr:st -->
+	<META>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sites]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Details about the site in which the CWR population was observed and/or the accession/specimen collected.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Site attributes -->
+		
+	<!-- cwr:st:SITENUMB -->
+	<META>
+		<TERM ns="cwr:st" lid="SITENUMB">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Site number]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:SITENUMB</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>SITENUMB</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Unique number identifying the site.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:SITENUMB">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- cwr:st:MONIT -->
+	<META>
+		<TERM ns="cwr:st" lid="MONIT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[CWR site monitoring]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:MONIT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MONIT</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Whether any monitoring of the site is foreseen across years.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:MONIT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="cwr:st:MONIT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:type</item>
+				<item>:kind:enumerated-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="term">cwr:st:MONIT</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">cwr:st:MONIT</item>
+		</EDGE>
+	</META>
+	<!-- cwr:st:MONIT:0 -->
+	<META>
+		<TERM ns="cwr:st:MONIT" lid="0">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[No]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:st:MONIT</item>
+		</EDGE>
+	</META>
+	<!-- cwr:st:MONIT:1 -->
+	<META>
+		<TERM ns="cwr:st:MONIT" lid="1">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Yes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">cwr:st:MONIT</item>
+		</EDGE>
+	</META>
+		
+	<!-- cwr:st:MONITRESP -->
+	<META>
+		<TERM ns="cwr:st" lid="MONITRESP">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring author/compiler]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:MONITRESP</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MONITRESP</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Who is in charge of the monitoring.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:MONITRESP">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- cwr:st:MONINT -->
+	<META>
+		<TERM ns="cwr:st" lid="MONINT">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring interval]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:MONINT</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:quantitative</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MONINT</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Monitoring interval in years.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:MONINT">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:country -->
+	<!-- :location:admin-1 -->
+	<!-- :location:admin-2 -->
+	<!-- :location:admin-3 -->
+	<!-- :location:locality -->
+		
+	<!-- cwr:st:NEARPLACE -->
+	<META>
+		<TERM ns="cwr:st" lid="NEARPLACE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Nearest named place]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:NEARPLACE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>NEARPLACE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Name of nearest place to site. This also refers to places that may not have proper names (i.e. road junctions).]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:NEARPLACE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- cwr:st:DIST -->
+	<META>
+		<TERM ns="cwr:st" lid="DIST">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Distance in meters]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:DIST</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DIST</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Distance from nearest named place to site.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:DIST">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+		
+	<!-- cwr:st:DIRECTION -->
+	<META>
+		<TERM ns="cwr:st" lid="DIRECTION">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Direction from nearest place]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:DIRECTION</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:int</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>DIRECTION</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Direction of site from nearest named place in degrees relative to North.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:DIRECTION">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :location:datum -->
+
+	<!-- :location:latitude -->
+	<!-- :location:latitude:deg -->
+	<!-- :location:latitude:min -->
+	<!-- :location:latitude:sec -->
+	<!-- :location:latitude:hem -->
+
+	<!-- :location:longitude -->
+	<!-- :location:longitude:deg -->
+	<!-- :location:longitude:min -->
+	<!-- :location:longitude:sec -->
+	<!-- :location:longitude:hem -->
+	
+	<!-- :location:error -->
+	
+	<!-- :location:elevation -->
+	
+	<!-- :shape -->
+	
+	<!-- :environment:distance-min -->
+	<!-- :environment:distance-mean -->
+	<!-- :environment:distance-max -->
+	<!-- :environment:elevation-min -->
+	<!-- :environment:elevation-mean -->
+	<!-- :environment:elevation-max -->
+	<!-- :environment:bio -->
+	<!-- :environment:temperature -->
+	<!-- :environment:precipitation -->
+	<!-- :environment:gens -->
+	<!-- :environment:gens:clim -->
+	<!-- :environment:gens:zone -->
+	<!-- :environment:globcov -->
+	<!-- :environment:hwsd -->
+	<!-- :environment:ghf -->
+		
+	<!-- cwr:st:CLIMSOURCE -->
+	<META>
+		<TERM ns="cwr:st" lid="CLIMSOURCE">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Source of climate data]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:st:CLIMSOURCE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>CLIMSOURCE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information on the climate map source and/or distance to the site from the meteorological station.]]></item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:st:CLIMSOURCE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+
+	<!-- fao:landuse -->
+	<!-- eec:CORINE -->
+</METADATA>

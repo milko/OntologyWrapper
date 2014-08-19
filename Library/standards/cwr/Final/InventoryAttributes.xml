@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CROP WILD RELATIVE INveNTORY ATTRIBUTES
+	CROP WILD RELATIVE INVENTORY ATTRIBUTES
 	InventoryAttributes.xml
 -->
 <METADATA
@@ -8,6 +8,8 @@
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
 	<!-- Inventory attributes -->
+		
+	<!-- :inventory:NICODE -->
 	
 	<!-- cwr:in:NIENUMB -->
 	<META>
@@ -2508,62 +2510,38 @@
 	</META>
 	
 	<!-- :taxon:regnum -->
-
 	<!-- :taxon:phylum -->
-
 	<!-- :taxon:classis -->
-
 	<!-- :taxon:ordo -->
-
 	<!-- :taxon:familia -->
-
 	<!-- :taxon:genus -->
-
 	<!-- :taxon:species -->
-
 	<!-- :taxon:species:author -->
-
 	<!-- :taxon:infraspecies -->
-	
 	<!-- :taxon:infraspecies:author -->
 
 	<!-- :taxon:id -->
-
 	<!-- :taxon:reference -->
-
 	<!-- :taxon:synonym -->
-
 	<!-- :taxon:synref -->
-
 	<!-- :taxon:names -->
-
 	<!-- :taxon:crop -->
-
 	<!-- :taxon:chromosome-number -->
-
 	<!-- :taxon:genepool -->
-
 	<!-- :taxon:group -->
-
 	<!-- :taxon:group-ref -->
 	
 	<!-- :taxon:repsystem -->
-	
 	<!-- :taxon:bredsystem -->
-	
 	<!-- :taxon:sexstructure -->
-	
 	<!-- :taxon:pollination -->
-	
 	<!-- :taxon:lifeform -->
-	
 	<!-- :taxon:lifespan -->
-	
 	<!-- :taxon:seed-dispersal -->
 
 	<!-- :taxon:cross -->
 
-@@@
+	<!-- :taxon:conservation -->
 	
 	<!-- :taxon:threat -->
 </METADATA>

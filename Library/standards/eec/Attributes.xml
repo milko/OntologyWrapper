@@ -1,70 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	FOREST POPULATION DISTRIBUTION TYPES
-	Types.xml
+	EEC ATTRIBUTES
+	Attributes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Unit type -->
+	<!-- Land use -->
 	
-	<!-- eufgis:UnitType -->
+	<!-- eec:CORINE -->
 	<META>
-		<TERM ns="eufgis" lid="UnitType">
+		<TERM ns="eec" lid="CORINE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest unit type]]></item>
+					<item const="kTAG_TEXT">Land use</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the type of the unit.]]></item>
+					<item const="kTAG_TEXT">CORINE Land Cover (CLC) nomenclature.</item>
 				</item>
 			</item>
 		</TERM>
-		<NODE>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>eec:CORINE</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
+			</item>
+		</TAG>
+		<NODE tag="eec:CORINE">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<NODE term="eec:CORINE">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:type</item>
 				<item>:kind:enumerated-node</item>
 			</item>
 		</NODE>
-	</META>
-	<!-- eufgis:UnitType:1 -->
-	<META>
-		<TERM ns="eufgis:UnitType" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Gene reserve forest]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:enumeration</item>
-			</item>
-		</NODE>
 		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_SUBJECT" node="term">eec:CORINE</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+			<item const="kTAG_OBJECT" node="tag">eec:CORINE</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitType:2 -->
+	<!-- eec:CORINE:1 -->
 	<META>
-		<TERM ns="eufgis:UnitType" lid="2">
+		<TERM ns="eec:CORINE" lid="1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Biodiversity conservation]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Habitats and/or species]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Artificial surfaces]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -75,16 +70,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitType:3 -->
+	<!-- eec:CORINE:11 -->
 	<META>
-		<TERM ns="eufgis:UnitType" lid="3">
+		<TERM ns="eec:CORINE" lid="11">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Seed stand]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Urban fabric]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -95,22 +90,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:1</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitType:4 -->
+	<!-- eec:CORINE:111 -->
 	<META>
-		<TERM ns="eufgis:UnitType" lid="4">
+		<TERM ns="eec:CORINE" lid="111">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Protective forest area]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Soil, water, timber line, etc]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Continuous urban fabric]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -121,16 +110,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:11</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitType:5 -->
+	<!-- eec:CORINE:112 -->
 	<META>
-		<TERM ns="eufgis:UnitType" lid="5">
+		<TERM ns="eec:CORINE" lid="112">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest area managed for wood production and /or multiple uses and services]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Discontinuous  urban fabric]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -141,42 +130,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitType</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:11</item>
 		</EDGE>
 	</META>
-	
-	<!-- Unit ownership -->
-	
-	<!-- eufgis:UnitOwnership -->
+	<!-- eec:CORINE:12 -->
 	<META>
-		<TERM ns="eufgis" lid="UnitOwnership">
+		<TERM ns="eec:CORINE" lid="12">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest unit ownership]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the ownership of the unit.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:UnitOwnership:Public -->
-	<META>
-		<TERM ns="eufgis:UnitOwnership" lid="Public">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Public]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Industrial, commercial and transport units]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -187,16 +150,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:1</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitOwnership:Private -->
+	<!-- eec:CORINE:121 -->
 	<META>
-		<TERM ns="eufgis:UnitOwnership" lid="Private">
+		<TERM ns="eec:CORINE" lid="121">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Private]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Industrial or commercial units]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -207,16 +170,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:12</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitOwnership:Both -->
+	<!-- eec:CORINE:122 -->
 	<META>
-		<TERM ns="eufgis:UnitOwnership" lid="Both">
+		<TERM ns="eec:CORINE" lid="122">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Both]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Road and rail networks and associated land]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -227,16 +190,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:12</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:UnitOwnership:Other -->
+	<!-- eec:CORINE:123 -->
 	<META>
-		<TERM ns="eufgis:UnitOwnership" lid="Other">
+		<TERM ns="eec:CORINE" lid="123">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Port areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -247,42 +210,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:UnitOwnership</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:12</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population distribution -->
-	
-	<!-- eufgis:PopulationDistribution -->
+	<!-- eec:CORINE:124 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationDistribution">
+		<TERM ns="eec:CORINE" lid="124">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population distribution]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the distribution of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationDistribution:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationDistribution" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[In stands]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Airports]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -293,16 +230,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationDistribution</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:12</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationDistribution:2 -->
+	<!-- eec:CORINE:13 -->
 	<META>
-		<TERM ns="eufgis:PopulationDistribution" lid="2">
+		<TERM ns="eec:CORINE" lid="13">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Scattered]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Mine, dump and construction sites]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -313,16 +250,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationDistribution</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:1</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationDistribution:3 -->
+	<!-- eec:CORINE:131 -->
 	<META>
-		<TERM ns="eufgis:PopulationDistribution" lid="3">
+		<TERM ns="eec:CORINE" lid="131">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[In groups]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Mineral extraction sites]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -333,42 +270,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationDistribution</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:13</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population justification -->
-	
-	<!-- eufgis:PopulationJustification -->
+	<!-- eec:CORINE:132 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationJustification">
+		<TERM ns="eec:CORINE" lid="132">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population justification]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the justification for the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationJustification:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationJustification" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[To maintain genetic diversity in large tree populations]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Dump sites]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -379,16 +290,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationJustification</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:13</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationJustification:2 -->
+	<!-- eec:CORINE:133 -->
 	<META>
-		<TERM ns="eufgis:PopulationJustification" lid="2">
+		<TERM ns="eec:CORINE" lid="133">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[To conserve specific adaptive and/or phenotypic traits in marginal or scattered tree populations which are often relatively small]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Construction sites]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -399,16 +310,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationJustification</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:13</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationJustification:3 -->
+	<!-- eec:CORINE:14 -->
 	<META>
-		<TERM ns="eufgis:PopulationJustification" lid="3">
+		<TERM ns="eec:CORINE" lid="14">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[To conserve rare or endangered tree species with populations consisting of a low number of remaining individuals]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Artificial, non-agricultural vegetated areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -419,42 +330,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationJustification</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:1</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population management -->
-	
-	<!-- eufgis:PopulationJustification -->
+	<!-- eec:CORINE:141 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationManagement">
+		<TERM ns="eec:CORINE" lid="141">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population management]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the management of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationManagement:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationManagement" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[No intervention allowed]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Green urban areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -465,16 +350,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationManagement</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:14</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationManagement:2 -->
+	<!-- eec:CORINE:142 -->
 	<META>
-		<TERM ns="eufgis:PopulationManagement" lid="2">
+		<TERM ns="eec:CORINE" lid="142">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Minimum intervention allowed]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Sport and leisure facilities]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -485,16 +370,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationManagement</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:14</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationManagement:3 -->
+	<!-- eec:CORINE:2 -->
 	<META>
-		<TERM ns="eufgis:PopulationManagement" lid="3">
+		<TERM ns="eec:CORINE" lid="2">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Conservation through active intervention carried out]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Agricultural areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -505,42 +390,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationManagement</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population origin -->
-	
-	<!-- eufgis:PopulationOrigin -->
+	<!-- eec:CORINE:21 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationOrigin">
+		<TERM ns="eec:CORINE" lid="21">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population origin]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the origin of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationOrigin:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationOrigin" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Autochthonous]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Arable land]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -551,16 +410,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationOrigin</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:2</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationOrigin:2 -->
+	<!-- eec:CORINE:211 -->
 	<META>
-		<TERM ns="eufgis:PopulationOrigin" lid="2">
+		<TERM ns="eec:CORINE" lid="211">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Introduced]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Non-irrigated arable land]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -571,16 +430,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationOrigin</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:21</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationOrigin:3 -->
+	<!-- eec:CORINE:212 -->
 	<META>
-		<TERM ns="eufgis:PopulationOrigin" lid="3">
+		<TERM ns="eec:CORINE" lid="212">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Unknown]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Permanently irrigated land]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -591,42 +450,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationOrigin</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:21</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population sex ratio -->
-	
-	<!-- eufgis:PopulationSexRatio -->
+	<!-- eec:CORINE:22 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationSexRatio">
+		<TERM ns="eec:CORINE" lid="22">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population sex ratio]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the sex ratio in the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationSexRatio:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationSexRatio" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Predominately males]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Permanent crops]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -637,16 +470,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSexRatio</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:2</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSexRatio:2 -->
+	<!-- eec:CORINE:221 -->
 	<META>
-		<TERM ns="eufgis:PopulationSexRatio" lid="2">
+		<TERM ns="eec:CORINE" lid="221">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Even sex ratio]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Vineyards]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -657,16 +490,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSexRatio</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:22</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSexRatio:3 -->
+	<!-- eec:CORINE:222 -->
 	<META>
-		<TERM ns="eufgis:PopulationSexRatio" lid="3">
+		<TERM ns="eec:CORINE" lid="222">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Predominately females]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Fruit trees and berry plantations]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -677,42 +510,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSexRatio</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:22</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population regereration -->
-	
-	<!-- eufgis:PopulationRegeneration -->
+	<!-- eec:CORINE:223 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationRegeneration">
+		<TERM ns="eec:CORINE" lid="223">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population long-term regeneration]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the long-term regeneration status of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationRegeneration:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationRegeneration" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Continuous]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Olive groves]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -723,16 +530,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationRegeneration</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:22</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationRegeneration:2 -->
+	<!-- eec:CORINE:23 -->
 	<META>
-		<TERM ns="eufgis:PopulationRegeneration" lid="2">
+		<TERM ns="eec:CORINE" lid="23">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Sporadic]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Pastures]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -743,16 +550,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationRegeneration</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:2</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationRegeneration:3 -->
+	<!-- eec:CORINE:231 -->
 	<META>
-		<TERM ns="eufgis:PopulationRegeneration" lid="3">
+		<TERM ns="eec:CORINE" lid="231">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Requires management intervention]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Pastures]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -763,42 +570,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationRegeneration</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:23</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population reproducing trees -->
-	
-	<!-- eufgis:PopulationReproducingTrees -->
+	<!-- eec:CORINE:24 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationReproducingTrees">
+		<TERM ns="eec:CORINE" lid="24">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population reproducing trees]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the number of reproducing trees in the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationReproducingTrees:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationReproducingTrees" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[15 - 50]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Heterogeneous agricultural areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -809,16 +590,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationReproducingTrees</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:2</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationReproducingTrees:2 -->
+	<!-- eec:CORINE:241 -->
 	<META>
-		<TERM ns="eufgis:PopulationReproducingTrees" lid="2">
+		<TERM ns="eec:CORINE" lid="241">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[51 - 500]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Annual crops associated with permanent crops]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -829,16 +610,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationReproducingTrees</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:24</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationReproducingTrees:3 -->
+	<!-- eec:CORINE:242 -->
 	<META>
-		<TERM ns="eufgis:PopulationReproducingTrees" lid="3">
+		<TERM ns="eec:CORINE" lid="242">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[501 - 5000]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Complex cultivation patterns]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -849,16 +630,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationReproducingTrees</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:24</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationReproducingTrees:4 -->
+	<!-- eec:CORINE:243 -->
 	<META>
-		<TERM ns="eufgis:PopulationReproducingTrees" lid="4">
+		<TERM ns="eec:CORINE" lid="243">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[> 5000]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Land principally occupied by agriculture, with significant areas of natural vegetation]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -869,42 +650,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationReproducingTrees</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:24</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population situ -->
-	
-	<!-- eufgis:PopulationSitu -->
+	<!-- eec:CORINE:244 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationSitu">
+		<TERM ns="eec:CORINE" lid="244">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population situ]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the situ of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationSitu:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationSitu" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[In situ]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Agro-forestry areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -915,16 +670,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSitu</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:24</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSitu:2 -->
+	<!-- eec:CORINE:3 -->
 	<META>
-		<TERM ns="eufgis:PopulationSitu" lid="2">
+		<TERM ns="eec:CORINE" lid="3">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Ex situ]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Forest and semi natural areas]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -935,42 +690,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSitu</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population status -->
-	
-	<!-- eufgis:PopulationStatus -->
+	<!-- eec:CORINE:31 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationStatus">
+		<TERM ns="eec:CORINE" lid="31">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population status]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the status of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationStatus:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationStatus" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Included]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Forests]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -981,16 +710,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationStatus</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:3</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationStatus:2 -->
+	<!-- eec:CORINE:311 -->
 	<META>
-		<TERM ns="eufgis:PopulationStatus" lid="2">
+		<TERM ns="eec:CORINE" lid="311">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Not included]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Broad-leaved forest]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1001,16 +730,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationStatus</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:31</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationStatus:3 -->
+	<!-- eec:CORINE:312 -->
 	<META>
-		<TERM ns="eufgis:PopulationStatus" lid="3">
+		<TERM ns="eec:CORINE" lid="312">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Pending]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Coniferous forest]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1021,42 +750,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationStatus</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:31</item>
 		</EDGE>
 	</META>
-	
-	<!-- Population system -->
-	
-	<!-- eufgis:PopulationSystem -->
+	<!-- eec:CORINE:313 -->
 	<META>
-		<TERM ns="eufgis" lid="PopulationSystem">
+		<TERM ns="eec:CORINE" lid="313">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Forest population silvicultural system]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This type assesses the silvicultural system of the population.]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE>
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:type</item>
-				<item>:kind:enumerated-node</item>
-			</item>
-		</NODE>
-	</META>
-	<!-- eufgis:PopulationSystem:1 -->
-	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="1">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Coppice]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Mixed forest]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1067,22 +770,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:31</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSystem:2 -->
+	<!-- eec:CORINE:32 -->
 	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="2">
+		<TERM ns="eec:CORINE" lid="32">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with artificial regeneration]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Planting or seeding.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Scrub and/or herbaceous vegetation]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1093,22 +790,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:3</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSystem:3 -->
+	<!-- eec:CORINE:321 -->
 	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="3">
+		<TERM ns="eec:CORINE" lid="321">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Clear-cutting with natural regeneration]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Seed trees or strips.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Natural grasslands]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1119,16 +810,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:32</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSystem:4 -->
+	<!-- eec:CORINE:322 -->
 	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="4">
+		<TERM ns="eec:CORINE" lid="322">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Shelterwood systems]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Moors and heathland]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1139,22 +830,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:32</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSystem:5 -->
+	<!-- eec:CORINE:323 -->
 	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="5">
+		<TERM ns="eec:CORINE" lid="323">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Close-to-natural forestry]]></item>
-				</item>
-			</item>
-			<item const="kTAG_DEFINITION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Continuous cover forest, selective logging.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Sclerophyllous vegetation]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1165,16 +850,16 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:32</item>
 		</EDGE>
 	</META>
-	<!-- eufgis:PopulationSystem:6 -->
+	<!-- eec:CORINE:324 -->
 	<META>
-		<TERM ns="eufgis:PopulationSystem" lid="6">
+		<TERM ns="eec:CORINE" lid="324">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[No silviculture]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Transitional woodland-shrub]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1185,7 +870,447 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">eufgis:PopulationSystem</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:32</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:33 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="33">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Open spaces with little or no vegetation]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:3</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:331 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="331">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Beaches, dunes, sands]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:33</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:332 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="332">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Bare rocks]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:33</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:333 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="333">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sparsely vegetated areas]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:33</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:334 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="334">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Burnt areas]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:33</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:335 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="335">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Glaciers and perpetual snow]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:33</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:4 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="4">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wetlands]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:41 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="41">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inland wetlands]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:4</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:411 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="411">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inland marshes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:41</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:412 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="412">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Peat bogs]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:41</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:42 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="42">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Maritime wetlands]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:4</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:421 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="421">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Salt marshes]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:42</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:422 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="422">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Salines]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:42</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:423 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="423">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Intertidal flats]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:42</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:5 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="5">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Water bodies]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:51 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="51">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Inland waters]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:5</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:511 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="511">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Water courses]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:51</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:512 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="512">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Water bodies]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:51</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:52 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="52">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Marine waters]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:5</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:521 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="521">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Coastal lagoons]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:52</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:522 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="522">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Estuaries]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:52</item>
+		</EDGE>
+	</META>
+	<!-- eec:CORINE:523 -->
+	<META>
+		<TERM ns="eec:CORINE" lid="523">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sea and ocean]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="term">eec:CORINE:52</item>
 		</EDGE>
 	</META>
 </METADATA>

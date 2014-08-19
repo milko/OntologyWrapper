@@ -169,5 +169,11 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:longitude:error</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	
+		<!-- :location:error -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 </METADATA>

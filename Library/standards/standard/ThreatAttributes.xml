@@ -46,6 +46,8 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:threat:assessment">
@@ -175,6 +177,8 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:threat:country">
@@ -188,6 +192,10 @@
 			<item const="kTAG_OBJECT" node="tag">:taxon:threat:country</item>
 		</EDGE>
 	</META>
+		
+	<!-- iucn:category -->
+	<!-- iucn:criteria -->
+	<!-- iucn:criteria-citation -->
 	
 	<!-- :taxon:threat:other-red-list-criteria -->
 	<META>
@@ -318,6 +326,146 @@
 		</NODE>
 	</META>
 	
+	<!-- :taxon:threat:national -->
+	<META>
+		<TERM ns=":taxon:threat" lid="national">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threaten status according to national criteria</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:national</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Threat status according to national criteria.</item>
+				</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:national">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:national:ucode -->
+	<META>
+		<TERM ns=":taxon:threat:national" lid="ucode">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">National unit code</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:national:ucode</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:national:ucode">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:national:udescr -->
+	<META>
+		<TERM ns=":taxon:threat:national" lid="udescr">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">National unit description</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:national:udescr</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:national:udescr">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:national:uauth -->
+	<META>
+		<TERM ns=":taxon:threat:national" lid="uauth">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">National unit authority</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:national:uauth</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:national:uauth">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- :taxon:threat:national:year -->
+	<META>
+		<TERM ns=":taxon:threat:national" lid="year">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Year of national red list assessment</item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>:taxon:threat:national:year</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:year</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+			</item>
+		</TAG>
+		<NODE tag=":taxon:threat:national:year">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- :taxon:threat:status -->
 	<META>
 		<TERM ns=":taxon:threat" lid="status">
@@ -335,6 +483,8 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -600,6 +750,8 @@
 			<item const="kTAG_OBJECT" node="term">:taxon:threat:status</item>
 		</EDGE>
 	</META>
+		
+	<!-- iucn:threat -->
 	
 	<!-- :taxon:threat:period -->
 	<META>
@@ -618,6 +770,8 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text</item>
+				<item>:type:summary</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:threat:period">

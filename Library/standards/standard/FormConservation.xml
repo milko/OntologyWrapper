@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CONSERVATION FORM
+	FormConservation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+	<!-- :taxon:conservation -->
+	<META>
+		<NODE term=":taxon:conservation" pid="form::taxon:conservation">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common conservation action search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- :taxon:conservation:region -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:region</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:conservation:in-place -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:in-place</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:conservation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">iucn:conservation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:conservation:legislation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation:legislation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>
