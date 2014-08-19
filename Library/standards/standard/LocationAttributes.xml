@@ -4317,14 +4317,14 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:location:latitude:error</item>
+				<item>:location:error</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:int</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:quantitative</item>
 			</item>
 		</TAG>
-		<NODE tag=":location:latitude:error">
+		<NODE tag=":location:error">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
