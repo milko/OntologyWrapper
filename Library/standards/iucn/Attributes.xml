@@ -86,4 +86,28 @@
 			</item>
 		</TERM>
 	</META>
+	
+	<!-- iucn:habitat -->
+	<META>
+		<TERM ns="iucn" lid="habitat">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Habitat type</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
+	<!-- iucn:habitat-score -->
+	<META>
+		<TERM ns="iucn" lid="habitat-score">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Habitat type scoring</item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 </METADATA>

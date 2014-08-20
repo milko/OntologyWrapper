@@ -1649,6 +1649,180 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadGENSStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load GENS standards
+	 *
+	 * This method can be used to load the GENS standards in the metadata database, it will
+	 * load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadGENSStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading GENS standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load GENS: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/gens/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/gens/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadGENSStandards.
+
+	 
+	/*===================================================================================
+	 *	loadGLOBCOVStandards															*
+	 *==================================================================================*/
+
+	/**
+	 * Load GLOBCOV standards
+	 *
+	 * This method can be used to load the GLOBCOV standards in the metadata database, it
+	 * will load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadGLOBCOVStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading GLOBCOV standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load GLOBCOV: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/globcov/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/globcov/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadGLOBCOVStandards.
+
+	 
+	/*===================================================================================
+	 *	loadHWSDStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load HWSD standards
+	 *
+	 * This method can be used to load the HWSD standards in the metadata database, it
+	 * will load the standards XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadHWSDStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading HWSD standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load HWSD: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML namespace files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML namespace files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/hwsd/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML attribute files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML attribute files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/hwsd/Attributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadHWSDStandards.
+
+	 
+	/*===================================================================================
 	 *	loadMCPDStandards																*
 	 *==================================================================================*/
 
@@ -1788,24 +1962,56 @@ class Wrapper extends Dictionary
 			   ."object is not connected." );									// !@! ==>
 		
 		//
-		// Load default XML files.
+		// Load namespace XML files.
 		//
 		if( $doLog )
-			echo( "  • Loading default CWR files.\n" );
+			echo( "  • Loading CWR namespace files.\n" );
 
 		$file = kPATH_STANDARDS_ROOT.'/cwr/Namespaces.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/Attributes.xml';
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading CWR attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/cwr/CommonAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/Types.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/ChecklistAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/Tags.xml';
+		$file = kPATH_STANDARDS_ROOT.'/cwr/InventoryAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/PopulationAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/SiteAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load structure XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading CWR structure files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureSite.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/StructurePopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureInventory.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -1813,7 +2019,25 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureInventory.xml';
+		//
+		// Load form XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading CWR form files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/cwr/FormChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/FormInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/FormPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/cwr/FormSite.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	

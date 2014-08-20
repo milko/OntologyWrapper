@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE POPULATION FORM
+	FormPopulation.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Population form -->
+	
+	<!-- cwr:pp -->
+	<META>
+		<NODE term="cwr:pp" pid="form:cwr:pp">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common crop wild relative population search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- cwr:pp:RECDATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RECDATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:NUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:NUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:MONIT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONIT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:MONITRESP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONITRESP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:MONINT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONINT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:AREA -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:AREA</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:INDIVNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:INDIVNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:MATURENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:MATURENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:JUVENNUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:JUVENNUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:SEEDLINGSTATUS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:POPDENSI -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:POPDENSI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:RANKFOLCOVER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:RANKFOLCOVER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:RAKSCALE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:RAKSCALE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- iucn:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">iucn:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:EXSECURE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:EXSECURE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp:INSTNAMEDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp:INSTNAMEDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:MLSSTAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

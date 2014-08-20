@@ -110,27 +110,27 @@
 			<item const="kTAG_OBJECT" node="pid">form::environment</item>
 		</EDGE>
 	
-		<!-- :environment:gens:clim -->
+		<!-- gens:clim -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:gens:clim</item>
+			<item const="kTAG_SUBJECT" node="tag">gens:clim</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :environment:gens:zone -->
+		<!-- gens:zone -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:gens:zone</item>
+			<item const="kTAG_SUBJECT" node="tag">gens:zone</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :environment:globcov -->
+		<!-- globcov -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:globcov</item>
+			<item const="kTAG_SUBJECT" node="tag">globcov</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :environment:hwsd -->
+		<!-- hwsd -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:environment:hwsd</item>
+			<item const="kTAG_SUBJECT" node="tag">hwsd</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		

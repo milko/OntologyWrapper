@@ -24,12 +24,6 @@
 			</item>
 		</NODE>
 	
-		<!-- :inventory:NICODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:inventory:NICODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- cwr:in:NIENUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:in:NIENUMB</item>
@@ -41,226 +35,202 @@
 			<item const="kTAG_SUBJECT" node="tag">:inventory:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
+	
 		<!-- cwr:in:CRITPRIORI -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:in:CRITPRIORI</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
+	
 		<!-- cwr:in:METHCRITPRIORI -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:in:METHCRITPRIORI</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- SCHEMA term=":taxon" pid="schema::taxon" -->
+		<!-- :taxon:regnum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- cwr:TAXREF -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:TAXREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:regnum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:SYNONYMS -->
+		<!-- :taxon:phylum -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:SYNONYMS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:phylum</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:SYNREF -->
+		<!-- :taxon:classis -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:SYNREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:classis</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:CHROMOSNUMB -->
+		<!-- :taxon:ordo -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:CHROMOSNUMB</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:ordo</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:GENEPOOL -->
+		<!-- :taxon:familia -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:GENEPOOL</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:familia</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:GENEPOOLREF -->
+		<!-- :taxon:genus -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:GENEPOOLREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:genus</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:REFTAXONGROUP -->
+		<!-- :taxon:species -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:REFTAXONGROUP</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:species</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:LISTSPCROSS -->
+		<!-- :taxon:species:author -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:LISTSPCROSS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:species:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:LISTSPCROSSREF -->
+		<!-- :taxon:infraspecies -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:LISTSPCROSSREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:infraspecies</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:METHCROSSREF -->
+		<!-- :taxon:infraspecies:author -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:METHCROSSREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:infraspecies:author</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:SUCCROSSREF -->
+		<!-- :taxon:id -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:SUCCROSSREF</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:id</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:in:CONSACTION -->
+		<!-- :taxon:reference -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:CONSACTION</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:reference</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- iucn:conservation -->
+		<!-- :taxon:synonym -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iucn:conservation</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:synonym</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:in:CONSERVCOUNTRYCODE -->
+		<!-- :taxon:synref -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:CONSERVCOUNTRYCODE</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:synref</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:in:LEGISTYPE -->
+		<!-- :taxon:names -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:LEGISTYPE</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:names</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:ASSLEVEL -->
+		<!-- :taxon:crop -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:ASSLEVEL</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:crop</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:REGIONASS -->
+		<!-- :taxon:chromosome-number -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:REGIONASS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:chromosome-number</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:in:COUNTRYCODEASS -->
+		<!-- :taxon:genepool -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:COUNTRYCODEASS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:genepool</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- iucn:category -->
+		<!-- :taxon:group -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iucn:category</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:group</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- iucn:criteria -->
+		<!-- :taxon:group-ref -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iucn:criteria</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:group-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:repsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:repsystem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:bredsystem -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:bredsystem</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:sexstructure -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:sexstructure</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:pollination -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:pollination</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:lifeform -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:lifeform</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:lifespan -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:lifespan</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :taxon:seed-dispersal -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:seed-dispersal</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:REDLISTCAT -->
+		<!-- :taxon:cross -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:REDLISTCAT</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:cross</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:YEARREDLISTASS -->
+		<!-- :taxon:conservation -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:YEARREDLISTASS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:conservation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:URLPUBREDLISTASS -->
+		<!-- :taxon:threat -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:URLPUBREDLISTASS</item>
+			<item const="kTAG_SUBJECT" node="pid">:taxon:threat</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- cwr:REFREDLISTASS -->
+		<!-- cwr:pp -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:REFREDLISTASS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- iucn:threat -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:COUNTRYCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:COUNTRYCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:NUNITCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:NUNITCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:NUNITDESCR -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:NUNITDESCR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:NUNITAUTHOR -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:NUNITAUTHOR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:YEARNASS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:YEARNASS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:TAXONDISTSTATUS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:TAXONDISTSTATUS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:in:DISTCOUNTRYCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:in:DISTCOUNTRYCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- cwr:TAXONSTATUS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">cwr:TAXONSTATUS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- mcpd:SAMPSTAT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:SAMPSTAT</item>
+			<item const="kTAG_SUBJECT" node="pid">cwr:pp</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

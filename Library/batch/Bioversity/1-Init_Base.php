@@ -158,6 +158,21 @@ try
 	$wrapper->loadEECStandards( TRUE );
 	
 	//
+	// Load GENS Standards.
+	//
+	$wrapper->loadGENSStandards( TRUE );
+	
+	//
+	// Load GLOBCOV Standards.
+	//
+	$wrapper->loadGLOBCOVStandards( TRUE );
+	
+	//
+	// Load HWSD Standards.
+	//
+	$wrapper->loadHWSDStandards( TRUE );
+	
+	//
 	// Load standards.
 	//
 	$wrapper->loadStandards( TRUE );
