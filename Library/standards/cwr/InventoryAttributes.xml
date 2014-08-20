@@ -2502,7 +2502,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE>
+		<NODE tag="cwr:in:METHCRITPRIORI">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

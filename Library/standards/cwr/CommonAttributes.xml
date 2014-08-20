@@ -39,7 +39,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE>
+		<NODE tag="cwr:REF">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -74,7 +74,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE>
+		<NODE tag="cwr:URL">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

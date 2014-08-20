@@ -68,103 +68,103 @@
 		
 		<!-- cwr:pp:INDIVNUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:INDIVNUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INDIVNUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:MATURENUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:MATURENUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MATURENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:JUVENNUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:JUVENNUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:JUVENNUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:SEEDLINGSTATUS -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:SEEDLINGSTATUS</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:SEEDLINGSTATUS</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:POPDENSI -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:POPDENSI</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:POPDENSI</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:RANKFOLCOVER -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:RANKFOLCOVER</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RANKFOLCOVER</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:RAKSCALE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:RAKSCALE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:RAKSCALE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- iucn:threat -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">iucn:threat</item>
+			<item const="kTAG_SUBJECT" node="tag">iucn:threat</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- :taxon:threat:period -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">:taxon:threat:period</item>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:EXSECURE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:EXSECURE</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:EXSECURE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- mcpd:DUPLSITE -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">mcpd:DUPLSITE</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- mcpd:ACCENUMB -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">mcpd:ACCENUMB</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:INSTNAMEDESCR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:INSTNAMEDESCR</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INSTNAMEDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:pp:INSTADDRESSDESCR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:pp:INSTADDRESSDESCR</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INSTADDRESSDESCR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- mcpd:ACCEURL -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">mcpd:ACCEURL</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCEURL</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- mcpd:MLSSTAT -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">mcpd:MLSSTAT</item>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- cwr:st -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="pid">cwr:st</item>
+			<item const="kTAG_SUBJECT" node="tag">cwr:st</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

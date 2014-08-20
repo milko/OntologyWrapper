@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Base data initialisation procedure.
+ * Test data initialisation procedure.
  *
- * This file contains routines to initialise base data.
+ * This file contains routines to initialise test data.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
@@ -14,7 +14,7 @@
 
 /*=======================================================================================
  *																						*
- *									Init_Base.php										*
+ *									Init_Test.php										*
  *																						*
  *======================================================================================*/
 
@@ -76,11 +76,6 @@ try
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
-	// Drop metadata.
-	//
-	$meta->drop();
-	
-	//
 	// Set units.
 	//
 	echo( "  • Setting units.\n" );
@@ -89,22 +84,12 @@ try
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
 	
 	//
-	// Drop units.
-	//
-	$units->drop();
-	
-	//
 	// Set entities.
 	//
 	echo( "  • Setting entities.\n" );
 	$entities = $wrapper->Entities(
 		new OntologyWrapper\MongoDatabase(
 			"mongodb://localhost:27017/BIOVERSITY?connect=1" ) );
-	
-	//
-	// Drop entities.
-	//
-	$entities->drop();
 	
 	//
 	// Check graph database.
@@ -119,88 +104,12 @@ try
 			new OntologyWrapper\Neo4jGraph(
 				"neo4j://localhost:7474" ) );
 	
-		//
-		// Drop graph database.
-		//
-		echo( "  • Resetting graph.\n" );
-		$graph->drop( kGRAPH_DIR.'*', kGRAPH_SERVICE );
-	
 	} // Use graph database.
-	
-	//
-	// Reset ontology.
-	//
-	$wrapper->resetOntology( TRUE );
-	
-	//
-	// Load ISO Standards.
-	//
-	$wrapper->loadISOStandards( TRUE );
-	
-	//
-	// Load WBI Standards.
-	//
-	$wrapper->loadWBIStandards( TRUE );
-	
-	//
-	// Load IUCN Standards.
-	//
-	$wrapper->loadIUCNStandards( TRUE );
-	
-	//
-	// Load FAO Standards.
-	//
-	$wrapper->loadFAOStandards( TRUE );
-	
-	//
-	// Load EEC Standards.
-	//
-	$wrapper->loadEECStandards( TRUE );
-	
-	//
-	// Load GENS Standards.
-	//
-	$wrapper->loadGENSStandards( TRUE );
-	
-	//
-	// Load GLOBCOV Standards.
-	//
-	$wrapper->loadGLOBCOVStandards( TRUE );
-	
-	//
-	// Load HWSD Standards.
-	//
-	$wrapper->loadHWSDStandards( TRUE );
-	
-	//
-	// Load standards.
-	//
-	$wrapper->loadStandards( TRUE );
-	
-	//
-	// Load MCPD standards.
-	//
-	$wrapper->loadMCPDStandards( TRUE );
-	
-	//
-	// Load FCU standards.
-	//
-	$wrapper->loadFCUStandards( TRUE );
 	
 	//
 	// Load CWR standards.
 	//
 	$wrapper->loadCWRStandards( TRUE );
-	
-	//
-	// Reset units.
-	//
-	$wrapper->resetUnits( TRUE );
-	
-	//
-	// Reset entities.
-	//
-	$wrapper->resetEntities( TRUE );
 	
 	//
 	// Reset dictionary.
