@@ -72,7 +72,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -145,7 +145,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -201,7 +201,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -254,7 +254,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -307,7 +307,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -362,7 +362,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -419,7 +419,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -477,7 +477,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -530,7 +530,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -583,7 +583,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -638,7 +638,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -695,7 +695,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -753,7 +753,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -806,7 +806,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -859,7 +859,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -914,7 +914,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -967,7 +967,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1025,7 +1025,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1077,7 +1077,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1133,7 +1133,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1189,7 +1189,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1246,7 +1246,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1316,7 +1316,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1373,7 +1373,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1429,7 +1429,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1484,7 +1484,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1539,7 +1539,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1592,6 +1592,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:familia:author">
@@ -1634,7 +1635,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1689,7 +1690,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1737,7 +1738,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:tribus">
@@ -1794,7 +1795,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1856,7 +1857,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -1904,6 +1905,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:genus:author">
@@ -1940,7 +1942,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subgenus">
@@ -1992,7 +1994,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:sectio">
@@ -2044,7 +2046,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:series">
@@ -2098,7 +2100,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:superspecies">
@@ -2152,7 +2154,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -2201,6 +2203,7 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:species:author</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -2241,7 +2244,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subspecies">
@@ -2284,6 +2287,7 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:subspecies:author</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -2324,7 +2328,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:varietas">
@@ -2367,6 +2371,7 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:varietas:author</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -2407,7 +2412,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:forma">
@@ -2450,6 +2455,7 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:forma:author</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -2488,7 +2494,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:epithet">
@@ -2520,6 +2526,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:author">
@@ -2556,7 +2563,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraspecies">
@@ -2599,6 +2606,7 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:infraspecies:author</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
@@ -2635,7 +2643,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:valid">
@@ -2669,6 +2677,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:synonym">
@@ -2701,7 +2710,7 @@
 			<item const="kTAG_DATA_TYPE">:type:language-strings</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:names">
@@ -2728,7 +2737,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -3377,7 +3386,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -3631,6 +3640,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:chromosome-number">
@@ -3664,6 +3674,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:genepool">
@@ -3730,6 +3741,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:group">
@@ -3792,6 +3804,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:ecovalue">
@@ -3853,7 +3866,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -3952,7 +3965,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -4051,7 +4064,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -4170,7 +4183,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -4389,7 +4402,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -4694,7 +4707,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>
@@ -4793,7 +4806,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 		</TAG>

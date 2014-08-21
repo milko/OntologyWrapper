@@ -722,18 +722,50 @@
 			</item>
 		</TERM>
 		
-		<!-- kTYPE_FULL_TEXT -->
-		<TERM ns=":type" lid="full-text">
+		<!-- kTYPE_FULL_TEXT_10 -->
+		<TERM ns=":type" lid="full-text-10">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT">Full-text</item>
+					<item const="kTAG_TEXT">Full-text (10)</item>
 				</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property value is taken into consideration by full-text searches.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property value is taken into consideration by full-text searches with a weight of 10.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_FULL_TEXT_06 -->
+		<TERM ns=":type" lid="full-text-06">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Full-text (6)</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property value is taken into consideration by full-text searches with a weight of 6.]]></item>
+				</item>
+			</item>
+		</TERM>
+		
+		<!-- kTYPE_FULL_TEXT_03 -->
+		<TERM ns=":type" lid="full-text-03">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Full-text (3)</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This kind indicates that the property value is taken into consideration by full-text searches with a weight of 3.]]></item>
 				</item>
 			</item>
 		</TERM>

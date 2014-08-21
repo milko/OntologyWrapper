@@ -514,7 +514,9 @@ abstract class OntologyObject extends ContainerObject
 	 *	<li><tt>{@link kTAG_TEXT}</tt>: Property text.
 	 *	<li><tt>{@link kTAG_URL}</tt>: Property URL.
 	 *	<li><tt>{@link kTAG_GEOMETRY}</tt>: Shape property geometry.
-	 *	<li><tt>{@link kTAG_ENUM_FULL_TEXT}</tt>: Enumerated resolved values.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_10}</tt>: Full-text values, weight 10.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_06}</tt>: Full-text values, weight 6.
+	 *	<li><tt>{@link kTAG_FULL_TEXT_03}</tt>: Full-text values, weight 3.
 	 * </ul>
 	 *
 	 * @static
@@ -525,7 +527,7 @@ abstract class OntologyObject extends ContainerObject
 		return array( kTAG_NID, kTAG_CLASS,
 					  kTAG_TYPE, kTAG_LANGUAGE,
 					  kTAG_TEXT, kTAG_URL, kTAG_GEOMETRY,
-					  kTAG_ENUM_FULL_TEXT );										// ==>
+					  kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 );	// ==>
 	
 	} // InternalOffsets.
 

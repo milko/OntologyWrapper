@@ -117,25 +117,33 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':namespace',
 			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY,
+									  kTYPE_LOOKUP )
 		),
 		kTAG_ID_LOCAL => array
 		(
 			kTAG_NID	=> ':id-local',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_LOOKUP )
 		),
 		kTAG_ID_PERSISTENT => array
 		(
 			kTAG_NID	=> ':id-persistent',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10,
+									  kTYPE_LOOKUP )
 		),
 		kTAG_ID_VALID => array
 		(
 			kTAG_NID	=> ':id-valid',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
 		kTAG_ID_SEQUENCE => array
 		(
@@ -147,31 +155,40 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':id-graph',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_DOMAIN => array
 		(
 			kTAG_NID	=> ':unit:domain',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_SUMMARY, kTYPE_LOOKUP )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_AUTHORITY => array
 		(
 			kTAG_NID	=> ':unit:authority',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_COLLECTION => array
 		(
 			kTAG_NID	=> ':unit:collection',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_IDENTIFIER => array
 		(
 			kTAG_NID	=> ':unit:identifier',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_VERSION => array
 		(
@@ -183,7 +200,9 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':synonym',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_LIST )
 		),
 		kTAG_TAG => array
 		(
@@ -195,7 +214,8 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':tags',
 			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
 		kTAG_TERM => array
 		(
@@ -207,7 +227,8 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':terms',
 			kTAG_DATA_TYPE	=> kTYPE_REF_TERM,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
 		kTAG_SUBJECT => array
 		(
@@ -219,7 +240,8 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':relationship:graph-subject',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_PREDICATE => array
 		(
@@ -237,7 +259,8 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':relationship:graph-object',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_ENTITY => array
 		(
@@ -249,192 +272,234 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':master',
 			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_CATEGORY => array
 		(
 			kTAG_NID	=> ':category',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_06,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_DATA_TYPE => array
 		(
 			kTAG_NID	=> ':type:data',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_DATA_KIND => array
 		(
 			kTAG_NID	=> ':type:kind',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_TERM_TYPE => array
 		(
 			kTAG_NID	=> ':type:term',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_NODE_TYPE => array
 		(
 			kTAG_NID	=> ':type:node',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_NAME => array
 		(
 			kTAG_NID	=> ':name',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
 		kTAG_LABEL => array
 		(
 			kTAG_NID	=> ':label',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_06 )
 		),
 		kTAG_DEFINITION => array
 		(
 			kTAG_NID	=> ':definition',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03 )
 		),
 		kTAG_DESCRIPTION => array
 		(
 			kTAG_NID	=> ':description',
 			kTAG_DATA_TYPE	=> kTYPE_LANGUAGE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03 )
 		),
 		kTAG_NOTE => array
 		(
 			kTAG_NID	=> ':notes',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_03 )
 		),
 		kTAG_EXAMPLE => array
 		(
 			kTAG_NID	=> ':examples',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_LIST )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST )
 		),
 		kTAG_UNIT_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:unit',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_ENTITY_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:entity',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_TAG_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:tag',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_TERM_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:term',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_NODE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:node',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_EDGE_COUNT => array
 		(
 			kTAG_NID	=> ':ref-count:edge',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE, kTAG_PRIVATE_MODIFY )
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_TAG_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:tag',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_TERM_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:term',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_NODE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:node',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_EDGE_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:edge',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_ENTITY_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:entity',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_UNIT_OFFSETS => array
 		(
 			kTAG_NID	=> ':offset:unit',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_OBJECT_TAGS => array
 		(
 			kTAG_NID	=> ':object-tags',
 			kTAG_DATA_TYPE	=> kTYPE_INT,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_DISCRETE,
-									  kTAG_PRIVATE_SEARCH, kTAG_PRIVATE_MODIFY,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_OBJECT_OFFSETS => array
 		(
 			kTAG_NID	=> ':object-offsets',
 			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
-									  kTAG_PRIVATE_MODIFY, kTYPE_PRIVATE_DISPLAY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_OBJECT_REFERENCES => array
 		(
 			kTAG_NID	=> ':object-references',
 			kTAG_DATA_TYPE	=> kTYPE_ARRAY,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
-									  kTAG_PRIVATE_MODIFY, kTYPE_PRIVATE_DISPLAY )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
+									  kTAG_PRIVATE_MODIFY,
+									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_TAG_STRUCT => array
 		(
 			kTAG_NID	=> ':tag:struct',
 			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_TAG_STRUCT_IDX => array
 		(
 			kTAG_NID	=> ':tag:struct-index',
 			kTAG_DATA_TYPE	=> kTYPE_REF_TAG,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_MIN_VAL => array
@@ -471,8 +536,23 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':geo',
 			kTAG_DATA_TYPE	=> kTYPE_SHAPE,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
+		),
+		kTAG_RECORD_CREATED => array
+		(
+			kTAG_NID	=> ':record:created',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
+		),
+		kTAG_RECORD_MODIFIED => array
+		(
+			kTAG_NID	=> ':record:modified',
+			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
+			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE,
+									  kTAG_PRIVATE_MODIFY )
 		),
 		kTAG_CONN_PROTOCOL => array
 		(
@@ -496,14 +576,16 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':connection:user',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_CONN_PASS => array
 		(
 			kTAG_NID	=> ':connection:pass',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTAG_PRIVATE_SEARCH,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTAG_PRIVATE_SEARCH,
 									  kTYPE_PRIVATE_DISPLAY )
 		),
 		kTAG_CONN_BASE => array
@@ -528,31 +610,39 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':entity:fname',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
 		),
 		kTAG_ENTITY_LNAME => array
 		(
 			kTAG_NID	=> ':entity:lname',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_FULL_TEXT_10 )
 		),
 		kTAG_ENTITY_TYPE => array
 		(
 			kTAG_NID	=> ':type:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_KIND => array
 		(
 			kTAG_NID	=> ':kind:entity',
 			kTAG_DATA_TYPE	=> kTYPE_SET,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_ACRONYM => array
 		(
 			kTAG_NID	=> ':entity:acronym',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL, kTYPE_FULL_TEXT )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_LIST,
+									  kTYPE_FULL_TEXT_10 )
 		),
 		kTAG_ENTITY_MAIL => array
 		(
@@ -594,7 +684,9 @@ abstract class PersistentObject extends OntologyObject
 		(
 			kTAG_NID	=> ':entity:nationality',
 			kTAG_DATA_TYPE	=> kTYPE_ENUM,
-			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL, kTYPE_FULL_TEXT, kTYPE_SUMMARY )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_FULL_TEXT_03,
+									  kTYPE_SUMMARY )
 		),
 		kTAG_ENTITY_VALID => array
 		(
@@ -602,23 +694,24 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_DATA_TYPE	=> kTYPE_REF_SELF,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_RECORD_CREATED => array
+		kTAG_ENTITY_PGP_KEY => array
 		(
-			kTAG_NID	=> ':record:created',
-			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+			kTAG_NID	=> ':entity:pgp-key',
+			kTAG_DATA_TYPE	=> kTYPE_TEXT,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
-		kTAG_RECORD_MODIFIED => array
+		kTAG_ENTITY_PGP_FINGERPRINT => array
 		(
-			kTAG_NID	=> ':record:modified',
-			kTAG_DATA_TYPE	=> kTYPE_TIME_STAMP,
-			kTAG_DATA_KIND	=> array( kTYPE_QUANTITATIVE )
+			kTAG_NID	=> ':entity:pgp-fingerprint',
+			kTAG_DATA_TYPE	=> kTYPE_STRING,
+			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE )
 		),
 		kTAG_ROLES => array
 		(
 			kTAG_NID	=> ':roles',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
-			kTAG_DATA_KIND	=> array( kTYPE_LIST, kTYPE_CATEGORICAL )
+			kTAG_DATA_KIND	=> array( kTYPE_CATEGORICAL,
+									  kTYPE_LIST )
 		)
 	);
 
@@ -1534,7 +1627,14 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Set full-text search.
 		//
-		$collection->createIndex( array( kTAG_ENUM_FULL_TEXT => 'text' ) );
+		$collection->createIndex( array( kTAG_FULL_TEXT_10 => 'text',
+										 kTAG_FULL_TEXT_06 => 'text',
+										 kTAG_FULL_TEXT_03 => 'text' ),
+								  array( "weights" => array(
+								  			kTAG_FULL_TEXT_10 => 10,
+								  			kTAG_FULL_TEXT_06 => 6,
+								  			kTAG_FULL_TEXT_03 => 3 ),
+								  		 "name" => "FULL_TEXT" ) );
 		
 		//
 		// Set master.
@@ -2973,7 +3073,7 @@ abstract class PersistentObject extends OntologyObject
 		//
 		// Initialise full text enumerations.
 		//
-		$this->offsetSet( kTAG_ENUM_FULL_TEXT, Array() );
+	//	$this->offsetSet( kTAG_ENUM_FULL_TEXT, Array() );
 	
 		//
 		// Parse object.
@@ -3834,9 +3934,11 @@ abstract class PersistentObject extends OntologyObject
 		if( $doValidate )
 		{
 			//
-			// Save full-text enumerations.
+			// Save full-text properties.
 			//
-			$enums = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+			$text10 = $this->offsetGet( kTAG_FULL_TEXT_10 );
+			$text06 = $this->offsetGet( kTAG_FULL_TEXT_06 );
+			$text03 = $this->offsetGet( kTAG_FULL_TEXT_03 );
 			
 			//
 			// Replace data.
@@ -3844,9 +3946,14 @@ abstract class PersistentObject extends OntologyObject
 			$this->exchangeArray( $object );
 			
 			//
-			// Reset full-text enumerations.
+			// Reset full-text properties.
 			//
-			$this->offsetSet( kTAG_ENUM_FULL_TEXT, $enums );
+			if( $text10 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_10, $text10 );
+			if( $text06 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_06, $text06 );
+			if( $text03 !== NULL )
+				$this->offsetSet( kTAG_FULL_TEXT_03, $text03 );
 		
 		} // Validated object.
 	
@@ -4937,7 +5044,7 @@ MILKO - Need to check.
 		return array_merge(
 			array_diff(
 				$this->InternalOffsets(),
-				(array) kTAG_ENUM_FULL_TEXT ),
+				array( kTAG_FULL_TEXT_10, kTAG_FULL_TEXT_06, kTAG_FULL_TEXT_03 ) ),
 			(array) kTAG_MASTER );													// ==>
 	
 	} // lockedOffsets.
@@ -6266,8 +6373,8 @@ MILKO - Need to check.
 	/**
 	 * Add value to full text
 	 *
-	 * This method will add the label of the provided term to the
-	 * {@link kTAG_ENUM_FULL_TEXT} of the current object.
+	 * This method will add the label of the provided term to the {@link kTAG_FULL_TEXT_10},
+	 * {@link kTAG_FULL_TEXT_06} and {@link kTAG_FULL_TEXT_03} of the current object.
 	 *
 	 * The method assumes the current object has its wrapper set and the default language
 	 * definition is in the includes.
@@ -6281,7 +6388,8 @@ MILKO - Need to check.
 	 *
 	 * @access protected
 	 *
-	 * @see kTAG_ENUM_FULL_TEXT
+	 * @see kTAG_FULL_TEXT_10 kTAG_FULL_TEXT_06 kTAG_FULL_TEXT_03
+	 * @see kTYPE_FULL_TEXT_10 kTYPE_FULL_TEXT_06 kTYPE_FULL_TEXT_03
 	 */
 	protected function addToFullText( $theValue, $theLanguage, $theType, $theKind )
 	{
@@ -6293,8 +6401,32 @@ MILKO - Need to check.
 			//
 			// Check kind.
 			//
-			if( in_array( kTYPE_FULL_TEXT, $theKind ) )
+			if( $weight = array_intersect( $theKind,
+										   array( kTYPE_FULL_TEXT_10,
+												  kTYPE_FULL_TEXT_06,
+												  kTYPE_FULL_TEXT_03 ) ) )
 			{
+				//
+				// Get weight.
+				//
+				switch( $weight = array_shift( $weight ) )
+				{
+					case kTYPE_FULL_TEXT_10:
+						$offset = kTAG_FULL_TEXT_10;
+						break;
+					case kTYPE_FULL_TEXT_06:
+						$offset = kTAG_FULL_TEXT_06;
+						break;
+					case kTYPE_FULL_TEXT_03:
+						$offset = kTAG_FULL_TEXT_03;
+						break;
+					
+					default:
+						throw new \Exception(
+							"Unable to set full-text property: "
+						   ."invalid weight type [$weight]." );					// !@! ==>
+				}
+				
 				//
 				// Parse by type.
 				//
@@ -6302,6 +6434,9 @@ MILKO - Need to check.
 				{
 					case kTYPE_TEXT:
 					case kTYPE_STRING:
+						//
+						// Recurse arrays.
+						//
 						if( is_array( $theValue ) )
 						{
 							foreach( $theValue as $value )
@@ -6311,76 +6446,109 @@ MILKO - Need to check.
 									$theType,
 									$theKind );
 						}
+						//
+						// Hamdle scalars.
+						//
 						else
 						{
-							$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
-							if( $text === NULL )
-								$text = Array();
-							if( ! in_array( $theValue, $text ) )
+							//
+							// Skip empty strings.
+							//
+							if( strlen( $theValue ) )
 							{
-								$text[] = (string) $theValue;
-								$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+								//
+								// Init full-text property.
+								//
+								$text = $this->offsetGet( $offset );
+								if( $text === NULL )
+									$text = Array();
+								//
+								// Add to property.
+								//
+								if( ! in_array( $theValue, $text ) )
+								{
+									$text[] = (string) $theValue;
+									$this->offsetSet( $offset, $text );
+								}
 							}
 						}
 						break;
 			
 					case kTYPE_LANGUAGE_STRING:
-						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
-						if( $text === NULL )
-							$text = Array();
-						foreach( $theValue as $value )
-						{
-							if( array_key_exists( kTAG_TEXT, $value ) )
-							{
-								if( (! array_key_exists( kTAG_LANGUAGE, $value ))
-								 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
-								{
-									if( ! in_array( $value[ kTAG_TEXT ], $text ) )
-										$text[] = (string) $value[ kTAG_TEXT ];
-								}
-							}
-						}
-						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
-						break;
-			
 					case kTYPE_LANGUAGE_STRINGS:
-						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
+					case kTYPE_TYPED_LIST:
+						//
+						// Init full-text property.
+						//
+						$text = $this->offsetGet( $offset );
 						if( $text === NULL )
 							$text = Array();
+						//
+						// Iterate list.
+						//
 						foreach( $theValue as $value )
 						{
+							//
+							// Assert text component.
+							//
 							if( array_key_exists( kTAG_TEXT, $value ) )
 							{
-								if( (! array_key_exists( kTAG_LANGUAGE, $value ))
-								 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
+								//
+								// Handle typed list.
+								//
+								if( $theType == kTYPE_TYPED_LIST )
 								{
-									foreach( $value[ kTAG_TEXT ] as $element )
+									if( strlen( $value[ kTAG_TEXT ] )
+									 && (! in_array( $value[ kTAG_TEXT ], $text )) )
+										$text[] = $value[ kTAG_TEXT ];
+								}
+								//
+								// Handle language strings.
+								//
+								else
+								{
+									//
+									// Select language.
+									//
+									if( (! array_key_exists( kTAG_LANGUAGE, $value ))
+									 || ($value[ kTAG_LANGUAGE ] == $theLanguage) )
 									{
-										if( ! in_array( $element, $text ) )
-											$text[] = (string) $element;
+										//
+										// Handle language string.
+										//
+										if( $theType == kTYPE_LANGUAGE_STRING )
+										{
+											if( strlen( $value[ kTAG_TEXT ] )
+											 && (! in_array( $value[ kTAG_TEXT ], $text )) )
+												$text[] = $value[ kTAG_TEXT ];
+										}
+										//
+										// Handle language strings.
+										//
+										else
+										{
+											foreach( $value[ kTAG_TEXT ] as $element )
+											{
+												if( strlen( $element )
+												 && (! in_array( $element, $text )) )
+													$text[] = (string) $element;
+											}
+										}
 									}
 								}
 							}
 						}
-						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
-						break;
-			
-					case kTYPE_TYPED_LIST:
-						$text = $this->offsetGet( kTAG_ENUM_FULL_TEXT );
-						if( $text === NULL )
-							$text = Array();
-						foreach( $theValue as $value )
-						{
-							if( array_key_exists( kTAG_TEXT, $value ) )
-							{
-								if( ! in_array( $value[ kTAG_TEXT ], $text ) )
-									$text[] = (string) $value[ kTAG_TEXT ];
-							}
-						}
-						$this->offsetSet( kTAG_ENUM_FULL_TEXT, $text );
+						//
+						// Update to property.
+						//
+						if( count( $text ) )
+							$this->offsetSet( $offset, $text );
 						break;
 			
 					case kTYPE_SET:
+						//
+						// Recurse enumerated set.
+						//
 						foreach( $theValue as $value )
 							$this->addToFullText(
 								$value,
@@ -6390,13 +6558,23 @@ MILKO - Need to check.
 						break;
 		
 					case kTYPE_ENUM:
+						//
+						// Get term.
+						//
 						$term = new Term( $this->mDictionary, $theValue );
+						//
+						// Recurse with term label.
+						//
 						if( $term->isCommitted() )
 							$this->addToFullText(
 								$term[ kTAG_LABEL ],
 								$theLanguage,
 								kTYPE_LANGUAGE_STRING,
 								$theKind );
+						else
+							throw new \Exception(
+								"Unable to set full-text property: "
+							   ."unresolved term [$theValue]." );				// !@! ==>
 						break;
 		
 				} // Parsed by type.

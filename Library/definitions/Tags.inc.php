@@ -102,16 +102,43 @@ define( "kTAG_URL",						'url' );
 define( "kTAG_GEOMETRY",				'coordinates' );
 
 /**
- * Full text values (<code>enum</code>)
+ * Full text values, weight 10 (<code>text-10</code>)
  *
  * Data type: kTYPE_STRING
  * Data kind: kTYPE_LIST
  *
  * This offset is automatically filled with all distinct values coming from all properties
- * whose tag has a kind of {@link kTYPE_FULL_TEXT}, enumerated values will be resolved to
- * the default language label. This field will be indexed for full-text search.
+ * whose tag has a kind of {@link kTYPE_FULL_TEXT_10}, enumerated values will be resolved to
+ * the default language label. This field will be indexed for full-text search with weight
+ * 10.
  */
-define( "kTAG_ENUM_FULL_TEXT",			'enum' );
+define( "kTAG_FULL_TEXT_10",			'text-10' );
+
+/**
+ * Full text values, weight 6 (<code>text-06</code>)
+ *
+ * Data type: kTYPE_STRING
+ * Data kind: kTYPE_LIST
+ *
+ * This offset is automatically filled with all distinct values coming from all properties
+ * whose tag has a kind of {@link kTYPE_FULL_TEXT_06}, enumerated values will be resolved to
+ * the default language label. This field will be indexed for full-text search with weight
+ * 6.
+ */
+define( "kTAG_FULL_TEXT_06",			'text-06' );
+
+/**
+ * Full text values, weight 03 (<code>text-03</code>)
+ *
+ * Data type: kTYPE_STRING
+ * Data kind: kTYPE_LIST
+ *
+ * This offset is automatically filled with all distinct values coming from all properties
+ * whose tag has a kind of {@link kTYPE_FULL_TEXT_03}, enumerated values will be resolved to
+ * the default language label. This field will be indexed for full-text search with weight
+ * 3.
+ */
+define( "kTAG_FULL_TEXT_03",			'text-03' );
 
 /*=======================================================================================
  *	OBJECT IDENTIFICATION TAGS															*

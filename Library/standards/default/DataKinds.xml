@@ -40,9 +40,35 @@
 		</EDGE>
 	</META>
 	
-	<!-- kTYPE_FULL_TEXT -->
+	<!-- kTYPE_FULL_TEXT_10 -->
 	<META>
-		<NODE term=":type:full-text">
+		<NODE term=":type:full-text-10">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_FULL_TEXT_06 -->
+	<META>
+		<NODE term=":type:full-text-06">
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::type:kind</item>
+		</EDGE>
+	</META>
+	
+	<!-- kTYPE_FULL_TEXT_03 -->
+	<META>
+		<NODE term=":type:full-text-03">
 			<item const="kTAG_NODE_TYPE">
 				<item>:type:node:enumeration</item>
 			</item>

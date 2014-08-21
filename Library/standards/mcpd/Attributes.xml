@@ -30,7 +30,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-10</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -67,7 +67,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-10</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>ACCENUMB</item>
@@ -104,7 +104,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-10</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>ACCENAME</item>
@@ -141,7 +141,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:list</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>OTHERNUMB</item>
@@ -214,7 +214,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-10</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>COLLNUMB</item>
@@ -277,7 +277,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>COLLDESCR</item>
@@ -394,7 +394,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>BREDDESCR</item>
@@ -424,6 +424,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>BREDDESCR</item>
@@ -459,7 +460,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -1017,7 +1018,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -1452,7 +1453,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DONORDESCR</item>
@@ -1482,7 +1483,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DONORNUMB</item>
@@ -1553,7 +1554,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -1792,7 +1793,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DUPLDESCR</item>
@@ -1863,7 +1864,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -1960,7 +1961,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -2057,7 +2058,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
@@ -2148,7 +2149,7 @@
 			<item const="kTAG_DATA_TYPE">:type:text</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>REMARKS</item>

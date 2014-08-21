@@ -26,6 +26,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-10</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>CWRCODE</item>
@@ -61,7 +62,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-10</item>
 			</item>
 			<item const="kTAG_SYNONYM">
 				<item>NUMB</item>
@@ -99,7 +100,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
-				<item>:type:full-text</item>
+				<item>:type:full-text-06</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -257,6 +258,7 @@
 			<item const="kTAG_DATA_TYPE">:type:text</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag="cwr:ck:REMARKS">

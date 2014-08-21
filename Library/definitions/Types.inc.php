@@ -493,12 +493,28 @@ define( "kTYPE_NODE_TERM",						':type:node:term' );
 define( "kTYPE_LIST",							':type:list' );
 
 /**
- * Full-text.
+ * Full-text (weight 10).
  *
  * A <em>full-text</em> property is one which will be added to the <em>full-text
- * search index</em>.
+ * search index</em>, this specific type holds a weight of 10.
  */
-define( "kTYPE_FULL_TEXT",						':type:full-text' );
+define( "kTYPE_FULL_TEXT_10",					':type:full-text-10' );
+
+/**
+ * Full-text (weight 6).
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>, this specific type holds a weight of 6.
+ */
+define( "kTYPE_FULL_TEXT_06",					':type:full-text-06' );
+
+/**
+ * Full-text (weight 3).
+ *
+ * A <em>full-text</em> property is one which will be added to the <em>full-text
+ * search index</em>, this specific type holds a weight of 3.
+ */
+define( "kTYPE_FULL_TEXT_03",					':type:full-text-03' );
 
 /**
  * Summary.
