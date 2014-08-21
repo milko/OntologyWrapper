@@ -347,6 +347,7 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':notes',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
+									  kTYPE_LIST,
 									  kTYPE_FULL_TEXT_03 )
 		),
 		kTAG_EXAMPLE => array

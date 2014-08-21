@@ -2203,11 +2203,11 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:species:author</item>
-				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:species:author">
@@ -2287,11 +2287,11 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:subspecies:author</item>
-				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:subspecies:author">
@@ -2371,11 +2371,11 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:varietas:author</item>
-				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:varietas:author">
@@ -2455,11 +2455,11 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:forma:author</item>
-				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:forma:author">
@@ -2606,11 +2606,11 @@
 		<TAG>
 			<item const="kTAG_TERMS">
 				<item>:taxon:infraspecies:author</item>
-				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
 			</item>
 		</TAG>
 		<NODE tag=":taxon:infraspecies:author">

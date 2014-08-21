@@ -719,6 +719,7 @@
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
+				<item>:type:list</item>
 				<item>:type:full-text-03</item>
 			</item>
 			<item const="kTAG_DEFINITION">
