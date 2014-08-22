@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ABD HOUSEHOLD ASSESSMENT FORM
+	Form.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- FORM -->
+	
+    <!-- abdh -->
+	<META>
+		<NODE term="abdh" pid="form:abdh">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:form</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This form contains all common agro bio-diversity household assessment search fields.]]></item>
+				</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Household -->
+	
+    <!-- abdh:household -->
+	<META>
+		<TERM ns="abdh" lid="household">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh</item>
+		</EDGE>
+		
+		<!-- abdh:ENUMERATOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENUMERATOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:STATE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:DISTRICT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DISTRICT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:BLOCKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BLOCKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:VILLAGE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:VILLAGE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:PIN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:PIN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+		
+		<!-- abdh:LANDSCAPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LANDSCAPE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:household</item>
+		</EDGE>
+	</META>
+	
+	<!-- Respondent -->
+	
+    <!-- abdh:respondent -->
+	<META>
+		<TERM ns="abdh" lid="respondent">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Respondent]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Interview & respondent search fields]]></item>
+				</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="pid">form:abdh</item>
+		</EDGE>
+		
+		<!-- abdh:ID_ENUMERATOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENUMERATOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:ENUMERATOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENUMERATOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:NOM_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NOM_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:GENDER_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GENDER_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:EDUC_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:EDUC_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:AGE_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGE_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:MARIT_STAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARIT_STAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:SPOUSE_EDUC -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_EDUC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+		
+		<!-- abdh:DATE_INT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DATE_INT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="term">abdh:respondent</item>
+		</EDGE>
+	</META>
+</METADATA>

@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	ABD SOCIO-ECONOMIC DATA ATTRIBUTES
-	SocioEconomicAttributes.xml
+	EconomicAttributes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
+	<!-- Socio-economic information -->
+	
+	<!-- abdh:economy -->
+	<META>
+		<TERM ns="abdh" lid="economy">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Socio-economic information]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
+		</TAG>
+		<NODE tag="abdh:economy">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- Family size -->
 	
 	<!-- abdh:M_6MONTHS -->
 	<META>
-		<TERM ns="abdh" lid=M_6MONTHS">
+		<TERM ns="abdh" lid="M_6MONTHS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -36,11 +65,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_6_59MONTHS -->
 	<META>
-		<TERM ns="abdh" lid=M_6_59MONTHS">
+		<TERM ns="abdh" lid="M_6_59MONTHS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -65,11 +98,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_5_6YEARS -->
 	<META>
-		<TERM ns="abdh" lid=M_5_6YEARS">
+		<TERM ns="abdh" lid="M_5_6YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -94,11 +131,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_7_9YEARS -->
 	<META>
-		<TERM ns="abdh" lid=M_7_9YEARS">
+		<TERM ns="abdh" lid="M_7_9YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -123,11 +164,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_10_15YEARS -->
 	<META>
-		<TERM ns="abdh" lid=M_10_15YEARS">
+		<TERM ns="abdh" lid="M_10_15YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -152,11 +197,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_16_60YEARS -->
 	<META>
-		<TERM ns="abdh" lid=M_16_60YEARS">
+		<TERM ns="abdh" lid="M_16_60YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -181,11 +230,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:M_60MORE -->
 	<META>
-		<TERM ns="abdh" lid=M_60MORE">
+		<TERM ns="abdh" lid="M_60MORE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -210,11 +263,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_6MONTHS -->
 	<META>
-		<TERM ns="abdh" lid=F_6MONTHS">
+		<TERM ns="abdh" lid="F_6MONTHS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -239,11 +296,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_6_59MONTHS -->
 	<META>
-		<TERM ns="abdh" lid=F_6_59MONTHS">
+		<TERM ns="abdh" lid="F_6_59MONTHS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -268,11 +329,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_5_6YEARS -->
 	<META>
-		<TERM ns="abdh" lid=F_5_6YEARS">
+		<TERM ns="abdh" lid="F_5_6YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -297,11 +362,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_7_9YEARS -->
 	<META>
-		<TERM ns="abdh" lid=F_7_9YEARS">
+		<TERM ns="abdh" lid="F_7_9YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -326,11 +395,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_10_15YEARS -->
 	<META>
-		<TERM ns="abdh" lid=F_10_15YEARS">
+		<TERM ns="abdh" lid="F_10_15YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -355,11 +428,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_16_60YEARS -->
 	<META>
-		<TERM ns="abdh" lid=F_16_60YEARS">
+		<TERM ns="abdh" lid="F_16_60YEARS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -384,11 +461,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:F_60MORE -->
 	<META>
-		<TERM ns="abdh" lid=F_60MORE">
+		<TERM ns="abdh" lid="F_60MORE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -413,13 +494,17 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- Land owned and cultivated -->
 	
 	<!-- abdh:HUSB_OWN -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_OWN">
+		<TERM ns="abdh" lid="HUSB_OWN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -450,11 +535,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_SH_IN -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_SH_IN">
+		<TERM ns="abdh" lid="HUSB_SH_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -485,11 +574,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_SH_OUT -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_SH_OUT">
+		<TERM ns="abdh" lid="HUSB_SH_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -520,11 +613,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_RENT_IN -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_RENT_IN">
+		<TERM ns="abdh" lid="HUSB_RENT_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -555,11 +652,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_RENT_OUT -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_RENT_OUT">
+		<TERM ns="abdh" lid="HUSB_RENT_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -590,11 +691,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_TOT_CULT -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_TOT_CULT">
+		<TERM ns="abdh" lid="HUSB_TOT_CULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -625,11 +730,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_TOT_CULT1 -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_TOT_CULT1">
+		<TERM ns="abdh" lid="HUSB_TOT_CULT1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -660,11 +769,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_OWN -->
 	<META>
-		<TERM ns="abdh" lid=SPO_OWN">
+		<TERM ns="abdh" lid="SPO_OWN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -695,11 +808,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_SH_IN -->
 	<META>
-		<TERM ns="abdh" lid=SPO_SH_IN">
+		<TERM ns="abdh" lid="SPO_SH_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -730,11 +847,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_SH_OUT -->
 	<META>
-		<TERM ns="abdh" lid=SPO_SH_OUT">
+		<TERM ns="abdh" lid="SPO_SH_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -765,11 +886,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_RENT_IN -->
 	<META>
-		<TERM ns="abdh" lid=SPO_RENT_IN">
+		<TERM ns="abdh" lid="SPO_RENT_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -800,11 +925,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_RENT_OUT -->
 	<META>
-		<TERM ns="abdh" lid=SPO_RENT_OUT">
+		<TERM ns="abdh" lid="SPO_RENT_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -835,11 +964,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_TOT_CULT -->
 	<META>
-		<TERM ns="abdh" lid=SPO_TOT_CULT">
+		<TERM ns="abdh" lid="SPO_TOT_CULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -870,11 +1003,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_TOT_CULT1 -->
 	<META>
-		<TERM ns="abdh" lid=SPO_TOT_CULT1">
+		<TERM ns="abdh" lid="SPO_TOT_CULT1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -905,11 +1042,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_OWN -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_OWN">
+		<TERM ns="abdh" lid="JOINT_OWN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -940,11 +1081,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_SH_IN -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_SH_IN">
+		<TERM ns="abdh" lid="JOINT_SH_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -975,11 +1120,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_SH_OUT -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_SH_OUT">
+		<TERM ns="abdh" lid="JOINT_SH_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1010,11 +1159,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_RENT_IN -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_RENT_IN">
+		<TERM ns="abdh" lid="JOINT_RENT_IN">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1045,11 +1198,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_RENT_OUT -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_RENT_OUT">
+		<TERM ns="abdh" lid="JOINT_RENT_OUT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1080,11 +1237,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_TOT_CULT -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_TOT_CULT">
+		<TERM ns="abdh" lid="JOINT_TOT_CULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1115,11 +1276,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_TOT_CULT1 -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_TOT_CULT1">
+		<TERM ns="abdh" lid="JOINT_TOT_CULT1">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1150,13 +1315,17 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- Other owned land, land use/land cover -->
 	
 	<!-- abdh:HUSB_FAL -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_FAL">
+		<TERM ns="abdh" lid="HUSB_FAL">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1187,11 +1356,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_WASTE -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_WASTE">
+		<TERM ns="abdh" lid="HUSB_WASTE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1222,11 +1395,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_GRAZING -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_GRAZING">
+		<TERM ns="abdh" lid="HUSB_GRAZING">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1257,11 +1434,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_TREE -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_TREE">
+		<TERM ns="abdh" lid="HUSB_TREE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1292,11 +1473,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_OTHERS -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_OTHERS">
+		<TERM ns="abdh" lid="HUSB_OTHERS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1327,11 +1512,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:HUSB_TOT_UNCULT -->
 	<META>
-		<TERM ns="abdh" lid=HUSB_TOT_UNCULT">
+		<TERM ns="abdh" lid="HUSB_TOT_UNCULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1362,11 +1551,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_FAL -->
 	<META>
-		<TERM ns="abdh" lid=SPO_FAL">
+		<TERM ns="abdh" lid="SPO_FAL">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1397,11 +1590,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_WASTE -->
 	<META>
-		<TERM ns="abdh" lid=SPO_WASTE">
+		<TERM ns="abdh" lid="SPO_WASTE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1432,11 +1629,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_GRAZING -->
 	<META>
-		<TERM ns="abdh" lid=SPO_GRAZING">
+		<TERM ns="abdh" lid="SPO_GRAZING">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1467,11 +1668,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_TREE -->
 	<META>
-		<TERM ns="abdh" lid=SPO_TREE">
+		<TERM ns="abdh" lid="SPO_TREE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1502,11 +1707,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_OTHERS -->
 	<META>
-		<TERM ns="abdh" lid=SPO_OTHERS">
+		<TERM ns="abdh" lid="SPO_OTHERS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1537,11 +1746,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPO_TOT_UNCULT -->
 	<META>
-		<TERM ns="abdh" lid=SPO_TOT_UNCULT">
+		<TERM ns="abdh" lid="SPO_TOT_UNCULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1572,11 +1785,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_FAL -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_FAL">
+		<TERM ns="abdh" lid="JOINT_FAL">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1607,11 +1824,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_WASTE -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_WASTE">
+		<TERM ns="abdh" lid="JOINT_WASTE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1642,11 +1863,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_GRAZING -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_GRAZING">
+		<TERM ns="abdh" lid="JOINT_GRAZING">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1677,11 +1902,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_TREE -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_TREE">
+		<TERM ns="abdh" lid="JOINT_TREE">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1712,11 +1941,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_OTHERS -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_OTHERS">
+		<TERM ns="abdh" lid="JOINT_OTHERS">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1747,11 +1980,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:JOINT_TOT_UNCULT -->
 	<META>
-		<TERM ns="abdh" lid=JOINT_TOT_UNCULT">
+		<TERM ns="abdh" lid="JOINT_TOT_UNCULT">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1782,13 +2019,17 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- Acess, quality, quantity, and management of water resources -->
 	
 	<!-- abdh:CAN_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=CAN_PRIV">
+		<TERM ns="abdh" lid="CAN_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1813,11 +2054,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CAN_COM -->
 	<META>
-		<TERM ns="abdh" lid=CAN_COM">
+		<TERM ns="abdh" lid="CAN_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1842,11 +2087,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CAN_COM -->
 	<META>
-		<TERM ns="abdh" lid=CAN_COM">
+		<TERM ns="abdh" lid="CAN_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -1871,6 +2120,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CAN_WHO -->
@@ -1909,9 +2162,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CAN_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CAN_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CAN_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CAN_WHO:1 -->
@@ -1977,7 +2235,7 @@
 	
 	<!-- abdh:OWELL_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=OWELL_PRIV">
+		<TERM ns="abdh" lid="OWELL_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2002,11 +2260,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:OWELL_COM -->
 	<META>
-		<TERM ns="abdh" lid=OWELL_COM">
+		<TERM ns="abdh" lid="OWELL_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2031,11 +2293,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:OWELL_COM -->
 	<META>
-		<TERM ns="abdh" lid=OWELL_COM">
+		<TERM ns="abdh" lid="OWELL_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2060,6 +2326,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:OWELL_WHO -->
@@ -2098,9 +2368,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:OWELL_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:OWELL_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:OWELL_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:OWELL_WHO:1 -->
@@ -2166,7 +2441,7 @@
 	
 	<!-- abdh:BWELL_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=BWELL_PRIV">
+		<TERM ns="abdh" lid="BWELL_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2191,11 +2466,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:BWELL_COM -->
 	<META>
-		<TERM ns="abdh" lid=BWELL_COM">
+		<TERM ns="abdh" lid="BWELL_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2220,11 +2499,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:BWELL_COM -->
 	<META>
-		<TERM ns="abdh" lid=BWELL_COM">
+		<TERM ns="abdh" lid="BWELL_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2249,6 +2532,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:BWELL_WHO -->
@@ -2287,9 +2574,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:BWELL_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:BWELL_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:BWELL_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:BWELL_WHO:1 -->
@@ -2355,7 +2647,7 @@
 	
 	<!-- abdh:KHADIN_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=KHADIN_PRIV">
+		<TERM ns="abdh" lid="KHADIN_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2380,11 +2672,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:KHADIN_COM -->
 	<META>
-		<TERM ns="abdh" lid=KHADIN_COM">
+		<TERM ns="abdh" lid="KHADIN_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2409,11 +2705,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:KHADIN_COM -->
 	<META>
-		<TERM ns="abdh" lid=KHADIN_COM">
+		<TERM ns="abdh" lid="KHADIN_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2438,6 +2738,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:KHADIN_WHO -->
@@ -2476,9 +2780,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:KHADIN_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:KHADIN_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:KHADIN_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:KHADIN_WHO:1 -->
@@ -2544,7 +2853,7 @@
 	
 	<!-- abdh:TAANKA_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=TAANKA_PRIV">
+		<TERM ns="abdh" lid="TAANKA_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2569,11 +2878,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:TAANKA_COM -->
 	<META>
-		<TERM ns="abdh" lid=TAANKA_COM">
+		<TERM ns="abdh" lid="TAANKA_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2598,11 +2911,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:TAANKA_COM -->
 	<META>
-		<TERM ns="abdh" lid=TAANKA_COM">
+		<TERM ns="abdh" lid="TAANKA_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2627,6 +2944,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:TAANKA_WHO -->
@@ -2665,9 +2986,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:TAANKA_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:TAANKA_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:TAANKA_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:TAANKA_WHO:1 -->
@@ -2733,7 +3059,7 @@
 	
 	<!-- abdh:NAADI_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=NAADI_PRIV">
+		<TERM ns="abdh" lid="NAADI_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2758,11 +3084,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NAADI_COM -->
 	<META>
-		<TERM ns="abdh" lid=NAADI_COM">
+		<TERM ns="abdh" lid="NAADI_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2787,11 +3117,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NAADI_COM -->
 	<META>
-		<TERM ns="abdh" lid=NAADI_COM">
+		<TERM ns="abdh" lid="NAADI_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2816,6 +3150,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NAADI_WHO -->
@@ -2854,9 +3192,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:NAADI_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:NAADI_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:NAADI_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:NAADI_WHO:1 -->
@@ -2922,7 +3265,7 @@
 	
 	<!-- abdh:GLR_PRIV -->
 	<META>
-		<TERM ns="abdh" lid=GLR_PRIV">
+		<TERM ns="abdh" lid="GLR_PRIV">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2947,11 +3290,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:GLR_COM -->
 	<META>
-		<TERM ns="abdh" lid=GLR_COM">
+		<TERM ns="abdh" lid="GLR_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -2976,11 +3323,15 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:GLR_COM -->
 	<META>
-		<TERM ns="abdh" lid=GLR_COM">
+		<TERM ns="abdh" lid="GLR_COM">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -3005,6 +3356,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:GLR_WHO -->
@@ -3043,9 +3398,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:GLR_WHO</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:GLR_WHO</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:GLR_WHO</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:GLR_WHO:1 -->
@@ -3147,9 +3507,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.1a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.1a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.1a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.1a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.1a:1 -->
@@ -3302,6 +3667,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.2a -->
@@ -3340,9 +3709,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.2a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.2a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.2a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.2a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.2a:1 -->
@@ -3475,7 +3849,12 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
+	
 	<!-- abdh:Q6.3a -->
 	<META>
 		<TERM ns="abdh" lid="Q6.3a">
@@ -3512,9 +3891,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.3a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.3a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.3a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.3a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.3a:1 -->
@@ -3627,6 +4011,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.4 -->
@@ -3665,9 +4053,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.4</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.4</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.4</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.4</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.4:0 -->
@@ -3750,6 +4143,7 @@
 			<item const="kTAG_OBJECT" node="term">abdh:Q6.4</item>
 		</EDGE>
 	</META>
+	
 	<!-- abdh:Q6.5a -->
 	<META>
 		<TERM ns="abdh" lid="Q6.5a">
@@ -3786,9 +4180,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.5a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.5a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.5a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.5a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.5a:1 -->
@@ -3901,6 +4300,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- Ownership of consumer goods -->
@@ -3941,9 +4344,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.6a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.6a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.6a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.6a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.6a:0 -->
@@ -4014,6 +4422,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.7a -->
@@ -4052,9 +4464,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.7a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.7a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.7a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.7a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.7a:0 -->
@@ -4125,6 +4542,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.8a -->
@@ -4163,9 +4584,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.8a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.8a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.8a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.8a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.8a:0 -->
@@ -4236,6 +4662,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.9a -->
@@ -4274,9 +4704,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.9a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.9a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.9a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.9a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.9a:0 -->
@@ -4347,6 +4782,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.10a -->
@@ -4385,9 +4824,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.10a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.10a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.10a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.10a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.10a:0 -->
@@ -4458,6 +4902,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.11a -->
@@ -4496,9 +4944,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.11a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.11a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.11a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.11a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.11a:0 -->
@@ -4569,6 +5022,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.12a -->
@@ -4607,9 +5064,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.12a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.12a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.12a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.12a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.12a:0 -->
@@ -4680,6 +5142,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.13a -->
@@ -4718,9 +5184,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.13a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.13a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.13a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.13a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.13a:0 -->
@@ -4791,6 +5262,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.14a -->
@@ -4829,9 +5304,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.14a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.14a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.14a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.14a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.14a:0 -->
@@ -4902,6 +5382,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.15a -->
@@ -4940,9 +5424,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.15a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.15a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.15a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.15a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.15a:0 -->
@@ -5013,6 +5502,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.16a -->
@@ -5051,9 +5544,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6.16a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6.16a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.16a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.16a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.16a:0 -->
@@ -5124,6 +5622,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- Household sources of income -->
@@ -5163,9 +5665,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_MAIN</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_MAIN</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_MAIN</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_MAIN:0 -->
@@ -5245,9 +5752,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_MAIN_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_MAIN_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_MAIN_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_MAIN_WHOEARNS:1 -->
@@ -5338,6 +5850,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CROP_MAIN_TIME -->
@@ -5367,6 +5883,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CROP_MAIN_TREND -->
@@ -5405,9 +5925,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_MAIN_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_MAIN_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_MAIN_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_MAIN_TREND:1 -->
@@ -5506,9 +6031,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_RES</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_RES</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_RES</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_RES:0 -->
@@ -5588,9 +6118,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_RES_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_RES_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_RES_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_RES_WHOEARNS:1 -->
@@ -5681,6 +6216,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CROP_RES_TIME -->
@@ -5710,6 +6249,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:CROP_RES_TREND -->
@@ -5748,9 +6291,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:CROP_RES_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:CROP_RES_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CROP_RES_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CROP_RES_TREND:1 -->
@@ -5849,9 +6397,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:FEEDS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:FEEDS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:FEEDS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:FEEDS:0 -->
@@ -5931,9 +6484,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:FEEDS_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:FEEDS_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:FEEDS_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:FEEDS_WHOEARNS:1 -->
@@ -6024,6 +6582,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:FEEDS_TIME -->
@@ -6053,6 +6615,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:FEEDS_TREND -->
@@ -6091,9 +6657,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:FEEDS_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:FEEDS_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:FEEDS_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:FEEDS_TREND:1 -->
@@ -6192,9 +6763,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCK</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCK</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCK</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCK:0 -->
@@ -6274,9 +6850,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCK_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCK_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCK_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCK_WHOEARNS:1 -->
@@ -6367,6 +6948,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:LIVESTOCK_TIME -->
@@ -6396,6 +6981,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:LIVESTOCK_TREND -->
@@ -6434,9 +7023,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCK_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCK_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCK_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCK_TREND:1 -->
@@ -6535,9 +7129,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCKPROD</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCKPROD</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCKPROD</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCKPROD:0 -->
@@ -6617,9 +7216,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCKPROD_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCKPROD_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCKPROD_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCKPROD_WHOEARNS:1 -->
@@ -6710,6 +7314,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:LIVESTOCKPROD_TIME -->
@@ -6739,6 +7347,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:LIVESTOCKPROD_TREND -->
@@ -6777,9 +7389,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:LIVESTOCKPROD_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:LIVESTOCKPROD_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LIVESTOCKPROD_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LIVESTOCKPROD_TREND:1 -->
@@ -6878,9 +7495,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:AGLABOR</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:AGLABOR</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:AGLABOR</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:AGLABOR:0 -->
@@ -6960,9 +7582,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:AGLABOR_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:AGLABOR_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:AGLABOR_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:AGLABOR_WHOEARNS:1 -->
@@ -7053,6 +7680,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:AGLABOR_TIME -->
@@ -7082,6 +7713,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:AGLABOR_TREND -->
@@ -7120,9 +7755,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:AGLABOR_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:AGLABOR_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:AGLABOR_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:AGLABOR_TREND:1 -->
@@ -7221,9 +7861,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:NON_AGLABOR</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:NON_AGLABOR</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:NON_AGLABOR</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:NON_AGLABOR:0 -->
@@ -7303,9 +7948,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:NON_AGLABOR_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:NON_AGLABOR_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:NON_AGLABOR_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:NON_AGLABOR_WHOEARNS:1 -->
@@ -7396,6 +8046,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NON_AGLABOR_TIME -->
@@ -7425,6 +8079,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NON_AGLABOR_TREND -->
@@ -7463,9 +8121,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:NON_AGLABOR_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:NON_AGLABOR_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:NON_AGLABOR_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:NON_AGLABOR_TREND:1 -->
@@ -7564,9 +8227,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REG_EMPL</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REG_EMPL</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REG_EMPL</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REG_EMPL:0 -->
@@ -7646,9 +8314,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REG_EMPL_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REG_EMPL_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REG_EMPL_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REG_EMPL_WHOEARNS:1 -->
@@ -7739,6 +8412,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:REG_EMPL_TIME -->
@@ -7768,6 +8445,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:REG_EMPL_TREND -->
@@ -7806,9 +8487,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REG_EMPL_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REG_EMPL_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REG_EMPL_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REG_EMPL_TREND:1 -->
@@ -7907,9 +8593,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:BUSS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:BUSS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:BUSS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:BUSS:0 -->
@@ -7989,9 +8680,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:BUSS_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:BUSS_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:BUSS_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:BUSS_WHOEARNS:1 -->
@@ -8082,6 +8778,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:BUSS_TIME -->
@@ -8111,6 +8811,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:BUSS_TREND -->
@@ -8149,9 +8853,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:BUSS_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:BUSS_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:BUSS_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:BUSS_TREND:1 -->
@@ -8250,9 +8959,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REMIT</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REMIT</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REMIT</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REMIT:0 -->
@@ -8332,9 +9046,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REMIT_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REMIT_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REMIT_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REMIT_WHOEARNS:1 -->
@@ -8425,6 +9144,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:REMIT_TIME -->
@@ -8454,6 +9177,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:REMIT_TREND -->
@@ -8492,9 +9219,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:REMIT_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:REMIT_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REMIT_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REMIT_TREND:1 -->
@@ -8593,9 +9325,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:OTHER</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:OTHER</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:OTHER</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:OTHER:0 -->
@@ -8675,9 +9412,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:OTHER_WHOEARNS</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:OTHER_WHOEARNS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:OTHER_WHOEARNS</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:OTHER_WHOEARNS:1 -->
@@ -8768,6 +9510,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:OTHER_TIME -->
@@ -8797,6 +9543,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:OTHER_TREND -->
@@ -8835,9 +9585,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:OTHER_TREND</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:OTHER_TREND</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:OTHER_TREND</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
 		</EDGE>
 	</META>
 	<!-- abdh:OTHER_TREND:1 -->

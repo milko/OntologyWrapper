@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	ABD SPECIES COMMON ATTRIBUTES
-	SpeciesCommonAttributes.xml
+	ABD SPECIES ATTRIBUTES
+	SpeciesAttributes.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Common plant identification attributes -->
+	<!-- Species information -->
+	
+	<!-- abdh:species -->
+	<META>
+		<TERM ns="abdh" lid="species">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Species information]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:species</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
+		</TAG>
+		<NODE tag="abdh:species">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Common species identification attributes -->
 	
 	<!-- abdh:YEAR -->
 	<META>
@@ -36,6 +65,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NUM_SPECIES -->
@@ -65,6 +98,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:SPECIES_CAT -->
@@ -103,9 +140,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:SPECIES_CAT</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:SPECIES_CAT</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:SPECIES_CAT</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPECIES_CAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:SPECIES_CAT:1 -->
@@ -154,7 +196,13 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[wild or semi-wild crops harvested from common lands]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Wild plant species]]></item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Wild or semi-wild crops harvested from common lands.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -223,6 +271,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:NAME_ENG -->
@@ -254,9 +306,47 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:genus -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:species -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:species</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- :taxon:epithet -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
+	</META>
+	
+	<!-- :taxon:names -->
+	<META>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
+	</META>
 	
 	<!-- Common plant characteristics attributes -->
 	
@@ -296,9 +386,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q1a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q1a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q1a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q1a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q1a:1 -->
@@ -391,6 +486,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q2a -->
@@ -429,9 +528,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q2a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q2a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q2a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q2a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q2a:1 -->
@@ -564,6 +668,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q3 -->
@@ -602,9 +710,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q3</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q3</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q3:1 -->
@@ -704,9 +817,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q4a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q4a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q4a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q4a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q4a:1 -->
@@ -919,6 +1037,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q5a -->
@@ -957,9 +1079,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q5a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q5a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q5a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q5a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q5a:1 -->
@@ -1112,6 +1239,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6a -->
@@ -1150,9 +1281,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q6a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q6a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6a:1 -->
@@ -1305,6 +1441,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q7a -->
@@ -1343,9 +1483,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q7a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q7a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q7a:1 -->
@@ -1478,6 +1623,10 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 	
 	<!-- abdh:Q8a -->
@@ -1516,9 +1665,14 @@
 			</item>
 		</NODE>
 		<EDGE>
-			<item const="kTAG_OBJECT" node="term">abdh:Q8a</item>
+			<item const="kTAG_SUBJECT" node="term">abdh:Q8a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q8a</item>
+		</EDGE>
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q8a:1 -->
@@ -1651,5 +1805,9 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
+		</EDGE>
 	</META>
 </METADATA>
