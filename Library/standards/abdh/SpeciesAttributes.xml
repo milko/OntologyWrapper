@@ -27,7 +27,7 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 			</item>
-		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
+			<item const="kTAG_TAG_STRUCT_IDX">:taxon:epithet</item>
 		</TAG>
 		<NODE tag="abdh:species">
 			<item const="kTAG_NODE_TYPE">

@@ -187,8 +187,7 @@ abstract class PersistentObject extends OntologyObject
 			kTAG_NID	=> ':unit:identifier',
 			kTAG_DATA_TYPE	=> kTYPE_STRING,
 			kTAG_DATA_KIND	=> array( kTYPE_DISCRETE,
-									  kTYPE_FULL_TEXT_10,
-									  kTYPE_SUMMARY )
+									  kTYPE_FULL_TEXT_10 )
 		),
 		kTAG_VERSION => array
 		(
@@ -3070,11 +3069,6 @@ abstract class PersistentObject extends OntologyObject
 		//
 		foreach( static::DynamicOffsets() as $offset )
 			$this->offsetUnset( $offset );
-		
-		//
-		// Initialise full text enumerations.
-		//
-	//	$this->offsetSet( kTAG_ENUM_FULL_TEXT, Array() );
 	
 		//
 		// Parse object.

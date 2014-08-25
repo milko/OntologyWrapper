@@ -687,6 +687,66 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED PRE-COMMIT INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	preCommitFinalise																*
+	 *==================================================================================*/
+
+	/**
+	 * Finalise object before commit
+	 *
+	 * We overload this method here to add the {@link kTAG_IDENTIFIER} value to the
+	 * full-text search property: we need to do this here because both the
+	 * {@link kTAG_IDENTIFIER} and {@link kTAG_COLLECTION} properties are not included in
+	 * the managed tags, since they are both required.
+	 *
+	 * @param reference				$theTags			Object tags.
+	 * @param reference				$theRefs			Object references.
+	 *
+	 * @access protected
+	 *
+	 * @uses preCommitObjectTags()
+	 * @uses preCommitObjectReferences()
+	 * @uses preCommitObjectIdentifiers()
+	 */
+	protected function preCommitFinalise( &$theTags, &$theRefs )
+	{
+		//
+		// Check identifier.
+		//
+		if( $this->offsetExists( kTAG_IDENTIFIER ) )
+		{
+			//
+			// Get identifier info.
+			//
+			$tag = $this->mDictionary->getObject( kTAG_IDENTIFIER, TRUE );
+			
+			//
+			// Add identifier to full-text search.
+			//
+			$this->addToFullText( $this->offsetGet( kTAG_IDENTIFIER ),
+								  kSTANDARDS_LANGUAGE,
+								  $tag[ kTAG_DATA_TYPE ],
+								  $tag[ kTAG_DATA_KIND ] );
+		
+		} // Has identifier.
+		
+		//
+		// Call parent method.
+		//
+		parent::preCommitFinalise( $theTags, $theRefs );
+	
+	} // preCommitFinalise.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PRE-COMMIT UTILITIES							*
  *																						*
  *======================================================================================*/

@@ -107,9 +107,14 @@ try
 	} // Use graph database.
 	
 	//
-	// Load ABDH standards.
+	// Reset units.
 	//
-	$wrapper->loadABDHStandards( TRUE );
+	$wrapper->resetUnits( TRUE );
+	
+	//
+	// Reset entities.
+	//
+	$wrapper->resetEntities( TRUE );
 	
 	//
 	// Reset dictionary.

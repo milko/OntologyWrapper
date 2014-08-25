@@ -187,7 +187,7 @@ class Household extends UnitObject
 	{
 		return array_merge( parent::lockedOffsets(),
 							array( 'abdh:ID_HOUSEHOLD', 'abdh:INSTITUTE', 'abdh:REF-YEAR',
-								   'abdh:STATE', 'abdh:DISTRICT', 'abdh:BLOCKS'
+								   'abdh:STATE', 'abdh:DISTRICT', 'abdh:BLOCKS',
 								   'abdh:VILLAGE' ) );								// ==>
 	
 	} // lockedOffsets.

@@ -201,7 +201,6 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:discrete</item>
 				<item>:type:full-text-10</item>
-				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_DEFINITION">
 				<item>

@@ -789,6 +789,29 @@ class FAOInstitute extends Institution
 			$this->offsetSet( kTAG_NAME, $this->offsetGet( kTAG_IDENTIFIER ) );
 		
 		//
+		// Check shape.
+		//
+		if( $this->offsetExists( ':location:latitude' )
+		 && $this->offsetExists( ':location:longitude' ) )
+		{
+			if( ($this->offsetGet( ':location:latitude' ) != 0)
+			 || ($this->offsetGet( ':location:longitude' ) != 0) )
+				$this->offsetSet( kTAG_GEO_SHAPE,
+								  array( kTAG_TYPE => 'Point',
+										 kTAG_GEOMETRY => array(
+											$this->offsetGet( ':location:longitude' ),
+											$this->offsetGet( ':location:latitude' ) ) ) );
+			else
+			{
+				$this->offsetUnset( kTAG_GEO_SHAPE );
+				$this->offsetUnset( ':location:latitude' );
+				$this->offsetUnset( ':location:longitude' );
+			}
+		}
+		else
+			$this->offsetUnset( kTAG_GEO_SHAPE );
+		
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
@@ -1033,6 +1056,27 @@ class FAOInstitute extends Institution
 					else
 						throw new \Exception(
 							"Invalid country code [$theValue]." );				// !@! ==>
+					break;
+			
+				//
+				// LATITUDE.
+				//
+				case 'LATITUDE':
+					$this->offsetSet( ':location:latitude', (double) $theValue / 100 );
+					break;
+			
+				//
+				// LONGITUDE.
+				//
+				case 'LONGITUDE':
+					$this->offsetSet( ':location:longitude', (double) $theValue / 100 );
+					break;
+			
+				//
+				// ALTITUDE.
+				//
+				case 'ALTITUDE':
+					$this->offsetSet( ':location:elevation', (int) $theValue );
 					break;
 			
 			} // Parsed offset.

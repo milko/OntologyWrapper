@@ -62,30 +62,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- abdh:STATE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:DISTRICT -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:DISTRICT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:BLOCKS -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:BLOCKS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:VILLAGE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:VILLAGE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
 		<!-- abdh:PIN -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:PIN</item>
