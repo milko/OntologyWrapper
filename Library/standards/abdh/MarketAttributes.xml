@@ -15,7 +15,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Market integration information]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Market integration]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -40,7 +40,7 @@
 	
 	<!-- abdh:NAME_MARKET -->
 	<META>
-		<TERM ns="abdh" lid=NAME_MARKET">
+		<TERM ns="abdh" lid="NAME_MARKET">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -608,6 +608,36 @@
 		</EDGE>
 	</META>
 	
+	<!-- abdh:MARKET_OTHERSb -->
+	<META>
+		<TERM ns="abdh" lid="MARKET_OTHERSb">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Product name]]></item>
+				</item>
+			</item>
+		</TERM>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:MARKET_OTHERSb</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:discrete</item>
+				<item>:type:full-text-03</item>
+			</item>
+			<item const="kTAG_SYNONYM">
+				<item>MARKET_OTHERSb</item>
+			</item>
+		</TAG>
+		<NODE tag="abdh:MARKET_OTHERSb">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
 	<!-- abdh:MARKET_OTHERS -->
 	<META>
 		<TERM ns="abdh" lid="MARKET_OTHERS">
@@ -748,33 +778,8 @@
 	
 	<!-- abdh:MARKET_OTHERSb -->
 	<META>
-		<TERM ns="abdh" lid="MARKET_OTHERSb">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Product name]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:MARKET_OTHERSb</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-				<item>:type:full-text-03</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>MARKET_OTHERSb</item>
-			</item>
-		</TAG>
-		<NODE tag="abdh:MARKET_OTHERSb">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_OTHERSb</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_OTHERS</item>
 		</EDGE>

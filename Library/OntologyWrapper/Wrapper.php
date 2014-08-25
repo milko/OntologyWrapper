@@ -2045,6 +2045,120 @@ class Wrapper extends Dictionary
 
 	 
 	/*===================================================================================
+	 *	loadABDHStandards																*
+	 *==================================================================================*/
+
+	/**
+	 * Load agro bio-diversity household assessment standards
+	 *
+	 * This method can be used to load the ABDH standards.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 *
+	 * @throws Exception
+	 */
+	public function loadABDHStandards( $doLog = FALSE )
+	{
+		//
+		// Inform.
+		//
+		if( $doLog )
+			echo( "\n==> Loading ABDH standards.\n" );
+		
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load ABDH: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load namespace XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH namespace files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/Namespaces.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load attribute XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH attribute files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/HouseholdAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/RespondentAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/SpeciesAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/AnnualPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/PerennialPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/WildPlantsAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/DomesticatedAnimalAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/EconomicAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/MarketAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/SocialAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/abdh/RiskAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load structure XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH structure files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/Structure.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load form XML files.
+		//
+		if( $doLog )
+			echo( "  • Loading ABDH form files.\n" );
+
+		$file = kPATH_STANDARDS_ROOT.'/abdh/Form.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadABDHStandards.
+
+	 
+	/*===================================================================================
 	 *	loadStandards																	*
 	 *==================================================================================*/
 

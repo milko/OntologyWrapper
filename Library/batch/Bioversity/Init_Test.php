@@ -107,9 +107,9 @@ try
 	} // Use graph database.
 	
 	//
-	// Load CWR standards.
+	// Load ABDH standards.
 	//
-	$wrapper->loadCWRStandards( TRUE );
+	$wrapper->loadABDHStandards( TRUE );
 	
 	//
 	// Reset dictionary.

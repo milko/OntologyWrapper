@@ -123,6 +123,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.1</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.1:3 -->
 	<META>
 		<TERM ns="abdh:Q7.1" lid="3">
@@ -269,6 +270,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.2</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.2:3 -->
 	<META>
 		<TERM ns="abdh:Q7.2" lid="3">
@@ -415,6 +417,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.3</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.3:3 -->
 	<META>
 		<TERM ns="abdh:Q7.3" lid="3">
@@ -561,6 +564,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.4</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.4:3 -->
 	<META>
 		<TERM ns="abdh:Q7.4" lid="3">
@@ -707,6 +711,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.5</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.5:3 -->
 	<META>
 		<TERM ns="abdh:Q7.5" lid="3">
@@ -853,6 +858,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.6</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.6:3 -->
 	<META>
 		<TERM ns="abdh:Q7.6" lid="3">
@@ -999,6 +1005,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.7</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.7:3 -->
 	<META>
 		<TERM ns="abdh:Q7.7" lid="3">
@@ -1145,6 +1152,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q7.8</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q7.8:3 -->
 	<META>
 		<TERM ns="abdh:Q7.8" lid="3">
@@ -1273,6 +1281,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q8.1</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q8.1:2 -->
 	<META>
 		<TERM ns="abdh:Q8.1" lid="2">
@@ -1292,6 +1301,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q8.1</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q8.1:3 -->
 	<META>
 		<TERM ns="abdh:Q8.1" lid="3">
@@ -1378,6 +1388,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q8.2</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q8.2:2 -->
 	<META>
 		<TERM ns="abdh:Q8.2" lid="2">
@@ -1397,6 +1408,7 @@
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
 			<item const="kTAG_OBJECT" node="term">abdh:Q8.2</item>
 		</EDGE>
+	</META>
 	<!-- abdh:Q8.2:3 -->
 	<META>
 		<TERM ns="abdh:Q8.2" lid="3">

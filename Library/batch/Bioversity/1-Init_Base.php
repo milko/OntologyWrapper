@@ -193,6 +193,11 @@ try
 	$wrapper->loadCWRStandards( TRUE );
 	
 	//
+	// Load ABDH standards.
+	//
+	$wrapper->loadABDHStandards( TRUE );
+	
+	//
 	// Reset units.
 	//
 	$wrapper->resetUnits( TRUE );
