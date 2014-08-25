@@ -837,6 +837,67 @@ finally
 						$sub[ $tag ] = $species;
 					}
 				}
+				
+				//
+				// Set where was species grown.
+				//
+				if( array_key_exists( 'Q2.1a', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'abdh:Q1a' );
+					$sub[ $tag ] = array( 'abdh:Q1a:'.$data[ 'Q2.1a' ] );
+					// No data for abdh:Q1b.
+				}
+				
+				//
+				// Set which season species grown.
+				//
+				if( array_key_exists( 'Q2.2a', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.2a' );
+					$sub[ $tag ] = array( 'abdh:Q2.2a:'.$data[ 'Q2.2a' ] );
+					// No data for abdh:Q2.2b.
+				}
+				
+				//
+				// Set where was species grown.
+				//
+				$tmp = Array();
+				if( array_key_exists( 'Q2.3a', $data ) )
+				{
+					$val = 'abdh:Q2a:'.$data[ 'Q2.3a' ];
+					if( ! in_array( $val, $tmp ) )
+						$tmp[] = $val;
+				}
+				if( array_key_exists( 'Q2.3b', $data ) )
+				{
+					$val = 'abdh:Q2a:'.$data[ 'Q2.3b' ];
+					if( ! in_array( $val, $tmp ) )
+						$tmp[] = $val;
+				}
+				if( count( $tmp ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'abdh:Q2a' );
+					$sub[ $tag ] = array( 'abdh:Q2a:'.$data[ 'Q2.3a' ] );
+				}
+				// No data for abdh:Q2b.
+				
+				//
+				// Cropping practice.
+				//
+				if( array_key_exists( 'Q2.4a', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.4a' );
+					$sub[ $tag ] = 'abdh:Q2.4a:'.$data[ 'Q2.4a' ];
+				}
+				
+				//
+				// Cropping area.
+				//
+				if( array_key_exists( 'Q2.4b', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.4b' );
+					$sub[ $tag ] = (int) $data[ 'Q2.4b' ];
+				}
 		
 				//
 				// Load record.

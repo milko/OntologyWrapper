@@ -105,7 +105,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Other season]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -165,7 +165,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[What was the area planted to the species]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Cropping practice for the area devoted to the species]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -173,7 +173,7 @@
 			<item const="kTAG_TERMS">
 				<item>abdh:Q2.4a</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-03</item>
@@ -252,7 +252,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Are under crop, if monocropped, or area of all crops, if intercropped (units = gigha)]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Area under crop, if monocropped, or area of all crops, if intercropped (units = gigha)]]></item>
 				</item>
 			</item>
 		</TERM>
