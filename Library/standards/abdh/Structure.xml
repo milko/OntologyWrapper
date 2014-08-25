@@ -32,6 +32,18 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- abdh:REF-YEAR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REF-YEAR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:INSTITUTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:INSTITUTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- :location:admin-1 -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>

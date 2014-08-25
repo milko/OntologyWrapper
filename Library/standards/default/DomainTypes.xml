@@ -39,7 +39,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of data property attributes.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Data property attributes.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -66,7 +66,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of data properties.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Data properties.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -93,7 +93,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of generic units.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Generic units.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -120,7 +120,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of persons, institutions and organisations.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Persons, institutions and organisations.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -147,7 +147,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of entities representing an individual.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Entities representing an individual.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -174,7 +174,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of entities representing an organisation.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Entities representing an organisation.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -201,7 +201,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of generic occurrences.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Generic occurrences.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -228,7 +228,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of forest gene conservation units and their target species populations.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Forest gene conservation units and their target species populations.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -255,7 +255,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of units representing a landrace and its environment.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Landrace and its environment.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -282,7 +282,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of samples and specimens.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Samples and specimens.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -309,7 +309,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of units representing an ex-situ sample conserved in a gene bank.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Ex-situ sample conserved in a gene bank.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -336,7 +336,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of generic events.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Generic events.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -363,7 +363,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of units representing a controlled experiment on a set of samples.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Controlled experiment on a set of samples.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -390,7 +390,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of taxa.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Taxonomies.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -417,7 +417,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of units representing crop wild relative checklists.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative checklists.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -444,7 +444,34 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[The domain of units representing crop wild relative inventories.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Crop wild relative inventories.]]></item>
+				</item>
+			</item>
+		</TERM>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:type:node:enumeration</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
+			<item const="kTAG_OBJECT" node="pid">enum::domain</item>
+		</EDGE>
+	</META>
+		
+	<!-- kDOMAIN_HH_ASSESSMENT -->
+	<META>
+		<TERM ns=":domain" lid="hh-assessment">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Household assessment</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Household agro bio-diversity assessments.]]></item>
 				</item>
 			</item>
 		</TERM>

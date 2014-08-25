@@ -564,6 +564,11 @@ abstract class UnitObject extends PersistentObject
 				return array( ':taxon:epithet', ':inventory:NICODE',
 							  'cwr:in:NIENUMB', ':unit:version' );					// ==>
 		
+			case kDOMAIN_HH_ASSESSMENT:
+				return array( 'abdh:ID_HOUSEHOLD',
+							  'abdh:STATE', 'abdh:DISTRICT', 'abdh:BLOCKS', 'abdh:VILLAGE',
+							  ':unit:version' );									// ==>
+		
 		} // Parsed domain.
 		
 		return Array();																// ==>

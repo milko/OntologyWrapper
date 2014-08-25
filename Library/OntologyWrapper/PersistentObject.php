@@ -5928,7 +5928,7 @@ MILKO - Need to check.
 	 * Parse XML element
 	 *
 	 * The duty of this method is to parse the provided XML element and return the element
-	 * value in the provided reference parameter and the element offset as the result.
+	 * value in the provided container reference and the element offset as the result.
 	 *
 	 * @param SimpleXMLElement		$theElement			XML element.
 	 * @param mixed					$theContainer		Value container.

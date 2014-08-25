@@ -164,5 +164,14 @@ define( "kDOMAIN_CWR_CHECKLIST",				':domain:cwr-checklist' );
  */
 define( "kDOMAIN_CWR_INVENTORY",				':domain:cwr-inventory' );
 
+/**
+ * Household assessment unit.
+ *
+ * A household assessment unit.
+ *
+ * This represents a household agro bio-diversity assessment unit.
+ */
+define( "kDOMAIN_HH_ASSESSMENT",				':domain:hh-assessment' );
+
 
 ?>

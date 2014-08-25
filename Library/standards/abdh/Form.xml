@@ -50,6 +50,18 @@
 			<item const="kTAG_OBJECT" node="pid">form:abdh</item>
 		</EDGE>
 		
+		<!-- abdh:REF-YEAR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REF-YEAR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- abdh:INSTITUTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:INSTITUTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- abdh:STATE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:STATE</item>
@@ -108,12 +120,6 @@
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">form:abdh</item>
-		</EDGE>
-		
-		<!-- abdh:ID_ENUMERATOR -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:ID_ENUMERATOR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- abdh:ENUMERATOR -->
@@ -191,12 +197,6 @@
 		<!-- abdh:YEAR -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:YEAR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- abdh:NUM_SPECIES -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:NUM_SPECIES</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
