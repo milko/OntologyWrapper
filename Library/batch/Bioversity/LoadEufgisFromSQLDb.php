@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Household load procedure.
+ * EUFGIS load procedure.
  *
- * This file contains routines to load household assessments from an SQL database.
+ * This file contains routines to load EUFGIS from an SQL database.
  *
  *	@package	OntologyWrapper
  *	@subpackage	Init
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 25/08/2014
+ *	@version	1.00 26/08/2014
  */
 
 /*=======================================================================================
  *																						*
- *								LoadHouseholdsFromSQLDb.php								*
+ *								LoadEufgisFromSQLDb.php									*
  *																						*
  *======================================================================================*/
 
@@ -75,7 +75,7 @@ require_once( "/Library/WebServer/Library/adodb/adodb-exceptions.inc.php" );
 if( $argc < 3 )
 	exit( "Usage: "
 		 ."script.php "
-		 ."[SQL database DSN] "		// MySQLi://WEB-SERVICES:webservicereader@192.168.181.190/mauricio?socket=/var/mysql/mysql.sock&persist
+		 ."[SQL database DSN] "		// MySQLi://WEB-SERVICES:webservicereader@localhost/bioversity?socket=/tmp/mysql.sock&persist
 		 ."[mongo database DSN] "	// mongodb://localhost:27017/BIOVERSITY
 		 ."[graph DSN].\n" );		// neo4j://localhost:7474						// ==>
 
@@ -96,7 +96,7 @@ $graph = ( $argc > 3 ) ? $argv[ 3 ] : NULL;
 //
 // Inform.
 //
-echo( "\n==> Loading household assessments.\n" );
+echo( "\n==> Loading EUFGIS.\n" );
 
 //
 // Try.
@@ -180,7 +180,7 @@ try
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$rs = $db->execute( "SELECT * FROM `Household_Information` limit $start,$limit" );
+	$rs = $db->execute( "SELECT * FROM `EUFGIS_UNITS` limit $start,$limit" );
 	while( $rs->RecordCount() )
 	{
 		//
@@ -211,12 +211,12 @@ try
 			//
 			// Instantiate object.
 			//
-			$object = new OntologyWrapper\Household( $wrapper );
+			$object = new OntologyWrapper\ForestUnit( $wrapper );
 			
 			//
-			// Load household.
+			// Load unit.
 			//
-			loadHousehold( $object, $data, $wrapper, $db );
+			loadUnit( $object, $data, $wrapper, $db );
 print_r( $object->getArrayCopy() );
 			
 			//
@@ -241,7 +241,7 @@ print_r( $object->getArrayCopy() );
 		// Read next.
 		//
 		$start += $limit;
-		$rs = $db->execute( "SELECT * FROM `Household_Information` limit $start,$limit" );
+		$rs = $db->execute( "SELECT * FROM `EUFGIS_UNITS` limit $start,$limit" );
 	
 	} // Records left.
 
@@ -277,120 +277,176 @@ finally
  *======================================================================================*/
 
 	/**
-	 * Load household data.
+	 * Load unit data.
 	 *
-	 * This function will load the household data provided in the <b>$theData</b> parameter
+	 * This function will load the unit data provided in the <b>$theData</b> parameter
 	 * into the object provided in the <b>$theObject</b> parameter.
 	 *
-	 * The function will take care of loading the other sub-structure data.
+	 * The function will take care of loading the target species data.
 	 *
 	 * @param PersistentObject		$theObject			Object.
 	 * @param array					$theData			Data.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadHousehold( $theObject, $theData, $theWrapper, $theDatabase )
+	function loadUnit( $theObject, $theData, $theWrapper, $theDatabase )
 	{
 		//
-		// Set household ID.
+		// Set unit number.
 		//
-		if( array_key_exists( 'ID_HOUSEHOLD', $theData ) )
-			$theObject->offsetSet( 'abdh:ID_HOUSEHOLD', $theData[ 'ID_HOUSEHOLD' ] );
+		if( array_key_exists( 'UnitNumber', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:number',
+								   $theData[ 'UnitNumber' ] );
 		
 		//
-		// Set version.
+		// Set forest gene-number.
 		//
-		if( array_key_exists( ':unit:version', $theData ) )
-			$theObject->offsetSet( ':unit:version', $theData[ ':unit:version' ] );
+		if( array_key_exists( 'UnitGeneNumber', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:gene-number',
+								   $theData[ 'UnitGeneNumber' ] );
 		
 		//
-		// Set geographic data.
+		// Set country.
 		//
-		if( array_key_exists( ':location:country', $theData ) )
-			$theObject->offsetSet( ':location:country', $theData[ ':location:country' ] );
-		if( array_key_exists( ':location:admin', $theData ) )
-			$theObject->offsetSet( ':location:admin', $theData[ ':location:admin' ] );
+		if( array_key_exists( 'UnitCountry', $theData ) )
+			$theObject->offsetSet( ':location:country',
+								   'iso:3166:1:alpha-3:'.$theData[ 'UnitCountry' ] );
 		
 		//
-		// Set state.
+		// Set province.
 		//
-		if( array_key_exists( 'STATE', $theData ) )
+		if( array_key_exists( 'UnitProvince', $theData ) )
+			$theObject->offsetSet( ':location:admin-1',
+								   $theData[ 'UnitProvince' ] );
+		
+		//
+		// Set department.
+		//
+		if( array_key_exists( 'UnitDepartment', $theData ) )
+			$theObject->offsetSet( ':location:admin-2',
+								   $theData[ 'UnitDepartment' ] );
+		
+		//
+		// Set municipality.
+		//
+		if( array_key_exists( 'UnitMunicipality', $theData ) )
+			$theObject->offsetSet( ':location:admin-3',
+								   $theData[ 'UnitMunicipality' ] );
+		
+		//
+		// Set local name.
+		//
+		if( array_key_exists( 'UnitLocalName', $theData ) )
+			$theObject->offsetSet( ':location:locality',
+								   $theData[ 'UnitLocalName' ] );
+		
+		//
+		// Set minimum elevation.
+		//
+		if( array_key_exists( 'UnitMinimumElevation', $theData ) )
+			$theObject->offsetSet( ':location:elevation:min',
+								   $theData[ 'UnitMinimumElevation' ] );
+		
+		//
+		// Set maximum elevation.
+		//
+		if( array_key_exists( 'UnitMaximumElevation', $theData ) )
+			$theObject->offsetSet( ':location:elevation:max',
+								   $theData[ 'UnitMaximumElevation' ] );
+		
+		//
+		// Set datum.
+		//
+		if( array_key_exists( 'UnitGeodeticDatum', $theData ) )
+			$theObject->offsetSet( ':location:datum',
+								   ':location:datum:'.$theData[ 'UnitGeodeticDatum' ] );
+		
+		//
+		// Set coordinates.
+		//
+		if( (! array_key_exists( 'UnitCoordinatesRestriction', $theData ))
+		 || $theData[ 'UnitCoordinatesRestriction' ] )
 		{
-			$theObject->offsetSet( 'abdh:STATE', $theData[ 'STATE' ] );
-			$theObject->offsetSet( ':location:admin-1', $theData[ 'STATE' ] );
+			if( array_key_exists( 'UnitLatitudeD', $theData ) )
+				$theObject->offsetSet( ':location:latitude',
+									   $theData[ 'UnitLatitudeD' ] );
+			if( array_key_exists( 'UnitLongitudeD', $theData ) )
+				$theObject->offsetSet( ':location:longitude',
+									   $theData[ 'UnitLongitudeD' ] );
 		}
 		
 		//
-		// Set district.
+		// Set unit area.
 		//
-		if( array_key_exists( 'DISTRICT', $theData ) )
+		if( array_key_exists( 'UnitArea', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:area',
+								   $theData[ 'UnitArea' ] );
+		
+		//
+		// Set unit ownership.
+		//
+		if( array_key_exists( 'UnitOwnership', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:ownership',
+								   'fcu:unit:ownership:'.$theData[ 'UnitOwnership' ] );
+		
+		//
+		// Set unit type.
+		//
+		if( array_key_exists( 'UnitType', $theData ) )
 		{
-			$theObject->offsetSet( 'abdh:DISTRICT', $theData[ 'DISTRICT' ] );
-			$theObject->offsetSet( ':location:admin-2', $theData[ 'DISTRICT' ] );
+			$list = Array();
+			foreach( explode( ',', $theData[ 'UnitType' ] ) as $enum )
+				$list[] = "fcu:unit:type:$enum";
+			$theObject->offsetSet( 'fcu:unit:type', $list );
 		}
 		
 		//
-		// Set blocks.
+		// Set unit data collection.
 		//
-		if( array_key_exists( 'BLOCKS', $theData ) )
-		{
-			$theObject->offsetSet( 'abdh:BLOCKS', $theData[ 'BLOCKS' ] );
-			$theObject->offsetSet( ':location:admin-3', $theData[ 'BLOCKS' ] );
-		}
+		if( array_key_exists( 'UnitDataCollectionYear', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:data-collection',
+								   $theData[ 'UnitDataCollectionYear' ] );
 		
 		//
-		// Set village.
+		// Set unit last visit.
 		//
-		if( array_key_exists( 'VILLAGE', $theData ) )
-		{
-			$theObject->offsetSet( 'abdh:VILLAGE', $theData[ 'VILLAGE' ] );
-			$theObject->offsetSet( ':location:locality', $theData[ 'VILLAGE' ] );
-		}
+		if( array_key_exists( 'UnitLastVisitYear', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:last-visit',
+								   $theData[ 'UnitLastVisitYear' ] );
 		
 		//
-		// Set pin.
+		// Set unit soil remarks.
 		//
-		if( array_key_exists( 'PIN', $theData ) )
-			$theObject->offsetSet( 'abdh:PIN', $theData[ 'PIN' ] );
+		if( array_key_exists( 'UnitSoilRemarks', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:remarks-soil',
+								   $theData[ 'UnitSoilRemarks' ] );
 		
 		//
-		// Set landscape.
+		// Set unit remarks.
 		//
-		if( array_key_exists( 'LANDSCAPE', $theData ) )
-			$theObject->offsetSet( 'abdh:LANDSCAPE',
-								   'abdh:LANDSCAPE:'.$theData[ 'LANDSCAPE' ] );
+		if( array_key_exists( 'UnitRemarks', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:remarks',
+								   $theData[ 'UnitRemarks' ] );
 		
 		//
-		// Load respondents data.
+		// Set unit taxa.
+		//
+		if( array_key_exists( 'UnitTaxa', $theData ) )
+			$theObject->offsetSet( 'fcu:unit:species',
+								   explode( ';', $theData[ 'UnitTaxa' ] ) );
+		
+		//
+		// Load target species data.
 		//
 		$sub = Array();
-		loadRespondent( $sub,
-						$theObject->offsetGet( 'abdh:ID_HOUSEHOLD' ),
-						$theWrapper,
-						$theDatabase );
+		loadSpecies( $sub,
+					 $theObject->offsetGet( 'abdh:ID_HOUSEHOLD' ),
+					 $theWrapper,
+					 $theDatabase );
 		if( count( $sub ) )
 			$theObject->offsetSet( 'abdh:interview', $sub );
-		
-		//
-		// Init species records.
-		//
-		$sub = Array();
-		
-		//
-		// Load annual species data.
-		//
-		loadSpeciesAnnual( $sub,
-						   $theObject->offsetGet( 'abdh:ID_HOUSEHOLD' ),
-						   $theWrapper,
-						   $theDatabase );
-		
-		//
-		// Set species records.
-		//
-		if( count( $sub ) )
-			$theObject->offsetSet( 'abdh:species', $sub );
 
-	} // loadHousehold.
+	} // loadUnit.
 	
 
 	/**

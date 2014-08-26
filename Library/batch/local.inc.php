@@ -58,6 +58,42 @@ define( "kGRAPH_DIR",		'/Volumes/Data/Neo4j/' );
 define( "kSTANDARDS_LANGUAGE",			'en' );
 
 /*=======================================================================================
+ *	CLIMATIC LIMITS																		*
+ *======================================================================================*/
+
+/**
+ * Climate data URL.
+ *
+ * This token represents the base climate data service URL.
+ */
+define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
+
+/**
+ * Minimum average distance.
+ *
+ * This token represents the minimum distance in meters, or coordinate uncertainty, that
+ * will be used in climate data retrieval. This means that any uncertainty smaller than
+ * this figure will not be used.
+ */
+define( "kCLIMATE_MIN_DIST",		925 );
+
+/**
+ * Maximum average distance.
+ *
+ * This token represents the efault maximum average tile distance from the provided
+ * geometry in meters (10km.).
+ */
+define( "kCLIMATE_MAX_DIST",		111325 );
+
+/**
+ * Elevation range delta.
+ *
+ * This token represents the default range by which an elevation is decremented and
+ * incremented in order to get the climate data (50m.).
+ */
+define( "kCLIMATE_DELTA_ELEV",		50 );
+
+/*=======================================================================================
  *	STANDARDS SUB-FOLDER NAMES															*
  *======================================================================================*/
 

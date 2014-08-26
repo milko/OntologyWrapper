@@ -294,6 +294,512 @@ abstract class UnitObject extends PersistentObject
 
 /*=======================================================================================
  *																						*
+ *								STATIC CLIMATE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	GetClimateData																	*
+	 *==================================================================================*/
+
+	/**
+	 * <h4>Retrieve climatic data</h4>
+	 *
+	 * This method will retrieve the climatic data for the provided parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theShape</b>: The coordinates, point, polygon or rect, of the area for
+	 *		which the climate is requested. This parameter may either be a
+	 *		{@link CDataTypeShape} instance, or a GeoJSON shape array.
+	 *	<li><b>$theRange</b>: This optional parameter represents the elevation range as an
+	 *		array of two elements representing respectively the minimum and maximum
+	 *		elevation. If the parameter is provided as a scalar, not a range, the method
+	 *		will ignore it.
+	 *	<li><b>$theDistance</b>: This parameter represents the maximum distance from the
+	 *		provided geometry, if provided, it will be used to limit the matches only to
+	 *		those tiles within that distance. <i>This value is equivalent to the "coordinate
+	 *		uncertainty in meters", which represents the radius of the circle representing
+	 *		the area: thus, the value that will be passed to the service will be multiplied
+	 *		by two</i>.
+	 * </ul>
+	 *
+	 * The method will return an array containing the list of all climate variables, no
+	 * elements are nested.
+	 *
+	 * The provided shape format is expected to follow the GeoJson standard.
+	 *
+	 * If the climate data was not found, the method will return an empty array.
+	 *
+	 * @param Wrapper				$theWrapper			Data wrapper.
+	 * @param mixed					$theShape			Site shape.
+	 * @param array					$theRange			Elevation range.
+	 * @param int					$theDistance		Coordinate uncertainty.
+	 *
+	 * @static
+	 * @return array
+	 *
+	 * @throws Exception
+	 */
+	static function GetClimateData( $theWrapper, $theShape, $theRange = NULL,
+															$theDistance = NULL )
+	{
+		//
+		// Check shape.
+		//
+		if( is_array( $theShape )
+		 && array_key_exists( kTAG_TYPE, $theShape )
+		 && array_key_exists( kTAG_GEOMETRY, $theShape ) )
+		{
+			//
+			// Init local storage.
+			//
+			$error = NULL;
+			$range = FALSE;
+			$climate = Array();
+			$request = Array();
+			
+			//
+			// Parse by shape type.
+			//
+			switch( $theShape[ kTAG_TYPE ] )
+			{
+				case 'Point':
+					$request[] = 'point='.implode( ',', $theShape[ kTAG_GEOMETRY ] );
+					break;
+			
+				case 'Rect':
+					$tmp = 'rect=';
+					$tmp .= implode( ',', $theShape[ kTAG_GEOMETRY ][ 0 ] );
+					$tmp .= ';';
+					$tmp .= implode( ',', $theShape[ kTAG_GEOMETRY ][ 1 ] );
+					$request[] = $tmp;
+					break;
+			
+				case 'Polygon':
+					throw new \Exception(
+						"Unable to get climate data: "
+					   ."polygons are not yet supported." );					// !@! ==>
+				
+				default:
+					$tmp = $theShape[ kTAG_TYPE ];
+					throw new \Exception(
+						"Unable to get climate data: "
+					   ."unsupported shape type [$tmp]." );						// !@! ==>
+			
+			} // Parsed shape type.
+
+			//
+			// Handle elevation range.
+			//
+			if( is_array( $theRange ) )
+			{
+				$range = TRUE;
+				$request[] = 'elevation='.implode( ',', $theRange );
+	
+			} // Elevation.
+	
+			//
+			// Handle uncertainty.
+			//
+			if( $theDistance !== NULL )
+			{
+				//
+				// Cast to integer.
+				//
+				$theDistance = (int) $theDistance;
+				
+				//
+				// Handle valid uncertainty.
+				//
+				if( ($theDistance > kCLIMATE_MIN_DIST)		// Minimum bound.
+				 && ($theDistance < kCLIMATE_MAX_DIST) )
+				{
+					$range = TRUE;
+					$request[] = "distance=".$theDistance * 2;
+				
+				} // Valid distance.
+				
+				else
+					$theDistance = NULL;
+			
+			} // Provided uncertainty.
+			
+			//
+			// Handle ranges.
+			//
+			if( $range )
+			{
+				$request[] = 'near';
+				$request[] = 'range';
+			
+			} // Elevation range and/or uncertainty.
+	
+			//
+			// Handle contains.
+			//
+			else
+				$request[] = 'contains';
+			
+			//
+			// Check range distance.
+			//
+			if( in_array( 'range', $request )
+			 && ($theDistance === NULL) )
+				throw new \Exception(
+					"Unable to get climate data: "
+				   ."range queries require the distance, "
+				   ."it is either missing or larger than "
+				   .kCLIMATE_MAX_DIST
+				   ." meters." );												// !@! ==>
+		
+			//
+			// Get climate data.
+			//
+			$request = kCLIMATE_URL.'?'.implode( '&', $request );
+			$data = @file_get_contents( $request );
+			$data = ( strlen( $data ) )
+				  ? json_decode( $data, TRUE )
+				  : Array();
+		
+			//
+			// Set climate data.
+			//
+			if( is_array( $data )
+			 && array_key_exists( 'status', $data )
+			 && array_key_exists( 'state', $data[ 'status' ] )
+			 && ($data[ 'status' ][ 'state' ] == 'OK') )
+			{
+				//
+				// Check if it found something.
+				//
+				if( array_key_exists( 'data', $data )
+				 && count( $data[ 'data' ] ) )
+				{
+					//
+					// Set tiles count.
+					//
+					if( array_key_exists( 'total', $data[ 'status' ] ) )
+						$climate[ (string) $theWrapper->getSerial( ':environment:tiles' ) ]
+							= (int) $data[ 'status' ][ 'total' ];
+				
+					//
+					// Point to data.
+					//
+					if( $range )
+						$data = & $data[ 'data' ];
+					else
+						$data = array_shift( $data[ 'data' ] );
+			
+					//
+					// Set environmental data elevation range.
+					//
+					if( array_key_exists( 'elev', $data ) )
+					{
+						$ref = & $data[ 'elev' ];
+						if( $range )
+						{
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-min' ) ] = (int) $ref[ 'l' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-mean' ) ] = (int) $ref[ 'm' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-max' ) ] = (int) $ref[ 'h' ];
+						}
+						else
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:elevation-mean' ) ] = (int) $ref;
+					}
+			
+					//
+					// Set environmental data distance range.
+					//
+					if( array_key_exists( 'dist', $data ) )
+					{
+						if( $range )
+						{
+							$ref = & $data[ 'dist' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-min' ) ] = (int) $ref[ 'l' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-mean' ) ] = (int) $ref[ 'm' ];
+							$climate[ (string) $theWrapper->getSerial(
+								':environment:distance-max' ) ] = (int) $ref[ 'h' ];
+						}
+					}
+			
+					//
+					// Point to climatic data.
+					//
+					if( array_key_exists( 'clim', $data )
+					 && is_array( $data[ 'clim' ] ) )
+					{
+						//
+						// Point to current climatic data.
+						//
+						$data = & $data[ 'clim' ];
+						if( array_key_exists( '2000', $data )
+						 && is_array( $data[ '2000' ] ) )
+						{
+							//
+							// Point to data.
+							//
+							$data = & $data[ '2000' ];
+			
+							//
+							// Set environment stratification data.
+							//
+							if( array_key_exists( 'gens', $data ) )
+							{
+								$ref = & $data[ 'gens' ];
+								if( $range )
+								{
+									$tag = (string) $theWrapper->getSerial( 'gens' );
+									$climate[ $tag ] = Array();
+									foreach( $ref[ 'id' ] as $tmp )
+										$climate[ $tag ][] = $tmp;
+									
+									$tag = (string) $theWrapper->getSerial( 'gens:clim' );
+									$climate[ $tag ] = Array();
+									foreach( $ref[ 'c' ] as $tmp )
+										$climate[ $tag ][] = "gens:clim:$tmp";
+									
+									$tag = (string) $theWrapper->getSerial( 'gens:zone' );
+									$climate[ $tag ] = Array();
+									foreach( $ref[ 'e' ] as $tmp )
+										$climate[ $tag ][] = "gens:zone:$tmp";
+								}
+								else
+								{
+									$tag = (string) $theWrapper->getSerial( 'gens' );
+									$climate[ $tag ] = array( $ref[ 'id' ] );
+									
+									$tag = (string) $theWrapper->getSerial( 'gens:clim' );
+									$tmp = $ref[ 'c' ];
+									$climate[ $tag ] = array( "gens:clim:$tmp" );
+
+									$tag = (string) $theWrapper->getSerial( 'gens:zone' );
+									$tmp = $ref[ 'e' ];
+									$climate[ $tag ] = array( "gens:zone:$tmp" );
+								}
+							}
+			
+							//
+							// Set harmonized world soil data.
+							//
+							if( array_key_exists( 'hwsd', $data ) )
+							{
+								$ref = & $data[ 'hwsd' ];
+								$tag = (string) $theWrapper->getSerial( 'hwsd' );
+								if( $range )
+								{
+									$climate[ $tag ] = Array();
+									foreach( $ref as $tmp )
+										$climate[ $tag ][] = "hwsd:$tmp";
+								}
+								else
+									$climate[ $tag ] = array( "hwsd:$ref" );
+							}
+			
+							//
+							// Set global human footprint.
+							//
+							if( array_key_exists( 'ghf', $data ) )
+							{
+								$ref = & $data[ 'ghf' ];
+								$tag = (string) $theWrapper->getSerial(
+													':environment:ghf' );
+								if( $range )
+								{
+									$climate[ $tag ] = Array();
+									foreach( $ref as $tmp )
+										$climate[ $tag ][] = $tmp;
+								}
+								else
+									$climate[ $tag ] = array( $ref );
+							}
+			
+							//
+							// Set global cover data.
+							//
+							if( array_key_exists( 'gcov', $data ) )
+							{
+								$ref = & $data[ 'gcov' ];
+								$tag = (string) $theWrapper->getSerial( 'globcov' );
+								if( $range )
+								{
+									$climate[ $tag ] = Array();
+									foreach( $ref as $tmp )
+										$climate[ $tag ][] = "globcov:$tmp";
+								}
+								else
+									$climate[ $tag ] = array( "globcov:$ref" );
+							}
+			
+							//
+							// Set bio-climatic data.
+							//
+							if( array_key_exists( 'bio', $data ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:bio' );
+								$climate[ $tag ] = Array();
+								$ref = & $data[ 'bio' ];
+								foreach( $ref as $key => $value )
+								{
+									//
+									// Set element tag.
+									//
+									$sub = (string) $theWrapper->getSerial(
+										':environment:bio:'.sprintf( '%02d', (int) $key ) );
+									
+									//
+									// Parse by variable.
+									//
+									switch( $key )
+									{
+										case '1':
+										case '2':
+										case '5':
+										case '6':
+										case '8':
+										case '9':
+										case '10':
+										case '11':
+											$climate[ $tag ][ $sub ]
+												= ( $range )
+												? round( $value[ 'm' ]
+													   / 10, 1 )
+												: round( $value / 10, 1 );
+											break;
+					
+										default:
+											$climate[ $tag ][ $sub ]
+												= ($range)
+												? round( $value[ 'm' ], 2 )
+												: round( $value, 2 );
+											break;
+									}
+								}
+							}
+			
+							//
+							// Set precipitation data.
+							//
+							if( array_key_exists( 'prec', $data ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:precipitation' );
+								$ref = & $data[ 'prec' ];
+								foreach( $ref as $key => $value )
+								{
+									//
+									// Set element prefix.
+									//
+									$pre = ':environment:precipitation:'
+										  .sprintf( '%02d', (int) $key );
+									$smin = (string) $theWrapper->getSerial( "$pre-min" );
+									$smea = (string) $theWrapper->getSerial( "$pre-mean" );
+									$smax = (string) $theWrapper->getSerial( "$pre-max" );
+									
+									if( $range )
+									{
+										$climate[ $tag ][ $smin ] = (int) $value[ 'l' ];
+										$climate[ $tag ][ $smea ] = (int) $value[ 'm' ];
+										$climate[ $tag ][ $smax ] = (int) $value[ 'h' ];
+									}
+									else
+										$climate[ $tag ][ $smea ] = (int) $value;
+			
+								} // Iterating precipitation.
+							}
+			
+							//
+							// Set temperature data.
+							//
+							if( array_key_exists( 'temp', $data ) )
+							{
+								$tag = (string) $theWrapper->getSerial(
+													':environment:temperature' );
+								$ref = & $data[ 'temp' ];
+								foreach( $ref as $key => $value )
+								{
+									switch( $key )
+									{
+										case 'm':
+											$pre = 'mean';
+											break;
+										case 'l':
+											$pre = 'min';
+											break;
+										case 'h':
+											$pre = 'max';
+											break;
+									}
+									
+									foreach( $value as $month => $temp )
+									{
+										$month = sprintf( '%02d', (int) $month );
+										if( $range )
+										{
+											foreach( $temp as $rng => $deg )
+											{
+												switch( $rng )
+												{
+													case 'm':
+														$suf = 'mean';
+														break;
+													case 'l':
+														$suf = 'min';
+														break;
+													case 'h':
+														$suf = 'max';
+														break;
+												}
+												$sub = (string) $theWrapper->getSerial(
+															":environment:temperature:"
+														   ."$month-$pre-$suf" );
+												$climate[ $tag ][ $sub ]
+													= round( $deg / 10, 1 );
+											}
+										}
+										else
+										{
+											$sub = (string) $theWrapper->getSerial(
+														":environment:temperature:"
+													   ."$month-$pre-mean" );
+											$climate[ $tag ][ $sub ]
+												= round( $temp / 10, 1 );
+										}
+									}
+			
+								} // Iterating temperature.
+							}
+						
+						} // Has current climatic data.
+						
+					} // Has climatic data.
+				
+				} // Found something.
+			
+			} // Received data.
+			
+			return $climate;														// ==>
+		
+		} // Has type and geometry.
+		
+		else
+			throw new \Exception(
+				"Unable to get climate data: "
+			   ."invalid shape structure." );									// !@! ==>
+		
+	} // GetClimateData.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PUBLIC NAME MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/

@@ -906,7 +906,7 @@
 			<item const="kTAG_TERMS">
 				<item>abdh:Q2.12</item>
 			</item>
-			<item const="kTAG_DATA_TYPE">:type:enum-set</item>
+			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
 				<item>:type:full-text-03</item>
@@ -1020,6 +1020,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -1054,7 +1055,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[No]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Didn't give seeds to other farmers]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1074,7 +1075,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Yes]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Gave seeds to other farmers]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1141,7 +1142,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Every year]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Renew seeds every year]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1161,7 +1162,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Every 2 years]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Renew seeds every 2 years]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1181,7 +1182,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Every 3 years]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Renew seeds every 3 years]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1201,7 +1202,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Never]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Never renew seeds]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1387,6 +1388,7 @@
 			<item const="kTAG_DATA_TYPE">:type:enum</item>
 			<item const="kTAG_DATA_KIND">
 				<item>:type:categorical</item>
+				<item>:type:full-text-03</item>
 				<item>:type:summary</item>
 			</item>
 			<item const="kTAG_SYNONYM">
@@ -1421,7 +1423,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[No]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Don't want other varieties of this species]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -1441,7 +1443,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Yes]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Want other varieties of this species]]></item>
 				</item>
 			</item>
 		</TERM>

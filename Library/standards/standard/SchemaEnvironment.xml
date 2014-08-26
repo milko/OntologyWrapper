@@ -23,6 +23,14 @@
 			</item>
 		</NODE>
 	
+		<!-- Environment tiles -->
+		
+		<!-- :environment:tiles -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:environment:tiles</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- Environment distance -->
 		
 		<!-- :environment:distance-min -->

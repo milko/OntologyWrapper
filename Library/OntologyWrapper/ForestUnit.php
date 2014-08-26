@@ -378,6 +378,32 @@ class ForestUnit extends UnitObject
 							  $this->offsetGet( 'fcu:unit:data-collection' ) );
 		
 		//
+		// Create shape.
+		//
+		if( ! $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+			//
+			// Check coordinates.
+			//
+			if( $this->offsetExists( ':location:latitude' )
+			 && $this->offsetExists( ':location:longitude' ) )
+				$this->offsetSet( kTAG_GEO_SHAPE,
+								  array( kTAG_TYPE => 'Point',
+								  		 kTAG_GEOMETRY => array(
+								  		 	$this->offsetGet( ':location:longitude' ),
+								  		 	$this->offsetGet( ':location:latitude' ) ) ) );
+		
+		} // Shape not yet set.
+	
+		//
+		// Load climate data.
+		//
+		if( $this->offsetExists( kTAG_GEO_SHAPE ) )
+		{
+		
+		} // Shape not yet set.
+	
+		//
 		// Call parent method.
 		//
 		parent::preCommitPrepare( $theTags, $theRefs );
