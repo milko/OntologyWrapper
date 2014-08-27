@@ -69,6 +69,15 @@ define( "kSTANDARDS_LANGUAGE",			'en' );
 define( "kCLIMATE_URL",				'http://geo.grinfo.net/features.php' );
 
 /**
+ * Default average distance.
+ *
+ * This token represents the default distance in meters, or coordinate uncertainty, that
+ * will be used in climate data retrieval. This value will be used whenever the distance is
+ * required but not provided.
+ */
+define( "kCLIMATE_DEF_DIST",		7000 );
+
+/**
  * Minimum average distance.
  *
  * This token represents the minimum distance in meters, or coordinate uncertainty, that

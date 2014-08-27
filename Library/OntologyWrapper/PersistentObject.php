@@ -3147,8 +3147,6 @@ abstract class PersistentObject extends OntologyObject
 	 * Note that the provided list of tags should only include leaf offset references, in
 	 * other words, only properties which are not of the {@link kTYPE_STRUCT} type.
 	 *
-	 * The provided parameter <em>must</em> be an array reference.
-	 *
 	 * For a description of the parameters to this method, please consult the
 	 * {@link preCommit()} method documentation.
 	 *
@@ -3158,7 +3156,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_OBJECT_TAGS kTAG_OBJECT_OFFSETS
 	 */
-	protected function preCommitObjectTags( &$theTags )
+	protected function preCommitObjectTags( $theTags )
 	{
 		//
 		// Check parameter.
@@ -3206,8 +3204,6 @@ abstract class PersistentObject extends OntologyObject
 	 * object references from the provided parameter and populate the
 	 * {@link kTAG_OBJECT_REFERENCES} property of the current object.
 	 *
-	 * The provided parameter <em>must</em> be an array reference.
-	 *
 	 * For a description of the parameters to this method, please consult the
 	 * {@link preCommit()} method documentation.
 	 *
@@ -3221,7 +3217,7 @@ abstract class PersistentObject extends OntologyObject
 	 *
 	 * @see kTAG_OBJECT_REFERENCES
 	 */
-	protected function preCommitObjectReferences( &$theRefs )
+	protected function preCommitObjectReferences( $theRefs )
 	{
 		//
 		// Check references.

@@ -125,7 +125,7 @@
 		</TERM>
 		<TAG>
 			<item const="kTAG_TERMS">
-				<item>:inventory:INSTCODE</item>
+				<item>:inventory:GENESYS</item>
 			</item>
 			<item const="kTAG_DATA_TYPE">:type:string</item>
 			<item const="kTAG_DESCRIPTION">
@@ -135,7 +135,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":inventory:INSTCODE">
+		<NODE tag=":inventory:GENESYS">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

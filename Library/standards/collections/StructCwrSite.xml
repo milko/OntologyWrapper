@@ -19,14 +19,20 @@
 			<item const="kTAG_DATA_KIND">
 				<item>:type:list</item>
 			</item>
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Sites]]></item>
+				</item>
+			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Site attributes.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Details about the site in which the CWR population was observed and/or the accession/specimen collected.]]></item>
 				</item>
 			</item>
 		</TAG>
-		<NODE tag="cwr:st">
+		<NODE>
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>

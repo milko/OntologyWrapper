@@ -448,11 +448,11 @@ class ForestUnit extends UnitObject
 			if( $this->offsetExists( 'fcu:unit:area' ) )
 			{
 				$dist = sqrt( $this->offsetGet( 'fcu:unit:area' ) * 10000 ) * 1.2;
-				if( $dist < kCLIMATE_MIN_DIST )
-					$dist = kCLIMATE_MIN_DIST;
+				if( $dist < kCLIMATE_DEF_DIST )
+					$dist = kCLIMATE_DEF_DIST;
 			}
 			elseif( $range !== NULL )
-				$dist = kCLIMATE_MIN_DIST;
+				$dist = kCLIMATE_DEF_DIST;
 			
 			//
 			// Get climate data.

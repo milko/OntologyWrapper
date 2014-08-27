@@ -52,12 +52,6 @@
 			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- mcpd:INSTCODE -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">mcpd:INSTCODE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
 	</META>
 
 	<!-- Identification attributes -->

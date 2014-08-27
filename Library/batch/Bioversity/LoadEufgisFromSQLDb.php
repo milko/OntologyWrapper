@@ -366,10 +366,17 @@ finally
 								   ':location:datum:'.$theData[ 'UnitGeodeticDatum' ] );
 		
 		//
+		// Set coordinates restriction.
+		//
+		if( array_key_exists( 'UnitCoordinatesRestriction', $theData ) )
+			$theObject->offsetSet( ':location:restricted',
+								   ( $theData[ 'UnitCoordinatesRestriction' ] ) ? TRUE
+								   												: FALSE );
+		
+		//
 		// Set coordinates.
 		//
-		if( (! array_key_exists( 'UnitCoordinatesRestriction', $theData ))
-		 || (! $theData[ 'UnitCoordinatesRestriction' ]) )
+		if( ! $this->offsetGet( ':location:restricted' ) )
 		{
 			if( array_key_exists( 'UnitLatitudeD', $theData ) )
 				$theObject->offsetSet( ':location:latitude',

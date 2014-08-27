@@ -1216,9 +1216,7 @@ abstract class UnitObject extends PersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @uses preCommitObjectTags()
-	 * @uses preCommitObjectReferences()
-	 * @uses preCommitObjectIdentifiers()
+	 * @uses addToFullText()
 	 */
 	protected function preCommitFinalise( &$theTags, &$theRefs )
 	{
