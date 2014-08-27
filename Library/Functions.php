@@ -521,5 +521,96 @@
 		
 	} // CollectOffsetValues.
 
+	 
+	/*===================================================================================
+	 *	ParseCoordinate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse coordinate
+	 *
+	 * This function will parse the provided coordinate which should be in the
+	 * <tt>DDD°MM.MMMM'SS.SSSS"H</tt> format where <tt>D</tt> stands for degrees,
+	 * <tt>M</tt> for minutes, <tt>S</tt> for seconds and <tt>H</tt> for hemisphere.
+	 *
+	 * The function will return an array indexed by <tt>D</tt>, <tt>M</tt>, <tt>S</tt> and
+	 * <tt>H</tt>; if the no coordinate pattern is recognised, the function will return an
+	 * empty array.
+	 *
+	 * The provided coordinate requires the degrees and the hemisphere, other elements are
+	 * optional. The elements will be cast to integer or double, if the value contains a
+	 * decimal point.
+	 *
+	 * This fumction will not validate the coordinate, this is the responsibility of the
+	 * caller.
+	 *
+	 * @param string				$theCoordinate		Coordinate.
+	 *
+	 * @return array				Parsed coordinate elements.
+	 */
+	function ParseCoordinate( $theCoordinate )
+	{
+		//
+		// Init local storage.
+		//
+		$result = Array();
+		
+		//
+		// Parse coordinate.
+		//
+		if( preg_match( '/^(\d+)\°([\d\.]*)[\']{0,1}([\d\.]*)[\"]{0,1}([nNsSeEwW])/',
+						$theCoordinate,
+						$elements ) )
+		{
+			//
+			// Set degrees.
+			//
+			$result[ 'D' ] = (int) $elements[ 1 ];
+			
+			//
+			// Parse by size.
+			//
+			switch( count( $elements ) )
+			{
+				case 3:
+					$result[ 'H' ] = $elements[ 2 ];
+					break;
+				
+				case 4:
+					if( is_numeric( $elements[ 2 ] ) )
+						$result[ 'M' ] = ( strpos( '.', $elements[ 2 ] ) !== FALSE )
+									   ? (double) $elements[ 2 ]
+									   : (int) $elements[ 2 ];
+					else
+						return Array();												// ==>
+					$result[ 'H' ] = $elements[ 3 ];
+					break;
+				
+				case 5:
+					if( is_numeric( $elements[ 2 ] ) )
+						$result[ 'M' ] = ( strpos( '.', $elements[ 2 ] ) !== FALSE )
+									   ? (double) $elements[ 2 ]
+									   : (int) $elements[ 2 ];
+					else
+						return Array();												// ==>
+					if( is_numeric( $elements[ 3 ] ) )
+						$result[ 'M' ] = ( strpos( '.', $elements[ 3 ] ) !== FALSE )
+									   ? (double) $elements[ 3 ]
+									   : (int) $elements[ 3 ];
+					else
+						return Array();												// ==>
+					$result[ 'H' ] = $elements[ 4 ];
+					break;
+				
+				default:
+					return Array();													// ==>
+			}
+		
+		} // Parsed coordinate.
+		
+		return $result;																// ==>
+		
+	} // CollectOffsetValues.
+
 
 ?>

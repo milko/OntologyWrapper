@@ -119,13 +119,14 @@ try
 	//
 	// Get summary offsets information.
 	//
-	$offsets = array( $result[ kAPI_RESPONSE_RESULTS ]
+	$offsets = array( 
+				array( $result[ kAPI_RESPONSE_RESULTS ]
 							 [ 'Abies' ]
 							 [ kAPI_PARAM_OFFSETS ] =>
 							$result[ kAPI_RESPONSE_RESULTS ]
 								   [ 'Abies' ]
-								   [ kAPI_PARAM_PATTERN ],
-					  $result[ kAPI_RESPONSE_RESULTS ]
+								   [ kAPI_PARAM_PATTERN ] ),
+				array( $result[ kAPI_RESPONSE_RESULTS ]
 							 [ 'Abies' ]
 							 [ kAPI_PARAM_RESPONSE_CHILDREN ]
 							 [ 'iso:3166:1:alpha-3:CAN' ]
@@ -134,7 +135,7 @@ try
 								   [ 'Abies' ]
 								   [ kAPI_PARAM_RESPONSE_CHILDREN ]
 								   [ 'iso:3166:1:alpha-3:CAN' ]
-								   [ kAPI_PARAM_PATTERN ] );
+								   [ kAPI_PARAM_PATTERN ] ) );
 
 	//
 	// Try matchUnits with genus=Abies and country=Canada tabled.
@@ -191,6 +192,7 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	echo( '<hr>' );
+var_dump( json_encode( $param ) );
 }
 
 //

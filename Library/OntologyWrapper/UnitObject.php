@@ -413,8 +413,8 @@ abstract class UnitObject extends PersistentObject
 				//
 				// Handle valid uncertainty.
 				//
-				if( ($theDistance > kCLIMATE_MIN_DIST)		// Minimum bound.
-				 && ($theDistance < kCLIMATE_MAX_DIST) )
+				if( ($theDistance >= kCLIMATE_MIN_DIST)		// Minimum bound.
+				 && ($theDistance <= kCLIMATE_MAX_DIST) )
 				{
 					$range = TRUE;
 					$request[] = "distance=".$theDistance * 2;

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE CHECKLIST STRUCTURE
+	StructureCwrChecklist.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Checklist structure -->
+	
+	<!-- :domain:cwr-checklist -->
+	<META>
+		<NODE term=":domain:cwr-checklist" pid="struct::domain:cwr-checklist">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a crop wild relative checklist.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- cwr:ck:CWRCODE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:CWRCODE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:NUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:NUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:TYPE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:TYPE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:REF -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:REF</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:URL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:URL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:cross -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:ecovalue -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:ecovalue-ref -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:ecovalue-ref</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:ck:REMARKS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:ck:REMARKS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

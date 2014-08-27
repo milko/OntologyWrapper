@@ -43,6 +43,11 @@ require_once( kPATH_DEFINITIONS_ROOT."/Predicates.inc.php" );
 //
 require_once( kPATH_DEFINITIONS_ROOT."/Session.inc.php" );
 
+//
+// Functions.
+//
+require_once( kPATH_LIBRARY_ROOT."/Functions.php" );
+
 /**
  * ADODB library.
  *
@@ -180,7 +185,7 @@ try
 	// Import.
 	//
 	echo( "  • Importing\n" );
-	$rs = $db->execute( "SELECT * FROM `EUFGIS_UNITS` limit $start,$limit" );
+	$rs = $db->execute( "SELECT * FROM `fcu_unit` limit $start,$limit" );
 	while( $rs->RecordCount() )
 	{
 		//
@@ -217,12 +222,11 @@ try
 			// Load unit.
 			//
 			loadUnit( $object, $data, $wrapper, $db );
-print_r( $object->getArrayCopy() );
 			
 			//
 			// Save record.
 			//
-	//		$object->commit();
+			$object->commit();
 			
 		} // Iterating page.
 		
@@ -241,7 +245,7 @@ print_r( $object->getArrayCopy() );
 		// Read next.
 		//
 		$start += $limit;
-		$rs = $db->execute( "SELECT * FROM `EUFGIS_UNITS` limit $start,$limit" );
+		$rs = $db->execute( "SELECT * FROM `fcu_unit` limit $start,$limit" );
 	
 	} // Records left.
 
@@ -345,14 +349,14 @@ finally
 		//
 		if( array_key_exists( 'UnitMinimumElevation', $theData ) )
 			$theObject->offsetSet( ':location:elevation:min',
-								   $theData[ 'UnitMinimumElevation' ] );
+								   (int) $theData[ 'UnitMinimumElevation' ] );
 		
 		//
 		// Set maximum elevation.
 		//
 		if( array_key_exists( 'UnitMaximumElevation', $theData ) )
 			$theObject->offsetSet( ':location:elevation:max',
-								   $theData[ 'UnitMaximumElevation' ] );
+								   (int) $theData[ 'UnitMaximumElevation' ] );
 		
 		//
 		// Set datum.
@@ -365,14 +369,47 @@ finally
 		// Set coordinates.
 		//
 		if( (! array_key_exists( 'UnitCoordinatesRestriction', $theData ))
-		 || $theData[ 'UnitCoordinatesRestriction' ] )
+		 || (! $theData[ 'UnitCoordinatesRestriction' ]) )
 		{
 			if( array_key_exists( 'UnitLatitudeD', $theData ) )
 				$theObject->offsetSet( ':location:latitude',
 									   $theData[ 'UnitLatitudeD' ] );
+			if( array_key_exists( 'UnitLatitude', $theData ) )
+			{
+				if( $count = count( $tmp = ParseCoordinate( $theData[ 'UnitLatitude' ] ) ) )
+				{
+					$theObject->offsetSet( ':location:latitude:deg', $tmp[ 'D' ] );
+					$theObject->offsetSet( ':location:latitude:hem', $tmp[ 'H' ] );
+					switch( $count )
+					{
+						case 4:
+							$theObject->offsetSet( ':location:latitude:sec', $tmp[ 'S' ] );
+						case 3:
+							$theObject->offsetSet( ':location:latitude:min', $tmp[ 'M' ] );
+							break;
+					}
+				}
+			}
+									   
 			if( array_key_exists( 'UnitLongitudeD', $theData ) )
 				$theObject->offsetSet( ':location:longitude',
 									   $theData[ 'UnitLongitudeD' ] );
+			if( array_key_exists( 'UnitLongitude', $theData ) )
+			{
+				if( $count = count( $tmp = ParseCoordinate( $theData[ 'UnitLongitude' ] ) ) )
+				{
+					$theObject->offsetSet( ':location:longitude:deg', $tmp[ 'D' ] );
+					$theObject->offsetSet( ':location:longitude:hem', $tmp[ 'H' ] );
+					switch( $count )
+					{
+						case 4:
+							$theObject->offsetSet( ':location:longitude:sec', $tmp[ 'S' ] );
+						case 3:
+							$theObject->offsetSet( ':location:longitude:min', $tmp[ 'M' ] );
+							break;
+					}
+				}
+			}
 		}
 		
 		//
@@ -380,7 +417,7 @@ finally
 		//
 		if( array_key_exists( 'UnitArea', $theData ) )
 			$theObject->offsetSet( 'fcu:unit:area',
-								   $theData[ 'UnitArea' ] );
+								   (float) $theData[ 'UnitArea' ] );
 		
 		//
 		// Set unit ownership.
@@ -405,14 +442,14 @@ finally
 		//
 		if( array_key_exists( 'UnitDataCollectionYear', $theData ) )
 			$theObject->offsetSet( 'fcu:unit:data-collection',
-								   $theData[ 'UnitDataCollectionYear' ] );
+								   (string) $theData[ 'UnitDataCollectionYear' ] );
 		
 		//
 		// Set unit last visit.
 		//
 		if( array_key_exists( 'UnitLastVisitYear', $theData ) )
 			$theObject->offsetSet( 'fcu:unit:last-visit',
-								   $theData[ 'UnitLastVisitYear' ] );
+								   (string) $theData[ 'UnitLastVisitYear' ] );
 		
 		//
 		// Set unit soil remarks.
@@ -432,36 +469,40 @@ finally
 		// Set unit taxa.
 		//
 		if( array_key_exists( 'UnitTaxa', $theData ) )
-			$theObject->offsetSet( 'fcu:unit:species',
-								   explode( ';', $theData[ 'UnitTaxa' ] ) );
+		{
+			$tmp = explode( ';', $theData[ 'UnitTaxa' ] );
+			foreach( $tmp as $key => $value )
+				$tmp[ $key ] = trim( $value );
+			$theObject->offsetSet( 'fcu:unit:species', $tmp );
+		}
 		
 		//
 		// Load target species data.
 		//
 		$sub = Array();
 		loadSpecies( $sub,
-					 $theObject->offsetGet( 'abdh:ID_HOUSEHOLD' ),
+					 $theData[ 'UnitID' ],
 					 $theWrapper,
 					 $theDatabase );
 		if( count( $sub ) )
-			$theObject->offsetSet( 'abdh:interview', $sub );
+			$theObject->offsetSet( 'fcu:population', $sub );
 
 	} // loadUnit.
 	
 
 	/**
-	 * Load respondent data.
+	 * Load species data.
 	 *
-	 * This function will load the respondent data identifier by the household identifier
-	 * provided in the <b>$theHousehold</b> parameter into the container provided in the
+	 * This function will load the target species data identified by the unit identifier
+	 * provided in the <b>$theUnit</b> parameter into the container provided in the
 	 * <b>$theContainer</b> parameter.
 	 *
 	 * @param array					$theContainer		Container.
-	 * @param string				$theHousehold		Household identifier.
+	 * @param string				$theUnit			Unit identifier.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadRespondent( &$theContainer, $theHousehold, $theWrapper, $theDatabase )
+	function loadSpecies( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
 		//
 		// Init local storage.
@@ -472,8 +513,8 @@ finally
 		//
 		// Select respondents.
 		//
-		$rs = $theDatabase->execute( "SELECT * FROM `Respondent_Information` "
-									."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+		$rs = $theDatabase->execute( "SELECT * FROM `fcu_species` "
+									."WHERE( `UnitID` = '$theUnit' ) "
 									."LIMIT $start,$limit" );
 		while( $rs->RecordCount() )
 		{
@@ -508,380 +549,22 @@ finally
 				$sub = Array();
 			
 				//
-				// Set enumerator identifier.
+				// Set population species.
 				//
-				if( array_key_exists( 'ID_ENUMERATOR', $data ) )
+				if( array_key_exists( 'PopulationTargetSpecies', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:ID_ENUMERATOR' );
-					$sub[ $tag ] = $data[ 'ID_ENUMERATOR' ];
-				}
-			
-				//
-				// Set enumerator.
-				//
-				if( array_key_exists( 'ENUMERATOR', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:ENUMERATOR' );
-					$sub[ $tag ] = $data[ 'ENUMERATOR' ];
-				}
-			
-				//
-				// Set household head name.
-				//
-				if( array_key_exists( 'NOM_HHH', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:NOM_HHH' );
-					$sub[ $tag ] = $data[ 'NOM_HHH' ];
-				}
-			
-				//
-				// Set household head gender.
-				//
-				if( array_key_exists( 'GENDER_HHH', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:GENDER_HHH' );
-					$sub[ $tag ] = 'abdh:GENDER_HHH:'.$data[ 'GENDER_HHH' ];
-				}
-			
-				//
-				// Set household head education years.
-				//
-				if( array_key_exists( 'EDUC_HHH', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:EDUC_HHH' );
-					$sub[ $tag ] = (int) $data[ 'EDUC_HHH' ];
-				}
-			
-				//
-				// Set household head education notes.
-				//
-				if( array_key_exists( 'EDUC_HHH_NOTES', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:EDUC_HHH_NOTES' );
-					$sub[ $tag ] = $data[ 'EDUC_HHH_NOTES' ];
-				}
-			
-				//
-				// Set household head age.
-				//
-				if( array_key_exists( 'AGE_HHH', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:AGE_HHH' );
-					$sub[ $tag ] = (int) $data[ 'AGE_HHH' ];
-				}
-			
-				//
-				// Set household head marital status.
-				//
-				if( array_key_exists( 'MARIT_STAT', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:MARIT_STAT' );
-					$sub[ $tag ] = 'abdh:MARIT_STAT:'.$data[ 'MARIT_STAT' ];
-				}
-			
-				//
-				// Set household head spouse status.
-				//
-				if( array_key_exists( 'SPOUSE_STAT', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:SPOUSE_STAT' );
-					$sub[ $tag ] = 'abdh:SPOUSE_STAT:'.$data[ 'SPOUSE_STAT' ];
-				}
-			
-				//
-				// Set household head spouse education level.
-				//
-				if( array_key_exists( 'SPOUSE_EDUC', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:SPOUSE_EDUC' );
-					$sub[ $tag ] = (int) $data[ 'SPOUSE_EDUC' ];
-				}
-			
-				//
-				// Set household head spouse education notes.
-				//
-				if( array_key_exists( 'SPOUSE_EDUC_NOTES', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:SPOUSE_EDUC_NOTES' );
-					$sub[ $tag ] = $data[ 'SPOUSE_EDUC_NOTES' ];
-				}
-			
-				//
-				// Set respondent relation to head.
-				//
-				if( array_key_exists( 'REL_RESP_HHH', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:REL_RESP_HHH' );
-					$sub[ $tag ] = 'abdh:REL_RESP_HHH:'.$data[ 'REL_RESP_HHH' ];
-				}
-			
-				//
-				// Set date.
-				//
-				if( array_key_exists( 'DATE_INT', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:DATE_INT' );
-					$sub[ $tag ] = substr( $data[ 'DATE_INT' ], 0, 4 )
-								  .substr( $data[ 'DATE_INT' ], 5, 2 )
-								  .substr( $data[ 'DATE_INT' ], 8, 2 );
-				}
-			
-				//
-				// Set latitude.
-				//
-				if( array_key_exists( 'LAT', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:LAT' );
-					$sub[ $tag ] = $data[ 'LAT' ];
-					if( array_key_exists( 'LATITUDE', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude' );
-						$sub[ $tag ] = (double) $data[ 'LATITUDE' ];
-					}
-					if( array_key_exists( 'LAT_DEG', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:deg' );
-						$sub[ $tag ] = (int) $data[ 'LAT_DEG' ];
-					}
-					if( array_key_exists( 'LAT_MIN', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:min' );
-						$sub[ $tag ] = (int) $data[ 'LAT_MIN' ];
-					}
-					if( array_key_exists( 'LAT_SEC', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:sec' );
-						$sub[ $tag ] = (double) $data[ 'LAT_SEC' ];
-					}
-					if( array_key_exists( 'LAT_HEM', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:latitude:hem' );
-						$sub[ $tag ] = $data[ 'LAT_HEM' ];
-					}
-				}
-			
-				//
-				// Set longitude.
-				//
-				if( array_key_exists( 'LONG', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:LONG' );
-					$sub[ $tag ] = $data[ 'LONG' ];
-					if( array_key_exists( 'LONGITUDE', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude' );
-						$sub[ $tag ] = (double) $data[ 'LONGITUDE' ];
-					}
-					if( array_key_exists( 'LONG_DEG', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:deg' );
-						$sub[ $tag ] = (int) $data[ 'LONG_DEG' ];
-					}
-					if( array_key_exists( 'LONG_MIN', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:min' );
-						$sub[ $tag ] = (int) $data[ 'LONG_MIN' ];
-					}
-					if( array_key_exists( 'LONG_SEC', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:sec' );
-						$sub[ $tag ] = (double) $data[ 'LONG_SEC' ];
-					}
-					if( array_key_exists( 'LONG_HEM', $data ) )
-					{
-						$tag = (string) $theWrapper->getSerial( ':location:longitude:hem' );
-						$sub[ $tag ] = $data[ 'LONG_HEM' ];
-					}
-				}
-			
-				//
-				// Set elevation.
-				//
-				if( array_key_exists( 'ELEV', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:ELEV' );
-					$sub[ $tag ] = (int) $data[ 'ELEV' ];
-					$tag = (string) $theWrapper->getSerial( ':location:elevation' );
-					$sub[ $tag ] = (int) $data[ 'ELEV' ];
-				}
-		
-				//
-				// Load record.
-				//
-				$theContainer[] = $sub;
-			
-			} // Iterating page.
-		
-			//
-			// Close recordset.
-			//
-			$rs->Close();
-			$rs = NULL;
-		
-			//
-			// Read next.
-			//
-			$start += $limit;
-			$rs = $theDatabase->execute( "SELECT * FROM `Respondent_Information` "
-										."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
-										."LIMIT $start,$limit" );
-	
-		} // Records left.
-		
-		//
-		// Close iterator.
-		//
-		if( $rs instanceof ADORecordSet )
-			$rs->Close();
-
-	} // loadRespondent.
-	
-
-	/**
-	 * Load annual species data.
-	 *
-	 * This function will load the annual species data identifier by the household
-	 * identifier provided in the <b>$theHousehold</b> parameter into the container provided
-	 * in the <b>$theContainer</b> parameter.
-	 *
-	 * Each species record will be loaded as an element of the provided container, this
-	 * means that all different types of species will be treated at the same level.
-	 *
-	 * @param array					$theContainer		Container.
-	 * @param string				$theHousehold		Household identifier.
-	 * @param Wrapper				$theWrapper			Data wrapper.
-	 * @param ADOConnection			$theDatabase		SQL connection.
-	 */
-	function loadSpeciesAnnual( &$theContainer, $theHousehold, $theWrapper, $theDatabase )
-	{
-		//
-		// Init local storage.
-		//
-		$start = 0;
-		$limit = 100;
-		
-		//
-		// Select respondents.
-		//
-		$rs = $theDatabase->execute( "SELECT * FROM `Annual_Plants` "
-									."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
-									."LIMIT $start,$limit" );
-		while( $rs->RecordCount() )
-		{
-			//
-			// Iterate page.
-			//
-			foreach( $rs as $record )
-			{
-				//
-				// Scan record.
-				//
-				$data = Array();
-				foreach( $record as $key => $value )
-				{
-					//
-					// Normalise value.
-					//
-					if( strlen( trim( $value ) ) )
-						$data[ $key ] = trim( $value );
-			
-				} // Scanning record.
-			
-				//
-				// Skip empty records.
-				//
-				if( ! count( $data ) )
-					continue;													// =>
-				
-				//
-				// Init sub.
-				//
-				$sub = Array();
-			
-				//
-				// Set species category.
-				//
-				$tag = (string) $theWrapper->getSerial( 'abdh:SPECIES_CAT' );
-				$sub[ $tag ] = 'SPECIES_CAT:1';
-			
-				//
-				// Set year.
-				//
-				if( array_key_exists( 'YEAR', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:YEAR' );
-					$sub[ $tag ] = (int) $data[ 'YEAR' ];
-				}
-				
-				//
-				// Set species sequential number.
-				//
-				if( array_key_exists( 'NUM_SPECIES', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:NUM_SPECIES' );
-					$sub[ $tag ] = $data[ 'NUM_SPECIES' ];
-				}
-				
-				//
-				// Init species vernacular names.
-				//
-				$tmp = Array();
-				
-				//
-				// Set species local name.
-				//
-				if( array_key_exists( 'NAME_LOC', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:NAME_LOC' );
-					$sub[ $tag ] = $data[ 'NAME_LOC' ];
-					$tmp[] = array( kTAG_TEXT => array( $data[ 'NAME_LOC' ] ) );
-				}
-				
-				//
-				// Set species english name.
-				//
-				if( array_key_exists( 'NAME_ENG', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:NAME_ENG' );
-					$sub[ $tag ] = $data[ 'NAME_ENG' ];
-					$tmp[] = array( kTAG_LANGUAGE => 'en',
-									kTAG_TEXT => array( $data[ 'NAME_ENG' ] ) );
-				}
-				
-				//
-				// Set taxon names.
-				//
-				if( count( $tmp ) )
-				{
-					$tag = (string) $theWrapper->getSerial( ':taxon:names' );
-					$sub[ $tag ] = $tmp;
-				}
-				
-				//
-				// Set scientific name.
-				//
-				if( array_key_exists( 'NAME_SCIENT', $data ) )
-				{
-					$taxon = $data[ 'NAME_SCIENT' ];
-					
-					$tag = (string) $theWrapper->getSerial( ':taxon:epithet' );
-					$sub[ $tag ] = $taxon;
-					
-					$pos = strpos( $taxon, ' ' );
+					$pos = strpos( $data[ 'PopulationTargetSpecies' ], ' ' );
 					if( $pos !== FALSE )
 					{
-						$genus = substr( $taxon, 0, $pos );
-						$species = substr( $taxon, $pos + 1 );
+						$genus = substr( $data[ 'PopulationTargetSpecies' ], 0, $pos );
+						$species = substr( $data[ 'PopulationTargetSpecies' ], $pos + 1 );
 					}
 					else
 					{
-						$genus = $taxon;
+						$genus = $data[ 'PopulationTargetSpecies' ];
 						$species = NULL;
 					}
-				
-					//
-					// Set genus and species.
-					//
+					
 					if( strlen( $genus ) )
 					{
 						$tag = (string) $theWrapper->getSerial( ':taxon:genus' );
@@ -892,331 +575,156 @@ finally
 						$tag = (string) $theWrapper->getSerial( ':taxon:species' );
 						$sub[ $tag ] = $species;
 					}
+
+					$tag = (string) $theWrapper->getSerial( ':taxon:epithet' );
+					$sub[ $tag ] = $data[ 'PopulationTargetSpecies' ];
 				}
-				
+			
 				//
-				// Set where was species grown.
+				// Set population number.
 				//
-				if( array_key_exists( 'Q2.1a', $data ) )
+				if( array_key_exists( 'PopulationUnitNumber', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q1a' );
-					$sub[ $tag ] = array( 'abdh:Q1a:'.$data[ 'Q2.1a' ] );
-					// No data for abdh:Q1b.
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:number' );
+					$sub[ $tag ] = $data[ 'PopulationUnitNumber' ];
 				}
-				
+			
 				//
-				// Set which season species grown.
+				// Set population establishment year.
 				//
-				if( array_key_exists( 'Q2.2a', $data ) )
+				if( array_key_exists( 'PopulationEstablishmentYear', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.2a' );
-					$sub[ $tag ] = array( 'abdh:Q2.2a:'.$data[ 'Q2.2a' ] );
-					// No data for abdh:Q2.2b.
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:establishment' );
+					$sub[ $tag ] = (string) $data[ 'PopulationEstablishmentYear' ];
 				}
-				
+			
 				//
-				// Set where was species grown.
+				// Set population last visit year.
 				//
-				$tmp = Array();
-				if( array_key_exists( 'Q2.3a', $data ) )
+				if( array_key_exists( 'PopulationLastVisitYear', $data ) )
 				{
-					$val = 'abdh:Q2a:'.$data[ 'Q2.3a' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:last-visit' );
+					$sub[ $tag ] = (string) $data[ 'PopulationLastVisitYear' ];
 				}
-				if( array_key_exists( 'Q2.3b', $data ) )
+		
+				//
+				// Set population status.
+				//
+				if( array_key_exists( 'PopulationStatus', $data ) )
 				{
-					$val = 'abdh:Q2a:'.$data[ 'Q2.3b' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:status' );
+					$sub[ $tag ] = 'fcu:population:status:'
+								  .$data[ 'PopulationStatus' ];
 				}
-				if( count( $tmp ) )
+		
+				//
+				// Set population situ.
+				//
+				if( array_key_exists( 'PopulationSitu', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2a' );
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:situ' );
+					$sub[ $tag ] = 'fcu:population:situ:'
+								  .$data[ 'PopulationSitu' ];
+				}
+		
+				//
+				// Set population origin.
+				//
+				if( array_key_exists( 'PopulationOrigin', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:origin' );
+					$sub[ $tag ] = 'fcu:population:origin:'
+								  .$data[ 'PopulationOrigin' ];
+				}
+		
+				//
+				// Set population system.
+				//
+				if( array_key_exists( 'PopulationSystem', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:system' );
+					$sub[ $tag ] = 'fcu:population:system:'
+								  .$data[ 'PopulationSystem' ];
+				}
+		
+				//
+				// Set population management.
+				//
+				if( array_key_exists( 'PopulationManagement', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:management' );
+					$sub[ $tag ] = 'fcu:population:management:'
+								  .$data[ 'PopulationManagement' ];
+				}
+		
+				//
+				// Set population justification.
+				//
+				if( array_key_exists( 'PopulationJustification', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:justification' );
+					$sub[ $tag ] = 'fcu:population:justification:'
+								  .$data[ 'PopulationJustification' ];
+				}
+		
+				//
+				// Set population reproducing.
+				//
+				if( array_key_exists( 'PopulationReproducingTrees', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:reproducing' );
+					$sub[ $tag ] = 'fcu:population:reproducing:'
+								  .$data[ 'PopulationReproducingTrees' ];
+				}
+		
+				//
+				// Set population sex.
+				//
+				if( array_key_exists( 'PopulationSexRatio', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:sex-ratio' );
+					$sub[ $tag ] = 'fcu:population:sex-ratio:'
+								  .$data[ 'PopulationSexRatio' ];
+				}
+		
+				//
+				// Set population regeneration.
+				//
+				if( array_key_exists( 'PopulationRegeneration', $data ) )
+				{
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:regeneration' );
+					$sub[ $tag ] = 'fcu:population:regeneration:'
+								  .$data[ 'PopulationRegeneration' ];
+				}
+		
+				//
+				// Set population distribution.
+				//
+				if( array_key_exists( 'PopulationDistribution', $data ) )
+				{
+					$tmp = Array();
+					foreach( explode( ',', $data[ 'PopulationDistribution' ] ) as $it )
+						$tmp[] = "fcu:population:distribution:$it";
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:distribution' );
 					$sub[ $tag ] = $tmp;
 				}
-				// No data for abdh:Q2b.
-				
+			
 				//
-				// Cropping practice.
+				// Set population share.
 				//
-				if( array_key_exists( 'Q2.4a', $data ) )
+				if( array_key_exists( 'PopulationShare', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.4a' );
-					$sub[ $tag ] = 'abdh:Q2.4a:'.$data[ 'Q2.4a' ];
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:share' );
+					$sub[ $tag ] = $data[ 'PopulationShare' ];
 				}
-				
+			
 				//
-				// Cropping area.
+				// Set population remarks.
 				//
-				if( array_key_exists( 'Q2.4b', $data ) )
+				if( array_key_exists( 'PopulationRemarks', $data ) )
 				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.4b' );
-					$sub[ $tag ] = (int) $data[ 'Q2.4b' ];
-				}
-				
-				//
-				// Objectives of species production.
-				//
-				if( array_key_exists( 'Q2.5', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q3' );
-					$sub[ $tag ] = 'abdh:Q3:'.$data[ 'Q2.5' ];
-				}
-				
-				//
-				// Contribution to consumption.
-				//
-				if( array_key_exists( 'Q2.6', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.6' );
-					$sub[ $tag ] = 'abdh:Q2.6:'.$data[ 'Q2.6' ];
-				}
-				
-				//
-				// Contribution to income.
-				//
-				if( array_key_exists( 'Q2.7', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.7' );
-					$sub[ $tag ] = 'abdh:Q2.7:'.$data[ 'Q2.7' ];
-				}
-				
-				//
-				// Plant parts used.
-				//
-				$tmp = Array();
-				if( array_key_exists( 'Q2.8a', $data ) )
-				{
-					$val = 'abdh:Q4a:'.$data[ 'Q2.8a' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.8b', $data ) )
-				{
-					$val = 'abdh:Q4a:'.$data[ 'Q2.8b' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.8c', $data ) )
-				{
-					$val = 'abdh:Q4a:'.$data[ 'Q2.8c' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.8d', $data ) )
-				{
-					$val = 'abdh:Q4a:'.$data[ 'Q2.8d' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.8e', $data ) )
-				{
-					$val = 'abdh:Q4a:'.$data[ 'Q2.8e' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( count( $tmp ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q4a' );
-					$sub[ $tag ] = $tmp;
-				}
-				// No data for abdh:Q4b.
-				
-				//
-				// Plant specific used.
-				//
-				$tmp = Array();
-				if( array_key_exists( 'Q2.9a', $data ) )
-				{
-					$val = 'abdh:Q5a:'.$data[ 'Q2.9a' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.9b', $data ) )
-				{
-					$val = 'abdh:Q5a:'.$data[ 'Q2.9b' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.9c', $data ) )
-				{
-					$val = 'abdh:Q5a:'.$data[ 'Q2.9c' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.9d', $data ) )
-				{
-					$val = 'abdh:Q5a:'.$data[ 'Q2.9d' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.9e', $data ) )
-				{
-					$val = 'abdh:Q5a:'.$data[ 'Q2.9e' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( count( $tmp ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q5a' );
-					$sub[ $tag ] = $tmp;
-				}
-				// No data for abdh:Q4b.
-				
-				//
-				// Source of seed.
-				//
-				if( array_key_exists( 'Q2.10', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.10' );
-					$sub[ $tag ] = 'abdh:Q2.10:'.$data[ 'Q2.10' ];
-				}
-				
-				//
-				// Seed obtained by who.
-				//
-				$tmp = Array();
-				if( array_key_exists( 'Q2.11a', $data ) )
-				{
-					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11a' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.11b', $data ) )
-				{
-					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11b' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.11c', $data ) )
-				{
-					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11c' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.11d', $data ) )
-				{
-					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11d' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.11e', $data ) )
-				{
-					$val = 'abdh:Q2.11a:'.$data[ 'Q2.11e' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( count( $tmp ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.11a' );
-					$sub[ $tag ] = $tmp;
-				}
-				// No data for abdh:11b.
-				
-				//
-				// Source of seed outside of farm.
-				//
-				if( array_key_exists( 'Q2.12', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.12' );
-					$sub[ $tag ] = 'abdh:Q2.12:'.$data[ 'Q2.12' ];
-				}
-				
-				//
-				// Seed transactions.
-				//
-				$tmp = Array();
-				if( array_key_exists( 'Q2.13a', $data ) )
-				{
-					$val = 'abdh:Q6a:'.$data[ 'Q2.13a' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.13b', $data ) )
-				{
-					$val = 'abdh:Q6a:'.$data[ 'Q2.13b' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.13c', $data ) )
-				{
-					$val = 'abdh:Q6a:'.$data[ 'Q2.13c' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.13d', $data ) )
-				{
-					$val = 'abdh:Q6a:'.$data[ 'Q2.13d' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( array_key_exists( 'Q2.13e', $data ) )
-				{
-					$val = 'abdh:Q6a:'.$data[ 'Q2.13e' ];
-					if( ! in_array( $val, $tmp ) )
-						$tmp[] = $val;
-				}
-				if( count( $tmp ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q6a' );
-					$sub[ $tag ] = $tmp;
-				}
-				// No data for abdh:Q6b.
-				
-				//
-				// Seed to other farmers.
-				//
-				if( array_key_exists( 'Q2.14', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.14' );
-					$sub[ $tag ] = 'abdh:Q2.14:'.$data[ 'Q2.14' ];
-				}
-				
-				//
-				// Seed renewal.
-				//
-				if( array_key_exists( 'Q2.15a', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.15a' );
-					$sub[ $tag ] = 'abdh:Q2.15a:'.$data[ 'Q2.15a' ];
-				}
-				// No data for abdh:Q2.15b.
-				
-				//
-				// Varieties planted.
-				//
-				if( array_key_exists( 'Q2.16', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.16' );
-					$sub[ $tag ] = (int) $data[ 'Q2.16' ];
-				}
-				
-				//
-				// Varieties desi.
-				//
-				if( array_key_exists( 'Q2.17', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.17' );
-					$sub[ $tag ] = (int) $data[ 'Q2.17' ];
-				}
-				
-				//
-				// Varieties hybrid.
-				//
-				if( array_key_exists( 'Q2.18', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.18' );
-					$sub[ $tag ] = (int) $data[ 'Q2.18' ];
-				}
-				
-				//
-				// Want other varieties.
-				//
-				if( array_key_exists( 'Q2.19', $data ) )
-				{
-					$tag = (string) $theWrapper->getSerial( 'abdh:Q2.19' );
-					$sub[ $tag ] = 'abdh:Q2.19:'.$data[ 'Q2.19' ];
+					$tag = (string) $theWrapper->getSerial( 'fcu:population:remarks' );
+					$sub[ $tag ] = $data[ 'PopulationRemarks' ];
 				}
 		
 				//
@@ -1236,8 +744,8 @@ finally
 			// Read next.
 			//
 			$start += $limit;
-			$rs = $theDatabase->execute( "SELECT * FROM `Annual_Plants` "
-										."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+			$rs = $theDatabase->execute( "SELECT * FROM `fcu_species` "
+										."WHERE( `UnitID` = '$theUnit' ) "
 										."LIMIT $start,$limit" );
 	
 		} // Records left.
@@ -1248,6 +756,6 @@ finally
 		if( $rs instanceof ADORecordSet )
 			$rs->Close();
 
-	} // loadSpeciesAnnual.
+	} // loadSpecies.
 
 ?>

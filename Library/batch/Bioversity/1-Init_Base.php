@@ -198,6 +198,11 @@ try
 	$wrapper->loadABDHStandards( TRUE );
 	
 	//
+	// Load collections.
+	//
+	$wrapper->loadCollections( TRUE );
+	
+	//
 	// Reset units.
 	//
 	$wrapper->resetUnits( TRUE );

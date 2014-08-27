@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	FOREST GENE CONSERVATION UNITS FORM
-	Form.xml
+	FormForest.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Forest gene conservation unit structure -->
+	<!-- Forest gene conservation unit form -->
 	
-	<!-- fcu -->
+	<!-- :domain:forest -->
 	<META>
-		<NODE term="fcu" pid="form:fcu">
+		<NODE term=":domain:forest" pid="form::domain:forest">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>
@@ -38,7 +38,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:fcu</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
 		</EDGE>
 	
 		<!-- fcu:unit:number -->
@@ -103,7 +103,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_SUBJECT" node="pid">form:fcu</item>
+			<item const="kTAG_SUBJECT" node="pid">form::domain:forest</item>
 		</EDGE>
 		
 		<!-- fcu:population:number -->

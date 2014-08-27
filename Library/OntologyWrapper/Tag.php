@@ -492,6 +492,12 @@ class Tag extends MetadataObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set sequence identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_SEQUENCE => 1 ),

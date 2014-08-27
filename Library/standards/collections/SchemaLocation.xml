@@ -109,6 +109,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
+		<!-- Provided latitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:latitude:provided</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- Decimal latitude -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
@@ -142,6 +148,12 @@
 		<!-- Latitude uncertainty -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:latitude:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- Provided longitude -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:longitude:provided</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
@@ -184,6 +196,30 @@
 		<!-- :location:error -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:error</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-date -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-date</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-contact -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-contact</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-notes -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-notes</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

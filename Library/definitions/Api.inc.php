@@ -978,9 +978,9 @@ define( "kAPI_OP_GET_NODE_FORM",				'getNodeForm' );
  *	<li><tt>{@link kAPI_PARAM_SUMMARY}</tt>: <em>Summary selection</em>. This parameter
  *		should be provided if you reach this query from a summary page with more than one
  *		element (including the default domain property), it is structured as an array in
- *		which the elements key represents the offset and the elements value the match
- *		value. <em>Note that you should not provide the domain leaf element in this
- *		parameter, the domain value should be instead provided in the
+ *		which each element is an array of one item with its key represents the offset and
+ *		its value the match value. <em>Note that you should not provide the domain leaf
+ *		element in this parameter, the domain value should be instead provided in the
  *		{@link kAPI_PARAM_DOMAIN} parameter.</em> This parameter will be ignored if the
  *		{@link kAPI_PARAM_GROUP} parameter was provided.
  *	<li><tt>{@link kAPI_PARAM_SHAPE}</tt>: <em>Geographic shape</em>. If this parameter is

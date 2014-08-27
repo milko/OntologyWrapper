@@ -438,6 +438,12 @@ class Edge extends MetadataObject
 		$collection = parent::CreateIndexes( $theDatabase );
 		
 		//
+		// Set offsets.
+		//
+		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
+								  array( "name" => "OFFSETS" ) );
+		
+		//
 		// Set graph node identifier index.
 		//
 		$collection->createIndex( array( kTAG_ID_GRAPH => 1 ),

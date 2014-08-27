@@ -175,5 +175,23 @@
 			<item const="kTAG_SUBJECT" node="tag">:location:error</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
+	
+		<!-- :location:georeference-date -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-date</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-contact -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-contact</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- :location:georeference-source -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-source</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
 	</META>
 </METADATA>

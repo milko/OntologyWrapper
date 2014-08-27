@@ -396,16 +396,16 @@ finally
 	/**
 	 * Load respondent data.
 	 *
-	 * This function will load the respondent data identifier by the household identifier
-	 * provided in the <b>$theHousehold</b> parameter into the container provided in the
+	 * This function will load the respondent data identified by the household identifier
+	 * provided in the <b>$theUnit</b> parameter into the container provided in the
 	 * <b>$theContainer</b> parameter.
 	 *
 	 * @param array					$theContainer		Container.
-	 * @param string				$theHousehold		Household identifier.
+	 * @param string				$theUnit			Unit identifier.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadRespondent( &$theContainer, $theHousehold, $theWrapper, $theDatabase )
+	function loadRespondent( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
 		//
 		// Init local storage.
@@ -417,7 +417,7 @@ finally
 		// Select respondents.
 		//
 		$rs = $theDatabase->execute( "SELECT * FROM `Respondent_Information` "
-									."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+									."WHERE( `ID_HOUSEHOLD` = '$theUnit' ) "
 									."LIMIT $start,$limit" );
 		while( $rs->RecordCount() )
 		{
@@ -667,7 +667,7 @@ finally
 			//
 			$start += $limit;
 			$rs = $theDatabase->execute( "SELECT * FROM `Respondent_Information` "
-										."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+										."WHERE( `ID_HOUSEHOLD` = '$theUnit' ) "
 										."LIMIT $start,$limit" );
 	
 		} // Records left.
@@ -685,18 +685,18 @@ finally
 	 * Load annual species data.
 	 *
 	 * This function will load the annual species data identifier by the household
-	 * identifier provided in the <b>$theHousehold</b> parameter into the container provided
+	 * identifier provided in the <b>$theUnit</b> parameter into the container provided
 	 * in the <b>$theContainer</b> parameter.
 	 *
 	 * Each species record will be loaded as an element of the provided container, this
 	 * means that all different types of species will be treated at the same level.
 	 *
 	 * @param array					$theContainer		Container.
-	 * @param string				$theHousehold		Household identifier.
+	 * @param string				$theUnit			Unit identifier.
 	 * @param Wrapper				$theWrapper			Data wrapper.
 	 * @param ADOConnection			$theDatabase		SQL connection.
 	 */
-	function loadSpeciesAnnual( &$theContainer, $theHousehold, $theWrapper, $theDatabase )
+	function loadSpeciesAnnual( &$theContainer, $theUnit, $theWrapper, $theDatabase )
 	{
 		//
 		// Init local storage.
@@ -708,7 +708,7 @@ finally
 		// Select respondents.
 		//
 		$rs = $theDatabase->execute( "SELECT * FROM `Annual_Plants` "
-									."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+									."WHERE( `ID_HOUSEHOLD` = '$theUnit' ) "
 									."LIMIT $start,$limit" );
 		while( $rs->RecordCount() )
 		{
@@ -1181,7 +1181,7 @@ finally
 			//
 			$start += $limit;
 			$rs = $theDatabase->execute( "SELECT * FROM `Annual_Plants` "
-										."WHERE( `ID_HOUSEHOLD` = '$theHousehold' ) "
+										."WHERE( `ID_HOUSEHOLD` = '$theUnit' ) "
 										."LIMIT $start,$limit" );
 	
 		} // Records left.

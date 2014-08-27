@@ -53,7 +53,7 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Geographic and administrative location.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Geographic and administrative location information.]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -69,7 +69,23 @@
 			<item const="kTAG_DEFINITION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Invormation regarding institutions and inventories.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding institutions and inventories.]]></item>
+				</item>
+			</item>
+		</TERM>
+
+		<!-- Germplasm -->
+		<TERM ns="" lid="germplasm">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Germplasm</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding germplasm.]]></item>
 				</item>
 			</item>
 		</TERM>

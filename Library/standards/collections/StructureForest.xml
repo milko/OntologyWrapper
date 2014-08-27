@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	FOREST GENE CONSERVATION UNITS STRUCTURE
-	Structure.xml
+	StructureForest.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +9,9 @@
 	
 	<!-- Forest gene conservation unit structure -->
 	
-	<!-- fcu -->
+	<!-- :domain:forest -->
 	<META>
-		<NODE term="fcu" pid="struct:fcu">
+		<NODE term=":domain:forest" pid="struct::domain:forest">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:struct</item>
@@ -38,64 +38,16 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- :location:country -->
+		<!-- schema::location -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::location</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
-		
-		<!-- :location:admin-1 -->
+	
+		<!-- :environment -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-2 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:admin-3 -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:locality -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:elevation:min -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:elevation:max -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:max</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:datum -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:datum</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:latitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-		</EDGE>
-		
-		<!-- :location:longitude -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
 		<!-- fcu:unit:area -->
@@ -156,25 +108,10 @@
 	<!-- Unit populations schema -->
 		
 	<META>
-		<!-- :taxon:genus -->
+		<!-- schema::taxon -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:genus</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
-		</EDGE>
-		
-		<!-- :taxon:species -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:species</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
-		</EDGE>
-		
-		<!-- :taxon:epithet -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:taxon:epithet</item>
-			<item const="kTAG_PREDICATE">:predicate:SUBCLASS-OF</item>
-			<item const="kTAG_OBJECT" node="tag">fcu:population</item>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 		</EDGE>
 		
 		<!-- fcu:population:number -->

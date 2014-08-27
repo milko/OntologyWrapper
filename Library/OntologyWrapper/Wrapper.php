@@ -692,10 +692,6 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/default/Categories.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
 		$file = kPATH_STANDARDS_ROOT.'/default/Attributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
@@ -1866,10 +1862,6 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/mcpd/Attributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/mcpd/Form.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
 	
 	} // loadMCPDStandards.
 
@@ -1916,14 +1908,6 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 
 		$file = kPATH_STANDARDS_ROOT.'/fcu/Attributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Structure.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-
-		$file = kPATH_STANDARDS_ROOT.'/fcu/Form.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
@@ -1994,50 +1978,6 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		$file = kPATH_STANDARDS_ROOT.'/cwr/SiteAttributes.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load structure XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading CWR structure files.\n" );
-
-		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureSite.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/StructurePopulation.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureInventory.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/StructureChecklist.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load form XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading CWR form files.\n" );
-
-		$file = kPATH_STANDARDS_ROOT.'/cwr/FormChecklist.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/FormInventory.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/FormPopulation.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		$file = kPATH_STANDARDS_ROOT.'/cwr/FormSite.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
@@ -2134,26 +2074,6 @@ class Wrapper extends Dictionary
 		$file = kPATH_STANDARDS_ROOT.'/abdh/RiskAttributes.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
-		
-		//
-		// Load structure XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading ABDH structure files.\n" );
-
-		$file = kPATH_STANDARDS_ROOT.'/abdh/Structure.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
-		
-		//
-		// Load form XML files.
-		//
-		if( $doLog )
-			echo( "  • Loading ABDH form files.\n" );
-
-		$file = kPATH_STANDARDS_ROOT.'/abdh/Form.xml';
-		if( $doLog ) echo( "    - $file\n" );
-		$this->loadXMLFile( $file );
 	
 	} // loadABDHStandards.
 
@@ -2204,6 +2124,16 @@ class Wrapper extends Dictionary
 		$this->loadXMLFile( $file );
 		
 		//
+		// Load XML catogory files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML category files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/standard/Categories.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
 		// Load XML attribute files.
 		//
 		if( $doLog )
@@ -2249,21 +2179,114 @@ class Wrapper extends Dictionary
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
+		$file = kPATH_STANDARDS_ROOT.'/standard/GermplasmAttributes.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+	
+	} // loadStandards.
+
+	 
+	/*===================================================================================
+	 *	loadCollections																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load collections
+	 *
+	 * This method can be used to load the standards collection elements in the metadata
+	 * database, it will load the collection XML files.
+	 *
+	 * Note that this method expects other standards to have been loaded, so it must be
+	 * called as the last element.
+	 *
+	 * @param boolean				$doLog				Log operations.
+	 *
+	 * @access public
+	 * @return array				Statistics.
+	 *
+	 * @throws Exception
+	 */
+	public function loadCollections( $doLog = FALSE )
+	{
 		//
-		// Load XML structure files.
+		// Inform.
 		//
 		if( $doLog )
-			echo( "  • Loading XML structure files.\n" );
+			echo( "\n==> Loading collections.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/CrossabilityStruct.xml';
+		//
+		// Check if object is connected.
+		//
+		if( ! $this->isConnected() )
+			throw new \Exception(
+				"Unable to load collections: "
+			   ."object is not connected." );									// !@! ==>
+		
+		//
+		// Load XML common form files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML common form files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormInventory.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/ConservationStruct.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormLocation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/ThreatStruct.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormEnvironment.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormTaxon.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormThreat.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormConservation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCrossability.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		//
+		// Load XML specific form files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML specific form files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormAccession.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrPopulation.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormCwrSite.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormForest.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/FormHousehold.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
@@ -2273,65 +2296,87 @@ class Wrapper extends Dictionary
 		if( $doLog )
 			echo( "  • Loading XML schema files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaClimatic.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTaxon.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaLocation.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaLocation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaPrecipitation.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaClimatic.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTaxon.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaPrecipitation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaTemperature.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaTemperature.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/SchemaEnvironment.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/SchemaInventory.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
 		//
-		// Load XML form files.
+		// Load XML sub-structure files.
 		//
 		if( $doLog )
-			echo( "  • Loading XML form files.\n" );
+			echo( "  • Loading XML sub-structure files.\n" );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormCrossability.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructEnvironment.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormConservation.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCrossability.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormInventory.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructConservation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormLocation.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructThreat.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormTaxon.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCwrSite.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormThreat.xml';
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructCwrPopulation.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 		
-		$file = kPATH_STANDARDS_ROOT.'/standard/FormEnvironment.xml';
+		//
+		// Load XML specific structure files.
+		//
+		if( $doLog )
+			echo( "  • Loading XML specific structure files.\n" );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureAccession.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrChecklist.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureCwrInventory.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureForest.xml';
+		if( $doLog ) echo( "    - $file\n" );
+		$this->loadXMLFile( $file );
+		
+		$file = kPATH_STANDARDS_ROOT.'/collections/StructureHousehold.xml';
 		if( $doLog ) echo( "    - $file\n" );
 		$this->loadXMLFile( $file );
 	
-	} // loadStandards.
+	} // loadCollections.
 
 	 
 	/*===================================================================================

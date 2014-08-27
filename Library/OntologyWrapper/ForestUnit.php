@@ -400,6 +400,73 @@ class ForestUnit extends UnitObject
 		//
 		if( $this->offsetExists( kTAG_GEO_SHAPE ) )
 		{
+			//
+			// Init local storage.
+			//
+			$range = $dist = NULL;
+			
+			//
+			// Handle elevation range.
+			//
+			if( $this->offsetExists( ':location:elevation:min' )
+			 && $this->offsetExists( ':location:elevation:max' ) )
+			{
+				//
+				// Reorder range.
+				//
+				$min = $this->offsetGet( ':location:elevation:min' );
+				$max = $this->offsetGet( ':location:elevation:max' );
+				if( $min > $max )
+				{
+					$this->offsetSet( ':location:elevation:min', $max );
+					$this->offsetSet( ':location:elevation:max', $min );
+					$tmp = $min;
+					$min = $max;
+					$max = $tmp;
+				}
+				
+				//
+				// Normalise range.
+				//
+				if( ($max - $min) < (kCLIMATE_DELTA_ELEV * 2) )
+				{
+					$tmp = (int) floor( ((kCLIMATE_DELTA_ELEV * 2) - ($max - $min)) / 2 );
+					$min -= $tmp;
+					$max += $tmp;
+				}
+				
+				//
+				// Set range.
+				//
+				$range = array( $min, $max );
+			
+			} // Has elevation range.
+			
+			//
+			// Handle distance range.
+			//
+			if( $this->offsetExists( 'fcu:unit:area' ) )
+			{
+				$dist = sqrt( $this->offsetGet( 'fcu:unit:area' ) * 10000 ) * 1.2;
+				if( $dist < kCLIMATE_MIN_DIST )
+					$dist = kCLIMATE_MIN_DIST;
+			}
+			elseif( $range !== NULL )
+				$dist = kCLIMATE_MIN_DIST;
+			
+			//
+			// Get climate data.
+			//
+			$climate = static::GetClimateData( $this->mDictionary,
+											   $this->offsetGet( kTAG_GEO_SHAPE ),
+											   $range,
+											   $dist );
+			
+			//
+			// Set climate data.
+			//
+			if( count( $climate ) )
+				$this->offsetSet( ':environment', $climate );
 		
 		} // Shape not yet set.
 	

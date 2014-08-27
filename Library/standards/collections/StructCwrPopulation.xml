@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	CROP WILD RELATIVE POPULATION FORM
-	FormPopulation.xml
+	CROP WILD RELATIVE POPULATION STRUCTURE
+	StructCwrPopulation.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Population form -->
+	<!-- Population structure -->
 	
 	<!-- cwr:pp -->
 	<META>
-		<NODE term="cwr:pp" pid="form:cwr:pp">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:root-node</item>
-				<item>:type:node:form</item>
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>cwr:pp</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
 			</item>
 			<item const="kTAG_DESCRIPTION">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This form contains all common crop wild relative population search fields.]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Population attributes.]]></item>
 				</item>
+			</item>
+		</TAG>
+		<NODE tag="cwr:pp">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	
@@ -51,6 +59,12 @@
 		<!-- cwr:pp:MONINT -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:pp:MONINT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:names -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:names</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -108,9 +122,27 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :taxon:threat:period -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat:period</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- cwr:pp:EXSECURE -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">cwr:pp:EXSECURE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:DUPLSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:DUPLSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
@@ -120,9 +152,27 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- cwr:pp:INSTADDRESSDESCR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp:INSTADDRESSDESCR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- mcpd:ACCEURL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCEURL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- mcpd:MLSSTAT -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:MLSSTAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:st -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:st</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

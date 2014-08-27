@@ -1650,12 +1650,6 @@ abstract class PersistentObject extends OntologyObject
 								  array( "name" => "TAGS" ) );
 		
 		//
-		// Set offsets.
-		//
-		$collection->createIndex( array( kTAG_OBJECT_OFFSETS => 1 ),
-								  array( "name" => "OFFSETS" ) );
-		
-		//
 		// Set reference counts.
 		//
 		$collection->createIndex( array( kTAG_TAG_COUNT => 1 ),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	CROP WILD RELATIVE INVENTORY FORM
-	FormInventory.xml
+	FormCwrInventory.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,9 +9,9 @@
 	
 	<!-- Inventory form -->
 	
-	<!-- cwr:in -->
+	<!-- :domain:cwr-inventory -->
 	<META>
-		<NODE term="cwr:in" pid="form:cwr:in">
+		<NODE term=":domain:cwr-inventory" pid="form::domain:cwr-inventory">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:root-node</item>
 				<item>:type:node:form</item>

@@ -1370,13 +1370,21 @@ class Service extends ContainerObject
 					$this->offsetUnset( kAPI_PARAM_SUMMARY );
 				else
 				{
-					foreach( $tmp as $offset => $value )
+					foreach( $tmp as $item )
 					{
-						$element
-							= $this->buildCriteria(
-								$offset, $value, array( $offset ) );
-						$offsets = explode( '.', $offset );
-						$criteria[ $offsets[ count( $offsets ) - 1 ] ] = $element;
+						if( ! is_array( $item ) )
+							throw new \Exception(
+								"Invalid summaries list, "
+							   ."expecting an array of arrays." );				// !@! ==>
+						
+						foreach( $item as $offset => $value )
+						{
+							$element
+								= $this->buildCriteria(
+									$offset, $value, array( $offset ) );
+							$offsets = explode( '.', $offset );
+							$criteria[ $offsets[ count( $offsets ) - 1 ] ] = $element;
+						}
 					}
 				}
 			}

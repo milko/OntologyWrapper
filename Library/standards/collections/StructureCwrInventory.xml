@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CROP WILD RELATIVE INVENTORY STRUCTURE
+	StructureCwrInventory.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Inventory structure -->
+	
+	<!-- :domain:cwr-inventory -->
+	<META>
+		<NODE term=":domain:cwr-inventory" pid="struct::domain:cwr-inventory">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:root-node</item>
+				<item>:type:node:struct</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[This structure contains all default properties of a crop wild relative inventory.]]></item>
+				</item>
+			</item>
+		</NODE>
+	
+		<!-- cwr:in:NIENUMB -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:NIENUMB</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::inventory -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::inventory</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+	
+		<!-- cwr:in:CRITPRIORI -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:CRITPRIORI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
+		<!-- cwr:in:METHCRITPRIORI -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:in:METHCRITPRIORI</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- schema::taxon -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="pid">schema::taxon</item>
+			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:cross -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:cross</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:conservation -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:conservation</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :taxon:threat -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:taxon:threat</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- cwr:pp -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">cwr:pp</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>
