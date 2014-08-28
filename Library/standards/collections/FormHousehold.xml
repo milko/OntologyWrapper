@@ -805,14 +805,6 @@
 	
     <!-- abdh:economy:family -->
 	<META>
-		<TERM ns="abdh:economy" lid="family">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Family size]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:family" pid="form:abdh:economy:family">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -915,14 +907,6 @@
 	
     <!-- abdh:economy:land -->
 	<META>
-		<TERM ns="abdh:economy" lid="land">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Land owned and cultivated]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:land" pid="form:abdh:economy:land">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -1067,14 +1051,6 @@
 	
     <!-- abdh:economy:land-other -->
 	<META>
-		<TERM ns="abdh:economy" lid="land-other">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Other owned land, land use/land cover]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:land-other" pid="form:abdh:economy:land-other">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -1201,14 +1177,6 @@
 	
     <!-- abdh:economy:water -->
 	<META>
-		<TERM ns="abdh:economy" lid="water">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Acess, quality, quantity, and management of water resources]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:water" pid="form:abdh:economy:water">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -1353,14 +1321,6 @@
 	
     <!-- abdh:economy:housing -->
 	<META>
-		<TERM ns="abdh:economy" lid="housing">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Housing]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:housing" pid="form:abdh:economy:housing">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -1433,14 +1393,6 @@
 	
     <!-- abdh:economy:ownership -->
 	<META>
-		<TERM ns="abdh:economy" lid="ownership">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Ownership of consumer goods]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:ownership" pid="form:abdh:economy:ownership">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -1591,14 +1543,6 @@
 	
     <!-- abdh:economy:income -->
 	<META>
-		<TERM ns="abdh:economy" lid="income">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Sources of income]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:economy:income" pid="form:abdh:economy:income">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -2049,14 +1993,6 @@
 	
 	<!-- abdh:social:status -->
 	<META>
-		<TERM ns="abdh:social" lid="status">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Social status]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:social:status" pid="form:abdh:social:status">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -2129,14 +2065,6 @@
 	
 	<!-- abdh:social:networking -->
 	<META>
-		<TERM ns="abdh:social" lid="networking">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Social networking]]></item>
-				</item>
-			</item>
-		</TERM>
 		<NODE term="abdh:social:networking" pid="form:abdh:social:networking">
 			<item const="kTAG_DESCRIPTION">
 				<item>
@@ -2263,32 +2191,6 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 			<item const="kTAG_OBJECT" node="pid">form::domain:hh-assessment</item>
 		</EDGE>
-	</META>
-	
-	<!-- Household food security -->
-	
-	<!-- abdh:risk:food -->
-	<META>
-		<TERM ns="abdh:risk" lid="food">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Food security]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE term="abdh:risk:food" pid="form:abdh:risk:food">
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Food security information search fields]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form:abdh:risk</item>
-		</EDGE>
 	
 		<!-- abdh:Q7.1 -->
 		<EDGE>
@@ -2336,32 +2238,6 @@
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.8</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-	</META>
-	
-	<!-- Household risk attitudes -->
-	
-	<!-- abdh:risk:attitudes -->
-	<META>
-		<TERM ns="abdh:risk" lid="attitudes">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Risk attitudes]]></item>
-				</item>
-			</item>
-		</TERM>
-		<NODE term="abdh:risk:attitudes" pid="form:abdh:risk:attitudes">
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Risk attitudes information search fields]]></item>
-				</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="pid">form:abdh:risk</item>
 		</EDGE>
 	
 		<!-- abdh:Q8.1 -->

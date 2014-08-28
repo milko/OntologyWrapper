@@ -1,95 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	LOCATION SCHEMA
-	SchemaLocation.xml
+	ABD HOUSEHOLD RESPONDENT STRUCTURE
+	StructHouseholdInterview.xml
 -->
 <METADATA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- SCHEMA -->
+	<!-- Household interview information -->
 	
-	<!-- :location -->
 	<META>
-		<NODE term=":location" pid="schema::location">
-			<item const="kTAG_NODE_TYPE">
-				<item>:type:node:schema</item>
+		<!-- abdh:interview -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:interview</item>
 			</item>
-			<item const="kTAG_DESCRIPTION">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[This schema contains all standard common properties describing location properties of an object.]]></item>
-				</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>
+		</TAG>
+		<NODE tag="abdh:interview">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
 			</item>
 		</NODE>
 	
-		<!-- Enumerated administrative units -->
-		
-		<!-- Continent -->
+		<!-- abdh:ID_ENUMERATOR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:continent</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ID_ENUMERATOR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- Country -->
+
+		<!-- abdh:ENUMERATOR -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:ENUMERATOR</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- Administrative unit -->
+
+		<!-- abdh:NOM_HHH -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NOM_HHH</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-	
-		<!-- Administrative unit names -->
-		
-		<!-- Primary administrative unit -->
+
+		<!-- abdh:GENDER_HHH -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GENDER_HHH</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- Secondary administrative unit -->
+
+		<!-- abdh:EDUC_HHH -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-2</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:EDUC_HHH</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- Lowest administrative unit -->
+
+		<!-- abdh:EDUC_HHH_NOTES -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:admin-3</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:EDUC_HHH_NOTES</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
-		
-		<!-- Locality -->
+
+		<!-- abdh:AGE_HHH -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:locality</item>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGE_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARIT_STAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARIT_STAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_STAT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_STAT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_EDUC -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_EDUC</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPOUSE_EDUC_NOTES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_EDUC_NOTES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REL_RESP_HHH -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REL_RESP_HHH</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:DATE_INT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DATE_INT</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
 		<!-- Elevation -->
 		
-		<!-- Elevation -->
+		<!-- :location:elevation -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:elevation</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
-		<!-- Minimum elevation -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:min</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Maximum elevation -->
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation:max</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-		</EDGE>
-		
-		<!-- Elevation uncertainty -->
+		<!-- :location:elevation:error -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:elevation:error</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
@@ -231,11 +255,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- Usage -->
-	
-		<!-- Coordinates restricted -->
+		<!-- :environment -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:restricted</item>
+			<item const="kTAG_SUBJECT" node="tag">:environment</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	</META>

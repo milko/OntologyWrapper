@@ -49,11 +49,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q4.1</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q4.1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:species</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q4.1:1 -->
 	<META>

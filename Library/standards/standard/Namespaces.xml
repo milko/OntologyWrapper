@@ -89,5 +89,21 @@
 				</item>
 			</item>
 		</TERM>
+
+		<!-- Collecting -->
+		<TERM ns="" lid="collecting">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT">Collecting</item>
+				</item>
+			</item>
+			<item const="kTAG_DEFINITION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Information regarding samples collecting.]]></item>
+				</item>
+			</item>
+		</TERM>
 	</META>
 </METADATA>

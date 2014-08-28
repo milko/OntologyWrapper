@@ -188,6 +188,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
+		<!-- :location:georeference-method -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:georeference-method</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- :location:georeference-source -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:georeference-source</item>

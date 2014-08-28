@@ -19,21 +19,6 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:market</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
-		</TAG>
-		<NODE tag="abdh:market">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 	</META>
 	
 	<!-- Market integration attributes -->
@@ -67,10 +52,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:MARKET_FOOD -->
@@ -112,11 +93,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:MARKET_FOOD</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_FOOD</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_FOOD</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
 		</EDGE>
 	</META>
 	<!-- abdh:MARKET_FOOD:1 -->
@@ -220,11 +196,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_GROCERIES</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_GROCERIES</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	<!-- abdh:MARKET_GROCERIES:1 -->
 	<META>
@@ -326,11 +297,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:MARKET_AG_PRODUCTS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_AG_PRODUCTS</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_AG_PRODUCTS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
 		</EDGE>
 	</META>
 	<!-- abdh:MARKET_AG_PRODUCTS:1 -->
@@ -434,11 +400,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_AG_INPUTS</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_AG_INPUTS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	<!-- abdh:MARKET_AG_INPUTS:1 -->
 	<META>
@@ -540,11 +501,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:MARKET_ANIMALS</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARKET_ANIMALS</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_ANIMALS</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
 		</EDGE>
 	</META>
 	<!-- abdh:MARKET_ANIMALS:1 -->
@@ -663,10 +619,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:MARKET_OTHERSa -->
@@ -814,10 +766,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:DIST_MARKET -->
@@ -853,10 +801,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:TIME_MARKET -->
@@ -892,10 +836,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:FREQUENCY -->
@@ -931,9 +871,5 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:market</item>
-		</EDGE>
 	</META>
 </METADATA>

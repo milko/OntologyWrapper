@@ -129,6 +129,15 @@ define( "kDOMAIN_ACCESSION",					':domain:accession' );
 define( "kDOMAIN_TRIAL",						':domain:trial' );
 
 /**
+ * Collecting.
+ *
+ * A collecting event.
+ *
+ * This represents the collecting of samples in the field.
+ */
+define( "kDOMAIN_COLLECTING",					':domain:collecting' );
+
+/**
  * Forest unit.
  *
  * A forest gene conservation unit.

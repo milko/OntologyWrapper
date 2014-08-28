@@ -1,0 +1,1133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ABD SOCIO-ECONOMIC DATA ATTRIBUTES
+	StructHouseholdEconomy.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Household socio-economic information -->
+	
+	<META>
+		<!-- abdh:economy -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE>
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	</META>
+	
+	<!-- Family size -->
+	
+	<META>
+		<!-- abdh:economy:family -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:family</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:family">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:M_6MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_6MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_6_59MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_6_59MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_5_6YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_5_6YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_7_9YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_7_9YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_10_15YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_10_15YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_16_60YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_16_60YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:M_60MORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:M_60MORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_6MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_6MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_6_59MONTHS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_6_59MONTHS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_5_6YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_5_6YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_7_9YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_7_9YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_10_15YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_10_15YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_16_60YEARS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_16_60YEARS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:F_60MORE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:F_60MORE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Land owned and cultivated -->
+	
+	<META>
+		<!-- abdh:economy:land -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:land</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:land">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:HUSB_OWN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_OWN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_SH_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_SH_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_SH_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_SH_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_RENT_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_RENT_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_RENT_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_RENT_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TOT_CULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TOT_CULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TOT_CULT1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TOT_CULT1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_OWN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_OWN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_SH_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_SH_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_SH_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_SH_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_RENT_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_RENT_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_RENT_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_RENT_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TOT_CULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TOT_CULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TOT_CULT1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TOT_CULT1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_OWN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_OWN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_SH_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_SH_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_SH_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_SH_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_RENT_IN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_RENT_IN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_RENT_OUT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_RENT_OUT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TOT_CULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TOT_CULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TOT_CULT1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TOT_CULT1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Other owned land, land use/land cover -->
+	
+	<META>
+		<!-- abdh:economy:land-other -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:land-other</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:land-other">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:HUSB_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:HUSB_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:HUSB_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:SPO_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:SPO_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_FAL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_FAL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_WASTE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_WASTE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_GRAZING -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_GRAZING</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TREE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TREE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:JOINT_TOT_UNCULT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:JOINT_TOT_UNCULT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Acess, quality, quantity, and management of water resources -->
+
+	<META>
+		<!-- abdh:economy:water -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:water</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:water">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:CAN_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CAN_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CAN_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CAN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OWELL_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BWELL_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BWELL_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:KHADIN_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:KHADIN_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TAANKA_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TAANKA_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NAADI_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAADI_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_PRIV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_PRIV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_COM -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_COM</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:GLR_WHO -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:GLR_WHO</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Housing -->
+	
+	<META>
+		<!-- abdh:economy:housing -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:housing</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:housing">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:Q6.1a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.1a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.1b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.1b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.2a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.2a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.2b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.2b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.3a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.3a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.3b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.3b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.4 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.4</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.5a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.5a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.5b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.5b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Ownership of consumer goods -->
+	
+	<META>
+		<!-- abdh:economy:ownership -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:ownership</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:ownership">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:Q6.6a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.6a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.6b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.6b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.7a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.7a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.7b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.7b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.8a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.8a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.8b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.8b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.9a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.9a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.9b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.9b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.10a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.10a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.10b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.10b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.11a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.11a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.11b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.11b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.12a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.12a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.12b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.12b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.13a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.13a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.13b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.13b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.14a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.14a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.14b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.14b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.15a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.15a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.15b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.15b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.16a -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.16a</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q6.16b -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.16b</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+	
+	<!-- Household sources of income -->
+	
+	<META>
+	    <!-- abdh:economy:income -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:economy:income</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:economy:income">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+		<EDGE>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+			<item const="kTAG_OBJECT" node="tag">abdh:economy</item>
+		</EDGE>
+	
+		<!-- abdh:CROP_MAIN -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_MAIN_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_MAIN_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:CROP_RES_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:CROP_RES_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FEEDS_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FEEDS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCK_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCK_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:LIVESTOCKPROD_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:LIVESTOCKPROD_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:AGLABOR_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:NON_AGLABOR_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NON_AGLABOR_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REG_EMPL_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REG_EMPL_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:BUSS_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:BUSS_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:REMIT_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:REMIT_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_WHOEARNS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_WHOEARNS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_REV -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_REV</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_TIME -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_TIME</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:OTHER_TREND -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:OTHER_TREND</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

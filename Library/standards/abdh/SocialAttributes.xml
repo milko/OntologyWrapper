@@ -19,24 +19,21 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:social</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
-		</TAG>
-		<NODE tag="abdh:social">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 	</META>
 	
 	<!-- Social status -->
+	
+	<!-- abdh:social:status -->
+	<META>
+		<TERM ns="abdh:social" lid="status">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Social status]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 	
 	<!-- abdh:CASTE -->
 	<META>
@@ -76,11 +73,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:CASTE</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:CASTE</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:CASTE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:CASTE:0 -->
@@ -163,11 +155,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:SC</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:SC</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:SC:0 -->
 	<META>
@@ -248,11 +235,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:ST</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:ST</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:ST</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:ST:0 -->
@@ -335,11 +317,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:BC</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:BC</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:BC:0 -->
 	<META>
@@ -420,11 +397,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:OC</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:OC</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:OC</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:OC:0 -->
@@ -507,11 +479,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:COMM_ROLE</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:COMM_ROLE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:COMM_ROLE:0 -->
 	<META>
@@ -592,11 +559,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:LEAD_ROLE</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:LEAD_ROLE</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:LEAD_ROLE</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:LEAD_ROLE:0 -->
@@ -679,11 +641,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:SOC_ACTIV</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:SOC_ACTIV</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:SOC_ACTIV:0 -->
 	<META>
@@ -765,11 +722,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:ENV_ACTIV</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:ENV_ACTIV</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:ENV_ACTIV:0 -->
 	<META>
@@ -813,7 +765,19 @@
 	</META>
 	
 	<!-- Social networking -->
-		
+	
+	<!-- abdh:social:networking -->
+	<META>
+		<TERM ns="abdh:social" lid="networking">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Social networking]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
+	
 	<!-- abdh:Q6.18a -->
 	<META>
 		<TERM ns="abdh" lid="Q6.18a">
@@ -852,11 +816,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.18a</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.18a</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.18a:0 -->
@@ -939,11 +898,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.18b</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.18b:0 -->
 	<META>
@@ -1025,11 +979,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.18c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.18c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.18c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.18c:1 -->
@@ -1132,11 +1081,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.19a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.19a:0 -->
 	<META>
@@ -1217,11 +1161,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.19b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.19b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.19b:0 -->
@@ -1304,11 +1243,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.19c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.19c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.19c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.19c:1 -->
@@ -1411,11 +1345,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.20a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.20a:0 -->
 	<META>
@@ -1496,11 +1425,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.20b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.20b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.20b:0 -->
@@ -1583,11 +1507,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.20c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.20c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.20c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.20c:1 -->
@@ -1690,11 +1609,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.21a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.21a:0 -->
 	<META>
@@ -1775,11 +1689,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.21b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.21b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.21b:0 -->
@@ -1862,11 +1771,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.21c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.21c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.21c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.21c:1 -->
@@ -1969,11 +1873,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.22a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.22a:0 -->
 	<META>
@@ -2054,11 +1953,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.22b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.22b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.22b:0 -->
@@ -2141,11 +2035,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.22c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.22c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.22c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.22c:1 -->
@@ -2248,11 +2137,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.23a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.23a:0 -->
 	<META>
@@ -2333,11 +2217,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.23b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.23b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.23b:0 -->
@@ -2420,11 +2299,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.23c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.23c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.23c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.23c:1 -->
@@ -2527,11 +2401,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.24a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.24a:0 -->
 	<META>
@@ -2612,11 +2481,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.24b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.24b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.24b:0 -->
@@ -2699,11 +2563,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.24c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.24c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.24c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.24c:1 -->
@@ -2806,11 +2665,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.25a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.25a:0 -->
 	<META>
@@ -2891,11 +2745,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.25b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.25b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.25b:0 -->
@@ -2978,11 +2827,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.25c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.25c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.25c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.25c:1 -->
@@ -3085,11 +2929,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.26a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.26a:0 -->
 	<META>
@@ -3170,11 +3009,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.26b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.26b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.26b:0 -->
@@ -3257,11 +3091,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.26c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.26c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.26c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.26c:1 -->
@@ -3364,11 +3193,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.27a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.27a:0 -->
 	<META>
@@ -3449,11 +3273,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.27b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.27b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.27b:0 -->
@@ -3536,11 +3355,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.27c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.27c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.27c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.27c:1 -->
@@ -3643,11 +3457,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.28a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.28a:0 -->
 	<META>
@@ -3728,11 +3537,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.28b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.28b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.28b:0 -->
@@ -3815,11 +3619,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.28c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.28c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.28c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.28c:1 -->
@@ -3922,11 +3721,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.29a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.29a:0 -->
 	<META>
@@ -4007,11 +3801,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.29b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.29b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.29b:0 -->
@@ -4094,11 +3883,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.29c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.29c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.29c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.29c:1 -->
@@ -4201,11 +3985,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.30a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.30a:0 -->
 	<META>
@@ -4286,11 +4065,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.30b</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.30b</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30b</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.30b:0 -->
@@ -4373,11 +4147,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q6.30c</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.30c</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.30c</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q6.30c:1 -->
@@ -4480,11 +4249,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q6.31a</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q6.31a</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q6.31a:0 -->
 	<META>
@@ -4581,10 +4345,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:Q6.31aa -->
@@ -4844,10 +4604,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:social</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:PROGRa -->

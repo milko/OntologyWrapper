@@ -146,6 +146,12 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :inventory:DUPLSITE -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:inventory:DUPLSITE</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
 		<!-- mcpd:ACCENUMB -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">mcpd:ACCENUMB</item>

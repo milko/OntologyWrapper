@@ -7,7 +7,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
 	
-	<!-- Respondent identifier -->
+	<!-- Interview information -->
+	
+	<!-- abdh:interview -->
+	<META>
+		<TERM ns="abdh" lid="interview">
+			<item const="kTAG_LABEL">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[Interview information]]></item>
+				</item>
+			</item>
+		</TERM>
+	</META>
 	
 	<!-- abdh:ID_ENUMERATOR -->
 	<META>
@@ -38,46 +50,6 @@
 		</NODE>
 	</META>
 	
-	<!-- Interview information -->
-	
-	<!-- abdh:interview -->
-	<META>
-		<TERM ns="abdh" lid="interview">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Interview information]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:interview</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-			<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>
-		</TAG>
-		<NODE tag="abdh:interview">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-	</META>
-	
-	<!-- Respondent attributes -->
-	
-	<!-- abdh:ID_ENUMERATOR -->
-	<META>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:ID_ENUMERATOR</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
 	<!-- abdh:ENUMERATOR -->
 	<META>
 		<TERM ns="abdh" lid="ENUMERATOR">
@@ -106,10 +78,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:NOM_HHH -->
@@ -140,10 +108,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:GENDER_HHH -->
@@ -186,11 +150,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:GENDER_HHH</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:GENDER_HHH</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:GENDER_HHH</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 	</META>
 	<!-- abdh:GENDER_HHH:1 -->
@@ -267,10 +226,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:EDUC_HHH_NOTES -->
@@ -307,10 +262,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:AGE_HHH -->
@@ -346,10 +297,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:MARIT_STAT -->
@@ -391,11 +338,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:MARIT_STAT</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:MARIT_STAT</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:MARIT_STAT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 	</META>
 	<!-- abdh:MARIT_STAT:1 -->
@@ -499,11 +441,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:SPOUSE_STAT</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:SPOUSE_STAT</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	<!-- abdh:SPOUSE_STAT:1 -->
 	<META>
@@ -599,10 +536,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:SPOUSE_EDUC_NOTES -->
@@ -639,10 +572,6 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 	
 	<!-- abdh:REL_RESP_HHH -->
@@ -684,11 +613,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:REL_RESP_HHH</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:REL_RESP_HHH</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:REL_RESP_HHH</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
 		</EDGE>
 	</META>
 	<!-- abdh:REL_RESP_HHH:0 -->
@@ -879,102 +803,5 @@
 				<item>:kind:property-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
-	<!-- :location:latitude -->
-	<META>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:latitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
-	<!-- abdh:LAT -->
-	<META>
-		<TERM ns="abdh" lid="LAT">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Respondent latitude]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:LAT</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LAT</item>
-			</item>
-		</TAG>
-		<NODE tag="abdh:LAT">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
-	<!-- :location:longitude -->
-	<META>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:longitude</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
-	<!-- abdh:LONG -->
-	<META>
-		<TERM ns="abdh" lid="LONG">
-			<item const="kTAG_LABEL">
-				<item>
-					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Respondent longitude]]></item>
-				</item>
-			</item>
-		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:LONG</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:string</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:discrete</item>
-			</item>
-			<item const="kTAG_SYNONYM">
-				<item>LONG</item>
-			</item>
-		</TAG>
-		<NODE tag="abdh:LONG">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
-		<EDGE>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
-	</META>
-	
-	<!-- :location:elevation -->
-	<META>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:elevation</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:interview</item>
-		</EDGE>
 	</META>
 </METADATA>

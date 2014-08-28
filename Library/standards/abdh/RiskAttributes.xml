@@ -19,24 +19,9 @@
 				</item>
 			</item>
 		</TERM>
-		<TAG>
-			<item const="kTAG_TERMS">
-				<item>abdh:risk</item>
-			</item>
-			<item const="kTAG_DATA_TYPE">:type:struct</item>
-			<item const="kTAG_DATA_KIND">
-				<item>:type:list</item>
-			</item>
-		<!--	<item const="kTAG_TAG_STRUCT_IDX">abdh:ID_ENUMERATOR</item>	-->
-		</TAG>
-		<NODE tag="abdh:risk">
-			<item const="kTAG_NODE_TYPE">
-				<item>:kind:property-node</item>
-			</item>
-		</NODE>
 	</META>
 	
-	<!-- Household food security & risk attitudes attributes -->
+	<!-- Household food security -->
 	
 	<!-- abdh:Q7.1 -->
 	<META>
@@ -77,11 +62,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q7.1</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.1</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q7.1:0 -->
@@ -225,11 +205,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.2</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.2</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q7.2:0 -->
 	<META>
@@ -371,11 +346,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q7.3</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.3</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.3</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q7.3:0 -->
@@ -519,11 +489,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.4</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.4</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q7.4:0 -->
 	<META>
@@ -665,11 +630,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q7.5</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.5</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.5</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q7.5:0 -->
@@ -813,11 +773,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.6</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.6</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q7.6:0 -->
 	<META>
@@ -960,11 +915,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.7</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.7</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q7.7:0 -->
 	<META>
@@ -1106,11 +1056,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q7.8</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q7.8</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.8</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q7.8:0 -->
@@ -1256,11 +1201,6 @@
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q8.1</item>
 		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q8.1</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
-		</EDGE>
 	</META>
 	<!-- abdh:Q8.1:1 -->
 	<META>
@@ -1362,11 +1302,6 @@
 			<item const="kTAG_SUBJECT" node="term">abdh:Q8.2</item>
 			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
 			<item const="kTAG_OBJECT" node="tag">abdh:Q8.2</item>
-		</EDGE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">abdh:Q8.2</item>
-			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
-			<item const="kTAG_OBJECT" node="tag">abdh:risk</item>
 		</EDGE>
 	</META>
 	<!-- abdh:Q8.2:1 -->

@@ -44,6 +44,18 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
+		<!-- :location:country -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:country</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+		
+		<!-- :location:admin -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">:location:admin</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	
 		<!-- :location:admin-1 -->
 		<EDGE>
 			<item const="kTAG_SUBJECT" node="tag">:location:admin-1</item>

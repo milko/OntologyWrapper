@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ABD MARKET INTEGRATION DATA STRUCTURE
+	StructHouseholdMarket.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Household market integration information -->
+	
+	<META>
+		<!-- abdh:market -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:market</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:list</item>
+			</item>
+			<item const="kTAG_TAG_STRUCT_IDX">abdh:NAME_MARKET</item>
+		</TAG>
+		<NODE tag="abdh:market">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	
+		<!-- abdh:NAME_MARKET -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:NAME_MARKET</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_FOOD -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_FOOD</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_GROCERIES -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_GROCERIES</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_AG_PRODUCTS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_AG_PRODUCTS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_AG_INPUTS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_AG_INPUTS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_ANIMALS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_ANIMALS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_OTHERSb -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_OTHERSb</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:MARKET_OTHERS -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:MARKET_OTHERS</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TRANSP -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TRANSP</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:DIST_MARKET -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:DIST_MARKET</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:TIME_MARKET -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:TIME_MARKET</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:FREQUENCY -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:FREQUENCY</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>

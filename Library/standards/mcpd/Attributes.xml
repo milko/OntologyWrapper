@@ -239,7 +239,7 @@
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
-					<item const="kTAG_TEXT"><![CDATA[Collecting institute]]></item>
+					<item const="kTAG_TEXT"><![CDATA[Collecting institute code]]></item>
 				</item>
 			</item>
 		</TERM>
@@ -247,10 +247,20 @@
 			<item const="kTAG_TERMS">
 				<item>mcpd:COLLCODE</item>
     		</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
 			<item const="kTAG_SYNONYM">
 				<item>COLLCODE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The FAO/WIEWS code of the institute which collected the accession.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE tag="mcpd:COLLCODE">
@@ -364,10 +374,20 @@
 			<item const="kTAG_TERMS">
 				<item>mcpd:BREDCODE</item>
     		</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
 			<item const="kTAG_SYNONYM">
 				<item>BREDCODE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The FAO/WIEWS code of the institute responsible of breeding the accession.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE tag="mcpd:BREDCODE">
@@ -1423,10 +1443,20 @@
 			<item const="kTAG_TERMS">
 				<item>mcpd:DONORCODE</item>
     		</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DONORCODE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The FAO/WIEWS code of the institute which donated the accession.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE tag="mcpd:DONORCODE">
@@ -1763,10 +1793,20 @@
 			<item const="kTAG_TERMS">
 				<item>mcpd:DUPLSITE</item>
     		</item>
-			<item const="kTAG_DATA_TYPE">:type:ref:unit</item>
-			<item const="kTAG_DOMAIN">:domain:organisation</item>
+			<item const="kTAG_DATA_TYPE">:type:string</item>
+			<item const="kTAG_DATA_KIND">
+				<item>:type:categorical</item>
+				<item>:type:full-text-06</item>
+				<item>:type:summary</item>
+			</item>
 			<item const="kTAG_SYNONYM">
 				<item>DUPLSITE</item>
+			</item>
+			<item const="kTAG_DESCRIPTION">
+				<item>
+					<item const="kTAG_LANGUAGE">en</item>
+					<item const="kTAG_TEXT"><![CDATA[The FAO/WIEWS code of the institute holding the accession safety duplicates.]]></item>
+				</item>
 			</item>
 		</TAG>
 		<NODE tag="mcpd:DUPLSITE">

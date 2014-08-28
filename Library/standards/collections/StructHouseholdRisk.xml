@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	ABD HOUSEHOLD RISK ATTITUDES STRUCTURE
+	StructHouseholdRisk.xml
+-->
+<METADATA
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://gist.githubusercontent.com/milko/f2dcea3c3a94f69bb0bb/raw/715d8fd15a66ad25466c9efc4f767fd31fc9a21a/Dictionary.xsd">
+	
+	<!-- Household risk attitudes information -->
+	
+	<META>
+		<!-- abdh:risk -->
+		<TAG>
+			<item const="kTAG_TERMS">
+				<item>abdh:risk</item>
+			</item>
+			<item const="kTAG_DATA_TYPE">:type:struct</item>
+		</TAG>
+		<NODE tag="abdh:risk">
+			<item const="kTAG_NODE_TYPE">
+				<item>:kind:property-node</item>
+			</item>
+		</NODE>
+	
+		<!-- abdh:Q7.1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.2 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.3 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.3</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.4 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.4</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.5 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.5</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.6 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.6</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.7 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.7</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q7.8 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q7.8</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q8.1 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8.1</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+
+		<!-- abdh:Q8.2 -->
+		<EDGE>
+			<item const="kTAG_SUBJECT" node="tag">abdh:Q8.2</item>
+			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
+		</EDGE>
+	</META>
+</METADATA>
