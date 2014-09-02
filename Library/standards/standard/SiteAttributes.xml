@@ -25,7 +25,7 @@
 		
 	<!-- :location:site:id -->
 	<META>
-		<TERM ns=":location" lid="site-id">
+		<TERM ns=":location:site" lid="id">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -183,7 +183,7 @@
 			
 	<!-- :location:site:monitor -->
 	<META>
-		<TERM ns=":location:st" lid="MONITRESP">
+		<TERM ns=":location:site" lid="monitor">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>

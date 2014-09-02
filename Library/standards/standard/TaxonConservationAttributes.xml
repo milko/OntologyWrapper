@@ -81,11 +81,6 @@
 				<item>:kind:enumerated-node</item>
 			</item>
 		</NODE>
-		<EDGE>
-			<item const="kTAG_SUBJECT" node="term">iso:3166:location</item>
-			<item const="kTAG_PREDICATE">:predicate:TYPE-OF</item>
-			<item const="kTAG_OBJECT" node="tag">:taxon:conservation:region</item>
-		</EDGE>
 	</META>
 	
 	<!-- :taxon:conservation:in-place -->

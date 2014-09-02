@@ -3972,7 +3972,7 @@
 				</item>
 			</item>
 		</TAG>
-		<NODE tag=":taxon:distribution:notes">
+		<NODE tag=":taxon:designation:notes">
 			<item const="kTAG_NODE_TYPE">
 				<item>:kind:property-node</item>
 			</item>
@@ -5650,9 +5650,9 @@
 			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status</item>
 		</EDGE>
 	</META>
-	<!-- :taxon:occurrence-status:200 -->
+	<!-- :taxon:occurrence-status:400 -->
 	<META>
-		<TERM ns=":taxon:occurrence-status" lid="200">
+		<TERM ns=":taxon:occurrence-status" lid="400">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -5676,9 +5676,9 @@
 			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status</item>
 		</EDGE>
 	</META>
-	<!-- :taxon:occurrence-status:210 -->
+	<!-- :taxon:occurrence-status:410 -->
 	<META>
-		<TERM ns=":taxon:occurrence-status" lid="210">
+		<TERM ns=":taxon:occurrence-status" lid="410">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -5693,12 +5693,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:200</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:400</item>
 		</EDGE>
 	</META>
-	<!-- :taxon:occurrence-status:220 -->
+	<!-- :taxon:occurrence-status:420 -->
 	<META>
-		<TERM ns=":taxon:occurrence-status" lid="220">
+		<TERM ns=":taxon:occurrence-status" lid="420">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -5713,12 +5713,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:200</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:400</item>
 		</EDGE>
 	</META>
-	<!-- :taxon:occurrence-status:230 -->
+	<!-- :taxon:occurrence-status:430 -->
 	<META>
-		<TERM ns=":taxon:occurrence-status" lid="230">
+		<TERM ns=":taxon:occurrence-status" lid="430">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -5733,12 +5733,12 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:200</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:400</item>
 		</EDGE>
 	</META>
-	<!-- :taxon:occurrence-status:290 -->
+	<!-- :taxon:occurrence-status:490 -->
 	<META>
-		<TERM ns=":taxon:occurrence-status" lid="290">
+		<TERM ns=":taxon:occurrence-status" lid="490">
 			<item const="kTAG_LABEL">
 				<item>
 					<item const="kTAG_LANGUAGE">en</item>
@@ -5759,7 +5759,7 @@
 		</NODE>
 		<EDGE>
 			<item const="kTAG_PREDICATE">:predicate:ENUM-OF</item>
-			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:200</item>
+			<item const="kTAG_OBJECT" node="term">:taxon:occurrence-status:400</item>
 		</EDGE>
 	</META>
 </METADATA>

@@ -149,9 +149,9 @@
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	
-		<!-- :location:site:aspect -->
+		<!-- :location:site:slope:aspect -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:location:site:aspect</item>
+			<item const="kTAG_SUBJECT" node="tag">:location:site:slope:aspect</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 	

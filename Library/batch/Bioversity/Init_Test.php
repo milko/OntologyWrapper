@@ -107,6 +107,11 @@ try
 	} // Use graph database.
 	
 	//
+	// Load collections.
+	//
+	$wrapper->loadCollections( TRUE );
+	
+	//
 	// Reset units.
 	//
 	$wrapper->resetUnits( TRUE );
@@ -115,7 +120,7 @@ try
 	// Reset entities.
 	//
 	$wrapper->resetEntities( TRUE );
-	
+
 	//
 	// Reset dictionary.
 	//

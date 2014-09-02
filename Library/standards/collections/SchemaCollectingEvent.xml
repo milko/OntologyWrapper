@@ -25,7 +25,7 @@
 		
 		<!-- :collecting:mission -->
 		<EDGE>
-			<item const="kTAG_SUBJECT" node="tag">:collecting:mission:identifier</item>
+			<item const="kTAG_SUBJECT" node="tag">:collecting:mission</item>
 			<item const="kTAG_PREDICATE">:predicate:PROPERTY-OF</item>
 		</EDGE>
 		
